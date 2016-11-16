@@ -1,9 +1,9 @@
 import React , { Component } from 'react';
 import { View, NavigationExperimental, StyleSheet } from 'react-native';
 
-import modules from '';
+import modules from 'containers/modules';
 
-const { CardStack: NavigationCardStack } = 'NavigationExperimental';
+const { CardStack: NavigationCardStack } = NavigationExperimental;
 
 export default class ExternalNavigation extends Component {
   render() {
@@ -20,6 +20,9 @@ export default class ExternalNavigation extends Component {
 
   _renderScene(sceneProps) {
     let { key } = sceneProps.scene.route;
+    let Component = modules[key];
+
+    return (<Component/>);
   }
 }
 
