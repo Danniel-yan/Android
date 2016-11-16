@@ -1,4 +1,5 @@
 export function externalPush(route) {
+  console.log('....', route);
   return {
     type: 'externalPush',
     route
@@ -24,10 +25,9 @@ export function majorPop() {
   };
 }
 
-export function majorTab(curTab) {
+export function majorTab(tabName) {
   return {
-    type: 'navigationTab',
-    curTab
+    type: 'majorTab',
+    tabName
   };
 }
-
