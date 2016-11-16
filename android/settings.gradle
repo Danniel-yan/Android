@@ -1,0 +1,3 @@
+rootProject.name = 'supermarketjs'
+
+include ':app'
