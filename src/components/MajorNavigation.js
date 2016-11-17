@@ -19,7 +19,7 @@ export default class MajoNavigation extends Component {
           renderScene={this._renderScene}
           style={styles.scene}
         />
-        <MajorTabs style={styles.tab} onMajorTabChange={this.props.majorTab}/>
+        <MajorTabs curTab={navigation.curTab} onMajorTabChange={this.props.majorTab}/>
       </View>
     );
   }
@@ -37,9 +37,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   scene: {
-    flex: 20
-  },
-  tab: {
-    flex: 1
+    flex: 1,
+    // bottom tab height
+    paddingBottom: 45
   }
 });

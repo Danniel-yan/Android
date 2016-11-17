@@ -1,5 +1,4 @@
 export function externalPush(route) {
-  console.log('....', route);
   return {
     type: 'externalPush',
     route

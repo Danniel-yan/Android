@@ -37,9 +37,7 @@ const initState = {
 export default function navigation(state = initState, action) {
   switch(action.type) {
     case 'externalPush':
-      let aa = NavigationStateUtils.push(state, action.route);
-      console.log(aa);
-      return aa;
+      return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
       return NavigationStateUtils.pop(state);
     case 'externalJumpTo':
