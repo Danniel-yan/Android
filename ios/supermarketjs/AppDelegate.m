@@ -11,11 +11,13 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import <Bugly/Bugly.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [Bugly startWithAppId:@"900059043"];
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"src/index.ios" fallbackResource:nil];
