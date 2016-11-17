@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApplicationProperties</key>
+	<dict>
+		<key>ApplicationPath</key>
+		<string>Applications/supermarket.temp_caseinsensitive_renamejs.app</string>
+		<key>CFBundleIdentifier</key>
+		<string>com.shudu.chaoshi</string>
+		<key>CFBundleShortVersionString</key>
+		<string>1.0</string>
+		<key>CFBundleVersion</key>
+		<string>1</string>
+		<key>SigningIdentity</key>
+		<string>iPhone Developer: Yao LI (HRC9CV45A2)</string>
+	</dict>
+	<key>ArchiveVersion</key>
+	<integer>2</integer>
+	<key>CreationDate</key>
+	<date>2016-11-17T10:20:40Z</date>
+	<key>Name</key>
+	<string>supermarketjs</string>
+	<key>SchemeName</key>
+	<string>supermarketjs</string>
+</dict>
+</plist>
