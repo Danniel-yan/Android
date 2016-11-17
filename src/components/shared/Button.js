@@ -14,11 +14,13 @@ export default class Button extends Component {
   };
 
   render() {
-    let style = StyleSheet.flatten(this.props.style);
+    let { style, ...props } = this.props;
+
+    style = StyleSheet.flatten(style);
     let { fontSize, color, lineHeight, ...btnStyle } = style;
 
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={[styles.btn, btnStyle]}>
+      <TouchableOpacity {...props} style={[styles.btn, btnStyle]}>
         {this._renderChildren({ fontSize, color, lineHeight })}
       </TouchableOpacity>
     );
@@ -43,6 +45,7 @@ export default class Button extends Component {
 
 const styles = StyleSheet.create({
   btn: {
+    overflow: 'hidden',
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center'

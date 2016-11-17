@@ -25,12 +25,20 @@ export default class NavigationTest extends Component {
         <TouchableHighlight onPress={this._onExPop.bind(this)} style={styles.row}>
           <Text> external pop  一下 </Text>
         </TouchableHighlight>
+
+        <TouchableHighlight onPress={this._onLogin.bind(this)} style={styles.row}>
+          <Text> 登录 </Text>
+        </TouchableHighlight>
       </View>
     );
   }
 
   _onExPush() {
     this.props.onExPush({key: 'NavigationTest'});
+  }
+
+  _onLogin() {
+    this.props.onExPush({key: 'Login'});
   }
 
   _onExPop() {
