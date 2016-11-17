@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import Text from 'components/shared/Text';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   Button,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    paddingBottom: 10,
+    paddingBottom: 8,
     height: 55,
     alignItems: 'center',
     justifyContent: 'flex-end'
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 10,
     color: '#666',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    lineHeight: 12
   },
   activeTabFont: {
     color: colors.primary
