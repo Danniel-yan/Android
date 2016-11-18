@@ -10,7 +10,7 @@ import {
 } from 'actions/navigation';
 
 export const ExternalPushLink = connect(null, dispatch => {
-  return { onPress: key => dispatch(externalPush(key)) }
+  return { onPress: route => dispatch(externalPush(route)) }
 })(Link);
 
 export const ExternalPopLink = connect(null, dispatch => {
@@ -18,7 +18,7 @@ export const ExternalPopLink = connect(null, dispatch => {
 })(Link);
 
 export const MajorPushLink = connect(null, dispatch => {
-  return { onPress: key => dispatch(majorPush(key)) }
+  return { onPress: route => dispatch(majorPush(route)) }
 })(Link);
 
 export const MajorPopLink = connect(null, dispatch => {

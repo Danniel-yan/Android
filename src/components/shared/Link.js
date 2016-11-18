@@ -23,8 +23,8 @@ export default class Link extends Component {
   }
 
   _onPress() {
-    let { onPress, toKey } = this.props;
-    onPress({ key: toKey });
+    let { onPress, toKey, toComponent } = this.props;
+    onPress({ key: toKey, component: toComponent });
   }
 
   _createText() {

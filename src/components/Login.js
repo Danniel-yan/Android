@@ -13,7 +13,7 @@ import Button from 'components/shared/Button'
 import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
-import { ExternalPushLink } from 'containers/shared/Link';
+import WebLink from 'components/shared/WebLink';
 
 export default class Login extends Component {
   static title = '登录';
@@ -44,7 +44,7 @@ export default class Login extends Component {
 
         <View style={styles.txtRow}>
           <Text>阅读并接受</Text>
-          <ExternalPushLink text="《钞市服务协议》"/>
+          <WebLink url="https://m.madailicai.com" title="《钞市服务协议》"/>
         </View>
 
         <Button onPress={this.props.onBack} style={styles.submitBtn} text="登录"/>
