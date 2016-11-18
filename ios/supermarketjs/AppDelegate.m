@@ -11,6 +11,7 @@
 #import "AppDelegateExtend.h"
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import <Bugly/Bugly.h>
 
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -27,7 +28,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
   _appDelegateExtend = [AppDelegateExtend sharedInstance];
   [_appDelegateExtend didFinishLaunchingWithOptions:launchOptions];
   
@@ -57,6 +57,8 @@
   [_appDelegateExtend applicationWillEnterForeground:application];
 }
 
+
+//  
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
   [_appDelegateExtend application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];

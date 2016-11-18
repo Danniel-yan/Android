@@ -10,7 +10,7 @@
 #import "JPUSHService.h"
 #import "ConstantVariables.h"
 #import <UserNotifications/UserNotifications.h>
-
+#import <Bugly/Bugly.h>
 
 
 @interface AppDelegateExtend ()<JPUSHRegisterDelegate>
@@ -29,6 +29,8 @@
 }
 
 - (void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+  
+    [Bugly startWithAppId:@"900059043"];
   
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
   #ifdef NSFoundationVersionNumber_iOS_9_x_Max

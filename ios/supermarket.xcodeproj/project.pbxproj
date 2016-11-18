@@ -18,6 +18,9 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45221DDDD1BF00BE3FB8 /* SystemConfiguration.framework */; };
+		7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45241DDDD1E900BE3FB8 /* Security.framework */; };
+		7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45261DDDD1F100BE3FB8 /* libz.tbd */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566811DDE9A2700F74BA9 /* UserNotifications.framework */; };
 		B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566831DDE9A7500F74BA9 /* CFNetwork.framework */; };
@@ -34,6 +37,7 @@
 		B87566A51DDE9B4500F74BA9 /* jpush-ios-2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B875669D1DDE9B4500F74BA9 /* jpush-ios-2.2.0.a */; };
 		B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */; };
 		B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566B51DDEADEF00F74BA9 /* libz.tbd */; };
+		B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87567091DDEB3B600F74BA9 /* Bugly.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +183,9 @@
 		13B07F961A680F5B00A75B9A /* supermarket.temp_caseinsensitive_renamejs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = supermarket.temp_caseinsensitive_renamejs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7F1B45221DDDD1BF00BE3FB8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7F1B45241DDDD1E900BE3FB8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7F1B45261DDDD1F100BE3FB8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		B87566811DDE9A2700F74BA9 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B87566831DDE9A7500F74BA9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -198,8 +205,9 @@
 		B875669E1DDE9B4500F74BA9 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		B87566AB1DDE9DF700F74BA9 /* ConstantVariables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantVariables.h; sourceTree = "<group>"; };
 		B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantVariables.m; sourceTree = "<group>"; };
-		B87566B31DDEA95F00F74BA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B87566B51DDEADEF00F74BA9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B87567061DDEB2D100F74BA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B87567091DDEB3B600F74BA9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,7 +231,11 @@
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
 				B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */,
+				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
+				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
+				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				B87566A51DDE9B4500F74BA9 /* jpush-ios-2.2.0.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -335,6 +347,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7F1B45211DDDD1BF00BE3FB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F1B45261DDDD1F100BE3FB8 /* libz.tbd */,
+				7F1B45241DDDD1E900BE3FB8 /* Security.framework */,
+				7F1B45221DDDD1BF00BE3FB8 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +391,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* supermarketjsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				7F1B45211DDDD1BF00BE3FB8 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -408,7 +431,7 @@
 				B87566921DDE9B4500F74BA9 /* AppDelegateExtend */,
 				B87566901DDE9B4500F74BA9 /* AppDelegate.h */,
 				B87566911DDE9B4500F74BA9 /* AppDelegate.m */,
-				B87566B31DDEA95F00F74BA9 /* Info.plist */,
+				B87567061DDEB2D100F74BA9 /* Info.plist */,
 				B87566951DDE9B4500F74BA9 /* LaunchScreen.xib */,
 				B87566981DDE9B4500F74BA9 /* Images.xcassets */,
 				B875669A1DDE9B4500F74BA9 /* main.m */,
@@ -429,6 +452,7 @@
 		B875669B1DDE9B4500F74BA9 /* SDKs */ = {
 			isa = PBXGroup;
 			children = (
+				B87567081DDEB3B600F74BA9 /* Bugly */,
 				B875669C1DDE9B4500F74BA9 /* JPush */,
 			);
 			path = SDKs;
@@ -481,6 +505,14 @@
 			children = (
 			);
 			path = OpenSource;
+			sourceTree = "<group>";
+		};
+		B87567081DDEB3B600F74BA9 /* Bugly */ = {
+			isa = PBXGroup;
+			children = (
+				B87567091DDEB3B600F74BA9 /* Bugly.framework */,
+			);
+			path = Bugly;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -755,7 +787,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh ./src/index.ios.js";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -837,6 +869,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = V525ELK535;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/Bugly",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -865,6 +902,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V525ELK535;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/Bugly",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,

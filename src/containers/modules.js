@@ -6,14 +6,16 @@ import LoanScene from './scene/LoanSceneContainer';
 import CardScene from 'components/scene/CardScene';
 import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
+import Login from 'components/Login';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
-  { key: 'HomeScene', module: HomeScene },
+  { key: 'HomeScene', module: Login },
   { key: 'LoanScene', module: LoanScene },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: ZoneScene },
-  { key: 'NavigationTest', module: LoanScene }
+  { key: 'NavigationTest', module: LoanScene },
+  { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;
 });
