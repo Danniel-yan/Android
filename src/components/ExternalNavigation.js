@@ -6,6 +6,12 @@ import modules from 'containers/modules';
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
 export default class ExternalNavigation extends Component {
+  constructor(props) {
+    super(props);
+
+    this._renderScene = this._renderScene.bind();
+  }
+
   render() {
     let { navigation } = this.props;
 
