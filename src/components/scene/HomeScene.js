@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
 
 import NavigationTest from 'components/NavigationTest';
+import BannerContainer from 'containers/scene/home/BannerContainer';
 import RecommendList from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
@@ -19,6 +20,7 @@ export default class HomeScene extends Component {
         <StatusBar barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
+          <BannerContainer />
           {this._renderRecommend()}
           {this._renderLoan()}
           {this._renderCard()}
@@ -82,7 +84,7 @@ export default class HomeScene extends Component {
       </View>
     )
   }
-} 
+}
 
 const styles = StyleSheet.create({
   header: {

@@ -28,3 +28,11 @@ Mock.mock('recommend.json',[
     thumbnail: 'https://facebook.github.io/react/img/logo_og.png'
   }
 ])
+
+Mock.mock('bannerImages.json',[{
+    uri: "https://oss.aliyuncs.com/tengniu-pic/cms/focusmaps/focusmaps-20161008101033.jpg"
+    },{
+    uri: "https://sysapp.jujinpan.cn/static/pages/pboc/dist/29533a15de4d8ac3f2badcb77b25800d.jpg"
+    },{
+    uri: "https://facebook.github.io/react/img/logo_og.png"
+}])
