@@ -22,7 +22,6 @@
 		7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45241DDDD1E900BE3FB8 /* Security.framework */; };
 		7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45261DDDD1F100BE3FB8 /* libz.tbd */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566811DDE9A2700F74BA9 /* UserNotifications.framework */; };
 		B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566831DDE9A7500F74BA9 /* CFNetwork.framework */; };
 		B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */; };
 		B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */; };
@@ -187,7 +186,6 @@
 		7F1B45241DDDD1E900BE3FB8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7F1B45261DDDD1F100BE3FB8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		B87566811DDE9A2700F74BA9 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B87566831DDE9A7500F74BA9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -230,7 +228,6 @@
 				B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */,
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
-				B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */,
 				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
 				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
 				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
@@ -417,7 +414,6 @@
 				B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */,
 				B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */,
 				B87566831DDE9A7500F74BA9 /* CFNetwork.framework */,
-				B87566811DDE9A2700F74BA9 /* UserNotifications.framework */,
 			);
 			name = Frameworks;
 			path = supermarketjs/Frameworks;
