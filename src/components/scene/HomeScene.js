@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import NavigationTest from 'components/NavigationTest';
+import Banner from 'containers/scene/home/Banner';
+import Broadcast from 'containers/scene/home/Broadcast';
 import RecommendList from 'containers/scene/home/RecommendListContainer';
 
 import { colors } from 'styles/varibles'
@@ -21,6 +23,8 @@ export default class HomeScene extends Component {
       <View style={{ flex: 1, backgroundColor: 'yellow' }}>
         <StatusBar barStyle="light-content"/>
         {this._renderHeader()}
+        <Banner />
+        <Broadcast />
         {this._renderRecommend()}
       </View>
     );
@@ -41,7 +45,7 @@ export default class HomeScene extends Component {
       <RecommendList/>
     )
   }
-} 
+}
 
 const styles = StyleSheet.create({
   header: {
