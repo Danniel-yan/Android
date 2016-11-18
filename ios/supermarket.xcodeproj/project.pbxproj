@@ -16,13 +16,24 @@
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566811DDE9A2700F74BA9 /* UserNotifications.framework */; };
+		B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566831DDE9A7500F74BA9 /* CFNetwork.framework */; };
+		B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */; };
+		B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */; };
+		B875668A1DDE9AA600F74BA9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566891DDE9AA600F74BA9 /* Security.framework */; };
+		B875668C1DDE9AC300F74BA9 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B875668B1DDE9AC300F74BA9 /* libresolv.tbd */; };
+		B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B875668D1DDE9AE200F74BA9 /* SystemConfiguration.framework */; };
+		B875669F1DDE9B4500F74BA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566911DDE9B4500F74BA9 /* AppDelegate.m */; };
+		B87566A01DDE9B4500F74BA9 /* AppDelegateExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566941DDE9B4500F74BA9 /* AppDelegateExtend.m */; };
+		B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87566951DDE9B4500F74BA9 /* LaunchScreen.xib */; };
+		B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87566981DDE9B4500F74BA9 /* Images.xcassets */; };
+		B87566A41DDE9B4500F74BA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B875669A1DDE9B4500F74BA9 /* main.m */; };
+		B87566A51DDE9B4500F74BA9 /* jpush-ios-2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B875669D1DDE9B4500F74BA9 /* jpush-ios-2.2.0.a */; };
+		B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */; };
+		B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566B51DDEADEF00F74BA9 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,7 +166,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -167,15 +177,29 @@
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* supermarket.temp_caseinsensitive_renamejs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = supermarket.temp_caseinsensitive_renamejs.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = supermarketjs/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = supermarketjs/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = supermarketjs/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = supermarketjs/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = supermarketjs/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		B87566811DDE9A2700F74BA9 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		B87566831DDE9A7500F74BA9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B87566891DDE9AA600F74BA9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B875668B1DDE9AC300F74BA9 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		B875668D1DDE9AE200F74BA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B87566901DDE9B4500F74BA9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B87566911DDE9B4500F74BA9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B87566931DDE9B4500F74BA9 /* AppDelegateExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegateExtend.h; sourceTree = "<group>"; };
+		B87566941DDE9B4500F74BA9 /* AppDelegateExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateExtend.m; sourceTree = "<group>"; };
+		B87566961DDE9B4500F74BA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B87566981DDE9B4500F74BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B875669A1DDE9B4500F74BA9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B875669D1DDE9B4500F74BA9 /* jpush-ios-2.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.2.0.a"; sourceTree = "<group>"; };
+		B875669E1DDE9B4500F74BA9 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		B87566AB1DDE9DF700F74BA9 /* ConstantVariables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantVariables.h; sourceTree = "<group>"; };
+		B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantVariables.m; sourceTree = "<group>"; };
+		B87566B31DDEA95F00F74BA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B87566B51DDEADEF00F74BA9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,8 +215,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */,
+				B875668C1DDE9AC300F74BA9 /* libresolv.tbd in Frameworks */,
+				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
+				B875668A1DDE9AA600F74BA9 /* Security.framework in Frameworks */,
+				B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */,
+				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
+				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
+				B87566821DDE9A2700F74BA9 /* UserNotifications.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				B87566A51DDE9B4500F74BA9 /* jpush-ios-2.2.0.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -284,20 +317,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* supermarketjs */ = {
-			isa = PBXGroup;
-			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
-				13B07FB71A68108700A75B9A /* main.m */,
-			);
-			name = supermarketjs;
-			sourceTree = "<group>";
-		};
 		146834001AC3E56700842450 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,7 +364,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* supermarketjs */,
+				B875668F1DDE9B4500F74BA9 /* supermarketjs */,
+				B87566801DDE9A1300F74BA9 /* Frameworks */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* supermarketjsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -362,6 +382,105 @@
 				00E356EE1AD99517003FC87E /* supermarketjsTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B87566801DDE9A1300F74BA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B87566B51DDEADEF00F74BA9 /* libz.tbd */,
+				B875668B1DDE9AC300F74BA9 /* libresolv.tbd */,
+				B875668D1DDE9AE200F74BA9 /* SystemConfiguration.framework */,
+				B87566891DDE9AA600F74BA9 /* Security.framework */,
+				B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */,
+				B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */,
+				B87566831DDE9A7500F74BA9 /* CFNetwork.framework */,
+				B87566811DDE9A2700F74BA9 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			path = supermarketjs/Frameworks;
+			sourceTree = "<group>";
+		};
+		B875668F1DDE9B4500F74BA9 /* supermarketjs */ = {
+			isa = PBXGroup;
+			children = (
+				B87566AA1DDE9D6100F74BA9 /* OpenSource */,
+				B87566A61DDE9C6900F74BA9 /* Common */,
+				B87566921DDE9B4500F74BA9 /* AppDelegateExtend */,
+				B87566901DDE9B4500F74BA9 /* AppDelegate.h */,
+				B87566911DDE9B4500F74BA9 /* AppDelegate.m */,
+				B87566B31DDEA95F00F74BA9 /* Info.plist */,
+				B87566951DDE9B4500F74BA9 /* LaunchScreen.xib */,
+				B87566981DDE9B4500F74BA9 /* Images.xcassets */,
+				B875669A1DDE9B4500F74BA9 /* main.m */,
+				B875669B1DDE9B4500F74BA9 /* SDKs */,
+			);
+			path = supermarketjs;
+			sourceTree = "<group>";
+		};
+		B87566921DDE9B4500F74BA9 /* AppDelegateExtend */ = {
+			isa = PBXGroup;
+			children = (
+				B87566931DDE9B4500F74BA9 /* AppDelegateExtend.h */,
+				B87566941DDE9B4500F74BA9 /* AppDelegateExtend.m */,
+			);
+			path = AppDelegateExtend;
+			sourceTree = "<group>";
+		};
+		B875669B1DDE9B4500F74BA9 /* SDKs */ = {
+			isa = PBXGroup;
+			children = (
+				B875669C1DDE9B4500F74BA9 /* JPush */,
+			);
+			path = SDKs;
+			sourceTree = "<group>";
+		};
+		B875669C1DDE9B4500F74BA9 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				B875669D1DDE9B4500F74BA9 /* jpush-ios-2.2.0.a */,
+				B875669E1DDE9B4500F74BA9 /* JPUSHService.h */,
+			);
+			path = JPush;
+			sourceTree = "<group>";
+		};
+		B87566A61DDE9C6900F74BA9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B87566A71DDE9D5000F74BA9 /* Controls */,
+				B87566A81DDE9D5000F74BA9 /* Models */,
+				B87566A91DDE9D5000F74BA9 /* NSObjects */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B87566A71DDE9D5000F74BA9 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		B87566A81DDE9D5000F74BA9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B87566A91DDE9D5000F74BA9 /* NSObjects */ = {
+			isa = PBXGroup;
+			children = (
+				B87566AB1DDE9DF700F74BA9 /* ConstantVariables.h */,
+				B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */,
+			);
+			path = NSObjects;
+			sourceTree = "<group>";
+		};
+		B87566AA1DDE9D6100F74BA9 /* OpenSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OpenSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -616,8 +735,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
+				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,8 +772,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				B87566A01DDE9B4500F74BA9 /* AppDelegateExtend.m in Sources */,
+				B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */,
+				B87566A41DDE9B4500F74BA9 /* main.m in Sources */,
+				B875669F1DDE9B4500F74BA9 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,13 +790,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+		B87566951DDE9B4500F74BA9 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				13B07FB21A68108700A75B9A /* Base */,
+				B87566961DDE9B4500F74BA9 /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = supermarketjs;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -724,6 +844,10 @@
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/JPush",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -748,6 +872,10 @@
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/JPush",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
