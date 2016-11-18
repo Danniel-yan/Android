@@ -1,7 +1,11 @@
 
-var mock = require('mockjs');
+var Mock = require('mockjs');
 
-mock.Mock('recommend.json',[
+Mock.setup({
+  timeout: '1000-3000'
+})
+
+Mock.mock('recommend.json',[
   {
     name: '员工贷-小额贷',
     dec: '推荐，线上申请',

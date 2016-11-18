@@ -1,4 +1,5 @@
-//import fetch from 'isomorphic-fetch';
+
+require('mock');
 
 export function requestRecommends() {
   return {
@@ -19,33 +20,9 @@ export function fetchHomeRecommends() {
 
     dispatch(requestRecommends())
 
-    setTimeout(() => {
-      dispatch(receiveRecommends([
-        {
-          name: '员工贷-小额贷',
-          dec: '推荐，线上申请',
-          apply:'12434',
-          rate:'0.55-0.99%',
-          thumbnail: 'https://facebook.github.io/react/img/logo_og.png'
-        },
-        {
-          name: '员工贷-小额贷',
-          dec: '推荐，线上申请',
-          apply:'43143',
-          rate:'0.55-0.99%',
-          thumbnail: 'https://facebook.github.io/react/img/logo_og.png'
-        },
-        {
-          name: '员工贷-小额贷',
-          dec: '推荐，线上申请',
-          apply:'4214',
-          rate:'0.55-0.99%',
-          thumbnail: 'https://facebook.github.io/react/img/logo_og.png'
-        }
-      ]));
-    }, 2000)
-    //return fetch(`recommend.json`)
-      //.then(response => response.json())
-      //.then(json =>dispatch(receiveRecommend(subreddit, json)))
+    return fetch(`recommend.json`)
+      .then(response => response.json())
+      .then(recomends => dispatch(receiveRecommends(recomends)))
+      .catch(err => console.log(err))
   }
 }
