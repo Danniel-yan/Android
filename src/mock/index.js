@@ -36,3 +36,15 @@ Mock.mock('bannerImages.json',[{
     },{
     uri: "https://facebook.github.io/react/img/logo_og.png"
 }])
+
+//broadcastMsgList
+Mock.mock('broadcastMsgList.json',[
+  "broadcast***1",
+  "broadcast***2",
+  "broadcast***3",
+  "broadcast***4",
+  "broadcast***5",
+  "broadcast***6",
+  "broadcast***7",
+  "broadcast***8",
+])

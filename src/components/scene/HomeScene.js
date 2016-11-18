@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
+import {
+  StatusBar,
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  ScrollView
+} from 'react-native';
 
 import NavigationTest from 'components/NavigationTest';
-import BannerContainer from 'containers/scene/home/BannerContainer';
+import Banner from 'containers/scene/home/Banner';
+import Broadcast from 'containers/scene/home/Broadcast';
 import RecommendList from 'containers/scene/home/RecommendListContainer';
-import LoanList from 'containers/scene/home/LoanListContainer';
-import CardList from 'containers/scene/home/CardListContainer';
-
-import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
-import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors } from 'styles/varibles'
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
@@ -16,15 +20,12 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 export default class HomeScene extends Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
+      <View style={{ flex: 1, backgroundColor: 'yellow' }}>
         <StatusBar barStyle="light-content"/>
         {this._renderHeader()}
-        <ScrollView>
-          <BannerContainer />
-          {this._renderRecommend()}
-          {this._renderLoan()}
-          {this._renderCard()}
-        </ScrollView>
+        <Banner />
+        <Broadcast />
+        {this._renderRecommend()}
       </View>
     );
   }
@@ -41,47 +42,7 @@ export default class HomeScene extends Component {
 
   _renderRecommend(){
     return(
-      <View>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>热门推荐</Text>
-          <Text style={styles.titleRight}>
-            换一批
-            <Image style={styles.titleRightImg} source={iconHuanyihuan}/>
-          </Text>
-        </View>
-        <RecommendList/>
-      </View>
-    )
-  }
-
-  _renderLoan(){
-    return(
-      <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>大额贷款</Text>
-          <Text style={styles.titleRight}>
-            更多产品
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
-        </View>
-        <Image source={{uri:'https://facebook.github.io/react/img/logo_og.png'}} style={{width:400, height:90}}/>
-        <LoanList/>
-      </View>
-    )
-  }
-
-  _renderCard(){
-    return(
-      <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>办卡精选</Text>
-          <Text style={styles.titleRight}>
-            更多产品
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
-        </View>
-        <CardList/>
-      </View>
+      <RecommendList/>
     )
   }
 }
@@ -121,29 +82,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingRight: 10,
     alignItems: 'flex-end'
-  },
-
-  title:{
-    padding:10,
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent: 'center',
-  },
-  bgColorWhite:{
-    backgroundColor:colors.white
-  },
-  titleLeft:{
-    fontSize:14,
-    color:colors.fontSizePrimary,
-    flex:1
-  },
-  titleRight:{
-    fontSize:14
-  },
-  titleRightImg:{
-    width:15,
-    height:15,
-    marginLeft:5,
   }
-
 });

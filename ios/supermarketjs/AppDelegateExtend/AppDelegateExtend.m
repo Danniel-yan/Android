@@ -9,9 +9,11 @@
 #import "AppDelegateExtend.h"
 #import "JPUSHService.h"
 #import "ConstantVariables.h"
-#import <UserNotifications/UserNotifications.h>
 #import <Bugly/Bugly.h>
 
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 @interface AppDelegateExtend ()<JPUSHRegisterDelegate>
 

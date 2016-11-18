@@ -26,7 +26,7 @@ CarouselGenerator = function(configs) {
 
             generateInfos() {
                 var props = this.props;
-                this._height = configs.height || 22;
+                this._height = props.height || configs.height || 22;
 
                 this._horizontal = configs.horizontal || false;
                 this._pagingEnabled = configs.pagingEnabled || false;

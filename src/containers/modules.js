@@ -6,7 +6,7 @@ import LoanScene from './scene/LoanSceneContainer';
 import CardScene from 'components/scene/CardScene';
 import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
-import Login from 'components/Login';
+import Login from 'containers/Login';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
