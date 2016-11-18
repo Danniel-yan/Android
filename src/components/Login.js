@@ -36,6 +36,10 @@ export default class Login extends Component {
             placeholder="请输入验证码"
           />
         </View>
+
+        <View>
+          <Text>阅读并接受《钞市服务协议》</Text>
+        </View>
       </View>
     );
   }
