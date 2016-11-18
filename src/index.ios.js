@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet } from 'react-native';
 
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import reducers from 'reducers';
 
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default class supermarketjs extends Component {
   render() {

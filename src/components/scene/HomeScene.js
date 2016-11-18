@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StatusBar, Image, View, Text, StyleSheet, Platform } from 'react-native';
+import { StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
 
 import NavigationTest from 'components/NavigationTest';
+import RecommendList from 'containers/scene/home/RecommendListContainer';
 
 import { colors } from 'styles/varibles'
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
@@ -12,6 +13,7 @@ export default class HomeScene extends Component {
       <View style={{ flex: 1, backgroundColor: 'yellow' }}>
         <StatusBar barStyle="light-content"/>
         {this._renderHeader()}
+        {this._renderRecommend()}
       </View>
     );
   }
@@ -23,6 +25,12 @@ export default class HomeScene extends Component {
         <View style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
       </View>
+    )
+  }
+
+  _renderRecommend(){
+    return(
+      <RecommendList/>
     )
   }
 } 
