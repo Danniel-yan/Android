@@ -8,12 +8,17 @@ import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 
 export default class RecommendList extends Component {
 
+  componentDidMount() {
+    this.props.fetchRecommends();
+  }
+
   render() {
+    if(this.props.isFetching) {
+      return null;
+    }
 
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.props = {
-      dataSource: ds.cloneWithRows(this.props.items)
-    };
+    const dataSource = ds.cloneWithRows(this.props.recommends)
 
     return (
       <View style={styles.wrapper}>
@@ -26,7 +31,8 @@ export default class RecommendList extends Component {
         </View>
         <ListView
           style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
-          dataSource={this.props.dataSource}
+          enableEmptySections={true}
+          dataSource={dataSource}
           renderRow={this.renderRecommend}
           />
       </View>

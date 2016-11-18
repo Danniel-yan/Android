@@ -1,17 +1,17 @@
 
 import { connect } from 'react-redux';
 
-import { receive_recommend } from 'actions/scene/home/recommendList';
+import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
 import RecommendList from 'components/shared/RecommendList'
 
-function requestRecommendToProps(state) {
-  return state;
+function mapStateToProps(state) {
+  return state.homeRecommendList;
 }
 
-function receiveRecommendToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    receive_recommend: route => dispatch(receive_recommend(items)),
+    fetchRecommends: () => dispatch(fetchHomeRecommends())
   }
 }
 
-export default connect(requestRecommendToProps, receiveRecommendToProps)(RecommendList);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendList);

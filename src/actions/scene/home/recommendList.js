@@ -1,24 +1,26 @@
 //import fetch from 'isomorphic-fetch';
 
-export function requestRecommend() {
+export function requestRecommends() {
   return {
-    type: 'request_recommend'
+    type: 'requestRecommends'
   }
 }
 
-export function receiveRecommend(json) {
+export function receiveRecommends(recommends) {
   return {
-    type: 'receive_recommend',
-    items: json.data.children.map(child => child.data)
+    type: 'receiveRecommends',
+    recommends: recommends
   }
 }
 
-export function fetchPosts() {
+export function fetchHomeRecommends() {
+
   return function (dispatch) {
 
-    dispatch(requestRecommend())
+    dispatch(requestRecommends())
+
     setTimeout(() => {
-      dispatch({isFetching: false, items: [
+      dispatch(receiveRecommends([
         {
           name: '员工贷-小额贷',
           dec: '推荐，线上申请',
@@ -40,7 +42,7 @@ export function fetchPosts() {
           rate:'0.55-0.99%',
           thumbnail: 'https://facebook.github.io/react/img/logo_og.png'
         }
-      ]})
+      ]));
     }, 2000)
     //return fetch(`recommend.json`)
       //.then(response => response.json())

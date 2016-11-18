@@ -1,13 +1,11 @@
+const initState = { isFetching: false, recommends: [] };
 
-
-export default function listView(state = {isFetching: false,items: []}, action) {
+export default function homeRecomendList(state = initState, action) {
   switch(action.type) {
-    case 'request_recommend':
-    case 'receive_recommend':
-      return {
-        isFetching: false,
-        items: action.items
-      }
+    case 'requestRecommends':
+      return Object.assign({}, state, { isFetching: true });
+    case 'receiveRecommends':
+      return Object.assign({}, state, { isFetching: false, recommends: action.recommends } )
     default:
       return state
   }
