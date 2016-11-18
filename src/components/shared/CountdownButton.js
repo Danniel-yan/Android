@@ -22,6 +22,10 @@ export default class CountdownButton extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
     let { style } = this.props;
     let started = this.state.started;

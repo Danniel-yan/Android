@@ -7,10 +7,17 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import { ExternalPushLink, ExternalPopLink, MajorPushLink, MajorPopLink } from 'containers/shared/Link';
+
 export default class NavigationTest extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ExternalPushLink text="external push link" toKey="NavigationTest" />
+        <ExternalPopLink text="external link pop 一下"/>
+        <MajorPushLink text="major link pop 一下" toKey="NavigationTest"/>
+        <MajorPopLink text="major link pop 一下"/>
+
         <TouchableHighlight onPress={this._onPush.bind(this)} style={styles.row}>
           <Text> push 一下 只能点一下，第二下别点了报错, 点pop吧</Text>
         </TouchableHighlight>
