@@ -3,34 +3,8 @@ import { StyleSheet } from 'react-native';
 import { colors } from 'styles/varibles';
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    backgroundColor: '#f2f2f2',
-  },
-  wrapper:{
-    marginTop:5
-  },
-  title:{
-    padding:10,
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent: 'center',
-  },
   bgColorWhite:{
     backgroundColor:colors.white
-  },
-  titleLeft:{
-    fontSize:14,
-    color:colors.fontSizePrimary,
-    flex:1
-  },
-  titleRight:{
-    fontSize:14
-  },
-  titleRightImg:{
-    width:15,
-    height:15,
-    marginLeft:5,
   },
   listView:{
     borderTopWidth:1,
@@ -42,16 +16,15 @@ const styles = StyleSheet.create({
   },
   flexContainerRow:{
     flexDirection: 'row',
-    paddingTop:15,
-    paddingBottom:15,
-    paddingLeft:10,
-    paddingRight:10,
+    padding:10,
     borderBottomWidth:1,
     borderStyle : 'solid',
     borderBottomColor:'#e6e6e6'
   },
   rightContainer : {
-    paddingLeft : 10
+    paddingLeft : 10,
+    position:'relative',
+    width:300
   },
   rightContainerTitle:{
     fontSize:17,
@@ -91,8 +64,7 @@ const styles = StyleSheet.create({
   thumbnail : {
     width : 50,
     height : 50,
-    marginTop:15,
-    marginBottom:15
+    marginTop:10
   },
   flexHorizontalColumn:{
     padding:10,

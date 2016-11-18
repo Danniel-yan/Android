@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   defaultText: {
     fontFamily: 'PingFang SC',
     fontSize: 14,
-    fontWeight: '500',
     color: '#999'
   }
 });
