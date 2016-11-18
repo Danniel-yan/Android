@@ -21,7 +21,7 @@ export default class RecommendList extends Component {
     const dataSource = ds.cloneWithRows(this.props.recommends)
 
     return (
-      <View style={{height:300}}>
+      <View style={{height:304}}>
         <ListView
           style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
           enableEmptySections={true}
