@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { fetchBannerImgList } from 'actions/scene/home/headerSection'
 
-import AsynCpGenerator from 'components/shared/AsynCpGenerator';
+import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BannerCarousel from 'components/BannerCarousel';
 
 function mapStateToProps(state) {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { fetchBroadcastList } from 'actions/scene/home/headerSection'
 
-import AsynCpGenerator from 'components/shared/AsynCpGenerator';
+import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BroadcastCarousel from 'components/BroadcastCarousel';
 
 function mapStateToProps(state) {
