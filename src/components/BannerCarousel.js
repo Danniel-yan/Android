@@ -19,7 +19,7 @@ var configs = {
   horizontal: true,
   pagingEnabled: true,
   _intervalTime: 4000,
-  height: 130
+  height: 123
 }
 
 class BannerCarousel extends Component {
@@ -34,8 +34,8 @@ class BannerCarousel extends Component {
       imgs.map((imgInfo, idx) => {
         this.imageItems.push(
             <TouchableWithoutFeedback key={idx}>
-                <View style={{width:screenWidth, height:130}}>
-                    <Image source={imgInfo} style={{width:screenWidth, height:130}}></Image>
+                <View style={{width:screenWidth}}>
+                    <Image source={imgInfo} style={{width:screenWidth, height:configs.height}}></Image>
                 </View>
             </TouchableWithoutFeedback>
           );
@@ -47,7 +47,7 @@ class BannerCarousel extends Component {
       var Carousel = CarouselGenerator(configs)(this.imageItems);
 
       // return <Carousel height={130} />
-      return React.createElement(Carousel, { height: 130 });
+      return React.createElement(Carousel, { height:configs.height });
     }
 }
 
