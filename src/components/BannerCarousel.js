@@ -21,7 +21,6 @@ var configs = {
     _intervalTime: 4000,
     height: 130
 }
-var items = [];
 
 class BannerCarousel extends Component {
     constructor(props) {

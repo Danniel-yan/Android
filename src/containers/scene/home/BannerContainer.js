@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchBannerImgList: () => dispatch(fetchBannerImgList())
+        fetching: () => dispatch(fetchBannerImgList())
     }
 }
 
@@ -25,13 +25,4 @@ class LoadingEle extends React.Component {
     }
 }
 
-class Banner extends React.Component {
-    componentDidMount() {
-      this.props.fetchBannerImgList();
-    }
-    render() {
-        return React.createElement(AsynCpGenerator(LoadingEle, BannerCarousel), this.props);
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Banner);
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(LoadingEle, BannerCarousel));

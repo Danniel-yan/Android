@@ -9,27 +9,25 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
             super(props);
         }
 
+        componentDidMount() {
+            this.props.fetching && this.props.fetching();
+        }
+
         renderFetchingCp() {
-            if(!this.props.isFetching) return null;
             return <FetchingCp />;
         }
 
         renderElementCp() {
-            if(this.props.isFetching) return null;
             return React.createElement(ElementCp, this.props);
         }
 
-        // componentDidMount() {
-        //   this.props.fetchBannerImgList();
-        // }
-
         render() {
-            return (
-                <View>
-                    {this.renderFetchingCp()}
-                    {this.renderElementCp()}
-                </View>
-            );
+            if(this.props.isFetching) return this.renderFetchingCp()
+            return this.renderElementCp();
+        }
+
+        propTypes: {
+            fetching: propTypes.func.isRequired
         }
     }
 }
