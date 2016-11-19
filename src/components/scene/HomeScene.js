@@ -35,10 +35,28 @@ export default class HomeScene extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.left}><Image source={require('assets/icons/pin2.png')}/><Text style={styles.locTxt}>上海</Text></View>
-        <View style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
+        <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
       </View>
     )
+  }
+
+  _memoryPress() {
+    clearTimeout(this.memoryTimer);
+
+    if(this.memory == undefined) {
+      this.memory = 0;
+    }
+
+    ++this.memory;
+
+    this.memoryTimer = setTimeout(() => {
+      this.memory = 0;
+    }, 500);
+
+    if(this.memory === 8) {
+      this.props.secretGarden();
+    }
   }
 
   _renderRecommend(){

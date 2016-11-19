@@ -17,7 +17,7 @@ export default class Button extends Component {
     let { style, ...props } = this.props;
 
     style = StyleSheet.flatten(style);
-    let { fontSize, color, lineHeight, ...btnStyle } = style;
+    let { fontSize, color, lineHeight, ...btnStyle } = style || {};
 
     return (
       <TouchableOpacity {...props} style={[styles.btn, btnStyle]}>
