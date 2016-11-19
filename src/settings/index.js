@@ -1,33 +1,79 @@
-import { AsyncStorage } from 'react-native';
-import configs from './environments';
+import { AsyncStorage, Platform } from 'react-native';
+
+const environments = {
+  defaultEnvironment: require('./dynamic/env'),
+  production: {
+    text: '生产环境',
+    api: 'http://139.196.143.236:8001/'
+  },
+  test: {
+    text: '内部用测试环境',
+    api: 'http://139.196.143.236:8001/'
+  }
+};
+
+const staticSettings = {
+  appVersion: '0.0.1',
+  OS: Platform.OS == 'ios' ? 2 : 1,
+  osVersion: Platform.Version,
+  channel: require('./dynamic/channel'),
+  deviceId: '',
+  uuid: '',
+};
+
+let environmentSettings;
 
 export function applicationSetup() {
-  return AsyncStorage.getItem('environment')
-    .then(environment => {
-      if(environment === null) {
-        return AsyncStorage.setItem('environment', 'production')
-          .then(() => {
-            configs.environment = 'production';
-            return configs;
-          });
-      }
+  setupLocation();
 
-      configs.environment = environment;
+  return setupEnvironment()
+    .then(setupUUID)
+    .then(() => {})
+    .catch(err => { console.log(err) })
+    .finally(() => {
+      return AsyncStorage.setItem('appSettings', JSON.stringify(staticSettings));
     })
 }
 
-export function allConfigs() {
-  return configs;
+function setupUUID() {
+  return fetch(`${environmentSettings.api}-/user/uuid`)
+    .then(response => response.json())
+    .then(response => {
+
+      if(response.res == 1) {
+        staticSettings.uuid = response.data.uuid;
+      }
+
+      return ;
+    })
 }
 
-export function config() {
-  return configs[configs.environment] || configs['production'];
+function setupLocation() {
+  navigator.geolocation.getCurrentPosition(position => {
+    const coords = position.coords;
+    coords.longitude = Math.abs(coords.longitude);
+    return AsyncStorage.setItem('coords', JSON.stringify(coords));
+  }, err => {}, {
+    enableHighAccuracy: true
+  })
+}
+
+function setupEnvironment() {
+  return AsyncStorage.getItem('environment')
+    .then(environment => {
+      if(environment == null || typeof environment == 'string') {
+        environmentSettings = environments[environments.defaultEnvironment];
+        return AsyncStorage.setItem('environment', JSON.stringify(environmentSettings));
+      }
+
+      environmentSettings = environments[environment];
+    })
 }
 
 export function switchEnvironment(environment) {
-  return AsyncStorage.setItem('environment', environment)
+  return AsyncStorage.setItem('environment', JSON.stringify(environments[environment]))
     .then(() => {
-      configs.environment = environment;
-      return configs;
+      // TODO restart
+      return;
     });
 }

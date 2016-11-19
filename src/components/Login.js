@@ -14,6 +14,7 @@ import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
+import { post } from 'utils/fetch';
 
 export default class Login extends Component {
   static title = '登录';
@@ -29,7 +30,7 @@ export default class Login extends Component {
             keyboardType="numeric"
             placeholder="请输入手机号"
           />
-          <CountdownButton style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+          <CountdownButton onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
         </View>
 
         <View style={styles.inputGroup}>
@@ -52,7 +53,12 @@ export default class Login extends Component {
     );
   }
 
-  _sendVerify() {}
+  _sendVerify() {
+    post('/-/tool/send-verify-code', { mobile: '18964165910'})
+      .then(data => console.log(data))
+      .catch(err => { console.log(err); })
+  }
+
 }
 
 const styles = StyleSheet.create({

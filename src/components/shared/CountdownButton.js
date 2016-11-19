@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from './Button'
 
+
 export default class CountdownButton extends Component {
   static defaultProps = {
     duration: 60
@@ -37,7 +38,7 @@ export default class CountdownButton extends Component {
   }
 
   _onPress() {
-    //this.props.onPress();
+    this.props.onPress();
     this._start();
   }
 
