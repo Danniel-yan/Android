@@ -14,7 +14,7 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
     }
 
     renderFetchingCp() {
-      return <FetchingCp />;
+      return FetchingCp ? <FetchingCp /> : null;
     }
 
     renderElementCp() {

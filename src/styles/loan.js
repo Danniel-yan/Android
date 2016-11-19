@@ -1,6 +1,7 @@
 'use strict';
 import { StyleSheet } from 'react-native';
 import { colors } from 'styles/varibles';
+import Dimensions from 'Dimensions';
 
 const styles = StyleSheet.create({
   bgColorWhite:{
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   rightContainer : {
     paddingLeft : 10,
     position:'relative',
-    width:300
+    width:Dimensions.get('window').width - 80
   },
   rightContainerTitle:{
     fontSize:17,
@@ -47,8 +48,10 @@ const styles = StyleSheet.create({
     borderRightWidth:1,
     borderRightColor:'#e6e6e6',
     borderStyle : 'solid',
-    padding:10,
-    alignItems:'center'
+    paddingTop:10,
+    paddingBottom:10,
+    alignItems:'center',
+    width:Dimensions.get('window').width / 3
   },
   flexContainerColumnTitle:{
     fontSize:15,
@@ -80,6 +83,54 @@ const styles = StyleSheet.create({
     height:80,
     marginTop:5,
     marginBottom:5
+  },
+
+  rightContainerDes:{
+    fontSize:12,
+    borderWidth:1,
+    borderColor:'#1ab4fe',
+    width:60,
+    color:'#1ab4fe',
+    paddingLeft:5,
+    paddingRight:5
+  },
+
+
+  applyBox:{
+    marginTop:5
+  },
+  applyTitle:{
+    color:'#333',
+    fontSize:17
+  },
+  applyBoxBody:{
+    flex:1,
+    flexDirection: 'row',
+    marginBottom:20
+  },
+  flexAlignItems:{
+    flex:1,
+    alignItems: 'center'
+  },
+  loanButton:{
+    width:Dimensions.get('window').width,
+    lineHeight: 46,
+    fontSize: 20,
+    marginTop:5,
+    marginBottom:5
+  },
+  number:{
+    fontSize:20,
+    color:'#ff6d17'
+  },
+  flexPanel:{
+    flexDirection: 'column',
+    flex:1,
+    alignItems:'center',
+    borderRightWidth:1,
+    borderRightColor:'#e6e6e6',
+    marginTop:15,
+    marginBottom:15
   }
 });
 

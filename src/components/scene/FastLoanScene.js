@@ -4,7 +4,7 @@ import { StatusBar, View, Text , ScrollView , StyleSheet } from 'react-native';
 import FastLoanRecommendList from 'containers/scene/FastLoanRecommendListContainer';
 import { colors } from 'styles/varibles';
 
-export default class CardScene extends Component {
+export default class FastLoanScene extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>

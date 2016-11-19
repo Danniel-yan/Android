@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ListView, Image  } from 'react-native';
 
 import Text from 'components/shared/Text';
-import styles from 'styles/listView';
+import styles from 'styles/loan';
 
 export default class LoanList extends Component {
 

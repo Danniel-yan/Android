@@ -48,3 +48,12 @@ Mock.mock('broadcastMsgList.json',[
   "broadcast***7",
   "broadcast***8",
 ])
+
+
+Mock.mock('loanDetail.json',{
+  thumbnail: 'https://facebook.github.io/react/img/logo_og.png',
+  name: '小花钱包-代还信用卡',
+  dec: '12543人申请／2天放款',
+  money: '1987.65',
+  period: '3%',
+})

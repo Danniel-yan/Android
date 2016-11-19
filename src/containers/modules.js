@@ -7,10 +7,11 @@ import CardScene from 'components/scene/CardScene';
 import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
 import Login from 'containers/Login';
+import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
-  { key: 'HomeScene', module: HomeScene },
+  { key: 'HomeScene', module: LoanDetailScene },
   { key: 'LoanScene', module: LoanScene },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: ZoneScene },
