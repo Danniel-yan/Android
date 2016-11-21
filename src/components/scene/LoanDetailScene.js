@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View  , StyleSheet, ScrollView , Image, Picker} from 'react-native';
+import { StatusBar, View  , StyleSheet, ScrollView , Image, ActivityIndicator} from 'react-native';
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
@@ -11,10 +11,13 @@ import Button from 'components/shared/Button'
 
 export default class LoanDetailScene extends Component {
 
+  static title = '小花钱包-代还信用卡';
+
   render() {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
+
         <StatusBar barStyle="light-content"/>
         <ScrollView>
           <View style={[styles.flexColumn, styles.bgColorWhite]}>
@@ -28,12 +31,22 @@ export default class LoanDetailScene extends Component {
             </View>
 
             <View style={styles.flexContainerRow}>
-              <View style={styles.flexPanel}>
-                <Text>金额</Text>
+              <View style={[styles.flexPanel,{borderRightWidth:0}]}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{fontSize:17,color:'#333'}}>金额</Text>
+                  <View style={styles.selectBox}>
+                    <Text style={{fontSize:17,color:'#333',}}>5万</Text>
+                  </View>
+                </View>
                 <Text>额度范围</Text>
               </View>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
-                <Text>期数</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{fontSize:17,color:'#333'}}>期数</Text>
+                  <View style={styles.selectBox}>
+                    <Text style={{fontSize:17,color:'#333',}}>12个月</Text>
+                  </View>
+                </View>
                 <Text>期数范围</Text>
               </View>
             </View>

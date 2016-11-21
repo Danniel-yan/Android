@@ -16,6 +16,7 @@ import LoanDetailScene from 'containers/scene/LoanDetailContainer';
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: ZoneScene },
   { key: 'NavigationTest', module: LoanScene },
+  { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;

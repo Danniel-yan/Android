@@ -1,6 +1,9 @@
 
 import { connect } from 'react-redux';
 
+import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import  Loading  from 'components/shared/Loading';
+
 import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
 import RecommendList from 'components/shared/RecommendList'
 
@@ -10,8 +13,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchRecommends: () => dispatch(fetchHomeRecommends())
+    fetching: () => dispatch(fetchHomeRecommends())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecommendList);
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecommendList));

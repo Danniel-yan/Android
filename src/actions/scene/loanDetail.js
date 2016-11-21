@@ -14,13 +14,13 @@ export function receiveLoanDetail(detail) {
   }
 }
 
-export function fetchLoanDetail() {
+export function fetchLoanDetail(id) {
 
   return function (dispatch) {
 
     dispatch(requestLoanDetail())
 
-    return fetch(`loanDetail.json`)
+    return fetch(`loanDetail.json?id=` + id )
       .then(response => response.json())
       .then(detail => dispatch(receiveLoanDetail(detail)))
       .catch(err => console.log(err))

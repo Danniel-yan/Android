@@ -13,7 +13,7 @@ export default class NavigationTest extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ExternalPushLink text="external push link" toKey="NavigationTest" />
+        <ExternalPushLink text="xiangqingye" toKey="LoanDetailScene" componentProps={{fetchingParams: { id: 1 }}} />
         <ExternalPopLink text="external link pop 一下"/>
         <MajorPushLink text="major link pop 一下" toKey="NavigationTest"/>
         <MajorPopLink text="major link pop 一下"/>

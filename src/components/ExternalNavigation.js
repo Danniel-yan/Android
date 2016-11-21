@@ -25,13 +25,14 @@ export default class ExternalNavigation extends Component {
   }
 
   _renderScene(sceneProps) {
-    let { key, component: ComponentClass } = sceneProps.scene.route;
+    let { key, component: ComponentClass, componentProps } = sceneProps.scene.route;
 
     if(!ComponentClass) {
       ComponentClass = modules[key];
     }
 
-    return (<ComponentClass/>);
+    return React.createElement(ComponentClass, componentProps);
+
   }
 }
 

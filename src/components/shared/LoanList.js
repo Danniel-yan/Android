@@ -5,16 +5,7 @@ import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 
 export default class LoanList extends Component {
-
-  componentDidMount() {
-    this.props.fetchLoans();
-  }
-
   render() {
-    if(this.props.isFetching) {
-      return null;
-    }
-
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.loans)
 

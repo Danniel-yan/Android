@@ -131,6 +131,16 @@ const styles = StyleSheet.create({
     borderRightColor:'#e6e6e6',
     marginTop:15,
     marginBottom:15
+  },
+  selectBox:{
+    borderRadius:5,
+    marginLeft:5,
+    marginBottom:5,
+    width:100,
+    height:30,
+    borderWidth:1,
+    borderColor:'#e6e6e6',
+    alignItems:'center'
   }
 });
 

@@ -5,18 +5,11 @@ import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 
 import iconNext from 'assets/index-icons/icon_next.png';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 export default class RecommendList extends Component {
 
-  componentDidMount() {
-    this.props.fetchRecommends();
-  }
-
   render() {
-    if(this.props.isFetching) {
-      return null;
-    }
-
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.recommends)
 
@@ -34,6 +27,7 @@ export default class RecommendList extends Component {
 
   renderRecommend(data) {
     return(
+    <ExternalPushLink toKey="LoanDetailScene" componentProps={{fetchingParams: { id: data.id }}} >
       <View style={styles.flexContainerRow}>
         <Image source={{uri: data.thumbnail}} style={styles.thumbnail} />
         <View style={styles.rightContainer}>
@@ -47,6 +41,7 @@ export default class RecommendList extends Component {
           <Image style={{position:'absolute',top:30,right:0}} source={iconNext} />
         </View>
       </View>
+    </ExternalPushLink>
     )
   }
 

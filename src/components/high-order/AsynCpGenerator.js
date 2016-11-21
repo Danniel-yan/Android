@@ -10,7 +10,7 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
     }
 
     componentDidMount() {
-      this.props.fetching && this.props.fetching();
+      this.props.fetching && this.props.fetching(this.props.fetchingParams);
     }
 
     renderFetchingCp() {
