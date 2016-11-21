@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import {
   View,
@@ -8,6 +9,7 @@ import {
 
 import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
+import { ExternalPushLink } from 'containers/shared/Link';
 import { headerHeight, statusBarHeight } from 'styles/varibles';
 
 const {
@@ -16,7 +18,7 @@ const {
 
 export default function(ComponentClass) {
 
-  return class ExternalPageComponent extends Component {
+  class ExternalPageComponent extends Component {
     state = { title: undefined };
 
     render() {
@@ -29,6 +31,8 @@ export default function(ComponentClass) {
       )
     }
   }
+
+  return connect(null, mapDispatchToProps)(ExternalPageComponent);
 }
 
 
@@ -92,3 +96,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onBack: () => dispatch(externalPop())
+  };
+}

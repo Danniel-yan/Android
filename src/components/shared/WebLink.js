@@ -32,7 +32,7 @@ export default class WebLink extends Component {
   }
 
   _generateComponent() {
-    return connect(null, mapDispatchToProps)(externalScene(this._webView()));
+    return null;
   }
 
   _webView() {
@@ -52,8 +52,3 @@ export default class WebLink extends Component {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onBack: () => dispatch(externalPop())
-  };
-}

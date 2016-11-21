@@ -9,6 +9,7 @@ import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
 import Login from 'containers/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
+import FillUserInfo from 'containers/scene/FillUserInfo';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -19,6 +20,7 @@ import LoanDetailScene from 'containers/scene/LoanDetailContainer';
   { key: 'ZoneScene', module: LoanScene },
   { key: 'NavigationTest', module: LoanScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },
+  { key: 'FillUserInfo', module: FillUserInfo },
   { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;
