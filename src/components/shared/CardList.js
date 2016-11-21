@@ -7,7 +7,6 @@ import styles from 'styles/loan';
 export default class CardList extends Component {
 
   render() {
-
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.cards)
 
@@ -26,7 +25,7 @@ export default class CardList extends Component {
 
   renderCard(data){
     return(
-      <View>,,
+      <View>
         <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
           <Image source={{uri: data.thumbnail}} style={styles.cardPic} />
           <Text style={styles.rightContainerTitle}>
