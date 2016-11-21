@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View  , StyleSheet, ScrollView , Image, ActivityIndicator} from 'react-native';
+import { View  , StyleSheet, ScrollView , Image, ActivityIndicator} from 'react-native';
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
@@ -16,7 +16,6 @@ export default class LoanDetailScene extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
 
-        <StatusBar barStyle="light-content"/>
         <ScrollView>
           <View style={[styles.flexColumn, styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}>

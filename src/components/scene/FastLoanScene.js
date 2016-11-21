@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View, Text , ScrollView , StyleSheet } from 'react-native';
+import { View, Text , ScrollView , StyleSheet } from 'react-native';
 
 import { FormGroup, DropDown, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } from "components/FormGroup";
 
@@ -17,7 +17,6 @@ export default class FastLoanScene extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <StatusBar barStyle="light-content"/>
         <ScrollView>
           {this._renderFastLoanRecommend()}
           {this._renderFastLoanMore()}
@@ -51,7 +50,6 @@ export default class FastLoanScene extends Component {
   render() {
     return (
       <View>
-        <StatusBar barStyle="light-content"/>
         <FormGroup iptCollections={ [{
           name: 'amount', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: 5000
         }, {

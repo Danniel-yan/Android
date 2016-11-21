@@ -95,7 +95,9 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 1,
     backgroundColor: '#fff',
-    height: 46
+    height: 46,
+    borderTopWidth: 1,
+    borderTopColor: colors.line
   },
   tabs: {
     position: 'absolute',

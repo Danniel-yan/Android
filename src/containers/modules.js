@@ -14,9 +14,9 @@ import LoanDetailScene from 'containers/scene/LoanDetailContainer';
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'FastLoanScene', module: FastLoanScene },
-  { key: 'LoanScene', module: LoanScene },
+  { key: 'LoanScene', module: FastLoanScene },
   { key: 'CardScene', module: CardScene },
-  { key: 'ZoneScene', module: ZoneScene },
+  { key: 'ZoneScene', module: LoanScene },
   { key: 'NavigationTest', module: LoanScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'Login', module: Login }

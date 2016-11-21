@@ -26,9 +26,9 @@ export default class MajoNavigation extends Component {
 
   _renderScene(sceneProps) {
     let { key } = sceneProps.scene.route;
-    let Component = modules[key];
+    let ComponentClass = modules[key];
 
-    return (<Component/>);
+    return (<ComponentClass/>);
   }
 }
 

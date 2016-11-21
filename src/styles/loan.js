@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   listView:{
     borderTopWidth:1,
-    borderTopColor:'#e6e6e6'
+    borderTopColor: colors.line
   },
   flexColumn:{
     flex : 1,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     padding:10,
     borderBottomWidth:1,
     borderStyle : 'solid',
-    borderBottomColor:'#e6e6e6'
+    borderBottomColor: colors.line
   },
   rightContainer : {
     paddingLeft : 10,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   flexContainerColumn: {
     justifyContent: 'center',
     borderRightWidth:1,
-    borderRightColor:'#e6e6e6',
+    borderRightColor: colors.line,
     borderStyle : 'solid',
     paddingTop:10,
     paddingBottom:10,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     borderRightWidth:1,
-    borderRightColor:'#e6e6e6',
+    borderRightColor: colors.line,
     marginTop:15,
     marginBottom:15
   },
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     width:100,
     height:30,
     borderWidth:1,
-    borderColor:'#e6e6e6',
+    borderColor: colors.line,
     alignItems:'center'
   }
 });

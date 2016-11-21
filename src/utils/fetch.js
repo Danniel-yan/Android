@@ -12,8 +12,20 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
+export function get(url, body, responseType = 'json') {
+  return Promise.resolve(setupParams()).then(() => _get(url, body, responseType))
+}
+
 export function post(url, body, responseType = 'json') {
   return Promise.resolve(setupParams()).then(() => _post(url, body, responseType))
+}
+
+function _get(url, body, responseType) {
+  return fetch(absoluteUrl(url), {
+    method: 'get'
+  })
+  .then(response => response[responseType]())
+  .then(requestFalireHandle);
 }
 
 function _post(url, body, responseType) {

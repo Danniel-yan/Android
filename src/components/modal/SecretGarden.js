@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   rowWrap: {
     borderBottomWidth: 1,
-    borderBottomColor: '#e6e6e6',
+    borderBottomColor: colors.line,
   },
   row: {
     flexDirection: 'row',
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     borderTopWidth: 1,
-    borderTopColor: '#e6e6e6',
+    borderTopColor: colors.line,
     flexDirection: 'row',
   },
 
