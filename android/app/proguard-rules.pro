@@ -50,6 +50,9 @@
 
 -dontwarn com.facebook.react.**
 
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
 # okhttp
 
 -keepattributes Signature
