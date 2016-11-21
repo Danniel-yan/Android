@@ -15,13 +15,16 @@ const {
 } = NavigationExperimental;
 
 export default function(ComponentClass) {
+
   return class ExternalPageComponent extends Component {
+    state = { title: undefined };
+
     render() {
   
       return (
         <View style={defaultStyles.container}>
-          <ExternalPageHeader title={ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
-          <ComponentClass {...this.props}/>
+          <ExternalPageHeader title={this.state.title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
+          <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
         </View>
       )
     }
