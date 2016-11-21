@@ -4,6 +4,7 @@ import { StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from '
 import NavigationTest from 'components/NavigationTest';
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
+import LoanNavPanel from 'components/LoanNavPanel';
 import RecommendList from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
@@ -22,6 +23,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
+          <LoanNavPanel />
           <Broadcast />
           {this._renderRecommend()}
           {this._renderLoan()}
