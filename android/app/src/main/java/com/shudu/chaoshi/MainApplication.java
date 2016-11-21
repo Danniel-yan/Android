@@ -18,7 +18,7 @@ public class MainApplication extends Application implements ReactApplication {
   private boolean SHUTDOWN_TOAST = false;
   private boolean SHUTDOWN_LOG = false;
 
-  @Overide
+  @Override
   public void onCreate() {
     super.onCreate();
     CrashReport.initCrashReport(getApplicationContext(), "900059966", false);
