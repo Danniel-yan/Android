@@ -11,8 +11,6 @@ import Button from 'components/shared/Button'
 
 export default class LoanDetailScene extends Component {
 
-  static title = '小花钱包-代还信用卡';
-
   render() {
 
     return (

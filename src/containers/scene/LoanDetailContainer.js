@@ -21,4 +21,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, externalScene(LoanDetail)));
+export default connect(mapStateToProps, mapDispatchToProps)(externalScene(AsynCpGenerator(Loading, LoanDetail)));

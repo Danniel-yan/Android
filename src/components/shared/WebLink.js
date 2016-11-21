@@ -22,10 +22,10 @@ export default class WebLink extends Component {
 
   render() {
     let Com = this._generateComponent();
-    console.log('com..........com',Com);
 
     return (
       <ExternalPushLink
+        title={this.props.title}
         toKey={`webView${Date.now()}`}
         toComponent={Com} text="《钞市服务协议》"/>
     );
@@ -36,10 +36,9 @@ export default class WebLink extends Component {
   }
 
   _webView() {
-    let { title, url } = this.props;
+    let { url } = this.props;
 
     return class InnerWebView extends Component {
-      static title = title;
 
       render() {
         return (
@@ -51,7 +50,6 @@ export default class WebLink extends Component {
   }
 
 }
-
 
 
 function mapDispatchToProps(dispatch) {

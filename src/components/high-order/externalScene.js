@@ -20,7 +20,7 @@ export default function(ComponentClass) {
   
       return (
         <View style={defaultStyles.container}>
-          <ExternalPageHeader title={ComponentClass.title} onBack={this.props.onBack}/>
+          <ExternalPageHeader title={ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
           <ComponentClass {...this.props}/>
         </View>
       )
