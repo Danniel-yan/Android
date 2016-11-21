@@ -1,5 +1,7 @@
 //import fetch from 'isomorphic-fetch';
 
+import { get, post } from 'utils/fetch'
+
 export function requestCards() {
   return {
     type: 'requestCards'
@@ -19,9 +21,8 @@ export function fetchHomeCards() {
 
     dispatch(requestCards())
 
-    return fetch(`recommend.json`)
-      .then(response => response.json())
-      .then(cards => dispatch(receiveCards(cards)))
+    return get('/card/category-list')
+      .then(cards => dispatch(receiveCards(cards.data)))
       .catch(err => console.log(err))
   }
 }

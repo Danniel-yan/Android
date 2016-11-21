@@ -5,8 +5,8 @@ export const colors = {
   secondary: '#FFAF32',
   line: '#e6e6e6',
   white:'#fff',
-  fontSizePrimary:'#666',
-  fontSizeSecondary:'#333'
+  fontColorPrimary:'#666',
+  fontColorSecondary:'#333'
 };
 
 export const headerHeight = 57;

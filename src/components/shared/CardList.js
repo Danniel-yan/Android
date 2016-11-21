@@ -27,12 +27,12 @@ export default class CardList extends Component {
     return(
       <View>
         <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
-          <Image source={{uri: data.thumbnail}} style={styles.cardPic} />
+          <Image source={{uri: data.pic}} style={styles.cardPic} />
           <Text style={styles.rightContainerTitle}>
             {data.name}
           </Text>
           <Text>
-            {data.dec}
+            {data.info}
           </Text>
         </View>
       </View>

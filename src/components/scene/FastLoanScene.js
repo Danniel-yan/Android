@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   titleLeft:{
     fontSize:14,
-    color:colors.fontSizePrimary,
+    color:colors.fontColorPrimary,
     flex:1
   }
 })

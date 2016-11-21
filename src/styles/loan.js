@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width:150,
     height:80,
     marginTop:5,
-    marginBottom:5
+    marginBottom:5,
   },
 
   rightContainerDes:{
