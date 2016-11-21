@@ -7,10 +7,13 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
   return class AsynCp extends Component {
     constructor(props) {
       super(props);
+      this.state = {
+        isFetching: this.props.isFetching
+      }
     }
 
     componentDidMount() {
-      this.props.fetching && this.props.fetching(this.props.fetchingParams);
+      this._fetchingData()
     }
 
     renderFetchingCp() {
@@ -22,8 +25,13 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
     }
 
     render() {
-      if(this.props.isFetching) return this.renderFetchingCp()
+      //
+      if(this.props.isFetching) return this.renderFetchingCp();
       return this.renderElementCp();
+    }
+
+    _fetchingData() {
+      this.props.fetching && this.props.fetching(this.props.fetchingParams);
     }
 
     propTypes: {

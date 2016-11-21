@@ -30,20 +30,25 @@ export class IptWrap extends EnhanceStyleCp {
   constructor(props) {
     super(props);
     this.defaultStyle = IptWrapStyles;
+    this.timer = null;
   }
 
   onValueChanged(text) {
     var changedFunc = this.props.valueChanged;
-    changedFunc && changedFunc(this.props.name, text);
+
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      changedFunc && changedFunc(this.props.name, this.props.type=="number" ? parseInt(text) : text);
+    }, 600);
   }
 
   renderComponent() {
-    var s = this.styles, p = this.props || {};
+    var s = this.styles, p = this.props || {}, defaultValue = p.value;
     return (
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
         <Text>{p.label}</Text>
-        <TextInput keyboardType={"numeric"} style={[{flex:1, textAlign:"right"}]} onChangeText={ text => this.onValueChanged(text) } value={p.value ? p.value.toString():""}></TextInput>
+        <TextInput keyboardType={"numeric"} style={[{flex:1, textAlign:"right"}]} onChangeText={ text => this.onValueChanged(text) } defaultValue={p.value ? p.value.toString():""}></TextInput>
         <Text style={{marginLeft: 4}}></Text>
       </View>
     );

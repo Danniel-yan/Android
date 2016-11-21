@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import {
-  View,TouchableWithoutFeedback,Text
+  View,TouchableWithoutFeedback,Text, Image
 } from 'react-native';
 
 import CarouselGenerator from './high-order/CarouselGenerator';
@@ -13,7 +13,8 @@ var configs = {
   horizontal: false,
   pagingEnabled: true,
   intervalTime: 2000,
-  height: 16
+  height: 13,
+  scrollEnabled: false
 };
 
 class BroadcastCarousel extends Component {
@@ -28,8 +29,8 @@ class BroadcastCarousel extends Component {
       messageList.map((message, idx) => {
         this.msgItems.push(
           <TouchableWithoutFeedback key={idx}>
-            <View style={{width:screenWidth-16, height:16}}>
-              <Text style={{width:screenWidth, height:16}}>{message}</Text>
+            <View style={{width:screenWidth, height:configs.height}}>
+              <Text style={{width:screenWidth, height:configs.height, fontSize: 12}}>{message}</Text>
             </View>
           </TouchableWithoutFeedback>
           );
@@ -42,8 +43,9 @@ class BroadcastCarousel extends Component {
 
       // return <Carousel height={130} />
       return (
-        <View style={{height:22, paddingTop:3}}>
-          <Carousel height={16} />
+        <View style={{height:28, paddingLeft:4, flexDirection: "row", alignItems:"center"}}>
+          <Image style={{marginRight: 10}} source={require('assets/icons/laba.png')}></Image>
+          <View style={{flex: 1}}><Carousel height={configs.height} /></View>
         </View>
       );
     }

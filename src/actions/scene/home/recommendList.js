@@ -14,7 +14,7 @@ export function receiveRecommends(recommends) {
   }
 }
 
-export function fetchHomeRecommends() {
+export function fetchHomeRecommends(params) {
 
   return function (dispatch) {
 

@@ -1,4 +1,3 @@
-
 import { connect } from 'react-redux';
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
@@ -13,7 +12,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(fetchHomeRecommends())
+    // Remove this command cause the fetching action should invoked by containers
+    // fetching: params => dispatch(fetchHomeRecommends(params))
   }
 }
 

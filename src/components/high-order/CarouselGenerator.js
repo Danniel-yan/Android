@@ -28,6 +28,7 @@ CarouselGenerator = function(configs) {
                 var props = this.props;
                 this._height = props.height || configs.height || 22;
 
+                this._scrollEnabled = configs.scrollEnabled !== false;
                 this._horizontal = configs.horizontal || false;
                 this._pagingEnabled = configs.pagingEnabled || false;
                 this._intervalTime = configs.intervalTime || 4000;
@@ -49,6 +50,7 @@ CarouselGenerator = function(configs) {
                 return (
                     <View>
                         <ScrollView
+                            scrollEnabled={this._scrollEnabled}
                             horizontal={this._horizontal}
                             ref={(scrollView)=>{ this._scrollView = scrollView; }}
                             showsHorizontalScrollIndicator={false}
