@@ -33,7 +33,7 @@ export default class CountdownButton extends Component {
     let text = !started ? this.props.defaultText : this._formatText()
 
     return (
-      <Button disabled={started} onPress={this._onPress.bind(this)} style={style} text={text} />
+      <Button disabled={started || this.props.disabled} onPress={this._onPress.bind(this)} style={style} text={text} />
     );
   }
 

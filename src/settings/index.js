@@ -36,6 +36,7 @@ export function applicationSetup() {
 }
 
 function setupUUID() {
+  // TODO check local uuid
   return fetch(`${environmentSettings.api}-/user/uuid`)
     .then(response => response.json())
     .then(response => {

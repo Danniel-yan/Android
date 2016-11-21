@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import Text from 'components/shared/Text'
@@ -14,12 +14,23 @@ import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
+import alert from 'utils/alert';
+
 import { post } from 'utils/fetch';
+import validators from 'utils/validators';
 
 export default class Login extends Component {
   static title = '登录';
 
+  state = {
+    verifyCode: '',
+    mobile: ''
+  };
+
   render() {
+    let mobileValid = validators.mobile(this.state.mobile);
+    let verifyCodeValid = this.state.verifyCode.length == 6;
+
     return (
       <View style={[defaultStyles.container, styles.container]}>
         <View style={styles.inputGroup}>
@@ -29,8 +40,10 @@ export default class Login extends Component {
             clearButtonMode="while-editing"
             keyboardType="numeric"
             placeholder="请输入手机号"
+            maxLength={11}
+            onChangeText={mobile => this.setState({mobile})}
           />
-          <CountdownButton onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+          <CountdownButton disabled={!mobileValid} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
         </View>
 
         <View style={styles.inputGroup}>
@@ -40,6 +53,8 @@ export default class Login extends Component {
             clearButtonMode="while-editing"
             keyboardType="numeric"
             placeholder="请输入验证码"
+            maxLength={6}
+            onChangeText={verifyCode => this.setState({verifyCode})}
           />
         </View>
 
@@ -48,17 +63,21 @@ export default class Login extends Component {
           <WebLink url="https://m.madailicai.com" title="《钞市服务协议》"/>
         </View>
 
-        <Button onPress={this.props.onBack} style={styles.submitBtn} text="登录"/>
+        <Button disabled={!mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
       </View>
     );
   }
 
   _sendVerify() {
-    post('/-/tool/send-verify-code', { mobile: '18964165910'})
-      .then(data => console.log(data))
-      .catch(err => { console.log(err); })
+    post('/tool/send-verify-code', { mobile: '18964165910'})
+      .catch(err => { alert('网络异常'); })
   }
 
+  _submit() {
+    let { mobile, verifyCode: verify_code } = this.state;
+    post('/user/login', { mobile, verify_code })
+      .catch(err => { alert('网络异常'); })
+  }
 }
 
 const styles = StyleSheet.create({
