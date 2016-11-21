@@ -2,6 +2,7 @@ const modules = {};
 
 import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
+import FastLoanScene from './scene/FastLoanSceneContainer';
 import LoanScene from './scene/LoanSceneContainer';
 import CardScene from 'components/scene/CardScene';
 import ZoneScene from 'components/scene/ZoneScene';
@@ -12,6 +13,7 @@ import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'FastLoanScene', module: FastLoanScene },
   { key: 'LoanScene', module: LoanScene },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: ZoneScene },

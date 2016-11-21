@@ -23,7 +23,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
-          <LoanNavPanel />
+          <LoanNavPanel pressNumberBtn={this._majorNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._majorNavTo.bind(this, "FastLoanScene")} />
           <Broadcast />
           {this._renderRecommend()}
           {this._renderLoan()}
@@ -31,6 +31,10 @@ export default class HomeScene extends Component {
         </ScrollView>
       </View>
     );
+  }
+
+  _majorNavTo(key) {
+    this.props.majorPush && this.props.majorPush({key: key});
   }
 
   _renderHeader() {
