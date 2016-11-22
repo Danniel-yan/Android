@@ -1,5 +1,11 @@
 import React , { Component } from 'react';
-import { View, NavigationExperimental, StyleSheet } from 'react-native';
+import {
+  BackAndroid,
+  View,
+  NavigationExperimental,
+  StyleSheet,
+  Platform
+} from 'react-native';
 
 import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
@@ -11,6 +17,28 @@ export default class ExternalNavigation extends Component {
     super(props);
 
     this._renderScene = this._renderScene.bind();
+  }
+
+  componentWillMount() {
+    if(Platform.OS == 'android') {
+      BackAndroid.addEventListener('hardwareBackPress', this._handleAndroidhardwareBack.bind(this));
+    }
+  }
+
+  _handleAndroidhardwareBack() {
+    let { navigation } = this.props;
+    let route = navigation.routes[0];
+    let majorRoute = route[route.curTab];
+
+    if(navigation.index > 0) {
+      this.props.externalPop();
+      return true;
+    } else if(majorRoute.index > 0) {
+      this.props.majorPop();
+      return true;
+    }
+
+    return false;
   }
 
   render() {

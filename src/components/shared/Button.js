@@ -1,9 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import {
   TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+  View,
   Text,
   StyleSheet
 } from 'react-native';
+
+const Touchable = Platform.OS == 'ios' ? TouchableOpacity : TouchableNativeFeedback;
 
 import { colors } from 'styles/varibles';
 
@@ -14,14 +19,38 @@ export default class Button extends Component {
   };
 
   render() {
+
+    return Platform.OS == 'ios' ? this._renderIOS() : this._renderAndroid();
+  }
+
+  _renderAndroid() {
     let { style, ...props } = this.props;
 
     style = StyleSheet.flatten(style);
-    let { fontSize, color, lineHeight, ...btnStyle } = style || {};
+    let { fontSize, color, ...btnStyle } = style || {};
 
     return (
-      <TouchableOpacity {...props} style={[styles.btn, btnStyle]}>
-        {this._renderChildren({ fontSize, color, lineHeight })}
+      <TouchableNativeFeedback
+        {...props}
+        background={TouchableNativeFeedback.SelectableBackground()}>
+        <View style={[styles.btn, btnStyle]}>
+          {this._renderChildren({ fontSize, color })}
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+
+  _renderIOS() {
+    let { style, ...props } = this.props;
+
+    style = StyleSheet.flatten(style);
+    let { fontSize, color, ...btnStyle } = style || {};
+
+    return (
+      <TouchableOpacity {...props}
+        style={[styles.btn, btnStyle]}
+        >
+        {this._renderChildren({ fontSize, color })}
       </TouchableOpacity>
     );
   }
@@ -33,7 +62,6 @@ export default class Button extends Component {
 
     let style = {
       color: txtStyle.color || txtDefaultStyle.color,
-      lineHeight: txtStyle.lineHeight || txtDefaultStyle.lineHeight,
       fontSize: txtStyle.fontSize || txtDefaultStyle.fontSize
     }
 
@@ -53,7 +81,6 @@ const styles = StyleSheet.create({
 });
 
 const txtDefaultStyle = {
-  lineHeight: 50,
   fontSize: 20,
   color: '#fff'
 }

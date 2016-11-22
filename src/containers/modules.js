@@ -17,7 +17,7 @@ import FillUserInfo from 'containers/scene/FillUserInfo';
   { key: 'FastLoanScene', module: FastLoanScene },
   { key: 'LoanScene', module: FastLoanScene },
   { key: 'CardScene', module: CardScene },
-  { key: 'ZoneScene', module: LoanScene },
+  { key: 'ZoneScene', module: NavigationTest },
   { key: 'NavigationTest', module: LoanScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'FillUserInfo', module: FillUserInfo },

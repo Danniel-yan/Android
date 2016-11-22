@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ExternalNavigation from 'components/ExternalNavigation';
-import { externalPop } from 'actions/navigation'
+import { externalPop, majorPop } from 'actions/navigation'
 
 function mapStateToProps(state) {
   return { navigation: state.navigation };
@@ -9,7 +9,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    externalPop: () => dispatch(externalPop())
+    externalPop: () => dispatch(externalPop()),
+    majorPop: () => dispatch(majorPop())
   };
 }
 

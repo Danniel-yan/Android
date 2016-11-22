@@ -41,6 +41,7 @@ export default class Login extends Component {
             keyboardType="numeric"
             placeholder="请输入手机号"
             maxLength={11}
+            underlineColorAndroid="transparent"
             onChangeText={mobile => this.setState({mobile})}
           />
           <CountdownButton disabled={!mobileValid} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
@@ -54,6 +55,7 @@ export default class Login extends Component {
             keyboardType="numeric"
             placeholder="请输入验证码"
             maxLength={6}
+            underlineColorAndroid="transparent"
             onChangeText={verifyCode => this.setState({verifyCode})}
           />
         </View>
@@ -98,11 +100,11 @@ const styles = StyleSheet.create({
   
   input: {
     flex: 1,
-    height: 49,
     marginLeft: 18,
     marginRight: 10,
     fontSize: 16,
-    color: '#A5A5A5'
+    color: '#A5A5A5',
+    backgroundColor: '#fff'
   },
 
   txtRow: {
@@ -115,14 +117,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: 5,
     width: 80,
-    lineHeight: 24,
+    height: 24,
     fontSize: 12,
     color: '#fff'
   },
 
   submitBtn: {
     marginTop: 50,
-    lineHeight: 46,
+    height: 46,
     backgroundColor: colors.primary,
     fontSize: 18,
     borderRadius: 8

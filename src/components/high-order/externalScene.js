@@ -11,6 +11,7 @@ import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { headerHeight, statusBarHeight } from 'styles/varibles';
+import { externalPop } from 'actions/navigation';
 
 const {
   Header: NavigationHeader
