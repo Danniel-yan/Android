@@ -11,15 +11,15 @@ import {
 
 import CarouselGenerator from './high-order/CarouselGenerator';
 
-import Dimensions from 'Dimensions';
+import { window } from 'styles';
 
-var screenWidth = Dimensions.get('window').width;
+var screenWidth = window.width;
 
 var configs = {
   horizontal: true,
   pagingEnabled: true,
   _intervalTime: 4000,
-  height: 123
+  height: screenWidth * (212/750)
 }
 
 class BannerCarousel extends Component {

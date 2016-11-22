@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StatusBar, View, Text , ScrollView , StyleSheet } from 'react-native';
+import { StatusBar, View, Text , ScrollView , TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
-import { FormGroup, DropDown, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } from "components/FormGroup";
+import { FormGroup, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } from "components/FormGroup";
 
 import FastLoanRecommendList from 'containers/scene/home/RecommendListContainer';
 
@@ -19,7 +19,9 @@ export default class FastLoanScene extends Component {
         deadline: 12,
         userType: 1
       },
-      isFetchingRec: true
+      isFetchingRec: true,
+      toggleFilter: false,
+      toggleSort: false
     }
   }
   static title = "极速贷款";
@@ -30,30 +32,45 @@ export default class FastLoanScene extends Component {
     this.props.fetchingRec && this.props.fetchingRec(this.state.fetchRecParams);
   }
 
+  onToggleDrp(key) {
+    var origValue = this.state[key];
+    this.state.toggleFilter = this.state.toggleSort = false;
+    this.state[key] = !origValue;
+    this.setState({toggleFilter: this.state.toggleFilter, toggleSort: this.state.toggleSort});
+  }
+
   render() {
+    var halfWidth = screenWidth / 2 - 1;
     return (
       <View>
         <StatusBar barStyle="light-content"/>
-        {this._renderLoanGroup()}
-        <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]}></HorizontalRadios>
-        <View style={{flexDirection: 'row', borderBottomWidth:1, borderBottomColor: "#f2f2f2"}}>
-          <View style={{width: screenWidth/2-1, height:32, borderRightColor: "#f2f2f2", borderRightWidth: 1}}>
-            <DropDown title={"筛选"} panelWidth={screenWidth}>
+          {this._renderLoanGroup()}
+          <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]}></HorizontalRadios>
+          <View style={{position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
+            <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
+              <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleFilter ? null : "#fff"}}>
+                <Text style={{textAlign:"center", fontSize: 14}}>筛选</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <View style={{position: "absolute", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
               <HorizontalCheckboxes options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3}></HorizontalCheckboxes>
-            </DropDown>
-          </View>
-          <View style={{width: screenWidth/2-1, height:32}}>
-            <DropDown title={"排序"}>
+            </View>
+            <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
+              <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleSort ? null : "#fff"}}>
+                <Text style={{textAlign:"center", fontSize: 14}}>排序</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <View style={{position: "absolute", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
               <VerticalRadios options={["默认", "利率低", "放款速度快"]}></VerticalRadios>
-            </DropDown>
+            </View>
           </View>
-        </View>
-        <View style={{zIndex: -1}}>
-          <ScrollView>
-            {this._renderFastLoanRecommend()}
-            {this._renderFastLoanMore()}
-          </ScrollView>
-        </View>
+          <View style={{zIndex:-5}}>
+            <ScrollView>
+              {this._renderFastLoanRecommend()}
+              {this._renderFastLoanMore()}
+            </ScrollView>
+          </View>
+
       </View>
     );
   }

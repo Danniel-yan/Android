@@ -8,6 +8,7 @@ import { fetchBannerImgList } from 'actions/scene/home/headerSection'
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BannerCarousel from 'components/BannerCarousel';
+import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
   return state.bannerImgList;
@@ -19,10 +20,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class LoadingEle extends React.Component {
-  render() {
-    return (<View><Text>Loading.....</Text></View>);
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(LoadingEle, BannerCarousel));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, BannerCarousel));

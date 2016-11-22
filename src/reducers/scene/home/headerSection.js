@@ -2,7 +2,7 @@ const initState = { isFetching: true, imgList: [] };
 
 export function bannerImgList(state = initState, action) {
   switch(action.type) {
-    case 'fetching':
+    case 'fetchingBanner':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveImgList':
       return Object.assign({}, state, { isFetching: false, imgList: action.imgList } )
@@ -13,7 +13,7 @@ export function bannerImgList(state = initState, action) {
 
 export function broadcastList(state = initState, action) {
   switch(action.type) {
-    case 'fetching':
+    case 'fetchingBroadcast':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveMsgList':
       return Object.assign({}, state, { isFetching: false, msgList: action.msgList } )

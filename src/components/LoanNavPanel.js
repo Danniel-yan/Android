@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import Input from 'components/shared/Input';
+
 import { colors } from "styles/varibles";
 
 class LoanNavPanel extends Component {
@@ -28,9 +30,10 @@ class LoanNavPanel extends Component {
     return (
       <View style={[LNPStyles.container]}>
         <View style={{height:25,flexDirection:"row"}}>
-          <View style={LNPStyles.iptWrap} ><TextInput style={[LNPStyles.input]} placeholder="请输入想借的金额" onChangeText={(text)=> {
+          <View style={LNPStyles.iptWrap} >
+          <Input type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
             this.setState({text: text.replace(/[^\d]/g,'')})
-          }} value={this.state.text}></TextInput></View>
+          }} defaultValue={this.state.text}></Input></View>
           <View style={[LNPStyles.btnWrap]}>
             <TouchableOpacity onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></TouchableOpacity>
           </View>
@@ -62,6 +65,7 @@ class LoanNavPanel extends Component {
 const LNPStyles = StyleSheet.create({
   container: {
     padding: 8,
+    paddingLeft: 10, paddingRight: 10,
     height: 123,
     backgroundColor: "#FFF"
   },
@@ -74,8 +78,8 @@ const LNPStyles = StyleSheet.create({
   },
   input: {
     paddingLeft: 12,
-    flex:1,
-    fontSize: 12
+    height:25,
+    paddingTop:0,paddingBottom:0
   },
   btnWrap: {
     flex:1,
@@ -88,7 +92,7 @@ const LNPStyles = StyleSheet.create({
   btn: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 14
+    fontSize: 12
   },
   navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'}
 });

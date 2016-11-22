@@ -8,22 +8,16 @@ import { fetchBroadcastList } from 'actions/scene/home/headerSection'
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BroadcastCarousel from 'components/BroadcastCarousel';
+import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
-  // return state.bannerImgList;
   return state.broadcastList;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(fetchBroadcastList())
+    fetching: () => {setTimeout(function(){dispatch(fetchBroadcastList());},1000)}
   }
 }
 
-class LoadingEle extends React.Component {
-  render() {
-    return (<View><Text>Loading.....</Text></View>);
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(LoadingEle, BroadcastCarousel));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, BroadcastCarousel));

@@ -2,7 +2,7 @@
 
 function requestfetch() {
   return {
-    type: 'fetching'
+    type: 'fetchingBanner'
   }
 }
 
@@ -26,6 +26,12 @@ export function fetchBannerImgList() {
   }
 }
 
+function requestfetchBroadcast() {
+  return {
+    type: 'fetchingBroadcast'
+  }
+}
+
 function receiveMsgList(list) {
   return {
     type: 'receiveMsgList',
@@ -37,7 +43,7 @@ export function fetchBroadcastList() {
 
   return function (dispatch) {
 
-    dispatch(requestfetch())
+    dispatch(requestfetchBroadcast())
 
     return fetch(`broadcastMsgList.json`)
       .then(response => response.json())
