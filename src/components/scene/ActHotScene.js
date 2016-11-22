@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   flexHorizontalColumn:{
-    padding:10,
+    paddingTop:5,
+    paddingBottom:10,
     marginLeft:5,
     justifyContent: 'center',
     alignItems:'center',

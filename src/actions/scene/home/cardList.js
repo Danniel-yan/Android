@@ -1,6 +1,6 @@
 //import fetch from 'isomorphic-fetch';
 
-import { get, post } from 'utils/fetch'
+import { get } from 'utils/fetch'
 
 export function requestCards() {
   return {

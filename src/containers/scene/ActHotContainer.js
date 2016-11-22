@@ -6,7 +6,7 @@ import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import  Loading  from 'components/shared/Loading';
 
 import { fetchActHot } from 'actions/scene/actHot';
-import ActHotScene from 'components/ActHotScene';
+import ActHotScene from 'components/scene/ActHotScene';
 
 function mapStateToProps(state) {
   return state.actHot;

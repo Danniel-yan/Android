@@ -8,6 +8,7 @@ import homeCardList from './scene/home/cardList';
 import fastLoanRecommendList from './scene/fastLoanRecommendList';
 import loanDetail from './scene/loanDetail';
 import actHot from './scene/actHot';
+import bankList from './scene/bankList'
 
 export default combineReducers({
   navigation,
@@ -18,5 +19,6 @@ export default combineReducers({
   homeCardList,
   fastLoanRecommendList,
   loanDetail,
-  actHot
+  actHot,
+  bankList
 });

@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import {StatusBar, View, StyleSheet, Image , ListView, ScrollView } from 'react-native';
+import { StatusBar, View, StyleSheet, Image , ListView, ScrollView } from 'react-native';
 
 import Text from 'components/shared/Text';
 import { colors } from 'styles/varibles';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import CardList from 'containers/scene/home/CardListContainer';
-import ActHotContainer from 'containers/ActHotContainer';
+import ActHotContainer from 'containers/scene/ActHotContainer';
+import BankListContainer from 'containers/scene/BankListContainer';
 
 import Dimensions from 'Dimensions';
 
 export default class CardScene extends Component {
 
-  static title = '办卡';
+  static title = "办卡";
 
   render() {
 
     return (
-      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
+      <View style={{ flex: 1, backgroundColor: '#f3f3f3',marginTop:20 }}>
+        <StatusBar barStyle="light-content"/>
         <ScrollView>
           {this._renderActHot()}
           {this._renderCard()}
+          {this._renderBankList()}
         </ScrollView>
       </View>
     );
@@ -48,6 +51,14 @@ export default class CardScene extends Component {
           <Text style={styles.titleLeft}>极速办卡</Text>
         </View>
         <CardList/>
+      </View>
+    )
+  }
+
+  _renderBankList(){
+    return(
+      <View>
+        <BankListContainer/>
       </View>
     )
   }
