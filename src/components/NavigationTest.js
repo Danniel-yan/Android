@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  ScrollView,
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
@@ -12,31 +13,15 @@ import { ExternalPushLink, ExternalPopLink, MajorPushLink, MajorPopLink } from '
 export default class NavigationTest extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <ExternalPushLink text="xiangqingye" toKey="LoanDetailScene" componentProps={{fetchingParams: { id: 1 }}} />
         <ExternalPopLink text="external link pop 一下"/>
+
         <MajorPushLink text="major link pop 一下" toKey="NavigationTest"/>
         <MajorPopLink text="major link pop 一下"/>
+        <ExternalPushLink text="登录" toKey="Login"/>
 
-        <TouchableHighlight onPress={this._onPush.bind(this)} style={styles.row}>
-          <Text> push 一下 只能点一下，第二下别点了报错, 点pop吧</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._onPop.bind(this)} style={styles.row}>
-          <Text> pop 一下 </Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={this._onExPush.bind(this)} style={styles.row}>
-          <Text> external push  一下 </Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={this._onExPop.bind(this)} style={styles.row}>
-          <Text> external pop  一下 </Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={this._onLogin.bind(this)} style={styles.row}>
-          <Text> 登录 </Text>
-        </TouchableHighlight>
-      </View>
+      </ScrollView>
     );
   }
 
