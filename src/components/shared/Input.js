@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, Platform } from 'react-native';
+
+
 
 export default class Input extends Component {
   render() {
-    var ds = { height: 20, fontSize: 16, padding: 0 };
+    var ds = Platform.OS === 'ios' ? { } : { height: 20, fontSize: 16, padding: 0 };
 
     return (
       <TextInput

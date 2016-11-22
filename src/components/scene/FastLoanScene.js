@@ -48,11 +48,11 @@ export default class FastLoanScene extends Component {
           <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]}></HorizontalRadios>
           <View style={{position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
             <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
-              <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleFilter ? null : "#fff"}}>
-                <Text style={{textAlign:"center", fontSize: 14}}>筛选</Text>
+              <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? null : "#fff"}}>
+                <Text style={{fontSize: 14}}>筛选</Text>
               </View>
             </TouchableWithoutFeedback>
-            <View style={{position: "absolute", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
+            <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
               <HorizontalCheckboxes options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3}></HorizontalCheckboxes>
             </View>
             <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
@@ -60,11 +60,11 @@ export default class FastLoanScene extends Component {
                 <Text style={{textAlign:"center", fontSize: 14}}>排序</Text>
               </View>
             </TouchableWithoutFeedback>
-            <View style={{position: "absolute", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
+            <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
               <VerticalRadios options={["默认", "利率低", "放款速度快"]}></VerticalRadios>
             </View>
           </View>
-          <View style={{zIndex:-5}}>
+          <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1}}>
             <ScrollView>
               {this._renderFastLoanRecommend()}
               {this._renderFastLoanMore()}

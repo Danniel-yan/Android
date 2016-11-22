@@ -83,16 +83,17 @@ const LNPStyles = StyleSheet.create({
   },
   btnWrap: {
     flex:1,
-    padding: 5,
     height: 25,
+    paddingRight: 5,
     backgroundColor: colors.secondary,
     borderTopRightRadius:14,
     borderBottomRightRadius: 14,
+    justifyContent: "center"
   },
   btn: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 12
+    fontSize: 14
   },
   navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'}
 });
