@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
+import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
 
 import NavigationTest from 'components/NavigationTest';
 import Banner from 'containers/scene/home/Banner';
@@ -70,10 +70,12 @@ export default class HomeScene extends Component {
       <View>
         <View style={[styles.title,styles.bgColorWhite]}>
           <Text style={styles.titleLeft}>热门推荐</Text>
-          <Text style={styles.titleRight}>
-            换一批
-            <Image style={styles.titleRightImg} source={iconHuanyihuan}/>
-          </Text>
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.titleRight}>
+              换一批
+              <Image style={styles.titleRightImg} source={iconHuanyihuan}/>
+            </Text>
+          </TouchableOpacity>
         </View>
         <RecommendList/>
       </View>
@@ -154,6 +156,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',
+    borderBottomColor: colors.line,
+    borderBottomWidth: 1
   },
   bgColorWhite:{
     backgroundColor:colors.white

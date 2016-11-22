@@ -23,14 +23,22 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.line
   },
   rightContainer : {
-    paddingLeft : 10,
+    paddingLeft : 15,
     position:'relative',
     width:Dimensions.get('window').width - 80
   },
   rightContainerTitle:{
-    fontSize:17,
-    color:colors.fontSizeSecondary,
+    fontSize:16,
+    color:colors.fontColorSecondary,
     marginBottom:6
+  },
+  defaultFont: {
+    fontSize: 14
+  },
+  rightContainerFooter: {
+    flex: 1,
+    height: 20,
+    flexDirection: 'row'
   },
   rightContainerSubTitle:{
     fontSize:14,

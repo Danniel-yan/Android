@@ -1,5 +1,4 @@
-
-require('mock');
+import { get, post } from 'utils/fetch';
 
 export function requestRecommends() {
   return {
@@ -7,22 +6,22 @@ export function requestRecommends() {
   }
 }
 
-export function receiveRecommends(recommends) {
+export function receiveRecommends(response) {
   return {
     type: 'receiveRecommends',
-    recommends: recommends
+    recommends: response.data.list,
+    offset: response.data.offset
   }
 }
 
-export function fetchHomeRecommends(params) {
+export function fetchHomeRecommends(params = {offset: 0}) {
 
   return function (dispatch) {
 
     dispatch(requestRecommends())
 
-    return fetch(`recommend.json`)
-      .then(response => response.json())
-      .then(recomends => dispatch(receiveRecommends(recomends)))
+    return get(`/loan/index-list?offset=${params.offset}`)
+      .then(response => dispatch(receiveRecommends(response)))
       .catch(err => console.log(err))
   }
 }

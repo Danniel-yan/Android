@@ -50,7 +50,8 @@ function absoluteUrl(url) {
 
   let hasVersion = /^(\d+(\.\d+)*\/)/.test(url);
   url = !hasVersion ? `${defaultApiVersion}/${url}` : url;
-  return `${environment.api}${url}?${apiParams}`;
+  let join = /\?$/.test(url) ? '&' : '?';
+  return `${environment.api}${url}${join}${apiParams}`;
 }
 
 function setupParams() {

@@ -5,7 +5,7 @@ export default function homeRecomendList(state = initState, action) {
     case 'requestRecommends':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveRecommends':
-      return Object.assign({}, state, { isFetching: false, recommends: action.recommends } )
+      return Object.assign({}, state, { isFetching: false, offset: action.offset, recommends: action.recommends } )
     default:
       return state
   }
