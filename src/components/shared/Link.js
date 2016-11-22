@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {
   TouchableOpacity,
+  TouchableNativeFeedback,
+  View,
+  Platform,
   StyleSheet
 } from 'react-native';
 
@@ -8,7 +11,31 @@ import Text from './Text';
 import { colors } from 'styles/varibles';
 
 export default class Link extends Component {
+
   render() {
+    return Platform.OS == 'ios' ? this._renderIOS() : this._renderAndroid();
+  }
+
+  _renderAndroid() {
+    let { text, onPress, link, children, style, ...props } = this.props
+
+    if(!children) {
+      children = this._createText();
+    }
+
+    return (
+      <TouchableNativeFeedback
+        onPress={this._onPress.bind(this)}
+        {...props}
+        background={TouchableNativeFeedback.SelectableBackground()}>
+        <View style={style}>
+          {children}
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+
+  _renderIOS() {
     let { text, onPress, link, children, ...props } = this.props
 
     if(!children) {

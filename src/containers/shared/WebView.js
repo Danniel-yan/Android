@@ -3,7 +3,10 @@ import { WebView } from 'react-native';
 
 import externalScene from 'components/high-order/externalScene';
 
-export default externalScene(React.createElement(WebView, {
-  startInLoadingState: true,
-  style: {flex: 1},
-}));
+class DefaultWebView extends WebView {
+  static defaultProps = {
+    startInLoadingState: true,
+    style: {flex: 1},
+  };
+}
+export default externalScene(DefaultWebView);

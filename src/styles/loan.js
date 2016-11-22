@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   loanButton:{
     width:Dimensions.get('window').width,
-    lineHeight: 46,
+    height: 46,
     fontSize: 20,
     marginTop:5,
     marginBottom:5

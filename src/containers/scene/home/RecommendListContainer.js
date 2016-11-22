@@ -12,8 +12,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // Remove this command cause the fetching action should invoked by containers
-    // fetching: params => dispatch(fetchHomeRecommends(params))
+    fetching: params => dispatch(fetchHomeRecommends(params))
   }
 }
 

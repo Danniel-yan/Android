@@ -20,6 +20,7 @@ export default class NavigationTest extends Component {
         <MajorPushLink text="major link pop 一下" toKey="NavigationTest"/>
         <MajorPopLink text="major link pop 一下"/>
         <ExternalPushLink text="登录" toKey="Login"/>
+        <ExternalPushLink text="用户信息" toKey="FillUserInfo"/>
 
       </ScrollView>
     );

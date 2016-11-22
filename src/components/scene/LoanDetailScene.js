@@ -1,5 +1,12 @@
-import React, { Component } from 'react';
-import { View  , StyleSheet, ScrollView , Image, ActivityIndicator} from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  AsyncStorage,
+  ActivityIndicator
+} from 'react-native';
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
@@ -10,6 +17,9 @@ import Dimensions from 'Dimensions';
 import Button from 'components/shared/Button'
 
 export default class LoanDetailScene extends Component {
+  static propTypes = {
+    goLoan: PropTypes.func.isRequired
+  };
 
   render() {
 
@@ -88,11 +98,10 @@ export default class LoanDetailScene extends Component {
             </View>
           </View>
 
-          <Button onPress={this.props.onBack} style={styles.loanButton} text="去贷款"/>
+          <Button onPress={() => this.props.goLoan('https://m.madailicai.com')} style={styles.loanButton} text="去贷款"/>
 
         </ScrollView>
       </View>
     );
   }
-
 }

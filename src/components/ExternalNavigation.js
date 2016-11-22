@@ -57,9 +57,7 @@ export default class ExternalNavigation extends Component {
     let { web, key, title, component: ComponentClass, componentProps } = sceneProps.scene.route;
 
     if(web) {
-      return React.createElement(WebView, {
-        source: {uri: web}
-      });
+      return <WebView source={{uri: web}}/>;
     }
 
     if(!ComponentClass) {

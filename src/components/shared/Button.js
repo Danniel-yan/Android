@@ -8,8 +8,6 @@ import {
   StyleSheet
 } from 'react-native';
 
-const Touchable = Platform.OS == 'ios' ? TouchableOpacity : TouchableNativeFeedback;
-
 import { colors } from 'styles/varibles';
 
 export default class Button extends Component {
@@ -19,7 +17,6 @@ export default class Button extends Component {
   };
 
   render() {
-
     return Platform.OS == 'ios' ? this._renderIOS() : this._renderAndroid();
   }
 

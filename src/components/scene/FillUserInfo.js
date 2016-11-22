@@ -11,12 +11,12 @@ import {
 import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
+import ProcessingButton from 'components/shared/ProcessingButton';
 import Checkbox from 'components/shared/Checkbox'
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
 import CountdownButton from 'components/shared/CountdownButton'
-import { post } from 'utils/fetch';
 
 const hasCreditStatus = {
   yes: 1,
@@ -24,6 +24,8 @@ const hasCreditStatus = {
 }
 
 export default class FillUserInfo extends Component {
+  static title = '完善个人信息';
+
   state = {
     hasCard: false,
     mobile: '',
@@ -34,13 +36,20 @@ export default class FillUserInfo extends Component {
     creditStatus: hasCreditStatus.no
   };
 
+  componentDidUpdate() {
+    let { response } = this.props;
+    // TODO 判断结果
+    if(response) {
+      this.props.submitSuccess(response);
+    }
+  }
+
   render() {
+
     const validMobile = validators.mobile(this.state.mobile);
     const validVerifyCode = this.state.verifyCode.length == 6;
     const validName = this.state.realname.length >= 2;
     const validID = validators.idNO(this.state.idNO);
-
-    console.log(validMobile, validVerifyCode, validName, validID);
 
     return (
       <View style={defaultStyles.container}>
@@ -50,6 +59,7 @@ export default class FillUserInfo extends Component {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={20}
+              underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'realname')}
             />
           </FormGroup>
@@ -58,6 +68,7 @@ export default class FillUserInfo extends Component {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={18}
+              underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'idNO')}
             />
           </FormGroup>
@@ -67,6 +78,7 @@ export default class FillUserInfo extends Component {
               clearButtonMode="while-editing"
               keyboardType="numeric"
               maxLength={11}
+              underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'mobile')}
             />
           </FormGroup>
@@ -78,6 +90,7 @@ export default class FillUserInfo extends Component {
                 clearButtonMode="while-editing"
                 keyboardType="numeric"
                 maxLength={6}
+                underlineColorAndroid="transparent"
                 onChangeText={this._inputChange.bind(this, 'verifyCode')}
               />
 
@@ -116,7 +129,7 @@ export default class FillUserInfo extends Component {
         </ScrollView>
 
         <View style={styles.footer}>
-          <Button style={styles.btn} disabled={!(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
+          <ProcessingButton processing={this.props.submitting} style={styles.btn} disabled={(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
         </View>
       </View>
     );
@@ -126,13 +139,9 @@ export default class FillUserInfo extends Component {
 
   _submit() {
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
-    console.log(mobile, { mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname });
+    //console.log({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname });
 
-    post('/user/update-info', { mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname })
-    .then(res => {
-      this.props.loginSuccess(res.data.token);
-    })
-    .catch(err => console.log(err));
+    this.props.submit({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname });
   }
 
   _inputChange(field, value) {
@@ -190,6 +199,7 @@ const styles = StyleSheet.create({
   btn: {
     color: '#fff',
     fontSize: 20,
+    height: 50,
     backgroundColor: colors.primary
   },
 
@@ -197,7 +207,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: 5,
     width: 80,
-    lineHeight: 24,
+    height: 26,
     fontSize: 12,
     color: '#fff'
   },
@@ -211,10 +221,12 @@ const styles = StyleSheet.create({
   },
 
   optionalHeader: {
+    height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    borderBottomColor: colors.line,
+    justifyContent: 'center'
   },
 
   optionalGroup: {
@@ -222,7 +234,6 @@ const styles = StyleSheet.create({
   },
 
   optionalTxt: {
-    lineHeight: 40,
     color: '#999',
   },
 

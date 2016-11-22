@@ -28,7 +28,6 @@ export function applicationSetup() {
 
   return setupEnvironment()
     .then(setupUUID)
-    .then(() => {})
     .catch(err => { console.log(err) })
     .finally(() => {
       return AsyncStorage.setItem('appSettings', JSON.stringify(staticSettings));
@@ -50,13 +49,12 @@ function setupUUID() {
 }
 
 function setupLocation() {
-  navigator.geolocation.getCurrentPosition(position => {
+  navigator.geolocation.watchPosition(position => {
     const coords = position.coords;
     coords.longitude = Math.abs(coords.longitude);
     return AsyncStorage.setItem('coords', JSON.stringify(coords));
-  }, err => {}, {
-    enableHighAccuracy: true
-  })
+  }, err => {console.log(err)},
+  {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }
 
 function setupEnvironment() {

@@ -71,8 +71,10 @@ function setApiParams() {
       apiParams += `&os_version=${appSettings.osVersion}&uuid=${appSettings.uuid}`;
     })
     .then(() => AsyncStorage.getItem('coords'))
-    .then(JSON.parse)
     .then(coords => {
-      apiParams += `&lati=${coords.latitude}&long=${coords.longitude}`;
+      if(coords) {
+        apiParams += `&lati=${coords.latitude}&long=${coords.longitude}`;
+      }
     })
+    .catch(err => console.log(err))
 }
