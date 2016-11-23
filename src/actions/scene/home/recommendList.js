@@ -14,13 +14,13 @@ export function receiveRecommends(response) {
   }
 }
 
-export function fetchHomeRecommends(params = {offset: 0}) {
+export function fetchHomeRecommends(offset = 0) {
 
   return function (dispatch) {
 
     dispatch(requestRecommends())
 
-    return get(`/loan/index-list?offset=${params.offset}`)
+    return get(`/loan/index-list?offset=${offset}`)
       .then(response => dispatch(receiveRecommends(response)))
       .catch(err => console.log(err))
   }
