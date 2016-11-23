@@ -23,7 +23,7 @@ class BroadcastCarousel extends Component {
     }
 
     generateInfos() {
-      var props = this.props, messageList = props ? props.adInfoList : [];
+      var props = this.props, messageList = props.msgList ? props.msgList : [];
 
       this.msgItems = [];
       messageList.map((message, idx) => {

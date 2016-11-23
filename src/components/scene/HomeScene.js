@@ -8,6 +8,7 @@ import LoanNavPanel from 'components/LoanNavPanel';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
+import LoanBanner from 'containers/scene/home/LoanBanner';
 
 import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
@@ -79,7 +80,7 @@ export default class HomeScene extends Component {
             <Image style={styles.titleRightImg} source={iconNext} />
           </Text>
         </View>
-        <Image source={{uri:'https://facebook.github.io/react/img/logo_og.png'}} style={{width:400, height:90}}/>
+        <LoanBanner/>
         <LoanList/>
       </View>
     )
