@@ -28,13 +28,13 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onResume() {
         super.onResume();
-        JPushInterface.onResume(getApplicationContext());
+        JPushInterface.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        JPushInterface.onPause(getApplicationContext());
+        JPushInterface.onPause(this);
     }
 
     @Override

@@ -10,7 +10,6 @@ import reducers from 'reducers';
 import * as defaultStyles from 'styles';
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import { applicationSetup } from 'settings'
-
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 

@@ -8,9 +8,10 @@ import FastLoanRecommendList from 'containers/scene/home/RecommendListContainer'
 import { colors } from 'styles/varibles';
 
 import Dimensions from 'Dimensions';
+import AbstractScene from 'components/scene/AbstractScene.js';
 var screenWidth = Dimensions.get('window').width;
 
-export default class FastLoanScene extends Component {
+export default class FastLoanScene extends AbstractScene {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +24,8 @@ export default class FastLoanScene extends Component {
       toggleFilter: false,
       toggleSort: false
     }
+    this.sceneEntity = "FAST_LOAN";
+    this.sceneTopic = "";
   }
   static title = "极速贷款";
 

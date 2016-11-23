@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.jpush.reactnativejpush.JPushPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
+                    new RNDeviceInfo(),
                     new MainReactPackage(),
                     new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG)
             );
