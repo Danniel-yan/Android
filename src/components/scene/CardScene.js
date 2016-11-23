@@ -8,7 +8,7 @@ import iconNext from 'assets/index-icons/icon_next.png';
 import CardList from 'containers/scene/home/CardListContainer';
 import ActHotContainer from 'containers/scene/ActHotContainer';
 import BankListContainer from 'containers/scene/BankListContainer';
-
+import ShopNearbyContainer from 'containers/scene/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 
 export default class CardScene extends Component {
@@ -24,6 +24,7 @@ export default class CardScene extends Component {
           {this._renderActHot()}
           {this._renderCard()}
           {this._renderBankList()}
+          {this._renderShopNearby()}
         </ScrollView>
       </View>
     );
@@ -59,6 +60,17 @@ export default class CardScene extends Component {
     return(
       <View>
         <BankListContainer/>
+      </View>
+    )
+  }
+
+  _renderShopNearby(){
+    return(
+      <View style={{marginTop:5}}>
+        <View style={[styles.title,styles.bgColorWhite]}>
+          <Text style={styles.titleLeft}>附近优惠</Text>
+        </View>
+        <ShopNearbyContainer/>
       </View>
     )
   }

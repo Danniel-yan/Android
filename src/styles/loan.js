@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   flexContainerColumnTitle:{
     fontSize:15,
-    color:colors.fontSizeSecondary,
+    color:colors.fontColorSecondary,
   },
   flexContainerColumnDes:{
     fontSize:12
