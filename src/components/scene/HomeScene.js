@@ -26,7 +26,7 @@ export default class HomeScene extends Component {
         <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
-          {/* <Banner /> */}
+          <Banner />
           <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._externalNavTo.bind(this, "FastLoanScene")} />
           <Broadcast />
           <RecommendListPanel/>
