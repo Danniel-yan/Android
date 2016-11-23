@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { StatusBar, View, StyleSheet, Image , ListView, ScrollView } from 'react-native';
+import { StatusBar, View, StyleSheet, Image , ListView, ScrollView , TouchableOpacity} from 'react-native';
 
 import Text from 'components/shared/Text';
 import { colors } from 'styles/varibles';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import CardList from 'containers/scene/home/CardListContainer';
-import ActHotContainer from 'containers/scene/ActHotContainer';
-import BankListContainer from 'containers/scene/BankListContainer';
-import ShopNearbyContainer from 'containers/scene/ShopNearbyContainer'
+import ActHotContainer from 'containers/scene/card/ActHotContainer';
+import BankListContainer from 'containers/scene/card/BankListContainer';
+import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 
 export default class CardScene extends Component {
@@ -35,10 +35,10 @@ export default class CardScene extends Component {
       <View>
         <View style={[styles.title,styles.bgColorWhite, {marginTop:5}]}>
           <Text style={styles.titleLeft}>今天薅什么</Text>
-          <Text style={styles.titleRight}>
-            更多产品
+          <TouchableOpacity style={styles.flexRow}>
+            <Text style={styles.titleRight}>更多产品</Text>
             <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
+          </TouchableOpacity>
         </View>
         <ActHotContainer/>
       </View>
@@ -97,16 +97,8 @@ const styles = StyleSheet.create({
     fontSize:14
   },
   flexRow: {
-    flexDirection: 'row'
-  },
-  flexHorizontalColumn:{
-    padding:10,
-    marginTop:5,
-    marginBottom:10,
-    marginLeft:5,
-    justifyContent: 'center',
-    alignItems:'center',
-    borderRadius:5
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   titleRightImg:{
     width:15,

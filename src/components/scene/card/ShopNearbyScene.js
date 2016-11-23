@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, ListView , StyleSheet, Image } from 'react-native';
+import { View, ListView , StyleSheet, Image , TouchableOpacity } from 'react-native';
 
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions'
@@ -9,6 +9,7 @@ import * as defaultStyle from 'styles';
 import Text from 'components/shared/Text'
 
 import iconNext from 'assets/index-icons/icon_next.png';
+import triangleDown from 'assets/icons/triangle-down.png';
 
 export default class ShopNearbyScene extends Component {
 
@@ -16,8 +17,6 @@ export default class ShopNearbyScene extends Component {
 
     var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const dataSource = ds.cloneWithRows(this.props.shopNearby)
-
-    console.log(this.props.shopNearby)
 
     return(
       <ListView
@@ -40,9 +39,12 @@ export default class ShopNearbyScene extends Component {
               <View>
                 <Text style={[styles.rightContainerSubTitle,{fontSize:13}]}>{parseFloat(data.dis).toFixed(2)} 米</Text>
               </View>
-              <View style={styles.flexEnd}>
-                 <Text style={{fontSize:13}}>有{data.act.length}条活动</Text>
-              </View>
+              <TouchableOpacity style={[styles.flexEnd]} onPress={() => {}}>
+                <Text style={{fontSize:13}}>有{data.act.length}条活动</Text>
+                <View style={{position:'absolute',right:-10,top:7}}>
+                  <Image source={triangleDown}/>
+                </View>
+              </TouchableOpacity>
             </View>
 
           </View>
@@ -120,7 +122,8 @@ const styles = StyleSheet.create({
   },
   flexEnd:{
     flex: 1,
-    alignItems:'flex-end'
+    alignItems:'flex-end',
+    position:'relative'
   },
   act:{
     paddingLeft:10,
