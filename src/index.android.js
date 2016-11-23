@@ -27,7 +27,7 @@ export default class supermarketjs extends Component {
   }
 
   render() {
-    if(this.initialing) {
+    if(this.state.initialing) {
       return (
         <ActivityIndicator style={[defaultStyles.container, defaultStyles.centering]} animating={true} />
       );

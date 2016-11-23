@@ -26,14 +26,14 @@ export default class LoanList extends Component {
       <View>
         <View style={styles.flexContainerColumn}>
           <Text style={styles.flexContainerColumnTitle}>
-            {data.name}
+            {data.title}
           </Text>
-          <Image source={{uri: data.thumbnail}} style={{width:50,height:50,marginTop:10,marginBottom:10}} />
+          <Image source={{uri: data.logo_list}} style={{width:50,height:50,marginTop:10,marginBottom:10}} />
           <Text style={styles.flexContainerColumnDes}>
-            <Text style={styles.flexContainerColumnPrimary}>{data.rate}</Text>费率
+            <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>费率
           </Text>
           <Text style={styles.flexContainerColumnDes}>
-            <Text style={styles.flexContainerColumnPrimary}>{data.rate}</Text>万贷款
+            <Text style={styles.flexContainerColumnPrimary}>{data.amnout_showinfo}</Text>万贷款
           </Text>
         </View>
       </View>

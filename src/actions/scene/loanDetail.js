@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { externalPush } from 'actions/navigation';
+import { get } from 'utils/fetch';
 
 export function requestLoanDetail() {
   return {
@@ -20,20 +21,19 @@ export function fetchLoanDetail(id) {
 
     dispatch(requestLoanDetail())
 
-    return fetch(`loanDetail.json?id=` + id )
-      .then(response => response.json())
-      .then(detail => dispatch(receiveLoanDetail(detail)))
+    get(`/loan/info-detail?id=${id}`)
+      .then(response => dispatch(receiveLoanDetail(response.data)))
       .catch(err => console.log(err))
   }
 }
 
-export function goLoan(url) {
+export function goLoan(url, title) {
   return function(dispatch) {
     AsyncStorage.getItem('userToken').then(token => {
       if(token == null) {
         dispatch(externalPush({ key: 'FillUserInfo' }))
       } else {
-        dispatch(externalPush({ web: 'https://m.madailicai.com' }))
+        dispatch(externalPush({ key: url, title, web: url }))
       }
     })
   }

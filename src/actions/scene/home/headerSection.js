@@ -1,4 +1,4 @@
-//import fetch from 'isomorphic-fetch';
+import { get } from 'utils/fetch';
 
 function requestfetch() {
   return {
@@ -19,9 +19,8 @@ export function fetchBannerImgList() {
 
     dispatch(requestfetch())
 
-    return fetch(`bannerImages.json`)
-      .then(response => response.json())
-      .then(json =>dispatch(receiveImgList(json)))
+    return get(`/app/index-config`)
+      .then(json =>dispatch(receiveImgList([json.data.index_top_banner])))
       .catch(err => console.log(err))
   }
 }
@@ -45,9 +44,9 @@ export function fetchBroadcastList() {
 
     dispatch(requestfetchBroadcast())
 
-    return fetch(`broadcastMsgList.json`)
-      .then(response => response.json())
-      .then(json =>dispatch(receiveMsgList(json)))
-      .catch(err => console.log(err))
+    //return fetch(`broadcastMsgList.json`)
+    //  .then(response => response.json())
+    //  .then(json =>dispatch(receiveMsgList(json)))
+    //  .catch(err => console.log(err))
   }
 }

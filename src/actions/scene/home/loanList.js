@@ -1,4 +1,4 @@
-//import fetch from 'isomorphic-fetch';
+import { get } from 'utils/fetch';
 
 export function requestLoans() {
   return {
@@ -6,10 +6,10 @@ export function requestLoans() {
   }
 }
 
-export function receiveLoans(loans) {
+export function receiveLoans(response) {
   return {
     type: 'receiveLoans',
-    loans: loans
+    loans: response.data
   }
 }
 
@@ -19,9 +19,8 @@ export function fetchHomeLoans() {
 
     dispatch(requestLoans())
 
-    return fetch(`recommend.json`)
-      .then(response => response.json())
-      .then(loans => dispatch(receiveLoans(loans)))
+    return get('/loan/index-large-list')
+      .then(response => dispatch(receiveLoans(response)))
       .catch(err => console.log(err))
   }
 }

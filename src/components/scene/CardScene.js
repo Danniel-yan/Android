@@ -19,7 +19,7 @@ export default class CardScene extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3',marginTop:20 }}>
-        <StatusBar barStyle="light-content"/>
+        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
         <ScrollView>
           {this._renderActHot()}
           {this._renderCard()}

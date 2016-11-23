@@ -46,7 +46,7 @@ export default class FastLoanScene extends AbstractScene {
     var halfWidth = screenWidth / 2 - 1;
     return (
       <View>
-        <StatusBar barStyle="light-content"/>
+        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
           {this._renderLoanGroup()}
           <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]}></HorizontalRadios>
           <View style={{position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>

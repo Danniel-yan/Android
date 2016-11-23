@@ -12,17 +12,17 @@ import CardList from 'containers/scene/home/CardListContainer';
 import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
-import { colors } from 'styles/varibles'
+import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 export default class HomeScene extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <StatusBar barStyle="light-content"/>
+        <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
-          <Banner />
+          {/* <Banner /> */}
           <LoanNavPanel pressNumberBtn={this._majorNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._majorNavTo.bind(this, "FastLoanScene")} />
           <Broadcast />
           <RecommendListPanel/>
@@ -65,23 +65,6 @@ export default class HomeScene extends Component {
     }
   }
 
-  _renderRecommend(){
-    return(
-      <View>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>热门推荐</Text>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.titleRight}>
-              换一批
-              <Image style={styles.titleRightImg} source={iconHuanyihuan}/>
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <RecommendList/>
-      </View>
-    )
-  }
-
   _renderLoan(){
     return(
       <View style={{marginTop:5}}>
@@ -117,8 +100,8 @@ export default class HomeScene extends Component {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    height: 57,
-    paddingTop: STATUSBAR_HEIGHT,
+    height: headerHeight,
+    paddingTop: statusBarHeight,
     backgroundColor: colors.primary,
     alignItems: 'center'
   },
