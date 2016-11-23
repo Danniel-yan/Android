@@ -28,7 +28,7 @@ class BannerCarousel extends Component {
     }
 
     generateInfos() {
-      var props = this.props, imgs = props ? props.imgList : [];
+      var props = this.props, imgs = props ? props.bannerList : [];
 
       this.imageItems = [];
       imgs.map((imgInfo, idx) => {

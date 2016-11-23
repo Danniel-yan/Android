@@ -75,7 +75,7 @@ export class HorizontalRadios extends EnhanceStyleCp {
   }
 
   selectedOpt(idx) {
-    var selectedFunc = this.props.selectedFunc;
+    var selectedFunc = this.props.selectedChanged;
     this.state.selectedIdx = idx;
     this.setState({selectedIdx: idx});
 

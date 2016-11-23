@@ -16,6 +16,10 @@ import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 export default class HomeScene extends Component {
+  componentDidMount() {
+    this.props.fetchingIndexConfig && this.props.fetchingIndexConfig();
+  }
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -23,7 +27,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           {/* <Banner /> */}
-          <LoanNavPanel pressNumberBtn={this._majorNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._majorNavTo.bind(this, "FastLoanScene")} />
+          <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._externalNavTo.bind(this, "FastLoanScene")} />
           <Broadcast />
           <RecommendListPanel/>
           {this._renderLoan()}
@@ -33,8 +37,8 @@ export default class HomeScene extends Component {
     );
   }
 
-  _majorNavTo(key) {
-    this.props.majorPush && this.props.majorPush({key: key});
+  _externalNavTo(key) {
+    this.props.externalPush && this.props.externalPush({key: key});
   }
 
   _renderHeader() {

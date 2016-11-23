@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import navigation from './navigation';
-import {bannerImgList, broadcastList} from './scene/home/headerSection';
+import { indexConfig } from './scene/home/indexConfig';
 import homeRecommendList from './scene/home/recommendList';
 import homeLoanList from './scene/home/loanList';
 import homeCardList from './scene/home/cardList';
@@ -14,8 +14,7 @@ import shopNearby from './scene/shopNearby'
 
 export default combineReducers({
   navigation,
-  bannerImgList,
-  broadcastList,
+  indexConfig,
   homeRecommendList,
   homeLoanList,
   homeCardList,

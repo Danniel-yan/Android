@@ -6,6 +6,7 @@ import { FormGroup, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } fro
 import FastLoanRecommendList from 'containers/scene/home/RecommendListContainer';
 
 import { colors } from 'styles/varibles';
+import { container, rowContainer, flexRow, centering } from 'styles';
 
 import Dimensions from 'Dimensions';
 import AbstractScene from 'components/scene/AbstractScene.js';
@@ -43,36 +44,42 @@ export default class FastLoanScene extends AbstractScene {
   }
 
   render() {
-    var halfWidth = screenWidth / 2 - 1;
+    var halfWidth = screenWidth / 2;
     return (
       <View>
         <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
-          {this._renderLoanGroup()}
-          <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]}></HorizontalRadios>
-          <View style={{position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
-            <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
-              <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? null : "#fff"}}>
-                <Text style={{fontSize: 14}}>筛选</Text>
-              </View>
-            </TouchableWithoutFeedback>
-            <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
-              <HorizontalCheckboxes options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3}></HorizontalCheckboxes>
+        {this._renderLoanGroup()}
+        <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]} selectedChanged={idx=>this.formValueChanged("userType", idx)}></HorizontalRadios>
+        <View style={{position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
+          <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
+            <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? null : "#fff"}}>
+              <Text style={{fontSize: 14}}>筛选</Text>
             </View>
-            <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
-              <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleSort ? null : "#fff"}}>
-                <Text style={{textAlign:"center", fontSize: 14}}>排序</Text>
-              </View>
-            </TouchableWithoutFeedback>
-            <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
-              <VerticalRadios options={["默认", "利率低", "放款速度快"]}></VerticalRadios>
+          </TouchableWithoutFeedback>
+          <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
+            <HorizontalCheckboxes options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3}></HorizontalCheckboxes>
+            <View style={[flexRow, {borderTopColor: "#f0f0f0", borderBottomColor: "#f0f0f0", borderTopWidth: 1, borderBottomWidth: 1}]}>
+              <TouchableWithoutFeedback >
+                <View style={[flexRow, centering, {width:halfWidth,backgroundColor:"white",height:36}]}><Text style={{fontSize: 14}}>重置</Text></View>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback ><View style={[flexRow, centering, {width:halfWidth,backgroundColor:colors.secondary,height:36}]}><Text style={{color:"#fff", fontSize: 14}}>完成</Text></View></TouchableWithoutFeedback>
             </View>
           </View>
-          <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1}}>
-            <ScrollView>
-              {this._renderFastLoanRecommend()}
-              {this._renderFastLoanMore()}
-            </ScrollView>
+          <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
+            <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleSort ? null : "#fff"}}>
+              <Text style={{textAlign:"center", fontSize: 14}}>排序</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
+            <VerticalRadios options={["默认", "利率低", "放款速度快"]}></VerticalRadios>
           </View>
+        </View>
+        <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1}}>
+          <ScrollView>
+            {this._renderFastLoanRecommend()}
+            {this._renderFastLoanMore()}
+          </ScrollView>
+        </View>
 
       </View>
     );

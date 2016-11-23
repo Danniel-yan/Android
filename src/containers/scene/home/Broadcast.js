@@ -4,19 +4,17 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { fetchBroadcastList } from 'actions/scene/home/headerSection'
-
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BroadcastCarousel from 'components/BroadcastCarousel';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
-  return state.broadcastList;
+  return state.indexConfig;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => {setTimeout(function(){dispatch(fetchBroadcastList());},1000)}
+    // fetching: () => {setTimeout(function(){dispatch(fetchBroadcastList());},1000)}
   }
 }
 
