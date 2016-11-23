@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
-import  Loading  from 'components/shared/Loading';
-
 import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
-import RecommendList from 'components/shared/RecommendList'
+import RecommendListPanel from 'components/scene/home/RecommendListPanel'
 
 function mapStateToProps(state) {
   return state.homeRecommendList;
@@ -16,4 +13,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecommendList));
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendListPanel);

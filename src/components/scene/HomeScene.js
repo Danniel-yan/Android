@@ -5,7 +5,7 @@ import NavigationTest from 'components/NavigationTest';
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
 import LoanNavPanel from 'components/LoanNavPanel';
-import RecommendList from 'containers/scene/home/RecommendListContainer';
+import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
 
@@ -25,7 +25,7 @@ export default class HomeScene extends Component {
           <Banner />
           <LoanNavPanel pressNumberBtn={this._majorNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._majorNavTo.bind(this, "FastLoanScene")} />
           <Broadcast />
-          {this._renderRecommend()}
+          <RecommendListPanel/>
           {this._renderLoan()}
           {this._renderCard()}
         </ScrollView>
