@@ -9,6 +9,7 @@ import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
 import LoanBanner from 'containers/scene/home/LoanBanner';
+import GeoCity from 'components/GeoCity';
 
 import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
@@ -45,7 +46,7 @@ export default class HomeScene extends Component {
   _renderHeader() {
     return (
       <View style={styles.header}>
-        <View style={styles.left}><Image source={require('assets/icons/pin2.png')}/><Text style={styles.locTxt}>上海</Text></View>
+        <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
       </View>
@@ -111,12 +112,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  locTxt: {
-    fontSize: 15,
-    marginLeft: 3,
-    color: '#fff'
-  },
-
   titleTxt: {
     fontSize: 18,
     color: '#fff'
@@ -129,7 +124,6 @@ const styles = StyleSheet.create({
 
   left: {
     flex: 1,
-    flexDirection: 'row',
     paddingLeft: 10
   },
 
