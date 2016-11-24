@@ -13,9 +13,7 @@ export default class Input extends Component {
         keyboardType={this.props.type == 'number' ? "numeric" : null}
         underlineColorAndroid="transparent"
         {...this.props}
-        style={[ds, this.props.style]}
-        >
-      </TextInput>
+        style={[ds, this.props.style]}></TextInput>
     );
   }
 }

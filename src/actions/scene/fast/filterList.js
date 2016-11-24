@@ -22,7 +22,6 @@ export function fetchingFastFilterList(params) {
   return (dispatch) => {
     dispatch(fetchingStart());
 
-    console.log(params);
     get('/loan/filter-list', params).then(rsp=>{
       var data = rsp.data;
       data.result_list && dispatch(receiveResultList(data.result_list));

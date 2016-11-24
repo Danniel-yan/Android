@@ -3,6 +3,7 @@ const modules = {};
 import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
+import RecLoanScene from './scene/RecLoanSceneContainer';
 import LoanScene from './scene/LoanSceneContainer';
 import CardScene from 'components/scene/CardScene';
 import ZoneScene from 'components/scene/ZoneScene';
@@ -15,6 +16,7 @@ import FillUserInfo from 'containers/scene/FillUserInfo';
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'FastLoanScene', module: FastLoanScene },
+  { key: 'RecLoanScene', module: RecLoanScene },
   { key: 'LoanScene', module: FastLoanScene },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: NavigationTest },

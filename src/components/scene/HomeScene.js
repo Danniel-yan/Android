@@ -29,7 +29,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
-          <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._externalNavTo.bind(this, "FastLoanScene")} />
+          <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._pressIcon.bind(this)} />
           <Broadcast />
           <RecommendListPanel/>
           {this._renderLoan()}
@@ -37,6 +37,11 @@ export default class HomeScene extends Component {
         </ScrollView>
       </View>
     );
+  }
+
+  _pressIcon(iconKey) {
+    var navKey = iconKey == 0 ? "RecLoanScene" : (iconKey == 2 ? "FastLoanScene" : "FastLoanScene");
+    this._externalNavTo(navKey);
   }
 
   _externalNavTo(key) {

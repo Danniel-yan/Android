@@ -51,7 +51,7 @@ export class IptWrap extends EnhanceStyleCp {
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
         <Text>{p.label}</Text>
-        <Input type={"number"} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
+        <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():"**"}></Input>
         <Text style={{marginLeft: 4}}></Text>
       </View>
     );
@@ -256,7 +256,7 @@ const VRadiosStyles = StyleSheet.create({
 });
 const FormGroupStyles = StyleSheet.create({
   container: { borderColor: "#f2f2f2", borderWidth: 1, borderBottomWidth: 0 },
-  item: { height: 44 }
+  item: { height: 46 }
 });
 
 // module.exports = FormGroup;
