@@ -15,6 +15,9 @@ import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
+
+import panelStyles from './home/panelStyles';
+
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 export default class HomeScene extends Component {
@@ -79,12 +82,13 @@ export default class HomeScene extends Component {
   _renderLoan(){
     return(
       <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>大额贷款</Text>
-          <Text style={styles.titleRight}>
-            更多产品
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
+        <View style={[panelStyles.panel,panelStyles.header]}>
+          <Text style={panelStyles.title}>大额贷款</Text>
+
+          <TouchableOpacity style={panelStyles.addon}>
+            <Text style={panelStyles.addonTxt}>更多产品</Text>
+            <Image style={panelStyles.addonImg} source={iconNext}/>
+          </TouchableOpacity>
         </View>
         <LoanBanner/>
         <LoanList/>
@@ -95,12 +99,13 @@ export default class HomeScene extends Component {
   _renderCard(){
     return(
       <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>办卡精选</Text>
-          <Text style={styles.titleRight}>
-            更多产品
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
+        <View style={[panelStyles.panel,panelStyles.header]}>
+          <Text style={panelStyles.title}>办卡精选</Text>
+
+          <TouchableOpacity style={panelStyles.addon}>
+            <Text style={panelStyles.addonTxt}>更多产品</Text>
+            <Image style={panelStyles.addonImg} source={iconNext}/>
+          </TouchableOpacity>
         </View>
         <CardList/>
       </View>
@@ -155,7 +160,9 @@ const styles = StyleSheet.create({
     flex:1
   },
   titleRight:{
-    fontSize:14
+    fontSize:14,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   titleRightImg:{
     width:15,
