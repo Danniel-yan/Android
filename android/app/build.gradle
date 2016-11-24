@@ -67,6 +67,7 @@ import com.android.build.OutputFile
  
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -141,6 +142,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-code-push')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile project(':jpush-react-native')
     compile "com.android.support:appcompat-v7:23.0.1"
@@ -148,6 +150,7 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:2.3.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':react-native-device-info')
+    compile project(':react-native-code-push')
 
 }
 

@@ -11,7 +11,7 @@ import * as defaultStyles from 'styles';
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import { applicationSetup } from 'settings'
 import Tracker from 'utils/tracker.js';
-
+import codePush from "react-native-code-push";
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -63,5 +63,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+supermarketjs = codePush(supermarketjs);
 
 AppRegistry.registerComponent('supermarketjs', () => supermarketjs);

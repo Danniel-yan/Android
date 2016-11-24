@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+#import "CodePush.h"
 #import "AppDelegateExtend.h"
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
@@ -31,7 +32,12 @@
   _appDelegateExtend = [AppDelegateExtend sharedInstance];
   [_appDelegateExtend didFinishLaunchingWithOptions:launchOptions];
   
-    NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"src/index.ios" fallbackResource:nil];
+    NSURL *
+#ifdef DEBUG
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"src/index.ios" fallbackResource:nil];
+#else
+    jsCodeLocation = [CodePush bundleURL];
+#endif
 
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"supermarketjs"

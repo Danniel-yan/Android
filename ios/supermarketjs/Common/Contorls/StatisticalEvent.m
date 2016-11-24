@@ -18,7 +18,7 @@ RCT_EXPORT_METHOD(onEvent:(NSString *)eventId)
     [MobClick event:eventId];
 }
 
-RCT_EXPORT_METHOD(onEvent:(NSString *)eventId attributes:(NSDictionary *)attributes)
+RCT_EXPORT_METHOD(onEventWithAttributes:(NSString *)eventId attributes:(NSDictionary *)attributes)
 {
     if (attributes.allKeys.count > 0) {
       [MobClick event:eventId attributes:attributes];

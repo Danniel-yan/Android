@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">hAAXct-yAdCGoWM1WYTnvv1Aes8zE18X89yfG</string>
     <string name="app_name">钞市</string>
 </resources>

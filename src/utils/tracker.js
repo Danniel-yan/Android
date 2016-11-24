@@ -1,5 +1,6 @@
 import DeviceInfo from 'react-native-device-info';
 import { AsyncStorage } from 'react-native';
+import { NativeModules } from 'react-native';
 
 const TRACKER_CONFIG = {
     "BASIC_URL":"https://mdt.jujinpan.cn",
@@ -22,6 +23,11 @@ const BASE_INFO = {
 class Tracker {
     workable = true;
 
+    constructor() {
+    	this.brgUmeng = NativeModules.StatisticalEvent;
+   	console.log(this.brgUmeng); 
+    }
+
     composeBasicParams(key) {
         return TRACKER_CONFIG.BASIC_URL+"/g/"+TRACKER_CONFIG.APP+"/"+key+"/"+"?"+BASE_INFO.PARAM;
     }
@@ -32,7 +38,9 @@ class Tracker {
         fetch(url).then(response => {
             return;
         });
-        return;
+	// add in umeng tracker
+	this.brgUmeng.onEvent(key+"-"+topic+"-"+entity+"-"+event);
+	return;
     }
 
     trackGeneral(key, entity, topic, event) {

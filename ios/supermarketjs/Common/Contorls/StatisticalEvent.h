@@ -12,6 +12,6 @@
 @interface StatisticalEvent : NSObject<RCTBridgeModule>
 
 - (void)onEvent:(NSString *)eventId;
-- (void)onEvent:(NSString *)eventId attributes:(NSDictionary *)attributes;
+- (void)onEventWithAttributes:(NSString *)eventId attributes:(NSDictionary *)attributes;
 
 @end

@@ -10,6 +10,7 @@ import reducers from 'reducers';
 import * as defaultStyles from 'styles';
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import { applicationSetup } from 'settings'
+import codePush from "react-native-code-push";
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
@@ -59,5 +60,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
+supermarket = codePush(supermarket);
 AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
