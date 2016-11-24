@@ -64,7 +64,7 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     private void init() {
-        String channel = ChannelUtil.getChannel(mContext);
+        String channel = ChannelUtil.getChannel(mContext, "neice");
         if (!TextUtils.isEmpty(channel))
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         ToastHelper.init(this);
