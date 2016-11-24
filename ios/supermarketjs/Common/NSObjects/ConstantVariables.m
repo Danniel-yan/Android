@@ -16,9 +16,11 @@ const NSString   *MKAppleID = @"1153498444";
 const NSString   *MKJPushAppKey = @"0c16365225ff3b4b6d3d4cbe";
 const NSString   *MKJPushAppChannel = @"Publish channel";
 
+//友盟统计
+const NSString   *MKUMengAppKey = @"58353a14c8957634ce000dd7";
 
-
-
+//Bugly
+const NSString   *MKBuglyAppID = @"900059043";
 
 @implementation ConstantVariables
 

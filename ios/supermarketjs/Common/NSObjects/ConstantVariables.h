@@ -20,6 +20,10 @@ extern NSString *MKAppleID;
 extern NSString   *MKJPushAppKey;
 extern NSString   *MKJPushAppChannel;
 
+/**
+ * UMeng Key
+ */
+extern NSString   *MKUMengAppKey;
 
 
 @interface ConstantVariables : NSObject

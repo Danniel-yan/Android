@@ -23,6 +23,11 @@
 		7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45241DDDD1E900BE3FB8 /* Security.framework */; };
 		7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1B45261DDDD1F100BE3FB8 /* libz.tbd */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		B81A61F11DE53502001365BD /* PingFang Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B81A61F01DE53502001365BD /* PingFang Regular.ttf */; };
+		B81A62071DE53609001365BD /* PingFang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B81A62051DE53609001365BD /* PingFang Medium.ttf */; };
+		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
+		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
+		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
 		B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566831DDE9A7500F74BA9 /* CFNetwork.framework */; };
 		B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */; };
 		B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */; };
@@ -195,6 +200,13 @@
 		7F1B45241DDDD1E900BE3FB8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7F1B45261DDDD1F100BE3FB8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		B81A61F01DE53502001365BD /* PingFang Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PingFang Regular.ttf"; sourceTree = "<group>"; };
+		B81A62051DE53609001365BD /* PingFang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PingFang Medium.ttf"; sourceTree = "<group>"; };
+		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
+		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
+		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B81A622B1DE67EC7001365BD /* StatisticalEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatisticalEvent.h; path = supermarketjs/Common/Contorls/StatisticalEvent.h; sourceTree = SOURCE_ROOT; };
+		B81A622C1DE67EC7001365BD /* StatisticalEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatisticalEvent.m; path = supermarketjs/Common/Contorls/StatisticalEvent.m; sourceTree = SOURCE_ROOT; };
 		B87566831DDE9A7500F74BA9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -228,6 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */,
 				B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */,
 				B875668C1DDE9AC300F74BA9 /* libresolv.tbd in Frameworks */,
 				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
@@ -238,6 +251,7 @@
 				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
 				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
 				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
+				B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -420,9 +434,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B81A61EF1DE53502001365BD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */,
+				B81A62051DE53609001365BD /* PingFang Medium.ttf */,
+				B81A61F01DE53502001365BD /* PingFang Regular.ttf */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		B81A62131DE56AEA001365BD /* UMMobClick */ = {
+			isa = PBXGroup;
+			children = (
+				B81A62141DE56AEA001365BD /* UMMobClick.framework */,
+			);
+			path = UMMobClick;
+			sourceTree = "<group>";
+		};
 		B87566801DDE9A1300F74BA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B81A62291DE67D7F001365BD /* libsqlite3.tbd */,
 				B87566B51DDEADEF00F74BA9 /* libz.tbd */,
 				B875668B1DDE9AC300F74BA9 /* libresolv.tbd */,
 				B875668D1DDE9AE200F74BA9 /* SystemConfiguration.framework */,
@@ -438,6 +471,7 @@
 		B875668F1DDE9B4500F74BA9 /* supermarketjs */ = {
 			isa = PBXGroup;
 			children = (
+				B81A61EF1DE53502001365BD /* Resource */,
 				B87566AA1DDE9D6100F74BA9 /* OpenSource */,
 				B87566A61DDE9C6900F74BA9 /* Common */,
 				B87566921DDE9B4500F74BA9 /* AppDelegateExtend */,
@@ -464,6 +498,7 @@
 		B875669B1DDE9B4500F74BA9 /* SDKs */ = {
 			isa = PBXGroup;
 			children = (
+				B81A62131DE56AEA001365BD /* UMMobClick */,
 				B87567081DDEB3B600F74BA9 /* Bugly */,
 			);
 			path = SDKs;
@@ -482,6 +517,8 @@
 		B87566A71DDE9D5000F74BA9 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				B81A622B1DE67EC7001365BD /* StatisticalEvent.h */,
+				B81A622C1DE67EC7001365BD /* StatisticalEvent.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -571,6 +608,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = V525ELK535;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -782,6 +824,8 @@
 			files = (
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
+				B81A62071DE53609001365BD /* PingFang Medium.ttf in Resources */,
+				B81A61F11DE53502001365BD /* PingFang Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,6 +864,7 @@
 				B87566A01DDE9B4500F74BA9 /* AppDelegateExtend.m in Sources */,
 				B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */,
 				B87566A41DDE9B4500F74BA9 /* main.m in Sources */,
+				B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */,
 				B875669F1DDE9B4500F74BA9 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +932,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = V525ELK535;
@@ -894,6 +940,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/Bugly",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/UMMobClick",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -922,12 +969,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V525ELK535;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/Bugly",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/UMMobClick",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

@@ -10,6 +10,7 @@
 #import "JPUSHService.h"
 #import "ConstantVariables.h"
 #import <Bugly/Bugly.h>
+#import <UMMobClick/MobClick.h>
 
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -33,6 +34,12 @@
 - (void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
   
     [Bugly startWithAppId:@"900059043"];
+  
+    [MobClick setLogEnabled:YES];
+    UMConfigInstance.appKey = MKUMengAppKey;
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];
+  
   
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
   #ifdef NSFoundationVersionNumber_iOS_9_x_Max
