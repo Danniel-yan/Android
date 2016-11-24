@@ -78,8 +78,8 @@ class List extends Component {
     if(this.state.isShow ) { return null }
     return(
       <View>
-        {props.act.map((act,index) => {
-          return (
+        {
+          props.act.map((act,index) =>
             <View key={'key' + index} style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
               <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
                 <Text style={{color:'#fff'}}>{act.discount[0].name}</Text>
@@ -92,7 +92,7 @@ class List extends Component {
               </View>
             </View>
           )
-        })}
+        }
       </View>
     )
   }

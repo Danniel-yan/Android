@@ -45,7 +45,9 @@ export default class RecommendList extends Component {
           </Text>
           <View style={[styles.rightContainerFooter, defaultStyle.centering]}>
             <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
-            <Text style={[styles.defaultFont, defaultStyle.container]}><Text style={styles.unit}>{data.interest}</Text> / {data.interest_period}</Text>
+            <View style={{alignItems:'flex-end',paddingRight:10}}>
+              <Text style={[styles.defaultFont, defaultStyle.container]}><Text style={styles.unit}>{data.interest}</Text> / {data.interest_period}</Text>
+            </View>
           </View>
           <Image style={{position:'absolute',top:30,right:0}} source={iconNext} />
         </View>
