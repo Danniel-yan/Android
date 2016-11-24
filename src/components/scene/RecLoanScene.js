@@ -36,22 +36,15 @@ export default class RecLoanScene extends AbstractScene {
 
   render() {
     return (
-      <View style={{position: "relative"}}>
-        <View style={{height: screenHeight - 108}}>
+      <View style={{position: "relative", flex:1}}>
+        <View style={{}}>
           <View>{ this._renderLoanInfoGroup() }</View>
           <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
         </View>
-        <Button onPress={() => this.props.externalPush({key: "Login"})} style={[styles.loanButton]} text="去贷款"/>
+        <Button onPress={() => this.props.externalPush({key: "Login"})} style={[styles.loanButton, {position: "absolute", bottom: 0}]} text="去贷款"/>
       </View>
     );
   };
-
-  /* Use ScrollView
-  <ScrollView style={{height: screenHeight - 108}}>
-    <View>{ this._renderLoanInfoGroup() }</View>
-    <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
-  </ScrollView>
-   */
 
   _renderLoanInfoGroup() {
     return (
@@ -71,7 +64,7 @@ export default class RecLoanScene extends AbstractScene {
         name: 'realname', label: '姓名', icon: require('assets/form-icons/xingming.png'), value: this.state.initParams.realname,
         valueChanged: this.formValueChanged.bind(this)
       }, {
-        name: 'id_no', type: 'number', label:'身份证号', icon: require('assets/form-icons/shenfenzheng.png'), value: this.state.initParams.id_no,
+        name: 'id_no', label:'身份证号', icon: require('assets/form-icons/shenfenzheng.png'), value: this.state.initParams.id_no,
         valueChanged: this.formValueChanged.bind(this)
       }, {
         name: 'job', label:'职业身份', icon: require('assets/form-icons/zhiyeshenfen.png'), value: this.state.initParams.job,
