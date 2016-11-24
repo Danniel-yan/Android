@@ -4,6 +4,8 @@ import {
 } from 'react-native';
 
 import Input from 'components/shared/Input';
+import Picker from 'components/shared/Picker';
+import Checkbox from 'components/shared/Checkbox'
 import { container, rowContainer, flexRow, centering } from 'styles';
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions';
@@ -34,6 +36,9 @@ export class IptWrap extends EnhanceStyleCp {
     super(props);
     this.defaultStyle = IptWrapStyles;
     this.timer = null;
+    this.state = {
+      value: props.value
+    }
   }
 
   onValueChanged(text) {
@@ -46,12 +51,21 @@ export class IptWrap extends EnhanceStyleCp {
   }
 
   renderComponent() {
-    var s = this.styles, p = this.props || {}, defaultValue = p.value;
+    var s = this.styles, p = this.props || {}, defaultValue = p.value, iptEle;
+    iptEle = p.type == "picker"
+      ? <Picker style={PickerStyles.pickerGroup} textStyle={PickerStyles.pickerTxt} selectedValue={this.props.value} onChange={ value => this.onValueChanged(value) } items={p.items} />
+      : (
+        p.type == "switch"
+        ? (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+            <Checkbox checked={this.state.value == true} onChange={(value)=>{this.setState({ value: value }); this.onValueChanged(value);}} />
+            </TouchableOpacity>)
+        : <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():"**"}></Input>
+      )
     return (
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
         <Text>{p.label}</Text>
-        <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():"**"}></Input>
+        { iptEle }
         <Text style={{marginLeft: 4}}></Text>
       </View>
     );
@@ -205,10 +219,9 @@ export class FormGroup extends EnhanceStyleCp {
     var ipts = this.props.iptCollections || [], eleList = [];
 
     ipts.length > 0 && ipts.map((info, idx)=>{
-      var item = null, iptType = info.type && info.type == 'radio' ? HorizontalRadios : IptWrap;
         eleList.push(
         <View key={idx} style={[this.styles.item]}>
-          {React.createElement(iptType, info)}
+          {React.createElement(IptWrap, info)}
         </View>
         );
       })
@@ -257,6 +270,10 @@ const VRadiosStyles = StyleSheet.create({
 const FormGroupStyles = StyleSheet.create({
   container: { borderColor: "#f2f2f2", borderWidth: 1, borderBottomWidth: 0 },
   item: { height: 46 }
+});
+const PickerStyles = StyleSheet.create({
+  pickerGroup: {flex: 1, flexDirection: 'row', paddingRight: 10, alignItems: 'center', justifyContent: 'flex-end'},
+  pickerTxt: { marginRight: 10, fontSize: 16, color: "#333" }
 });
 
 // module.exports = FormGroup;

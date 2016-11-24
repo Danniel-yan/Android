@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View, Text , ScrollView , TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { StatusBar, View, Text, Image, ScrollView , TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
 import { FormGroup, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } from "components/FormGroup";
 
@@ -36,6 +36,7 @@ export default class FastLoanScene extends AbstractScene {
   formValueChanged(name, value) {
     this.state.fetchRecParams = Object.assign({}, this.state.fetchRecParams);
     this.state.fetchRecParams[name] = value;
+    console.log(this.state.fetchRecParams);
     this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
   }
 
@@ -103,7 +104,8 @@ export default class FastLoanScene extends AbstractScene {
         name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.state.fetchRecParams.amount,
         valueChanged: this.formValueChanged.bind(this)
       }, {
-        name: 'period', type: 'number', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.state.fetchRecParams.period,
+        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.state.fetchRecParams.period,
+        items: [{value: "3", label: "3"}, {value: "6", label: "6"}, {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"}],
         valueChanged: this.formValueChanged.bind(this)
       }] }></FormGroup>
     );
@@ -115,15 +117,15 @@ export default class FastLoanScene extends AbstractScene {
       <View style={{marginTop: 5, position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 14}}>筛选</Text>
+            <Text style={{fontSize: 14}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
           <HorizontalCheckboxes withBtns={true} options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}></HorizontalCheckboxes>
         </View>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
-          <View style={{width:halfWidth, height:32, flexDirection:"column", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
-            <Text style={{textAlign:"center", fontSize: 14}}>排序</Text>
+          <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
+            <Text style={{fontSize: 14}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
@@ -151,5 +153,11 @@ const styles = StyleSheet.create({
     fontSize:14,
     color:colors.fontColorPrimary,
     flex:1
+  },
+  dropIcon: {
+    width: 10,
+    height: 6,
+    marginLeft: 2
+    // backgroundColor: "gray"
   }
 })
