@@ -3,10 +3,9 @@ import { Text, StyleSheet } from 'react-native';
 
 export default class DefaultText extends Component {
   render() {
+    let { style, ...props } = this.props;
     return (
-      <Text style={[styles.defaultText, this.props.style]}>
-        {this.props.children}
-      </Text>
+      <Text {...props} style={[styles.defaultText, this.props.style]}/>
     )
   }
 }
