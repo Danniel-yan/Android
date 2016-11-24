@@ -51,5 +51,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PingFang Regular.ttf</string>
+		<string>PingFang Medium</string>
+		<string>PingFang Bold</string>
+	</array>
 </dict>
 </plist>
