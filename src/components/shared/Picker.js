@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import {
   Modal,
   View,
+  ScrollView,
   TouchableOpacity,
+  TouchableNativeFeedback,
   StyleSheet,
-  Picker,
   PickerIOS,
   Image,
+  Platform,
   Button
 } from 'react-native';
 
@@ -44,7 +46,15 @@ export default class PickerComponent extends Component {
         <Text style={this.props.textStyle}>{this._label()}</Text>
         <Image source={require('assets/icons/arrow-down.png')}/>
       
-        {this._renderModal()}
+        <Modal
+          animationType="slide"
+          visible={this.state.openModal}
+          transparent={true}
+          onRequestClose={() => this.setState({openModal: false})}
+          >
+
+          {Platform.OS == 'ios' ? this._renderIOSPicker() : this._renderAndroidPicker()}
+        </Modal>
       </TouchableOpacity>
     );
   }
@@ -57,36 +67,61 @@ export default class PickerComponent extends Component {
     return this.props.items.find(item => item.value == this.state.selectedValue).label;
   }
 
-  _renderModal() {
+  _renderAndroidPicker() {
+    const style = this.props.items.length > 4 ? { height: 168} : undefined;
 
     return (
-      <Modal
-        animationType="slide"
-        visible={this.state.openModal}
-        transparent={true}
-        >
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Button style={styles.btn} onPress={this._onChange.bind(this)} title="确定"/>
-          </View>
+      <View style={[styles.container, style]}>
+        <ScrollView>
+          { this.props.items.map(item => {
+            return (
+              <TouchableNativeFeedback
+                key={`key${item.value}`}
+                background={TouchableNativeFeedback.SelectableBackground()}
+                onPress={this._onSelectedItem.bind(this, item.value)}>
+                <View style={[styles.androidItem, defaultStyles.centering]}>
+                  <Text>{item.label}</Text>
+                </View>
+              </TouchableNativeFeedback>
+            );
+          }) }
+        </ScrollView>
+      </View>
+    );
+  }
 
-          <PickerIOS
-            style={styles.picker}
-            selectedValue={this.state.selectedValue}
-            onValueChange={selectedValue => this.setState({selectedValue})}>
+  _onSelectedItem(value) {
+    this.props.onChange(value);
 
-            { this.props.items.map(item => {
-              return (
-                <PickerIOS.Item
-                  key={`item${item.value}`}
-                  value={item.value}
-                  label={item.label}
-                />
-              );
-            }) }
-          </PickerIOS>
+    this.setState({
+      openModal: false,
+      selectedValue: value
+    });
+  }
+
+  _renderIOSPicker() {
+    return (
+      <View style={[styles.container, styles.containerIOS]}>
+        <View style={styles.header}>
+          <Button style={styles.btn} onPress={this._onChange.bind(this)} title="确定"/>
         </View>
-      </Modal>
+
+        <PickerIOS
+          style={styles.picker}
+          selectedValue={this.state.selectedValue}
+          onValueChange={selectedValue => this.setState({selectedValue})}>
+
+          { this.props.items.map(item => {
+            return (
+              <PickerIOS.Item
+                key={`item${item.value}`}
+                value={item.value}
+                label={item.label}
+              />
+            );
+          }) }
+        </PickerIOS>
+      </View>
     );
   }
 
@@ -96,16 +131,18 @@ export default class PickerComponent extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    height: 200,
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
+  },
+
+  containerIOS: {
+    height: 200
   },
 
   header: {
@@ -125,5 +162,11 @@ const styles = StyleSheet.create({
 
   btn: {
     fontSize: 12
+  },
+
+  androidItem: {
+    height: 42,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.line
   }
 });
