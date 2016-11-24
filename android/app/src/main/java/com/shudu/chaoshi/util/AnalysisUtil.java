@@ -35,11 +35,11 @@ public class AnalysisUtil {
         }
     }
 
-    public void sendEvent(String eventName, Map<String, String> map, int du) {
+    public void sendEvent(String eventName, Map<String, String> map) {
         try {
             switch (mCurType) {
                 case TYPE_UMENG:
-                    MobclickAgent.onEventValue(mContext, eventName, map, du);
+                    MobclickAgent.onEventValue(mContext, eventName, map, 1);
                     break;
             }
         } catch (Exception e) {

@@ -18,7 +18,7 @@ import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
 
 public class UmengModule extends ReactContextBaseJavaModule {
     private Context mContext;
-    private static final String MODULE_NAME = "Umeng";
+    private static final String MODULE_NAME = "StatisticalEvent";
 
     public UmengModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,12 +41,12 @@ public class UmengModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sendEvent(String eventName) {
+    public void onEvent(String eventName) {
         AnalysisUtil.create(context).sendEvent(eventName);
     }
 
     @ReactMethod
-    public void sendEvent(String eventName, Map<String, String> map, int du) {
-        AnalysisUtil.create(context).sendEvent(eventName, map, du);
+    public void onEventWithAttributes(String eventName, Map<String, String> map) {
+        AnalysisUtil.create(context).sendEvent(eventName, map);
     }
 }
