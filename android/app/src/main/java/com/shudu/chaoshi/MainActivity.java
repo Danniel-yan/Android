@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 import com.shudu.chaoshi.util.ToastHelper;
+import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends ReactActivity {
 
@@ -22,6 +23,18 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainApplication.isMainActivityRunning = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 
     @Override

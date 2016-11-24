@@ -1,22 +1,22 @@
-import React from 'react';
-import {
-  View, Text
-} from 'react-native';
 import { connect } from 'react-redux';
 
-import { fetchBroadcastList } from 'actions/scene/home/headerSection'
+import fetchHomeOperating from 'actions/scene/home/operating'
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import BroadcastCarousel from 'components/BroadcastCarousel';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
-  return state.broadcastList;
+  return {
+    isFetching: state.homeOperating.isFetching,
+    fetched: state.homeOperating.fetched,
+    msgList: state.homeOperating.operating.index_loan_adinfo 
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => {setTimeout(function(){dispatch(fetchBroadcastList());},1000)}
+    fetching: () => {}
   }
 }
 

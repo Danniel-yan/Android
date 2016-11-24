@@ -1,4 +1,4 @@
-require('mock');
+import { get } from 'utils/fetch'
 
 export function requestActHot() {
   return {
@@ -19,9 +19,8 @@ export function fetchActHot() {
 
     dispatch(requestActHot())
 
-    return fetch(`recommend.json`)
-      .then(response => response.json())
-      .then(bannerList => dispatch(receiveActHot(bannerList)))
+    return get('/card/act-hot')
+      .then(bannerList => dispatch(receiveActHot(bannerList.data)))
       .catch(err => console.log(err))
   }
 }

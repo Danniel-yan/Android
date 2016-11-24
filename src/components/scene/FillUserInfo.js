@@ -17,13 +17,13 @@ import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
 import CountdownButton from 'components/shared/CountdownButton'
-
+import AbstractScene from 'components/scene/AbstractScene.js';
 const hasCreditStatus = {
   yes: 1,
   no: 0
 }
 
-export default class FillUserInfo extends Component {
+export default class FillUserInfo extends AbstractScene {
   static title = '完善个人信息';
 
   state = {
@@ -36,6 +36,11 @@ export default class FillUserInfo extends Component {
     creditStatus: hasCreditStatus.no
   };
 
+  constructor(props) {
+    super(props);
+    this.sceneEntity="FILL_USER_INFO";
+    this.sceneTopic = "";
+  }
   componentDidUpdate() {
     let { response } = this.props;
     // TODO 判断结果

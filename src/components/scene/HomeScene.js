@@ -5,27 +5,33 @@ import NavigationTest from 'components/NavigationTest';
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
 import LoanNavPanel from 'components/LoanNavPanel';
-import RecommendList from 'containers/scene/home/RecommendListContainer';
+import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CardList from 'containers/scene/home/CardListContainer';
+import LoanBanner from 'containers/scene/home/LoanBanner';
+import GeoCity from 'components/GeoCity';
 
 import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
-import { colors } from 'styles/varibles'
+import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 export default class HomeScene extends Component {
+  componentDidMount() {
+    this.props.fetchingIndexConfig && this.props.fetchingIndexConfig();
+  }
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <StatusBar barStyle="light-content"/>
+        <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
           <Banner />
-          <LoanNavPanel pressNumberBtn={this._majorNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._majorNavTo.bind(this, "FastLoanScene")} />
+          <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._pressIcon.bind(this)} />
           <Broadcast />
-          {this._renderRecommend()}
+          <RecommendListPanel/>
           {this._renderLoan()}
           {this._renderCard()}
         </ScrollView>
@@ -33,14 +39,19 @@ export default class HomeScene extends Component {
     );
   }
 
-  _majorNavTo(key) {
-    this.props.majorPush && this.props.majorPush({key: key});
+  _pressIcon(iconKey) {
+    var navKey = iconKey == 0 ? "RecLoanScene" : (iconKey == 2 ? "FastLoanScene" : "FastLoanScene");
+    this._externalNavTo(navKey);
+  }
+
+  _externalNavTo(key) {
+    this.props.externalPush && this.props.externalPush({key: key});
   }
 
   _renderHeader() {
     return (
       <View style={styles.header}>
-        <View style={styles.left}><Image source={require('assets/icons/pin2.png')}/><Text style={styles.locTxt}>上海</Text></View>
+        <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
       </View>
@@ -65,23 +76,6 @@ export default class HomeScene extends Component {
     }
   }
 
-  _renderRecommend(){
-    return(
-      <View>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>热门推荐</Text>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.titleRight}>
-              换一批
-              <Image style={styles.titleRightImg} source={iconHuanyihuan}/>
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <RecommendList/>
-      </View>
-    )
-  }
-
   _renderLoan(){
     return(
       <View style={{marginTop:5}}>
@@ -92,7 +86,7 @@ export default class HomeScene extends Component {
             <Image style={styles.titleRightImg} source={iconNext} />
           </Text>
         </View>
-        <Image source={{uri:'https://facebook.github.io/react/img/logo_og.png'}} style={{width:400, height:90}}/>
+        <LoanBanner/>
         <LoanList/>
       </View>
     )
@@ -117,16 +111,10 @@ export default class HomeScene extends Component {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    height: 57,
-    paddingTop: STATUSBAR_HEIGHT,
+    height: headerHeight,
+    paddingTop: statusBarHeight,
     backgroundColor: colors.primary,
     alignItems: 'center'
-  },
-
-  locTxt: {
-    fontSize: 15,
-    marginLeft: 3,
-    color: '#fff'
   },
 
   titleTxt: {
@@ -141,7 +129,6 @@ const styles = StyleSheet.create({
 
   left: {
     flex: 1,
-    flexDirection: 'row',
     paddingLeft: 10
   },
 

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Image,
+  StatusBar,
   StyleSheet,
   NavigationExperimental
 } from 'react-native';
@@ -26,6 +27,7 @@ export default function(ComponentClass) {
   
       return (
         <View style={defaultStyles.container}>
+          <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
           <ExternalPageHeader title={this.state.title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
           <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
         </View>

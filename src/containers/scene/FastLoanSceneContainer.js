@@ -4,10 +4,11 @@ import { majorPush, majorPop } from 'actions/navigation';
 import FastLoanScene from 'components/scene/FastLoanScene';
 import externalScene from 'components/high-order/externalScene';
 
-import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
+// import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
+import { fetchingFastFilterList } from 'actions/scene/fast/filterList';
 
 function mapStateToProps(state) {
-  return {  }
+  return state.filterList;
 }
 
 function mapDispatchToProps(dispatch) {
@@ -15,7 +16,7 @@ function mapDispatchToProps(dispatch) {
     majorPush: route => dispatch(majorPush(route)),
     majorPop: route => dispatch(majorPop(route)),
 
-    fetchingRec: params => dispatch(fetchHomeRecommends(params))
+    fetchingList: params => dispatch(fetchingFastFilterList(params))
   };
 }
 

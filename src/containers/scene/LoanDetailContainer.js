@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetching: params => dispatch(fetchLoanDetail(params.id)),
-    goLoan: url => dispatch(goLoan(url))
+    goLoan: (url, title) => dispatch(goLoan(url, title))
   }
 }
 

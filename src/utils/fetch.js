@@ -50,7 +50,7 @@ function absoluteUrl(url) {
 
   let hasVersion = /^(\d+(\.\d+)*\/)/.test(url);
   url = !hasVersion ? `${defaultApiVersion}/${url}` : url;
-  let join = /\?$/.test(url) ? '&' : '?';
+  let join = /\?/.test(url) ? '&' : '?';
   return `${environment.api}${url}${join}${apiParams}`;
 }
 
@@ -70,10 +70,12 @@ function setApiParams() {
       apiParams = `app_version=${appSettings.appVersion}&channel=${appSettings.channel}`;
       apiParams += `&dev_id=${appSettings.deviceId}&os_type=${appSettings.OS}`;
       apiParams += `&os_version=${appSettings.osVersion}&uuid=${appSettings.uuid}`;
+      return apiParams;
     })
     .then(() => AsyncStorage.getItem('coords'))
     .then(coords => {
-      if(coords) {
+      if(coords && !/lati/.test(apiParams)) {
+        coords = JSON.parse(coords)
         apiParams += `&lati=${coords.latitude}&long=${coords.longitude}`;
       }
     })

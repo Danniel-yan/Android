@@ -10,6 +10,8 @@ import reducers from 'reducers';
 import * as defaultStyles from 'styles';
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import { applicationSetup } from 'settings'
+import Tracker from 'utils/tracker.js';
+
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -22,13 +24,14 @@ export default class supermarketjs extends Component {
   }
 
   componentDidMount() {
+    Tracker.trackPage("HPG","");
     applicationSetup().then(() => {
       this.setState({ initialing: false });
     });
   }
 
   render() {
-    if(this.initialing) {
+    if(this.state.initialing) {
       return (
         <ActivityIndicator style={[defaultStyles.container, defaultStyles.centering]} animating={true} />
       );

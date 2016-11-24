@@ -7,10 +7,6 @@ const styles = StyleSheet.create({
   bgColorWhite:{
     backgroundColor:colors.white
   },
-  listView:{
-    borderTopWidth:1,
-    borderTopColor: colors.line
-  },
   flexColumn:{
     flex : 1,
     flexDirection: 'column'
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
   },
   flexContainerColumnTitle:{
     fontSize:15,
-    color:colors.fontSizeSecondary,
+    color:colors.fontColorSecondary,
   },
   flexContainerColumnDes:{
     fontSize:12

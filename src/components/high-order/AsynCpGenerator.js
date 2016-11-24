@@ -5,15 +5,22 @@ import {
 
 var AsynCpGenerator = function(FetchingCp, ElementCp) {
   return class AsynCp extends Component {
+    static propTypes = {
+      fetching: PropTypes.func.isRequired
+    };
+
     constructor(props) {
       super(props);
+
       this.state = {
         isFetching: this.props.isFetching
       }
     }
 
     componentDidMount() {
-      this._fetchingData()
+      if(!this.props.fetched) {
+        typeof this.props.fetching == "function" && this.props.fetching(this.props.fetchingParams);
+      }
     }
 
     renderFetchingCp() {
@@ -25,17 +32,9 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
     }
 
     render() {
-      //
-      if(this.props.isFetching) return this.renderFetchingCp();
+      if(this.props.isFetching && !this.props.fetched) return this.renderFetchingCp();
+
       return this.renderElementCp();
-    }
-
-    _fetchingData() {
-      this.props.fetching && this.props.fetching(this.props.fetchingParams);
-    }
-
-    propTypes: {
-      fetching: propTypes.func.isRequired
     }
   }
 }

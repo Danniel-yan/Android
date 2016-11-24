@@ -22,6 +22,7 @@ export default class LoanDetailScene extends Component {
   };
 
   render() {
+    let detail = this.props.detail;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -29,11 +30,11 @@ export default class LoanDetailScene extends Component {
         <ScrollView>
           <View style={[styles.flexColumn, styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}>
-              <Image source={{uri:this.props.detail.thumbnail}} style={styles.thumbnail} />
+              <Image source={{uri:detail.logo_detail}} style={styles.thumbnail} />
               <View style={styles.rightContainer}>
-                <Text style={styles.rightContainerTitle}>{this.props.detail.name}</Text>
-                <Text style={styles.rightContainerSubTitle}>{this.props.detail.dec}</Text>
-                <Text style={styles.rightContainerDes}>无需抵押</Text>
+                <Text style={styles.rightContainerTitle}>{detail.title}</Text>
+                <Text style={styles.rightContainerSubTitle}>{detail.info}</Text>
+                <Text style={styles.rightContainerDes}>{detail.tips}</Text>
               </View>
             </View>
 
@@ -45,7 +46,7 @@ export default class LoanDetailScene extends Component {
                     <Text style={{fontSize:17,color:'#333',}}>5万</Text>
                   </View>
                 </View>
-                <Text>额度范围</Text>
+                <Text>额度范围: {detail.amnout_showinfo}</Text>
               </View>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
                 <View style={{flexDirection: 'row'}}>
@@ -54,13 +55,13 @@ export default class LoanDetailScene extends Component {
                     <Text style={{fontSize:17,color:'#333',}}>12个月</Text>
                   </View>
                 </View>
-                <Text>期数范围</Text>
+                <Text>期数范围: {detail.period_showinfo}</Text>
               </View>
             </View>
 
             <View style={styles.flexRow}>
               <View style={styles.flexPanel}>
-                <Text style={styles.number}>{this.props.detail.money}</Text>
+                <Text style={styles.number}>{detail.money}</Text>
                 <Text>每月还款(元)</Text>
               </View>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
@@ -85,20 +86,20 @@ export default class LoanDetailScene extends Component {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={[styles.flexContainerRow]}><Text style={styles.applyTitle}>申请条件</Text></View>
             <View style={{padding:15}}>
-              <Text>20-40周岁拥有稳定工作的上班族</Text>
+              <Text>{detail.apply_info}</Text>
             </View>
           </View>
 
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>所有材料</Text></View>
             <View style={{padding:15}}>
-              <View><Text>1.身份证</Text></View>
-              <View><Text>2.征信报告</Text></View>
-              <View><Text>3.保单证明</Text></View>
+              <View>
+                <Text>{detail.apply_content}</Text>
+              </View>
             </View>
           </View>
 
-          <Button onPress={() => this.props.goLoan('https://m.madailicai.com')} style={styles.loanButton} text="去贷款"/>
+          <Button onPress={() => this.props.goLoan(detail.url, detail.title)} style={styles.loanButton} text="去贷款"/>
 
         </ScrollView>
       </View>

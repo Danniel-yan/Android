@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import  Loading  from 'components/shared/Loading';
 
-import { fetchBankList } from 'actions/scene/bankList';
-import BankListScene from 'components/scene/BankListScene';
+import { fetchBankList } from 'actions/scene/card/bankList';
+import BankListScene from 'components/scene/card/BankListScene';
 
 function mapStateToProps(state){
   return state.bankList

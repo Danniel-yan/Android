@@ -57,7 +57,7 @@ export default class ExternalNavigation extends Component {
     let { web, key, title, component: ComponentClass, componentProps } = sceneProps.scene.route;
 
     if(web) {
-      return <WebView source={{uri: web}}/>;
+      return <WebView title={title} source={{uri: web}}/>;
     }
 
     if(!ComponentClass) {

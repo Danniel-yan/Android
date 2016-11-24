@@ -1,6 +1,4 @@
 
-require('mock');
-
 export function requestFastLoanRecommends() {
   return {
     type: 'requestFastLoanRecommends'

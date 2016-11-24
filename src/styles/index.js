@@ -11,6 +11,11 @@ export const rowContainer = {
   flexDirection: 'row'
 };
 
+export const flexRow = {
+  flexDirection: 'row',
+  alignItems: 'center',
+}
+
 export const centering = {
   alignItems: 'center',
   justifyContent: 'center',

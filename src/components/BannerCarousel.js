@@ -28,14 +28,14 @@ class BannerCarousel extends Component {
     }
 
     generateInfos() {
-      var props = this.props, imgs = props ? props.imgList : [];
+      var props = this.props, imgs = props.imgList ? props.imgList : [];
 
       this.imageItems = [];
       imgs.map((imgInfo, idx) => {
         this.imageItems.push(
-            <TouchableWithoutFeedback key={idx}>
+            <TouchableWithoutFeedback key={idx} onPress={()=>{ this.props.externalPushToWeb && this.props.externalPushToWeb(imgInfo.url) }}>
                 <View style={{width:screenWidth}}>
-                    <Image source={imgInfo} style={{width:screenWidth, height:configs.height}}></Image>
+                    <Image source={{ uri: imgInfo.pic}} style={{width:screenWidth, height:configs.height}}></Image>
                 </View>
             </TouchableWithoutFeedback>
           );

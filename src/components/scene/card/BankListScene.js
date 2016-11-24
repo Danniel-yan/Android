@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, Image ,StyleSheet,  TouchableOpacity } from 'react-native';
+import { View, ListView, Image ,StyleSheet,  TouchableHighlight } from 'react-native';
 
 import {colors} from 'styles/varibles';
 
@@ -36,7 +36,7 @@ export default class BankListScene extends Component{
 
   renderBankList(data){
     return(
-      <TouchableOpacity style={styles.itemViewStyle}>
+      <TouchableHighlight style={styles.itemViewStyle}>
         <View style={[styles.itemViewStyle,styles.row]}>
           <Image style={styles.thumb} source={{uri: data.pic_card}} />
           <View>
@@ -44,7 +44,7 @@ export default class BankListScene extends Component{
             <Text style={styles.info}>{data.info}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableHighlight>
     )
   }
 }

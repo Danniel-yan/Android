@@ -4,12 +4,13 @@ import {
 } from 'react-native';
 
 import Input from 'components/shared/Input';
-import { container, rowContainer } from 'styles';
+import { container, rowContainer, flexRow, centering } from 'styles';
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions';
 
 var hPadding = 10;
-var screenWidth = Dimensions.get('window').width - hPadding * 2;
+var screenWidth = Dimensions.get('window').width;
+var bodyWidth = screenWidth - hPadding * 2;
 
 export class EnhanceStyleCp extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ export class IptWrap extends EnhanceStyleCp {
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
         <Text>{p.label}</Text>
-        <Input type={"number"} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
+        <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():"**"}></Input>
         <Text style={{marginLeft: 4}}></Text>
       </View>
     );
@@ -71,11 +72,12 @@ export class HorizontalRadios extends EnhanceStyleCp {
     this.defaultStyle = HRadiosStyles;
     this.state = {
       selectedIdx: null
-    }
+    };
+    this.selectedStyle = { sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" } }
   }
 
   selectedOpt(idx) {
-    var selectedFunc = this.props.selectedFunc;
+    var selectedFunc = this.props.selectedChanged;
     this.state.selectedIdx = idx;
     this.setState({selectedIdx: idx});
 
@@ -86,24 +88,44 @@ export class HorizontalRadios extends EnhanceStyleCp {
     return index == this.state.selectedIdx;
   }
 
+  reset() {}
+  submit() {
+    this.props.selectedSubmit && this.props.selectedSubmit(this.state.selectedIdx);
+  }
+
+  renderBtns() {
+    if(!this.props.withBtns) return;
+    return (
+      <View style={[flexRow, {borderTopColor: "#f0f0f0", borderBottomColor: "#f0f0f0", borderTopWidth: 1, borderBottomWidth: 1}]}>
+        <TouchableWithoutFeedback onPress={()=>this.reset()}>
+          <View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:"white",height:36}]}><Text style={{fontSize: 14}}>重置</Text></View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={()=>this.submit()}><View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:colors.secondary,height:36}]}><Text style={{color:"#fff", fontSize: 14}}>完成</Text></View></TouchableWithoutFeedback>
+      </View>
+    );
+  }
+
   renderComponent() {
-    var s = this.styles || {},p = this.props || {},
+    var sedStyle = this.selectedStyle,
+      s = this.styles || {},p = this.props || {},
       opts = this.props.options || [],
       eachLineCount = !p.eachLineCount || p.eachLineCount >= opts.length ? opts.length : p.eachLineCount;
-      eachWidth = screenWidth / eachLineCount - 4;
+      eachWidth = bodyWidth / eachLineCount - 4;
 
-    // if(!p.eachLineCount || p.eachLineCount >= opts.length) {
       return (
-        <View style={[s.container]}>
-        {
-          opts.length > 0 && opts.map((opt, idx) => {
-            var wrapS = this.checkItemSelected(idx) ? [s.optWrap, { borderColor: "#FE271E" }] : [s.optWrap],
-              iptS = this.checkItemSelected(idx) ? [s.opt, { color: "#FE271E" }] : [s.opt];
-            return (
-              <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[wrapS, { width: eachWidth }]}><Text style={iptS}>{opt}</Text></View></TouchableWithoutFeedback>
-            );
-          })
-        }
+        <View>
+          <View style={[s.container]}>
+          {
+            opts.length > 0 && opts.map((opt, idx) => {
+              var wrapS = this.checkItemSelected(idx) ? [s.optWrap, sedStyle.sedWrp] : [s.optWrap],
+                iptS = this.checkItemSelected(idx) ? [s.opt, sedStyle.sedTxt] : [s.opt];
+              return (
+                <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[wrapS, { width: eachWidth }]}><Text style={iptS}>{opt}</Text></View></TouchableWithoutFeedback>
+              );
+            })
+          }
+          </View>
+          { this.renderBtns() }
         </View>
       );
   }
@@ -142,9 +164,19 @@ export class HorizontalCheckboxes extends HorizontalRadios {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIdxes: []
-    }
+      selectedIdxes: this.props.selectedIdxes || []
+    };
+    this.selectedStyle = { sedWrp: { backgroundColor: "#C2C2C2" }, sedTxt: { color: "#fff" } }
   }
+
+  reset() {
+    this.setState({selectedIdxes: []});
+  }
+
+  submit() {
+    this.props.selectedSubmit && this.props.selectedSubmit(this.state.selectedIdxes);
+  }
+
   selectedOpt(idx) {
     var selectedFunc = this.props.selectedFunc;
     this.state.selectedIdx = idx;
@@ -213,9 +245,10 @@ const IptWrapStyles = StyleSheet.create({
 });
 const HRadiosStyles = StyleSheet.create({
   container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", padding: 4, paddingLeft: hPadding, paddingRight: hPadding },
-  optWrap: { borderRadius:24, borderWidth: 1, borderColor: "#999", alignItems: "center", padding: 2, flexDirection: 'row', height: 40, marginTop: 4},
+  optWrap: { borderRadius:24, borderWidth: 1, borderColor: "#C2C2C2", alignItems: "center", padding: 2, flexDirection: 'row', height: 40, marginTop: 4},
   opt: { color: "#999", paddingBottom:1, textAlign:"center", flex:1},
-  select: { color: "#FE271E", borderColor: "#FE271E" }
+  select: { color: "#FE271E", borderColor: "#FE271E" },
+  sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" }
 });
 const VRadiosStyles = StyleSheet.create({
   container: { flex: 1,  backgroundColor: "#fff" },
@@ -223,7 +256,7 @@ const VRadiosStyles = StyleSheet.create({
 });
 const FormGroupStyles = StyleSheet.create({
   container: { borderColor: "#f2f2f2", borderWidth: 1, borderBottomWidth: 0 },
-  item: { height: 44 }
+  item: { height: 46 }
 });
 
 // module.exports = FormGroup;

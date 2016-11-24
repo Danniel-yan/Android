@@ -10,7 +10,6 @@ import reducers from 'reducers';
 import * as defaultStyles from 'styles';
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import { applicationSetup } from 'settings'
-
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
@@ -28,7 +27,7 @@ export default class supermarketjs extends Component {
   }
 
   render() {
-    if(this.initialing) {
+    if(this.state.initialing) {
       return (
         <ActivityIndicator style={[defaultStyles.container, defaultStyles.centering]} animating={true} />
       );

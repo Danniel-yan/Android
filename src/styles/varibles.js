@@ -9,5 +9,5 @@ export const colors = {
   fontColorSecondary:'#333'
 };
 
-export const headerHeight = 57;
 export const statusBarHeight = Platform.OS === 'ios' ? 20 : 0;
+export const headerHeight = Platform.OS == 'ios' ? 57 : 40;
