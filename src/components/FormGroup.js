@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import {
-  StyleSheet, View, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, ListView
+  StyleSheet, View, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, ListView, Platform
 } from 'react-native';
 
 import Input from 'components/shared/Input';
@@ -273,7 +273,7 @@ const FormGroupStyles = StyleSheet.create({
 });
 const PickerStyles = StyleSheet.create({
   pickerGroup: {flex: 1, flexDirection: 'row', paddingRight: 10, alignItems: 'center', justifyContent: 'flex-end'},
-  pickerTxt: { marginRight: 10, fontSize: 16, color: "#333" }
+  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 14 : 16 }
 });
 
 // module.exports = FormGroup;
