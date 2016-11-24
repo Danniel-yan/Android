@@ -5,10 +5,12 @@ import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.shudu.chaoshi.util.AnalysisUtil;
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
 
@@ -46,7 +48,16 @@ public class UmengModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void onEventWithAttributes(String eventName, Map<String, String> map) {
-        AnalysisUtil.create(context).sendEvent(eventName, map);
+    public void onEventWithAttributes(String eventName, ReadableMap dataMap) {
+        if (dataMap != null) {
+            HashMap<String, String> map = new HashMap<>();
+            ReadableMapKeySetIterator readableMapKeySetIterator = dataMap.keySetIterator();
+            while (readableMapKeySetIterator.hasNextKey()) {
+                String aKey = readableMapKeySetIterator.nextKey();
+                String aValue = dataMap.getString(aKey);
+                map.put(aKey, aValue);
+            }
+            AnalysisUtil.create(context).sendEvent(eventName, map);
+        }
     }
 }
