@@ -59,12 +59,12 @@ export class IptWrap extends EnhanceStyleCp {
         ? (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
             <Checkbox checked={this.state.value == true} onChange={(value)=>{this.setState({ value: value }); this.onValueChanged(value);}} />
             </TouchableOpacity>)
-        : <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():"**"}></Input>
+        : <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
       )
     return (
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
-        <Text>{p.label}</Text>
+        <Text style={{color: "#333"}}>{p.label}</Text>
         { iptEle }
         <Text style={{marginLeft: 4}}></Text>
       </View>

@@ -10,6 +10,7 @@ import loanDetail from './scene/loanDetail';
 import actHot from './scene/card/actHot';
 import bankList from './scene/card/bankList';
 import fillUserInfo from  './scene/fillUserInfo';
+import userInfo from './scene/userInfo';
 import shopNearby from './scene/card/shopNearby'
 import homeOperating from './scene/home/operating';
 
@@ -24,6 +25,7 @@ export default combineReducers({
   actHot,
   bankList,
   fillUserInfo,
+  userInfo,
   shopNearby,
   homeOperating
 });

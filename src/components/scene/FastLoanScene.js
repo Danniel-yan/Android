@@ -37,7 +37,7 @@ export default class FastLoanScene extends AbstractScene {
     this.state.fetchRecParams = Object.assign({}, this.state.fetchRecParams);
     this.state.fetchRecParams[name] = value;
     console.log(this.state.fetchRecParams);
-    this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
+    this.fetchingData();
   }
 
   resListSelected(resList) {
@@ -60,12 +60,12 @@ export default class FastLoanScene extends AbstractScene {
   render() {
     var halfWidth = screenWidth / 2;
     return (
-      <View>
+      <View style={{flex:1}}>
         <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
         {this._renderLoanGroup()}
         <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]} selectedChanged={idx=>this.formValueChanged("job", idx)}></HorizontalRadios>
         {this._renderDropDownFilters()}
-        <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1}}>
+        <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1, flex: 1}}>
           <ScrollView>
             {this._renderFastLoanRecommend()}
             {this._renderFastLoanMore()}
@@ -117,7 +117,7 @@ export default class FastLoanScene extends AbstractScene {
       <View style={{marginTop: 5, position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 14}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+            <Text style={{fontSize: 14, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
@@ -125,7 +125,7 @@ export default class FastLoanScene extends AbstractScene {
         </View>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 14}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+            <Text style={{fontSize: 14, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
@@ -136,6 +136,10 @@ export default class FastLoanScene extends AbstractScene {
   }
 
   componentDidMount() {
+    this.fetchingData();
+  }
+
+  fetchingData() {
     this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
   }
 }
@@ -145,6 +149,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: "#f2f2f2"
   },
   bgColorWhite:{
     backgroundColor:colors.white
@@ -152,7 +158,8 @@ const styles = StyleSheet.create({
   titleLeft:{
     fontSize:14,
     color:colors.fontColorPrimary,
-    flex:1
+    flex:1,
+    color: "#FE271E"
   },
   dropIcon: {
     width: 10,
