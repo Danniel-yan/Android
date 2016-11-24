@@ -6,10 +6,10 @@ export function requestActHot() {
   }
 }
 
-export function receiveActHot(bannerList) {
+export function receiveActHot(actHot) {
   return {
     type: 'receiveActHot',
-    bannerList: bannerList
+    actHot: actHot
   }
 }
 
@@ -20,7 +20,7 @@ export function fetchActHot() {
     dispatch(requestActHot())
 
     return get('/card/act-hot')
-      .then(bannerList => dispatch(receiveActHot(bannerList.data)))
+      .then(actHot => dispatch(receiveActHot(actHot.data)))
       .catch(err => console.log(err))
   }
 }

@@ -11,6 +11,8 @@ import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 
+import { ExternalPushLink } from 'containers/shared/Link';
+
 export default class CardScene extends Component {
 
   static title = "办卡";
@@ -18,7 +20,7 @@ export default class CardScene extends Component {
   render() {
 
     return (
-      <View style={{ flex: 1, backgroundColor: '#f3f3f3',marginTop:20 }}>
+      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
         <ScrollView>
           {this._renderActHot()}
@@ -35,10 +37,10 @@ export default class CardScene extends Component {
       <View>
         <View style={[styles.title,styles.bgColorWhite, {marginTop:5}]}>
           <Text style={styles.titleLeft}>今天薅什么</Text>
-          <TouchableOpacity style={styles.flexRow}>
+          <ExternalPushLink style={styles.flexRow} toKey="ActHotListScene">
             <Text style={styles.titleRight}>更多产品</Text>
             <Image style={styles.titleRightImg} source={iconNext} />
-          </TouchableOpacity>
+          </ExternalPushLink>
         </View>
         <ActHotContainer/>
       </View>

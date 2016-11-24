@@ -7,7 +7,7 @@ export default class ActHotScene extends Component {
   render(){
 
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const dataSource = ds.cloneWithRows(this.props.bannerList)
+    const dataSource = ds.cloneWithRows(this.props.actHot)
 
     return(
       <View style={[styles.bgColorWhite,{position:'relative'}]}>
