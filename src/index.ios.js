@@ -63,6 +63,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-supermarketjs = codePush(supermarketjs);
 
-AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
+AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
