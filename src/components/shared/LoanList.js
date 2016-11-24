@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ListView, Image  } from 'react-native';
-
+import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 
@@ -10,7 +10,7 @@ export default class LoanList extends Component {
     const dataSource = ds.cloneWithRows(this.props.loans)
 
     return (
-      <View style={{height:150}}>
+      <View>
         <ListView
           contentContainerStyle={[styles.listView, styles.flexRow,styles.bgColorWhite]}
           enableEmptySections={true}

@@ -9,11 +9,10 @@ export default class ActHotScene extends Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.bannerList)
 
-
     return(
       <View style={[styles.bgColorWhite,{position:'relative'}]}>
-        <View style={{position:'absolute',left:-10,top:-5,zIndex:1,borderRadius:10,backgroundColor:'#ffaf32',paddingLeft:15,paddingRight:10}}>
-          <Text style={{color:'#fff'}}>{new Date().getMonth()+1}.{new Date().getDate()}</Text>
+        <View style={styles.topic}>
+          <Text style={styles.topicText}>{new Date().getMonth()+1}.{new Date().getDate()}</Text>
         </View>
           <ListView
           contentContainerStyle={[styles.flexRow]}
@@ -27,7 +26,6 @@ export default class ActHotScene extends Component {
   }
 
   renderBanner(data){
-    console.log(data.img_banner)
     return(
       <View style={[styles.flexHorizontalColumn]}>
         <Image source={{uri: data.img_banner.x1}} style={styles.cardPic} />
@@ -53,5 +51,23 @@ const styles = StyleSheet.create({
     width:220,
     height:90,
     marginLeft:5,
+  },
+  topic:{
+    position:'absolute',
+    left:-12,
+    top:-5,
+    zIndex:1,
+    borderRadius:12,
+    backgroundColor:'#ffaf32',
+    padding:2
+  },
+  topicText:{
+    color:'#fff',
+    borderWidth:1,
+    borderColor:'#fff',
+    margin:1,
+    borderRadius:12,
+    paddingLeft:12,
+    paddingRight:10
   }
 })
