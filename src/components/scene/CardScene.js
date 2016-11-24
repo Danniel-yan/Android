@@ -37,7 +37,7 @@ export default class CardScene extends Component {
       <View>
         <View style={[styles.title,styles.bgColorWhite, {marginTop:5}]}>
           <Text style={styles.titleLeft}>今天薅什么</Text>
-          <ExternalPushLink style={styles.flexRow} toKey="ActHotListScene">
+          <ExternalPushLink style={styles.flexRow} toKey="ActHotListScene" title="今天薅什么">
             <Text style={styles.titleRight}>更多产品</Text>
             <Image style={styles.titleRightImg} source={iconNext} />
           </ExternalPushLink>

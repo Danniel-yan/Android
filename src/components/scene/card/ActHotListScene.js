@@ -5,8 +5,6 @@ import {colors} from 'styles/varibles';
 
 export default class ActHotListScene extends Component {
 
-  static title = "今天薅什么";
-
   render() {
 
     const props = this.props.actHot;

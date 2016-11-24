@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(externalScene(AsynCpGenerator(Loading, ActHotListScene)))
+export default connect(mapStateToProps,mapDispatchToProps)(externalScene(AsynCpGenerator(Loading, ActHotListScene),'今天薅什么'))
