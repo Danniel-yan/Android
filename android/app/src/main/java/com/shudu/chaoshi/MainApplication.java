@@ -1,6 +1,7 @@
 package com.shudu.chaoshi;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.facebook.react.ReactApplication;
@@ -19,20 +20,18 @@ import java.util.List;
 
 import cn.jpush.reactnativejpush.JPushPackage;
 
-import static com.facebook.react.common.ApplicationHolder.getApplication;
-
 public class MainApplication extends Application implements ReactApplication {
 
     private boolean SHUTDOWN_TOAST = false;
     private boolean SHUTDOWN_LOG = false;
     public volatile static boolean isMainActivityRunning = true;
-    private static Application mApp;
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashReport.initCrashReport(getApplicationContext(), "900059966", false);
-        mApp = getApplication();
+        mContext = getApplicationContext();
+        CrashReport.initCrashReport(mContext, "900059966", false);
         init();
     }
 
@@ -65,15 +64,13 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     private void init() {
-        String channel = ChannelUtil.getChannel(mApp);
+        String channel = ChannelUtil.getChannel(mContext);
         if (!TextUtils.isEmpty(channel))
-            MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mApp, Constants.UMENG_APPKEY, channel));
+            MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         ToastHelper.init(this);
     }
 
-    public static final Application getMyApplicationContext() {
-        if (mApp == null)
-            mApp = getApplication();
-        return mApp;
+    public static final Context getMyApplicationContext() {
+        return mContext;
     }
 }
