@@ -12,7 +12,7 @@ import ExternalNavigationContainer from 'containers/ExternalNavigationContainer'
 import { applicationSetup } from 'settings'
 import codePush from "react-native-code-push";
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-
+const codePushOptions = {  installMode: codePush.InstallMode.IMMEDIATE };
 
 export default class supermarketjs extends Component {
   constructor(props) {
@@ -60,4 +60,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
+
+AppRegistry.registerComponent('supermarketjs', () => codePush(codePushOptions)(supermarketjs));
