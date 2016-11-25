@@ -21,19 +21,23 @@ export default class supermarketjs extends Component {
   }
 
   componentDidMount() {
-	  applicationSetup().then(() => {
-		codePush.checkForUpdate()
-		.then((update) => {
-			if (update) {
-				codePush.sync().then(()=>{
-					codePush.restartApp();
-				});
-			} else {
-				 this.setState({ initialing: false });
-			}
-		});
-		//this.setState({ initialing: false });
-    	  });
+    if (__DEV__) {
+      applicationSetup().then(() => {
+        this.setState({ initialing: false });
+      });
+    } else {
+      codePush.checkForUpdate().then((update)=> {
+        if (update) {
+          codePush.allowRestart();
+          codePush.sync();
+        } else {
+          this.setState({updating: false});
+          applicationSetup().then(() => {
+            this.setState({initialing: false});
+          });
+        }
+      });
+    }
   }
 
   render() {
