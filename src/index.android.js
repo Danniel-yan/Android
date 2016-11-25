@@ -12,7 +12,6 @@ import ExternalNavigationContainer from 'containers/ExternalNavigationContainer'
 import { applicationSetup } from 'settings'
 import codePush from "react-native-code-push";
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-const codePushOptions = {updateDialog: true , checkFrequency: codePush.CheckFrequency.ON_APP_RESUME ,  installMode: codePush.InstallMode.IMMEDIATE };
 
 export default class supermarketjs extends Component {
   constructor(props) {
@@ -22,9 +21,19 @@ export default class supermarketjs extends Component {
   }
 
   componentDidMount() {
-    applicationSetup().then(() => {
-      this.setState({ initialing: false });
-    });
+	  applicationSetup().then(() => {
+		codePush.checkForUpdate()
+		.then((update) => {
+			if (update) {
+				codePush.sync().then(()=>{
+					codePush.restartApp();
+				});
+			} else {
+				 this.setState({ initialing: false });
+			}
+		});
+		//this.setState({ initialing: false });
+    	  });
   }
 
   render() {
@@ -61,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('supermarketjs', () => codePush(codePushOptions)(supermarketjs));
+AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
