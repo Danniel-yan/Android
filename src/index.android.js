@@ -12,7 +12,7 @@ import ExternalNavigationContainer from 'containers/ExternalNavigationContainer'
 import { applicationSetup } from 'settings'
 import codePush from "react-native-code-push";
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-const codePushOptions = {  installMode: codePush.InstallMode.IMMEDIATE };
+const codePushOptions = {updateDialog: true , checkFrequency: codePush.CheckFrequency.ON_APP_RESUME ,  installMode: codePush.InstallMode.IMMEDIATE };
 
 export default class supermarketjs extends Component {
   constructor(props) {
