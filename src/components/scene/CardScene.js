@@ -10,6 +10,7 @@ import ActHotContainer from 'containers/scene/card/ActHotContainer';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
+import SceneHeader from 'components/shared/SceneHeader';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -21,7 +22,7 @@ export default class CardScene extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
+        <SceneHeader title="办卡"/>
         <ScrollView>
           {this._renderActHot()}
           {this._renderCard()}

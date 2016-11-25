@@ -4,7 +4,6 @@ import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
-import LoanScene from './scene/LoanSceneContainer';
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
@@ -16,12 +15,10 @@ import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
-  { key: 'FastLoanScene', module: FastLoanScene },
-  { key: 'RecLoanScene', module: RecLoanScene },
   { key: 'LoanScene', module: FastLoanScene },
+  { key: 'RecLoanScene', module: RecLoanScene },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: NavigationTest },
-  { key: 'NavigationTest', module: LoanScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'FillUserInfo', module: FillUserInfo },
   { key: 'ActHotListScene', module: ActHotListScene },

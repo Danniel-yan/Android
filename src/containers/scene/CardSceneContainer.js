@@ -11,9 +11,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    majorPush: route => dispatch(majorPush(route)),
-    majorPop: route => dispatch(majorPop(route)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(externalScene(CardScene));
+export default connect(mapStateToProps, mapDispatchToProps)(CardScene);
