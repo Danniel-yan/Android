@@ -1,5 +1,12 @@
 import { get } from 'utils/fetch';
 
+export function setAmount(amount) {
+  return {
+    type: "setAmount",
+    amount: amount
+  };
+}
+
 function fetchingStart() {
   return { type: "fetchingStart" };
 }

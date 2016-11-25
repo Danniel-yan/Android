@@ -19,7 +19,7 @@ export default class FastLoanScene extends AbstractScene {
     super(props);
     this.state = {
       fetchRecParams:{
-        amount: 5000,
+        amount: props.amount || 5000,
         period: 12,
         job: 0,
         reslist: [],

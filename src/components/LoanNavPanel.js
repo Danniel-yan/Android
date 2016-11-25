@@ -19,7 +19,7 @@ class LoanNavPanel extends Component {
   }
 
   onPressNumberBtn() {
-    this.props.pressNumberBtn && this.props.pressNumberBtn();
+    this.props.pressNumberBtn && this.props.pressNumberBtn(parseInt(this.state.text || 0));
   }
 
   onPressIconBtn(navNumber) {
@@ -74,12 +74,14 @@ const LNPStyles = StyleSheet.create({
     height: 25,
     flex:3,
     borderTopLeftRadius:14,
-    borderBottomLeftRadius: 14,
+    borderBottomLeftRadius: 14
   },
   input: {
     paddingLeft: 12,
     height:25,
-    paddingTop:0,paddingBottom:0
+    paddingTop:0,paddingBottom:0,
+    fontSize: 14,
+    flex: 1
   },
   btnWrap: {
     flex:1,
