@@ -99,9 +99,9 @@ export default class LoanDetailScene extends Component {
             </View>
           </View>
 
-          <Button onPress={() => this.props.goLoan(detail.url, detail.title)} style={styles.loanButton} text="去贷款"/>
-
         </ScrollView>
+
+        <Button onPress={() => this.props.goLoan(detail.url, detail.title)} style={styles.loanButton} text="去贷款"/>
       </View>
     );
   }
