@@ -37,16 +37,6 @@ public class MainActivity extends ReactActivity {
         JPushInterface.onPause(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
-            exitApp();
-        } else {
-            ToastHelper.getInstance().showToast("请再按一次返回键退出!");
-            back_pressed = System.currentTimeMillis();
-        }
-    }
-
     private void exitApp() {
         MainApplication.isMainActivityRunning = false;
         finish();
