@@ -26,6 +26,6 @@ export function fetchingFastFilterList(params) {
       var data = rsp.data;
       data.result_list && dispatch(receiveResultList(data.result_list));
       data.more_list && dispatch(receiveMoreList(data.more_list));
-    })
+    }).catch(error=>console.log(error));
   };
 }

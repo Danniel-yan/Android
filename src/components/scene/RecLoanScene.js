@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
-import { FormGroup } from "components/FormGroup";
+import { post } from 'utils/fetch';
+import { FormGroup, IptWrap } from "components/FormGroup";
 import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
 
+import CountdownButton from 'components/shared/CountdownButton'
+
+import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
+import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions';
 var screenHeight = Dimensions.get('window').height;
 
@@ -14,43 +19,44 @@ export default class RecLoanScene extends AbstractScene {
 
   constructor(props) {
     super(props);
-    this.initParams = {
-        amount: 5000,
-        period: 12,
-
-        realname: props.realname,
-        id_no: props.id_no,
-        job: props.job || 2,
-        mobile: props.mobile,
-        credit_status: props.credit_status !== 0,
-        mobile_time: props.mobile_time || 3,
-        location: props.location || 1
+    this.loanInfo = {
+      amount: 5000,
+      period: 12
     };
+    this.userInfo = Object.assign({}, {
+      job: 2, mobile_time: 3, location: 1, credit_status: 1
+    }, props.userInfo);
+    this.verifyCode = null;
+    this.state = {
+      hasLogin: !!this.userInfo.username,
+      mobile: this.userInfo.username || this.userInfo.mobile
+    }
   }
 
   formValueChanged(name, value) {
-    this.initParams[name] = value;
+    this.userInfo[name] = value;
   }
 
   render() {
     return (
-      <View style={{position: "relative"}}>
+      <ScrollView style={{position: "relative"}}>
         <View style={{}}>
           <View>{ this._renderLoanInfoGroup() }</View>
           <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
+          { this._renderLoginGroup() }
         </View>
-        <Button onPress={() => {this.props.updateInfo && this.props.updateInfo(this.initParams)}} style={[styles.loanButton, {marginTop: 20}]} text="去贷款"/>
-      </View>
+        <Button onPress={() => { this._goLoan() }} style={[styles.loanButton, {marginTop: 20}]} text="去贷款"/>
+      </ScrollView>
     );
   };
 
   _renderLoanInfoGroup() {
     return (
       <FormGroup deplayTime={100} iptCollections={ [{
-        name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.initParams.amount,
+        name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.loanInfo.amount,
         valueChanged: this.formValueChanged.bind(this)
       }, {
-        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.initParams.period,
+        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.loanInfo.period,
         items: [{value: "3", label: "3"}, {value: "6", label: "6"}, {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"}],
         valueChanged: this.formValueChanged.bind(this)
       }] }></FormGroup>
@@ -58,31 +64,96 @@ export default class RecLoanScene extends AbstractScene {
   }
 
   _renderUserInfoGroup() {
+    var gpArray1 = [{
+      name: 'realname', label: '姓名', icon: require('assets/form-icons/xingming.png'), value: this.userInfo.realname,
+      valueChanged: this.formValueChanged.bind(this)
+    }, {
+      name: 'id_no', label:'身份证号', icon: require('assets/form-icons/shenfenzheng.png'), value: this.userInfo.id_no,
+      valueChanged: this.formValueChanged.bind(this)
+    }, {
+      name: 'job', label:'职业身份', type: "picker", icon: require('assets/form-icons/zhiyeshenfen.png'), value: this.userInfo.job,
+      items: [{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}],
+      valueChanged: this.formValueChanged.bind(this)
+    }], gpArray2 = [{
+      name: 'credit_status', type: 'switch', label:'是否有信用卡', icon: require('assets/form-icons/xingyongka.png'), value: this.userInfo.credit_status == 1,
+      valueChanged: (value) => this.formValueChanged('credit_status', value ? 1 : 0)
+    }, {
+      name: 'mobile_time', label:'手机号码使用时间', type: "picker", icon: require('assets/form-icons/shiyongshijian.png'), value: this.userInfo.mobile_time,
+      items: [{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}],
+      valueChanged: this.formValueChanged.bind(this)
+    }, {
+      name: 'location', label:'所在城市', icon: require('assets/form-icons/dizhi.png'), value: this.userInfo.location,
+      valueChanged: this.formValueChanged.bind(this)
+    }], gpTotalArray = Array.prototype.concat(gpArray1, this.state.hasLogin ? [{
+      name: 'mobile', type: 'number', label:'手机号码', icon: require('assets/form-icons/shoujihao.png'), value: this.userInfo.mobile,
+      valueChanged: this.formValueChanged.bind(this)
+    }]:[], gpArray2)
+
     return (
-      <FormGroup iptCollections={ [{
-        name: 'realname', label: '姓名', icon: require('assets/form-icons/xingming.png'), value: this.initParams.realname,
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'id_no', label:'身份证号', icon: require('assets/form-icons/shenfenzheng.png'), value: this.initParams.id_no,
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'job', label:'职业身份', type: "picker", icon: require('assets/form-icons/zhiyeshenfen.png'), value: this.initParams.job,
-        items: [{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}],
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'mobile', type: 'number', label:'手机号码', icon: require('assets/form-icons/shoujihao.png'), value: this.initParams.mobile,
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'credit_status', type: 'switch', label:'是否有信用卡', icon: require('assets/form-icons/xingyongka.png'), value: this.initParams.credit_status,
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'mobile_time', label:'手机号码使用时间', type: "picker", icon: require('assets/form-icons/shiyongshijian.png'), value: this.initParams.mobile_time,
-        items: [{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}],
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'location', label:'所在城市', icon: require('assets/form-icons/dizhi.png'), value: this.initParams.location,
-        valueChanged: this.formValueChanged.bind(this)
-      }] }></FormGroup>
+      <FormGroup iptCollections={ gpTotalArray }></FormGroup>
     );
   }
+
+  _renderLoginGroup() {
+    return this.state.hasLogin ? null : (
+      <View style={{marginTop:5}}>
+        <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff", borderBottomColor: "#f2f2f2", borderBottomWidth: 1 }]}>
+          <View style={{flex: 1}}>
+            <IptWrap name={'mobile'} icon={require('assets/form-icons/qingshurushoujihao.png')}
+              placeholder={'请输入您的手机号码'} value={this.userInfo.mobile} styles={{ipt: {textAlign: 'left'}}}
+              valueChanged={(name, value) => { this.formValueChanged("mobile", value); this.setState({"mobile": value}); }}>
+            </IptWrap>
+          </View>
+          <View style={{paddingRight: 10}}>
+            <CountdownButton disabled={!this.state.mobile} onPress={this._sendVerify.bind(this)} style={recStyles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+          </View>
+        </View>
+        <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff" }]}>
+          <View style={{flex: 1}}>
+            <IptWrap name={'verifyCode'} icon={require('assets/form-icons/qingshuruyanzhengma.png')}
+              placeholder={'请输入验证码'} value={""}
+              valueChanged={(name, value) => { this.verifyCode = value; }}
+              styles={{ipt: {textAlign: 'left'}}}>
+            </IptWrap>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  _sendVerify() {
+    // console.log(this.userInfo)
+    // post('/tool/send-verify-code', { mobile: this.userInfo.mobile})
+    //   .catch(err => { alert('网络异常'); })
+  }
+
+  _goLoan() {
+    // if(!this.state.hasLogin) {
+    //   this.props.login && this.props.login({mobile: this.userInfo.mobile, verifyCode: this.verify_code});
+    // }
+    this.props.goLoan && this.props.goLoan(Object.assign({}, this.userInfo, {verify_code: this.verify_code}));
+  }
+
+  componentDidUpdate() {
+    let { fillUserInfoResponse } = this.props;
+    // TODO 判断结果
+    if(fillUserInfoResponse) {
+      this.props.fillUserInfoSuccess(fillUserInfoResponse);
+    }
+  }
 }
+
+const recStyles = StyleSheet.create({
+  verifyBtn: {
+    backgroundColor: colors.secondary,
+    borderRadius: 5,
+    width: 80,
+    height: 24,
+    fontSize: 12,
+    color: '#fff'
+  },
+  right: {
+    position: "absolute",
+    right: 0
+  }
+});
