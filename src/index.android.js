@@ -4,7 +4,7 @@ import { ActivityIndicator, AppRegistry, StyleSheet } from 'react-native';
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-
+import { Text, Image, View } from 'react-native';
 import reducers from 'reducers';
 
 import * as defaultStyles from 'styles';
@@ -17,7 +17,7 @@ export default class supermarketjs extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { initialing: true };
+    this.state = { initialing: true,update_num:-1  };
   }
 
   componentDidMount() {
@@ -28,8 +28,7 @@ export default class supermarketjs extends Component {
     } else {
       codePush.checkForUpdate().then((update)=> {
         if (update) {
-          codePush.allowRestart();
-          codePush.sync();
+          codePush.sync({installMode: codePush.InstallMode.IMMEDIATE});
         } else {
           this.setState({updating: false});
           applicationSetup().then(() => {
@@ -43,14 +42,20 @@ export default class supermarketjs extends Component {
   render() {
     if(this.state.initialing) {
       return (
-        <ActivityIndicator style={[defaultStyles.container, defaultStyles.centering]} animating={true} />
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Image source={require('assets/icons/init_loader.gif')} />
+      </View>
       );
     }
 
     return (
-      <Provider store={store}>
-        <ExternalNavigationContainer/>
-      </Provider>
+        <Provider store={store}>
+          <ExternalNavigationContainer/>
+        </Provider>
     );
   }
 }
@@ -74,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
+AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
