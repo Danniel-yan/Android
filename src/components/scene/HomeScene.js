@@ -89,11 +89,6 @@ export default class HomeScene extends Component {
       <View style={{marginTop:5}}>
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>大额贷款</Text>
-
-          <TouchableOpacity style={panelStyles.addon}>
-            <Text style={panelStyles.addonTxt}>更多产品</Text>
-            <Image style={panelStyles.addonImg} source={iconNext}/>
-          </TouchableOpacity>
         </View>
         <LoanBanner/>
         <LoanList/>

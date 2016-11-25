@@ -9,7 +9,7 @@ import ZoneScene from 'components/scene/ZoneScene';
 import NavigationTest from 'components/NavigationTest';
 import Login from 'containers/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
-import FillUserInfo from 'containers/scene/FillUserInfo';
+import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 
 [
