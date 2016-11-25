@@ -53,6 +53,8 @@ export default class PickerComponent extends Component {
           onRequestClose={() => this.setState({openModal: false})}
           >
 
+          <TouchableOpacity style={defaultStyles.container} activeOpacity={1} onPress={this._onHide.bind(this)}>
+          </TouchableOpacity>
           {Platform.OS == 'ios' ? this._renderIOSPicker() : this._renderAndroidPicker()}
         </Modal>
       </TouchableOpacity>
@@ -96,6 +98,13 @@ export default class PickerComponent extends Component {
     this.setState({
       openModal: false,
       selectedValue: value
+    });
+  }
+
+  _onHide() {
+    this.setState({
+      openModal: false,
+      selectedValue: this.props.selectedValue
     });
   }
 
