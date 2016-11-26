@@ -9,7 +9,7 @@ import * as defaultStyles from 'styles';
 import { externalPop } from 'actions/navigation';
 import SceneHeader from 'components/shared/SceneHeader';
 
-export default function(ComponentClass) {
+export default function(ComponentClass, title) {
 
   class ExternalPageComponent extends Component {
     state = { title: undefined };
@@ -18,7 +18,7 @@ export default function(ComponentClass) {
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader title={this.state.title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
+          <SceneHeader title={this.state.title || ComponentClass.title || this.props.title || title} onBack={this.props.onBack}/>
           <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
         </View>
       )

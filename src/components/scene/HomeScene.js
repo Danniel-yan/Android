@@ -15,6 +15,7 @@ import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import panelStyles from './home/panelStyles';
 
@@ -61,7 +62,7 @@ export default class HomeScene extends Component {
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
-        <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
+        <View style={styles.right}><ExternalPushLink toKey="MessagesScene"><Image source={require('assets/icons/message.png')}/></ExternalPushLink></View>
       </View>
     )
   }

@@ -12,10 +12,12 @@ import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
+import MessagesScene from 'containers/scene/MessagesScene';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'MessagesScene', module: MessagesScene},
   { key: 'LoanScene', module: FastLoanScene },
   { key: 'RecLoanScene', module: RecLoanScene },
   { key: 'CardScene', module: CardScene },

@@ -75,7 +75,7 @@ export default class GeoCity extends PureComponent {
         <TouchableOpacity style={styles.showLabel} onPress={() => this.setState({showPicker: true})}>
           <Animated.Image style={{ opacity: this.state.location ? 1 : this.state.bounceValue}} source={require('assets/icons/pin2.png')}/>
           <Text ellipsizeMode="middle" numberOfLines={1} style={styles.locTxt}>
-            {this.state.err == true ? '定位失败' : this.state.location}
+            {this.state.err && !this.state.location? '定位失败' : this.state.location}
           </Text>
         </TouchableOpacity>
 
