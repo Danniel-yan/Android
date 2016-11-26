@@ -13,6 +13,7 @@ import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
 import MessagesScene from 'containers/scene/MessagesScene';
+import CardListScene from 'containers/scene/card/CardListContainer'
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -26,6 +27,7 @@ import MessagesScene from 'containers/scene/MessagesScene';
   { key: 'FillUserInfo', module: FillUserInfo },
   { key: 'ActHotListScene', module: ActHotListScene },
   { key: 'ActHotDetailScene', module: ActHotDetailScene },
+  { key: 'CardListScene', module: CardListScene },
   { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;

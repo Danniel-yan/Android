@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image ,StyleSheet } from 'react-native';
+import { View, Image ,StyleSheet,ScrollView } from 'react-native';
 import Text from 'components/shared/Text';
 import {colors} from 'styles/varibles';
 
@@ -12,7 +12,7 @@ export default class ActHotListScene extends Component {
     const props = this.props.actHot;
 
     return(
-      <View>
+      <ScrollView>
         {
           props.map((props, index) =>
             <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: props.id }}}>
@@ -27,7 +27,7 @@ export default class ActHotListScene extends Component {
             </ExternalPushLink>
           )
         }
-      </View>
+      </ScrollView>
     )
 
   }

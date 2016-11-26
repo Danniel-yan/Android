@@ -4,6 +4,8 @@ import { View, ListView, Image  } from 'react-native';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 
+import { ExternalPushLink } from 'containers/shared/Link';
+
 export default class CategoryList extends Component {
 
   render() {
@@ -26,15 +28,17 @@ export default class CategoryList extends Component {
   renderCard(data){
     return(
       <View>
-        <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
-          <Image source={{uri: data.pic}} style={styles.cardPic} />
-          <Text style={styles.rightContainerTitle}>
-            {data.name}
-          </Text>
-          <Text>
-            {data.info}
-          </Text>
-        </View>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id }}}>
+          <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
+            <Image source={{uri: data.pic}} style={styles.cardPic} />
+            <Text style={styles.rightContainerTitle}>
+              {data.name}
+            </Text>
+            <Text>
+              {data.info}
+            </Text>
+          </View>
+        </ExternalPushLink>
       </View>
     )
   }

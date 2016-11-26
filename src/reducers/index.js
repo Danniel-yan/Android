@@ -15,6 +15,7 @@ import shopNearby from './scene/card/shopNearby'
 import homeOperating from './scene/home/operating';
 import actHotDetail from './scene/card/actHotDetail';
 import messages from './scene/messages';
+import cardList from './scene/card/cardList'
 
 export default combineReducers({
   navigation,
@@ -30,6 +31,7 @@ export default combineReducers({
   userInfo,
   shopNearby,
   homeOperating,
-  actHotDetail
-  messages
+  actHotDetail,
+  messages,
+  cardList
 });
