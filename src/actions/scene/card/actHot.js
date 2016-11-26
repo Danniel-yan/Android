@@ -13,13 +13,13 @@ export function receiveActHot(actHot) {
   }
 }
 
-export function fetchActHot() {
+export function fetchActHot(num = 8) {
 
   return function (dispatch) {
 
     dispatch(requestActHot())
 
-    return get('/card/act-hot')
+    return get('/card/act-hot?num=${num}')
       .then(actHot => dispatch(receiveActHot(actHot.data)))
       .catch(err => console.log(err))
   }

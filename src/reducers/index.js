@@ -13,6 +13,7 @@ import fillUserInfo from  './fillUserInfo';
 import userInfo from './scene/userInfo';
 import shopNearby from './scene/card/shopNearby'
 import homeOperating from './scene/home/operating';
+import actHotDetail from './scene/card/actHotDetail';
 
 export default combineReducers({
   navigation,
@@ -27,5 +28,6 @@ export default combineReducers({
   fillUserInfo,
   userInfo,
   shopNearby,
-  homeOperating
+  homeOperating,
+  actHotDetail
 });

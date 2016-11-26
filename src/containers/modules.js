@@ -11,6 +11,7 @@ import Login from 'containers/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';
+import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -22,6 +23,7 @@ import ActHotListScene from 'containers/scene/card/ActHotListContainer';
   { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'FillUserInfo', module: FillUserInfo },
   { key: 'ActHotListScene', module: ActHotListScene },
+  { key: 'ActHotDetailScene', module: ActHotDetailScene },
   { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;

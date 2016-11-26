@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, ListView , StyleSheet, Image , TouchableOpacity } from 'react-native';
+import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl } from 'react-native';
 
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions'
@@ -14,17 +14,46 @@ import triangleUp from 'assets/icons/triangle-up.png';
 
 export default class ShopNearbyScene extends Component {
 
+  state = {
+    isFetching: this.props.isFetching
+  }
+
   render() {
 
-    const dataSource = this.props.shopNearby;
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const dataSource = ds.cloneWithRows(this.props.shopNearby)
 
     return (
+      <ListView
+        style={{height:500}}
+        enableEmptySections={true}
+        dataSource={dataSource}
+        renderRow={this.renderShopNearbyList}
+        onEndReached={ this._toEnd.bind(this) }
+        onEndReachedThreshold={10}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.isFetching}
+            onRefresh={this.onRefresh.bind(this)}
+            title= {this.state.isFetching ? '刷新中....':'下拉刷新'}
+           />
+          }
+        />
+    )
+  }
+  _toEnd(){
+    console.log(11)
+  }
+  onRefresh() {
+    console.log(22)
+    //this.setState({isFetching: true})
+    //this.props.fetching({offset: this.props.offset + 5})
+  }
+
+  renderShopNearbyList(data){
+    return(
       <View style={styles.flexColumn}>
-        {
-          dataSource.map((data, index) =>
-            <List key={'key' + index} {...data}/>
-          )
-        }
+        <List {...data}/>
       </View>
     )
   }
@@ -65,12 +94,12 @@ class List extends Component {
     if(props.act.length == 0) return null
 
     return(
-      <TouchableOpacity style={[styles.flexEnd]} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
-        <Text style={{fontSize:13}}>有{props.act.length}条活动</Text>
-        <View style={{position:'absolute',right:-10,top:7}}>
+      <View style={{flex:1,flexDirection: 'row',alignItems:'center',justifyContent: 'center',}}>
+        <TouchableOpacity style={[styles.flexEnd]} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
+          <Text style={{fontSize:13}}>有{props.act.length}条活动</Text>
           <Image source={this.state.isShow ? triangleUp : triangleDown}/>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     )
   }
   renderTriangle(props){

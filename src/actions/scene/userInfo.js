@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { get, post } from 'utils/fetch';
 
-import submitUserInfo from './fillUserInfo';
+import submitUserInfo from '../fillUserInfo';
 
 function fetchingStart() {
   return {

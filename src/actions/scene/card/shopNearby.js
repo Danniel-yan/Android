@@ -7,14 +7,15 @@ export function requestShopNearby(){
   }
 }
 
-export function receiveShopNearby(shopNearby){
+export function receiveShopNearby(response, offset){
   return {
     type : 'receiveShopNearby',
-    shopNearby: shopNearby,
+    shopNearby: response.data,
+    offset
   }
 }
 
-export function fetchShopNearby(){
+export function fetchShopNearby(offset = 0){
 
   return function (dispatch) {
 
@@ -22,8 +23,10 @@ export function fetchShopNearby(){
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        return post('/card/shop-nearby',{ lati: position.coords.latitude , long : position.coords.longitude, num: 10, offset:0 })
-          .then(shopNearby => dispatch(receiveShopNearby(shopNearby.data)))
+        return post('/card/shop-nearby',{ lati: position.coords.latitude , long : position.coords.longitude, num: 5, offset : offset })
+          .then(response => {
+            dispatch(receiveShopNearby(response, offset));
+          })
           .catch(err => console.log(err))
       }
     )
