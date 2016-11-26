@@ -7,7 +7,7 @@ import Broadcast from 'containers/scene/home/Broadcast';
 import LoanNavPanel from 'components/LoanNavPanel';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
-import CardList from 'containers/scene/home/CardListContainer';
+import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
 import LoanBanner from 'containers/scene/home/LoanBanner';
 import GeoCity from 'components/GeoCity';
 
@@ -107,7 +107,7 @@ export default class HomeScene extends Component {
             <Image style={panelStyles.addonImg} source={iconNext}/>
           </TouchableOpacity>
         </View>
-        <CardList/>
+        <CategoryListContainer/>
       </View>
     )
   }

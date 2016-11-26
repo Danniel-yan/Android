@@ -4,11 +4,11 @@ import { View, ListView, Image  } from 'react-native';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 
-export default class CardList extends Component {
+export default class CategoryList extends Component {
 
   render() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const dataSource = ds.cloneWithRows(this.props.cards)
+    const dataSource = ds.cloneWithRows(this.props.category)
 
     return (
       <View style={{height:165}}>

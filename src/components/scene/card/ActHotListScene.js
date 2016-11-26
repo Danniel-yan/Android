@@ -3,6 +3,8 @@ import { View, Image ,StyleSheet } from 'react-native';
 import Text from 'components/shared/Text';
 import {colors} from 'styles/varibles';
 
+import { ExternalPushLink } from 'containers/shared/Link';
+
 export default class ActHotListScene extends Component {
 
   render() {
@@ -13,14 +15,16 @@ export default class ActHotListScene extends Component {
       <View>
         {
           props.map((props, index) =>
-            <View key={'key' + index} style={styles.list}>
-              <Image source={{uri: props.img_list.x1}} style={styles.logo}/>
-              <View>
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.bankName}>{props.banks[0].name}</Text>
-                <Text style={styles.date}>{(props.start_date).substr(0,10)}至{(props.end_date).substr(0,10)}</Text>
+            <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: props.id }}}>
+              <View style={styles.list}>
+                <Image source={{uri: props.img_list.x1}} style={styles.logo}/>
+                <View>
+                  <Text style={styles.title}>{props.title}</Text>
+                  <Text style={styles.bankName}>{props.banks[0].name}</Text>
+                  <Text style={styles.date}>{(props.start_date).substr(0,10)}至{(props.end_date).substr(0,10)}</Text>
+                </View>
               </View>
-            </View>
+            </ExternalPushLink>
           )
         }
       </View>

@@ -25,7 +25,6 @@ export default class ShopNearbyScene extends Component {
 
     return (
       <ListView
-        style={{height:500}}
         enableEmptySections={true}
         dataSource={dataSource}
         renderRow={this.renderShopNearbyList}
@@ -42,10 +41,9 @@ export default class ShopNearbyScene extends Component {
     )
   }
   _toEnd(){
-    console.log(11)
+
   }
   onRefresh() {
-    console.log(22)
     //this.setState({isFetching: true})
     //this.props.fetching({offset: this.props.offset + 5})
   }

@@ -5,7 +5,7 @@ import Text from 'components/shared/Text';
 import { colors } from 'styles/varibles';
 import iconNext from 'assets/index-icons/icon_next.png';
 
-import CardList from 'containers/scene/home/CardListContainer';
+import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
 import ActHotContainer from 'containers/scene/card/ActHotContainer';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
@@ -54,7 +54,7 @@ export default class CardScene extends Component {
         <View style={[styles.title,styles.bgColorWhite]}>
           <Text style={styles.titleLeft}>极速办卡</Text>
         </View>
-        <CardList/>
+        <CategoryListContainer/>
       </View>
     )
   }

@@ -10,8 +10,6 @@ export default class ActHotDetailScene extends Component {
   render(){
     const props = this.props.detail;
 
-    console.log(props)
-
     return(
       <ScrollView>
         <View style={styles.bgColorWhite}>
