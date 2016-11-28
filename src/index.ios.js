@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AppRegistry, StyleSheet, View, Image } from 'react-native';
+import { ActivityIndicator, AppRegistry, StyleSheet, View, Image, Text } from 'react-native';
 
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -19,27 +19,13 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 export default class supermarketjs extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { initialing: true };
+    this.state = { initialing: true};
   }
 
   componentDidMount() {
-    if (__DEV__) {
       applicationSetup().then(() => {
         this.setState({ initialing: false });
       });
-    } else {
-      codePush.checkForUpdate().then((update)=> {
-        if (update) {
-          codePush.sync({installMode: codePush.InstallMode.IMMEDIATE});
-        } else {
-          this.setState({updating: false});
-          applicationSetup().then(() => {
-            this.setState({initialing: false});
-          });
-        }
-      });
-    }
   }
 
   render() {

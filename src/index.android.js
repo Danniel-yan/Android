@@ -4,7 +4,7 @@ import { ActivityIndicator, AppRegistry, StyleSheet } from 'react-native';
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, TouchableOpacity } from 'react-native';
 import reducers from 'reducers';
 
 import * as defaultStyles from 'styles';
@@ -13,30 +13,16 @@ import { applicationSetup } from 'settings'
 import codePush from "react-native-code-push";
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-export default class supermarketjs extends Component {
+class supermarketjs extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { initialing: true,update_num:-1  };
+    this.state = { initialing: true, updating:true};
   }
 
   componentDidMount() {
-    if (__DEV__) {
       applicationSetup().then(() => {
         this.setState({ initialing: false });
       });
-    } else {
-      codePush.checkForUpdate().then((update)=> {
-        if (update) {
-          codePush.sync({installMode: codePush.InstallMode.IMMEDIATE});
-        } else {
-          this.setState({updating: false});
-          applicationSetup().then(() => {
-            this.setState({initialing: false});
-          });
-        }
-      });
-    }
   }
 
   render() {
@@ -79,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
+AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
