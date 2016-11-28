@@ -3,12 +3,10 @@ package com.shudu.chaoshi;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
-import com.shudu.chaoshi.util.ToastHelper;
+
 import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends ReactActivity {
-
-    private static long back_pressed;
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -37,8 +35,4 @@ public class MainActivity extends ReactActivity {
         JPushInterface.onPause(this);
     }
 
-    private void exitApp() {
-        MainApplication.isMainActivityRunning = false;
-        finish();
-    }
 }
