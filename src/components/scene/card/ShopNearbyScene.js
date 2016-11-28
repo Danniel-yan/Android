@@ -23,6 +23,14 @@ export default class ShopNearbyScene extends Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.shopNearby)
 
+    if(this.props.geoError) {
+      return (
+        <View style={[styles.bgColorWhite, styles.empty, defaultStyle.centering]}>
+          <Text>定位失败</Text>
+        </View>
+      )
+    }
+
     return (
       <ListView
         enableEmptySections={true}
@@ -163,5 +171,10 @@ const styles = StyleSheet.create({
     paddingRight:10,
     paddingTop:20,
     paddingBottom:20
+  },
+  empty: {
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
+    height: 60
   }
 })

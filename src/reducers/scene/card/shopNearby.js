@@ -6,10 +6,13 @@ const initState = {
   fetched: false,
   nomore: false,
   shopNearby :[],
+  geoError: false
 };
 
 export default function shopNearby(state = initState , action){
   switch (action.type){
+    case 'geoError':
+      return Object.assign({}, state, { geoError: true });
     case 'fetchShopNearby':
       return Object.assign({}, state, { isFetching: true });
     case 'paginationShopNearby':
