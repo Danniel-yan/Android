@@ -2,8 +2,6 @@ import { get } from 'utils/fetch'
 
 export default function(params, offset = 0) {
 
-  console.log(params)
-
   return function (dispatch) {
 
     dispatch(offset == 0 ? fetchCardList(offset) : paginationCardList(offset));
@@ -16,9 +14,9 @@ export default function(params, offset = 0) {
   }
 }
 
-function fetchCardList(params,offset) {
+function fetchCardList(offset) {
   return {
-    type : 'paginationCardList',
+    type : 'fetchCardList',
     offset
   }
 }

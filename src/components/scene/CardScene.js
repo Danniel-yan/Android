@@ -14,21 +14,26 @@ import SceneHeader from 'components/shared/SceneHeader';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
+import ScrollPagination from 'components/shared/ScrollPagination';
+
 export default class CardScene extends Component {
 
-  static title = "办卡";
-
   render() {
+    let { isPaging, pagination, paginationParams, nomore } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <SceneHeader title="办卡"/>
-        <ScrollView>
-          {this._renderActHot()}
-          {this._renderCard()}
-          {this._renderBankList()}
-          {this._renderShopNearby()}
-        </ScrollView>
+        <ScrollPagination
+          isPaging={isPaging}
+          paginationParams={paginationParams}
+          pagination={pagination}
+          nomore={nomore}>
+            {this._renderActHot()}
+            {this._renderCard()}
+            {this._renderBankList()}
+            {this._renderShopNearby()}
+        </ScrollPagination>
       </View>
     );
   }

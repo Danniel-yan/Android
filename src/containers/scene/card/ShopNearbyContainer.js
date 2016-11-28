@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
-import { fetchShopNearby } from 'actions/scene/card/shopNearby'
+import paginationShopNearby from 'actions/scene/card/shopNearby'
 
 import ShopNearbyScene from 'components/scene/card/ShopNearbyScene';
 
@@ -14,7 +14,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return  {
-    fetching : params => dispatch(fetchShopNearby(params))
+    fetching : offset => dispatch(paginationShopNearby(offset)),
+    pagination: offset => dispatch(paginationShopNearby(offset))
   }
 }
 
