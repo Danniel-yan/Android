@@ -28,7 +28,7 @@ export default class CategoryList extends Component {
   renderCard(data){
     return(
       <View>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id , bankid: null}}}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id }}}>
           <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
             <Image source={{uri: data.pic}} style={styles.cardPic} />
             <Text style={styles.rightContainerTitle}>

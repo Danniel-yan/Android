@@ -13,8 +13,6 @@ export default class ActHotDetailScene extends Component {
   render(){
     const props = this.props.detail;
 
-    console.log(props)
-
     return(
       <ScrollView>
         <View style={styles.bgColorWhite}>
@@ -28,20 +26,27 @@ export default class ActHotDetailScene extends Component {
            <Text style={styles.panelContent}>{props.content}</Text>
          </View>
 
-         <WebLink url={props.original_url}>
-           <View style={styles.originalUrl}>
-             <Text style={{flex:1}}>查看原文</Text>
-             <View style={{flexDirection: 'row',alignItems: 'center',paddingRight:15}}>
-              <Image source={require('assets/index-icons/icon_next.png')}/>
-             </View>
-           </View>
-         </WebLink>
+         {this.renderOriginalUrl(props.original_url)}
 
        </View>
 
        <ActDetailBannerContainer/>
 
       </ScrollView>
+    )
+  }
+
+  renderOriginalUrl(url){
+    if(url == undefined) return null;
+    return(
+      <WebLink url={url}>
+        <View style={styles.originalUrl}>
+          <Text style={{flex:1}}>查看原文</Text>
+          <View style={{flexDirection: 'row',alignItems: 'center',paddingRight:15}}>
+            <Image source={require('assets/index-icons/icon_next.png')}/>
+          </View>
+        </View>
+      </WebLink>
     )
   }
 }

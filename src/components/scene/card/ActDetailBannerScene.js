@@ -3,15 +3,19 @@ import { View, Image, TouchableOpacity } from 'react-native';
 
 import { window } from 'styles';
 
+import WebLink from 'components/shared/WebLink'
+
 export default class ActDetailBannerScene extends Component {
   render(){
     const props = this.props.bannerImg;
 
+    if(props.url == undefined) return null;
+
     return(
       <View style={{marginTop:5}}>
-        <TouchableOpacity onPress={()=>{ this.props.externalPushToWeb && this.props.externalPushToWeb(props.url) }}>
+        <WebLink url={props.url}>
           <Image source={{uri: props.pic}} style={{width:window.width,height:window.width * (200 / 750)}}/>
-        </TouchableOpacity>
+        </WebLink>
       </View>
     )
   }
