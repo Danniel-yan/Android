@@ -62,7 +62,7 @@ export default class HomeScene extends Component {
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
-        <View style={styles.right}><ExternalPushLink toKey="MessagesScene"><Image source={require('assets/icons/message.png')}/></ExternalPushLink></View>
+        <View style={styles.right}><ExternalPushLink toKey="MessagesScene" title="消息"><Image source={require('assets/icons/message.png')}/></ExternalPushLink></View>
       </View>
     )
   }

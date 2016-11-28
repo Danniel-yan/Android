@@ -7,8 +7,6 @@ import  Loading  from 'components/shared/Loading';
 import { fetchCardList } from 'actions/scene/card/cardList'
 import CardListScene from 'components/scene/card/CardListScene';
 
-import externalScene from 'components/high-order/externalScene';
-
 function mapStateToProps(state){
   return state.cardList
 }
@@ -19,4 +17,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(externalScene(AsynCpGenerator(Loading,CardListScene)))
+export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading,CardListScene));
