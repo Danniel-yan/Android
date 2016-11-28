@@ -5,7 +5,6 @@ import { majorPush, majorPop, externalPush, externalPop } from 'actions/navigati
 import { fetchUserInfo, goLoan } from 'actions/scene/userInfo';
 
 import RecLoanScene from 'components/scene/RecLoanScene';
-import externalScene from 'components/high-order/externalScene';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
@@ -28,4 +27,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, externalScene(RecLoanScene)));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecLoanScene));

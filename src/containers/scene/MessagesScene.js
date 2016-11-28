@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import paginationMessages from 'actions/scene/messages';
 import MessagesScene from 'components/scene/MessagesScene';
-import externalScene from 'components/high-order/externalScene';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 
@@ -18,4 +17,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(externalScene(AsynCpGenerator(Loading, MessagesScene), '消息'));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, MessagesScene));

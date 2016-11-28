@@ -8,7 +8,10 @@ import Dimensions from 'Dimensions';
 
 import iconNext from 'assets/index-icons/icon_next.png';
 
+import { ExternalPushLink } from 'containers/shared/Link';
+
 export default class BankListScene extends Component{
+
   render(){
 
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -24,27 +27,42 @@ export default class BankListScene extends Component{
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           />
-        <View style={styles.moreBank}>
-          <Text style={{fontSize:17,color:colors.fontColorPrimary}}>
-            查看更多
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </Text>
-        </View>
+
+        {this.moreBankList(this.props.bankList)}
+
       </View>
     )
   }
 
   renderBankList(data){
     return(
-      <TouchableHighlight style={styles.itemViewStyle}>
-        <View style={[styles.itemViewStyle,styles.row]}>
-          <Image style={styles.thumb} source={{uri: data.pic_card}} />
-          <View>
-            <Text style={styles.name}>{data.name}</Text>
-            <Text style={styles.info}>{data.info}</Text>
+      <View style={styles.itemViewStyle}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: null , bankid: data.id}}}>
+          <View style={[styles.itemViewStyle,styles.row]}>
+            <Image style={styles.thumb} source={{uri: data.pic_card}} />
+            <View>
+              <Text style={styles.name}>{data.name}</Text>
+              <Text style={styles.info}>{data.info}</Text>
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
+        </ExternalPushLink>
+      </View>
+    )
+  }
+
+  moreBankList(props){
+
+    if(props.length == 8 || props.length < 8 )  return null;
+
+    return(
+      <View style={styles.moreBank}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: null , bankid: null}}}>
+          <Text style={{fontSize:17,color:colors.fontColorPrimary}}>
+            查看更多
+            <Image style={styles.titleRightImg} source={iconNext} />
+          </Text>
+        </ExternalPushLink>
+      </View>
     )
   }
 }

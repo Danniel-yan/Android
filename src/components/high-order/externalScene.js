@@ -1,17 +1,14 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import {
   View,
-  Image,
 } from 'react-native';
 
 import * as defaultStyles from 'styles';
-import { externalPop } from 'actions/navigation';
 import SceneHeader from 'components/shared/SceneHeader';
 
 export default function(ComponentClass, title) {
 
-  class ExternalPageComponent extends Component {
+  return class ExternalPageComponent extends Component {
     state = { title: undefined };
 
     render() {
@@ -25,12 +22,5 @@ export default function(ComponentClass, title) {
     }
   }
 
-  return connect(null, mapDispatchToProps)(ExternalPageComponent);
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onBack: () => dispatch(externalPop())
-  };
-}

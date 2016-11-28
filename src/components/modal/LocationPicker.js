@@ -78,14 +78,14 @@ export default class LocationPicker extends PureComponent {
     return (
       <View>
       <Modal
-        animationType="fade"
+        animationType="slide"
         visible={this.props.visible}
         onRequestClose={this.props.onHide}
         onShow={() => this.setState({ shown: true, visible: true})}
         >
 
         <View style={defaultStyles.container}>
-          <SceneHeader onBack={this.props.onHide}/>
+          <SceneHeader onBack={this.props.onHide} title="城市选择"/>
 
           <View style={[defaultStyles.rowContainer, styles.body]}>
             {loading}

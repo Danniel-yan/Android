@@ -10,6 +10,7 @@ import {
 import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
 import alert from 'utils/alert';
+import externalScene from 'containers/externalScene';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -75,7 +76,11 @@ export default class ExternalNavigation extends Component {
       ComponentClass = modules[key];
     }
 
-    return React.createElement(ComponentClass, { ...componentProps, title });
+    if(sceneProps.scene.index > 0) {
+      ComponentClass = externalScene(ComponentClass, title);
+    }
+
+    return React.createElement(ComponentClass , { ...componentProps});
   }
 }
 

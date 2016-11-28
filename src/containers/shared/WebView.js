@@ -9,4 +9,4 @@ class DefaultWebView extends WebView {
     style: {flex: 1},
   };
 }
-export default externalScene(DefaultWebView);
+export default DefaultWebView;

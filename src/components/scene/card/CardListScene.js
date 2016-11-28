@@ -2,32 +2,41 @@ import React, { Component } from 'react';
 import {ScrollView, View, Image ,StyleSheet } from 'react-native';
 
 import Text from 'components/shared/Text';
+import * as defaultStyles from 'styles';
+
+import ScrollPagination from 'components/shared/ScrollPagination';
 
 export default class CardListScene extends Component {
 
   render() {
+    let { isPaging, pagination, paginationParams, nomore } = this.props;
 
-    const props = this.props.cardList;
+    return (
+      <ScrollPagination
+        isPaging={isPaging}
+        paginationParams={paginationParams}
+        pagination={pagination}
+        nomore={nomore}>
 
-    return(
-      <ScrollView>
-        {
-          props.map((props, index ) =>
+        { this.props.cardList.map((cardList,index) =>
+
             <View key={'key' + index } style={styles.list}>
-              <Image source={{uri: props.pic_card}} style={styles.logo}/>
+              <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
               <View style={{flex: 1}}>
-                <Text style={styles.name}>{props.name}</Text>
-                <Text style={styles.info}>{props.info}</Text>
+                <Text style={styles.name}>{cardList.name}</Text>
+                <Text style={styles.info}>{cardList.info}</Text>
               </View>
               <View style={styles.applyBtn}>
                 <Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text>
               </View>
             </View>
-          )
+        )
         }
-      </ScrollView>
+
+      </ScrollPagination>
     )
   }
+
 }
 
 const styles = StyleSheet.create({

@@ -7,8 +7,6 @@ import  Loading  from 'components/shared/Loading';
 import { fetchActHot } from 'actions/scene/card/actHot';
 import ActHotListScene from 'components/scene/card/ActHotListScene';
 
-import externalScene from 'components/high-order/externalScene';
-
 function mapStateToProps(state){
   return state.actHot
 }
@@ -19,4 +17,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(externalScene(AsynCpGenerator(Loading, ActHotListScene),'今天薅什么'))
+export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading, ActHotListScene));
