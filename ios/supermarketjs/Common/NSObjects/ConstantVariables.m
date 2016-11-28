@@ -13,8 +13,8 @@
 const NSString   *MKAppleID = @"1153498444";
 
 //极光推送
-const NSString   *MKJPushAppKey = @"0c16365225ff3b4b6d3d4cbe";
-const NSString   *MKJPushAppChannel = @"Publish channel";
+const NSString   *MKJPushAppKey = @"5e61fb533cda920fb6b0718d";
+const NSString   *MKJPushAppChannel = @"App Store";
 
 //友盟统计
 const NSString   *MKUMengAppKey = @"58353a14c8957634ce000dd7";
