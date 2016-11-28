@@ -3,7 +3,6 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Modal,
   AsyncStorage,
   ActivityIndicator,
   Image
@@ -27,13 +26,12 @@ export default class ZoneScene extends Component {
     super(props);
 
     this.state = {
-      loginModal: false,
       checkedUser: false
     };
   }
 
   componentDidMount() {
-    if(!this.props.user) {
+    if(!this.props.loginUser.user) {
       AsyncStorage.getItem('userToken').then(token => {
         if(token) {
           this.props.fetching();
@@ -45,6 +43,8 @@ export default class ZoneScene extends Component {
   }
 
   render() {
+    let logined = !!this.props.loginUser.user;
+
     return (
       <View style={defaultStyles.container}>
         <SceneHeader title="我的"/>
@@ -64,7 +64,7 @@ export default class ZoneScene extends Component {
             <NextIcon/>
           </View>
 
-          <ExternalPushLink prePress={this._checkLogin.bind(this)} toKey="MessagesScene">
+          <ExternalPushLink title={logined ?  '消息' : '登录'} toKey={logined ? 'MessagesScene' : 'Login'}>
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/message.png')}/>
               <Text style={zoneStyles.txt}>我的消息</Text>
@@ -90,38 +90,18 @@ export default class ZoneScene extends Component {
           </ExternalPushLink>
         </ScrollView>
 
-        <Modal
-          animationType="slide"
-          visible={this.state.loginModal}
-          onRequestClose={this._closeLoginModal.bind(this)}
-          >
-          <View style={defaultStyles.container}>
-            <SceneHeader title="登录" onBack={this._closeLoginModal.bind(this)}/>
-            <Login loginSuccess={this.props.fetching}/>
-          </View>
-        </Modal>
       </View>
     );
   }
 
-  _closeLoginModal() {
-    this.setState({ loginModal: false });
-  }
-
-  _checkLogin() {
-    return new Promise((resolve, reject) => {
-      if(this.props.userInfo) { return resolve(true); }
-
-      this.setState({ loginModal: true });
-    });
-  }
-
   _loginInfo() {
-    if(this.props.user) {
+    let user = this.props.loginUser.user;
+
+    if(user) {
       return (
         <View style={[zoneStyles.item, styles.loginWrap]}>
           <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
-          <Text style={zoneStyles.txt}>{this.props.user.username}</Text>
+          <Text style={zoneStyles.txt}>{user.username}</Text>
           <NextIcon/>
         </View>
       );

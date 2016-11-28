@@ -10,6 +10,7 @@ import LoanList from 'containers/scene/home/LoanListContainer';
 import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
 import LoanBanner from 'containers/scene/home/LoanBanner';
 import GeoCity from 'components/GeoCity';
+import MessageIcon from 'components/shared/MessageIcon';
 
 import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
@@ -62,7 +63,9 @@ export default class HomeScene extends Component {
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
-        <View style={styles.right}><ExternalPushLink toKey="MessagesScene" title="消息"><Image source={require('assets/icons/message.png')}/></ExternalPushLink></View>
+        <View style={styles.right}>
+          <MessageIcon/>
+        </View>
       </View>
     )
   }
