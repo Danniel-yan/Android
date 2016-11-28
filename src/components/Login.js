@@ -9,22 +9,27 @@ import {
 } from 'react-native';
 
 import Text from 'components/shared/Text'
-import Button from 'components/shared/Button'
+import ProcessingButton from 'components/shared/ProcessingButton'
 import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
 import alert from 'utils/alert';
 
-import { post } from 'utils/fetch';
+import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
 
 export default class Login extends Component {
+  static defaultProps = {
+    loginSuccess: () => {}
+  };
+
   static title = '登录';
 
   state = {
     verifyCode: '',
-    mobile: ''
+    mobile: '',
+    submitting: false
   };
 
   render() {
@@ -55,6 +60,7 @@ export default class Login extends Component {
             keyboardType="numeric"
             placeholder="请输入验证码"
             maxLength={6}
+            value={this.state.verifyCode}
             underlineColorAndroid="transparent"
             onChangeText={verifyCode => this.setState({verifyCode})}
           />
@@ -65,20 +71,41 @@ export default class Login extends Component {
           <WebLink url="https://m.madailicai.com" title="《钞市服务协议》"/>
         </View>
 
-        <Button disabled={!mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
+        <ProcessingButton processing={this.state.submitting} disabled={!mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
       </View>
     );
   }
 
   _sendVerify() {
-    post('/tool/send-verify-code', { mobile: '18964165910'})
+    post('/tool/send-verify-code', { mobile: this.state.mobile})
+      .then(response => {
+        this.setState({verifyCode: response.data.verify_code});
+      })
       .catch(err => { alert('网络异常'); })
   }
 
   _submit() {
-    let { mobile, verifyCode: verify_code } = this.state;
-    post('/user/login', { mobile, verify_code })
-      .catch(err => { alert('网络异常'); })
+    if(this.submitting) { return; }
+
+    this.submitting = true;
+
+    this.setState({
+      submitting: true
+    }, () => {
+      let { mobile, verifyCode: verify_code } = this.state;
+      post('/user/login', { mobile, verify_code })
+        .then(response => {
+          if(response.res == responseStatus.success) {
+            return AsyncStorage.setItem('userToken', response.data.token)
+          }
+        })
+        .then(this.props.loginSuccess)
+        .catch(err => { alert('网络异常'); })
+        .finally(() => {
+          this.submitting = false;
+          this.setState({submitting: false})
+        })
+    });
   }
 }
 

@@ -1,4 +1,4 @@
 import Login from 'components/Login';
 import externalScene from 'components/high-order/externalScene';
 
-export default externalScene(Login);
+export default Login;
