@@ -26,6 +26,11 @@ extern NSString   *MKJPushAppChannel;
 extern NSString   *MKUMengAppKey;
 
 
+/**
+ * Bugly
+ */
+extern NSString   *MKBuglyAppID;
+
 @interface ConstantVariables : NSObject
 
 @end

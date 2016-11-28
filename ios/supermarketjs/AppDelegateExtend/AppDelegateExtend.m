@@ -33,7 +33,7 @@
 
 - (void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
   
-    [Bugly startWithAppId:@"900059043"];
+    [Bugly startWithAppId:MKBuglyAppID];
   
     [MobClick setLogEnabled:YES];
     UMConfigInstance.appKey = MKUMengAppKey;

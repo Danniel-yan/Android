@@ -42,7 +42,6 @@
 		B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87566981DDE9B4500F74BA9 /* Images.xcassets */; };
 		B87566A41DDE9B4500F74BA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B875669A1DDE9B4500F74BA9 /* main.m */; };
 		B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */; };
-		B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566B51DDEADEF00F74BA9 /* libz.tbd */; };
 		B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87567091DDEB3B600F74BA9 /* Bugly.framework */; };
 /* End PBXBuildFile section */
 
@@ -260,9 +259,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */,
-				7FE540CB1DE5397900F41F3D /* libRNDeviceInfo.a in Frameworks */,
-				B87566B61DDEADEF00F74BA9 /* libz.tbd in Frameworks */,
 				B875668C1DDE9AC300F74BA9 /* libresolv.tbd in Frameworks */,
+				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
 				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
 				B875668A1DDE9AA600F74BA9 /* Security.framework in Frameworks */,
 				B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */,
@@ -272,8 +270,9 @@
 				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
 				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
 				B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */,
-				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */,
+				7FE540CB1DE5397900F41F3D /* libRNDeviceInfo.a in Frameworks */,
+				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
