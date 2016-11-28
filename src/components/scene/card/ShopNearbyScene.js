@@ -28,24 +28,8 @@ export default class ShopNearbyScene extends Component {
         enableEmptySections={true}
         dataSource={dataSource}
         renderRow={this.renderShopNearbyList}
-        onEndReached={ this._toEnd.bind(this) }
-        onEndReachedThreshold={10}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.isFetching}
-            onRefresh={this.onRefresh.bind(this)}
-            title= {this.state.isFetching ? '刷新中....':'下拉刷新'}
-           />
-          }
         />
     )
-  }
-  _toEnd(){
-
-  }
-  onRefresh() {
-    //this.setState({isFetching: true})
-    //this.props.fetching({offset: this.props.offset + 5})
   }
 
   renderShopNearbyList(data){
@@ -70,8 +54,8 @@ class List extends Component {
           <Image source={{uri: props.logo_url}} style={styles.cardPic} />
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{props.shop_name}</Text>
-            <View style={{flexDirection: 'row'}}>
-              <View>
+            <View style={{flexDirection: 'row',alignItems: 'center'}}>
+              <View style={{flex: 1}}>
                 <Text style={[styles.rightContainerSubTitle,{fontSize:13}]}>{parseFloat(props.dis).toFixed(2)} 米</Text>
               </View>
 
@@ -92,12 +76,14 @@ class List extends Component {
     if(props.act.length == 0) return null
 
     return(
-      <View style={{flex:1,flexDirection: 'row',alignItems:'center',justifyContent: 'center',}}>
-        <TouchableOpacity style={[styles.flexEnd]} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
+      <TouchableOpacity style={{flexDirection: 'row',alignItems:'center'}} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
+        <View>
           <Text style={{fontSize:13}}>有{props.act.length}条活动</Text>
-          <Image source={this.state.isShow ? triangleUp : triangleDown}/>
-        </TouchableOpacity>
-      </View>
+        </View>
+        <View style={{alignItems: 'flex-end',marginLeft:5}}>
+          <Image source={this.state.isShow ? triangleUp : triangleDown} />
+        </View>
+      </TouchableOpacity>
     )
   }
   renderTriangle(props){
@@ -171,11 +157,6 @@ const styles = StyleSheet.create({
     paddingLeft:5,
     paddingRight:5,
     borderRadius:2
-  },
-  flexEnd:{
-    flex: 1,
-    alignItems:'flex-end',
-    position:'relative'
   },
   act:{
     paddingLeft:10,
