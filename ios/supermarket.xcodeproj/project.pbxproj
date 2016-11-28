@@ -30,7 +30,7 @@
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
-		B8671AA71DEBD7EB00943609 /* ObjectiveUtilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B8671AA61DEBD7EB00943609 /* ObjectiveUtilAction.m */; };
+		B8671ACB1DEC140F00943609 /* JpushModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B8671ACA1DEC140F00943609 /* JpushModule.m */; };
 		B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566831DDE9A7500F74BA9 /* CFNetwork.framework */; };
 		B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */; };
 		B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */; };
@@ -226,8 +226,8 @@
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B81A622B1DE67EC7001365BD /* StatisticalEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatisticalEvent.h; path = supermarketjs/Common/Contorls/StatisticalEvent.h; sourceTree = SOURCE_ROOT; };
 		B81A622C1DE67EC7001365BD /* StatisticalEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatisticalEvent.m; path = supermarketjs/Common/Contorls/StatisticalEvent.m; sourceTree = SOURCE_ROOT; };
-		B8671AA51DEBD7EB00943609 /* ObjectiveUtilAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveUtilAction.h; sourceTree = "<group>"; };
-		B8671AA61DEBD7EB00943609 /* ObjectiveUtilAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectiveUtilAction.m; sourceTree = "<group>"; };
+		B8671AC91DEC140F00943609 /* JpushModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JpushModule.h; sourceTree = "<group>"; };
+		B8671ACA1DEC140F00943609 /* JpushModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JpushModule.m; sourceTree = "<group>"; };
 		B87566831DDE9A7500F74BA9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B87566851DDE9A7C00F74BA9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		B87566871DDE9A9A00F74BA9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -576,8 +576,8 @@
 			children = (
 				B87566AB1DDE9DF700F74BA9 /* ConstantVariables.h */,
 				B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */,
-				B8671AA51DEBD7EB00943609 /* ObjectiveUtilAction.h */,
-				B8671AA61DEBD7EB00943609 /* ObjectiveUtilAction.m */,
+				B8671AC91DEC140F00943609 /* JpushModule.h */,
+				B8671ACA1DEC140F00943609 /* JpushModule.m */,
 			);
 			path = NSObjects;
 			sourceTree = "<group>";
@@ -927,8 +927,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B87566A01DDE9B4500F74BA9 /* AppDelegateExtend.m in Sources */,
-				B8671AA71DEBD7EB00943609 /* ObjectiveUtilAction.m in Sources */,
 				B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */,
+				B8671ACB1DEC140F00943609 /* JpushModule.m in Sources */,
 				B87566A41DDE9B4500F74BA9 /* main.m in Sources */,
 				B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */,
 				B875669F1DDE9B4500F74BA9 /* AppDelegate.m in Sources */,
