@@ -59,7 +59,7 @@ export class IptWrap extends EnhanceStyleCp {
         ? (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
             <Checkbox checked={this.state.value == true} onChange={(value)=>{this.setState({ value: value }); this.onValueChanged(value);}} />
             </TouchableOpacity>)
-        : <Input type={p.type} style={{flex: 1, textAlign:"right"}} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
+        : <Input placeholder={p.placeholder} type={p.type} style={[{flex: 1}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
       )
     return (
       <View style={[s.container, rowContainer]}>
@@ -253,7 +253,10 @@ const IptWrapStyles = StyleSheet.create({
     padding: 4, paddingLeft: hPadding, paddingRight: hPadding,
     backgroundColor: "#fff",
     borderColor: "#f2f2f2", borderWidth: 0, borderBottomWidth: 1,
-    alignItems: 'center', flexDirection: 'row'
+    alignItems: 'center', flexDirection: 'row', height: 46
+  },
+  ipt: {
+    textAlign: 'right'
   }
 });
 const HRadiosStyles = StyleSheet.create({

@@ -1,9 +1,10 @@
 import { AsyncStorage } from 'react-native';
-import { requestStatus } from 'constants/api';
 
 import alert from './alert';
 
 const defaultApiVersion = '-';
+
+export const responseStatus = { failre: 0, success: 1 }
 
 let environment;
 let apiParams;
@@ -25,7 +26,7 @@ function _get(url, body, responseType) {
     method: 'get'
   })
   .then(response => response[responseType]())
-  .then(requestFalireHandle);
+  .then(requestFailreHandle);
 }
 
 function _post(url, body, responseType) {
@@ -35,11 +36,11 @@ function _post(url, body, responseType) {
     body: JSON.stringify(body)
   })
   .then(response => response[responseType]())
-  .then(requestFalireHandle);
+  .then(requestFailreHandle);
 }
 
-function requestFalireHandle(responseJSON) {
-  if(typeof responseJSON == 'object' && responseJSON.res === requestStatus.falire) {
+function requestFailreHandle(responseJSON) {
+  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failre) {
     alert(responseJSON.msg);
   }
   return responseJSON

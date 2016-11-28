@@ -14,7 +14,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return  {
-    fetching : () => dispatch(fetchShopNearby())
+    fetching : params => dispatch(fetchShopNearby(params))
   }
 }
 

@@ -16,7 +16,7 @@ import Text from 'components/shared/Text';
 import { get } from 'utils/fetch';
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
-import ExternalPageHeader from 'components/shared/ExternalPageHeader';
+import SceneHeader from 'components/shared/SceneHeader';
 import alert from 'utils/alert';
 
 const sectionHeaderHeight = 30;
@@ -76,15 +76,16 @@ export default class LocationPicker extends PureComponent {
     let loading = !isShow ? this._renderLoading() : null 
 
     return (
+      <View>
       <Modal
         animationType="fade"
         visible={this.props.visible}
         onRequestClose={this.props.onHide}
-        onShow={() => this.setState({ shown: true})}
+        onShow={() => this.setState({ shown: true, visible: true})}
         >
 
         <View style={defaultStyles.container}>
-          <ExternalPageHeader onBack={this.props.onHide}/>
+          <SceneHeader onBack={this.props.onHide}/>
 
           <View style={[defaultStyles.rowContainer, styles.body]}>
             {loading}
@@ -94,6 +95,9 @@ export default class LocationPicker extends PureComponent {
         </View>
 
       </Modal>
+
+
+      </View>
     );
   }
 

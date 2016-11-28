@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AppRegistry, StyleSheet } from 'react-native';
+import { ActivityIndicator, AppRegistry, StyleSheet, View, Image } from 'react-native';
 
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -24,16 +24,34 @@ export default class supermarketjs extends Component {
   }
 
   componentDidMount() {
-    Tracker.trackPage("HPG","");
-    applicationSetup().then(() => {
-      this.setState({ initialing: false });
-    });
+    if (__DEV__) {
+      applicationSetup().then(() => {
+        this.setState({ initialing: false });
+      });
+    } else {
+      codePush.checkForUpdate().then((update)=> {
+        if (update) {
+          codePush.sync({installMode: codePush.InstallMode.IMMEDIATE});
+        } else {
+          this.setState({updating: false});
+          applicationSetup().then(() => {
+            this.setState({initialing: false});
+          });
+        }
+      });
+    }
   }
 
   render() {
     if(this.state.initialing) {
       return (
-        <ActivityIndicator style={[defaultStyles.container, defaultStyles.centering]} animating={true} />
+          <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Image source={require('assets/icons/init_loader.gif')} />
+          </View>
       );
     }
 

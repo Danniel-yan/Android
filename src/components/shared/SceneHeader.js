@@ -14,7 +14,7 @@ const {
 import Text from 'components/shared/Text';
 import { headerHeight, statusBarHeight } from 'styles/varibles';
 
-export default class ExternalPageHeader extends Component {
+export default class SceneHeader extends Component {
   static defaultProps = {
     title: ''
   };
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 19,
+    fontSize: 18,
     color: '#333',
   },
 

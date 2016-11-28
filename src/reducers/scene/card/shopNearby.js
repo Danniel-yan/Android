@@ -5,7 +5,7 @@ export default function shopNearby(state = initState , action){
     case 'requestShopNearby':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveShopNearby':
-      return Object.assign({}, state, { isFetching: false, shopNearby : action.shopNearby });
+      return Object.assign({}, state, { isFetching: false, shopNearby: action.shopNearby });
     default :
       return state;
   }

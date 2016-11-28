@@ -120,8 +120,6 @@ const styles = StyleSheet.create({
     width:Dimensions.get('window').width,
     height: 46,
     fontSize: 20,
-    marginTop:5,
-    marginBottom:5
   },
   number:{
     fontSize:20,

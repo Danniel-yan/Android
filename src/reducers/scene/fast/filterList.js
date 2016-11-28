@@ -1,7 +1,9 @@
-const initState = { isFetching: true, result_list: [], more_list: [] };
+const initState = { amount: 5000, isFetching: true, result_list: [], more_list: [] };
 
 export function filterList(state = initState, action) {
   switch(action.type) {
+    case 'setAmount':
+      return Object.assign({}, state, { amount: action.amount });
     case 'fetchingStart':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveResultList':

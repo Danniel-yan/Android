@@ -27,11 +27,19 @@ export function fetchLoanDetail(id) {
   }
 }
 
+export function fillUserInfo() {
+  return {
+    type: 'fillUserInfo'
+  };
+}
+
 export function goLoan(url, title) {
   return function(dispatch) {
+    dispatch({type: 'goLoan'});
+
     AsyncStorage.getItem('userToken').then(token => {
       if(token == null) {
-        dispatch(externalPush({ key: 'FillUserInfo' }))
+        dispatch(fillUserInfo())
       } else {
         dispatch(externalPush({ key: url, title, web: url }))
       }

@@ -7,7 +7,7 @@ import Broadcast from 'containers/scene/home/Broadcast';
 import LoanNavPanel from 'components/LoanNavPanel';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
-import CardList from 'containers/scene/home/CardListContainer';
+import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
 import LoanBanner from 'containers/scene/home/LoanBanner';
 import GeoCity from 'components/GeoCity';
 
@@ -15,6 +15,7 @@ import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import panelStyles from './home/panelStyles';
 
@@ -32,7 +33,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
-          <LoanNavPanel pressNumberBtn={this._externalNavTo.bind(this, "FastLoanScene")} pressIconBtn={this._pressIcon.bind(this)} />
+          <LoanNavPanel pressNumberBtn={this._pressNumberBtn.bind(this)} pressIconBtn={this._pressIcon.bind(this)} />
           <Broadcast />
           <RecommendListPanel/>
           {this._renderLoan()}
@@ -43,12 +44,17 @@ export default class HomeScene extends Component {
   }
 
   _pressIcon(iconKey) {
-    var navKey = iconKey == 0 ? "RecLoanScene" : (iconKey == 2 ? "FastLoanScene" : "FastLoanScene");
+    var navKey = iconKey == 0 ? "RecLoanScene" : (iconKey == 2 ? "LoanScene" : "LoanScene");
     this._externalNavTo(navKey);
   }
 
-  _externalNavTo(key) {
-    this.props.externalPush && this.props.externalPush({key: key});
+  _pressNumberBtn(amount) {
+    this.props.setAmount && this.props.setAmount(amount);
+    this._externalNavTo("LoanScene");
+  }
+
+  _externalNavTo(navKey) {
+    this.props.externalPush && this.props.externalPush({key: navKey});
   }
 
   _renderHeader() {
@@ -56,7 +62,7 @@ export default class HomeScene extends Component {
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
-        <View style={styles.right}><Image source={require('assets/icons/message.png')}/></View>
+        <View style={styles.right}><ExternalPushLink toKey="MessagesScene"><Image source={require('assets/icons/message.png')}/></ExternalPushLink></View>
       </View>
     )
   }
@@ -84,11 +90,6 @@ export default class HomeScene extends Component {
       <View style={{marginTop:5}}>
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>大额贷款</Text>
-
-          <TouchableOpacity style={panelStyles.addon}>
-            <Text style={panelStyles.addonTxt}>更多产品</Text>
-            <Image style={panelStyles.addonImg} source={iconNext}/>
-          </TouchableOpacity>
         </View>
         <LoanBanner/>
         <LoanList/>
@@ -107,7 +108,7 @@ export default class HomeScene extends Component {
             <Image style={panelStyles.addonImg} source={iconNext}/>
           </TouchableOpacity>
         </View>
-        <CardList/>
+        <CategoryListContainer/>
       </View>
     )
   }

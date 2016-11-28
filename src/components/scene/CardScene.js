@@ -5,11 +5,12 @@ import Text from 'components/shared/Text';
 import { colors } from 'styles/varibles';
 import iconNext from 'assets/index-icons/icon_next.png';
 
-import CardList from 'containers/scene/home/CardListContainer';
+import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
 import ActHotContainer from 'containers/scene/card/ActHotContainer';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
+import SceneHeader from 'components/shared/SceneHeader';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -21,7 +22,7 @@ export default class CardScene extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
+        <SceneHeader title="办卡"/>
         <ScrollView>
           {this._renderActHot()}
           {this._renderCard()}
@@ -53,7 +54,7 @@ export default class CardScene extends Component {
         <View style={[styles.title,styles.bgColorWhite]}>
           <Text style={styles.titleLeft}>极速办卡</Text>
         </View>
-        <CardList/>
+        <CategoryListContainer/>
       </View>
     )
   }

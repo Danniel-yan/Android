@@ -3,6 +3,10 @@ import { View, ListView, Image ,StyleSheet } from 'react-native';
 import Text from 'components/shared/Text';
 import {colors} from 'styles/varibles';
 
+import { ExternalPushLink } from 'containers/shared/Link';
+
+import Dimensions from 'Dimensions';
+
 export default class ActHotScene extends Component {
   render(){
 
@@ -28,9 +32,12 @@ export default class ActHotScene extends Component {
   renderBanner(data){
     return(
       <View style={[styles.flexHorizontalColumn]}>
-        <Image source={{uri: data.img_banner.x1}} style={styles.cardPic} />
-        <Image source={{uri: data.img_banner.x2}} style={styles.cardPic} />
-        <Image source={{uri: data.img_banner.x3}} style={styles.cardPic} />
+        <ExternalPushLink title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: data.id }}}>
+          <Image source={{uri: data.img_banner.x3}} style={styles.cardPic}>
+            <Text style={[styles.bankName,{color:'#' + data.font_color}]}>{data.banks[0].name}</Text>
+            <Text style={[styles.title,{color:'#' + data.font_color}]}>{data.title}</Text>
+          </Image>
+        </ExternalPushLink>
       </View>
     )
   }
@@ -49,13 +56,15 @@ const styles = StyleSheet.create({
   },
   cardPic:{
     width:220,
-    height:90,
-    marginLeft:5,
+    height:95,
+    marginLeft:10,
+    flex: 1,
+    alignItems:'flex-start',
   },
   topic:{
     position:'absolute',
     left:-12,
-    top:-5,
+    top:-10,
     zIndex:1,
     borderRadius:12,
     backgroundColor:'#ffaf32',
@@ -69,5 +78,20 @@ const styles = StyleSheet.create({
     borderRadius:12,
     paddingLeft:12,
     paddingRight:10
+  },
+  bankName:{
+    marginLeft:10,
+    width:Dimensions.get('window').width/2 - 20,
+    fontSize:17,
+    marginBottom:8,
+    marginTop:15,
+    fontWeight:'bold',
+    backgroundColor:'transparent'
+  },
+  title:{
+    marginLeft:10,
+    width:Dimensions.get('window').width/2 - 20,
+    fontSize:12,
+    backgroundColor:'transparent'
   }
 })

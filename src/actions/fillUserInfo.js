@@ -1,4 +1,4 @@
-import { post } from 'utils/fetch';
+import { post, responseStatus } from 'utils/fetch';
 import alert from 'utils/alert';
 
 function submitting() {
@@ -14,10 +14,10 @@ function submitError(err) {
   };
 }
 
-function receiveResponse(response) {
+function receiveResponse(token) {
   return {
     type: 'receiveResponse',
-    response 
+    token 
   };
 }
 
@@ -27,7 +27,16 @@ export default function submitUserInfo(body) {
     dispatch(submitting());
 
     post('/user/update-info', body)
-      .then(response => dispatch(receiveResponse(response)))
+      .then(response => {
+        if(response.res = responseStatus.failre) {
+          alert(response.msg);
+        } else {
+          AsyncStorage.setItem('userToken', response.data).then(() => {
+            dispatch(receiveResponse(response.data))
+          }, err => alert(err));
+        }
+
+      })
       .catch(err => dispatch(submitError(err)))
   }
 }

@@ -1,4 +1,4 @@
-const initState = { isFetching: false, detail: {} };
+const initState = { fillUserInfo: false, isFetching: false, detail: {} };
 
 export default function loanDetail(state = initState, action) {
   switch(action.type) {
@@ -6,6 +6,10 @@ export default function loanDetail(state = initState, action) {
       return Object.assign({}, state, { isFetching: true });
     case 'receiveLoanDetail':
       return Object.assign({}, state, { isFetching: false, detail: action.detail } )
+    case 'fillUserInfo':
+      return Object.assign({}, state, { fillUserInfo: true } )
+    case 'goLoan':
+      return Object.assign({}, state, { fillUserInfo: false } )
     default:
       return state
   }

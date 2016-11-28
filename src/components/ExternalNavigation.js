@@ -9,6 +9,7 @@ import {
 
 import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
+import alert from 'utils/alert';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -38,7 +39,17 @@ export default class ExternalNavigation extends Component {
       return true;
     }
 
-    return false;
+    if(++this.hardwareBackPressTimes == 2) {
+      return false;
+    }
+
+    alert('请再按一次返回键退出钞市');
+
+    // 两秒内点击两次回退按钮推出应用
+    setTimeout(() => {
+      this.hardwareBackPressTimes = 0;
+    }, 2000);
+    return true;
   }
 
   render() {

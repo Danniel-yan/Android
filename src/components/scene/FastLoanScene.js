@@ -11,6 +11,7 @@ import { container, rowContainer, flexRow, centering } from 'styles';
 
 import Dimensions from 'Dimensions';
 import AbstractScene from 'components/scene/AbstractScene.js';
+import SceneHeader from 'components/shared/SceneHeader';
 var screenWidth = Dimensions.get('window').width;
 
 export default class FastLoanScene extends AbstractScene {
@@ -18,7 +19,7 @@ export default class FastLoanScene extends AbstractScene {
     super(props);
     this.state = {
       fetchRecParams:{
-        amount: 5000,
+        amount: props.amount || 5000,
         period: 12,
         job: 0,
         reslist: [],
@@ -61,7 +62,7 @@ export default class FastLoanScene extends AbstractScene {
     var halfWidth = screenWidth / 2;
     return (
       <View style={{flex:1}}>
-        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
+        <SceneHeader title="极速贷款"/>
         {this._renderLoanGroup()}
         <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]} selectedChanged={idx=>this.formValueChanged("job", idx)}></HorizontalRadios>
         {this._renderDropDownFilters()}

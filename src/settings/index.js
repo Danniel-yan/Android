@@ -49,7 +49,7 @@ function setupUUID() {
 }
 
 function setupLocation() {
-  navigator.geolocation.watchPosition(position => {
+  navigator.geolocation.getCurrentPosition(position => {
     const coords = position.coords;
     coords.longitude = Math.abs(coords.longitude);
     return AsyncStorage.setItem('coords', JSON.stringify(coords));
