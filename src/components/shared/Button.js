@@ -45,6 +45,7 @@ export default class Button extends Component {
 
     return (
       <TouchableOpacity {...props}
+        activeOpacity ={0.7}
         style={[styles.btn, btnStyle]}
         >
         {this._renderChildren({ fontSize, color })}

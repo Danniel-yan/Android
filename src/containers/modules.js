@@ -14,15 +14,19 @@ import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
 import MessagesScene from 'containers/scene/MessagesScene';
 import CardListScene from 'containers/scene/card/CardListContainer'
+import ContactScene from 'components/scene/zone/ContactScene';
+import SettingScene from 'components/scene/zone/SettingScene';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'SettingScene', module: SettingScene },
+  { key: 'ContactScene', module: ContactScene },
   { key: 'MessagesScene', module: MessagesScene},
   { key: 'LoanScene', module: FastLoanScene },
   { key: 'RecLoanScene', module: RecLoanScene },
   { key: 'CardScene', module: CardScene },
-  { key: 'ZoneScene', module: NavigationTest },
+  { key: 'ZoneScene', module: ZoneScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },
   { key: 'FillUserInfo', module: FillUserInfo },
   { key: 'ActHotListScene', module: ActHotListScene },
