@@ -13,28 +13,12 @@ import styles from 'styles/loan';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
-import FillUserInfo from 'containers/FillUserInfo';
 import SceneHeader from 'components/shared/SceneHeader';
 import * as defaultStyles from 'styles';
 
 import Button from 'components/shared/Button'
 
 export default class LoanDetailScene extends PureComponent {
-  static propTypes = {
-    goLoan: PropTypes.func.isRequired
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = { fillUserInfo: false };
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if(nextProps.fillUserInfo && !this.props.fillUserInfo) {
-      this.setState({ fillUserInfo: nextProps.fillUserInfo });
-    }
-  }
 
   render() {
     let detail = this.props.detail;
@@ -116,19 +100,21 @@ export default class LoanDetailScene extends PureComponent {
 
         </ScrollView>
 
-        <Button onPress={() => this.props.goLoan(detail.url, detail.title)} style={styles.loanButton} text="去贷款"/>
+        <Button onPress={() => {}} style={styles.loanButton} text="去贷款"/>
 
-        <Modal
-          animationType="slide"
-          visible={this.state.fillUserInfo}
-          onRequestClose={() => this.setState({fillUserInfo: false})}>
-          <View style={defaultStyles.container}>
-            <SceneHeader onBack={() => this.setState({fillUserInfo: false})} title="完善个人信息"/>
-            <FillUserInfo onSubmitSuccess={() => this.props.goLoan(detail.url, detail.title)}/>
-          </View>
-        </Modal>
       </View>
     );
   }
 
 }
+
+
+//        <Modal
+//          animationType="slide"
+//          visible={this.state.fillUserInfo}
+//          onRequestClose={() => this.setState({fillUserInfo: false})}>
+//          <View style={defaultStyles.container}>
+//            <SceneHeader onBack={() => this.setState({fillUserInfo: false})} title="完善个人信息"/>
+//            <FillUserInfo onSubmitSuccess={() => this.props.goLoan(detail.url, detail.title)}/>
+//          </View>
+//        </Modal>

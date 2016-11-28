@@ -10,26 +10,16 @@ export default class MajoNavigation extends Component {
   render() {
     let { navigation } = this.props;
     let tabRoutes = navigation[navigation.curTab];
+    let Compo = modules[tabRoutes.routes[0].key]
 
     return (
       <View style={styles.container}>
-        <NavigationCardStack
-          key={`major${navigation.curTab}`}
-          navigationState={tabRoutes}
-          renderScene={this._renderScene}
-          style={styles.scene}
-        />
+        <Compo/>
         <MajorTabs curTab={navigation.curTab} onMajorTabChange={this.props.majorTab}/>
       </View>
     );
   }
 
-  _renderScene(sceneProps) {
-    let { key } = sceneProps.scene.route;
-    let ComponentClass = modules[key];
-
-    return (<ComponentClass/>);
-  }
 }
 
 const styles = StyleSheet.create({
