@@ -1,4 +1,5 @@
 import { AsyncStorage, Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 const environments = {
   defaultEnvironment: require('./dynamic/env'),
@@ -17,55 +18,67 @@ const staticSettings = {
   OS: Platform.OS == 'ios' ? 2 : 1,
   osVersion: Platform.Version,
   channel: require('./dynamic/channel'),
-  deviceId: '',
+  deviceId: DeviceInfo.getUniqueID(),
   uuid: '',
 };
 
 let environmentSettings;
 
 export function applicationSetup() {
-  setupLocation();
 
   return setupEnvironment()
     .then(setupUUID)
     .catch(err => { console.log(err) })
-    .finally(() => {
-      return AsyncStorage.setItem('appSettings', JSON.stringify(staticSettings));
-    })
+}
+
+export function getAppSettings() {
+  return new Promise((resolve, reject) => {
+    checkUUID();
+
+    function checkUUID() {
+      if(staticSettings.uuid) {
+        return resolve(staticSettings);
+      }
+
+      setTimeout(checkUUID, 50);
+    }
+  });
 }
 
 function setupUUID() {
-  // TODO check local uuid
-  return fetch(`${environmentSettings.api}-/user/uuid`)
-    .then(response => response.json())
-    .then(response => {
-
-      if(response.res == 1) {
-        staticSettings.uuid = response.data.uuid;
+  return AsyncStorage.getItem('uuid')
+    .then(uuid => {
+      if(uuid) {
+        staticSettings.uuid = uuid;
+        return;
       }
 
-      return ;
-    })
+      return fetch(`${environmentSettings.api}-/user/uuid`)
+        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+
+          if(response.res == 1) {
+            staticSettings.uuid = response.data.uuid;
+            return AsyncStorage.setItem('uuid', response.data.uuid);
+          }
+
+        })
+  })
 }
 
-function setupLocation() {
-  navigator.geolocation.getCurrentPosition(position => {
-    const coords = position.coords;
-    coords.longitude = Math.abs(coords.longitude);
-    return AsyncStorage.setItem('coords', JSON.stringify(coords));
-  }, err => {console.log(err)},
-  {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
-}
-
+/**
+ * 环境配置： 生产／测试／
+ */
 function setupEnvironment() {
   return AsyncStorage.getItem('environment')
+    .then(JSON.parse)
     .then(environment => {
-      if(environment == null || typeof environment == 'string') {
-        environmentSettings = environments[environments.defaultEnvironment];
+      environmentSettings = environment || environments[environments.defaultEnvironment];
+
+      if(environment == null) {
         return AsyncStorage.setItem('environment', JSON.stringify(environmentSettings));
       }
-
-      environmentSettings = environments[environment];
     })
 }
 
@@ -73,6 +86,7 @@ export function switchEnvironment(environment) {
   return AsyncStorage.setItem('environment', JSON.stringify(environments[environment]))
     .then(() => {
       // TODO restart
+      environmentSettings = environments[environments.environment];
       return;
     });
 }
