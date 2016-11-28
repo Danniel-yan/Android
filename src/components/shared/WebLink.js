@@ -21,17 +21,14 @@ export default class WebLink extends Component {
   };
 
   render() {
-    let Com = this._generateComponent();
+    let Com = this._webView();
+
     return (
       <ExternalPushLink
         {...this.props}
         toKey={`webView${Date.now()}`}
         toComponent={Com} />
     );
-  }
-
-  _generateComponent() {
-    return null;
   }
 
   _webView() {
