@@ -13,7 +13,7 @@ export default class CategoryList extends Component {
     const dataSource = ds.cloneWithRows(this.props.category)
 
     return (
-      <View style={{height:165}}>
+      <View>
         <ListView
           contentContainerStyle={[styles.listView, styles.flexRow]}
           enableEmptySections={true}
@@ -28,7 +28,7 @@ export default class CategoryList extends Component {
   renderCard(data){
     return(
       <View>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id }}}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id , bankid: null}}}>
           <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
             <Image source={{uri: data.pic}} style={styles.cardPic} />
             <Text style={styles.rightContainerTitle}>
