@@ -18,7 +18,7 @@ export default class ActHotListScene extends Component {
             <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: props.id }}}>
               <View style={styles.list}>
                 <Image source={{uri: props.img_list.x1}} style={styles.logo}/>
-                <View>
+                <View style={{flex:1}}>
                   <Text style={styles.title}>{props.title}</Text>
                   <Text style={styles.bankName}>{props.banks[0].name}</Text>
                   <Text style={styles.date}>{(props.start_date).substr(0,10)}至{(props.end_date).substr(0,10)}</Text>

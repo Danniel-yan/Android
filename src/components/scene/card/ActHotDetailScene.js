@@ -5,45 +5,42 @@ import { StyleSheet } from 'react-native';
 import { colors } from 'styles/varibles';
 import { window } from 'styles';
 
+import ActDetailBannerContainer from 'containers/scene/card/ActDetailBannerContainer';
+import WebLink from 'components/shared/WebLink'
+
 export default class ActHotDetailScene extends Component {
 
   render(){
     const props = this.props.detail;
 
+    console.log(props)
+
     return(
       <ScrollView>
         <View style={styles.bgColorWhite}>
           <Image source={{uri: props.top_banner}} style={{width:window.width,height:window.width * (320 / 750)}}/>
-          <Text style={styles.title}>{props.title}#天天民生日#10 元吃哈根达斯</Text>
+          <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.date}>活动时间：截止{props.end_date}</Text>
         </View>
 
        <View style={[styles.bgColorWhite,{marginTop:5,paddingLeft:15}]}>
-         <Text style={styles.panelTitle}>活动内容</Text>
-         <Text style={styles.panelList}>1.需要报名</Text>
-         <Text style={styles.panelList}>1.需要报名需要报名需要报名需要报名需要报名需要报名需要报名需要报名</Text>
+         <View>
+           <Text style={styles.panelContent}>{props.content}</Text>
+         </View>
 
-         <Text style={styles.panelTitle}>参与方式</Text>
-         <Text style={styles.panelList}>● 微信关注</Text>
-
-         <Text style={styles.panelTitle}>注意事项</Text>
-         <Text style={styles.panelList}>● 每人每卡活动期间限参加一次</Text>
-         <Text style={styles.panelList}>● 每人每卡活动期间限参加一次</Text>
-
-         <TouchableOpacity onPress={()=>{ this.props.externalPushToWeb && this.props.externalPushToWeb(props.original_url) }}>
+         <WebLink url={props.original_url}>
            <View style={styles.originalUrl}>
              <Text style={{flex:1}}>查看原文</Text>
              <View style={{flexDirection: 'row',alignItems: 'center',paddingRight:15}}>
               <Image source={require('assets/index-icons/icon_next.png')}/>
              </View>
            </View>
-         </TouchableOpacity>
+         </WebLink>
 
        </View>
 
-        <View style={{marginTop:5}}>
-          <Image source={{uri: props.top_banner}} style={{width:window.width,height:window.width * (200 / 750)}}/>
-        </View>
+       <ActDetailBannerContainer/>
+
       </ScrollView>
     )
   }
@@ -66,18 +63,12 @@ const styles = StyleSheet.create({
     fontSize:13,
     color:colors.fontColorSecondary
   },
-  panelTitle:{
-    fontSize:16,
+  panelContent:{
+    fontSize:14,
     color:colors.fontColorSecondary,
     paddingTop:10,
     paddingBottom:10,
-    fontWeight:'bold'
-  },
-  panelList:{
-    fontSize:14,
-    paddingBottom:5,
-    paddingRight:15,
-    paddingLeft:10
+    paddingRight:10
   },
   originalUrl:{
     marginTop:10,

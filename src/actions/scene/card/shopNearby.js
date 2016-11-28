@@ -10,7 +10,7 @@ export default function( offset = 0) {
 
       dispatch(offset == 0 ? fetchShopNearby(offset) : paginationShopNearby(offset));
 
-      return post('/card/shop-nearby', {
+      return post(`/card/shop-nearby`, {
         lati: position.coords.latitude,
         long: position.coords.longitude,
         num: 10,
