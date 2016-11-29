@@ -97,8 +97,8 @@ function setApiParams() {
 }
 
 function setupUserToken() {
-  return AsyncStorage.getItem('userToken').then(userToken => {
-    userToken = userToken;
+  return AsyncStorage.getItem('userToken').then(token => {
+    userToken = token;
   });
 }
 
@@ -111,4 +111,3 @@ void function setupLocation() {
 
   }, console.log, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }();
-
