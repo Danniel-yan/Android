@@ -1,6 +1,6 @@
 
 const initState = {
-  isFetching: false,
+  isFetching: true,
   fetched: false,
   operating: {}
 };
