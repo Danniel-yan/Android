@@ -28,7 +28,7 @@ export default class MessageIcon extends Component {
   render() {
     if(!this.state.checked) { return null }
 
-    let toKey = this.state.logined ? 'MessageScene' : 'Login';
+    let toKey = this.state.logined ? 'MessagesScene' : 'Login';
     let title = this.state.logined ? '消息' : '登录';
 
     return (
