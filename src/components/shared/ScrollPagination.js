@@ -53,7 +53,7 @@ export default class ScrollPagination extends PureComponent {
 
     return (
       <View style={styles.footer}>
-        <Loading/><Text style={{marginLeft: 5}}>正在努力加载...</Text>
+        <Loading/>
       </View>
     );
   }
