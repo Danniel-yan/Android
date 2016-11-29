@@ -81,6 +81,7 @@ export default class ExternalNavigation extends Component {
     return (
       <Navigator
         ref={nav => this.nav = nav}
+        configureScene={() => Navigator.SceneConfigs.FloatFromRight}
         initialRoute={{key: 'MajorNavigation', index: 0}}
         renderScene={this._renderScene.bind(this)}
       />
