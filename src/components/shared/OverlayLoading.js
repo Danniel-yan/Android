@@ -3,7 +3,8 @@ import {
   ActivityIndicator,
   View,
   StyleSheet,
-  Modal
+  Modal,
+  Image
 } from 'react-native';
 
 import * as defaultStyles from 'styles';
@@ -13,7 +14,7 @@ export default function(props) {
     <Modal
       transparent={true}
       animationType="fade" {...props} >
-      <View style={[defaultStyles.container, defaultStyles.centering, styles.bg]}><ActivityIndicator color="white"/></View>
+      <View style={[defaultStyles.container, defaultStyles.centering, styles.bg]}><Image source={require('assets/icons/mini_loader.gif')} /></View>
     </Modal>
   );
 }

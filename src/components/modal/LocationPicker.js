@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableNativeFeeback,
   TouchableOpacity,
-  ActivityIndicator,
   StyleSheet,
   ListView,
   Modal,
@@ -18,6 +17,7 @@ import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
 import SceneHeader from 'components/shared/SceneHeader';
 import alert from 'utils/alert';
+import Loading from 'components/shared/Loading';
 
 const sectionHeaderHeight = 30;
 const sectionRowHeight = 40;
@@ -102,7 +102,7 @@ export default class LocationPicker extends PureComponent {
   }
 
   _renderLoading() {
-    return (<View style={[defaultStyles.container, defaultStyles.centering]}><ActivityIndicator color="white"/></View>);
+    return (<View style={[defaultStyles.container, defaultStyles.centering]}><Loading color="white"/></View>);
   }
 
   _renderMain() {

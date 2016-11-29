@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Image } from 'react-native';
 
 export default class Loading extends Component{
   render(){
     return(
       <View style={styles.loading}>
-        <ActivityIndicator/>
+        <Image source={require('assets/icons/mini_loader.gif')} />
       </View>
     )
   }

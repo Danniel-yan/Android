@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  ActivityIndicator 
 } from 'react-native';
 
 import Text from 'components/shared/Text';

@@ -6,7 +6,6 @@ import {
   Image,
   AsyncStorage,
   Modal,
-  ActivityIndicator
 } from 'react-native';
 
 import Text from 'components/shared/Text';

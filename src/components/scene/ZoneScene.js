@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleSheet,
   AsyncStorage,
-  ActivityIndicator,
   Image
 } from 'react-native';
 
@@ -13,7 +12,7 @@ import Button from 'components/shared/Button';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import SceneHeader from 'components/shared/SceneHeader';
-
+import Loading from 'components/shared/Loading';
 import zoneStyles from './zone/styles';
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
@@ -117,7 +116,7 @@ export default class ZoneScene extends Component {
 
     return (
       <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
-        <ActivityIndicator/>
+        <Loading/>
       </View>
     );
 

@@ -4,10 +4,10 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  ActivityIndicator
 } from 'react-native';
 
 import Text from 'components/shared/Text';
+import Loading from 'components/shared/Loading';
 import * as defaultStyles from 'styles';
 
 export default class ScrollPagination extends PureComponent {
@@ -53,7 +53,7 @@ export default class ScrollPagination extends PureComponent {
 
     return (
       <View style={styles.footer}>
-        <ActivityIndicator/><Text style={{marginLeft: 5}}>正在努力加载...</Text>
+        <Loading/><Text style={{marginLeft: 5}}>正在努力加载...</Text>
       </View>
     );
   }
