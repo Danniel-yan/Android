@@ -37,7 +37,7 @@ export default class BankListScene extends Component{
   renderBankList(data){
     return(
       <View style={styles.itemViewStyle}>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id}}}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0}}}>
           <View style={[styles.itemViewStyle,styles.row]}>
             <Image style={styles.thumb} source={{uri: data.pic_card}} />
             <View>
@@ -56,7 +56,7 @@ export default class BankListScene extends Component{
 
     return(
       <View style={styles.moreBank}>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: null , bankid: null}}}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: 0 , bankid: 0}}}>
           <Text style={{fontSize:17,color:colors.fontColorPrimary}}>
             查看更多
             <Image style={styles.titleRightImg} source={iconNext} />
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   itemViewStyle:{
-    width: Dimensions.get('window').width / 2,
+    width: Dimensions.get('window').width / 2 - 1,
     height:90
   },
   row:{

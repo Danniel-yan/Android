@@ -5,6 +5,7 @@ const initState = {
   isFetching : false ,
   cardList :[],
   fetched: false,
+  fetchedParams: null,
   nomore: false
 };
 
@@ -19,7 +20,8 @@ export default function cardList(state = initState, action ) {
         isFetching:false,
         isPaging: false,
         fetched: true,
-        cardList: [...state.cardList, ...action.cardList],
+        fetchedParams: action.fetchedParams,
+        cardList: action.cardList,
         paginationParams: action.offset,
         nomore: action.nomore
       })

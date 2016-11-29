@@ -9,6 +9,9 @@ import ScrollPagination from 'components/shared/ScrollPagination';
 export default class CardListScene extends Component {
 
   render() {
+
+    console.log(this.props.cardList)
+
     let { isPaging, pagination, paginationParams, nomore } = this.props;
 
     return (
