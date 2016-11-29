@@ -13,7 +13,7 @@ var configs = {
   horizontal: false,
   pagingEnabled: true,
   intervalTime: 2000,
-  height: 15,
+  height: 21,
   scrollEnabled: false
 };
 
@@ -29,8 +29,8 @@ class BroadcastCarousel extends Component {
       messageList.map((message, idx) => {
         this.msgItems.push(
           <TouchableWithoutFeedback key={idx}>
-            <View style={{width:screenWidth, height:configs.height, padding:0}}>
-              <Text style={{width:screenWidth, height:configs.height, fontSize: 12}}>{message}</Text>
+            <View style={[{flexDirection: "row", alignItems: "center", width:screenWidth, height:configs.height, padding:0}]}>
+              <Text style={{width:screenWidth, fontSize: 16}}>{message}</Text>
             </View>
           </TouchableWithoutFeedback>
           );
@@ -43,7 +43,7 @@ class BroadcastCarousel extends Component {
 
       // return <Carousel height={130} />
       return (
-        <View style={{height:28, paddingLeft:10, paddingRight: 10, flexDirection: "row", alignItems:"center"}}>
+        <View style={{height:28, paddingLeft:10, paddingRight: 10, flexDirection: "row", alignItems:"center", backgroundColor: "#F3F3F3"}}>
           <Image style={{marginRight: 10}} source={require('assets/icons/laba.png')}></Image>
           <View style={{flex: 1, height:configs.height}}><Carousel height={configs.height} /></View>
         </View>

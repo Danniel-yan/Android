@@ -7,7 +7,7 @@ import { FormGroup, HorizontalRadios, VerticalRadios, HorizontalCheckboxes } fro
 import { RecList, MoreList } from 'containers/scene/fast/ListContainer';
 
 import { colors } from 'styles/varibles';
-import { container, rowContainer, flexRow, centering } from 'styles';
+import { container, rowContainer, flexRow, centering, bg } from 'styles';
 
 import Dimensions from 'Dimensions';
 import AbstractScene from 'components/scene/AbstractScene.js';
@@ -69,7 +69,7 @@ export default class FastLoanScene extends AbstractScene {
     var halfWidth = screenWidth / 2;
 
     return (
-      <View style={{flex:1}}>
+      <View style={[bg, {flex:1}]}>
         <SceneHeader title="极速贷款"/>
         {this._renderLoanGroup()}
         <HorizontalRadios
@@ -78,7 +78,7 @@ export default class FastLoanScene extends AbstractScene {
           selectedChanged={opt=>this.formValueChanged("job", opt.value)}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}
-        <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1, flex: 1}}>
+        <View style={{zIndex:-5, borderTopColor: colors.line, borderTopWidth: 1, flex: 1}}>
           <ScrollView>
             {this._renderFastLoanRecommend()}
             {this._renderFastLoanMore()}
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: "#f2f2f2"
+    borderBottomColor: colors.line
   },
   bgColorWhite:{
     backgroundColor:colors.white

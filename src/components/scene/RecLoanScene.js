@@ -108,7 +108,7 @@ export default class RecLoanScene extends AbstractScene {
   _renderLocationIpt() {
     return (
       <View>
-        <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff", borderBottomColor: "#f2f2f2", borderBottomWidth: 1 }]}>
+        <View style={[rowContainer, centering, recStyles.formRow]}>
           <View style={{flex: 1}}>
             <TouchableOpacity style={{flex: 1}} onPress={()=>this.setState({"showPicker": true})}>
               <IptWrap type={"static"} name={"location"} label={"所在城市"} icon={require('assets/form-icons/dizhi.png')}
@@ -124,7 +124,7 @@ export default class RecLoanScene extends AbstractScene {
   _renderLoginGroup() {
     return this.state.hasLogin ? null : (
       <View style={{marginTop:5}}>
-        <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff", borderBottomColor: "#f2f2f2", borderBottomWidth: 1 }]}>
+        <View style={[rowContainer, centering, recStyles.formRow]}>
           <View style={{flex: 1}}>
             <IptWrap type={'number'} name={'mobile'} icon={require('assets/form-icons/qingshurushoujihao.png')}
               placeholder={'请输入您的手机号码'} value={this.userInfo.mobile} styles={{ipt: {textAlign: 'left'}}}
@@ -177,5 +177,8 @@ const recStyles = StyleSheet.create({
   right: {
     position: "absolute",
     right: 0
+  },
+  formRow: {
+    height: 47, backgroundColor: "#fff", borderBottomColor: colors.line, borderBottomWidth: 1
   }
 });

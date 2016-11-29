@@ -70,7 +70,7 @@ const LNPStyles = StyleSheet.create({
     backgroundColor: "#FFF"
   },
   iptWrap: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#F3F3F3",
     height:32,
     flex:3,
     borderTopLeftRadius:14,
@@ -80,7 +80,7 @@ const LNPStyles = StyleSheet.create({
     paddingLeft: 12,
     height:32,
     paddingTop:0,paddingBottom:0,
-    fontSize: 16,
+    fontSize: iptFontSize,
     flex: 1
   },
   btnWrap: {
@@ -95,7 +95,7 @@ const LNPStyles = StyleSheet.create({
   btn: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 14
+    fontSize: iptFontSize
   },
   navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'},
   navTxt: { fontSize:iptFontSize, color: "#333", marginTop:8 }

@@ -271,7 +271,7 @@ const IptWrapStyles = StyleSheet.create({
   container: {
     padding: 4, paddingLeft: hPadding, paddingRight: hPadding,
     backgroundColor: "#fff",
-    borderColor: "#f2f2f2", borderWidth: 0, borderBottomWidth: 1,
+    borderColor: colors.line, borderWidth: 0, borderBottomWidth: 1,
     alignItems: 'center', flexDirection: 'row', height: 46
   },
   ipt: {
@@ -280,17 +280,17 @@ const IptWrapStyles = StyleSheet.create({
 });
 const HRadiosStyles = StyleSheet.create({
   container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", padding: 8, paddingLeft: hPadding, paddingRight: hPadding },
-  optWrap: { borderRadius:20, borderWidth: 1, borderColor: "#C2C2C2", alignItems: "center", padding: 6, flexDirection: 'row', height: 32, marginTop: 4},
+  optWrap: { borderRadius:20, borderWidth: 1, borderColor: colors.line, alignItems: "center", padding: 6, flexDirection: 'row', height: 36, marginTop: 4},
   opt: { color: "#999", paddingBottom:1, textAlign:"center", fontSize: 16, flex:1},
   select: { color: "#FE271E", borderColor: "#FE271E" },
   sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" }
 });
 const VRadiosStyles = StyleSheet.create({
   container: { flex: 1,  backgroundColor: "#fff" },
-  item: { height: 32, flexDirection: 'row', alignItems:"center", justifyContent: "center", borderWidth: 1, borderTopWidth: 0, borderColor: "#f2f2f2" }
+  item: { height: 32, flexDirection: 'row', alignItems:"center", justifyContent: "center", borderWidth: 1, borderTopWidth: 0, borderColor: colors.line }
 });
 const FormGroupStyles = StyleSheet.create({
-  container: { borderColor: "#f2f2f2", borderWidth: 1, borderBottomWidth: 0 },
+  container: { borderColor: colors.line, borderWidth: 1, borderBottomWidth: 0 },
   item: { height: 46 }
 });
 const PickerStyles = StyleSheet.create({
