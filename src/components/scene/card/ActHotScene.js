@@ -5,6 +5,8 @@ import {colors} from 'styles/varibles';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
+import dateBackground from 'assets/icons/date_background.png'
+
 import Dimensions from 'Dimensions';
 
 export default class ActHotScene extends Component {
@@ -15,17 +17,18 @@ export default class ActHotScene extends Component {
 
     return(
       <View style={[styles.bgColorWhite,{position:'relative'}]}>
-        <View style={styles.topic}>
+        <Image style={styles.topic} source={dateBackground} >
           <Text style={styles.topicText}>{new Date().getMonth()+1}.{new Date().getDate()}</Text>
-        </View>
-          <ListView
-          contentContainerStyle={[styles.flexRow]}
-          enableEmptySections={true}
-          dataSource={dataSource}
-          horizontal={true}
-          renderRow={this.renderBanner}
-          showsHorizontalScrollIndicator={false}
-          />
+        </Image>
+
+        <ListView
+        contentContainerStyle={[styles.flexRow]}
+        enableEmptySections={true}
+        dataSource={dataSource}
+        horizontal={true}
+        renderRow={this.renderBanner}
+        showsHorizontalScrollIndicator={false}
+        />
       </View>
     )
   }
@@ -53,7 +56,8 @@ const styles = StyleSheet.create({
   },
   flexHorizontalColumn:{
     paddingBottom:10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop:8
   },
   cardPic:{
     width:220,
@@ -63,22 +67,17 @@ const styles = StyleSheet.create({
     alignItems:'flex-start',
   },
   topic:{
+    width:42,
+    height:19,
+    backgroundColor:'transparent',
+    alignItems:'center',
     position:'absolute',
-    left:-12,
-    top:-10,
-    zIndex:1,
-    borderRadius:12,
-    backgroundColor:'#ffaf32',
-    padding:2
+    top:0,
+    left:0,
+    zIndex:1
   },
   topicText:{
     color:'#fff',
-    borderWidth:1,
-    borderColor:'#fff',
-    margin:1,
-    borderRadius:12,
-    paddingLeft:12,
-    paddingRight:10
   },
   bankName:{
     marginLeft:10,

@@ -67,7 +67,7 @@ export default class CardScene extends AbstractScene {
   _renderActHot(){
     return(
       <View>
-        <View style={[styles.title,styles.bgColorWhite, {marginTop:5}]}>
+        <View style={[styles.title,styles.bgColorWhite, {marginTop:5,paddingBottom:5}]}>
           <Text style={styles.titleLeft}>今天薅什么</Text>
           <ExternalPushLink style={styles.flexRow} toKey="ActHotListScene" title="今天薅什么">
             <Text style={styles.titleRight}>更多产品</Text>
