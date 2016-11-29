@@ -14,7 +14,9 @@ export default class MajorNavigation extends Component {
 
     return (
       <View style={styles.container}>
-        <Compo/>
+        <View style={styles.scene}>
+          <Compo/>
+        </View>
         <MajorTabs curTab={navigation.curTab} onMajorTabChange={this.props.majorTab}/>
       </View>
     );
