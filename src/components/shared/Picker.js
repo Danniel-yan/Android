@@ -30,7 +30,7 @@ export default class PickerComponent extends Component {
     super(props);
 
     this.state = {
-      selectedValue: props.selectedValue,
+      selectedValue: props.value,
       openModal: false
     };
   }

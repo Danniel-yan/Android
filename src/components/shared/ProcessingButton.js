@@ -20,14 +20,14 @@ export default class ProcessingButton extends Component {
   }
 
   _renderProcessing() {
-    let { text, onPress, children, processing, ...props } = this.props;
+    let { text, onPress, children, processing, color, ...props } = this.props;
 
     return (
       <Button {...props}>
         <ActivityIndicator
           animating={true}
           style={defaultStyles.centering}
-          color="#fff"
+          color={color || "#fff"}
           size="small"
         />
       </Button>

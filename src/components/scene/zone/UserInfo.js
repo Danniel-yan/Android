@@ -17,50 +17,55 @@ import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
 import CountdownButton from 'components/shared/CountdownButton'
+import zoneStyles from './styles';
 import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
-import FormGroup from './shared/FormGroup';
+import FormGroup from 'components/shared/FormGroup';
 
 const hasCreditStatus = {
   yes: 1,
   no: 0
 }
 
-export default class FillUserInfo extends AbstractScene {
-  static title = '完善个人信息';
+export default class UserInfo extends AbstractScene {
 
   state = {
-    hasCard: false,
-    mobile: '',
-    verifyCode: '',
-    realname: '',
-    idNO: '',
-    job: '',
-    creditStatus: hasCreditStatus.no
+    hasCard: false
   };
 
   constructor(props) {
     super(props);
     this.sceneEntity="FILL_USER_INFO";
     this.sceneTopic = "";
+
+    console.log(props);
+
+    let loginUser = props.loginUser.info;
+    this.state = {
+      creditStatus: loginUser.credit_status == hasCreditStatus.yes,
+      job: loginUser.job || '',
+      realname: loginUser.realname || '',
+      mobile: loginUser.mobile,
+      idNO: loginUser.id_no || ''
+    };
   }
 
-  componentWillReceiveProps(nextProps, prevProps) {
-    if(nextProps.token != prevProps.token) {
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.update.token == this.props.update.token) {
       return;
     }
 
-    if(nextProps.token) {
+    if(nextProps.update.token) {
       this.props.onSubmitSuccess(nextProps.token);
     }
   }
 
   render() {
+    let { mobile, idNO, job, creditStatus, realname } = this.state;
 
-    const validMobile = validators.mobile(this.state.mobile);
-    const validVerifyCode = this.state.verifyCode.length == 6;
-    const validName = this.state.realname.length >= 2;
-    const validID = validators.idNO(this.state.idNO);
+    const validMobile = validators.mobile(mobile);
+    const validName = realname.length >= 2;
+    const validID = validators.idNO(idNO);
 
     return (
       <View style={defaultStyles.container}>
@@ -70,6 +75,7 @@ export default class FillUserInfo extends AbstractScene {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={20}
+              value={realname}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'realname')}
             />
@@ -79,6 +85,7 @@ export default class FillUserInfo extends AbstractScene {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={18}
+              value={idNO}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'idNO')}
             />
@@ -90,68 +97,47 @@ export default class FillUserInfo extends AbstractScene {
               keyboardType="numeric"
               maxLength={11}
               underlineColorAndroid="transparent"
+              editable={false}
+              value={mobile}
               onChangeText={this._inputChange.bind(this, 'mobile')}
             />
-          </FormGroup>
-
-          <FormGroup label="输入验证码">
-            <View style={[defaultStyles.rowContainer, defaultStyles.centering]}>
-
-              <TextInput style={styles.formControl}
-                clearButtonMode="while-editing"
-                keyboardType="numeric"
-                maxLength={6}
-                underlineColorAndroid="transparent"
-                onChangeText={this._inputChange.bind(this, 'verifyCode')}
-              />
-
-              <View style={styles.addon}>
-                <CountdownButton disabled={!validMobile} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
-              </View>
-            </View>
           </FormGroup>
 
           <View style={styles.optional}>
             <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
             <FormGroup style={styles.optionalGroup} label="职业身份">
-              <Picker style={styles.pickerGroup} textStyle={styles.pickerTxt}
+              <Picker
+                style={styles.pickerGroup}
+                textStyle={styles.pickerTxt}
+                value={job}
                 onChange={this._inputChange.bind(this, 'job')}
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
 
             <FormGroup style={styles.optionalGroup} label="有无信用卡资质">
-
-              <TouchableOpacity
+              <Checkbox
                 style={styles.pickerGroup}
-                activeOpacity={1}
-                onPress={checked => this.setState({ creditStatus: !this.state.creditStatus })}
-                >
-
-                <Checkbox checked={this.state.creditStatus == true}
-                  onChange={this._inputChange.bind(this, 'creditStatus')}
-                  />
-
-              </TouchableOpacity>
-
+                checked={this.state.creditStatus == true}
+                onChange={this._inputChange.bind(this, 'creditStatus')}
+                />
             </FormGroup>
+
+          </View>
+
+          <View style={styles.footer}>
+            <ProcessingButton color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
           </View>
 
         </ScrollView>
-
-        <View style={styles.footer}>
-          <ProcessingButton processing={this.props.submitting} style={styles.btn} disabled={!(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
-        </View>
       </View>
     );
   }
 
-  _sendVerify() {}
-
   _submit() {
-    let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
+    let { mobile, idNO: id_no, job, creditStatus, realname } = this.state;
 
-    this.props.submit({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname });
+    this.props.submit({ mobile, id_no, job, credit_status: creditStatus ? hasCreditStatus.yes : hasCreditStatus.no, realname });
   }
 
   _inputChange(field, value) {
@@ -167,11 +153,13 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#333',
     paddingHorizontal: 10
   },
 
   footer: {
+    marginTop: 30,
     height: 50,
   },
 
@@ -180,15 +168,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 50,
     backgroundColor: colors.primary
-  },
-
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 26,
-    fontSize: 12,
-    color: '#fff'
   },
 
   addon: {

@@ -105,11 +105,13 @@ export default class ZoneScene extends AbstractScene {
 
     if(!loginUser.fetching && loginUser.info) {
       return (
-        <View style={[zoneStyles.item, styles.loginWrap]}>
-          <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
-          <Text style={zoneStyles.txt}>{loginUser.info.username}</Text>
-          <NextIcon/>
-        </View>
+        <ExternalPushLink title="个人信息" toKey="UserInfo">
+          <View style={[zoneStyles.item, styles.loginWrap]}>
+            <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
+            <Text style={zoneStyles.txt}>{loginUser.info.username}</Text>
+            <NextIcon/>
+          </View>
+        </ExternalPushLink>
       );
     }
 
