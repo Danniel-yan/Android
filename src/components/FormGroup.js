@@ -66,7 +66,7 @@ export class IptWrap extends EnhanceStyleCp {
         iptEle = (<Text style={[{flex: 1, color: "#333", fontSize: iptFontSize}, s.ipt]}>{this.props.value ? this.props.value.toString():""}</Text>)
         break;
       default:
-        iptEle = (<Input placeholder={p.placeholder} type={p.type} style={[{flex: 1}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>);
+        iptEle = (<Input placeholder={p.placeholder} type={p.type} style={[{flex: 1, fontWeight: '500'}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>);
         break;
     }
 
@@ -295,7 +295,7 @@ const FormGroupStyles = StyleSheet.create({
 });
 const PickerStyles = StyleSheet.create({
   pickerGroup: {flex: 1, flexDirection: 'row', paddingRight: 10, alignItems: 'center', justifyContent: 'flex-end'},
-  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 16 : 16 }
+  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 16 : 16, fontWeight: '500' }
 });
 
 // module.exports = FormGroup;

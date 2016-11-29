@@ -89,12 +89,12 @@ export default class RecLoanScene extends AbstractScene {
       items: [{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}],
       valueChanged: this.formValueChanged.bind(this)
     }], gpArray2 = [{
-      name: 'credit_status', type: 'switch', label:'是否有信用卡', icon: require('assets/form-icons/xingyongka.png'), value: this.userInfo.credit_status == 1,
-      valueChanged: (name, value) => this.formValueChanged('credit_status', value ? 1 : 0)
-    }, {
       name: 'mobile_time', label:'手机号码使用时间', type: "picker", icon: require('assets/form-icons/shiyongshijian.png'), value: this.userInfo.mobile_time,
       items: [{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}],
       valueChanged: this.formValueChanged.bind(this)
+    }, {
+      name: 'credit_status', type: 'switch', label:'是否有信用卡', icon: require('assets/form-icons/xingyongka.png'), value: this.userInfo.credit_status == 1,
+      valueChanged: (name, value) => this.formValueChanged('credit_status', value ? 1 : 0)
     }], gpTotalArray = Array.prototype.concat(gpArray1, this.state.hasLogin ? [{
       name: 'mobile', type: 'number', label:'手机号码', icon: require('assets/form-icons/shoujihao.png'), value: this.userInfo.mobile,
       valueChanged: this.formValueChanged.bind(this)
