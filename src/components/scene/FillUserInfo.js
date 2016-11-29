@@ -38,8 +38,9 @@ export default class FillUserInfo extends AbstractScene {
 
   constructor(props) {
     super(props);
-    this.sceneEntity="FILL_USER_INFO";
-    this.sceneTopic = "";
+    this.sceneEntity="fill_info";
+    this.sceneTopic = "user_info";
+    this.sceneKey = "user"
   }
   componentDidUpdate() {
     let { response } = this.props;

@@ -17,8 +17,15 @@ import SceneHeader from 'components/shared/SceneHeader';
 import * as defaultStyles from 'styles';
 
 import Button from 'components/shared/Button'
+import AbstractScene from 'components/scene/AbstractScene.js';
 
 export default class LoanDetailScene extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.sceneEntity=props.detail.title;
+    this.sceneTopic = "detail";
+    this.sceneKey = "loan"
+  }
 
   render() {
     let detail = this.props.detail;

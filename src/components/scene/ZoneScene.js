@@ -18,8 +18,9 @@ import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
 
 import Login from 'containers/Login';
+import AbstractScene from 'components/scene/AbstractScene.js';
 
-export default class ZoneScene extends Component {
+export default class ZoneScene extends AbstractScene {
 
   constructor(props) {
     super(props);
@@ -27,6 +28,9 @@ export default class ZoneScene extends Component {
     this.state = {
       checkedUser: false
     };
+    this.sceneKey = "user";
+    this.sceneTopic = "zone";
+    this.sceneEntity = "";
   }
 
   componentDidMount() {

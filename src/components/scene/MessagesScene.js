@@ -7,9 +7,15 @@ import {
 import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
 import ScrollPagination from 'components/shared/ScrollPagination';
+import AbstractScene from 'components/scene/AbstractScene.js';
 
 export default class MessagesScene extends Component {
-
+  constructor(props) {
+    super(props);
+    this.sceneEntity= "list";
+    this.sceneTopic = "message";
+    this.sceneKey = "user"
+  }
   render() {
     let { isPaging, pagination, paginationParams, nomore } = this.props;
     this.latest = null;

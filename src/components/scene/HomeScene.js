@@ -17,12 +17,21 @@ import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 import { ExternalPushLink } from 'containers/shared/Link';
+import AbstractScene from 'components/scene/AbstractScene.js';
 
 import panelStyles from './home/panelStyles';
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
-export default class HomeScene extends Component {
+export default class HomeScene extends AbstractScene {
+
+  constructor(props) {
+    super(props);
+    this.sceneEntity="homepage";
+    this.sceneTopic = "homepage";
+    this.sceneTopic = "homepage";
+  }
+
   componentDidMount() {
     this.props.fetchingIndexConfig && this.props.fetchingIndexConfig();
   }

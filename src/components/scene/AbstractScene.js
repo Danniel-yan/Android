@@ -6,8 +6,9 @@ export default class AbstractScene extends Component {
         super(props);
         this.sceneEntity = "default_scene";
         this.sceneTopic = "";
+        this.sceneKey = "";
     }
     componentWillMount() {
-        tracker.trackPage(this.sceneEntity, this.sceneTopic);
+        tracker.trackPage(this.sceneKey, this.sceneEntity, this.sceneTopic);
     }
 }

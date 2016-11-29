@@ -34,7 +34,7 @@ class Tracker {
 
     triggerTracking(key, entity, topic, event) {
         var urlPrefix = this.composeBasicParams(key);
-        var url = urlPrefix+"&entity="+entity+"&topic="+topic+"&event="+event+"&user="+Tracker.user_id;
+        var url = urlPrefix+"&entity="+entity+"&topic="+topic+"&event="+event+"&user="+this.user_id;
         fetch(url).then(response => {
             return;
         });
@@ -54,17 +54,15 @@ class Tracker {
         }
     }
 
-    trackAction(entity, topic, event) {
+    trackAction(key, entity, topic, event) {
         if (!this.workable)
             return;
-        var key = "bhv";
         this.trackGeneral(key, entity, topic, event);
     }
 
-    trackPage(entity, topic) {
+    trackPage(key, entity, topic) {
         if (!this.workable)
             return;
-        var key = "page";
         var event = "landing";
         this.trackGeneral(key, entity, topic, event);
     }

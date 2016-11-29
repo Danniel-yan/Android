@@ -11,12 +11,20 @@ import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
+import AbstractScene from 'components/scene/AbstractScene.js';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
 
-export default class CardScene extends Component {
+export default class CardScene extends AbstractScene {
+
+  constructor(props) {
+    super(props);
+    this.sceneEntity = "hpg";
+    this.sceneTopic = "credit_card";
+    this.sceneKey = "credit_card";
+  }
 
   render() {
     let { isPaging, pagination, paginationParams, nomore } = this.props;

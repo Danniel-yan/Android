@@ -1,6 +1,6 @@
 import { AsyncStorage, Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-
+import tracker from 'utils/tracker.js';
 const environments = {
   defaultEnvironment: require('./dynamic/env'),
   production: {
@@ -50,6 +50,7 @@ function setupUUID() {
     .then(uuid => {
       if(uuid) {
         staticSettings.uuid = uuid;
+        tracker.user_id = uuid;
         return;
       }
 
@@ -60,6 +61,7 @@ function setupUUID() {
 
           if(response.res == 1) {
             staticSettings.uuid = response.data.uuid;
+            tracker.user_id = uuid;
             return AsyncStorage.setItem('uuid', response.data.uuid);
           }
 

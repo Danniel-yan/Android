@@ -30,7 +30,10 @@ export default class RecLoanScene extends AbstractScene {
     this.state = {
       hasLogin: !!this.userInfo.username,
       mobile: this.userInfo.username || this.userInfo.mobile
-    }
+    };
+    this.sceneKey = "loan";
+    this.sceneTopic = "recommand";
+    this.sceneEntity = "list";
   }
 
   formValueChanged(name, value) {

@@ -28,9 +28,10 @@ export default class FastLoanScene extends AbstractScene {
       isFetchingRec: true,
       toggleFilter: false,
       toggleSort: false
-    }
-    this.sceneEntity = "FAST_LOAN";
-    this.sceneTopic = "";
+    };
+    this.sceneEntity = "hpg";
+    this.sceneTopic = "fast_loan";
+    this.sceneKey = "loan";
   }
   static title = "极速贷款";
 

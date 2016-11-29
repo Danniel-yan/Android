@@ -2,7 +2,7 @@
 
 const initState = {
   submitting: false
-}
+};
 
 export default function fillUserInfo(state = initState, action) {
   switch(action.type) {
