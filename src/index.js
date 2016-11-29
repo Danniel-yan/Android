@@ -43,11 +43,7 @@ export default class supermarketjs extends Component {
 
     return (
       <Provider store={store}>
-        <Navigator
-          ref={nav => this.nav = nav}
-          initialRoute={{key: 'MajorNavigation', index: 0}}
-          renderScene={(route, navigator) => <ExternalNavigationContainer route={route} navigator={navigator}/>}
-        />
+        <ExternalNavigationContainer/>
       </Provider>
     );
   }

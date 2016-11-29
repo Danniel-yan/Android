@@ -50,21 +50,20 @@ export default class ExternalNavigation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(!this.props.navigation) { return ;}
+    // TODO, safe push/pop
+    let navigation= this.props.navigation;
+    let nextNavigation = nextProps.navigation;
 
-    if(nextProps.navigation.index > this.props.navigation.index) {
-      this.props.navigator.push(nextProps.navigation.routes[nextProps.navigation.index])
-    } else if(nextProps.navigation.index < this.props.navigation.index) {
-      this.props.navigator.pop();
+    if(!navigation) { return ;}
+
+    if(nextNavigation.index > navigation.index) {
+      this.nav.push(nextNavigation.routes[nextNavigation.index])
+    } else if(nextNavigation.index < navigation.index) {
+      this.nav.pop()
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !this.props.navigator;
-  }
-
-  render() {
-    let route = this.props.route;
+  _renderScene(route, navigator) {
     let { web, key, title, component: ComponentClass, componentProps } = route;
 
     if(!ComponentClass) {
@@ -78,6 +77,15 @@ export default class ExternalNavigation extends Component {
     return React.createElement(ComponentClass , { ...componentProps, navigator});
   }
 
+  render() {
+    return (
+      <Navigator
+        ref={nav => this.nav = nav}
+        initialRoute={{key: 'MajorNavigation', index: 0}}
+        renderScene={this._renderScene.bind(this)}
+      />
+    );
+  }
 }
 
 const styles = StyleSheet.create({

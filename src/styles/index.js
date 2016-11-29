@@ -6,6 +6,10 @@ export const container = {
   flex: 1
 };
 
+export const bg = {
+  backgroundColor: '#f1f1f1'
+};
+
 export const rowContainer = {
   flex: 1,
   flexDirection: 'row'

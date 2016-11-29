@@ -15,7 +15,7 @@ import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
 import MessagesScene from 'containers/scene/MessagesScene';
 import CardListScene from 'containers/scene/card/CardListContainer'
 import ContactScene from 'components/scene/zone/ContactScene';
-import SettingScene from 'components/scene/zone/SettingScene';
+import SettingScene from 'containers/scene/zone/SettingScene';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
