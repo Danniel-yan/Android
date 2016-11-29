@@ -67,6 +67,7 @@ export default class FastLoanScene extends AbstractScene {
 
   render() {
     var halfWidth = screenWidth / 2;
+
     return (
       <View style={{flex:1}}>
         <SceneHeader title="极速贷款"/>
@@ -117,7 +118,9 @@ export default class FastLoanScene extends AbstractScene {
         valueChanged: this.formValueChanged.bind(this)
       }, {
         name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.state.fetchRecParams.period,
-        items: [{value: "3", label: "3"}, {value: "6", label: "6"}, {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"}],
+        items: [{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
+          {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
+          {value: "24", label: "24"}, {value: "36", label: "36"}],
         valueChanged: this.formValueChanged.bind(this)
       }] }></FormGroup>
     );
@@ -133,7 +136,7 @@ export default class FastLoanScene extends AbstractScene {
       <View style={{marginTop: 5, position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 14, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+            <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
@@ -144,7 +147,7 @@ export default class FastLoanScene extends AbstractScene {
         </View>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 14, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+            <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>

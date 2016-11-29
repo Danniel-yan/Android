@@ -73,7 +73,7 @@ export class IptWrap extends EnhanceStyleCp {
     return (
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
-        <Text style={{color: "#333"}}>{p.label}</Text>
+        <Text style={{color: "#333", fontSize: 16}}>{p.label}</Text>
         { iptEle }
         <Text style={{marginLeft: 4}}></Text>
       </View>
@@ -121,9 +121,9 @@ export class HorizontalRadios extends EnhanceStyleCp {
     return (
       <View style={[flexRow, {borderTopColor: "#f0f0f0", borderBottomColor: "#f0f0f0", borderTopWidth: 1, borderBottomWidth: 1}]}>
         <TouchableWithoutFeedback onPress={()=>this.reset()}>
-          <View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:"white",height:36}]}><Text style={{fontSize: 14}}>重置</Text></View>
+          <View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:"white",height:36}]}><Text style={{fontSize: 16}}>重置</Text></View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={()=>this.submit()}><View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:colors.secondary,height:36}]}><Text style={{color:"#fff", fontSize: 14}}>完成</Text></View></TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={()=>this.submit()}><View style={[flexRow, centering, {width:screenWidth/2,backgroundColor:colors.secondary,height:36}]}><Text style={{color:"#fff", fontSize: 16}}>完成</Text></View></TouchableWithoutFeedback>
       </View>
     );
   }
@@ -279,9 +279,9 @@ const IptWrapStyles = StyleSheet.create({
   }
 });
 const HRadiosStyles = StyleSheet.create({
-  container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", padding: 4, paddingLeft: hPadding, paddingRight: hPadding },
-  optWrap: { borderRadius:24, borderWidth: 1, borderColor: "#C2C2C2", alignItems: "center", padding: 2, flexDirection: 'row', height: 40, marginTop: 4},
-  opt: { color: "#999", paddingBottom:1, textAlign:"center", flex:1},
+  container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", padding: 8, paddingLeft: hPadding, paddingRight: hPadding },
+  optWrap: { borderRadius:20, borderWidth: 1, borderColor: "#C2C2C2", alignItems: "center", padding: 6, flexDirection: 'row', height: 32, marginTop: 4},
+  opt: { color: "#999", paddingBottom:1, textAlign:"center", fontSize: 16, flex:1},
   select: { color: "#FE271E", borderColor: "#FE271E" },
   sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" }
 });
@@ -295,7 +295,7 @@ const FormGroupStyles = StyleSheet.create({
 });
 const PickerStyles = StyleSheet.create({
   pickerGroup: {flex: 1, flexDirection: 'row', paddingRight: 10, alignItems: 'center', justifyContent: 'flex-end'},
-  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 14 : 16 }
+  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 16 : 16 }
 });
 
 // module.exports = FormGroup;

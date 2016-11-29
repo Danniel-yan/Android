@@ -9,7 +9,7 @@ import {
 
 import Input from 'components/shared/Input';
 
-import { colors } from "styles/varibles";
+import { colors, iptFontSize } from "styles/varibles";
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 
 class LoanNavPanel extends Component {
@@ -39,18 +39,18 @@ class LoanNavPanel extends Component {
             <TouchableOpacity onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></TouchableOpacity>
           </View>
         </View>
-        <View style={{flex:1,flexDirection:"row"}}>
+        <View style={{flex:1,flexDirection:"row", alignItems:"center", paddingTop: 12}}>
           <ExternalPushLink title="推荐贷款" toKey="RecLoanScene" style={LNPStyles.navItem}>
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text style={{fontSize:12, color: "#333", marginTop:4}}>推荐贷款</Text>
+            <Text style={LNPStyles.navTxt}>推荐贷款</Text>
           </ExternalPushLink>
           <MajorTabLink title="极速贷款" toKey="LoanScene" style={LNPStyles.navItem}>
             <Image source={require('assets/icons/jisudaikuan.png')}></Image>
-            <Text style={{fontSize:12, color: "#333", marginTop:4}}>极速贷款</Text>
+            <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>
           <TouchableOpacity style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
-            <Text style={{fontSize:12, color: "#333", marginTop:4}}>查信用</Text>
+            <Text style={LNPStyles.navTxt}>查信用</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -65,28 +65,27 @@ class LoanNavPanel extends Component {
 
 const LNPStyles = StyleSheet.create({
   container: {
-    padding: 8,
-    paddingLeft: 10, paddingRight: 10,
-    height: 123,
+    padding: 8, paddingLeft: 10, paddingRight: 10,
+    height: 136,
     backgroundColor: "#FFF"
   },
   iptWrap: {
     backgroundColor: "#f2f2f2",
-    height: 25,
+    height:32,
     flex:3,
     borderTopLeftRadius:14,
     borderBottomLeftRadius: 14
   },
   input: {
     paddingLeft: 12,
-    height:25,
+    height:32,
     paddingTop:0,paddingBottom:0,
-    fontSize: 14,
+    fontSize: 16,
     flex: 1
   },
   btnWrap: {
     flex:1,
-    height: 25,
+    height:32,
     paddingRight: 5,
     backgroundColor: colors.secondary,
     borderTopRightRadius:14,
@@ -98,7 +97,8 @@ const LNPStyles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14
   },
-  navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'}
+  navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'},
+  navTxt: { fontSize:iptFontSize, color: "#333", marginTop:8 }
 });
 
 module.exports = LoanNavPanel;
