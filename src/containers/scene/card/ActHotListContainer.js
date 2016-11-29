@@ -13,7 +13,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    fetching :() => dispatch(fetchActHot())
+    fetching : num => dispatch(fetchActHot( num = 20 ))
   }
 }
 

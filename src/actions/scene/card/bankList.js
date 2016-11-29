@@ -20,7 +20,7 @@ export function fetchBankList(){
 
     dispatch(requestBankList())
 
-    return get('/card/bank-list')
+    return get(`/card/bank-list`)
       .then(bankList => dispatch(receiveBankList(bankList.data)))
       .catch(err => console.log(err))
 

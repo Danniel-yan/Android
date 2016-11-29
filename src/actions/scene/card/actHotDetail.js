@@ -19,7 +19,7 @@ export function fetchActHotDetail(id) {
 
     dispatch(requestActHotDetail())
 
-    return get('/card/act-detail?act_id=${id}')
+    return get(`/card/act-detail?act_id=${id}`)
       .then(response => dispatch(receiveActHotDetail(response.data)))
       .catch(err => console.log(err))
   }

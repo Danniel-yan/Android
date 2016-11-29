@@ -21,7 +21,7 @@ export function fetchCategory() {
 
     dispatch(requestCategory())
 
-    return get('/card/category-list')
+    return get(`/card/category-list`)
       .then(category => dispatch(receiveCategory(category.data)))
       .catch(err => console.log(err))
   }

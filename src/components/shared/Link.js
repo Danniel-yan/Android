@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   TouchableOpacity,
   TouchableNativeFeedback,
@@ -11,6 +11,13 @@ import Text from './Text';
 import { colors } from 'styles/varibles';
 
 export default class Link extends Component {
+  static propTypes = {
+    prePress: PropTypes.func
+  };
+
+  static defaultProps = {
+    prePress: () => {}
+  };
 
   render() {
     return Platform.OS == 'ios' ? this._renderIOS() : this._renderAndroid();
@@ -52,12 +59,15 @@ export default class Link extends Component {
   _onPress() {
     let { onPress, toKey, toComponent, title } = this.props;
 
-    onPress({
-      title,
-      key: toKey,
-      component: toComponent,
-      componentProps: this.props.componentProps
-    });
+    Promise.resolve(this.props.prePress()).then(() => {
+      onPress({
+        title,
+        key: toKey,
+        component: toComponent,
+        componentProps: this.props.componentProps
+      });
+    })
+    .catch(console.log)
   }
 
   _createText() {

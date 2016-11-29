@@ -21,6 +21,10 @@ export default class CardScene extends Component {
   render() {
     let { isPaging, pagination, paginationParams, nomore } = this.props;
 
+    if(this.props.geoError) {
+      return this._geoError();
+    }
+
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <SceneHeader title="办卡"/>
@@ -34,6 +38,20 @@ export default class CardScene extends Component {
             {this._renderBankList()}
             {this._renderShopNearby()}
         </ScrollPagination>
+      </View>
+    );
+  }
+
+  _geoError() {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
+        <SceneHeader title="办卡"/>
+        <ScrollView>
+            {this._renderActHot()}
+            {this._renderCard()}
+            {this._renderBankList()}
+            {this._renderShopNearby()}
+        </ScrollView>
       </View>
     );
   }

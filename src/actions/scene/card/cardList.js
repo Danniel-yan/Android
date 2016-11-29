@@ -6,7 +6,7 @@ export default function(params, offset = 0) {
 
     dispatch(offset == 0 ? fetchCardList(offset) : paginationCardList(offset));
 
-    return get('/card/card-list?bankid=${params.bankid}&categoryid=${params.categoryid}&num=10&offset=${offset}')
+    return get(`/card/card-list?bankid=${params.bankid}&categoryid=${params.categoryid}&num=10&offset=${offset}`)
 
       .then(response => dispatch(receiveCardList(response.data, offset)))
 

@@ -6,7 +6,8 @@ import {
   externalPush,
   externalPop,
   majorPush,
-  majorPop
+  majorPop,
+  majorTab
 } from 'actions/navigation';
 
 export const ExternalPushLink = connect(null, dispatch => {
@@ -23,4 +24,8 @@ export const MajorPushLink = connect(null, dispatch => {
 
 export const MajorPopLink = connect(null, dispatch => {
   return { onPress: () => dispatch(majorPop()) }
+})(Link);
+
+export const MajorTabLink = connect(null, dispatch => {
+  return { onPress: route => dispatch(majorTab(route.key)) }
 })(Link);

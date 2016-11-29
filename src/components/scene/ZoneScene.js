@@ -3,6 +3,8 @@ import {
   View,
   ScrollView,
   StyleSheet,
+  AsyncStorage,
+  ActivityIndicator,
   Image
 } from 'react-native';
 
@@ -16,8 +18,33 @@ import zoneStyles from './zone/styles';
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
 
+import Login from 'containers/Login';
+
 export default class ZoneScene extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      checkedUser: false
+    };
+  }
+
+  componentDidMount() {
+    if(!this.props.loginUser.user) {
+      AsyncStorage.getItem('userToken').then(token => {
+        if(token) {
+          this.props.fetching();
+        } else {
+          this.setState({ checkedUser: true });
+        }
+      })
+    }
+  }
+
   render() {
+    let logined = !!this.props.loginUser.user;
+
     return (
       <View style={defaultStyles.container}>
         <SceneHeader title="我的"/>
@@ -37,7 +64,7 @@ export default class ZoneScene extends Component {
             <NextIcon/>
           </View>
 
-          <ExternalPushLink toKey="MessagesScene">
+          <ExternalPushLink title={logined ?  '消息' : '登录'} toKey={logined ? 'MessagesScene' : 'Login'}>
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/message.png')}/>
               <Text style={zoneStyles.txt}>我的消息</Text>
@@ -62,24 +89,38 @@ export default class ZoneScene extends Component {
             </View>
           </ExternalPushLink>
         </ScrollView>
+
       </View>
     );
   }
 
   _loginInfo() {
+    let user = this.props.loginUser.user;
+
+    if(user) {
+      return (
+        <View style={[zoneStyles.item, styles.loginWrap]}>
+          <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
+          <Text style={zoneStyles.txt}>{user.username}</Text>
+          <NextIcon/>
+        </View>
+      );
+    }
+
+    if(this.state.checkedUser) {
+      return (
+        <View style={[styles.loginWrap, defaultStyles.centering]}>
+          <Button style={styles.loginBtn} text="登录注册"/>
+        </View>
+      );
+    }
+
     return (
-      <View style={[zoneStyles.item, styles.loginWrap]}>
-        <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
-        <Text style={zoneStyles.txt}>18964165910</Text>
-        <NextIcon/>
+      <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
+        <ActivityIndicator/>
       </View>
     );
 
-    return (
-      <View style={[styles.loginWrap, defaultStyles.centering]}>
-        <Button style={styles.loginBtn} text="登录注册"/>
-      </View>
-    );
   }
 } 
 

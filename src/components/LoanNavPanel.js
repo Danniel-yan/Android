@@ -10,6 +10,7 @@ import {
 import Input from 'components/shared/Input';
 
 import { colors } from "styles/varibles";
+import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 
 class LoanNavPanel extends Component {
   constructor(props) {
@@ -39,14 +40,14 @@ class LoanNavPanel extends Component {
           </View>
         </View>
         <View style={{flex:1,flexDirection:"row"}}>
-          <TouchableOpacity style={LNPStyles.navItem} onPress={this.onPressIconBtn.bind(this, 0)}>
+          <ExternalPushLink title="推荐贷款" toKey="RecLoanScene" style={LNPStyles.navItem}>
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
             <Text style={{fontSize:12, color: "#333", marginTop:4}}>推荐贷款</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={LNPStyles.navItem} onPress={this.onPressIconBtn.bind(this, 1)}>
+          </ExternalPushLink>
+          <MajorTabLink toKey="LoanScene" style={LNPStyles.navItem}>
             <Image source={require('assets/icons/jisudaikuan.png')}></Image>
             <Text style={{fontSize:12, color: "#333", marginTop:4}}>极速贷款</Text>
-          </TouchableOpacity>
+          </MajorTabLink>
           <TouchableOpacity style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
             <Text style={{fontSize:12, color: "#333", marginTop:4}}>查信用</Text>

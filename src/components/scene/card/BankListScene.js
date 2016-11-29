@@ -37,7 +37,7 @@ export default class BankListScene extends Component{
   renderBankList(data){
     return(
       <View style={styles.itemViewStyle}>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: null , bankid: data.id}}}>
+        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id}}}>
           <View style={[styles.itemViewStyle,styles.row]}>
             <Image style={styles.thumb} source={{uri: data.pic_card}} />
             <View>

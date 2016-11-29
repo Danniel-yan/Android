@@ -97,8 +97,6 @@ function setApiParams() {
 }
 
 function setupUserToken() {
-  if(userToken) { return }
-
   return AsyncStorage.getItem('userToken').then(userToken => {
     userToken = userToken;
   });

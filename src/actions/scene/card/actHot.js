@@ -6,21 +6,22 @@ export function requestActHot() {
   }
 }
 
-export function receiveActHot(actHot) {
+export function receiveActHot(actHot, num ) {
   return {
     type: 'receiveActHot',
-    actHot: actHot
+    actHot: actHot,
+    num
   }
 }
 
-export function fetchActHot(num = 8) {
+export function fetchActHot(num) {
 
   return function (dispatch) {
 
     dispatch(requestActHot())
 
-    return get('/card/act-hot?num=${num}')
-      .then(actHot => dispatch(receiveActHot(actHot.data)))
+    return get(`/card/act-hot?num=${num}`)
+      .then(actHot => dispatch(receiveActHot(actHot.data, num)))
       .catch(err => console.log(err))
   }
 }
