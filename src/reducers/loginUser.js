@@ -1,7 +1,7 @@
 const initState = {
   isFetching: false,
   fetched: false,
-  user: null
+  info: null
 };
 
 export default function loginUser(state = initState, action){
@@ -9,7 +9,7 @@ export default function loginUser(state = initState, action){
     case 'fetchingUser':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveUser':
-      return Object.assign({}, state, { isFetching: false, fetched: true, user: action.user });
+      return Object.assign({}, state, { isFetching: false, fetched: true, info: action.info });
     default:
       return state;
   }

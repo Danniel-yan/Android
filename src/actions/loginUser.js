@@ -1,3 +1,4 @@
+import { get } from 'utils/fetch';
 
 function fetchingUser() {
   return {
@@ -5,21 +6,21 @@ function fetchingUser() {
   };
 }
 
-function receiveUser(user) {
+function receiveUser(info) {
   return {
     type: 'receiveUser',
-    user
+    info
   };
 }
 
 export default function login() {
 
   return dispatch => {
-    dispatch(submitting());
+    dispatch(fetchingUser());
 
     get('/user/info')
       .then(response => dispatch(receiveUser(response.data)))
-      .catch(err => { alert('网络异常'); })
+      .catch(console.log)
   }
 
 }

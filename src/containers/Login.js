@@ -1,4 +1,15 @@
+import { connect } from 'react-redux';
 import Login from 'components/Login';
-import externalScene from 'components/high-order/externalScene';
+import { externalPop } from 'actions/navigation';
+import fetchingUser from 'actions/loginUser';
 
-export default Login;
+function mapDispatch(dispatch) {
+  return {
+    loginSuccess: () => {
+      dispatch(fetchingUser());
+      dispatch(externalPop());
+    }
+  };
+}
+
+export default connect(null, mapDispatch)(Login);

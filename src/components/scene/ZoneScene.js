@@ -26,7 +26,8 @@ export default class ZoneScene extends AbstractScene {
     super(props);
 
     this.state = {
-      checkedUser: false
+      checking: true,
+      hasToken: false
     };
     this.sceneKey = "user";
     this.sceneTopic = "zone";
@@ -34,19 +35,20 @@ export default class ZoneScene extends AbstractScene {
   }
 
   componentDidMount() {
-    if(!this.props.loginUser.user) {
-      AsyncStorage.getItem('userToken').then(token => {
-        if(token) {
+    if(!this.props.loginUser.info) {
+      AsyncStorage.getItem('userToken').then(userToken => {
+        if(userToken != null) {
           this.props.fetching();
+          this.setState({ hasToken: true, checking: false });
         } else {
-          this.setState({ checkedUser: true });
+          this.setState({ hasToken: false, checking: false });
         }
       })
     }
   }
 
   render() {
-    let logined = !!this.props.loginUser.user;
+    let logined = this.state.hasToken || this.props.loginUser.info;
 
     return (
       <View style={defaultStyles.container}>
@@ -98,32 +100,33 @@ export default class ZoneScene extends AbstractScene {
   }
 
   _loginInfo() {
-    let user = this.props.loginUser.user;
+    let loginUser = this.props.loginUser;
 
-    if(user) {
+    if(loginUser.info) {
       return (
         <View style={[zoneStyles.item, styles.loginWrap]}>
           <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
-          <Text style={zoneStyles.txt}>{user.username}</Text>
+          <Text style={zoneStyles.txt}>{loginUser.info.username}</Text>
           <NextIcon/>
         </View>
       );
     }
 
-    if(this.state.checkedUser) {
+    if(this.state.checking || this.props.loginUser.fetching) {
+      return (
+        <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
+          <Loading/>
+        </View>
+      );
+    }
+
+    if(!this.state.hasToken) {
       return (
         <View style={[styles.loginWrap, defaultStyles.centering]}>
           <Button style={styles.loginBtn} text="登录注册"/>
         </View>
       );
     }
-
-    return (
-      <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
-        <Loading/>
-      </View>
-    );
-
   }
 } 
 

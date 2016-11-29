@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   TextInput,
+  AsyncStorage,
   TouchableOpacity,
 } from 'react-native';
 
@@ -14,7 +15,6 @@ import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
-import alert from 'utils/alert';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
@@ -78,10 +78,7 @@ export default class Login extends Component {
 
   _sendVerify() {
     post('/tool/send-verify-code', { mobile: this.state.mobile})
-      .then(response => {
-        this.setState({verifyCode: response.data.verify_code});
-      })
-      .catch(err => { alert('网络异常'); })
+      .catch(console.log)
   }
 
   _submit() {
@@ -100,7 +97,7 @@ export default class Login extends Component {
           }
         })
         .then(this.props.loginSuccess)
-        .catch(err => { alert('网络异常'); })
+        .catch(err => { console.log(err); })
         .finally(() => {
           this.submitting = false;
           this.setState({submitting: false})
