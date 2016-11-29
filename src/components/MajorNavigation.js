@@ -6,7 +6,7 @@ import MajorTabs from './MajorTabs';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
-export default class MajoNavigation extends Component {
+export default class MajorNavigation extends Component {
   render() {
     let { navigation } = this.props;
     let tabRoutes = navigation[navigation.curTab];

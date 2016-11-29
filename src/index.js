@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AppRegistry, StyleSheet, View, Image, Text } from 'react-native';
+import { Navigator, ActivityIndicator, AppRegistry, StyleSheet, View, Image, Text } from 'react-native';
 
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -43,7 +43,11 @@ export default class supermarketjs extends Component {
 
     return (
       <Provider store={store}>
-        <ExternalNavigationContainer/>
+        <Navigator
+          ref={nav => this.nav = nav}
+          initialRoute={{key: 'MajorNavigation', index: 0}}
+          renderScene={(route, navigator) => <ExternalNavigationContainer route={route} navigator={navigator}/>}
+        />
       </Provider>
     );
   }

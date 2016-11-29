@@ -9,6 +9,7 @@ const initState = {
   routes: [{
     key: 'MajorNavigation',
     curTab: 'HomeScene',
+    index: 0,
     
     HomeScene: {
       index: 0,

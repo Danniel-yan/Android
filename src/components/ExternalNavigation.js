@@ -4,6 +4,7 @@ import {
   View,
   NavigationExperimental,
   StyleSheet,
+  Navigator,
   Platform
 } from 'react-native';
 
@@ -15,11 +16,6 @@ import externalScene from 'containers/externalScene';
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
 export default class ExternalNavigation extends Component {
-  constructor(props) {
-    super(props);
-
-    this._renderScene = this._renderScene.bind();
-  }
 
   componentWillMount() {
     if(Platform.OS == 'android') {
@@ -53,32 +49,35 @@ export default class ExternalNavigation extends Component {
     return true;
   }
 
-  render() {
-    let { navigation } = this.props;
+  componentWillReceiveProps(nextProps) {
+    if(!this.props.navigation) { return ;}
 
-    return (
-      <NavigationCardStack
-        key="supermarketNavigation"
-        navigationState={navigation}
-        renderScene={this._renderScene}
-      />
-    );
+    if(nextProps.navigation.index > this.props.navigation.index) {
+      this.props.navigator.push(nextProps.navigation.routes[nextProps.navigation.index])
+    } else if(nextProps.navigation.index < this.props.navigation.index) {
+      this.props.navigator.pop();
+    }
   }
 
-  _renderScene(sceneProps) {
-    let { web, key, title, component: ComponentClass, componentProps } = sceneProps.scene.route;
+  shouldComponentUpdate(nextProps) {
+    return !this.props.navigator;
+  }
 
+  render() {
+    let route = this.props.route;
+    let { web, key, title, component: ComponentClass, componentProps } = route;
 
     if(!ComponentClass) {
       ComponentClass = modules[key];
     }
 
-    if(sceneProps.scene.index > 0) {
+    if(route.index !== 0) {
       ComponentClass = externalScene(ComponentClass, title);
     }
 
-    return React.createElement(ComponentClass , { ...componentProps});
+    return React.createElement(ComponentClass , { ...componentProps, navigator});
   }
+
 }
 
 const styles = StyleSheet.create({

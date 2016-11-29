@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 1,
+    zIndex: 99,
     backgroundColor: '#fff',
     height: 46,
     borderTopWidth: 1,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 2,
+    zIndex: 100,
     flexDirection: 'row',
   },
   tab: {
