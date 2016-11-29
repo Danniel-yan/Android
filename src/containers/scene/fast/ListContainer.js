@@ -7,6 +7,7 @@ import Loading from 'components/shared/Loading';
 function mapStateToRecResultProps(state) {
   return {
     isFetching: state.filterList.isFetching,
+    fetched: state.filterList.fetched,
     recommends: state.filterList.result_list
   };
 }
@@ -14,6 +15,7 @@ function mapStateToRecResultProps(state) {
 function mapStateToMoreResultProps(state) {
   return {
     isFetching: state.filterList.isFetching,
+    fetched: state.filterList.fetched,
     recommends: state.filterList.more_list
   };
 }

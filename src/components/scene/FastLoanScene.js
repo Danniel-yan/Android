@@ -23,12 +23,15 @@ export default class FastLoanScene extends AbstractScene {
         period: 12,
         job: 0,
         reslist: [],
-        order: 0
+        order: 1
       },
       isFetchingRec: true,
       toggleFilter: false,
       toggleSort: false
     };
+    this.sceneEntity = "FAST_LOAN";
+    this.sceneTopic = "";
+
     this.sceneEntity = "hpg";
     this.sceneTopic = "fast_loan";
     this.sceneKey = "loan";
@@ -38,17 +41,20 @@ export default class FastLoanScene extends AbstractScene {
   formValueChanged(name, value) {
     this.state.fetchRecParams = Object.assign({}, this.state.fetchRecParams);
     this.state.fetchRecParams[name] = value;
-    console.log(this.state.fetchRecParams);
+    // console.log(this.state.fetchRecParams);
     this.fetchingData();
+    // if(name == "amount" || name == "period") this.props.setLoanInfo && this.props.setLoanInfo(this.state.fetchRecParams);
   }
 
   resListSelected(resList) {
-    this.formValueChanged("reslist", resList);
+    var valueList = [];
+    resList && resList.length > 0 && resList.map(res => valueList.push(res.value));
+    this.formValueChanged("reslist", valueList);
     this.onToggleDrp("toggleFilter");
   }
 
-  orderSelected(idx) {
-    this.formValueChanged("order", idx);
+  orderSelected(opt) {
+    this.formValueChanged("order", opt.value);
     this.onToggleDrp("toggleSort");
   }
 
@@ -65,7 +71,11 @@ export default class FastLoanScene extends AbstractScene {
       <View style={{flex:1}}>
         <SceneHeader title="极速贷款"/>
         {this._renderLoanGroup()}
-        <HorizontalRadios eachLineCount={4} options={["上班族", "企业主", "学生", "自由职业"]} selectedChanged={idx=>this.formValueChanged("job", idx)}></HorizontalRadios>
+        <HorizontalRadios
+          eachLineCount={4}
+          options={[{label: "上班族", value: 1}, {label: "企业主", value: 2}, {label: "学生", value: 4}, {label: "自由职业", value: 8}]}
+          selectedChanged={opt=>this.formValueChanged("job", opt.value)}>
+        </HorizontalRadios>
         {this._renderDropDownFilters()}
         <View style={{zIndex:-5, borderTopColor: "#f2f2f2", borderTopWidth: 1, flex: 1}}>
           <ScrollView>
@@ -115,6 +125,10 @@ export default class FastLoanScene extends AbstractScene {
 
   _renderDropDownFilters() {
     var halfWidth = screenWidth / 2;
+    var applyResList = [];
+    this.props.apply_res_list && this.props.apply_res_list.map((item)=>{
+      item && applyResList.push({label: item.name, value: item.key}) ;
+    });
     return (
       <View style={{marginTop: 5, position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
@@ -123,7 +137,10 @@ export default class FastLoanScene extends AbstractScene {
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
-          <HorizontalCheckboxes withBtns={true} options={["无", "公积金", "社保", "征信报告", "信用卡账单", "运营商授权", "电商账号"]} eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}></HorizontalCheckboxes>
+          <HorizontalCheckboxes withBtns={true}
+            options={applyResList}
+            eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
+          </HorizontalCheckboxes>
         </View>
         <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
           <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
@@ -131,18 +148,22 @@ export default class FastLoanScene extends AbstractScene {
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
-          <VerticalRadios options={["默认", "利率低", "放款速度快"]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
+          <VerticalRadios selectedIdx={1} options={[{label: "利率低", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
         </View>
       </View>
     );
   }
 
   componentDidMount() {
-    this.fetchingData();
+    this.props.fetching && this.props.fetching();
+    // console.log("CMPONENTDIDMOUNT");
+    this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
+    // this.fetchingData();
   }
 
   fetchingData() {
-    this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
+    // this.props.fetchingList && this.props.fetchingList(this.state.fetchRecParams);
+    this.props.reFetchingList && this.props.reFetchingList(this.state.fetchRecParams);
   }
 }
 const styles = StyleSheet.create({

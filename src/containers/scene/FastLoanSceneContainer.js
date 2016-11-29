@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 
 import FastLoanScene from 'components/scene/FastLoanScene';
-import externalScene from 'components/high-order/externalScene';
+import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
-import { fetchingFastFilterList } from 'actions/scene/fast/filterList';
+import { fetchingApplyResList, fetchingFastFilterList, reFetchingFastFilterList, setLoanInfo } from 'actions/scene/fast/filterList';
 
 function mapStateToProps(state) {
   return state.filterList;
@@ -11,7 +12,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchingList: params => dispatch(fetchingFastFilterList(params))
+    fetching: () => { dispatch(fetchingApplyResList()); },
+    fetchingList: params => dispatch(fetchingFastFilterList(params)),
+    reFetchingList: params => dispatch(reFetchingFastFilterList(params)),
+    setLoanInfo: params => dispatch(setLoanInfo(params))
   };
 }
 

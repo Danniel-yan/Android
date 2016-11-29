@@ -11,3 +11,5 @@ export const colors = {
 
 export const statusBarHeight = Platform.OS === 'ios' ? 20 : 0;
 export const headerHeight = Platform.OS == 'ios' ? 57 : 40;
+
+export const iptFontSize = Platform.OS == 'ops' ? 14 : 16;

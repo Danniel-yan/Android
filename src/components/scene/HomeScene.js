@@ -31,7 +31,7 @@ export default class HomeScene extends AbstractScene {
     this.sceneTopic = "homepage";
     this.sceneTopic = "homepage";
   }
-
+  
   componentDidMount() {
     this.props.fetchingIndexConfig && this.props.fetchingIndexConfig();
   }
@@ -59,8 +59,9 @@ export default class HomeScene extends AbstractScene {
   }
 
   _pressNumberBtn(amount) {
-    this.props.setAmount && this.props.setAmount(amount);
-    this._externalNavTo("LoanScene");
+    amount && this.props.setAmount && this.props.setAmount(amount);
+    // this._externalNavTo("LoanScene");
+    this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
   _externalNavTo(navKey) {

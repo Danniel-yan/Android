@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 
 import { post } from 'utils/fetch';
 import { FormGroup, IptWrap } from "components/FormGroup";
 import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
 
-import CountdownButton from 'components/shared/CountdownButton'
+import CountdownButton from 'components/shared/CountdownButton';
+import LocationPicker from 'components/modal/LocationPicker';
 
 import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
@@ -20,8 +21,8 @@ export default class RecLoanScene extends AbstractScene {
   constructor(props) {
     super(props);
     this.loanInfo = {
-      amount: 5000,
-      period: 12
+      amount: props.loanInfo.amount || 5000,
+      period: props.loanInfo.period || 12
     };
     this.userInfo = Object.assign({}, {
       job: 2, mobile_time: 3, location: 1, credit_status: 1
@@ -29,11 +30,19 @@ export default class RecLoanScene extends AbstractScene {
     this.verifyCode = null;
     this.state = {
       hasLogin: !!this.userInfo.username,
-      mobile: this.userInfo.username || this.userInfo.mobile
+      mobile: this.userInfo.username || this.userInfo.mobile,
+      location: this.userInfo.location,
+      showPicker: false,
+      submitSuccess: this.props.submitSuccess
     };
     this.sceneKey = "loan";
     this.sceneTopic = "recommand";
     this.sceneEntity = "list";
+  }
+
+  loanValueChanged(name, value) {
+    this.loanInfo[name] = value;
+    this.props.setLoanInfo && this.props.setLoanInfo(this.loanInfo);
   }
 
   formValueChanged(name, value) {
@@ -46,9 +55,11 @@ export default class RecLoanScene extends AbstractScene {
         <View style={{}}>
           <View>{ this._renderLoanInfoGroup() }</View>
           <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
+          { this._renderLocationIpt() }
           { this._renderLoginGroup() }
         </View>
         <Button onPress={() => { this._goLoan() }} style={[styles.loanButton, {marginTop: 20}]} text="去贷款"/>
+        <LocationPicker visible={this.state.showPicker} onChange={this._changeLocation.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </ScrollView>
     );
   };
@@ -57,11 +68,11 @@ export default class RecLoanScene extends AbstractScene {
     return (
       <FormGroup deplayTime={100} iptCollections={ [{
         name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.loanInfo.amount,
-        valueChanged: this.formValueChanged.bind(this)
+        valueChanged: this.loanValueChanged.bind(this)
       }, {
         name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.loanInfo.period,
         items: [{value: "3", label: "3"}, {value: "6", label: "6"}, {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"}],
-        valueChanged: this.formValueChanged.bind(this)
+        valueChanged: this.loanValueChanged.bind(this)
       }] }></FormGroup>
     );
   }
@@ -79,13 +90,10 @@ export default class RecLoanScene extends AbstractScene {
       valueChanged: this.formValueChanged.bind(this)
     }], gpArray2 = [{
       name: 'credit_status', type: 'switch', label:'是否有信用卡', icon: require('assets/form-icons/xingyongka.png'), value: this.userInfo.credit_status == 1,
-      valueChanged: (value) => this.formValueChanged('credit_status', value ? 1 : 0)
+      valueChanged: (name, value) => this.formValueChanged('credit_status', value ? 1 : 0)
     }, {
       name: 'mobile_time', label:'手机号码使用时间', type: "picker", icon: require('assets/form-icons/shiyongshijian.png'), value: this.userInfo.mobile_time,
       items: [{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}],
-      valueChanged: this.formValueChanged.bind(this)
-    }, {
-      name: 'location', label:'所在城市', icon: require('assets/form-icons/dizhi.png'), value: this.userInfo.location,
       valueChanged: this.formValueChanged.bind(this)
     }], gpTotalArray = Array.prototype.concat(gpArray1, this.state.hasLogin ? [{
       name: 'mobile', type: 'number', label:'手机号码', icon: require('assets/form-icons/shoujihao.png'), value: this.userInfo.mobile,
@@ -97,12 +105,28 @@ export default class RecLoanScene extends AbstractScene {
     );
   }
 
+  _renderLocationIpt() {
+    return (
+      <View>
+        <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff", borderBottomColor: "#f2f2f2", borderBottomWidth: 1 }]}>
+          <View style={{flex: 1}}>
+            <TouchableOpacity style={{flex: 1}} onPress={()=>this.setState({"showPicker": true})}>
+              <IptWrap type={"static"} name={"location"} label={"所在城市"} icon={require('assets/form-icons/dizhi.png')}
+                value={this.state.location}>
+              </IptWrap>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   _renderLoginGroup() {
     return this.state.hasLogin ? null : (
       <View style={{marginTop:5}}>
         <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff", borderBottomColor: "#f2f2f2", borderBottomWidth: 1 }]}>
           <View style={{flex: 1}}>
-            <IptWrap name={'mobile'} icon={require('assets/form-icons/qingshurushoujihao.png')}
+            <IptWrap type={'number'} name={'mobile'} icon={require('assets/form-icons/qingshurushoujihao.png')}
               placeholder={'请输入您的手机号码'} value={this.userInfo.mobile} styles={{ipt: {textAlign: 'left'}}}
               valueChanged={(name, value) => { this.formValueChanged("mobile", value); this.setState({"mobile": value}); }}>
             </IptWrap>
@@ -125,24 +149,19 @@ export default class RecLoanScene extends AbstractScene {
   }
 
   _sendVerify() {
-    // console.log(this.userInfo)
-    // post('/tool/send-verify-code', { mobile: this.userInfo.mobile})
-    //   .catch(err => { alert('网络异常'); })
+    console.log("***Mobile***");
+    console.log({mobile: this.userInfo.mobile})
+    post('/tool/send-verify-code', { mobile: this.userInfo.mobile }).then(rsp => console.log(rsp))
+      .catch(err => { alert('网络异常'); })
   }
 
   _goLoan() {
-    // if(!this.state.hasLogin) {
-    //   this.props.login && this.props.login({mobile: this.userInfo.mobile, verifyCode: this.verify_code});
-    // }
-    this.props.goLoan && this.props.goLoan(Object.assign({}, this.userInfo, {verify_code: this.verify_code}));
+    this.props.goLoan && this.props.goLoan(Object.assign({}, this.userInfo, {verify_code: this.verifyCode}));
   }
 
-  componentDidUpdate() {
-    let { fillUserInfoResponse } = this.props;
-    // TODO 判断结果
-    if(fillUserInfoResponse) {
-      this.props.fillUserInfoSuccess(fillUserInfoResponse);
-    }
+  _changeLocation(loca) {
+    this.userInfo.location = loca;
+    this.setState({location: loca, showPicker: false});
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component, PureComponent } from 'react';
 import {
   StyleSheet, View, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, ListView, Platform
 } from 'react-native';
@@ -7,7 +7,7 @@ import Input from 'components/shared/Input';
 import Picker from 'components/shared/Picker';
 import Checkbox from 'components/shared/Checkbox'
 import { container, rowContainer, flexRow, centering } from 'styles';
-import { colors } from 'styles/varibles';
+import { colors, iptFontSize } from 'styles/varibles';
 import Dimensions from 'Dimensions';
 
 var hPadding = 10;
@@ -52,15 +52,24 @@ export class IptWrap extends EnhanceStyleCp {
 
   renderComponent() {
     var s = this.styles, p = this.props || {}, defaultValue = p.value, iptEle;
-    iptEle = p.type == "picker"
-      ? <Picker style={PickerStyles.pickerGroup} textStyle={PickerStyles.pickerTxt} selectedValue={this.props.value} onChange={ value => this.onValueChanged(value) } items={p.items} />
-      : (
-        p.type == "switch"
-        ? (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+
+    switch(p.type) {
+      case "picker":
+        iptEle = (<Picker style={PickerStyles.pickerGroup} textStyle={PickerStyles.pickerTxt} selectedValue={this.props.value} onChange={ value => this.onValueChanged(value) } items={p.items} />);
+        break;
+      case "switch":
+        iptEle = (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
             <Checkbox checked={this.state.value == true} onChange={(value)=>{this.setState({ value: value }); this.onValueChanged(value);}} />
-            </TouchableOpacity>)
-        : <Input placeholder={p.placeholder} type={p.type} style={[{flex: 1}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>
-      )
+            </TouchableOpacity>);
+        break;
+      case "static":
+        iptEle = (<Text style={[{flex: 1, color: "#333", fontSize: iptFontSize}, s.ipt]}>{this.props.value ? this.props.value.toString():""}</Text>)
+        break;
+      default:
+        iptEle = (<Input placeholder={p.placeholder} type={p.type} style={[{flex: 1}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>);
+        break;
+    }
+
     return (
       <View style={[s.container, rowContainer]}>
         <Image source={p.icon} style={{marginRight: 6}}></Image>
@@ -95,7 +104,7 @@ export class HorizontalRadios extends EnhanceStyleCp {
     this.state.selectedIdx = idx;
     this.setState({selectedIdx: idx});
 
-    selectedFunc && selectedFunc(idx);
+    selectedFunc && selectedFunc(this.props.options[idx]);
   }
 
   checkItemSelected(index) {
@@ -124,24 +133,30 @@ export class HorizontalRadios extends EnhanceStyleCp {
       s = this.styles || {},p = this.props || {},
       opts = this.props.options || [],
       eachLineCount = !p.eachLineCount || p.eachLineCount >= opts.length ? opts.length : p.eachLineCount;
-      eachWidth = bodyWidth / eachLineCount - 4;
+      eachWidth = bodyWidth / eachLineCount - 4, emptyCount = opts.length % eachLineCount, emptyElements = [];
+    emptyCount = emptyCount > 0 ? eachLineCount - emptyCount : 0
 
-      return (
-        <View>
-          <View style={[s.container]}>
-          {
-            opts.length > 0 && opts.map((opt, idx) => {
-              var wrapS = this.checkItemSelected(idx) ? [s.optWrap, sedStyle.sedWrp] : [s.optWrap],
-                iptS = this.checkItemSelected(idx) ? [s.opt, sedStyle.sedTxt] : [s.opt];
-              return (
-                <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[wrapS, { width: eachWidth }]}><Text style={iptS}>{opt}</Text></View></TouchableWithoutFeedback>
-              );
-            })
-          }
-          </View>
-          { this.renderBtns() }
+    for(var i=0; i<emptyCount;i++) {
+      emptyElements.push(<View key={"key"+i} style={[s.optWrap, { width: eachWidth, borderColor: "transparent" }]}></View>);
+    }
+
+    return (
+      <View>
+        <View style={[s.container]}>
+        {
+          opts.length > 0 && opts.map((opt, idx) => {
+            var wrapS = this.checkItemSelected(idx) ? [s.optWrap, sedStyle.sedWrp] : [s.optWrap],
+              iptS = this.checkItemSelected(idx) ? [s.opt, sedStyle.sedTxt] : [s.opt];
+            return (
+              <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[wrapS, { width: eachWidth }]}><Text style={iptS}>{opt.label}</Text></View></TouchableWithoutFeedback>
+            );
+          })
+        }
+        { emptyElements }
         </View>
-      );
+        { this.renderBtns() }
+      </View>
+    );
   }
 
   propTypes: {
@@ -166,7 +181,7 @@ export class VerticalRadios extends HorizontalRadios {
         opts.length > 0 && opts.map((opt, idx) => {
           var item = idx == this.state.selectedIdx ? [s.item, { backgroundColor: "#f0f0f0" }] : [s.item],
             color = idx == this.state.selectedIdx ? "#fff": "#999";
-          return <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[item]}><Text style={{color: color}}>{opt}</Text></View></TouchableWithoutFeedback>
+          return <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[item]}><Text style={{color: color}}>{opt.label}</Text></View></TouchableWithoutFeedback>
         })
       }
       </View>
@@ -188,7 +203,9 @@ export class HorizontalCheckboxes extends HorizontalRadios {
   }
 
   submit() {
-    this.props.selectedSubmit && this.props.selectedSubmit(this.state.selectedIdxes);
+    var selectedOptions = [];
+    this.state.selectedIdxes && this.state.selectedIdxes.map((idx) => { selectedOptions.push(this.props.options[idx]); })
+    this.props.selectedSubmit && this.props.selectedSubmit(selectedOptions);
   }
 
   selectedOpt(idx) {
@@ -202,7 +219,9 @@ export class HorizontalCheckboxes extends HorizontalRadios {
       this.state.selectedIdxes.push(idx);
     }
     this.setState({selectedIdxes: this.state.selectedIdxes});
-    selectedFunc && selectedFunc(this.state.selectedIdxes);
+    var selectedOptions = [];
+    this.state.selectedIdxes && this.state.selectedIdxes.length > 0 && this.state.selectedIdxes.map(idx => selectedOptions.push(this.props.options[idx]))
+    selectedFunc && selectedFunc(selectedOptions);
   }
   checkItemSelected(index) {
     return this.state.selectedIdxes.indexOf(index) > -1;

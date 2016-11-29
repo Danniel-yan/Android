@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { post, responseStatus } from 'utils/fetch';
 import alert from 'utils/alert';
 
@@ -17,22 +18,24 @@ function submitError(err) {
 function receiveResponse(token) {
   return {
     type: 'receiveResponse',
-    token 
+    token
   };
 }
 
-export default function submitUserInfo(body) {
+export default function submitUserInfo(body, successCallBack) {
   return function(dispatch) {
 
     dispatch(submitting());
 
     post('/user/update-info', body)
       .then(response => {
-        if(response.res = responseStatus.failre) {
+        if(response.res === responseStatus.failre) {
           alert(response.msg);
         } else {
-          AsyncStorage.setItem('userToken', response.data).then(() => {
-            dispatch(receiveResponse(response.data))
+          var token = response.data ? response.data.token : null
+          token && AsyncStorage.setItem('userToken', token).then(() => {
+            dispatch(receiveResponse(token))
+            successCallBack && successCallBack();
           }, err => alert(err));
         }
 

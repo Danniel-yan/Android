@@ -20,7 +20,7 @@ class LoanNavPanel extends Component {
   }
 
   onPressNumberBtn() {
-    this.props.pressNumberBtn && this.props.pressNumberBtn(parseInt(this.state.text || 0));
+    this.props.pressNumberBtn && this.props.pressNumberBtn(parseInt(this.state.text) || null);
   }
 
   onPressIconBtn(navNumber) {
@@ -44,7 +44,7 @@ class LoanNavPanel extends Component {
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
             <Text style={{fontSize:12, color: "#333", marginTop:4}}>推荐贷款</Text>
           </ExternalPushLink>
-          <MajorTabLink toKey="LoanScene" style={LNPStyles.navItem}>
+          <MajorTabLink title="极速贷款" toKey="LoanScene" style={LNPStyles.navItem}>
             <Image source={require('assets/icons/jisudaikuan.png')}></Image>
             <Text style={{fontSize:12, color: "#333", marginTop:4}}>极速贷款</Text>
           </MajorTabLink>

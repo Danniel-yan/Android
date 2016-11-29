@@ -81,7 +81,7 @@ class List extends Component {
   }
   renderLength(props){
 
-    if(props.act.length == 0) return null
+    if(!props.act || props.act.length == 0) return null
 
     return(
       <TouchableOpacity style={{flexDirection: 'row',alignItems:'center'}} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
@@ -100,7 +100,7 @@ class List extends Component {
     return(
       <View>
         {
-          props.act.map((act,index) =>
+          props.act && props.act.map((act,index) =>
             <View key={'key' + index} style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
               <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
                 <Text style={{color:'#fff'}}>{act.discount[0].name}</Text>
