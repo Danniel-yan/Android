@@ -14,7 +14,7 @@ export default StyleSheet.create({
   txt: {
     flex: 1,
     color: '#333',
-    fontSize: 16
+    fontSize: 17
   },
   icon: {
     marginRight: 15

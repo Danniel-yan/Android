@@ -12,7 +12,6 @@ export default class DefaultText extends Component {
 
 const styles = StyleSheet.create({
   defaultText: {
-    fontFamily: 'PingFang SC',
     fontSize: 14,
     color: '#999'
   }

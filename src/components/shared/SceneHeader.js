@@ -11,6 +11,7 @@ const {
   Header: NavigationHeader
 } = NavigationExperimental;
 
+import BackButton from './BackButton';
 import Text from 'components/shared/Text';
 import { headerHeight, statusBarHeight } from 'styles/varibles';
 
@@ -34,7 +35,7 @@ export default class SceneHeader extends Component {
 
     return (
       <View style={styles.left}>
-        <NavigationHeader.BackButton onPress={this.props.onBack}/>
+        <BackButton onPress={this.props.onBack}/>
       </View>
     );
   }

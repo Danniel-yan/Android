@@ -73,9 +73,7 @@ export default class HomeScene extends AbstractScene {
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
-        <View style={styles.right}>
-          <MessageIcon/>
-        </View>
+        <View style={styles.right}></View>
       </View>
     )
   }

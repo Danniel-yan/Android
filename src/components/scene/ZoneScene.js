@@ -51,12 +51,13 @@ export default class ZoneScene extends AbstractScene {
     let logined = this.state.hasToken || this.props.loginUser.info;
 
     return (
-      <View style={defaultStyles.container}>
+      <View style={[defaultStyles.container, defaultStyles.bg]}>
         <SceneHeader title="我的"/>
         <ScrollView style={styles.container}>
 
           {this._loginInfo()}
 
+          {/*
           <View style={zoneStyles.item}>
             <Image style={zoneStyles.icon} source={require('assets/zone/process.png')}/>
             <Text style={zoneStyles.txt}>办卡进度查询</Text>
@@ -76,9 +77,9 @@ export default class ZoneScene extends AbstractScene {
               <NextIcon/>
             </View>
           </ExternalPushLink>
+          */}
 
-
-          <ExternalPushLink toKey="ContactScene">
+          <ExternalPushLink toKey="ContactScene" title="联系我们">
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/contact.png')}/>
               <Text style={zoneStyles.txt}>联系我们</Text>
@@ -86,7 +87,7 @@ export default class ZoneScene extends AbstractScene {
             </View>
           </ExternalPushLink>
 
-          <ExternalPushLink toKey="SettingScene">
+          <ExternalPushLink toKey="SettingScene" title="设置">
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/setting.png')}/>
               <Text style={zoneStyles.txt}>设置</Text>
@@ -102,7 +103,7 @@ export default class ZoneScene extends AbstractScene {
   _loginInfo() {
     let loginUser = this.props.loginUser;
 
-    if(loginUser.info) {
+    if(!loginUser.fetching && loginUser.info) {
       return (
         <View style={[zoneStyles.item, styles.loginWrap]}>
           <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
@@ -112,7 +113,7 @@ export default class ZoneScene extends AbstractScene {
       );
     }
 
-    if(this.state.checking || this.props.loginUser.fetching) {
+    if(this.state.checking || loginUser.isFetching) {
       return (
         <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
           <Loading/>
