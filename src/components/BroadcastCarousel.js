@@ -13,7 +13,7 @@ var configs = {
   horizontal: false,
   pagingEnabled: true,
   intervalTime: 2000,
-  height: 21,
+  height: 32,
   scrollEnabled: false
 };
 
@@ -43,7 +43,7 @@ class BroadcastCarousel extends Component {
 
       // return <Carousel height={130} />
       return (
-        <View style={{height:28, paddingLeft:10, paddingRight: 10, flexDirection: "row", alignItems:"center", backgroundColor: "#F3F3F3"}}>
+        <View style={{height:configs.height, paddingLeft:10, paddingRight: 10, flexDirection: "row", alignItems:"center", backgroundColor: "#F3F3F3"}}>
           <Image style={{marginRight: 10}} source={require('assets/icons/laba.png')}></Image>
           <View style={{flex: 1, height:configs.height}}><Carousel height={configs.height} /></View>
         </View>
