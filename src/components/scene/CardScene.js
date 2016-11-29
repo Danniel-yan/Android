@@ -122,10 +122,9 @@ const styles = StyleSheet.create({
     backgroundColor:colors.white
   },
   titleLeft:{
-    fontSize:17,
+    fontSize:16,
     color:colors.fontColorSecondary,
-    flex:1,
-    fontWeight:'bold'
+    flex:1
   },
   titleRight:{
     fontSize:14

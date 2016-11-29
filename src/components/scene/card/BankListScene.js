@@ -12,47 +12,57 @@ import { ExternalPushLink } from 'containers/shared/Link';
 
 export default class BankListScene extends Component{
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      length:this.props.bankList.length,
+      bankList: []
+    };
+  }
+
+  componentDidMount() {
+    if(this.state.length > 8){
+      this.setState({bankList: this.props.bankList.slice(0,7)})
+    }
+    this.setState({bankList: this.props.bankList})
+  }
+
   render(){
-    
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const dataSource = ds.cloneWithRows(this.props.bankList)
 
     return(
       <View style={[styles.bgColorWhite]}>
-        <ListView
-          contentContainerStyle={styles.list}
-          dataSource={dataSource}
-          renderRow={this.renderBankList}
-          enableEmptySections={true}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          />
 
-        {this.moreBankList(this.props.bankList)}
+        <View style={styles.list}>
+          {
+            this.state.bankList.map((data,index) =>
+              <View key={'key'+index} style={styles.itemViewStyle}>
+                <ExternalPushLink title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0}}}>
+                  <View style={[styles.itemViewStyle,styles.row]}>
+                    <Image style={styles.thumb} source={{uri: data.pic_card}} />
+                    <View>
+                      <Text style={styles.name}>{data.name}</Text>
+                      <Text style={styles.info}>{data.info}</Text>
+                    </View>
+                  </View>
+                </ExternalPushLink>
+              </View>
+            )
+          }
+
+          {this.moreBankList(this.props.bankList)}
+        </View>
+
+
 
       </View>
     )
   }
 
-  renderBankList(data){
-    return(
-      <View style={styles.itemViewStyle}>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0}}}>
-          <View style={[styles.itemViewStyle,styles.row]}>
-            <Image style={styles.thumb} source={{uri: data.pic_card}} />
-            <View>
-              <Text style={styles.name}>{data.name}</Text>
-              <Text style={styles.info}>{data.info}</Text>
-            </View>
-          </View>
-        </ExternalPushLink>
-      </View>
-    )
-  }
+
 
   moreBankList(props){
 
-    if(props.length == 8 || props.length < 8 )  return null;
+    if(props.length <= 8 )  return null;
 
     return(
       <View style={styles.moreBank}>
@@ -77,17 +87,17 @@ const styles = StyleSheet.create({
   },
   itemViewStyle:{
     width: Dimensions.get('window').width / 2 - 1,
-    height:90
+    height:100
   },
   row:{
-    paddingTop:20,
-    paddingBottom:20,
     borderRightWidth:1,
     borderRightColor: colors.line,
     borderStyle : 'solid',
     flexDirection:'row',
     borderBottomWidth:1,
-    borderBottomColor: colors.line
+    borderBottomColor: colors.line,
+    justifyContent: 'center',
+    alignItems:'center'
   },
   thumb: {
     width: 45,
@@ -101,12 +111,12 @@ const styles = StyleSheet.create({
     marginBottom:6
   },
   info:{
-    fontSize:12,
+    fontSize:14,
     width:Dimensions.get('window').width/2 - 80
   },
   moreBank:{
     width: Dimensions.get('window').width / 2 -1,
-    height:90,
+    height:100,
     borderRightWidth:1,
     borderRightColor: colors.line,
     borderStyle : 'solid',

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     width:Dimensions.get('window').width - 80
   },
   rightContainerTitle:{
-    fontSize:16,
+    fontSize:17,
     color:colors.fontColorSecondary,
     marginBottom:6
   },
@@ -74,7 +74,10 @@ const styles = StyleSheet.create({
     marginTop:10
   },
   flexHorizontalColumn:{
-    padding:10,
+    paddingTop:15,
+    paddingLeft:20,
+    paddingRight:10,
+    paddingBottom:8,
     marginTop:5,
     marginBottom:10,
     marginLeft:5,
@@ -83,10 +86,9 @@ const styles = StyleSheet.create({
     borderRadius:5
   },
   cardPic:{
-    width:150,
-    height:80,
-    marginTop:5,
-    marginBottom:5,
+    width:110,
+    height:69,
+    marginBottom:8
   },
 
   rightContainerDes:{

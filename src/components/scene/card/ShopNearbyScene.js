@@ -86,7 +86,7 @@ class List extends Component {
     return(
       <TouchableOpacity style={{flexDirection: 'row',alignItems:'center'}} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
         <View>
-          <Text style={{fontSize:13}}>有{props.act.length}条活动</Text>
+          <Text style={{fontSize:13,color:'#666'}}>有{props.act.length}条活动</Text>
         </View>
         <View style={{alignItems: 'flex-end',marginLeft:5}}>
           <Image source={this.state.isShow ? triangleUp : triangleDown} />
@@ -103,12 +103,12 @@ class List extends Component {
           props.act && props.act.map((act,index) =>
             <View key={'key' + index} style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
               <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
-                <Text style={{color:'#fff'}}>{act.discount[0].name}</Text>
+                <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
               </View>
               <View>
-                <Text>{act.title}</Text>
+                <Text style={{fontSize:16,color:'#333'}}>{act.title}</Text>
               </View>
-              <View style={[styles.flexEnd,{marginTop:5}]}>
+              <View style={styles.flexEnd}>
                 <Image source={iconNext} />
               </View>
             </View>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   rightContainer : {
     paddingLeft : 10,
     position:'relative',
-    width:Dimensions.get('window').width - 80
+    flex:1,
   },
   rightContainerTitle:{
     fontSize:17,
@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
   },
   rightContainerSubTitle:{
     fontSize:14,
-    marginBottom:6
+    marginBottom:6,
+    color:'#666'
   },
   decrease_price:{
     backgroundColor:'#ffaf32',
@@ -176,5 +177,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.line,
     height: 60
+  },
+  flexEnd:{
+    alignItems:'flex-end',
+    flex:1,
+    justifyContent:'center'
   }
 })

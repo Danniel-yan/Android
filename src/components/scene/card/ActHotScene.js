@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     fontSize:17,
     marginBottom:8,
     marginTop:15,
-    fontWeight:'bold',
     backgroundColor:'transparent'
   },
   title:{

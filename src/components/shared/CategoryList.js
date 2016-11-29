@@ -29,10 +29,10 @@ export default class CategoryList extends Component {
   renderCard(data){
     return(
       <View>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id , bankid: 0}}}>
+        <ExternalPushLink title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id , bankid: 0}}}>
           <View style={[styles.flexHorizontalColumn,styles.bgColorWhite]}>
             <Image source={{uri: data.pic}} style={styles.cardPic} />
-            <Text style={styles.rightContainerTitle}>
+            <Text style={[styles.rightContainerTitle,{marginBottom:2}]}>
               {data.name}
             </Text>
             <Text>
