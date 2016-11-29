@@ -19,9 +19,9 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_chaoshi" translatesAutoresizingMaskIntoConstraints="NO" id="9IT-HJ-DAm">
-                    <rect key="frame" x="137" y="106" width="206" height="90"/>
+                    <rect key="frame" x="160" y="120" width="160" height="90"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="206" id="pNY-ir-Q4Q"/>
+                        <constraint firstAttribute="width" constant="160" id="pNY-ir-Q4Q"/>
                         <constraint firstAttribute="height" constant="90" id="sud-XC-xcX"/>
                     </constraints>
                 </imageView>
@@ -30,7 +30,7 @@
             <constraints>
                 <constraint firstItem="9IT-HJ-DAm" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7Ot-4N-g7f"/>
                 <constraint firstItem="Ato-68-dMr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Mga-6b-JMx"/>
-                <constraint firstItem="Ato-68-dMr" firstAttribute="top" secondItem="9IT-HJ-DAm" secondAttribute="bottom" constant="24" id="WnS-g1-AAt"/>
+                <constraint firstItem="Ato-68-dMr" firstAttribute="top" secondItem="9IT-HJ-DAm" secondAttribute="bottom" constant="10" id="WnS-g1-AAt"/>
                 <constraint firstItem="Ato-68-dMr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fUy-qu-X0T"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
