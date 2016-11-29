@@ -12,7 +12,7 @@ export default class ActHotListScene extends Component {
     const props = this.props.actHot;
 
     return(
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#f3f3f3'}}>
         {
           props.map((props, index) =>
             <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: props.id }}}>

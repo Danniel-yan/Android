@@ -20,6 +20,7 @@ export default class CategoryList extends Component {
           dataSource={dataSource}
           horizontal={true}
           renderRow={this.renderCard}
+          showsHorizontalScrollIndicator={false}
           />
       </View>
     )

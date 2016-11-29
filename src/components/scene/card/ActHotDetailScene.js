@@ -14,7 +14,7 @@ export default class ActHotDetailScene extends Component {
     const props = this.props.detail;
 
     return(
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#f3f3f3'}}>
         <View style={styles.bgColorWhite}>
           <Image source={{uri: props.top_banner}} style={{width:window.width,height:window.width * (320 / 750)}}/>
           <Text style={styles.title}>{props.title}</Text>
@@ -25,7 +25,6 @@ export default class ActHotDetailScene extends Component {
          <View>
            <Text style={styles.panelContent}>{props.content}</Text>
          </View>
-
          {this.renderOriginalUrl(props.original_url)}
 
        </View>
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     paddingRight:10
   },
   originalUrl:{
-    marginTop:10,
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',

@@ -13,7 +13,7 @@ import { ExternalPushLink } from 'containers/shared/Link';
 export default class BankListScene extends Component{
 
   render(){
-
+    
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const dataSource = ds.cloneWithRows(this.props.bankList)
 
@@ -56,7 +56,7 @@ export default class BankListScene extends Component{
 
     return(
       <View style={styles.moreBank}>
-        <ExternalPushLink title="极速办卡" toKey="CardListScene" componentProps={{fetchingParams: { categoryid: 0 , bankid: 0}}}>
+        <ExternalPushLink title="极速办卡" toKey="BankCardListScene" componentProps={{fetchingParams: { categoryid: 0 , bankid: 0}}}>
           <Text style={{fontSize:17,color:colors.fontColorPrimary}}>
             查看更多
             <Image style={styles.titleRightImg} source={iconNext} />
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width:Dimensions.get('window').width/2 - 80
   },
   moreBank:{
-    width: Dimensions.get('window').width / 2,
+    width: Dimensions.get('window').width / 2 -1,
     height:90,
     borderRightWidth:1,
     borderRightColor: colors.line,

@@ -16,6 +16,7 @@ import MessagesScene from 'containers/scene/MessagesScene';
 import CardListScene from 'containers/scene/card/CardListContainer'
 import ContactScene from 'components/scene/zone/ContactScene';
 import SettingScene from 'containers/scene/zone/SettingScene';
+import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -32,6 +33,7 @@ import SettingScene from 'containers/scene/zone/SettingScene';
   { key: 'ActHotListScene', module: ActHotListScene },
   { key: 'ActHotDetailScene', module: ActHotDetailScene },
   { key: 'CardListScene', module: CardListScene },
+  { key: 'BankCardListScene', module: BankCardListScene },
   { key: 'Login', module: Login }
 ].forEach(item => {
   modules[item.key] = item.module;

@@ -24,6 +24,7 @@ export default class ActHotScene extends Component {
           dataSource={dataSource}
           horizontal={true}
           renderRow={this.renderBanner}
+          showsHorizontalScrollIndicator={false}
           />
       </View>
     )

@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import {ScrollView, View, Image ,StyleSheet } from 'react-native';
 
 import Text from 'components/shared/Text';
-import { colors } from 'styles/varibles';
+import * as defaultStyles from 'styles';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
+import WebLink from 'components/shared/WebLink'
 
-export default class CardListScene extends Component {
+export default class BankCardListScene extends Component {
 
   render() {
+
+    console.log(this.props.cardList)
 
     let { isPaging, pagination, paginationParams, nomore } = this.props;
 
@@ -26,12 +29,15 @@ export default class CardListScene extends Component {
                 <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
                 <View style={{flex: 1}}>
                   <Text style={styles.name}>{cardList.name}</Text>
-                  <Text style={{marginBottom:12}}>{cardList.info}</Text>
-                  <Text><Text style={{color:'#ff6d17'}}>{cardList.num}</Text>人申请</Text>
+                  <Text style={styles.info}>{cardList.info}</Text>
+                </View>
+                <View style={styles.applyBtn}>
+                  <WebLink url={cardList.link}><Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text></WebLink>
                 </View>
               </View>
           )
           }
+
         </ScrollPagination>
       </View>
     )
@@ -41,25 +47,33 @@ export default class CardListScene extends Component {
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor:'#fff',
-    paddingTop:20,
-    paddingBottom:20,
-    paddingLeft:15,
-    paddingRight:15,
+    backgroundColor: '#fff',
+    margin: 5,
+    padding:16,
     flexDirection: 'row',
-    borderBottomWidth:1,
-    borderStyle : 'solid',
-    borderBottomColor: colors.line,
-    marginTop:5
+    borderRadius: 5
   },
   logo:{
-    width:128,
-    height:80,
-    marginRight:15
+    width:40,
+    height:40,
+    marginRight:16,
+    marginTop:5
   },
   name:{
     color:'#333',
     fontSize:17,
     marginBottom:5
+  },
+  info:{
+    fontSize:13
+  },
+  applyBtn:{
+    borderColor:'#ffaf32',
+    borderWidth:1,
+    width:60,
+    height:22,
+    borderRadius:2,
+    alignItems:'center',
+    marginTop:5
   }
 })
