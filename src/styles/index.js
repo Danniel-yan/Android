@@ -7,7 +7,7 @@ export const container = {
 };
 
 export const bg = {
-  backgroundColor: '#f1f1f1'
+  backgroundColor: '#f2f2f2'
 };
 
 export const rowContainer = {

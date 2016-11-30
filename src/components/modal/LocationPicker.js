@@ -87,7 +87,7 @@ export default class LocationPicker extends PureComponent {
         <View style={defaultStyles.container}>
           <SceneHeader onBack={this.props.onHide} title="城市选择"/>
 
-          <View style={[defaultStyles.rowContainer, styles.body]}>
+          <View style={[defaultStyles.rowContainer, defaultStyles.bg]}>
             {loading}
             {main}
             {sidebar}
@@ -102,7 +102,7 @@ export default class LocationPicker extends PureComponent {
   }
 
   _renderLoading() {
-    return (<View style={[defaultStyles.container, defaultStyles.centering]}><Loading color="white"/></View>);
+    return (<View style={[defaultStyles.container, defaultStyles.centering, styles.loading]}><Loading color="white"/></View>);
   }
 
   _renderMain() {
@@ -133,7 +133,7 @@ export default class LocationPicker extends PureComponent {
 
   _renderSidebar() {
     return (
-      <View style={[styles.sidebar]}>
+      <View style={[styles.sidebar, defaultStyles.bg]}>
         <View style={defaultStyles.container}></View>
         { this.state.secIDs.map((sec, idx) => <Text onPress={this._scrollTo.bind(this, sec, idx)} key={`${sec}`} style={styles.nav}>{sec}</Text>) }
         <View style={defaultStyles.container}></View>
@@ -156,14 +156,10 @@ export default class LocationPicker extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  body: {
-    backgroundColor: '#e6e6e6'
-  },
 
   sidebar: {
     width: 30,
     paddingTop: 5,
-    backgroundColor: '#e6e6e6',
     alignItems: 'center'
   },
 
@@ -190,5 +186,8 @@ const styles = StyleSheet.create({
 
   nav: {
     color: '#278BD2'
+  },
+  loading: {
+    backgroundColor: '#fff'
   }
 });
