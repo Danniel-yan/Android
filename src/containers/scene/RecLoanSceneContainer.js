@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 
 import { majorPush, majorPop, externalPush, externalPop, majorTab } from 'actions/navigation';
-import { fetchUserInfo, userInfoUpdated } from 'actions/scene/userInfo';
+
+import fetchUser from 'actions/loginUser';
+
 import { setLoanInfo } from 'actions/scene/fast/filterList';
 import submitUserInfo from 'actions/fillUserInfo';
 
@@ -12,23 +14,28 @@ import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.userInfo.isFetching,
-    fetched: state.userInfo.fetched,
-    userInfo: state.userInfo.userInfo,
+    isFetching: state.loginUser.isFetching || state.loginUser.logouting,
+    fetched: state.loginUser.fetched,
+    userInfo: state.loginUser.info,
     loanInfo: { amount: state.filterList.amount, period: state.filterList.period }
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => { dispatch(fetchUserInfo()) },
+    fetching: () => {
+      AsyncStorage.getItem('userToken').then(token=> {
+        if(!token) return;
+        dispatch(fetchUser());
+      });
+    },
     setLoanInfo: (loanInfo) => { dispatch(setLoanInfo(loanInfo)); },
-    goLoan: (params) => {
-      dispatch(submitUserInfo(params, () => {
+    goLoan: body => {
+      dispatch(submitUserInfo(body, () => {
         dispatch(externalPush({key:"LoanScene"}));
       }))
-    },
-  };
+    }
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecLoanScene));

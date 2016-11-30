@@ -25,7 +25,7 @@ export default class RecLoanScene extends AbstractScene {
       period: props.loanInfo.period || 12
     };
     this.userInfo = Object.assign({}, {
-      job: 2, mobile_time: 3, location: 1, credit_status: 1
+      job: 2, mobile_time: 3, credit_status: 1
     }, props.userInfo);
     this.verifyCode = null;
     this.state = {
@@ -47,7 +47,7 @@ export default class RecLoanScene extends AbstractScene {
 
   formValueChanged(name, value) {
     this.userInfo[name] = value;
-    this.props.userInfo[name] = value;
+    this.props.userInfo && (this.props.userInfo[name] = value);
   }
 
   render() {
