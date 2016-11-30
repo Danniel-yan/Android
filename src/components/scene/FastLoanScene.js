@@ -70,8 +70,10 @@ export default class FastLoanScene extends AbstractScene {
 
     return (
       <View style={[bg, {flex:1}]}>
-        <SceneHeader title="极速贷款"/>
+        {!this.props.onBack ? <SceneHeader title="极速贷款"/> : null}
+
         {this._renderLoanGroup()}
+
         <HorizontalRadios
           eachLineCount={4}
           options={[{label: "上班族", value: 1}, {label: "企业主", value: 2}, {label: "学生", value: 4}, {label: "自由职业", value: 8}]}
