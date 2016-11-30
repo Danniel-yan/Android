@@ -11,10 +11,13 @@ import fetchLoginUser from 'actions/loginUser';
 
 import { externalPop, externalPush } from 'actions/navigation';
 
+import { fetchRepayCalc } from 'actions/scene/repayCalc'
+
 function mapStateToProps(state) {
   return {
     ...state.loanDetail,
-    loginUser: state.loginUser
+    loginUser: state.loginUser,
+    repayCalc: state.repayCalc
   };
 }
 
@@ -24,7 +27,8 @@ function mapDispatchToProps(dispatch) {
     fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
       dispatch(externalPush({ componentProps: { url: detail.url}, component: webView, title: detail.title, url: detail.url}))
-    }
+    },
+    fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
   }
 }
 

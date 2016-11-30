@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
   },
   flexContainerRow:{
     flexDirection: 'row',
-    padding:10,
+    paddingLeft:10,
+    paddingRight:10,
+    paddingTop:15,
+    paddingBottom:15,
     borderBottomWidth:1,
     borderStyle : 'solid',
     borderBottomColor: colors.line
@@ -92,16 +95,13 @@ const styles = StyleSheet.create({
   },
 
   rightContainerDes:{
-    fontSize:12,
     borderWidth:1,
     borderColor:'#1ab4fe',
     width:60,
-    color:'#1ab4fe',
-    paddingLeft:5,
-    paddingRight:5
+    height:18,
+    justifyContent: 'center',
+    alignItems:'center'
   },
-
-
   applyBox:{
     marginTop:5
   },
@@ -148,11 +148,22 @@ const styles = StyleSheet.create({
     borderRadius:5,
     marginLeft:5,
     marginBottom:5,
-    width:100,
+    marginRight:5,
+    width:80,
     height:30,
     borderWidth:1,
     borderColor: colors.line,
-    alignItems:'center'
+    alignItems:'center',
+    justifyContent: 'center',
+    paddingLeft:10,
+    paddingTop:0,
+    paddingBottom:0,
+    flexDirection: 'row'
+  },
+  pickerTxt:{
+    fontSize:17,
+    color:'#333',
+    paddingRight:5
   }
 });
 

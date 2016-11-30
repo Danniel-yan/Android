@@ -5,7 +5,7 @@ import {
   ScrollView,
   Image,
   AsyncStorage,
-  Modal,
+  Modal,TextInput
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -21,12 +21,22 @@ import * as defaultStyles from 'styles';
 import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
 
+import Picker from 'components/shared/Picker';
+
 export default class LoanDetailScene extends PureComponent {
+
   constructor(props) {
     super(props);
-    this.sceneEntity=props.detail.title;
+    this.sceneEntity= props.detail.title;
     this.sceneTopic = "detail";
-    this.sceneKey = "loan"
+    this.sceneKey = "loan";
+
+    this.state = {
+      money: '5',
+      value: '5',
+      id: props.detail.id
+    };
+
   }
 
   componentWillMount() {
@@ -37,9 +47,13 @@ export default class LoanDetailScene extends PureComponent {
         }
       })
     }
+
+
+
   }
 
   render() {
+
     let detail = this.props.detail;
 
     return (
@@ -48,45 +62,40 @@ export default class LoanDetailScene extends PureComponent {
         <ScrollView>
           <View style={[styles.flexColumn, styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}>
-              <Image source={{uri:detail.logo_detail}} style={styles.thumbnail} />
+              <Image source={{uri:detail.logo_detail}} style={{width:80,height:80}}  />
               <View style={styles.rightContainer}>
-                <Text style={styles.rightContainerTitle}>{detail.title}</Text>
-                <Text style={styles.rightContainerSubTitle}>{detail.info}</Text>
-                <Text style={styles.rightContainerDes}>{detail.tips}</Text>
+                <Text style={[styles.rightContainerTitle,{marginBottom:10}]}>{detail.title}</Text>
+                <Text style={[styles.rightContainerSubTitle,{marginBottom:10}]}>{detail.info}</Text>
+                <View style={styles.rightContainerDes}><Text style={{color:'#1ab4fe',fontSize:12}}>{detail.tips}</Text></View>
               </View>
             </View>
 
             <View style={styles.flexContainerRow}>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
                   <Text style={{fontSize:17,color:'#333'}}>金额</Text>
-                  <View style={styles.selectBox}>
-                    <Text style={{fontSize:17,color:'#333',}}>5万</Text>
-                  </View>
+                  <TextInput
+                    underlineColorAndroid={'transparent'}
+                    style={styles.selectBox}
+                    onChangeText={(money) => this.setState({money})}
+                    value={this.state.money}/>
+                  <Text>元</Text>
                 </View>
                 <Text>额度范围: {detail.amnout_showinfo}</Text>
               </View>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
                   <Text style={{fontSize:17,color:'#333'}}>期数</Text>
-                  <View style={styles.selectBox}>
-                    <Text style={{fontSize:17,color:'#333',}}>12个月</Text>
-                  </View>
+
+                  {this._renderPeriodList(detail.period_list)}
+
+                  <Text>{detail.period_name}</Text>
                 </View>
                 <Text>期数范围: {detail.period_showinfo}</Text>
               </View>
             </View>
 
-            <View style={styles.flexRow}>
-              <View style={styles.flexPanel}>
-                <Text style={styles.number}>{detail.money}</Text>
-                <Text>每月还款(元)</Text>
-              </View>
-              <View style={[styles.flexPanel,{borderRightWidth:0}]}>
-                <Text style={styles.number}>{this.props.detail.period}</Text>
-                <Text>月利率</Text>
-              </View>
-            </View>
+            {this._renderRepayCalc()}
 
           </View>
 
@@ -122,6 +131,49 @@ export default class LoanDetailScene extends PureComponent {
         {this._renderButton()}
       </View>
     );
+  }
+
+  _renderPeriodList(data){
+
+    let periodList = [];
+
+    if(data){
+
+      data.map((value, index) => {
+        periodList.push({value: value, label: String(value) })
+      })
+
+      return(
+        <Picker
+          style={styles.selectBox}
+          textStyle={styles.pickerTxt}
+          value={ this.state.value }
+          onChange={(value)=>{this.setState({ value: value })}}
+          items={ periodList }
+          />
+      )
+
+    }
+
+  }
+
+
+  _renderRepayCalc(){
+
+    console.log(this.state.value)
+
+    return(
+      <View style={styles.flexRow}>
+        <View style={styles.flexPanel}>
+          <Text style={styles.number}></Text>
+          <Text>每月还款(元)</Text>
+        </View>
+        <View style={[styles.flexPanel,{borderRightWidth:0}]}>
+          <Text style={styles.number}></Text>
+          <Text>月利率</Text>
+        </View>
+      </View>
+    )
   }
 
   _renderButton() {
