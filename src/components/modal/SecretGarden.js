@@ -5,29 +5,29 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableNativeFeedback,
+  AsyncStorage,
   TouchableOpacity,
   Platform,
   AppRegistry,
 } from 'react-native';
 
-import { allConfigs, switchEnvironment } from 'configs';
 import { colors } from 'styles/varibles';
+import { environments, switchEnvironment } from 'settings';
 
 import CheckImage from 'assets/icons/check.png';
 import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
 import Button from 'components/shared/Button';
 
-const Touchable = Platform.OS == 'ios' ? TouchableOpacity : TouchableNativeFeedBack;
 
 export default class SecretGardenModal extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      allConfigs: allConfigs()
-    };
+  state = { environment: null };
+
+  componentDidMount() {
+    AsyncStorage.getItem('environment').then(JSON.parse).then(environment => {
+      this.setState({ environment });
+    });
   }
 
   render() {
@@ -36,6 +36,7 @@ export default class SecretGardenModal extends Component {
         animationType="fade"
         visible={this.props.visible}
         transparent={true}
+        onRequestClose={this.props.onCancel}
         >
         <View style={[styles.container, defaultStyles.container, defaultStyles.centering]}>
           <View style={styles.inner}>
@@ -51,46 +52,37 @@ export default class SecretGardenModal extends Component {
   _renderFooter() {
     return (
       <View style={styles.footer}>
-        <Button onPress={this.props.onHidden} style={[styles.btn, styles.cancel]} text="取消"/>
+        <Button onPress={this.props.onCancel} textStyle={styles.btnTxt} style={[styles.btn, styles.cancel]} text="取消"/>
         <View style={defaultStyles.container}/>
-        <Button disable={this.state.submitting} onPress={this._submit.bind(this)} style={[styles.btn, styles.ok]} text="确认切换"/>
+        <Button disable={this.state.submitting} textStyle={styles.btnTxt} onPress={this._submit.bind(this)} style={[styles.btn, styles.ok]} text="确认切换"/>
       </View>
     );
   }
 
   _submit() {
-    if(this.state.submitting) { return }
+    if(this.submitting) { return }
 
-    this.setState({
-      submitting: true
-    }, () => {
-      this.setState({
-        submitting: false
-      });
+    this.submitting = true;
 
-      //switchEnvironment('production').then(() => {
-      //});
-
-    });
+    switchEnvironment(this.state.environment)
 
   }
 
   _renderEnvironments() {
-    let configs = this.state.allConfigs;
-    let environment = configs.environment;
+    let environment = this.state.environment;
 
-    return Object.keys(configs).map(key => {
-      if(key === 'environment') { return null; }
+    return Object.keys(environments).map(key => {
+      if(key === 'defaultEnvironment') { return null; }
 
-      let item = configs[key];
+      let item = environments[key];
 
       return (
         <CheckboxRow
           key={`checkrow${key}`}
           onChecked={this._onRowChencked.bind(this)}
-          environment={key}
+          environment={item}
           text={item.text}
-          checked={this.state.environment ? this.state.environment === key : key === environment}
+          checked={environment && environment.text === item.text}
           />
       );
     });
@@ -105,10 +97,10 @@ class CheckboxRow extends Component {
   render() {
     return (
       <View style={styles.rowWrap}>
-        <Touchable onPress={() => this.props.onChecked(this.props.environment) } style={styles.row}>
+        <TouchableOpacity activeOpacity={1}  onPress={() => this.props.onChecked(this.props.environment) } style={styles.row}>
           <Text style={styles.txt}>{this.props.text}</Text>
           { this.props.checked && (<Image source={CheckImage }/>)}
-        </Touchable>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -139,7 +131,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     justifyContent: 'flex-start',
     height: 50,
   },
@@ -158,11 +150,14 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    lineHeight: 30,
+    height: 30,
     width: 90,
-    fontSize: 12,
     margin: 10,
     borderRadius: 4
+  },
+
+  btnTxt: {
+    fontSize: 12,
   },
 
   cancel: {

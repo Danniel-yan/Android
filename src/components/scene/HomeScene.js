@@ -17,6 +17,7 @@ import iconNext from 'assets/index-icons/icon_next.png';
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 import { ExternalPushLink } from 'containers/shared/Link';
 import AbstractScene from 'components/scene/AbstractScene.js';
+import SecretGardenModal from 'components/modal/SecretGarden';
 
 import panelStyles from './home/panelStyles';
 
@@ -29,6 +30,10 @@ export default class HomeScene extends AbstractScene {
     this.sceneEntity="homepage";
     this.sceneTopic = "homepage";
     this.sceneTopic = "homepage";
+
+    this.state = {
+      showSecret: false
+    }
   }
   
   componentDidMount() {
@@ -48,6 +53,8 @@ export default class HomeScene extends AbstractScene {
           {this._renderLoan()}
           {this._renderCard()}
         </ScrollView>
+
+        <SecretGardenModal onCancel={() => this.setState({showSecret: false})} visible={this.state.showSecret}/>
       </View>
     );
   }
@@ -71,7 +78,7 @@ export default class HomeScene extends AbstractScene {
     return (
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
-        <View onPress={this._memoryPress.bind(this)} style={styles.center}><Text style={styles.titleTxt}>钞市</Text></View>
+        <View style={styles.center}><Text onPress={this._memoryPress.bind(this)} style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}></View>
       </View>
     )
@@ -91,7 +98,7 @@ export default class HomeScene extends AbstractScene {
     }, 500);
 
     if(this.memory === 8) {
-      this.props.secretGarden();
+      this.setState({ showSecret: true })
     }
   }
 

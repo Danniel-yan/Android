@@ -1,13 +1,17 @@
 import { AsyncStorage, Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import tracker from 'utils/tracker.js';
-const environments = {
+import codePush from "react-native-code-push";
+
+export const environments = {
   defaultEnvironment: require('./dynamic/env'),
   production: {
+    id: 'production',
     text: '生产环境',
     api: 'http://139.196.143.236:8001/'
   },
   test: {
+    id: 'test',
     text: '内部用测试环境',
     api: 'http://139.196.143.236:8001/'
   }
@@ -85,10 +89,10 @@ function setupEnvironment() {
 }
 
 export function switchEnvironment(environment) {
-  return AsyncStorage.setItem('environment', JSON.stringify(environments[environment]))
+  return AsyncStorage.removeItem('userToken').then(() => {
+    AsyncStorage.setItem('environment', JSON.stringify(environments[environment.id]))
     .then(() => {
-      // TODO restart
-      environmentSettings = environments[environments.environment];
-      return;
-    });
+      codePush.restartApp();
+    })
+  });
 }
