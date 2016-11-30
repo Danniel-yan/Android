@@ -12,6 +12,7 @@ import Link from './Link';
 import * as defaultStyles from 'styles';
 
 import { externalPop } from 'actions/navigation';
+import WebViewGenerator from 'components/high-order/WebViewGenerator';
 
 
 export default class WebLink extends Component {
@@ -21,7 +22,7 @@ export default class WebLink extends Component {
   };
 
   render() {
-    let Com = this._webView();
+    let Com = WebViewGenerator(this.props);
 
     return (
       <ExternalPushLink
@@ -30,21 +31,4 @@ export default class WebLink extends Component {
         toComponent={Com} />
     );
   }
-
-  _webView() {
-    let { url } = this.props;
-
-    return class InnerWebView extends Component {
-
-      render() {
-        return (
-          <WebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}/>
-        );
-      }
-    }
-
-  }
-
 }
-
-

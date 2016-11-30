@@ -31,7 +31,7 @@ export default class LoanList extends Component {
             <Text style={styles.flexContainerColumnTitle}>
               {data.title}
             </Text>
-            <Image source={{uri: data.logo_list}} style={{width:50,height:50,marginTop:10,marginBottom:10}} />
+            <Image source={{uri: data.logo_list}} style={{width:50,height:50, marginBottom: 8}} />
             <Text style={styles.flexContainerColumnDes}>
               <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>费率
             </Text>

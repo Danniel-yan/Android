@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 
 import { majorPush, majorPop, externalPush, externalPop, majorTab } from 'actions/navigation';
-import { fetchUserInfo, goLoan } from 'actions/scene/userInfo';
+import { fetchUserInfo, userInfoUpdated } from 'actions/scene/userInfo';
 import { setLoanInfo } from 'actions/scene/fast/filterList';
+import submitUserInfo from 'actions/fillUserInfo';
 
 import RecLoanScene from 'components/scene/RecLoanScene';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
@@ -22,7 +23,11 @@ function mapDispatchToProps(dispatch) {
   return {
     fetching: () => { dispatch(fetchUserInfo()) },
     setLoanInfo: (loanInfo) => { dispatch(setLoanInfo(loanInfo)); },
-    goLoan: (params) => { dispatch(goLoan(params)) }
+    goLoan: (params) => {
+      dispatch(submitUserInfo(params, () => {
+        dispatch(externalPush({key:"LoanScene"}));
+      }))
+    },
   };
 }
 

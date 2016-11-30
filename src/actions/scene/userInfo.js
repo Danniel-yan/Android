@@ -3,7 +3,6 @@ import { get, post } from 'utils/fetch';
 
 import { majorPush, majorPop, externalPush, externalPop, majorTab } from 'actions/navigation';
 
-import submitUserInfo from '../fillUserInfo';
 
 function fetchingStart() {
   return {
@@ -11,28 +10,25 @@ function fetchingStart() {
   };
 }
 
-function receiveUserInfo(userInfo) {
+function receiveUserInfo(userInfo, hasLogin) {
   return {
     type: 'receiveUserInfo',
-    userInfo: userInfo
+    userInfo: userInfo,
+    hasLogin: hasLogin
   };
 }
 
-function userInfoUpdated() {
+export function userInfoUpdated(userInfo) {
   return {
-    type: 'userInfoUpdated'
+    type: 'userInfoUpdated',
+    userInfo
   };
 }
 
-export function goLoan(params) {
-  return function(dispatch) {
-    // console.log(params);
-    dispatch(submitUserInfo(params, () => {
-      dispatch(userInfoUpdated());
-      // dispatch(externalPop());
-      dispatch(externalPush({key:"LoanScene"}));
-    }));
-  }
+export function removeUserInfo() {
+  return {
+    type: "removeUserInfo"
+  };
 }
 
 // Add Test Token : 587c47630a09b516cb2efe004a1ccd3dohclo9
@@ -51,20 +47,12 @@ export function fetchUserInfo() {
     }
     AsyncStorage.getItem('userToken').then(token => {
       if(!token) {
-        appendLocation(null, (fillData)=>{dispatch(receiveUserInfo(fillData));})
+        appendLocation(null, (fillData)=>{dispatch(receiveUserInfo(fillData, false));})
         return;
       }
       get('/user/info').then((rsp)=>{
         var data = rsp.data;
-        // console.log("USERINFO");
-        // console.log(data);
-        if(!data.location) {
-          appendLocation(data, (fillData)=>{dispatch(receiveUserInfo(fillData));})
-        } else {
-          dispatch(receiveUserInfo(data));
-        }
-
-
+        dispatch(receiveUserInfo(data, true));
       }).catch(err=>console.log(err));
     });
   }

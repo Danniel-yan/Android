@@ -37,20 +37,16 @@ export default class RecommendList extends Component {
       <View style={styles.flexContainerRow}>
         <Image source={{uri: data.logo_list}} style={styles.thumbnail} />
         <View style={styles.rightContainer}>
-          <Text style={styles.rightContainerTitle}>
-            {data.title}
-          </Text>
-          <Text style={styles.rightContainerSubTitle}>
-            {data.info}
-          </Text>
-          <View style={[styles.rightContainerFooter, defaultStyle.centering]}>
+          <Text style={styles.rightContainerTitle}>{data.title}</Text>
+          <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
+          <View style={[styles.rightContainerFooter]}>
             <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
-            <View style={{alignItems:'flex-end',paddingRight:10}}>
-              <Text style={[styles.defaultFont, defaultStyle.container]}><Text style={styles.unit}>{data.interest}</Text> / {data.interest_period}</Text>
-            </View>
+            <Text style={styles.unit}>{data.interest}</Text>
+            <Text style={styles.defaultFont}> / {data.interest_period}</Text>
           </View>
-          <Image style={{position:'absolute',top:30,right:0}} source={iconNext} />
         </View>
+
+        <Image source={iconNext} />
       </View>
     </ExternalPushLink>
     )

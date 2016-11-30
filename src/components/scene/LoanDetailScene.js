@@ -62,7 +62,7 @@ export default class LoanDetailScene extends PureComponent {
         <ScrollView>
           <View style={[styles.flexColumn, styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}>
-              <Image source={{uri:detail.logo_detail}} style={{width:80,height:80}}  />
+              <Image source={{uri:detail.logo_detail}} style={styles.thumbnailLarge} />
               <View style={styles.rightContainer}>
                 <Text style={[styles.rightContainerTitle,{marginBottom:10}]}>{detail.title}</Text>
                 <Text style={[styles.rightContainerSubTitle,{marginBottom:10}]}>{detail.info}</Text>

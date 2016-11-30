@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { get } from 'utils/fetch';
+import { removeUserInfo } from 'actions/scene/userInfo';
 
 function fetchingUser() {
   return {
@@ -32,7 +33,6 @@ export function logout() {
     AsyncStorage.removeItem('userToken').then(() => {
       dispatch({type: 'logouted'});
     })
-
+    dispatch(removeUserInfo());
   }
 }
-

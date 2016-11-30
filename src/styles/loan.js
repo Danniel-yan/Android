@@ -13,35 +13,35 @@ const styles = StyleSheet.create({
   },
   flexContainerRow:{
     flexDirection: 'row',
-    paddingLeft:10,
-    paddingRight:10,
-    paddingTop:15,
-    paddingBottom:15,
+    padding:10,
+    paddingVertical: 15,
     borderBottomWidth:1,
     borderStyle : 'solid',
-    borderBottomColor: colors.line
+    borderBottomColor: colors.line,
+    alignItems: 'center'
   },
   rightContainer : {
-    paddingLeft : 15,
+    flex: 1,
+    paddingLeft: 15,
     position:'relative',
-    width:Dimensions.get('window').width - 80
   },
   rightContainerTitle:{
     fontSize:17,
     color:colors.fontColorSecondary,
-    marginBottom:6
+    marginBottom:10
   },
   defaultFont: {
     fontSize: 14
   },
   rightContainerFooter: {
     flex: 1,
-    height: 20,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 15,
   },
   rightContainerSubTitle:{
     fontSize:14,
-    marginBottom:6
+    marginBottom: 10
   },
   unit:{
     color:'#ff6d17',
@@ -62,10 +62,12 @@ const styles = StyleSheet.create({
   },
   flexContainerColumnTitle:{
     fontSize:15,
+    marginBottom: 14,
     color:colors.fontColorSecondary,
   },
   flexContainerColumnDes:{
-    fontSize:12
+    fontSize:12,
+    marginBottom: 4,
   },
   flexContainerColumnPrimary:{
     fontSize:12,
@@ -74,7 +76,10 @@ const styles = StyleSheet.create({
   thumbnail : {
     width : 50,
     height : 50,
-    marginTop:10
+  },
+  thumbnailLarge : {
+    width : 80,
+    height : 80,
   },
   flexHorizontalColumn:{
     paddingTop:15,
