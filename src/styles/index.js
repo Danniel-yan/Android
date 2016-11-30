@@ -26,3 +26,6 @@ export const centering = {
 };
 
 export const window = Dimensions.get('window');
+
+export * from './varibles';
+export * from './mixins';
