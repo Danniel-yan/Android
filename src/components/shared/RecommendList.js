@@ -33,7 +33,7 @@ export default class RecommendList extends Component {
 
   renderRecommend(data) {
     return(
-    <ExternalPushLink title={data.title} toKey="LoanDetailScene" componentProps={{fetchingParams: { id: data.id }}} >
+    <ExternalPushLink title={data.title} toKey="LoanDetailScene" componentProps={{fetchingParams: data.id }} >
       <View style={styles.flexContainerRow}>
         <Image source={{uri: data.logo_list}} style={styles.thumbnail} />
         <View style={styles.rightContainer}>

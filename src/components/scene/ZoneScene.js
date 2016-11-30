@@ -126,7 +126,7 @@ export default class ZoneScene extends AbstractScene {
     if(!this.state.hasToken) {
       return (
         <View style={[styles.loginWrap, defaultStyles.centering]}>
-          <Button style={styles.loginBtn} text="登录注册"/>
+          <ExternalPushLink style={[styles.loginBtn, defaultStyles.centering]} textStyle={styles.loginBtnText} text="登录注册" title="登录" toKey="Login"/>
         </View>
       );
     }
@@ -146,6 +146,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     backgroundColor: '#fff',
+  },
+  loginBtnText: {
     color: colors.secondary,
     fontSize: 17
   }

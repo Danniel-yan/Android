@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
 
-import NavigationTest from 'components/NavigationTest';
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
 import LoanNavPanel from 'components/LoanNavPanel';

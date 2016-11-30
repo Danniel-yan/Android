@@ -10,6 +10,8 @@ import {
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
+import WebLink from 'components/shared/WebLink';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
@@ -25,6 +27,16 @@ export default class LoanDetailScene extends PureComponent {
     this.sceneEntity=props.detail.title;
     this.sceneTopic = "detail";
     this.sceneKey = "loan"
+  }
+
+  componentWillMount() {
+    if(!this.props.loginUser.fetched) {
+      AsyncStorage.getItem('userToken').then(userToken => {
+        if(userToken != null) {
+          this.props.fetchUser();
+        }
+      })
+    }
   }
 
   render() {
@@ -107,21 +119,32 @@ export default class LoanDetailScene extends PureComponent {
 
         </ScrollView>
 
-        <Button onPress={() => {}} style={styles.loanButton} text="去贷款"/>
-
+        {this._renderButton()}
       </View>
     );
   }
 
+  _renderButton() {
+    let loginUser = this.props.loginUser;
+    let needLogin = loginUser && loginUser.info && loginUser.info.id_no;
+
+    if(loginUser.isFetching) { return null; }
+
+    if(needLogin) {
+      return (
+        <WebLink style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" url={this.props.detail.url || ''} title={this.props.detail.title}/>
+      );
+    }
+
+    return (
+      <ExternalPushLink
+        style={styles.loanButton}
+        textStyle={styles.loanButtonText}
+        text="去贷款"
+        toKey="FillUserInfo"
+        title="完善个人信息"
+        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
+        />
+    );
+  }
 }
-
-
-//        <Modal
-//          animationType="slide"
-//          visible={this.state.fillUserInfo}
-//          onRequestClose={() => this.setState({fillUserInfo: false})}>
-//          <View style={defaultStyles.container}>
-//            <SceneHeader onBack={() => this.setState({fillUserInfo: false})} title="完善个人信息"/>
-//            <FillUserInfo onSubmitSuccess={() => this.props.goLoan(detail.url, detail.title)}/>
-//          </View>
-//        </Modal>

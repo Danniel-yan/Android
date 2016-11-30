@@ -29,38 +29,39 @@ const hasCreditStatus = {
 export default class FillUserInfo extends AbstractScene {
   static title = '完善个人信息';
 
-  state = {
-    hasCard: false,
-    mobile: '',
-    verifyCode: '',
-    realname: '',
-    idNO: '',
-    job: '',
-    creditStatus: hasCreditStatus.no
-  };
-
   constructor(props) {
     super(props);
     this.sceneEntity="FILL_USER_INFO";
     this.sceneTopic = "";
+
+    let loginUser = props.loginUser.info || {};
+
+    this.state = {
+      editableMobile: !loginUser.mobile,
+      realname: loginUser.realname || '',
+      idNO: loginUser.id_no || '',
+      mobile: loginUser.mobile || '',
+      creditStatus: loginUser.credit_status == hasCreditStatus.yes,
+      job: loginUser.job || '',
+      verifyCode: loginUser.verify_code || ''
+    };
   }
 
   componentWillReceiveProps(nextProps, prevProps) {
-    if(nextProps.token != prevProps.token) {
-      return;
-    }
+    let user = nextProps.loginUser.info;
 
-    if(nextProps.token) {
-      this.props.onSubmitSuccess(nextProps.token);
+    if(user && user.id_no) {
+      this.props.onSubmitSuccess(user);
     }
   }
 
   render() {
+    let { verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
 
-    const validMobile = validators.mobile(this.state.mobile);
-    const validVerifyCode = this.state.verifyCode.length == 6;
-    const validName = this.state.realname.length >= 2;
-    const validID = validators.idNO(this.state.idNO);
+    const validMobile = validators.mobile(mobile);
+    const validVerifyCode = verifyCode.length == 6;
+    const validName = realname.length >= 2;
+    const validID = validators.idNO(idNO);
 
     return (
       <View style={defaultStyles.container}>
@@ -70,6 +71,7 @@ export default class FillUserInfo extends AbstractScene {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={20}
+              value={realname}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'realname')}
             />
@@ -79,6 +81,7 @@ export default class FillUserInfo extends AbstractScene {
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
               maxLength={18}
+              value={idNO}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'idNO')}
             />
@@ -89,6 +92,8 @@ export default class FillUserInfo extends AbstractScene {
               clearButtonMode="while-editing"
               keyboardType="numeric"
               maxLength={11}
+              value={mobile}
+              editable={this.state.editableMobile}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'mobile')}
             />
@@ -101,6 +106,7 @@ export default class FillUserInfo extends AbstractScene {
                 clearButtonMode="while-editing"
                 keyboardType="numeric"
                 maxLength={6}
+                value={verifyCode}
                 underlineColorAndroid="transparent"
                 onChangeText={this._inputChange.bind(this, 'verifyCode')}
               />
@@ -115,32 +121,34 @@ export default class FillUserInfo extends AbstractScene {
             <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
             <FormGroup style={styles.optionalGroup} label="职业身份">
-              <Picker style={styles.pickerGroup} textStyle={styles.pickerTxt}
+              <Picker
+                style={styles.pickerGroup}
+                textStyle={styles.pickerTxt}
+                value={job}
                 onChange={this._inputChange.bind(this, 'job')}
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
 
             <FormGroup style={styles.optionalGroup} label="有无信用卡资质">
 
-              <TouchableOpacity
+              <Checkbox
                 style={styles.pickerGroup}
-                activeOpacity={1}
-                onPress={checked => this.setState({ creditStatus: !this.state.creditStatus })}
-                >
-
-                <Checkbox checked={this.state.creditStatus == true}
-                  onChange={this._inputChange.bind(this, 'creditStatus')}
-                  />
-
-              </TouchableOpacity>
+                checked={this.state.creditStatus == true}
+                onChange={this._inputChange.bind(this, 'creditStatus')}
+                />
 
             </FormGroup>
+
           </View>
 
         </ScrollView>
 
         <View style={styles.footer}>
-          <ProcessingButton processing={this.props.submitting} style={styles.btn} disabled={!(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
+          <ProcessingButton
+            processing={this.props.update.submitting}
+            style={styles.btn}
+            disabled={!(validName && validMobile && validVerifyCode && validID)}
+            onPress={this._submit.bind(this)} text="去贷款"/>
         </View>
       </View>
     );
@@ -151,7 +159,7 @@ export default class FillUserInfo extends AbstractScene {
   _submit() {
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
 
-    this.props.submit({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.now, realname });
+    this.props.submit({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.no, realname });
   }
 
   _inputChange(field, value) {

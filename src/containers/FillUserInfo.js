@@ -5,7 +5,10 @@ import FillUserInfo from 'components/FillUserInfo';
 import submitUserInfo from 'actions/fillUserInfo';
 
 function mapStateToProps(state) {
-  return state.fillUserInfo
+  return {
+    update: state.fillUserInfo,
+    loginUser: state.loginUser
+  }
 }
 
 function mapDispatchToProps(dispatch) {

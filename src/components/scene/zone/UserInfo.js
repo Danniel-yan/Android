@@ -29,16 +29,10 @@ const hasCreditStatus = {
 
 export default class UserInfo extends AbstractScene {
 
-  state = {
-    hasCard: false
-  };
-
   constructor(props) {
     super(props);
     this.sceneEntity="FILL_USER_INFO";
     this.sceneTopic = "";
-
-    console.log(props);
 
     let loginUser = props.loginUser.info;
     this.state = {

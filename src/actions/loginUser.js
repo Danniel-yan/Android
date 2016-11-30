@@ -14,7 +14,7 @@ function receiveUser(info) {
   };
 }
 
-export default function login() {
+export default function() {
 
   return dispatch => {
     dispatch(fetchingUser());

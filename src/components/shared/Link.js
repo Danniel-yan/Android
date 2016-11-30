@@ -71,15 +71,9 @@ export default class Link extends Component {
   }
 
   _createText() {
-    let txtStyle = defaultTxtStyle;
-
-    let { fontSize, color, lineHeight } = StyleSheet.flatten(this.props.style || {});
-    this._setAttr(txtStyle, 'color', color);
-    this._setAttr(txtStyle, 'fontSize', fontSize);
-    this._setAttr(txtStyle, 'lineHeight', lineHeight);
 
     return (
-      <Text style={txtStyle}>{this.props.text}</Text>
+      <Text style={[defaultTxtStyle, this.props.textStyle]}>{this.props.text}</Text>
     );
   }
 
