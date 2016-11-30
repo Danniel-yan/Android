@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => { console.log("*****Fetching*****"); dispatch(fetchUserInfo()) },
+    fetching: () => { dispatch(fetchUserInfo()) },
     setLoanInfo: (loanInfo) => { dispatch(setLoanInfo(loanInfo)); },
     goLoan: (params) => { dispatch(goLoan(params)) }
   };

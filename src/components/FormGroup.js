@@ -63,7 +63,7 @@ export class IptWrap extends EnhanceStyleCp {
             </TouchableOpacity>);
         break;
       case "static":
-        iptEle = (<Text style={[{flex: 1, color: "#333", fontSize: iptFontSize}, s.ipt]}>{this.props.value ? this.props.value.toString():""}</Text>)
+        iptEle = (<Text style={[{flex: 1, color: "#333", fontSize: iptFontSize, fontWeight: '500'}, s.ipt]}>{this.props.value ? this.props.value.toString():""}</Text>)
         break;
       default:
         iptEle = (<Input placeholder={p.placeholder} type={p.type} style={[{flex: 1, fontWeight: '500'}, s.ipt]} onChangeText={ text => this.onValueChanged(text) } defaultValue={this.props.value ? this.props.value.toString():""}></Input>);

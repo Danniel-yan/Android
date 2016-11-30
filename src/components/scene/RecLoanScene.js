@@ -71,7 +71,9 @@ export default class RecLoanScene extends AbstractScene {
         valueChanged: this.loanValueChanged.bind(this)
       }, {
         name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.loanInfo.period,
-        items: [{value: "3", label: "3"}, {value: "6", label: "6"}, {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"}],
+        items: [{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
+          {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
+          {value: "24", label: "24"}, {value: "36", label: "36"}],
         valueChanged: this.loanValueChanged.bind(this)
       }] }></FormGroup>
     );
