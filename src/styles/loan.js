@@ -62,10 +62,12 @@ const styles = StyleSheet.create({
   },
   flexContainerColumnTitle:{
     fontSize:15,
+    marginBottom: 14,
     color:colors.fontColorSecondary,
   },
   flexContainerColumnDes:{
-    fontSize:12
+    fontSize:12,
+    marginBottom: 4,
   },
   flexContainerColumnPrimary:{
     fontSize:12,

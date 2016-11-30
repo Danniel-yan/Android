@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
 
   title: {
-    flex: 1
+    flex: 1,
   },
 
   addon: {
