@@ -1,4 +1,4 @@
-const initState = { isFetching: false, fetched: false, fetchedParams: null, repayCalc:[]};
+const initState = { isFetching: true, fetched: false, fetchedParams: null, repayCalc:[]};
 
 export default function repayCalc(state = initState, action) {
   switch(action.type) {

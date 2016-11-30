@@ -1,4 +1,4 @@
-import { get } from 'utils/fetch';
+import { post } from 'utils/fetch';
 
 export function requestRepayCalc(){
   return {
@@ -14,8 +14,6 @@ export function receiveRepayCalc(repayCalc, fetchedParams){
   }
 }
 export function fetchRepayCalc(params){
-
-  console.log('........' + params);
 
   return function (dispatch){
 

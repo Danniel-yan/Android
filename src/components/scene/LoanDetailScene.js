@@ -32,8 +32,8 @@ export default class LoanDetailScene extends PureComponent {
     this.sceneKey = "loan";
 
     this.state = {
-      money: '5',
-      value: '5',
+      amount: String(props.detail.amount_min),
+      value: props.detail.period_list[0],
       id: props.detail.id
     };
 
@@ -48,8 +48,7 @@ export default class LoanDetailScene extends PureComponent {
       })
     }
 
-
-
+    this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
   }
 
   render() {
@@ -77,11 +76,11 @@ export default class LoanDetailScene extends PureComponent {
                   <TextInput
                     underlineColorAndroid={'transparent'}
                     style={styles.selectBox}
-                    onChangeText={(money) => this.setState({money})}
-                    value={this.state.money}/>
+                    onChangeText={(amount) => this.props.fetchRepay({id:this.state.id,amount: parseInt(amount) ,period: this.state.value})}
+                    defaultValue={this.state.amount}/>
                   <Text>元</Text>
                 </View>
-                <Text>额度范围: {detail.amnout_showinfo}</Text>
+                <Text>额度范围: {detail.amount_showinfo}</Text>
               </View>
               <View style={[styles.flexPanel,{borderRightWidth:0}]}>
                 <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
@@ -101,12 +100,18 @@ export default class LoanDetailScene extends PureComponent {
 
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>申请流程</Text></View>
-            <Image style={{width:Dimensions.get('window').width - 40,margin:20,marginBottom:8}} source={iconSqlc} />
-            <View style={styles.applyBoxBody}>
-              <View style={styles.flexAlignItems}><Text>身份认证</Text></View>
-              <View style={styles.flexAlignItems}><Text>银行卡认证</Text></View>
-              <View style={styles.flexAlignItems}><Text>人脸识别</Text></View>
-              <View style={styles.flexAlignItems}><Text>公司识别</Text></View>
+
+            <View style={{flexDirection: 'row',justifyContent: 'space-between',alignItems:'center',padding:20}}>
+            {
+              detail.apply_list.map((list,index) =>
+                <View key={'key'+index}>
+                  <View style={{justifyContent: 'center',alignItems:'center',marginBottom:8}}>
+                    <Image style={{width:44,height:44}} source={{uri:list.img.x3}} />
+                  </View>
+                  <View style={styles.flexAlignItems}><Text style={{color:'#333'}}>{list.name}</Text></View>
+                </View>
+              )
+            }
             </View>
           </View>
 
@@ -148,7 +153,7 @@ export default class LoanDetailScene extends PureComponent {
           style={styles.selectBox}
           textStyle={styles.pickerTxt}
           value={ this.state.value }
-          onChange={(value)=>{this.setState({ value: value })}}
+          onChange={(value)=>{ this.props.fetchRepay({id:this.state.id,amount: this.state.amount ,period: value})}}
           items={ periodList }
           />
       )
@@ -160,17 +165,17 @@ export default class LoanDetailScene extends PureComponent {
 
   _renderRepayCalc(){
 
-    console.log(this.state.value)
+    const repayCalc = this.props.repayCalc.repayCalc
 
     return(
       <View style={styles.flexRow}>
         <View style={styles.flexPanel}>
-          <Text style={styles.number}></Text>
-          <Text>每月还款(元)</Text>
+          <Text style={styles.number}>{repayCalc.repay}</Text>
+          <Text>{repayCalc.repay_period}</Text>
         </View>
         <View style={[styles.flexPanel,{borderRightWidth:0}]}>
-          <Text style={styles.number}></Text>
-          <Text>月利率</Text>
+          <Text style={styles.number}>{repayCalc.interest}</Text>
+          <Text>{repayCalc.interest_period}利率</Text>
         </View>
       </View>
     )
