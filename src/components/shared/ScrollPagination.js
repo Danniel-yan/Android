@@ -27,7 +27,10 @@ export default class ScrollPagination extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if(prevProps.isPaging && !this.props.isPaging) {
-      this.paging = false;
+      // 延迟执行，防止ios短时间重复加载
+      setTimeout(() => {
+        this.paging = false;
+      }, 500);
     }
   }
 

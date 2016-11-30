@@ -25,7 +25,7 @@ export default class LoanList extends Component {
 
   renderLoan(data){
     return(
-      <ExternalPushLink title={data.title} toKey="LoanDetailScene" componentProps={{fetchingParams: { id: data.id }}} >
+      <ExternalPushLink title={data.title} toKey="LoanDetailScene" componentProps={{fetchingParams: data.id }} >
         <View>
           <View style={styles.flexContainerColumn}>
             <Text style={styles.flexContainerColumnTitle}>

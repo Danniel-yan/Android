@@ -12,7 +12,7 @@ export default function( offset = 0) {
 
       return post(`/card/shop-nearby`, {
         lati: position.coords.latitude,
-        long: position.coords.longitude,
+        long: Math.abs(position.coords.longitude),
         num: 10,
         offset: offset
       })

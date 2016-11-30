@@ -24,7 +24,7 @@ export default function shopNearby(state = initState , action){
         isFetching: false,
         fetched: true,
         nomore: action.nomore,
-        shopNearby: action.shopNearby
+        shopNearby: [...state.shopNearby, ...action.shopNearby]
       });
     default :
       return state;
