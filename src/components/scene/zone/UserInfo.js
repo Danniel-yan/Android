@@ -119,9 +119,7 @@ export default class UserInfo extends AbstractScene {
 
           </View>
 
-          <View style={styles.footer}>
-            <ProcessingButton color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
-          </View>
+          <ProcessingButton color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
 
         </ScrollView>
       </View>
@@ -150,11 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     paddingHorizontal: 10
-  },
-
-  footer: {
-    marginTop: 30,
-    height: 50,
   },
 
   btn: {
