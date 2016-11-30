@@ -106,7 +106,7 @@ export default class PickerComponent extends Component {
   _onHide() {
     this.setState({
       openModal: false,
-      selectedValue: this.props.selectedValue
+      selectedValue: this.state.selectedValue
     });
   }
 
