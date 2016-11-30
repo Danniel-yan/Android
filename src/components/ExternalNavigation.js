@@ -12,6 +12,7 @@ import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
 import alert from 'utils/alert';
 import externalScene from 'containers/externalScene';
+import WebViewGenerator from 'components/high-order/WebViewGenerator';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -65,6 +66,10 @@ export default class ExternalNavigation extends Component {
 
   _renderScene(route, navigator) {
     let { web, key, title, component: ComponentClass, componentProps } = route;
+
+    if(web && !ComponentClass) {
+      ComponentClass = WebViewGenerator(route);
+    }
 
     if(!ComponentClass) {
       ComponentClass = modules[key];
