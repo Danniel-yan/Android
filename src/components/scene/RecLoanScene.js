@@ -103,6 +103,8 @@ export default class RecLoanScene extends AbstractScene {
       valueChanged: this.formValueChanged.bind(this)
     }]:[], gpArray2)
 
+    console.log(this.userInfo);
+
     return (
       <FormGroup iptCollections={ gpTotalArray }></FormGroup>
     );

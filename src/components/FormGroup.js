@@ -55,7 +55,7 @@ export class IptWrap extends EnhanceStyleCp {
 
     switch(p.type) {
       case "picker":
-        iptEle = (<Picker style={PickerStyles.pickerGroup} textStyle={PickerStyles.pickerTxt} selectedValue={this.props.value} onChange={ value => this.onValueChanged(value) } items={p.items} />);
+        iptEle = (<Picker style={PickerStyles.pickerGroup} textStyle={PickerStyles.pickerTxt} value={this.props.value} onChange={ value => this.onValueChanged(value) } items={p.items} />);
         break;
       case "switch":
         iptEle = (<TouchableOpacity activeOpacity={1} onPress={() => this.setState({ value: !this.state.value })} style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>

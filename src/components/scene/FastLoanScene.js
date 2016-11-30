@@ -39,6 +39,7 @@ export default class FastLoanScene extends AbstractScene {
   static title = "极速贷款";
 
   formValueChanged(name, value) {
+    if(this.state.fetchRecParams[name] === value) return;
     this.state.fetchRecParams = Object.assign({}, this.state.fetchRecParams);
     this.state.fetchRecParams[name] = value;
     // console.log(this.state.fetchRecParams);
