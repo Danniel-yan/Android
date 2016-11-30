@@ -13,7 +13,7 @@ var configs = {
   horizontal: false,
   pagingEnabled: true,
   intervalTime: 2000,
-  height: 32,
+  height: 36,
   scrollEnabled: false
 };
 
