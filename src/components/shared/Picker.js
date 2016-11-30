@@ -42,10 +42,10 @@ export default class PickerComponent extends Component {
         activeOpacity={1}
         onPress={() => this.setState({openModal: true})}
         >
-      
+
         <Text style={this.props.textStyle}>{this._label()}</Text>
         <Image source={require('assets/icons/arrow-down.png')}/>
-      
+
         <Modal
           animationType="slide"
           visible={this.state.openModal}
@@ -66,7 +66,9 @@ export default class PickerComponent extends Component {
       return '';
     }
 
-    return this.props.items.find(item => item.value == this.state.selectedValue).label;
+    var selectedItem = this.props.items.find(item => item.value == this.state.selectedValue);
+
+    return selectedItem ? selectedItem.label : "";
   }
 
   _renderAndroidPicker() {
