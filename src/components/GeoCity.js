@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
 
   locTxt: {
     fontSize: 15,
-    height: 20,
     marginLeft: 3,
     color: '#fff'
   },
