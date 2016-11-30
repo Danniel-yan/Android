@@ -76,6 +76,7 @@ export default class LoanDetailScene extends PureComponent {
                   <TextInput
                     underlineColorAndroid={'transparent'}
                     style={styles.selectBox}
+                    keyboardType={'numeric'}
                     onChangeText={(amount) => this.props.fetchRepay({id:this.state.id,amount: parseInt(amount) ,period: this.state.value})}
                     defaultValue={this.state.amount}/>
                   <Text>元</Text>
