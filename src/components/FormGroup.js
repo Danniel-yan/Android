@@ -294,8 +294,8 @@ const FormGroupStyles = StyleSheet.create({
   item: { height: 46 }
 });
 const PickerStyles = StyleSheet.create({
-  pickerGroup: {flex: 1, flexDirection: 'row', paddingRight: 10, alignItems: 'center', justifyContent: 'flex-end'},
-  pickerTxt: { marginRight: 10, color: "#333", fontSize: Platform.OS === 'ios' ? 16 : 16, fontWeight: '500' }
+  pickerGroup: {flex: 1,flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'},
+  pickerTxt: { color: "#333", fontSize: Platform.OS === 'ios' ? 16 : 16, fontWeight: '500' }
 });
 
 // module.exports = FormGroup;

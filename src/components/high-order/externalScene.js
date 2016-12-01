@@ -15,7 +15,7 @@ export default function(ComponentClass, title) {
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader title={this.state.title || ComponentClass.title || this.props.title || title} onBack={this.props.onBack}/>
+          <SceneHeader title={this.state.title || title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
           <View style={[defaultStyles.container, defaultStyles.bg]}>
             <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
           </View>

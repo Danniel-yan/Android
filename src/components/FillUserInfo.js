@@ -123,7 +123,6 @@ export default class FillUserInfo extends AbstractScene {
             <FormGroup style={styles.optionalGroup} label="职业身份">
               <Picker
                 style={styles.pickerGroup}
-                textStyle={styles.pickerTxt}
                 value={job}
                 onChange={this._inputChange.bind(this, 'job')}
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
@@ -230,9 +229,5 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     alignItems: 'center',
     justifyContent: 'flex-end'
-  },
-
-  pickerTxt: {
-    marginRight: 10
   }
 });

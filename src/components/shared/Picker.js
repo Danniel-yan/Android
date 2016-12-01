@@ -44,7 +44,6 @@ export default class PickerComponent extends Component {
         >
 
         <Text style={this.props.textStyle}>{this._label()}</Text>
-        <Image source={require('assets/icons/arrow-down.png')}/>
 
         <Modal
           animationType="slide"
