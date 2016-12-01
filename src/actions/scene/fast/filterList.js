@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { get } from 'utils/fetch';
+import { get, post } from 'utils/fetch';
 
 export function setAmount(amount) {
   return {
@@ -51,8 +51,8 @@ export function fetchingFastFilterList(params) {
   return (dispatch) => {
     dispatch(fetchingStart());
 
-    var url = Platform.OS == 'ops' ? '/loan/filter-list-ios' : '/loan/filter-list';
-    get(url, params).then(rsp=>{
+    var url = Platform.OS == 'ios' ? '/loan/filter-list-ios' : '/loan/filter-list';
+    post(url, params).then(rsp=>{
       var data = rsp.data;
       data.result_list && dispatch(receiveResultList(data.result_list));
       data.more_list && dispatch(receiveMoreList(data.more_list));
