@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform , ScrollView} from 'react-native';
+import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, ScrollView, AsyncStorage } from 'react-native';
 
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
@@ -35,7 +35,7 @@ export default class HomeScene extends AbstractScene {
       showSecret: false
     }
   }
-  
+
   componentDidMount() {
     this.props.fetchingIndexConfig && this.props.fetchingIndexConfig();
   }
@@ -60,8 +60,14 @@ export default class HomeScene extends AbstractScene {
   }
 
   _pressIcon(iconKey) {
-    var navKey = iconKey == 0 ? "RecLoanScene" : (iconKey == 2 ? "LoanScene" : "LoanScene");
-    this._externalNavTo(navKey);
+    if(iconKey !== 2) return;
+
+    var externalPush = this.props.externalPush;
+    AsyncStorage.getItem('userToken').then(token => {
+      var route = { key: "Login" };
+      if(token) route = { web: "https://sysapp.jujinpan.cn/static/pages/pboc/index.html?debug=0&token=" + token };
+      externalPush && externalPush(route);
+    });
   }
 
   _pressNumberBtn(amount) {
