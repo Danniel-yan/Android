@@ -23,8 +23,7 @@ public class AppReactPackage implements ReactPackage {
         return Arrays.asList(new NativeModule[]{
                 new UmengModule(reactContext),
                 new JpushModule(reactContext),
-                new ChannelModule(reactContext),
-                new NativeWebViewModule(reactContext)
+                new ChannelModule(reactContext)
         });
     }
 
@@ -33,8 +32,11 @@ public class AppReactPackage implements ReactPackage {
         return Collections.emptyList();
     }
 
+
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        return Arrays.<ViewManager>asList(
+                new NativeWebViewModule(reactContext)
+        );
     }
 }
