@@ -3,6 +3,7 @@ import { Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import { window } from 'styles';
+import WebLink from 'components/shared/WebLink';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 
 function mapStateToProps(state) {
@@ -15,7 +16,11 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, null)(props => {
   if(props.banner) {
-    return <Image source={{uri: props.banner.pic}} style={{width: window.width, height:window.width * (176 / 750)}}/>;
+    return (
+      <WebLink url={props.banner.url}>
+        <Image source={{uri: props.banner.pic}} style={{width: window.width, height:window.width * (176 / 750)}}/>
+      </WebLink>
+    );
   }
 
   return null;
