@@ -1,11 +1,11 @@
 
 const initState = {
   isPaging: false,
-  paginationParams: 0,
+  paginationParams: {},
   isFetching : false ,
   cardList :[],
   fetched: false,
-  fetchedParams: null,
+  fetchedParams: {},
   nomore: false
 };
 
@@ -21,8 +21,8 @@ export default function cardList(state = initState, action ) {
         isPaging: false,
         fetched: true,
         fetchedParams: action.fetchedParams,
-        cardList: action.cardList,
-        paginationParams: action.offset,
+        cardList: [...state.cardList,...action.cardList],
+        paginationParams:action.params,
         nomore: action.nomore
       })
     default :

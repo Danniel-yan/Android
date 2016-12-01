@@ -89,7 +89,7 @@ class List extends Component {
           <Text style={{fontSize:13,color:'#666'}}>有{props.act.length}条活动</Text>
         </View>
         <View style={{alignItems: 'flex-end',marginLeft:5}}>
-          <Image source={this.state.isShow ? triangleUp : triangleDown} />
+          <Image source={this.state.isShow ? triangleDown: triangleUp } />
         </View>
       </TouchableOpacity>
     )

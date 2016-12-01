@@ -1,40 +1,47 @@
 import { get } from 'utils/fetch'
 
-export default function(params, offset = 0) {
+export default function(params) {
 
   return function (dispatch) {
 
-    dispatch(offset == 0 ? fetchCardList(offset) : paginationCardList(offset));
+    dispatch(params.offset == 0 ? fetchCardList(params) : paginationCardList(params));
 
+    return get(`/card/card-list?bankid=${params.bankid}&categoryid=${params.categoryid}&num=10&offset=${params.offset}`)
 
-    return get(`/card/card-list?bankid=${params.bankid}&categoryid=${params.categoryid}&num=10&offset=${offset}`)
-
-      .then(response => dispatch(receiveCardList(response.data, offset)))
+      .then(response => dispatch(receiveCardList(response.data, params)))
 
       .catch(err => console.log(err))
   }
 }
 
-function fetchCardList(offset) {
+function fetchCardList(params) {
   return {
     type : 'fetchCardList',
-    offset
+    params
   }
 }
 
-function paginationCardList(offset) {
+function paginationCardList(params) {
   return {
     type : 'paginationCardList',
-    offset
+    params
   }
 }
 
-function receiveCardList(cardList,offset,fetchedParams){
+function receiveCardList(cardList,params){
   return {
     type : 'receiveCardList',
     cardList,
-    offset: offset + cardList.length,
     nomore: cardList.length === 0,
-    fetchedParams: fetchedParams
+    fetchedParams: {
+      categoryid: params.categoryid,
+      bankid: params.bankid,
+      offset: params.offset
+    },
+    params: {
+      categoryid: params.categoryid,
+      bankid: params.bankid,
+      offset: params.offset + cardList.length
+    }
   }
 }

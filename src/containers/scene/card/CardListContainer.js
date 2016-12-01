@@ -13,8 +13,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    fetching: offset => dispatch(paginationCardList(offset)),
-    pagination: offset => dispatch(paginationCardList(offset))
+    fetching: params => dispatch(paginationCardList(params)),
+    pagination: params => dispatch(paginationCardList(params))
   }
 }
 
