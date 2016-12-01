@@ -5,8 +5,10 @@ import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.shudu.chaoshi.util.JpushUtil;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -38,7 +40,11 @@ public class JpushModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setAliasAndTags(String alias, Set<String> set) {
+    public void setAliasAndTags(String alias, ReadableArray dataArray) {
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i < dataArray.size(); i++) {
+            set.add(dataArray.getString(i));
+        }
         JpushUtil.setAliasAndTags(alias, set);
     }
 }
