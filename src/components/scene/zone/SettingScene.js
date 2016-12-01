@@ -61,12 +61,17 @@ export default class ContactScene extends Component {
         </ScrollView>
 
         <Confirm visible={this.state.showConfirm}
-          onOK={this.props.logout}
+          onOK={this.logout.bind(this)}
           onCancel={() => this.setState({ showConfirm: false })}>
           <Text>确认退出当前账号？</Text>
         </Confirm>
       </View>
     );
+  }
+
+  logout() {
+    this.setState({ showConfirm: false });
+    this.props.logout();
   }
 
   _renderBtn() {

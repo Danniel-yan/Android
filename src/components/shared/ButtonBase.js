@@ -21,13 +21,15 @@ export default class Button extends Component {
   }
 
   _renderAndroid() {
-    let { children, ...props } = this.props;
+    let { children, style, ...props } = this.props;
 
     return (
       <TouchableNativeFeedback
         {...props}
         background={TouchableNativeFeedback.SelectableBackground()}>
-        {this._renderChildren()}
+        <View style={style}>
+          {this._renderChildren()}
+        </View>
       </TouchableNativeFeedback>
     );
   }

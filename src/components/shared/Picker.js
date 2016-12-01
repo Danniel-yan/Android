@@ -147,6 +147,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
   },
