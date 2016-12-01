@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "jpush-react-native": "1.2.5",
-    "react": "15.3.2",
-    "react-native": "0.37.0",
+    "react": "15.4.1",
+    "react-native": "0.38.0",
     "react-native-code-push": "^1.16.0-beta",
     "react-native-device-info": "^0.9.6",
     "react-redux": "4.4.6",

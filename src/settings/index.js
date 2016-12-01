@@ -20,7 +20,7 @@ export const environments = {
 const staticSettings = {
   appVersion: '0.0.1',
   OS: Platform.OS == 'ios' ? 2 : 1,
-  osVersion: Platform.Version,
+  osVersion: Platform.OS == 'ios' ? 'ios' : Platform.Version,
   channel: require('./dynamic/channel'),
   deviceId: DeviceInfo.getUniqueID(),
   uuid: '',
