@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import * as defaultStyles from 'styles';
 
+import AndroidWebView from 'components/shared/AndroidWebView';
+
 export default function (config) {
   let { web, url } = config;
   url = web || url;
@@ -12,8 +14,8 @@ export default function (config) {
 
   return class InnerWebView extends Component {
     render() {
-      return Platform.OS == 'android' && NativeModules.NativeWebViewModule ? (
-        <NativeModules.NativeWebViewModule startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}></NativeModules.NativeWebViewModule>
+      return Platform.OS == 'android' ? (
+        <AndroidWebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}></AndroidWebView>
       ) : (
         <WebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}/>
       );
