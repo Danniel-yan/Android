@@ -15,16 +15,17 @@ export default StyleSheet.create({
 
   title: {
     flex: 1,
+    fontSize:16,
+    color:colors.fontColorSecondary,
   },
-
   addon: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 10
+    alignItems: 'center'
   },
 
   addonTxt: {
-    fontSize: 14
+    fontSize: 14,
+    color:'#999'
   },
 
   addonImg: {
