@@ -37,14 +37,16 @@ export default class ExternalNavigation extends Component {
       return true;
     }
 
+    clearTimeout(this.exitTimer);
+
     if(++this.hardwareBackPressTimes == 2) {
       return false;
     }
 
     alert('请再按一次返回键退出钞市');
 
-    // 联系两次回退按钮推出应用
-    setTimeout(() => {
+    // 连续两次回退按钮推出应用
+    this.exitTimer = setTimeout(() => {
       this.hardwareBackPressTimes = 0;
     }, 3000);
     return true;
@@ -52,16 +54,16 @@ export default class ExternalNavigation extends Component {
 
   componentWillReceiveProps(nextProps) {
     // TODO, safe push/pop
-    let navigation= this.props.navigation;
+
+    let routes = this.nav.getCurrentRoutes();
     let nextNavigation = nextProps.navigation;
 
-    if(!navigation) { return ;}
-
-    if(nextNavigation.index > navigation.index) {
-      this.nav.push(nextNavigation.routes[nextNavigation.index])
-    } else if(nextNavigation.index < navigation.index) {
+    if(routes.length > nextNavigation.routes.length) {
       this.nav.pop()
+    } else if(routes.length < nextNavigation.routes.length) {
+      this.nav.push(nextNavigation.routes[nextNavigation.index])
     }
+
   }
 
   _renderScene(route, navigator) {
@@ -82,9 +84,21 @@ export default class ExternalNavigation extends Component {
     return React.createElement(ComponentClass , { ...componentProps, navigator});
   }
 
+  _handleIOSBack(route, navigator) {
+    if(!this.nav) { return }
+
+    let externalRoutes = this.props.navigation.routes;
+    let routes = this.nav.getCurrentRoutes();
+
+    if(externalRoutes.length > routes.length) {
+      this.props.externalPop();
+    }
+  }
+
   render() {
     return (
       <Navigator
+        onDidFocus={this._handleIOSBack.bind(this)}
         ref={nav => this.nav = nav}
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
         initialRoute={{key: 'MajorNavigation', index: 0}}
