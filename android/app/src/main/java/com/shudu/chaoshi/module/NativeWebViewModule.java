@@ -9,6 +9,7 @@
 
 package com.shudu.chaoshi.module;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -45,7 +46,6 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.ContentSizeChangeEvent;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.EventDispatcher;
-import com.shudu.chaoshi.module.WebViewConfig;
 import com.shudu.chaoshi.module.events.TopLoadingErrorEvent;
 import com.shudu.chaoshi.module.events.TopLoadingFinishEvent;
 import com.shudu.chaoshi.module.events.TopLoadingStartEvent;
@@ -59,6 +59,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
  * Manages instances of {@link WebView}
@@ -142,10 +144,15 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
                     url.startsWith("file://")) {
                 return false;
             } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                view.getContext().startActivity(intent);
-                return true;
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                    view.getContext().startActivity(intent);
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
         }
 
@@ -354,7 +361,9 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
             }
         });
         return webView;
@@ -383,6 +392,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @ReactProp(name = "mediaPlaybackRequiresUserAction")
     public void setMediaPlaybackRequiresUserAction(WebView view, boolean requires) {
         view.getSettings().setMediaPlaybackRequiresUserGesture(requires);

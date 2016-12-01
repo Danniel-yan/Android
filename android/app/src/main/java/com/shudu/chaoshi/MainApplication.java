@@ -5,12 +5,11 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.facebook.react.ReactApplication;
-import com.microsoft.codepush.react.CodePush;
-import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.microsoft.codepush.react.CodePush;
 import com.shudu.chaoshi.util.ChannelUtil;
 import com.shudu.chaoshi.util.Constants;
 import com.shudu.chaoshi.util.ToastHelper;
@@ -54,7 +53,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new RNDeviceInfo(),
                     new MainReactPackage(),
-                    new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+                    new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
                     new AppReactPackage(),
                     new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG)
             );
