@@ -102,7 +102,7 @@ export default class LoanDetailScene extends PureComponent {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>申请流程</Text></View>
 
-            <View style={{flexDirection: 'row',justifyContent: 'space-between',alignItems:'center',padding:20}}>
+            <View style={{flexDirection: 'row',justifyContent: 'space-around',alignItems:'center',paddingVertical:20}}>
             {
               detail.apply_list.map((list,index) =>
                 <View key={'key'+index}>
@@ -119,7 +119,7 @@ export default class LoanDetailScene extends PureComponent {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={[styles.flexContainerRow]}><Text style={styles.applyTitle}>申请条件</Text></View>
             <View style={{padding:15}}>
-              <Text>{detail.apply_info}</Text>
+              <Text style={{lineHeight: 24}}>{detail.apply_info}</Text>
             </View>
           </View>
 
@@ -127,7 +127,7 @@ export default class LoanDetailScene extends PureComponent {
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>所有材料</Text></View>
             <View style={{padding:15}}>
               <View>
-                <Text>{detail.apply_content}</Text>
+                <Text style={{lineHeight: 24}}>{detail.apply_content}</Text>
               </View>
             </View>
           </View>

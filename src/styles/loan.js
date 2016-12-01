@@ -1,6 +1,6 @@
 'use strict';
 import { StyleSheet } from 'react-native';
-import { colors } from 'styles/varibles';
+import { colors, textVerticalCenter } from 'styles';
 import Dimensions from 'Dimensions';
 
 const styles = StyleSheet.create({
@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
   },
 
   number:{
+    ...textVerticalCenter(23),
+    marginBottom: 6,
     fontSize:20,
     color:'#ff6d17'
   },
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     marginBottom:15
   },
   selectBox:{
-    borderRadius:5,
+    borderRadius:15,
     marginLeft:5,
     marginBottom:5,
     marginRight:5,
