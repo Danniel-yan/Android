@@ -12,6 +12,8 @@ import iconNext from 'assets/index-icons/icon_next.png';
 import triangleDown from 'assets/icons/triangle-down.png';
 import triangleUp from 'assets/icons/triangle-up.png';
 
+import {ExternalPushLink} from 'containers/shared/Link';
+
 export default class ShopNearbyScene extends Component {
 
   state = {
@@ -101,17 +103,19 @@ class List extends Component {
       <View>
         {
           props.act && props.act.map((act,index) =>
-            <View key={'key' + index} style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
-              <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
-                <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
+            <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: act.shop_id }}}>
+              <View style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
+                <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
+                  <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
+                </View>
+                <View>
+                  <Text style={{fontSize:16,color:'#333'}}>{act.title}</Text>
+                </View>
+                <View style={styles.flexEnd}>
+                  <Image source={iconNext} />
+                </View>
               </View>
-              <View>
-                <Text style={{fontSize:16,color:'#333'}}>{act.title}</Text>
-              </View>
-              <View style={styles.flexEnd}>
-                <Image source={iconNext} />
-              </View>
-            </View>
+            </ExternalPushLink>
           )
         }
       </View>
@@ -127,8 +131,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   cardPic:{
-    width:40,
-    height:40,
+    width:50,
+    height:50,
     borderWidth:1,
     borderColor: colors.line
   },
