@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   cardPic:{
-    width:40,
-    height:40,
+    width:50,
+    height:50,
     borderWidth:1,
     borderColor: colors.line
   },
