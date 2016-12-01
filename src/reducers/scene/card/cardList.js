@@ -21,7 +21,7 @@ export default function cardList(state = initState, action ) {
         isPaging: false,
         fetched: true,
         fetchedParams: action.fetchedParams,
-        cardList: [...state.cardList,...action.cardList],
+        cardList: state.isPaging ? [...state.cardList,...action.cardList] : [...action.cardList],
         paginationParams:action.params,
         nomore: action.nomore
       })
