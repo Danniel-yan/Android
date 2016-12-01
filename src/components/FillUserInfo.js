@@ -129,7 +129,7 @@ export default class FillUserInfo extends AbstractScene {
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
 
-            <FormGroup style={styles.optionalGroup} label="有无信用卡资质">
+            <FormGroup style={styles.optionalGroup} label="有信用卡资质">
 
               <Checkbox
                 style={styles.pickerGroup}
