@@ -18,9 +18,23 @@ const { CardStack: NavigationCardStack } = NavigationExperimental;
 
 export default class ExternalNavigation extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this._handleAndroidhardwareBack = this._handleAndroidhardwareBack.bind(this);
+  }
+
   componentWillMount() {
+    this.hardwareBackPressTimes = 0;
+
     if(Platform.OS == 'android') {
-      BackAndroid.addEventListener('hardwareBackPress', this._handleAndroidhardwareBack.bind(this));
+      BackAndroid.addEventListener('hardwareBackPress', this._handleAndroidhardwareBack);
+    }
+  }
+
+  componentWillUnmount() {
+    if(Platform.OS == 'android') {
+      BackAndroid.removeEventListener('hardwareBackPress', this._handleAndroidhardwareBack);
     }
   }
 
@@ -39,7 +53,7 @@ export default class ExternalNavigation extends Component {
 
     clearTimeout(this.exitTimer);
 
-    if(++this.hardwareBackPressTimes == 2) {
+    if(++this.hardwareBackPressTimes >= 2) {
       return false;
     }
 
@@ -48,7 +62,7 @@ export default class ExternalNavigation extends Component {
     // 连续两次回退按钮推出应用
     this.exitTimer = setTimeout(() => {
       this.hardwareBackPressTimes = 0;
-    }, 3000);
+    }, 2000);
     return true;
   }
 
