@@ -15,7 +15,7 @@ import iconHuanyihuan from 'assets/index-icons/icon_huanyihuan.png';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
-import { ExternalPushLink } from 'containers/shared/Link';
+import { ExternalPushLink, MajorTabLink } from 'containers/shared/Link';
 import AbstractScene from 'components/scene/AbstractScene.js';
 import SecretGardenModal from 'components/modal/SecretGarden';
 
@@ -126,10 +126,10 @@ export default class HomeScene extends AbstractScene {
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>办卡精选</Text>
 
-          <TouchableOpacity style={panelStyles.addon}>
+          <MajorTabLink toKey="CardScene" style={panelStyles.addon}>
             <Text style={panelStyles.addonTxt}>更多产品</Text>
             <Image style={panelStyles.addonImg} source={iconNext}/>
-          </TouchableOpacity>
+          </MajorTabLink>
         </View>
         <CategoryListContainer/>
       </View>
