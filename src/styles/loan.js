@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   pickerTxt:{
-    fontSize:17,
+    fontSize:18,
     color:'#333',
     paddingRight:5
   }
