@@ -43,10 +43,10 @@ export default class ExternalNavigation extends Component {
 
     alert('请再按一次返回键退出钞市');
 
-    // 两秒内点击两次回退按钮推出应用
+    // 联系两次回退按钮推出应用
     setTimeout(() => {
       this.hardwareBackPressTimes = 0;
-    }, 2000);
+    }, 3000);
     return true;
   }
 
