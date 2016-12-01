@@ -13,6 +13,7 @@ import NextIcon from 'components/shared/NextIcon';
 import Button from 'components/shared/Button';
 import OverlayLoading from 'components/shared/OverlayLoading';
 import { ExternalPushLink } from 'containers/shared/Link';
+import Confirm from 'components/shared/Confirm';
 
 import * as defaultStyles from 'styles';
 
@@ -21,6 +22,7 @@ export default class ContactScene extends Component {
     super(props);
 
     this.state = {
+      showConfirm: false,
       showLoading: false
     };
   }
@@ -57,13 +59,19 @@ export default class ContactScene extends Component {
             visible={this.state.showLoading}/>
 
         </ScrollView>
+
+        <Confirm visible={this.state.showConfirm}
+          onOK={this.props.logout}
+          onCancel={() => this.setState({ showConfirm: false })}>
+          <Text>确认退出当前账号？</Text>
+        </Confirm>
       </View>
     );
   }
 
   _renderBtn() {
     if(this.props.loginUser.info) {
-      return (<Button onPress={this.props.logout} text="安全退出" style={zoneStyles.btn}/>)
+      return (<Button onPress={() => this.setState({ showConfirm: true })} text="安全退出" style={zoneStyles.btn}/>)
     } else {
       return (<Button onPress={this.props.login} text="登录" style={zoneStyles.btn}/>)
     }
