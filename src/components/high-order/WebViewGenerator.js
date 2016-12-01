@@ -14,10 +14,10 @@ export default function (config) {
 
   return class InnerWebView extends Component {
     render() {
-      return Platform.OS == 'android' ? (
+      return !(Platform.OS == 'ios') ? (
         <AndroidWebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}></AndroidWebView>
       ) : (
-        <WebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}/>
+        <WebView startInLoadingState={true} style={defaultStyles.container} source={{uri: url}}></WebView>
       );
     }
   }

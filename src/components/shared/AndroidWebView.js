@@ -183,7 +183,7 @@ class WebView extends React.Component {
         errorEvent.code,
         errorEvent.description);
     } else if (this.state.viewState !== WebViewState.IDLE) {
-      console.error('AndiroidNativeWebViewModule invalid state encountered: ' + this.state.loading);
+      console.error('NativeWebViewModule invalid state encountered: ' + this.state.loading);
     }
 
     var webViewStyles = [styles.container, this.props.style];
@@ -207,7 +207,7 @@ class WebView extends React.Component {
     }
 
     var webView =
-      <AndiroidNativeWebViewModule
+      <NativeWebViewModule
         ref={RCT_WEBVIEW_REF}
         key="webViewKey"
         style={webViewStyles}
@@ -240,7 +240,7 @@ class WebView extends React.Component {
   goForward = () => {
     UIManager.dispatchViewManagerCommand(
       this.getWebViewHandle(),
-      UIManager.AndiroidNativeWebViewModule.Commands.goForward,
+      UIManager.NativeWebViewModule.Commands.goForward,
       null
     );
   };
@@ -248,7 +248,7 @@ class WebView extends React.Component {
   goBack = () => {
     UIManager.dispatchViewManagerCommand(
       this.getWebViewHandle(),
-      UIManager.AndiroidNativeWebViewModule.Commands.goBack,
+      UIManager.NativeWebViewModule.Commands.goBack,
       null
     );
   };
@@ -256,7 +256,7 @@ class WebView extends React.Component {
   reload = () => {
     UIManager.dispatchViewManagerCommand(
       this.getWebViewHandle(),
-      UIManager.AndiroidNativeWebViewModule.Commands.reload,
+      UIManager.NativeWebViewModule.Commands.reload,
       null
     );
   };
@@ -264,7 +264,7 @@ class WebView extends React.Component {
   stopLoading = () => {
     UIManager.dispatchViewManagerCommand(
       this.getWebViewHandle(),
-      UIManager.AndiroidNativeWebViewModule.Commands.stopLoading,
+      UIManager.NativeWebViewModule.Commands.stopLoading,
       null
     );
   };
@@ -272,7 +272,7 @@ class WebView extends React.Component {
   postMessage = (data) => {
     UIManager.dispatchViewManagerCommand(
       this.getWebViewHandle(),
-      UIManager.AndiroidNativeWebViewModule.Commands.postMessage,
+      UIManager.NativeWebViewModule.Commands.postMessage,
       [String(data)]
     );
   };
@@ -326,13 +326,11 @@ class WebView extends React.Component {
   }
 }
 
-// var AndiroidNativeWebViewModule = requireNativeComponent('AndiroidNativeWebViewModule', WebView, {
-//   nativeOnly: {
-//     messagingEnabled: PropTypes.bool,
-//   },
-// });
-
-var AndiroidNativeWebViewModule = requireNativeComponent('NativeWebViewModule', WebView);
+var NativeWebViewModule = requireNativeComponent('NativeWebViewModule', WebView, {
+  nativeOnly: {
+    messagingEnabled: PropTypes.bool,
+  },
+});
 
 var styles = StyleSheet.create({
   container: {
