@@ -39,7 +39,7 @@ class Tracker {
             return;
         });
 	// add in umeng tracker
-	this.brgUmeng.onEvent(key+"-"+topic+"-"+entity+"-"+event);
+	this.brgUmeng.onEvent(key+"_"+topic+"_"+entity+"_"+event);
 	return;
     }
 
