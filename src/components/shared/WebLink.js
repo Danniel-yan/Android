@@ -18,7 +18,7 @@ import WebViewGenerator from 'components/high-order/WebViewGenerator';
 export default class WebLink extends Component {
 
   static propTypes = {
-    url: PropTypes.string.isRequired
+    url: PropTypes.string
   };
 
   render() {

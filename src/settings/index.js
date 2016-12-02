@@ -53,6 +53,8 @@ export function getAppSettings() {
 
 
 function setupChannel() {
+  if(Platform.OS == 'ios') { return }
+
   return NativeModules.ChannelModule.getChannel().then(channel => {
     staticSettings.channel = channel;
   }).catch(console.log);
