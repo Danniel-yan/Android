@@ -54,6 +54,8 @@ export default class LoanDetailScene extends PureComponent {
   render() {
 
     let detail = this.props.detail;
+    let sectionList = [], length = detail.apply_list.length;
+    detail.apply_list.map((item, idx) => { sectionList.push(item); if(idx !== length - 1) sectionList.push("processIcon"); })
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -104,17 +106,18 @@ export default class LoanDetailScene extends PureComponent {
 
             <View style={{flexDirection: 'row',padding:20}}>
             {
-              detail.apply_list.map((list,index) =>
-
-                <View key={'key'+ index} style={{flexDirection: 'row',flex:1,justifyContent: 'space-around'}}>
-                  <View style={{flexDirection: 'column',alignItems:'center'}}>
-                    <Image style={{width:32,height:32,marginRight:10}} source={{uri:list.img.x3}} />
-                    <Text style={{marginTop:8}}>{list.name}</Text>
+              sectionList.map((item, idx) => {
+                return (item != "processIcon") ? (
+                  <View key={idx} style={{flex: 4, alignItems: 'center', justifyContent: "center", flexDirection: "column"}}>
+                    <Image style={{width:36,height:36}} source={{uri:item.img.x3}} />
+                    <Text style={{marginTop:8, textAlign:"center"}}>{item.name}</Text>
                   </View>
-
-                  {this._renderProcess(detail.apply_list,index)}
-                </View>
-              )
+                ) : (
+                  <View key={idx} style={{flex:1, alignItems: 'center',  justifyContent: "center", flexDirection: "column", paddingBottom: 20}}>
+                    <Image source={require('assets/icons/jiantou.png')}/>
+                  </View>
+                )
+              })
             }
             </View>
           </View>
@@ -140,18 +143,6 @@ export default class LoanDetailScene extends PureComponent {
         {this._renderButton()}
       </View>
     );
-  }
-
-  _renderProcess(list,index){
-
-    if(index == list.length - 1) return null;
-
-    return(
-      <View style={{marginTop:15,flex:1,alignItems: 'center'}}>
-        <Image source={require('assets/icons/jiantou.png')}/>
-      </View>
-    )
-
   }
 
   _renderPeriodList(data){
