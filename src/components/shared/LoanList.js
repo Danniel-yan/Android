@@ -40,7 +40,7 @@ export default class LoanList extends Component {
               <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>费率
             </Text>
             <Text style={styles.flexContainerColumnDes}>
-              <Text style={styles.flexContainerColumnPrimary}>{data.amnout_showinfo}</Text>万贷款
+              <Text style={styles.flexContainerColumnPrimary}>{data.amount_showinfo}</Text>贷款
             </Text>
           </View>
         </View>
