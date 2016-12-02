@@ -82,6 +82,11 @@ function setupUUID() {
 
         })
   })
+  .then(() => {
+    if(Platform.OS == 'android') {
+      NativeModules.JpushModule.setAlias(staticSettings.uuid.replace(/-/g, ''));
+    }
+  })
 }
 
 /**
