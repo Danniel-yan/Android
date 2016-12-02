@@ -53,6 +53,8 @@ export function getAppSettings() {
 
 
 function setupChannel() {
+  if(Platform.OS == 'ios') { return }
+
   return NativeModules.ChannelModule.getChannel().then(channel => {
     staticSettings.channel = channel;
   }).catch(console.log);
@@ -79,6 +81,11 @@ function setupUUID() {
           }
 
         })
+  })
+  .then(() => {
+    if(Platform.OS == 'android') {
+      NativeModules.JpushModule.setAlias(staticSettings.uuid.replace(/-/g, ''));
+    }
   })
 }
 

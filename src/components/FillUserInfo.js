@@ -38,7 +38,8 @@ export default class FillUserInfo extends AbstractScene {
     let loginUser = props.loginUser.info || {};
 
     this.state = {
-      editableMobile: !loginUser.mobile,
+      username: loginUser.username,
+      editableMobile: !loginUser.username,
       realname: loginUser.realname || '',
       idNO: loginUser.id_no || '',
       mobile: loginUser.mobile || '',
@@ -57,7 +58,7 @@ export default class FillUserInfo extends AbstractScene {
   }
 
   render() {
-    let { verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
+    let { username, verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
 
     const validMobile = validators.mobile(mobile);
     const validVerifyCode = verifyCode.length == 6;
@@ -93,7 +94,7 @@ export default class FillUserInfo extends AbstractScene {
               clearButtonMode="while-editing"
               keyboardType="numeric"
               maxLength={11}
-              value={mobile}
+              value={username || mobile}
               editable={this.state.editableMobile}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'mobile')}
