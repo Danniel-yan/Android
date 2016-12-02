@@ -50,7 +50,7 @@ function refershFetch() {
 export function fetchingFastFilterList(params) {
   return (dispatch) => {
     dispatch(fetchingStart());
-
+    params.reslist && typeof params.reslist == 'object' && (params.reslist = JSON.stringify(params.reslist));
     var url = Platform.OS == 'ios' ? '/loan/filter-list-ios' : '/loan/filter-list';
     post(url, params).then(rsp=>{
       var data = rsp.data;

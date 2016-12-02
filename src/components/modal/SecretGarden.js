@@ -25,7 +25,7 @@ export default class SecretGardenModal extends Component {
   state = { environment: null };
 
   componentDidMount() {
-    AsyncStorage.getItem('environment').then(JSON.parse).then(environment => {
+    AsyncStorage.getItem('environment').then(environment => {
       this.setState({ environment });
     });
   }
@@ -71,18 +71,19 @@ export default class SecretGardenModal extends Component {
   _renderEnvironments() {
     let environment = this.state.environment;
 
-    return Object.keys(environments).map(key => {
-      if(key === 'defaultEnvironment') { return null; }
+    return Object.keys(environments).map(envName => {
+      if(envName === 'defaultEnvironment') { return null; }
 
-      let item = environments[key];
+      let item = environments[envName];
+      item.id = envName;
 
       return (
         <CheckboxRow
-          key={`checkrow${key}`}
+          key={`checkrow${envName}`}
           onChecked={this._onRowChencked.bind(this)}
           environment={item}
           text={item.text}
-          checked={environment && environment.text === item.text}
+          checked={environment == envName}
           />
       );
     });
@@ -97,7 +98,7 @@ class CheckboxRow extends Component {
   render() {
     return (
       <View style={styles.rowWrap}>
-        <TouchableOpacity activeOpacity={1}  onPress={() => this.props.onChecked(this.props.environment) } style={styles.row}>
+        <TouchableOpacity activeOpacity={1}  onPress={() => this.props.onChecked(this.props.environment.id) } style={styles.row}>
           <Text style={styles.txt}>{this.props.text}</Text>
           { this.props.checked && (<Image source={CheckImage }/>)}
         </TouchableOpacity>

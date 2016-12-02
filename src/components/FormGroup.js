@@ -96,15 +96,21 @@ export class HorizontalRadios extends EnhanceStyleCp {
     this.state = {
       selectedIdx: null
     };
+    this.needEmpty = props.needEmpty;
     this.selectedStyle = { sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" } }
   }
 
   selectedOpt(idx) {
     var selectedFunc = this.props.selectedChanged;
-    this.state.selectedIdx = idx;
-    this.setState({selectedIdx: idx});
+    if(this.needEmpty && this.state.selectedIdx === idx ) {
+      this.state.selectedIdx = null
+    } else {
+      this.state.selectedIdx = idx;
+    }
 
-    selectedFunc && selectedFunc(this.props.options[idx]);
+    this.setState({selectedIdx: this.state.selectedIdx});
+
+    selectedFunc && selectedFunc(this.state.selectedIdx != null ? this.props.options[this.state.selectedIdx] : null);
   }
 
   checkItemSelected(index) {

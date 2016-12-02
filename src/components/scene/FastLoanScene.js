@@ -61,7 +61,7 @@ export default class FastLoanScene extends AbstractScene {
     let entity = trackingConfig[topic] ? trackingConfig[topic][`${value}`] : value;
     tracker.trackAction('fastloan', entity, topic, 'click');
 
-    
+
 
   }
 
@@ -106,8 +106,9 @@ export default class FastLoanScene extends AbstractScene {
 
         <HorizontalRadios
           eachLineCount={4}
+          needEmpty={true}
           options={jobItems}
-          selectedChanged={opt=>this.formValueChanged("job", opt.value)}>
+          selectedChanged={opt=>this.formValueChanged("job", opt ? opt.value : 0)}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}
         <View style={{zIndex:-5, borderTopColor: colors.line, borderTopWidth: 1, flex: 1}}>

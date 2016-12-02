@@ -8,7 +8,7 @@ export const environments = {
   production: {
     id: 'production',
     text: '生产环境',
-    api: 'http://139.196.143.236:8001/'
+    api: 'https://chaoshi-api.jujinpan.cn/'
   },
   test: {
     id: 'test',
@@ -78,19 +78,22 @@ function setupUUID() {
  */
 function setupEnvironment() {
   return AsyncStorage.getItem('environment')
-    .then(JSON.parse)
     .then(environment => {
-      environmentSettings = environment || environments[environments.defaultEnvironment];
+      let envName = environments.defaultEnvironment;
 
-      if(environment == null) {
-        return AsyncStorage.setItem('environment', JSON.stringify(environmentSettings));
+      // 重置json模式的缓存
+      if(environment && !/^\{/.test(environment)) {
+        envName = environment;
       }
+
+      environmentSettings = environments[envName];
+      return AsyncStorage.setItem('environment', envName);
     })
 }
 
 export function switchEnvironment(environment) {
   return AsyncStorage.removeItem('userToken').then(() => {
-    AsyncStorage.setItem('environment', JSON.stringify(environments[environment.id]))
+    AsyncStorage.setItem('environment', environment)
     .then(() => {
       codePush.restartApp();
     })

@@ -8,6 +8,7 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 
 import CountdownButton from 'components/shared/CountdownButton';
 import LocationPicker from 'components/modal/LocationPicker';
+import ProcessingButton from 'components/shared/ProcessingButton';
 
 import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
@@ -59,7 +60,14 @@ export default class RecLoanScene extends AbstractScene {
           { this._renderLocationIpt() }
           { this._renderLoginGroup() }
         </View>
-        <Button onPress={() => { this._goLoan() }} style={[styles.loanButton, {marginTop: 20}]} text="去贷款"/>
+
+
+        <View style={{marginTop: 20}}>
+          <ProcessingButton
+            processing={this.props.submitting}
+            style={styles.loanButton}
+            onPress={() => { this._goLoan() }} text="去贷款"/>
+        </View>
         <LocationPicker visible={this.state.showPicker} onChange={this._changeLocation.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </ScrollView>
     );
