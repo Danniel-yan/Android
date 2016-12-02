@@ -127,7 +127,7 @@ export default class ZoneScene extends AbstractScene {
       return (
         <View style={[styles.loginWrap, defaultStyles.centering]}>
           <ExternalPushLink
-            tracking={{key:'Login ', entiry: 'login', topic: 'btn_sec', event: 'click'}}
+            tracking={{key:'Login', entiry: 'login', topic: 'btn_sec', event: 'click'}}
             style={[styles.loginBtn, defaultStyles.centering]}
             textStyle={styles.loginBtnText}
             text="登录注册"

@@ -2,6 +2,7 @@ import { AsyncStorage, Platform, NativeModules } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import tracker from 'utils/tracker.js';
 import codePush from "react-native-code-push";
+import alert from 'utils/alert';
 
 export const environments = {
   defaultEnvironment: require('./dynamic/env'),
@@ -31,8 +32,8 @@ let environmentSettings;
 export function applicationSetup() {
 
   return setupEnvironment()
-    .then(setupUUID)
     .then(setupChannel)
+    .then(setupUUID)
     .catch(err => { console.log(err) })
 }
 
@@ -50,12 +51,11 @@ export function getAppSettings() {
   });
 }
 
-function setupChannel() {
-  if(Platform.OS == 'ios') { return }
 
+function setupChannel() {
   return NativeModules.ChannelModule.getChannel().then(channel => {
     staticSettings.channel = channel;
-  });
+  }).catch(console.log);
 }
 
 function setupUUID() {

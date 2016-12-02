@@ -1,11 +1,14 @@
 import DeviceInfo from 'react-native-device-info';
 import { AsyncStorage } from 'react-native';
 import { NativeModules } from 'react-native';
+import { getAppSettings } from 'settings';
 
 const TRACKER_CONFIG = {
     "BASIC_URL":"https://mdt.jujinpan.cn",
     "APP":"chaoshi"
 };
+
+let channel;
 
 const BASE_INFO = {
     "DEVICE_UUID":DeviceInfo.getUniqueID(),
@@ -20,6 +23,16 @@ const BASE_INFO = {
             "&app_ver="+encodeURIComponent(DeviceInfo.getVersion())
 };
 
+function setupChannel() {
+  if(channel) return;
+  channel = true;
+
+  getAppSettings().then(appSettings => {
+    BASE_INFO.PARAM += `&channel=` + appSettings.channel 
+  });
+}
+
+
 class Tracker {
     workable = true;
 
@@ -33,6 +46,7 @@ class Tracker {
     }
 
     triggerTracking(key, entity, topic, event) {
+        setupChannel();
         var urlPrefix = this.composeBasicParams(key);
         var url = urlPrefix+"&entity="+entity+"&topic="+topic+"&event="+event+"&user="+this.user_id;
         fetch(url).then(response => {
