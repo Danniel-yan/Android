@@ -94,6 +94,8 @@ export default class Login extends Component {
         .then(response => {
           if(response.res == responseStatus.success) {
             return AsyncStorage.setItem('userToken', response.data.token)
+          } else {
+            throw response.msg;
           }
         })
         .then(this.props.loginSuccess)
