@@ -7,8 +7,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
 
-import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
-
 public class MainActivity extends ReactActivity {
 
     /**
@@ -29,14 +27,14 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(context);
+        MobclickAgent.onResume(this);
         JPushInterface.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPause(context);
+        MobclickAgent.onPause(this);
         JPushInterface.onPause(this);
     }
 
