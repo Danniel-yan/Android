@@ -33,9 +33,13 @@ export default class CategoryList extends Component {
     )
   }
 
-  renderCard(data){
+  renderCard(data, sID, rowID){
     return(
-      <ExternalPushLink title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { categoryid: data.id , bankid: 0, offset:0}}}>
+      <ExternalPushLink
+        tracking={{key: 'card', topic: 'hpg_list', entity: rowID, event: 'click'}}
+        title={data.name}
+        toKey="CardListScene"
+        componentProps={{fetchingParams: { categoryid: data.id , bankid: 0, offset:0}}}>
         <View style={[boxStyles.box]}>
           <Image source={{uri: data.pic}} style={boxStyles.boxPic} />
           <Text style={boxStyles.title}>

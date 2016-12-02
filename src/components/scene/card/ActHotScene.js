@@ -36,7 +36,11 @@ export default class ActHotScene extends Component {
   renderBanner(data){
     return(
       <View style={[styles.flexHorizontalColumn]}>
-        <ExternalPushLink title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: data.id }}}>
+        <ExternalPushLink
+          tracking={{key: 'card', topic: 'Rotation', entity: 'Promotions', event: 'click'}}
+          title="活动详情"
+          toKey="ActHotDetailScene"
+          componentProps={{fetchingParams: { id: data.id }}}>
           <Image source={{uri: data.img_banner.x3}} style={styles.cardPic}>
             <Text style={[styles.bankName,{color:'#' + data.font_color}]}>{data.banks[0].name}</Text>
             <Text style={[styles.title,{color:'#' + data.font_color}]}>{data.title}</Text>

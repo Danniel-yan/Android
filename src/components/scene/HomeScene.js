@@ -28,7 +28,7 @@ export default class HomeScene extends AbstractScene {
   constructor(props) {
     super(props);
     this.sceneEntity="homepage";
-    this.sceneTopic = "homepage";
+    this.sceneKey = "homepage";
     this.sceneTopic = "homepage";
 
     this.state = {
@@ -131,7 +131,9 @@ export default class HomeScene extends AbstractScene {
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>办卡精选</Text>
 
-          <MajorTabLink toKey="CardScene" style={panelStyles.addon}>
+          <MajorTabLink
+            tracking={{key: 'card', topic: 'hpg_list', entity: 'more', event: 'click'}}
+            toKey="CardScene" style={panelStyles.addon}>
             <Text style={panelStyles.addonTxt}>更多产品</Text>
             <Image style={panelStyles.addonImg} source={iconNext}/>
           </MajorTabLink>

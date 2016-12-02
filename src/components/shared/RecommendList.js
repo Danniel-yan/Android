@@ -31,24 +31,28 @@ export default class RecommendList extends Component {
     this.props.fetching({offset: this.props.offset})
   }
 
-  renderRecommend(data) {
+  renderRecommend(data, sID, rowID) {
     return(
-    <ExternalPushLink title={data.title} toKey="LoanDetailScene" componentProps={{fetchingParams: data.id }} >
-      <View style={styles.flexContainerRow}>
-        <Image source={{uri: data.logo_list}} style={styles.thumbnail} />
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightContainerTitle}>{data.title}</Text>
-          <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
-          <View style={[styles.rightContainerFooter]}>
-            <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
-            <Text style={styles.unit}>{data.interest}</Text>
-            <Text style={styles.defaultFont}> / {data.interest_period}</Text>
+      <ExternalPushLink
+        tracking={{key: 'loan', topic: 'hpg_list', entity: rowID, event: 'click'}}
+        title={data.title}
+        toKey="LoanDetailScene"
+        componentProps={{fetchingParams: data.id }} >
+        <View style={styles.flexContainerRow}>
+          <Image source={{uri: data.logo_list}} style={styles.thumbnail} />
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightContainerTitle}>{data.title}</Text>
+            <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
+            <View style={[styles.rightContainerFooter]}>
+              <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
+              <Text style={styles.unit}>{data.interest}</Text>
+              <Text style={styles.defaultFont}> / {data.interest_period}</Text>
+            </View>
           </View>
-        </View>
 
-        <Image source={iconNext} />
-      </View>
-    </ExternalPushLink>
+          <Image source={iconNext} />
+        </View>
+      </ExternalPushLink>
     )
   }
 

@@ -17,7 +17,9 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, null)(props => {
   if(props.banner) {
     return (
-      <WebLink url={props.banner.url}>
+      <WebLink
+        tracking={{key: 'loan', topic: 'big_promotion', entity: 'hpgbanner', event: 'click'}}
+        url={props.banner.url}>
         <Image source={{uri: props.banner.pic}} style={{width: window.width, height:window.width * (176 / 750)}}/>
       </WebLink>
     );

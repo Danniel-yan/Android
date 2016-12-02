@@ -9,8 +9,9 @@ import {
 
 import Text from './Text';
 import { colors } from 'styles/varibles';
+import trackingPointGenerator from 'components/high-order/trackingPointGenerator';
 
-export default class Link extends Component {
+class Link extends Component {
   static propTypes = {
     prePress: PropTypes.func
   };
@@ -84,6 +85,8 @@ export default class Link extends Component {
     return obj;
   }
 }
+
+export default trackingPointGenerator(Link);
 
 const defaultTxtStyle = {
   color: colors.secondary

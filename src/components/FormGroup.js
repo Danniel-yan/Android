@@ -211,6 +211,7 @@ export class HorizontalCheckboxes extends HorizontalRadios {
   selectedOpt(idx) {
     var selectedFunc = this.props.selectedFunc;
     this.state.selectedIdx = idx;
+    this.props.clickItem && this.props.clickItem(this.props.options[idx], idx);
     // this.setState({selectedIdx: idx});
     var oIndex = this.state.selectedIdxes.indexOf(idx);
     if(oIndex > -1) {
