@@ -102,14 +102,14 @@ export default class LoanDetailScene extends PureComponent {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>申请流程</Text></View>
 
-            <View style={{flexDirection: 'row',justifyContent: 'space-around',flex:1,alignItems:'center',padding:20}}>
+            <View style={{flexDirection: 'row',padding:20}}>
             {
               detail.apply_list.map((list,index) =>
 
-                <View key={'key'+ index} style={{flexDirection: 'row',flex:1}}>
+                <View key={'key'+ index} style={{flexDirection: 'row',flex:1,justifyContent: 'space-around'}}>
                   <View style={{flexDirection: 'column',alignItems:'center'}}>
-                    <Image style={{width:44,height:44,marginRight:10}} source={{uri:list.img.x3}} />
-                    <Text style={{color:'#333',marginTop:8}}>{list.name}</Text>
+                    <Image style={{width:32,height:32,marginRight:10}} source={{uri:list.img.x3}} />
+                    <Text style={{marginTop:8}}>{list.name}</Text>
                   </View>
 
                   {this._renderProcess(detail.apply_list,index)}
@@ -147,7 +147,7 @@ export default class LoanDetailScene extends PureComponent {
     if(index == list.length - 1) return null;
 
     return(
-      <View style={{marginTop:20,flex:1,alignItems: 'center'}}>
+      <View style={{marginTop:15,flex:1,alignItems: 'center'}}>
         <Image source={require('assets/icons/jiantou.png')}/>
       </View>
     )

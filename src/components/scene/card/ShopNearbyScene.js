@@ -53,7 +53,7 @@ export default class ShopNearbyScene extends Component {
 
 class List extends Component {
   state = {
-    isShow: false
+    isShow: true
   }
 
   render(){
@@ -109,7 +109,7 @@ class List extends Component {
                   <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
                 </View>
                 <View>
-                  <Text style={{fontSize:16,color:'#333'}}>{act.title}</Text>
+                  <Text style={{fontSize:16,color:'#666'}}>{act.title}</Text>
                 </View>
                 <View style={styles.flexEnd}>
                   <Image source={iconNext} />
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
   },
   flexContainerRow:{
     flexDirection: 'row',
-    padding:10,
+    paddingVertical:15,
+    paddingHorizontal:10,
     borderBottomWidth:1,
     borderBottomColor: colors.line
   },
@@ -159,17 +160,15 @@ const styles = StyleSheet.create({
   },
   decrease_price:{
     backgroundColor:'#ffaf32',
-    marginRight:5,
-    paddingLeft:5,
-    paddingRight:5,
-    borderRadius:2
+    borderRadius:2,
+    marginRight:10,
+    paddingHorizontal:3
   },
   discount:{
     backgroundColor:'#ef6c6c',
-    marginRight:5,
-    paddingLeft:5,
-    paddingRight:5,
-    borderRadius:2
+    borderRadius:2,
+    marginRight:10,
+    paddingHorizontal:3
   },
   act:{
     paddingLeft:10,
