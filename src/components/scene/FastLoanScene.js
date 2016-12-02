@@ -218,9 +218,9 @@ const styles = StyleSheet.create({
   },
   titleLeft:{
     fontSize:14,
-    color:colors.fontColorPrimary,
     flex:1,
-    color: "#FE271E"
+    fontSize:16,
+    color:colors.fontColorSecondary
   },
   dropIcon: {
     width: 10,
