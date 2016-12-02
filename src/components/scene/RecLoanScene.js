@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage } from 'react-native';
 
 import { post } from 'utils/fetch';
 import { FormGroup, IptWrap } from "components/FormGroup";
@@ -39,6 +39,15 @@ export default class RecLoanScene extends AbstractScene {
     this.sceneKey = "loan";
     this.sceneTopic = "recommand";
     this.sceneEntity = "list";
+  }
+
+  componentDidMount() {
+    if(this.userInfo.location) return;
+
+    AsyncStorage.getItem("geoLocation").then(location=>{
+      this.userInfo.location = location;
+      this.setState({location: this.userInfo.location})
+    })
   }
 
   loanValueChanged(name, value) {
