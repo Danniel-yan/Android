@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { getAppSettings } from 'settings';
+import { getAppSettings, environments } from 'settings';
 
 import alert from './alert';
 
@@ -76,8 +76,7 @@ function setupParams() {
   if(environment) { return; }
 
   return AsyncStorage.getItem('environment')
-    .then(JSON.parse)
-    .then(env => environment = env)
+    .then(env => environment = environments[env] || environments[environments.defaultEnvironment])
     .then(setApiParams)
 }
 
