@@ -95,8 +95,9 @@ export default class HomeScene extends AbstractScene {
       }
       AsyncStorage.getItem('environment').then(ev => {
         var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = ev.id=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        externalPush && externalPush({web: pbocUrl});
+        pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+        // console.log()
+        externalPush && externalPush({web: pbocUrl + "&token=" + token});
       })
     })
   }
