@@ -1,4 +1,4 @@
-import { AsyncStorage, Platform } from 'react-native';
+import { AsyncStorage, Platform, NativeModules } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import tracker from 'utils/tracker.js';
 import codePush from "react-native-code-push";
@@ -21,7 +21,7 @@ const staticSettings = {
   appVersion: '0.0.1',
   OS: Platform.OS == 'ios' ? 2 : 1,
   osVersion: Platform.OS == 'ios' ? 'ios' : Platform.Version,
-  channel: require('./dynamic/channel'),
+  channel: '',
   deviceId: DeviceInfo.getUniqueID(),
   uuid: '',
 };
@@ -32,6 +32,7 @@ export function applicationSetup() {
 
   return setupEnvironment()
     .then(setupUUID)
+    .then(setupChannel)
     .catch(err => { console.log(err) })
 }
 
@@ -46,6 +47,14 @@ export function getAppSettings() {
 
       setTimeout(checkUUID, 50);
     }
+  });
+}
+
+function setupChannel() {
+  if(Platform.OS == 'ios') { return }
+
+  return NativeModules.ChannelModule.getChannel().then(channel => {
+    staticSettings.channel = channel;
   });
 }
 
