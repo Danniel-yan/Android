@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import  Loading  from 'components/shared/Loading';
+import tracker from 'utils/tracker.js';
 
 import { fetchLoanDetail } from 'actions/scene/loanDetail';
 import LoanDetail from 'components/scene/LoanDetailScene';
@@ -26,6 +27,7 @@ function mapDispatchToProps(dispatch) {
     fetching: id => dispatch(fetchLoanDetail(id)),
     fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
+      tracker.trackAction('detail', detail.title, 'btn_sec', 'click');
       dispatch(externalPush({ componentProps: { url: detail.url}, component: webView, title: detail.title, url: detail.url}))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
