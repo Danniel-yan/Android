@@ -68,7 +68,11 @@ export default class Login extends Component {
 
         <View style={styles.txtRow}>
           <Text>阅读并接受</Text>
-          <WebLink url="https://m.madailicai.com" text="《钞市服务协议》" title="《钞市服务协议》"/>
+          <WebLink
+            source={require('./agreement.html')}
+            toKey="Agreement"
+            text="《钞市服务协议》" title="《钞市服务协议》"
+          />
         </View>
 
         <ProcessingButton processing={this.state.submitting} disabled={!mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>

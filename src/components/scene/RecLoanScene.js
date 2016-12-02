@@ -57,7 +57,7 @@ export default class RecLoanScene extends AbstractScene {
 
   formValueChanged(name, value) {
     this.userInfo[name] = value;
-    this.props.userInfo && (this.props.userInfo[name] = value);
+    // this.props.userInfo && (this.props.userInfo[name] = value);
   }
 
   render() {
