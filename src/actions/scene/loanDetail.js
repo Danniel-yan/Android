@@ -23,7 +23,7 @@ export function fetchLoanDetail(id) {
     dispatch(requestLoanDetail())
 
     get(`/loan/info-detail?id=${id}`)
-      .then(response =>{console.log(response); dispatch(receiveLoanDetail(response.data, id))})
+      .then(response => dispatch(receiveLoanDetail(response.data, id)))
       .catch(err => console.log(err))
   }
 }

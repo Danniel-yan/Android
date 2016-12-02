@@ -1,6 +1,5 @@
 const initState = {
   isFetching: true,
-  fetched: false,
   fetchedParams: undefined,
   detail: {}
 };
@@ -10,7 +9,7 @@ export default function loanDetail(state = initState, action) {
     case 'requestLoanDetail':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveLoanDetail':
-      return Object.assign({}, state, { isFetching: false, fetched: true, fetchedParams: action.fetchedParams, detail: action.detail } )
+      return Object.assign({}, state, { isFetching: false, fetchedParams: action.fetchedParams, detail: action.detail } )
     default:
       return state
   }
