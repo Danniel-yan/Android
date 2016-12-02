@@ -67,7 +67,7 @@ export default class LoanDetailScene extends PureComponent {
               <View style={styles.rightContainer}>
                 <Text style={[styles.rightContainerTitle,{marginBottom:10}]}>{detail.title}</Text>
                 <Text style={[styles.rightContainerSubTitle,{marginBottom:10}]}>{detail.info}</Text>
-                <View style={styles.rightContainerDes}><Text style={{color:'#1ab4fe',fontSize:12}}>{detail.tips}</Text></View>
+                <View style={styles.rightContainerDes}><Text style={styles.rightContainerDesText}>{detail.tips}</Text></View>
               </View>
             </View>
 

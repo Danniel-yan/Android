@@ -100,12 +100,8 @@ const styles = StyleSheet.create({
   },
 
   rightContainerDes:{
-    borderWidth:1,
-    borderColor:'#1ab4fe',
-    width:60,
-    height:18,
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'flex-start'
   },
   applyBox:{
     marginTop:5
@@ -135,7 +131,17 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
-
+  rightContainerDesText:{
+    borderWidth:1,
+    borderColor:'#1ab4fe',
+    color:'#1ab4fe',
+    fontSize:12,
+    paddingHorizontal:5,
+    paddingVertical:2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:2
+  },
   number:{
     ...textVerticalCenter(23),
     marginBottom: 6,
