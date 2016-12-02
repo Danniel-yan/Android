@@ -5,7 +5,12 @@ import {
 } from 'react-native';
 import * as defaultStyles from 'styles';
 
-import AndroidWebView from 'components/shared/AndroidWebView';
+
+let AndroidWebView;
+
+if(Platform.OS == 'android') {
+  AndroidWebView = require('components/shared/AndroidWebView');
+}
 
 export default function (config) {
   let { web, url } = config;
