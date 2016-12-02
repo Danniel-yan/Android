@@ -34,8 +34,6 @@ export default class HomeScene extends AbstractScene {
     this.state = {
       showSecret: false
     }
-
-    this.getPBOCParams();
   }
 
   componentDidMount() {
@@ -64,9 +62,7 @@ export default class HomeScene extends AbstractScene {
   _pressIcon(iconKey) {
     if(iconKey !== 2) return;
 
-    var externalPush = this.props.externalPush, route = { key: "Login" };
-    if(this.token) route = { web: this.pbocUrl + "&token=" + this.token };
-    externalPush && externalPush(route);
+    this.navToPBOC()
   }
 
   _pressNumberBtn(amount) {
@@ -89,10 +85,20 @@ export default class HomeScene extends AbstractScene {
     )
   }
 
-  getPBOCParams() {
-    var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi'
-    if(!this.pbocUrl) AsyncStorage.getItem('environment').then(ev=>{ this.pbocUrl = ev.id=="production" ? pbocUrl + "&debug=1" : pbocUrl + "&debug=1"; });
-    if(!this.token) AsyncStorage.getItem('userToken').then(token=>{ this.token = token; });
+  navToPBOC() {
+    AsyncStorage.getItem('userToken').then(token => {
+      var externalPush = this.props.externalPush, route;
+      if(!token) {
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC()) } };
+        externalPush && externalPush(route);
+        return;
+      }
+      AsyncStorage.getItem('environment').then(ev => {
+        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
+        pbocUrl = ev.id=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+        externalPush && externalPush({web: pbocUrl});
+      })
+    })
   }
 
   _memoryPress() {

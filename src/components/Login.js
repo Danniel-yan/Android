@@ -98,7 +98,7 @@ export default class Login extends Component {
             throw response.msg;
           }
         })
-        .then(this.props.loginSuccess)
+        .then(this.props.customLoginSuccess || this.props.loginSuccess)
         .catch(err => { console.log(err); })
         .finally(() => {
           this.submitting = false;
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E6',
   },
-  
+
   input: {
     flex: 1,
     marginLeft: 18,
