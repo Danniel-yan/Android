@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react';
-import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl } from 'react-native';
+import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl,Button } from 'react-native';
 
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions'
 import * as defaultStyle from 'styles';
 
 import Text from 'components/shared/Text'
+
 
 import iconNext from 'assets/index-icons/icon_next.png';
 import triangleDown from 'assets/icons/triangle-down.png';
@@ -28,7 +29,10 @@ export default class ShopNearbyScene extends Component {
     if(this.props.geoError) {
       return (
         <View style={[styles.bgColorWhite, styles.empty, defaultStyle.centering]}>
-          <Text>定位失败</Text>
+          <Image style={{width:195,height:195}} source={require('assets/icons/position.png')}/>
+          <TouchableOpacity style={styles.positionText} onPress={this.props.fetching()}>
+            <Text>重新定位</Text>
+          </TouchableOpacity>
         </View>
       )
     }
@@ -177,13 +181,21 @@ const styles = StyleSheet.create({
     paddingBottom:20
   },
   empty: {
-    borderTopWidth: 1,
-    borderTopColor: colors.line,
-    height: 60
+    flex : 1
   },
   flexEnd:{
     alignItems:'flex-end',
     flex:1,
     justifyContent:'center'
+  },
+  positionText:{
+    width:100,
+    height:26,
+    marginTop:20,
+    borderColor:colors.line,
+    borderWidth:1,
+    borderRadius:5,
+    justifyContent: 'center',
+    alignItems:'center',
   }
 })
