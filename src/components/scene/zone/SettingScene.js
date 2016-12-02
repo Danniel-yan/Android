@@ -14,6 +14,7 @@ import Button from 'components/shared/Button';
 import OverlayLoading from 'components/shared/OverlayLoading';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Confirm from 'components/shared/Confirm';
+import About from './About';
 
 import * as defaultStyles from 'styles';
 
@@ -34,10 +35,12 @@ export default class ContactScene extends Component {
     return (
       <View style={[defaultStyles.container, defaultStyles.bg]}>
         <ScrollView>
-          <View style={[zoneStyles.item, zoneStyles.group]}>
-            <Text style={zoneStyles.txt}>关于我们</Text>
-            <NextIcon/>
-          </View>
+          <ExternalPushLink toComponent={About} title="关于我们">
+            <View style={[zoneStyles.item, zoneStyles.group]}>
+              <Text style={zoneStyles.txt}>关于我们</Text>
+              <NextIcon/>
+            </View>
+          </ExternalPushLink>
 
           {/*
           <View style={zoneStyles.item}>
@@ -45,12 +48,12 @@ export default class ContactScene extends Component {
             <Text style={styles.txt}>3.30MB</Text>
             <NextIcon/>
           </View>
-          */}
 
           <View style={[zoneStyles.item, zoneStyles.group]}>
             <Text style={zoneStyles.txt}>前往应用市场评价</Text>
             <NextIcon/>
           </View>
+          */}
 
           {this._renderBtn()}
 
