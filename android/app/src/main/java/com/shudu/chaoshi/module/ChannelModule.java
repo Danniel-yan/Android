@@ -32,7 +32,7 @@ public class ChannelModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getChannelDefault(Promise promise, String defaultChannel) {
+    public void getChannelDefault(String defaultChannel, Promise promise) {
         promise.resolve(ChannelUtil.getChannel(mContext, defaultChannel));
     }
 }
