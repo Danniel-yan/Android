@@ -70,7 +70,7 @@ export default class LoanDetailScene extends PureComponent {
             </View>
 
             <View style={styles.flexContainerRow}>
-              <View style={[styles.flexPanel,{borderRightWidth:0}]}>
+              <View style={[styles.flexPanel,{borderRightWidth:0, paddingRight:10,alignItems:'flex-end'}]}>
                 <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
                   <Text style={{fontSize:17,color:'#333'}}>金额</Text>
                   <TextInput
@@ -83,7 +83,7 @@ export default class LoanDetailScene extends PureComponent {
                 </View>
                 <Text>额度范围: {detail.amount_showinfo}</Text>
               </View>
-              <View style={[styles.flexPanel,{borderRightWidth:0}]}>
+              <View style={[styles.flexPanel,{borderRightWidth:0,alignItems:'flex-end'}]}>
                 <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
                   <Text style={{fontSize:17,color:'#333'}}>期数</Text>
 
@@ -102,14 +102,17 @@ export default class LoanDetailScene extends PureComponent {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>申请流程</Text></View>
 
-            <View style={{flexDirection: 'row',justifyContent: 'space-around',alignItems:'center',paddingVertical:20}}>
+            <View style={{flexDirection: 'row',justifyContent: 'space-around',flex:1,alignItems:'center',padding:20}}>
             {
               detail.apply_list.map((list,index) =>
-                <View key={'key'+index}>
-                  <View style={{justifyContent: 'center',alignItems:'center',marginBottom:8}}>
-                    <Image style={{width:44,height:44}} source={{uri:list.img.x3}} />
+
+                <View key={'key'+ index} style={{flexDirection: 'row',flex:1}}>
+                  <View style={{flexDirection: 'column',alignItems:'center'}}>
+                    <Image style={{width:44,height:44,marginRight:10}} source={{uri:list.img.x3}} />
+                    <Text style={{color:'#333',marginTop:8}}>{list.name}</Text>
                   </View>
-                  <View style={styles.flexAlignItems}><Text style={{color:'#333'}}>{list.name}</Text></View>
+
+                  {this._renderProcess(detail.apply_list,index)}
                 </View>
               )
             }
@@ -137,6 +140,18 @@ export default class LoanDetailScene extends PureComponent {
         {this._renderButton()}
       </View>
     );
+  }
+
+  _renderProcess(list,index){
+
+    if(index == list.length - 1) return null;
+
+    return(
+      <View style={{marginTop:20,flex:1,alignItems: 'center'}}>
+        <Image source={require('assets/icons/jiantou.png')}/>
+      </View>
+    )
+
   }
 
   _renderPeriodList(data){
