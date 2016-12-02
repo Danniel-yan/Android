@@ -2,6 +2,7 @@ package com.shudu.chaoshi.module;
 
 import android.content.Context;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -26,12 +27,12 @@ public class ChannelModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getChannel() {
-        ChannelUtil.getChannel(mContext);
+    public void getChannel(Promise promise) {
+        promise.resolve(ChannelUtil.getChannel(mContext));
     }
 
     @ReactMethod
-    public void getChannelDefault(String defaultChannel) {
-        ChannelUtil.getChannel(mContext, defaultChannel);
+    public void getChannelDefault(Promise promise, String defaultChannel) {
+        promise.resolve(ChannelUtil.getChannel(mContext, defaultChannel));
     }
 }
