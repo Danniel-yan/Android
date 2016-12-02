@@ -36,7 +36,7 @@ public class JpushModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setAlias(String alias) {
-        JpushUtil.setAlias(alias);
+        JpushUtil.setAlias(mContext, alias);
     }
 
     @ReactMethod
@@ -45,6 +45,6 @@ public class JpushModule extends ReactContextBaseJavaModule {
         for (int i = 0; i < dataArray.size(); i++) {
             set.add(dataArray.getString(i));
         }
-        JpushUtil.setAliasAndTags(alias, set);
+        JpushUtil.setAliasAndTags(mContext, alias, set);
     }
 }

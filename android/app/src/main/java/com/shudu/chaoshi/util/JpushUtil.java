@@ -8,8 +8,6 @@ import java.util.Set;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
-import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
-
 /**
  * Created by speakJ on 2016/11/28.
  */
@@ -20,7 +18,7 @@ public class JpushUtil {
         JPushInterface.setDebugMode(false);
     }
 
-    public static void setAlias(final String alias) {
+    public static void setAlias(final Context context, final String alias) {
         if (!TextUtils.isEmpty(alias)) {
             new Thread(new Runnable() {
                 @Override
@@ -36,7 +34,7 @@ public class JpushUtil {
         }
     }
 
-    public static void setAliasAndTags(final String alias, final Set<String> tags) {
+    public static void setAliasAndTags(final Context context, final String alias, final Set<String> tags) {
         if (!TextUtils.isEmpty(alias) || (tags != null && tags.size() > 0)) {
             new Thread(new Runnable() {
                 @Override
