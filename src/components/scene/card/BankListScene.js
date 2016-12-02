@@ -36,7 +36,9 @@ export default class BankListScene extends Component{
           {
             this.state.bankList.map((data,index) =>
               <View key={'key'+index} style={styles.itemViewStyle}>
-                <ExternalPushLink title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
+                <ExternalPushLink
+                  tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
+                  title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
                   <View style={[styles.itemViewStyle,styles.row]}>
                     <Image style={styles.thumb} source={{uri: data.pic_card}} />
                     <View>

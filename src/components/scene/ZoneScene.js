@@ -126,7 +126,13 @@ export default class ZoneScene extends AbstractScene {
     if(!this.state.hasToken) {
       return (
         <View style={[styles.loginWrap, defaultStyles.centering]}>
-          <ExternalPushLink style={[styles.loginBtn, defaultStyles.centering]} textStyle={styles.loginBtnText} text="登录注册" title="登录" toKey="Login"/>
+          <ExternalPushLink
+            tracking={{key:'Login ', entiry: 'login', topic: 'btn_sec', event: 'click'}}
+            style={[styles.loginBtn, defaultStyles.centering]}
+            textStyle={styles.loginBtnText}
+            text="登录注册"
+            title="登录"
+            toKey="Login"/>
         </View>
       );
     }

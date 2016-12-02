@@ -9,6 +9,7 @@ import {
 
 import Input from 'components/shared/Input';
 
+import tracker from 'utils/tracker.js';
 import { colors, iptFontSize } from "styles/varibles";
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 
@@ -20,10 +21,12 @@ class LoanNavPanel extends Component {
   }
 
   onPressNumberBtn() {
+    tracker.trackAction('homepage', 'iwantmoney', 'btn_sec', 'click');
     this.props.pressNumberBtn && this.props.pressNumberBtn(parseInt(this.state.text) || null);
   }
 
   onPressIconBtn(navNumber) {
+    tracker.trackAction('homepage', 'credit', 'btn_sec', 'click');
     this.props.pressIconBtn && this.props.pressIconBtn(navNumber);
   }
 
@@ -40,11 +43,20 @@ class LoanNavPanel extends Component {
           </View>
         </View>
         <View style={{flex:1,flexDirection:"row", alignItems:"center", paddingTop: 12}}>
-          <ExternalPushLink title="推荐贷款" toKey="RecLoanScene" style={LNPStyles.navItem}>
+          <ExternalPushLink
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend', event: 'click'}}
+            title="推荐贷款"
+            toKey="RecLoanScene"
+            style={LNPStyles.navItem}>
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
             <Text style={LNPStyles.navTxt}>推荐贷款</Text>
           </ExternalPushLink>
-          <MajorTabLink title="极速贷款" toKey="LoanScene" style={LNPStyles.navItem}>
+          <MajorTabLink
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan', event: 'click'}}
+            title="极速贷款"
+            toKey="LoanScene"
+            style={LNPStyles.navItem}>
+
             <Image source={require('assets/icons/jisudaikuan.png')}></Image>
             <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>

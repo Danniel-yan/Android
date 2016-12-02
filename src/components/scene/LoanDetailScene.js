@@ -75,7 +75,7 @@ export default class LoanDetailScene extends PureComponent {
                   <Text style={{fontSize:17,color:'#333'}}>金额</Text>
                   <TextInput
                     underlineColorAndroid={'transparent'}
-                    style={styles.selectBox}
+                    style={[styles.selectBox, styles.pickerTxt]}
                     keyboardType={'numeric'}
                     onChangeText={(amount) => this.props.fetchRepay({id:this.state.id,amount: parseInt(amount) ,period: this.state.value})}
                     defaultValue={this.state.amount}/>
@@ -205,7 +205,9 @@ export default class LoanDetailScene extends PureComponent {
 
     if(needLogin) {
       return (
-        <WebLink style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" url={this.props.detail.url || ''} title={this.props.detail.title}/>
+        <WebLink
+          tracking={{key: 'detail', topic: 'btn_sec', entity: 'application', event: 'click'}}
+          style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" url={this.props.detail.url || ''} title={this.props.detail.title}/>
       );
     }
 

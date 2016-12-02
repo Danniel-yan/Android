@@ -4,8 +4,16 @@ import Text from 'components/shared/Text';
 import {colors} from 'styles/varibles';
 
 import { ExternalPushLink } from 'containers/shared/Link';
+import AbstractScene from 'components/scene/AbstractScene.js';
 
-export default class ActHotListScene extends Component {
+export default class ActHotListScene extends AbstractScene {
+
+  constructor(props) {
+    super(props);
+    this.sceneEntity = "Promotions";
+    this.sceneKey = "Promotions";
+    this.sceneTopic = "Promotions";
+  }
 
   render() {
 
@@ -15,7 +23,12 @@ export default class ActHotListScene extends Component {
       <ScrollView style={{backgroundColor: '#f3f3f3'}}>
         {
           props.map((props, index) =>
-            <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: props.id }}}>
+          <ExternalPushLink
+            tracking={{key: 'Promotions', topic: 'Pro_list', entity: props.id, event: 'click'}}
+            key={'key' + index}
+            title="活动详情"
+            toKey="ActHotDetailScene"
+            componentProps={{fetchingParams: { id: props.id }}}>
               <View style={styles.list}>
                 <Image source={{uri: props.img_list.x1}} style={styles.logo}/>
                 <View style={{flex:1}}>

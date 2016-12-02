@@ -34,7 +34,10 @@ class BannerCarousel extends Component {
       this.imageItems = [];
       imgs.map((imgInfo, idx) => {
         this.imageItems.push(
-            <WebLink url={imgInfo.url} key={idx}>
+            <WebLink
+              tracking={{key: 'homepage', topic: 'carousel', entity: idx, event: 'click'}}
+              url={imgInfo.url} key={idx}>
+
               <View style={{width:screenWidth}}>
                 <Image source={{ uri: imgInfo.pic}} style={{width:screenWidth, height:configs.height}}></Image>
               </View>

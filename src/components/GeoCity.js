@@ -12,6 +12,7 @@ import {
 import Text from './shared/Text';
 import { post } from 'utils/fetch';
 import LocationPicker from 'components/modal/LocationPicker';
+import tracker from 'utils/tracker.js';
 
 const startOpacity = 0.3; 
 const endOpacity = 1;
@@ -68,11 +69,17 @@ export default class GeoCity extends PureComponent {
     this.curAnimate.start(this._animate.bind(this, toValue == endOpacity ? startOpacity : endOpacity));
   }
 
+  _onPress() {
+    tracker.trackAction('homepage', 'postion', 'top', 'click');
+    this.setState({showPicker: true})
+  }
 
   render() {
     return (
       <View style={[this.props.style]}>
-        <TouchableOpacity style={styles.showLabel} onPress={() => this.setState({showPicker: true})}>
+        <TouchableOpacity
+          style={styles.showLabel}
+          onPress={this._onPress.bind(this)}>
           <Animated.Image style={{ opacity: this.state.location ? 1 : this.state.bounceValue}} source={require('assets/icons/pin2.png')}/>
           <Text ellipsizeMode="middle" numberOfLines={1} style={styles.locTxt}>
             {this.state.err && !this.state.location? '手动定位' : this.state.location}

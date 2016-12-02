@@ -135,7 +135,9 @@ export default class FillUserInfo extends AbstractScene {
         </ScrollView>
 
         <View style={styles.footer}>
-          <ProcessingButton processing={this.props.submitting} style={styles.btn} disabled={(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
+          <ProcessingButton
+            tracking={{key: 'supplement', topic: 'btn_sec', entity: 'application', event: 'click'}}
+            processing={this.props.submitting} style={styles.btn} disabled={(validName && validMobile && validVerifyCode && validID)} onPress={this._submit.bind(this)} text="去贷款"/>
         </View>
       </View>
     );

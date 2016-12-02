@@ -8,7 +8,16 @@ import { window } from 'styles';
 import ActDetailBannerContainer from 'containers/scene/card/ActDetailBannerContainer';
 import WebLink from 'components/shared/WebLink'
 
-export default class ActHotDetailScene extends Component {
+import AbstractScene from 'components/scene/AbstractScene.js';
+
+export default class ActHotDetailScene extends AbstractScene {
+
+  constructor(props) {
+    super(props);
+    this.sceneEntity = "detail";
+    this.sceneKey = "detail";
+    this.sceneTopic = "pro_detail";
+  }
 
   render(){
     const props = this.props.detail;

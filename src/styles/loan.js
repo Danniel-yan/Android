@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   flexContainerColumn: {
     justifyContent: 'center',
-    borderRightWidth:1,
+    borderRightWidth:0.5,
     borderRightColor: colors.line,
     borderStyle : 'solid',
     paddingTop:10,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   pickerTxt:{
-    fontSize:17,
+    fontSize:18,
     color:'#333',
     paddingRight:5
   }

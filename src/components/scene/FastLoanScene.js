@@ -8,10 +8,28 @@ import { RecList, MoreList } from 'containers/scene/fast/ListContainer';
 
 import { colors } from 'styles/varibles';
 import { container, rowContainer, flexRow, centering, bg } from 'styles';
+import tracker from 'utils/tracker.js';
 
 import Dimensions from 'Dimensions';
 import AbstractScene from 'components/scene/AbstractScene.js';
 import SceneHeader from 'components/shared/SceneHeader';
+
+const jobItems = [
+  {label: "上班族", value: 1},
+  {label: "企业主", value: 2},
+  {label: "学生", value: 4},
+  {label: "自由职业", value: 8}
+];
+
+const trackingConfig = {
+  'btn-sec': {
+    '1': 'Staff',
+    '2': 'Businessowner',
+    '4': 'Student',
+    '8': 'Freelance',
+  }
+};
+
 var screenWidth = Dimensions.get('window').width;
 
 export default class FastLoanScene extends AbstractScene {
@@ -32,11 +50,20 @@ export default class FastLoanScene extends AbstractScene {
     this.sceneEntity = "FAST_LOAN";
     this.sceneTopic = "";
 
-    this.sceneEntity = "hpg";
-    this.sceneTopic = "fast_loan";
-    this.sceneKey = "loan";
+    this.sceneEntity = "fastloan";
+    this.sceneTopic = "fastloan";
+    this.sceneKey = "fastloan";
   }
   static title = "极速贷款";
+
+  _trackingFilter(topic, value) {
+
+    let entity = trackingConfig[topic] ? trackingConfig[topic][`${value}`] : value;
+    tracker.trackAction('fastloan', entity, topic, 'click');
+
+    
+
+  }
 
   formValueChanged(name, value) {
     if(this.state.fetchRecParams[name] === value) return;
@@ -44,6 +71,7 @@ export default class FastLoanScene extends AbstractScene {
     this.state.fetchRecParams[name] = value;
     // console.log(this.state.fetchRecParams);
     this.fetchingData();
+    this._trackingFilter('btn-sec', value);
     // if(name == "amount" || name == "period") this.props.setLoanInfo && this.props.setLoanInfo(this.state.fetchRecParams);
   }
 
@@ -55,6 +83,7 @@ export default class FastLoanScene extends AbstractScene {
   }
 
   orderSelected(opt) {
+    this._trackingFilter('Sort', opt.value);
     this.formValueChanged("order", opt.value);
     this.onToggleDrp("toggleSort");
   }
@@ -77,7 +106,7 @@ export default class FastLoanScene extends AbstractScene {
 
         <HorizontalRadios
           eachLineCount={4}
-          options={[{label: "上班族", value: 1}, {label: "企业主", value: 2}, {label: "学生", value: 4}, {label: "自由职业", value: 8}]}
+          options={jobItems}
           selectedChanged={opt=>this.formValueChanged("job", opt.value)}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}
@@ -143,7 +172,9 @@ export default class FastLoanScene extends AbstractScene {
           </View>
         </TouchableWithoutFeedback>
         <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
-          <HorizontalCheckboxes withBtns={true}
+          <HorizontalCheckboxes
+            clickItem={(item, idx) => this._trackingFilter('filter', idx)}
+            withBtns={true}
             options={applyResList}
             eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
           </HorizontalCheckboxes>
