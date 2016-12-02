@@ -17,7 +17,8 @@ function mapStateToProps(state) {
     isFetching: state.loginUser.isFetching || state.loginUser.logouting,
     fetched: state.loginUser.fetched,
     userInfo: state.loginUser.info,
-    loanInfo: { amount: state.filterList.amount, period: state.filterList.period }
+    loanInfo: { amount: state.filterList.amount, period: state.filterList.period },
+    submitting: state.fillUserInfo.submitting
   };
 }
 
