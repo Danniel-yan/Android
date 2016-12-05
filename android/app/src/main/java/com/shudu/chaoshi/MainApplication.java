@@ -73,7 +73,7 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     private void init() {
-        String channel = ChannelUtil.getChannel(mContext, "neice");
+        String channel = ChannelUtil.getChannel(mContext, "sjzs360");
         if (!TextUtils.isEmpty(channel))
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         JpushUtil.init(mContext);
