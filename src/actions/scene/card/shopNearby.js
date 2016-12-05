@@ -1,5 +1,5 @@
 
-import { get, post } from 'utils/fetch'
+import { get, post, responseStatus } from 'utils/fetch'
 
 
 export default function( offset = 0) {
@@ -17,7 +17,11 @@ export default function( offset = 0) {
         offset: offset
       })
       .then(response => {
-        dispatch(receiveShopNearby(response.data, offset));
+        if(response.res == responseStatus.success) {
+          dispatch(receiveShopNearby(response.data, offset));
+        } else {
+          dispatch(getoError());
+        }
       })
       .catch(err => dispatch(getoError()))
     }, err => dispatch(geoError()))
