@@ -19,7 +19,7 @@ export default function( offset = 0) {
       .then(response => {
         dispatch(receiveShopNearby(response.data, offset));
       })
-      .catch(err => console.log(err))
+      .catch(err => dispatch(getoError()))
     }, err => dispatch(geoError()))
 
   }
