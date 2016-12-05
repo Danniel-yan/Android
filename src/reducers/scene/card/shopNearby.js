@@ -12,7 +12,7 @@ const initState = {
 export default function shopNearby(state = initState , action){
   switch (action.type){
     case 'geoError':
-      return Object.assign({}, state, { geoError: true });
+      return Object.assign({}, state, { fetched: true, geoError: true });
     case 'fetchShopNearby':
       return Object.assign({}, state, { isFetching: true });
     case 'paginationShopNearby':

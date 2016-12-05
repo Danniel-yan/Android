@@ -20,7 +20,7 @@ export default function( offset = 0) {
         if(response.res == responseStatus.success) {
           dispatch(receiveShopNearby(response.data, offset));
         } else {
-          dispatch(getoError());
+          dispatch(geoError());
         }
       })
       .catch(err => dispatch(getoError()))
