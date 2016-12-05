@@ -14,7 +14,7 @@ public class ChannelUtil {
      * @return
      */
     public static String getChannel(Context context) {
-        return getChannel(context, "");
+        return getChannel(context, "sjzs360");
     }
 
     /**
