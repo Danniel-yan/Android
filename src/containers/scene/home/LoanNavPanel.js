@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import LoanNavPanel from 'components/LoanNavPanel';
 
-import { externalPush } from 'actions/navigation';
+import { externalPush, majorTab } from 'actions/navigation';
 import { setAmount } from 'actions/scene/fast/filterList';
 
 function mapStateToProps(state) {
