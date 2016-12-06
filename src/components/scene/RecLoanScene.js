@@ -10,7 +10,8 @@ import CountdownButton from 'components/shared/CountdownButton';
 import LocationPicker from 'components/modal/LocationPicker';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
-import { DeviceSwitchComponent } from 'components/high-order/ComponentSwitcher';
+import { DeviceSwitchComponent, IOSComponentSwitcher } from 'components/high-order/ComponentSwitcher';
+import LoanButton from "containers/shared/LoanButton";
 
 import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
@@ -63,8 +64,6 @@ export default class RecLoanScene extends AbstractScene {
   }
 
   render() {
-    var SubmitBtn = DeviceSwitchComponent(ProcessingButton, null);
-
     return (
       <ScrollView style={{position: "relative"}}>
         <View style={{}}>
@@ -74,9 +73,9 @@ export default class RecLoanScene extends AbstractScene {
           { this._renderLoginGroup() }
         </View>
         <View style={{marginTop: 20}}>
-          <SubmitBtn processing={this.props.submitting}
+          <LoanButton processing={this.props.submitting}
             style={styles.loanButton}
-            onPress={() => { this._goLoan() }} text="去贷款"/>
+            onPress={() => { this._goLoan() }} />
         </View>
         <LocationPicker visible={this.state.showPicker} onChange={this._changeLocation.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </ScrollView>

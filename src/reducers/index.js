@@ -17,7 +17,8 @@ import messages from './scene/messages';
 import cardList from './scene/card/cardList'
 import loginUser from './loginUser';
 import actDetailBanner from './scene/card/actDetailBanner';
-import repayCalc from './scene/repayCalc'
+import repayCalc from './scene/repayCalc';
+import iosConfig from './iosConfig';
 
 export default combineReducers({
   loginUser,
@@ -37,5 +38,6 @@ export default combineReducers({
   messages,
   cardList,
   actDetailBanner,
-  repayCalc
+  repayCalc,
+  iosConfig
 });

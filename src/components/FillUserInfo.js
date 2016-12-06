@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import {
   View,
   ScrollView,
@@ -21,6 +21,9 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
+
+import { DeviceSwitchComponent } from 'components/high-order/ComponentSwitcher';
+import LoanButton from 'containers/shared/LoanButton';
 
 const hasCreditStatus = {
   yes: 1,
@@ -146,11 +149,11 @@ export default class FillUserInfo extends AbstractScene {
         </ScrollView>
 
         <View style={styles.footer}>
-          <ProcessingButton
+          <LoanButton
             processing={this.props.update.submitting}
             style={styles.btn}
             disabled={!(validName && validMobile && validVerifyCode && validID)}
-            onPress={this._submit.bind(this)} text="去贷款"/>
+            onPress={this._submit.bind(this)}/>
         </View>
       </View>
     );

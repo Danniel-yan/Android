@@ -18,7 +18,8 @@ function mapStateToProps(state) {
   return {
     ...state.loanDetail,
     loginUser: state.loginUser,
-    repayCalc: state.repayCalc
+    repayCalc: state.repayCalc,
+    isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
   };
 }
 
