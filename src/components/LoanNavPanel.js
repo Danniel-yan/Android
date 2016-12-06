@@ -28,11 +28,11 @@ class LoanNavPanel extends Component {
     this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
-  onPressIconBtn(navNumber) {
+  onPressIconBtn() {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC()) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn()) } };
         externalPush && externalPush(route);
         return;
       }
