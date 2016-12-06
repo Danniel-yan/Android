@@ -4,7 +4,8 @@ import React, { PropTypes, Component } from 'react';
 import {
   StyleSheet,
   View, Image, Text, TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import Input from 'components/shared/Input';
@@ -22,12 +23,27 @@ class LoanNavPanel extends Component {
 
   onPressNumberBtn() {
     tracker.trackAction('homepage', 'iwantmoney', 'btn_sec', 'click');
-    this.props.pressNumberBtn && this.props.pressNumberBtn(parseInt(this.state.text) || null);
+    var amount = parseInt(this.state.text) || null;
+    amount && this.props.setAmount && this.props.setAmount(amount);
+    this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
   onPressIconBtn(navNumber) {
-    tracker.trackAction('homepage', 'credit', 'btn_sec', 'click');
-    this.props.pressIconBtn && this.props.pressIconBtn(navNumber);
+    AsyncStorage.getItem('userToken').then(token => {
+      var externalPush = this.props.externalPush, route;
+      if(!token) {
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC()) } };
+        externalPush && externalPush(route);
+        return;
+      }
+      AsyncStorage.getItem('environment').then(ev => {
+        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
+        pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+        tracker.trackAction('homepage', 'credit', 'btn_sec', 'click');
+        // console.log(pbocUrl + "&token=" + token)
+        externalPush && externalPush({web: pbocUrl + "&token=" + token});
+      })
+    });
   }
 
   render() {

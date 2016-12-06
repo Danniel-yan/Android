@@ -3,7 +3,7 @@ import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, S
 
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
-import LoanNavPanel from 'components/LoanNavPanel';
+import LoanNavPanel from 'containers/scene/home/LoanNavPanel';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
 import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
@@ -47,7 +47,7 @@ export default class HomeScene extends AbstractScene {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
-          <LoanNavPanel pressNumberBtn={this._pressNumberBtn.bind(this)} pressIconBtn={this._pressIcon.bind(this)} />
+          <LoanNavPanel />
           <Broadcast />
           <RecommendListPanel/>
           {this._renderLoan()}
@@ -96,7 +96,7 @@ export default class HomeScene extends AbstractScene {
       AsyncStorage.getItem('environment').then(ev => {
         var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
         pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        // console.log()
+        console.log(pbocUrl + "&token=" + token)
         externalPush && externalPush({web: pbocUrl + "&token=" + token});
       })
     })
