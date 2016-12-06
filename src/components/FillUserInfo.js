@@ -19,6 +19,7 @@ import * as defaultStyles from 'styles';
 import CountdownButton from 'components/shared/CountdownButton'
 import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
+import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
 
 const hasCreditStatus = {
@@ -155,7 +156,11 @@ export default class FillUserInfo extends AbstractScene {
     );
   }
 
-  _sendVerify() {}
+  _sendVerify() {
+    console.log('.......................1');
+    post('/tool/send-verify-code', { mobile: this.state.mobile})
+      .catch(console.log)
+  }
 
   _submit() {
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
