@@ -9,6 +9,7 @@ import Dimensions from 'Dimensions';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { ExternalPushLink } from 'containers/shared/Link';
+import WebLink from 'components/shared/WebLink'
 
 export default class BankListScene extends Component{
 
@@ -31,23 +32,39 @@ export default class BankListScene extends Component{
 
     return(
       <View style={[styles.bgColorWhite]}>
-
         <View style={styles.list}>
           {
-            this.state.bankList.map((data,index) =>
-              <View key={'key'+index} style={styles.itemViewStyle}>
-                <ExternalPushLink
-                  tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
-                  title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
-                  <View style={[styles.itemViewStyle,styles.row]}>
-                    <Image style={styles.thumb} source={{uri: data.pic_card}} />
-                    <View>
-                      <Text style={styles.name}>{data.name}</Text>
-                      <Text style={styles.info}>{data.info}</Text>
+            this.state.bankList.map((data,index) =>{
+              return (data.link) ? (
+                <View key={'key'+index} style={styles.itemViewStyle}>
+                  <WebLink
+                    tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
+                    title={data.name} url={data.link}>
+                    <View style={[styles.itemViewStyle,styles.row]}>
+                      <Image style={styles.thumb} source={{uri: data.pic_card}} />
+                      <View>
+                        <Text style={styles.name}>{data.name}</Text>
+                        <Text style={styles.info}>{data.info}</Text>
+                      </View>
                     </View>
-                  </View>
-                </ExternalPushLink>
-              </View>
+                  </WebLink>
+                </View>
+              ):(
+                <View key={'key'+index} style={styles.itemViewStyle}>
+                  <ExternalPushLink
+                    tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
+                    title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
+                    <View style={[styles.itemViewStyle,styles.row]}>
+                      <Image style={styles.thumb} source={{uri: data.pic_card}} />
+                      <View>
+                        <Text style={styles.name}>{data.name}</Text>
+                        <Text style={styles.info}>{data.info}</Text>
+                      </View>
+                    </View>
+                  </ExternalPushLink>
+                </View>
+              )
+            }
             )
           }
 
