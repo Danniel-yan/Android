@@ -22,16 +22,16 @@ export default class CardListScene extends Component {
           nomore={nomore}>
 
           { this.props.cardList.map((cardList,index) =>
-              <WebLink key={'key' + index } url={cardList.link}>
-                <View style={styles.list}>
-                    <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.name}>{cardList.name}</Text>
-                      <Text style={{marginBottom:12}}>{cardList.info}</Text>
-                      <Text><Text style={{color:'#ff6d17'}}>{cardList.num}</Text>人申请</Text>
-                    </View>
+            <WebLink key={'key' + index } url={cardList.link} title="申请信用卡">
+              <View style={styles.list}>
+                <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
+                <View style={{flex: 1}}>
+                  <Text style={styles.name}>{cardList.name}</Text>
+                  <Text style={{marginBottom:12}}>{cardList.info}</Text>
+                  <Text><Text style={{color:'#ff6d17'}}>{cardList.num}</Text>人申请</Text>
                 </View>
-              </WebLink>
+              </View>
+            </WebLink>
           )
           }
         </ScrollPagination>

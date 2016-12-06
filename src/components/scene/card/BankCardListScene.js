@@ -32,7 +32,7 @@ export default class BankCardListScene extends Component {
                   <Text style={styles.info}>{cardList.info}</Text>
                 </View>
                 <View style={styles.applyBtn}>
-                  <WebLink url={cardList.link}><Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text></WebLink>
+                  <WebLink title="申请信用卡" url={cardList.link}><Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text></WebLink>
                 </View>
               </View>
           )
