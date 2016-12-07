@@ -10,6 +10,7 @@
 #import "JPUSHService.h"
 #import "ConstantVariables.h"
 #import <Bugly/Bugly.h>
+#import "IQKeyboardManager.h"
 #import <UMMobClick/MobClick.h>
 
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -39,6 +40,10 @@
     UMConfigInstance.appKey = MKUMengAppKey;
     UMConfigInstance.channelId = @"App Store";
     [MobClick startWithConfigure:UMConfigInstance];
+  
+  
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
   
   
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
