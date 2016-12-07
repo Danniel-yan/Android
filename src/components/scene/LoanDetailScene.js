@@ -37,6 +37,8 @@ export default class LoanDetailScene extends PureComponent {
       id: props.detail.id
     };
 
+    this.changeFlag = null;
+
   }
 
   componentWillMount() {
@@ -49,6 +51,14 @@ export default class LoanDetailScene extends PureComponent {
     }
 
     this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
+  }
+
+  changeAmount(amount) {
+    clearTimeout(this.changeFlag);
+    this.state.amount = amount;
+    this.changeFlag = setTimeout(() => {
+      this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
+    }, 600);
   }
 
   render() {
@@ -78,7 +88,7 @@ export default class LoanDetailScene extends PureComponent {
                     underlineColorAndroid={'transparent'}
                     style={[styles.selectBox, styles.pickerTxt]}
                     keyboardType={'numeric'}
-                    onChangeText={(amount) => this.props.fetchRepay({id:this.state.id,amount: parseInt(amount) ,period: this.state.value})}
+                    onChangeText={(amount) => this.changeAmount(amount)}
                     defaultValue={this.state.amount}/>
                   <Text>元</Text>
                 </View>
@@ -103,11 +113,11 @@ export default class LoanDetailScene extends PureComponent {
           <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>申请流程</Text></View>
 
-            <View style={{flexDirection: 'row',padding:20}}>
+            <View style={{flexDirection: 'row',padding:10}}>
             {
               sectionList.map((item, idx) => {
                 return (item != "processIcon") ? (
-                  <View key={idx} style={{flex: 4, alignItems: 'center', justifyContent: "center", flexDirection: "column"}}>
+                  <View key={idx} style={{flex: 8, alignItems: 'center', justifyContent: "center", flexDirection: "column"}}>
                     <Image style={{width:36,height:36}} source={{uri:item.img.x3}} />
                     <Text style={{marginTop:8, textAlign:"center"}}>{item.name}</Text>
                   </View>
