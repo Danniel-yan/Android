@@ -23,13 +23,9 @@ RCT_EXPORT_METHOD(setAliasAndTags:(NSString *)pushAlias tags:(NSSet *)tags)
   [JPUSHService setTags:tags alias:pushAlias callbackSelector:@selector(pushNotificationEvent:) object:nil];
 }
 
-- (void)pushNotificationEvent:(id)sender{
-
+RCT_EXPORT_METHOD(pushNotificationEvent:(id)sender)
+{
+  
 }
-
-//RCT_EXPORT_METHOD(pushNotificationEvent:(id)sender)
-//{
-//  
-//}
 
 @end
