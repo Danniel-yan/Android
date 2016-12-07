@@ -65,7 +65,13 @@
         }
     }];
   
+//  [JPUSHService setAlias:@"8edfa090bc6211e698467cd30ab8f4e6" callbackSelector:@selector(pushNotificationEvent:) object:nil];
+  
 }
+
+//- (void)pushNotificationEvent:(id)sender{
+//
+//}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];

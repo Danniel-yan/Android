@@ -26,8 +26,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886006501DF01C8F00971978 /* libRCTAnimation.a */; };
 		924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */; };
-		B81A61F11DE53502001365BD /* PingFang Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B81A61F01DE53502001365BD /* PingFang Regular.ttf */; };
-		B81A62071DE53609001365BD /* PingFang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B81A62051DE53609001365BD /* PingFang Medium.ttf */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
@@ -235,8 +233,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 		886006481DF01C8F00971978 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		B81A61F01DE53502001365BD /* PingFang Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PingFang Regular.ttf"; sourceTree = "<group>"; };
-		B81A62051DE53609001365BD /* PingFang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PingFang Medium.ttf"; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -506,8 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */,
-				B81A62051DE53609001365BD /* PingFang Medium.ttf */,
-				B81A61F01DE53502001365BD /* PingFang Regular.ttf */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -936,8 +930,6 @@
 			files = (
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
-				B81A62071DE53609001365BD /* PingFang Medium.ttf in Resources */,
-				B81A61F11DE53502001365BD /* PingFang Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1060,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1080,8 +1073,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "1eb1ea52-254c-4ba1-a975-d5e77e65f7e2";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu dev app";
+				PROVISIONING_PROFILE = "e1613210-3b77-4caf-9e74-25610963dce4";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi dev";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1108,6 +1101,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1120,8 +1114,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "8fde5f90-7316-49a9-90f5-af5761ae71f3";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu AdHoc";
+				PROVISIONING_PROFILE = "b055661e-7e7e-464b-b276-0707eeb7d198";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

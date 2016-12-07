@@ -13,6 +13,7 @@
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 #import <Bugly/Bugly.h>
+#import "JpushModule.h"
 
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -50,6 +51,10 @@
     rootViewController.view = rootView;
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
+  
+  
+  
+  
     return YES;
 }
 
