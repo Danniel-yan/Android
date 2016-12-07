@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator, ActivityIndicator, AppRegistry, StyleSheet, View, Image, Text } from 'react-native';
+import { NetInfo, Navigator, ActivityIndicator, AppRegistry, StyleSheet, View, Image, Text } from 'react-native';
 
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -68,4 +68,11 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('supermarketjs', () => codePush(supermarketjs));
+
+NetInfo.fetch().done((reach) => {
+  if(/wifi/i.test(reach)) {
+    codePush.sync();
+  }
+});
+
+AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
