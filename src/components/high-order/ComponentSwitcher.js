@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
+import { connect } from 'react-redux';
+import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
+import { fetchingIOSConfig } from 'actions/iosConfig';
 
 export function DeviceSwitchComponent(AndroidCp, IOSCp) {
   return class SwitchComponent extends Component {
@@ -26,4 +30,19 @@ export function AsynDataSwitchComponent(componentSwitchFunc) {
       return ComponentClass ? React.createElement(ComponentClass, this.props) : null;
     }
   }
+}
+
+
+function mapStateToProps(state) {
+  return state.iosConfig;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => { dispatch(fetchingIOSConfig()); }
+  };
+}
+
+export function IOSComponentSwitcher(SwitchComponent) {
+  return connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, SwitchComponent));
 }

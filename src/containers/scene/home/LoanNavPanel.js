@@ -8,7 +8,9 @@ import { setAmount } from 'actions/scene/fast/filterList';
 
 function mapStateToProps(state) {
   return {
-    token: state.fillUserInfo.token
+    token: state.fillUserInfo.token,
+    isIOSVerifying: state.iosConfig.isIOSVerifying,
+    iosFetched: state.iosConfig.fetched
   }
 }
 

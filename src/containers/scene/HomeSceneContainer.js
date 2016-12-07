@@ -6,6 +6,8 @@ import HomeScene from 'components/scene/HomeScene';
 
 function mapStateToProps(state) {
   return {
+    isIOSVerifying: state.iosConfig.isIOSVerifying,
+    iosFetched: state.iosConfig.fetched
   }
 }
 

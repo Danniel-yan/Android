@@ -189,11 +189,11 @@ export default class LoanDetailScene extends PureComponent {
 
   _renderButton() {
     let loginUser = this.props.loginUser;
-    let needLogin = loginUser && loginUser.info && loginUser.info.id_no;
+    let hasLogin = loginUser && loginUser.info && loginUser.info.id_no;
 
-    if(loginUser.isFetching) { return null; }
+    if(loginUser.isFetching || this.props.isIOSVerifying) { return null; }
 
-    if(needLogin) {
+    if(hasLogin) {
       return (
         <WebLink
           tracking={{key: 'detail', topic: 'btn_sec', entity: 'application', event: 'click'}}

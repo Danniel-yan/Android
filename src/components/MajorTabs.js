@@ -5,8 +5,10 @@ import {
   Image,
   StyleSheet,
   Button,
-  TouchableWithoutFeedback 
+  TouchableWithoutFeedback
 } from 'react-native';
+
+import { IOSComponentSwitcher } from 'components/high-order/ComponentSwitcher';
 
 import { colors } from 'styles/varibles';
 
@@ -43,16 +45,21 @@ let tabs = [{
 }];
 
 
-export default class MajorTabs extends Component {
+class MajorTabs extends Component {
 
   render() {
+    var iconCardIdxForHide = this.props.isIOSVerifying ? 2 : null;
+
     return (
       <View>
 
         <View style={[styles.tabs, this.props.style]}>
           {
-            tabs.map((tab, index) => 
-              <Tab isActive={this.props.curTab == tab.sceneKey } key={`majorTab${index}`} onPress={this.props.onMajorTabChange} {...tab}/>)
+            tabs.map((tab, index) => {
+              if(index === iconCardIdxForHide)
+                return null;
+              return <Tab isActive={this.props.curTab == tab.sceneKey } key={`majorTab${index}`} onPress={this.props.onMajorTabChange} {...tab}/>;
+            })
           }
         </View>
 
@@ -64,6 +71,7 @@ export default class MajorTabs extends Component {
 
 }
 
+export default IOSComponentSwitcher(MajorTabs);
 
 class Tab extends Component {
   render() {

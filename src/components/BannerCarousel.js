@@ -48,10 +48,13 @@ class BannerCarousel extends Component {
 
     render() {
       this.generateInfos();
-      var Carousel = CarouselGenerator(configs)(this.imageItems);
+      var Carousel =  CarouselGenerator(configs)(this.imageItems);
 
-      // return <Carousel height={130} />
-      return React.createElement(Carousel, { height:configs.height });
+      return !this.props.iosFetched || this.props.isIOSVerifying ? (
+        <View style={{height:configs.height}}>
+          <Image source={ require('assets/ChaoshiBanner.jpeg') } style={{width:screenWidth, height:configs.height}}></Image>
+        </View>
+      ) : React.createElement(Carousel, { height:configs.height });
     }
 }
 
