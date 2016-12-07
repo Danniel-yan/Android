@@ -10,8 +10,7 @@ export default function iosConfig(state = initState, action) {
     case 'endFetching':
       return Object.assign({}, state, { isFetching: false, fetched: true });
     case 'receiveIOSConfig':
-    console.log(action.data)
-      return Object.assign({}, state, { isFetching: false, fetched: true }, action.data);
+      return Object.assign({}, state, action.data);
     default:
       return state;
   }

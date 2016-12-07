@@ -12,7 +12,9 @@ function mapStateToProps(state) {
   return {
     isFetching: state.homeOperating.isFetching,
     fetched: state.homeOperating.fetched,
-    imgList: state.homeOperating.operating.index_top_banner
+    imgList: state.homeOperating.operating.index_top_banner,
+    isIOSVerifying: state.iosConfig.isIOSVerifying,
+    iosFetched: state.iosConfig.fetched
   };
 }
 

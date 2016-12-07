@@ -46,19 +46,23 @@ class LoanNavPanel extends Component {
     });
   }
 
+  _renderInputWrapper() {
+    return this.props.isIOSVerifying ? null : (<View style={{height:25,flexDirection:"row", paddingBottom:12}}>
+      <View style={LNPStyles.iptWrap} >
+      <Input type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
+        this.setState({text: text.replace(/[^\d]/g,'')})
+      }} defaultValue={this.state.text}></Input></View>
+      <View style={[LNPStyles.btnWrap]}>
+        <TouchableOpacity onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></TouchableOpacity>
+      </View>
+    </View>);
+  }
+
   render() {
-    return (
+    return !this.props.iosFetched ? null : (
       <View style={[LNPStyles.container]}>
-        <View style={{height:25,flexDirection:"row"}}>
-          <View style={LNPStyles.iptWrap} >
-          <Input type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
-            this.setState({text: text.replace(/[^\d]/g,'')})
-          }} defaultValue={this.state.text}></Input></View>
-          <View style={[LNPStyles.btnWrap]}>
-            <TouchableOpacity onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></TouchableOpacity>
-          </View>
-        </View>
-        <View style={{flex:1,flexDirection:"row", alignItems:"center", paddingTop: 12}}>
+        { this._renderInputWrapper() }
+        <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend', event: 'click'}}
             title="推荐贷款"

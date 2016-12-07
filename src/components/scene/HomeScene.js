@@ -48,7 +48,7 @@ export default class HomeScene extends AbstractScene {
         <ScrollView>
           <Banner />
           <LoanNavPanel />
-          <Broadcast />
+          { this._renderBroadcast() }
           <RecommendListPanel/>
           {this._renderLoan()}
           {this._renderCard()}
@@ -57,6 +57,10 @@ export default class HomeScene extends AbstractScene {
         <SecretGardenModal onCancel={() => this.setState({showSecret: false})} visible={this.state.showSecret}/>
       </View>
     );
+  }
+
+  _renderBroadcast() {
+    return !this.props.iosFetched || this.props.isIOSVerifying ? null : <Broadcast />;
   }
 
   _pressIcon(iconKey) {
@@ -121,7 +125,7 @@ export default class HomeScene extends AbstractScene {
   }
 
   _renderLoan(){
-    return(
+    return !this.props.iosFetched || this.props.isIOSVerifying ? null : (
       <View style={{marginTop:5}}>
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>大额贷款</Text>
@@ -129,11 +133,11 @@ export default class HomeScene extends AbstractScene {
         <LoanBanner/>
         <LoanList/>
       </View>
-    )
+    );
   }
 
   _renderCard(){
-    return(
+    return !this.props.iosFetched || this.props.isIOSVerifying ? null : (
       <View style={{marginTop:5}}>
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>办卡精选</Text>
@@ -147,7 +151,7 @@ export default class HomeScene extends AbstractScene {
         </View>
         <CategoryListContainer/>
       </View>
-    )
+    );
   }
 }
 
