@@ -54,11 +54,7 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   changeAmount(amount) {
-    clearTimeout(this.changeFlag);
-    this.state.amount = amount;
-    this.changeFlag = setTimeout(() => {
-      this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
-    }, 600);
+    this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
   }
 
   render() {
@@ -88,7 +84,8 @@ export default class LoanDetailScene extends PureComponent {
                     underlineColorAndroid={'transparent'}
                     style={[styles.selectBox, styles.pickerTxt]}
                     keyboardType={'numeric'}
-                    onChangeText={(amount) => this.changeAmount(amount)}
+                    onChangeText={(amount) => { this.state.amount = amount; }}
+                    onBlur={(amount) => this.changeAmount(amount)}
                     defaultValue={this.state.amount}/>
                   <Text>元</Text>
                 </View>
