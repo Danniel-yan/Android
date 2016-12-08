@@ -1,5 +1,27 @@
 export const mockData = {
-
+  '/blaclist/check-free': {
+    "res": 1,
+    "data": {
+        "result": 0 //1=免费查询过，0=未免费查询过
+    }
+  },
+  '/blaclist/check-list': {
+    "res": 1,
+    "data": [
+        {
+            "realname": "李冬二", //姓名
+            "id_num": "320681199001167011", //身份证号码
+            "mobile": "13890029233",  //手机号码
+            "time_update": "2017-02-15 11:13:13" //查询时间
+        },
+        {
+            "realname": "李冬三",
+            "id_num": "320681199001167011",
+            "mobile": "13890029233",
+            "time_update": "2017-02-15 10:27:37"
+        }
+    ]
+  },
 
   '/blaclist/create': {
     "res": 1,

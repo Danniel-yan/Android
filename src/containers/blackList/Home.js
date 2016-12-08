@@ -29,7 +29,7 @@ class blackListHome extends Component {
     return(
       <View style={{flex : 1}}>
         <View style={styles.top}>
-          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >70 ? '立即查询' : '去完善'})}
+          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
           {this._renderNavItem('已有网贷征信报告',{toKey : 'CreditReport', title : '网贷征信报告'},{status : false ? '去完善' : '立即查看'})}
         </View>
         <View style={styles.bottom}>
@@ -268,20 +268,23 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { FreeStatus, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
+import { FreeStatus, BlackListReports, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
   return Object.assign({}, state.blackListData, {
-    isFetching: state.blackListData.isFetcingFree
+    isFetching: state.blackListData.isFetchingFree || state.blackListData.isFetchingReports
   });
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(FreeStatus()),
+    fetching: () => {
+      dispatch(FreeStatus());
+      dispatch(BlackListReports());
+    },
     createTicket: body => dispatch(CreateBlackListTicket(body)),
     initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))
   }

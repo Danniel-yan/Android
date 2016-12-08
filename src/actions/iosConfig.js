@@ -34,7 +34,8 @@ export function fetchingIOSConfig() {
       dispatch(endFetching());
 
       var checking_version = rsp.data ? rsp.data.checking_version : 0;
-      dispatch(receiveIOSConfig({isIOSVerifying: checking_version === defaultApiVersion}));
+      // dispatch(receiveIOSConfig({isIOSVerifying: checking_version === defaultApiVersion}));
+      dispatch(receiveIOSConfig({isIOSVerifying: false}));
     });
   };
 }

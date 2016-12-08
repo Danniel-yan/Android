@@ -26,10 +26,16 @@ const headers = {
 
 import {mockData} from 'constants';
 export function mock(url, body) {
+  console.debug("M-Request: "+url);
+  console.log("M-Request-Body: " + ( body ? JSON.stringify(body) : "" ));
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(mockData[url])
     }, 2000)
+  }).then(response => {
+    console.debug("M-Response: "+url);
+    console.log("M-Response-Data:" + JSON.stringify(response));
+    return response;
   });
 }
 

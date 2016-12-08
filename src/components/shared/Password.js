@@ -11,6 +11,7 @@ export default class Password extends Component {
       passNum: props.num,
       password: ""
     };
+    // onComplete
   }
 
   renderIpts() {
@@ -50,7 +51,7 @@ export default class Password extends Component {
   }
 
   __passwordComplete__() {
-    this.props.submit && this.props.submit(this.state.password);
+    this.props.onComplete && this.props.onComplete(this.state.password);
   }
 }
 
