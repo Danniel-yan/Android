@@ -10,7 +10,6 @@ import {
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
-import WebLink from 'components/shared/WebLink';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
@@ -202,9 +201,9 @@ export default class LoanDetailScene extends PureComponent {
 
     if(hasLogin) {
       return (
-        <WebLink
+        <ExternalPushLink
           tracking={{key: 'detail', topic: 'btn_sec', entity: 'application', event: 'click'}}
-          style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" url={this.props.detail.url || ''} title={this.props.detail.title}/>
+          style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" web={this.props.detail.url || ''} title={this.props.detail.title}/>
       );
     }
 

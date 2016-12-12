@@ -58,14 +58,14 @@ class Link extends Component {
   }
 
   _onPress() {
-    let { onPress, toKey, toComponent, title } = this.props;
+    let { onPress, toKey, toComponent, title, ...props } = this.props;
 
     Promise.resolve(this.props.prePress()).then(() => {
       onPress({
+        ...props,
         title,
         key: toKey,
-        component: toComponent,
-        componentProps: this.props.componentProps
+        component: toComponent
       });
     })
     .catch(console.log)

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import CarouselGenerator from './high-order/CarouselGenerator';
-import WebLink from 'components/shared/WebLink'
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import { window } from 'styles';
 
@@ -34,14 +34,14 @@ class BannerCarousel extends Component {
       this.imageItems = [];
       imgs.map((imgInfo, idx) => {
         this.imageItems.push(
-            <WebLink
+            <ExternalPushLink
               tracking={{key: 'homepage', topic: 'carousel', entity: idx, event: 'click'}}
-              url={imgInfo.url} key={idx}>
+              web={imgInfo.url} key={idx}>
 
               <View style={{width:screenWidth}}>
                 <Image source={{ uri: imgInfo.pic}} style={{width:screenWidth, height:configs.height}}></Image>
               </View>
-            </WebLink>
+            </ExternalPushLink>
           );
       });
     }

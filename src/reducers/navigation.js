@@ -40,7 +40,17 @@ export default function navigation(state = initState, action) {
     case 'externalPush':
       return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
-      return NavigationStateUtils.pop(state);
+      if (state.index <= 0) {
+        return state;
+      }
+
+      const routes = state.routes.slice(0, -action.num);
+
+      return {
+        ...state,
+        index: routes.length - 1,
+        routes
+      };
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
     case 'externalJumpTo':

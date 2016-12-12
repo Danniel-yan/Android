@@ -5,7 +5,7 @@ import Text from 'components/shared/Text';
 import { colors } from 'styles/varibles';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
-import WebLink from 'components/shared/WebLink'
+import { ExternalPushLink } from 'containers/shared/Link';
 
 export default class CardListScene extends Component {
 
@@ -22,7 +22,7 @@ export default class CardListScene extends Component {
           nomore={nomore}>
 
           { this.props.cardList.map((cardList,index) =>
-            <WebLink key={'key' + index } url={cardList.link} title="申请信用卡">
+            <ExternalPushLink key={'key' + index } web={cardList.link} title="申请信用卡">
               <View style={styles.list}>
                 <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
                 <View style={{flex: 1}}>
@@ -31,7 +31,7 @@ export default class CardListScene extends Component {
                   <Text><Text style={{color:'#ff6d17'}}>{cardList.num}</Text>人申请</Text>
                 </View>
               </View>
-            </WebLink>
+            </ExternalPushLink>
           )
           }
         </ScrollPagination>

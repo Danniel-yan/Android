@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: params => dispatch(fetchActHotDetail(params.id))
+    fetching: id => dispatch(fetchActHotDetail(id))
   }
 }
 

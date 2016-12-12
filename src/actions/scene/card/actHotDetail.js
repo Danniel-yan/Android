@@ -6,10 +6,11 @@ export function requestActHotDetail() {
   }
 }
 
-export function receiveActHotDetail(detail) {
+export function receiveActHotDetail(detail, id) {
   return {
     type: 'receiveActHotDetail',
-    detail: detail
+    detail: detail,
+    fetchedParams: id
   }
 }
 
@@ -20,7 +21,7 @@ export function fetchActHotDetail(id) {
     dispatch(requestActHotDetail())
 
     return get(`/card/act-detail?act_id=${id}`)
-      .then(response => dispatch(receiveActHotDetail(response.data)))
+      .then(response => dispatch(receiveActHotDetail(response.data, id)))
       .catch(err => console.log(err))
   }
 }

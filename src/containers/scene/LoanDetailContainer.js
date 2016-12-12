@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { WebView } from 'react-native';
 import { connect } from 'react-redux';
 
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
@@ -10,7 +9,7 @@ import { fetchLoanDetail } from 'actions/scene/loanDetail';
 import LoanDetail from 'components/scene/LoanDetailScene';
 import fetchLoginUser from 'actions/loginUser';
 
-import { externalPop, externalReplace } from 'actions/navigation';
+import { externalPop, externalPush } from 'actions/navigation';
 
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 
@@ -29,16 +28,11 @@ function mapDispatchToProps(dispatch) {
     fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
       tracker.trackAction('detail', detail.title, 'btn_sec', 'click');
-      dispatch(externalReplace({ componentProps: { url: detail.url}, component: webView, title: detail.title, url: detail.url}))
+      dispatch(externalPush({ title: detail.title, web: detail.url, backCount: 2 }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
   }
 }
 
-function webView(props) {
-  return (
-    <WebView startInLoadingState={true} style={{flex: 1}} source={{uri: props.url}}/>
-  );
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, LoanDetail));

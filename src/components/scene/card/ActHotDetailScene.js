@@ -6,8 +6,8 @@ import { colors } from 'styles/varibles';
 import { window } from 'styles';
 
 import ActDetailBannerContainer from 'containers/scene/card/ActDetailBannerContainer';
-import WebLink from 'components/shared/WebLink'
 
+import { ExternalPushLink } from 'containers/shared/Link';
 import AbstractScene from 'components/scene/AbstractScene.js';
 
 export default class ActHotDetailScene extends AbstractScene {
@@ -47,14 +47,14 @@ export default class ActHotDetailScene extends AbstractScene {
   renderOriginalUrl(url){
     if(url == undefined) return null;
     return(
-      <WebLink url={url}>
+      <ExternalPushLink web={url}>
         <View style={styles.originalUrl}>
           <Text style={{flex:1}}>查看原文</Text>
           <View style={{flexDirection: 'row',alignItems: 'center',paddingRight:15}}>
             <Image source={require('assets/index-icons/icon_next.png')}/>
           </View>
         </View>
-      </WebLink>
+      </ExternalPushLink>
     )
   }
 }

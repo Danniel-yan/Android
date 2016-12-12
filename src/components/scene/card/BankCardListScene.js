@@ -5,13 +5,11 @@ import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
-import WebLink from 'components/shared/WebLink'
+import { ExternalPushLink } from 'containers/shared/Link';
 
 export default class BankCardListScene extends Component {
 
   render() {
-
-    console.log(this.props.cardList)
 
     let { isPaging, pagination, paginationParams, nomore } = this.props;
 
@@ -32,7 +30,7 @@ export default class BankCardListScene extends Component {
                   <Text style={styles.info}>{cardList.info}</Text>
                 </View>
                 <View style={styles.applyBtn}>
-                  <WebLink title="申请信用卡" url={cardList.link}><Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text></WebLink>
+                  <ExternalPushLink title="申请信用卡" web={cardList.link}><Text style={{color:'#ffaf32',fontSize:13}}>立即申请</Text></ExternalPushLink>
                 </View>
               </View>
           )
