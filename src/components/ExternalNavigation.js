@@ -111,6 +111,10 @@ export default class ExternalNavigation extends Component {
     }
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     return (
       <Navigator
