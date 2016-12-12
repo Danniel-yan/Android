@@ -5,6 +5,13 @@ export function externalPush(route) {
   };
 }
 
+export function externalReplace(route) {
+  return {
+    type: 'externalReplace',
+    route
+  };
+}
+
 export function externalPop() {
   return {
     type: 'externalPop'

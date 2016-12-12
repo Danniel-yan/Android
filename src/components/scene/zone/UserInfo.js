@@ -100,7 +100,7 @@ export default class UserInfo extends AbstractScene {
           <View style={styles.optional}>
             <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
-            <FormGroup style={styles.optionalGroup} label="职业身份">
+            <FormGroup label="职业身份">
               <Picker
                 style={styles.pickerGroup}
                 textStyle={styles.pickerTxt}
@@ -109,7 +109,7 @@ export default class UserInfo extends AbstractScene {
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
 
-            <FormGroup style={styles.optionalGroup} label="有无信用卡资质">
+            <FormGroup label="有无信用卡资质">
               <Checkbox
                 style={styles.pickerGroup}
                 checked={this.state.creditStatus == true}
@@ -172,10 +172,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.line,
     justifyContent: 'center'
-  },
-
-  optionalGroup: {
-    backgroundColor: '#f5f5f5',
   },
 
   optionalTxt: {

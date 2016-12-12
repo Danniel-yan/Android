@@ -21,6 +21,7 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
+import WebLink from 'components/shared/WebLink';
 
 import { DeviceSwitchComponent } from 'components/high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';
@@ -42,6 +43,7 @@ export default class FillUserInfo extends AbstractScene {
     let loginUser = props.loginUser.info || {};
 
     this.state = {
+      checkedAgreement: true,
       username: loginUser.username,
       editableMobile: !loginUser.username,
       realname: loginUser.realname || '',
@@ -62,12 +64,13 @@ export default class FillUserInfo extends AbstractScene {
   }
 
   render() {
-    let { username, verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
+    let { editableMobile, checkedAgreement, username, verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
 
     const validMobile = validators.mobile(mobile);
-    const validVerifyCode = verifyCode.length == 6;
+    const validVerifyCode = !editableMobile || editableMobile && verifyCode.length == 6;
     const validName = realname.length >= 2;
     const validID = validators.idNO(idNO);
+    const validAgreement = !editableMobile || editableMobile && checkedAgreement;
 
     return (
       <View style={defaultStyles.container}>
@@ -99,12 +102,13 @@ export default class FillUserInfo extends AbstractScene {
               keyboardType="numeric"
               maxLength={11}
               value={username || mobile}
-              editable={this.state.editableMobile}
+              editable={editableMobile}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'mobile')}
             />
           </FormGroup>
 
+          { editableMobile && (
           <FormGroup label="输入验证码">
             <View style={[defaultStyles.rowContainer, defaultStyles.centering]}>
 
@@ -122,11 +126,12 @@ export default class FillUserInfo extends AbstractScene {
               </View>
             </View>
           </FormGroup>
+          )}
 
           <View style={styles.optional}>
             <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
-            <FormGroup style={styles.optionalGroup} label="职业身份">
+            <FormGroup label="职业身份">
               <Picker
                 style={styles.pickerGroup}
                 value={job}
@@ -134,7 +139,7 @@ export default class FillUserInfo extends AbstractScene {
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
 
-            <FormGroup style={styles.optionalGroup} label="有信用卡资质">
+            <FormGroup label="有信用卡资质">
 
               <Checkbox
                 style={styles.pickerGroup}
@@ -144,15 +149,29 @@ export default class FillUserInfo extends AbstractScene {
 
             </FormGroup>
 
+
+            { editableMobile  && (
+              <View style={styles.txtRow}>
+                <Checkbox checked={checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
+                <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
+                <WebLink
+                  source={require('./agreement.html')}
+                  toKey="Agreement"
+                  text="《钞市服务协议》" title="《钞市服务协议》"
+                />
+              </View>
+            )}
+
           </View>
 
         </ScrollView>
 
         <View style={styles.footer}>
+
           <LoanButton
             processing={this.props.update.submitting}
             style={styles.btn}
-            disabled={!(validName && validMobile && validVerifyCode && validID)}
+            disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}
             onPress={this._submit.bind(this)}/>
         </View>
       </View>
@@ -160,7 +179,6 @@ export default class FillUserInfo extends AbstractScene {
   }
 
   _sendVerify() {
-    console.log('.......................1');
     post('/tool/send-verify-code', { mobile: this.state.mobile})
       .catch(console.log)
   }
@@ -225,10 +243,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  optionalGroup: {
-    backgroundColor: '#f5f5f5',
-  },
-
   optionalTxt: {
     color: '#999',
   },
@@ -239,5 +253,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     alignItems: 'center',
     justifyContent: 'flex-end'
-  }
+  },
+
+  txtRow: {
+    marginTop: 10,
+    flexDirection: 'row',
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });
