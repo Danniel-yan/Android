@@ -15,6 +15,7 @@ import CountdownButton from 'components/shared/CountdownButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
+import Checkbox from 'components/shared/Checkbox';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
@@ -29,6 +30,7 @@ export default class Login extends Component {
   state = {
     verifyCode: '',
     mobile: '',
+    checkedAgreement: true,
     submitting: false
   };
 
@@ -67,7 +69,8 @@ export default class Login extends Component {
         </View>
 
         <View style={styles.txtRow}>
-          <Text>阅读并接受</Text>
+          <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
+          <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
           <WebLink
             source={require('./agreement.html')}
             toKey="Agreement"
@@ -75,7 +78,7 @@ export default class Login extends Component {
           />
         </View>
 
-        <ProcessingButton processing={this.state.submitting} disabled={!mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
+        <ProcessingButton processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
       </View>
     );
   }
