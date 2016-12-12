@@ -166,13 +166,15 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffaf32',
     borderRadius:2,
     marginRight:10,
-    paddingHorizontal:3
+    paddingHorizontal:3,
+    height:22
   },
   discount:{
     backgroundColor:'#ef6c6c',
     borderRadius:2,
     marginRight:10,
-    paddingHorizontal:3
+    paddingHorizontal:3,
+    height:22
   },
   act:{
     paddingLeft:10,

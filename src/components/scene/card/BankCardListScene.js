@@ -11,8 +11,6 @@ export default class BankCardListScene extends Component {
 
   render() {
 
-    console.log(this.props.cardList)
-
     let { isPaging, pagination, paginationParams, nomore } = this.props;
 
     return (

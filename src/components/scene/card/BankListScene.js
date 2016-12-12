@@ -18,14 +18,15 @@ export default class BankListScene extends Component{
     this.state = {
       length:this.props.bankList.length,
       bankList: []
-    };
+    }
   }
 
   componentDidMount() {
     if(this.state.length > 8){
       this.setState({bankList: this.props.bankList.slice(0,7)})
+    }else{
+      this.setState({bankList: this.props.bankList})
     }
-    this.setState({bankList: this.props.bankList})
   }
 
   render(){
