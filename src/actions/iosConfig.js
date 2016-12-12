@@ -24,7 +24,7 @@ export function fetchingIOSConfig() {
   return function(dispatch) {
     dispatch(startFetching());
 
-    if(Platform == "android") {
+    if(Platform.OS == "android") {
       dispatch(endFetching());
       dispatch(receiveIOSConfig({isIOSVerifying: false}))
       return;
