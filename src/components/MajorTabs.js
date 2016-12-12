@@ -48,7 +48,7 @@ let tabs = [{
 class MajorTabs extends Component {
 
   render() {
-    var iconCardIdxForHide = this.props.isIOSVerifying ? 2 : null;
+    var iconCardSceneForHide = this.props.isIOSVerifying ? "CardScene" : null;
 
     return (
       <View>
@@ -56,7 +56,7 @@ class MajorTabs extends Component {
         <View style={[styles.tabs, this.props.style]}>
           {
             tabs.map((tab, index) => {
-              if(index === iconCardIdxForHide)
+              if(tab.sceneKey === iconCardSceneForHide)
                 return null;
               return <Tab isActive={this.props.curTab == tab.sceneKey } key={`majorTab${index}`} onPress={this.props.onMajorTabChange} {...tab}/>;
             })
