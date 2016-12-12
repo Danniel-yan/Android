@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 import CarouselGenerator from './high-order/CarouselGenerator';
-import WebLink from 'components/shared/WebLink'
+import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
+import Loading from 'components/shared/Loading'
 
 import { window } from 'styles';
 
@@ -34,14 +35,15 @@ class BannerCarousel extends Component {
       this.imageItems = [];
       imgs.map((imgInfo, idx) => {
         this.imageItems.push(
-            <WebLink
+            <ExternalPushLink
+              web={imgInfo.url}
               tracking={{key: 'homepage', topic: 'carousel', entity: idx, event: 'click'}}
-              url={imgInfo.url} key={idx}>
+              key={idx}>
 
               <View style={{width:screenWidth}}>
-                <Image source={{ uri: imgInfo.pic}} style={{width:screenWidth, height:configs.height}}></Image>
+                <Image source={{ uri: imgInfo.pic }} style={{width:screenWidth, height:configs.height}}></Image>
               </View>
-            </WebLink>
+            </ExternalPushLink>
           );
       });
     }
@@ -50,11 +52,11 @@ class BannerCarousel extends Component {
       this.generateInfos();
       var Carousel =  CarouselGenerator(configs)(this.imageItems);
 
-      return !this.props.iosFetched || this.props.isIOSVerifying ? (
+      return !this.props.iosFetched ? (<Loading />) : (this.props.isIOSVerifying ? (
         <View style={{height:configs.height}}>
           <Image source={ require('assets/ChaoshiBanner.jpeg') } style={{width:screenWidth, height:configs.height}}></Image>
         </View>
-      ) : React.createElement(Carousel, { height:configs.height });
+      ) : React.createElement(Carousel, { height:configs.height }));
     }
 }
 
