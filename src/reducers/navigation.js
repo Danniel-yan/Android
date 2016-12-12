@@ -41,6 +41,8 @@ export default function navigation(state = initState, action) {
       return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
       return NavigationStateUtils.pop(state);
+    case 'externalReplace':
+      return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
     case 'externalJumpTo':
       return NavigationStateUtils.jumpTo(state, action.key);
     case 'externalJumpToIndex':

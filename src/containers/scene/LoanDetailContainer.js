@@ -10,7 +10,7 @@ import { fetchLoanDetail } from 'actions/scene/loanDetail';
 import LoanDetail from 'components/scene/LoanDetailScene';
 import fetchLoginUser from 'actions/loginUser';
 
-import { externalPop, externalPush } from 'actions/navigation';
+import { externalPop, externalReplace } from 'actions/navigation';
 
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
     fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
       tracker.trackAction('detail', detail.title, 'btn_sec', 'click');
-      dispatch(externalPush({ componentProps: { url: detail.url}, component: webView, title: detail.title, url: detail.url}))
+      dispatch(externalReplace({ componentProps: { url: detail.url}, component: webView, title: detail.title, url: detail.url}))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
   }

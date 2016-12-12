@@ -114,12 +114,12 @@ export default class LoanDetailScene extends PureComponent {
             {
               sectionList.map((item, idx) => {
                 return (item != "processIcon") ? (
-                  <View key={idx} style={{flex: 8, alignItems: 'center', justifyContent: "center", flexDirection: "column"}}>
-                    <Image style={{width:36,height:36}} source={{uri:item.img.x3}} />
+                  <View key={idx} style={{flex: 6, alignItems: 'center', justifyContent: "flex-start", flexDirection: "column"}}>
+                    <Image style={{width:36,height:36}} source={{uri:item.img.x2}} />
                     <Text style={{marginTop:8, textAlign:"center"}}>{item.name}</Text>
                   </View>
                 ) : (
-                  <View key={idx} style={{flex:1, alignItems: 'center',  justifyContent: "center", flexDirection: "column", paddingBottom: 20}}>
+                  <View key={idx} style={{flex:1, alignItems: 'center',  justifyContent: "flex-start", flexDirection: "column", paddingBottom: 20,marginTop:15}}>
                     <Image source={require('assets/icons/jiantou.png')}/>
                   </View>
                 )

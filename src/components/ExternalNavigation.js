@@ -76,6 +76,8 @@ export default class ExternalNavigation extends Component {
       this.nav.pop()
     } else if(routes.length < nextNavigation.routes.length) {
       this.nav.push(nextNavigation.routes[nextNavigation.index])
+    } else if(routes.slice(-1)[0].key != nextNavigation.routes.slice(-1)[0].key) {
+      this.nav.replace(nextNavigation.routes[nextNavigation.index]);
     }
 
   }
