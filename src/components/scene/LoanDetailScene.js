@@ -30,14 +30,15 @@ export default class LoanDetailScene extends PureComponent {
     this.sceneTopic = "detail";
     this.sceneKey = "loan";
 
+    var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
+
     this.state = {
-      amount: String(props.detail.amount_min),
-      value: props.detail.period_list[0],
-      id: props.detail.id
+      amount: repayParams ? repayParams.amount.toString() : String(props.detail.amount_min),
+      value: repayParams ? repayParams.period : props.detail.period_list[0],
+      id: repayParams ? repayParams.id : props.detail.id
     };
 
     this.changeFlag = null;
-
   }
 
   componentWillMount() {
@@ -49,6 +50,9 @@ export default class LoanDetailScene extends PureComponent {
       })
     }
 
+    var fetchedParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
+
+    if(fetchedParams && fetchedParams.amount == parseInt(this.state.amount) && fetchedParams.period == this.state.value && fetchedParams.id == this.state.id) return;
     this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
   }
 
@@ -57,7 +61,6 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if(nextProps.repayCalc.error){
       this.setState({amount: String(nextProps.repayCalc.fetchedParams.amount)});
     }
