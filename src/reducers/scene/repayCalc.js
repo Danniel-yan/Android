@@ -7,7 +7,10 @@ export default function repayCalc(state = initState, action) {
     case 'receiveRepayCalc':
       return Object.assign({}, state, { isFetching: false, fetched: true, fetchedParams: action.fetchedParams, repayCalc: action.repayCalc } )
     case 'receiveError':
-      return Object.assign({}, state, { fetched: true, error: true })
+      return Object.assign({}, state, { fetched: true, error: true });
+    case 'fetchParamsReset':
+      if(!state.fetchedParams || action.loanId !== state.fetchedParams.id) state.fetchedParams = null;
+      return Object.assign({}, state);
     default:
       return state
   }

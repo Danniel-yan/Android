@@ -6,6 +6,13 @@ export function requestRepayCalc(){
   }
 }
 
+export function fetchParamsReset(id) {
+  return {
+    type: 'fetchParamsReset',
+    loanId: id
+  }
+}
+
 export function receiveRepayCalc(repayCalc, fetchedParams){
   return {
     type : 'receiveRepayCalc',
