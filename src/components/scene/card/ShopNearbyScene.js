@@ -64,7 +64,7 @@ class List extends Component {
     let props = this.props;
     return(
       <View>
-        <View style={[styles.flexContainerRow,styles.bgColorWhite,{marginTop:5}]}>
+        <View style={[styles.flexContainerRow,styles.bgColorWhite]}>
           <Image source={{uri: props.logo_url}} style={styles.cardPic} />
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{props.shop_name}</Text>
@@ -113,7 +113,10 @@ class List extends Component {
                   <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
                 </View>
                 <View style={{flex:8}}>
-                  <Text style={{fontSize:16,color:'#666'}}>{act.title}</Text>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={{fontSize:16,color:'#666', height: 22, lineHeight: 22}}>{act.title}</Text>
                 </View>
                 <View style={styles.flexEnd}>
                   <Image source={iconNext} />

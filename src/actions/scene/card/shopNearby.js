@@ -23,7 +23,7 @@ export default function( offset = 0) {
           dispatch(geoError());
         }
       })
-      .catch(err => dispatch(getoError()))
+      .catch(err => dispatch(geoError()))
     }, err => dispatch(geoError()))
 
   }
