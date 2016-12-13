@@ -1,4 +1,4 @@
-const initState = { isFetching: true, fetched: false, fetchedParams: null, repayCalc:[]};
+const initState = { isFetching: true, fetched: false, fetchedParams: null, params:null, repayCalc:[], error: false};
 
 export default function repayCalc(state = initState, action) {
   switch(action.type) {
@@ -6,6 +6,8 @@ export default function repayCalc(state = initState, action) {
       return Object.assign({}, state, { isFetching: true , fetched: false});
     case 'receiveRepayCalc':
       return Object.assign({}, state, { isFetching: false, fetched: true, fetchedParams: action.fetchedParams, repayCalc: action.repayCalc } )
+    case 'receiveError':
+      return Object.assign({}, state, { fetched: true, error: true })
     default:
       return state
   }

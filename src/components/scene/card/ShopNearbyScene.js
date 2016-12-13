@@ -112,7 +112,7 @@ class List extends Component {
                 <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
                   <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
                 </View>
-                <View>
+                <View style={{flex:8}}>
                   <Text style={{fontSize:16,color:'#666'}}>{act.title}</Text>
                 </View>
                 <View style={styles.flexEnd}>
@@ -166,15 +166,19 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffaf32',
     borderRadius:2,
     marginRight:10,
+    height:22,
     paddingHorizontal:3,
-    height:22
+    justifyContent: 'center',
+    alignItems:'center',
   },
   discount:{
     backgroundColor:'#ef6c6c',
     borderRadius:2,
     marginRight:10,
+    height:22,
     paddingHorizontal:3,
-    height:22
+    justifyContent: 'center',
+    alignItems:'center',
   },
   act:{
     paddingLeft:10,

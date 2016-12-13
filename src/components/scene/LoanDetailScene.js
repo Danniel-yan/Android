@@ -57,6 +57,11 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   render() {
+
+    if(this.props.repayCalc.error){
+      this.state.amount = String(this.props.repayCalc.fetchedParams.amount)
+    }
+
     let detail = this.props.detail;
     let sectionList = [], length = detail.apply_list.length;
     detail.apply_list.map((item, idx) => { sectionList.push(item); if(idx !== length - 1) sectionList.push("processIcon"); })

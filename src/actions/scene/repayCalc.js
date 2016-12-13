@@ -1,4 +1,4 @@
-import { post } from 'utils/fetch';
+import { post, responseStatus } from 'utils/fetch';
 
 export function requestRepayCalc(){
   return {
@@ -13,6 +13,13 @@ export function receiveRepayCalc(repayCalc, fetchedParams){
     fetchedParams: fetchedParams
   }
 }
+
+export function receiveError(){
+  return{
+    type: 'receiveError'
+  }
+}
+
 export function fetchRepayCalc(params){
 
   return function (dispatch){
@@ -20,7 +27,13 @@ export function fetchRepayCalc(params){
     dispatch(requestRepayCalc())
 
     post(`/loan/repay-calc`,{ id: params.id , amount: params.amount, period: params.period})
-      .then(response => dispatch(receiveRepayCalc(response.data)))
+      .then(response => {
+        if(response.res === responseStatus.success) {
+          dispatch(receiveRepayCalc(response.data, params))
+        }else{
+          dispatch(receiveError());
+        }
+      })
       .catch(err => console.log(err))
   }
 }
