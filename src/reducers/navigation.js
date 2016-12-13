@@ -23,22 +23,34 @@ const initState = {
     HomeScene: {
       index: 0,
       isActive: true,
-      routes: [{ key: 'HomeScene'}]
+      routes: [{ key: 'HomeScene'}],
+      text: '首页',
+      icon: iconHome,
+      activeIcon: iconHomeActive
     },
 
     LoanScene: {
       index: 0,
-      routes: [{ key: 'LoanScene'}]
+      routes: [{ key: 'LoanScene'}],
+      text: '贷款',
+      icon: iconLoan,
+      activeIcon: iconLoanActive
     },
 
     CardScene: {
       index: 0,
-      routes: [{ key: 'CardScene'}]
+      routes: [{ key: 'CardScene'}],
+      text: '办卡',
+      icon: iconCard,
+      activeIcon: iconCardActive
     },
 
     ZoneScene: {
       index: 0,
-      routes: [{ key: 'ZoneScene'}]
+      routes: [{ key: 'ZoneScene'}],
+      text: '我的',
+      icon: iconZone,
+      activeIcon: iconZoneActive
     },
   }],
   tabs: [{
@@ -154,7 +166,7 @@ function majorTab(state, tabName) {
     ...major,
     curTab: tabName,
     [curTab]: curScene,
-    [nextScene]: nextScene
+    [tabName]: nextScene
   };
 
   return updateMajor(state, major);

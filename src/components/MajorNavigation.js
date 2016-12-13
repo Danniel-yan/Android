@@ -8,16 +8,16 @@ const { CardStack: NavigationCardStack } = NavigationExperimental;
 
 export default class MajorNavigation extends Component {
   render() {
-    let { navigation, tabs } = this.props;
+    let { navigation } = this.props;
     let tabRoutes = navigation[navigation.curTab];
-    let Compo = modules[tabRoutes.routes[0].key]
+    let Compo = modules[tabRoutes.routes[0].key];
 
     return (
       <View style={styles.container}>
         <View style={styles.scene}>
           <Compo/>
         </View>
-        <MajorTabs tabs={tabs} curTab={navigation.curTab} onMajorTabChange={this.props.majorTab}/>
+        <MajorTabs nav={navigation} curTab={navigation.curTab} onMajorTabChange={this.props.majorTab}/>
       </View>
     );
   }

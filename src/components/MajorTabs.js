@@ -16,7 +16,11 @@ class MajorTabs extends Component {
 
   render() {
     var iconCardSceneForHide = this.props.isIOSVerifying ? "CardScene" : null,
-      tabs = this.props.tabs || [];
+      nav = this.props.nav, tabs =  [];
+
+    for(var key in nav) {
+      if(typeof nav[key] == "object" && typeof nav[key].icon) tabs.push(Object.assign({}, nav[key], {sceneKey: key}));
+    }
 
     return (
       <View>
