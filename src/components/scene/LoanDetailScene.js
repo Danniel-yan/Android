@@ -56,11 +56,14 @@ export default class LoanDetailScene extends PureComponent {
     this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
   }
 
-  render() {
+  componentWillReceiveProps(nextProps) {
 
-    if(this.props.repayCalc.error){
-      this.state.amount = String(this.props.repayCalc.fetchedParams.amount)
+    if(nextProps.repayCalc.error){
+      this.setState({amount: String(nextProps.repayCalc.fetchedParams.amount)});
     }
+  }
+
+  render() {
 
     let detail = this.props.detail;
     let sectionList = [], length = detail.apply_list.length;
@@ -88,9 +91,9 @@ export default class LoanDetailScene extends PureComponent {
                     underlineColorAndroid={'transparent'}
                     style={[styles.selectBox, styles.pickerTxt]}
                     keyboardType={'numeric'}
-                    onChangeText={(amount) => { this.state.amount = amount; }}
+                    onChangeText={(amount) => { this.setState({amount}); }}
                     onBlur={(amount) => this.changeAmount(amount)}
-                    defaultValue={this.state.amount}/>
+                    value={this.state.amount}/>
                   <Text>元</Text>
                 </View>
                 <Text>额度范围: {detail.amount_showinfo}</Text>
