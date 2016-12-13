@@ -47,6 +47,14 @@ export default class ZoneScene extends AbstractScene {
     }
   }
 
+  componentDidUpdate() {
+    AsyncStorage.getItem('userToken').then(userToken => {
+      if(this.state.hasToken != !!userToken) {
+        this.setState({ hasToken: !!userToken });
+      }
+    })
+  }
+
   render() {
     let logined = this.state.hasToken || this.props.loginUser.info;
 
