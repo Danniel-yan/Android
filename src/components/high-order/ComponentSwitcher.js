@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
-import Loading from 'components/shared/Loading';
+import DefaultLoading from 'components/shared/Loading';
 import { fetchingIOSConfig } from 'actions/iosConfig';
 
 export function DeviceSwitchComponent(AndroidCp, IOSCp) {
@@ -43,6 +43,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export function IOSComponentSwitcher(SwitchComponent) {
+export function IOSComponentSwitcher(SwitchComponent, Loading = DefaultLoading) {
   return connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, SwitchComponent));
 }

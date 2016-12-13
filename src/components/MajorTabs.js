@@ -39,7 +39,7 @@ class MajorTabs extends Component {
 
 }
 
-export default IOSComponentSwitcher(MajorTabs);
+export default IOSComponentSwitcher(MajorTabs, null);
 
 class Tab extends Component {
   render() {
