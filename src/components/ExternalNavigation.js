@@ -83,7 +83,7 @@ export default class ExternalNavigation extends Component {
   }
 
   _renderScene(route, navigator) {
-    let { web, key, title, component: ComponentClass, componentProps } = route;
+    let { web, backCount, key, title, component: ComponentClass, componentProps } = route;
 
     if(web && !ComponentClass) {
       ComponentClass = WebViewGenerator(route);
@@ -94,7 +94,7 @@ export default class ExternalNavigation extends Component {
     }
 
     if(route.index !== 0) {
-      ComponentClass = externalScene(ComponentClass, title);
+      ComponentClass = externalScene(ComponentClass, { title, backCount });
     }
 
     return React.createElement(ComponentClass , { ...componentProps, navigator});

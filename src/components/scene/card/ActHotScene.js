@@ -40,7 +40,7 @@ export default class ActHotScene extends Component {
           tracking={{key: 'card', topic: 'Rotation', entity: 'Promotions', event: 'click'}}
           title="活动详情"
           toKey="ActHotDetailScene"
-          componentProps={{fetchingParams: { id: data.id }}}>
+          componentProps={{fetchingParams: data.id }}>
           <Image source={{uri: data.img_banner.x3}} style={styles.cardPic}>
             <Text style={[styles.bankName,{color:'#' + data.font_color}]}>{data.banks[0].name}</Text>
             <Text style={[styles.title,{color:'#' + data.font_color}]}>{data.title}</Text>

@@ -6,7 +6,7 @@ import {
 import * as defaultStyles from 'styles';
 import SceneHeader from 'components/shared/SceneHeader';
 
-export default function(ComponentClass, title) {
+export default function(ComponentClass, config) {
 
   return class ExternalPageComponent extends Component {
     state = { title: undefined };
@@ -15,7 +15,7 @@ export default function(ComponentClass, title) {
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader title={this.state.title || title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
+          <SceneHeader title={this.state.title || config.title || ComponentClass.title || this.props.title} onBack={this.props.onBack}/>
           <View style={[defaultStyles.container, defaultStyles.bg]}>
             <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
           </View>

@@ -9,7 +9,6 @@ import Dimensions from 'Dimensions';
 import iconNext from 'assets/index-icons/icon_next.png';
 
 import { ExternalPushLink } from 'containers/shared/Link';
-import WebLink from 'components/shared/WebLink'
 
 export default class BankListScene extends Component{
 
@@ -38,9 +37,9 @@ export default class BankListScene extends Component{
             this.state.bankList.map((data,index) =>{
               return (data.link) ? (
                 <View key={'key'+index} style={styles.itemViewStyle}>
-                  <WebLink
+                  <ExternalPushLink 
                     tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
-                    title={data.name} url={data.link}>
+                    title={data.name} web={data.link}>
                     <View style={[styles.itemViewStyle,styles.row]}>
                       <Image style={styles.thumb} source={{uri: data.pic_card}} />
                       <View>
@@ -48,7 +47,7 @@ export default class BankListScene extends Component{
                         <Text style={styles.info}>{data.info}</Text>
                       </View>
                     </View>
-                  </WebLink>
+                  </ExternalPushLink>
                 </View>
               ):(
                 <View key={'key'+index} style={styles.itemViewStyle}>
