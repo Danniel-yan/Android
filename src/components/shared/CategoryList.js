@@ -26,7 +26,7 @@ export default class CategoryList extends Component {
           enableEmptySections={true}
           dataSource={dataSource}
           horizontal={true}
-          renderRow={this.renderCard}
+          renderRow={this.renderCard.bind(this)}
           showsHorizontalScrollIndicator={false}
           />
       </View>
@@ -34,9 +34,16 @@ export default class CategoryList extends Component {
   }
 
   renderCard(data, sID, rowID){
+    let tracking = Object.assign({}, this.props.itemTracking, {
+      entity: rowID,
+      event: 'clk',
+      id: data.id,
+      name: data.name
+    });
+
     return(
       <ExternalPushLink
-        tracking={{key: 'card', topic: 'hpg_list', entity: rowID, event: 'click'}}
+        tracking={tracking}
         title={data.name}
         toKey="CardListScene"
         componentProps={{fetchingParams: { categoryid: data.id , bankid: 0, offset:0}}}>

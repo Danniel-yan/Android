@@ -10,9 +10,9 @@ export default class ActHotListScene extends AbstractScene {
 
   constructor(props) {
     super(props);
-    this.sceneEntity = "Promotions";
-    this.sceneKey = "Promotions";
-    this.sceneTopic = "Promotions";
+    this.sceneEntity = "show_list";
+    this.sceneKey = "card";
+    this.sceneTopic = "promotion";
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class ActHotListScene extends AbstractScene {
         {
           props.map((props, index) =>
           <ExternalPushLink
-            tracking={{key: 'Promotions', topic: 'Pro_list', entity: props.id, event: 'click'}}
+            tracking={{key: 'card', topic: 'promotion_list', entity: index, event: 'clk', title: props.title, bank_name: props.banks[0].name}}
             key={'key' + index}
             title="活动详情"
             toKey="ActHotDetailScene"

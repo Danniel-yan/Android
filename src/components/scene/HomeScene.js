@@ -143,13 +143,13 @@ export default class HomeScene extends AbstractScene {
           <Text style={panelStyles.title}>办卡精选</Text>
 
           <MajorTabLink
-            tracking={{key: 'card', topic: 'hpg_list', entity: 'more', event: 'click'}}
+            tracking={{key: 'homepage', topic: 'featured_card', entity: 'more', event: 'clk'}}
             toKey="CardScene" style={panelStyles.addon}>
             <Text style={panelStyles.addonTxt}>更多产品</Text>
             <Image style={panelStyles.addonImg} source={iconNext}/>
           </MajorTabLink>
         </View>
-        <CategoryListContainer/>
+        <CategoryListContainer itemTracking={{key: 'homepage', topic: 'featured_card_list'}}/>
       </View>
     );
   }

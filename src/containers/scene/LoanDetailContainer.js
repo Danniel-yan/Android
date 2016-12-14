@@ -27,7 +27,7 @@ function mapDispatchToProps(dispatch) {
     fetching: id => dispatch(fetchLoanDetail(id)),
     fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
-      tracker.trackAction('detail', detail.title, 'btn_sec', 'click');
+      tracker.trackAction({ key: 'fastloan', topic: 'product_detail', entity: 'apply', event: 'clk'});
       dispatch(externalPush({ title: detail.title, web: detail.url, backCount: 2 }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))

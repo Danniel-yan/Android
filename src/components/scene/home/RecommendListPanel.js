@@ -16,7 +16,7 @@ import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
 import RecommendList from 'components/shared/RecommendList';
 import Loading from 'components/shared/Loading';
 import tracker from 'utils/tracker.js';
-import TrackingPoint from 'components/shared/TrackingPoint';
+import Button from 'components/shared/ButtonBase';
 
 const AsyncRecommendList = AsynCpGenerator(Loading, RecommendList);
 
@@ -29,15 +29,13 @@ export default class RecommendListPanel extends Component {
         <View style={panelStyles.header}>
           <Text style={panelStyles.title}>热门推荐</Text>
 
-          <TrackingPoint
-            tracking={{key: 'loan', topic: 'recommend', entity: 'refresh', event: 'click'}}
-            style={panelStyles.addon} onPress={() => {
-            this.props.fetching(this.props.offset);
-            tracker.trackAction("loan","recommand", "panel", "switch");
-          }}>
+          <Button
+            tracking={{key: 'homepage', topic: 'rec_loan', entity: 'refresh', event: 'clk'}}
+            style={panelStyles.addon} onPress={() => this.props.fetching(this.props.offset)
+          }>
             <Text style={panelStyles.addonTxt}>换一批</Text>
             <Image style={panelStyles.addonImg} source={require('assets/index-icons/icon_huanyihuan.png')}/>
-          </TrackingPoint>
+          </Button>
         </View>
 
         <AsyncRecommendList {...this.props}/>

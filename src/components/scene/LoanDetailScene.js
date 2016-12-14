@@ -213,7 +213,7 @@ export default class LoanDetailScene extends PureComponent {
     if(hasLogin) {
       return (
         <ExternalPushLink
-          tracking={{key: 'detail', topic: 'btn_sec', entity: this.props.detail.title, event: 'click'}}
+          tracking={{key: 'fastloan', topic: 'product_detail', entity: 'apply', event: 'clk'}}
           style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" web={this.props.detail.url || ''} title={this.props.detail.title}/>
       );
     }

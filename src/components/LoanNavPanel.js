@@ -13,6 +13,7 @@ import Input from 'components/shared/Input';
 import tracker from 'utils/tracker.js';
 import { colors, iptFontSize } from "styles/varibles";
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
+import Button from 'components/shared/ButtonBase';
 
 class LoanNavPanel extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class LoanNavPanel extends Component {
   }
 
   onPressNumberBtn() {
-    tracker.trackAction('homepage', 'iwantmoney', 'btn_sec', 'click');
     var amount = parseInt(this.state.text) || null;
     amount && this.props.setAmount && this.props.setAmount(amount);
     this.props.majorTab && this.props.majorTab("LoanScene");
@@ -46,7 +46,7 @@ class LoanNavPanel extends Component {
       AsyncStorage.getItem('environment').then(ev => {
         var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
         pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        tracker.trackAction('homepage', 'credit', 'btn_sec', 'click');
+        tracker.trackAction({key: 'homepage', entity: 'credit_report', topic: 'btn_sec', event: 'clk'});
         // console.log(pbocUrl + "&token=" + token)
         externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
       })
@@ -56,11 +56,15 @@ class LoanNavPanel extends Component {
   _renderInputWrapper() {
     return this.props.isIOSVerifying ? null : (<View style={{height:25,flexDirection:"row", paddingBottom:12}}>
       <View style={LNPStyles.iptWrap} >
-      <Input type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
+      <Input
+        tracking={{key: 'homepage', topic: 'btn_sec', entity: 'amount'}}
+        type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
         this.setState({text: text.replace(/[^\d]/g,'')})
       }} defaultValue={this.state.text}></Input></View>
       <View style={[LNPStyles.btnWrap]}>
-        <TouchableOpacity onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></TouchableOpacity>
+        <Button
+          tracking={{key: 'homepage', topic: 'btn_sec', entity: 'i_want_money', amount: this.state.text}}
+          onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></Button>
       </View>
     </View>);
   }
@@ -71,7 +75,7 @@ class LoanNavPanel extends Component {
         { this._renderInputWrapper() }
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend', event: 'click'}}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend', event: 'clk'}}
             title="推荐贷款"
             toKey="RecLoanScene"
             style={LNPStyles.navItem}>
@@ -79,7 +83,7 @@ class LoanNavPanel extends Component {
             <Text style={LNPStyles.navTxt}>推荐贷款</Text>
           </ExternalPushLink>
           <MajorTabLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan', event: 'click'}}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan', event: 'clk'}}
             title="极速贷款"
             toKey="LoanScene"
             style={LNPStyles.navItem}>

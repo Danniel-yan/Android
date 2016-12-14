@@ -5,18 +5,26 @@ import { StyleSheet } from 'react-native';
 import { colors } from 'styles/varibles';
 import { window } from 'styles';
 
+import tracker from 'utils/tracker';
 import ActDetailBannerContainer from 'containers/scene/card/ActDetailBannerContainer';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 import AbstractScene from 'components/scene/AbstractScene.js';
 
-export default class ActHotDetailScene extends AbstractScene {
+export default class ActHotDetailScene extends Component {
 
   constructor(props) {
     super(props);
-    this.sceneEntity = "detail";
-    this.sceneKey = "detail";
-    this.sceneTopic = "pro_detail";
+
+    let bank = props.banks[0] && props.banks[0].name;
+    tracker.trackAction({
+      key: 'card',
+      entity: 'detail',
+      topic: 'promotion',
+      event: 'landing',
+      title: props.title,
+      bank_name: bank
+    });
   }
 
   render(){

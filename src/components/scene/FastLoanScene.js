@@ -22,7 +22,7 @@ const jobItems = [
 ];
 
 const trackingConfig = {
-  'btn-sec': {
+  'btn_sec': {
     '1': 'Staff',
     '2': 'Businessowner',
     '4': 'Student',
@@ -59,7 +59,7 @@ export default class FastLoanScene extends AbstractScene {
   _trackingFilter(topic, value) {
 
     let entity = trackingConfig[topic] ? trackingConfig[topic][`${value}`] : value;
-    tracker.trackAction('fastloan', entity, topic, 'click');
+    tracker.trackAction({ key: 'fastloan', entity, topic, event: 'clk'});
 
 
 
@@ -71,7 +71,7 @@ export default class FastLoanScene extends AbstractScene {
     this.state.fetchRecParams[name] = value;
     // console.log(this.state.fetchRecParams);
     this.fetchingData();
-    this._trackingFilter('btn-sec', value);
+    this._trackingFilter('btn_sec', value);
     // if(name == "amount" || name == "period") this.props.setLoanInfo && this.props.setLoanInfo(this.state.fetchRecParams);
   }
 
@@ -83,7 +83,7 @@ export default class FastLoanScene extends AbstractScene {
   }
 
   orderSelected(opt) {
-    this._trackingFilter('Sort', opt.value);
+    this._trackingFilter('sort', opt.value);
     this.formValueChanged("order", opt.value);
     this.onToggleDrp("toggleSort");
   }

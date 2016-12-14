@@ -38,7 +38,7 @@ export default class BankListScene extends Component{
               return (data.link) ? (
                 <View key={'key'+index} style={styles.itemViewStyle}>
                   <ExternalPushLink 
-                    tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
+                    tracking={{key: 'card', topic: 'bank_list', entity: index, bank_name: data.name}}
                     title={data.name} web={data.link}>
                     <View style={[styles.itemViewStyle,styles.row]}>
                       <Image style={styles.thumb} source={{uri: data.pic_card}} />
@@ -52,7 +52,7 @@ export default class BankListScene extends Component{
               ):(
                 <View key={'key'+index} style={styles.itemViewStyle}>
                   <ExternalPushLink
-                    tracking={{key: 'bank', topic: 'bank_list', entity: index, event: 'click'}}
+                    tracking={{key: 'card', topic: 'bank_list', entity: index, bank_name: data.name}}
                     title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
                     <View style={[styles.itemViewStyle,styles.row]}>
                       <Image style={styles.thumb} source={{uri: data.pic_card}} />

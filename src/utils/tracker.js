@@ -25,10 +25,12 @@ const BASE_INFO = {
 
 function setupChannel() {
   if(channel) return;
-  channel = true;
 
   getAppSettings().then(appSettings => {
-    BASE_INFO.PARAM += `&channel=` + appSettings.channel 
+    if(!/channel/.test(BASE_INFO.PARAM)) {
+      channel = true;
+      BASE_INFO.PARAM += `&channel=` + appSettings.channel 
+    }
   });
 }
 
@@ -38,47 +40,44 @@ class Tracker {
 
     constructor() {
     	this.brgUmeng = NativeModules.StatisticalEvent;
-   	console.log(this.brgUmeng); 
     }
 
     composeBasicParams(key) {
         return TRACKER_CONFIG.BASIC_URL+"/g/"+TRACKER_CONFIG.APP+"/"+key+"/"+"?"+BASE_INFO.PARAM;
     }
 
-    triggerTracking(key, entity, topic, event) {
+    triggerTracking(config) {
         setupChannel();
-        var urlPrefix = this.composeBasicParams(key);
-        var url = urlPrefix+"&entity="+entity+"&topic="+topic+"&event="+event+"&user="+this.user_id;
+
+        var urlPrefix = this.composeBasicParams(config.key);
+        var url = urlPrefix+"&user="+this.user_id;
+
+        for(let key in config) {
+          url += `&${key}=${encodeURIComponent(config[key])}`
+        }
+
+        console.log('tracking: ' + url);
         fetch(url).then(response => {
             return;
         });
-	// add in umeng tracker
-	this.brgUmeng.onEvent(key+"_"+topic+"_"+entity+"_"+event);
+
+        let { key, topic, entity, event} = config;
+	      // add in umeng tracker
+      	this.brgUmeng.onEvent(key+"_"+topic+"_"+entity+"_"+event);
 	return;
     }
 
-    trackGeneral(key, entity, topic, event) {
-        if (this.user_id != "") {
-            AsyncStorage.getItem('userToken').then(token => {
-                Tracker.user_id = token;
-                this.triggerTracking(key, entity, topic, event);
-            });
-        } else  {
-            this.triggerTracking(key, entity, topic, event);
-        }
-    }
+    trackAction(config) {
+        if (!this.workable) return;
 
-    trackAction(key, entity, topic, event) {
-        if (!this.workable)
-            return;
-        this.trackGeneral(key, entity, topic, event);
+        this.triggerTracking(config);
     }
 
     trackPage(key, entity, topic) {
         if (!this.workable)
             return;
         var event = "landing";
-        this.trackGeneral(key, entity, topic, event);
+        this.triggerTracking({key, entity, topic, event });
     }
 }
 

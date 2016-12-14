@@ -34,7 +34,7 @@ export default class RecommendList extends Component {
   renderRecommend(data, sID, rowID) {
     return(
       <ExternalPushLink
-        tracking={{key: 'loan', topic: 'hpg_list', entity: rowID, event: 'click'}}
+        tracking={{key: 'loan', topic: 'hpg_list', entity: rowID, event: 'clk'}}
         title={data.title}
         toKey="LoanDetailScene"
         componentProps={{fetchingParams: data.id }} >

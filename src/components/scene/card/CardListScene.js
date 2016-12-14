@@ -6,8 +6,20 @@ import { colors } from 'styles/varibles';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
 import { ExternalPushLink } from 'containers/shared/Link';
+import tracker from 'utils/tracker.js';
 
 export default class CardListScene extends Component {
+
+  componentDidMount() {
+    tracker.trackAction({
+      key: 'card',
+      topic: 'type_list',
+      entity: 'type_list',
+      event: 'landing',
+      id: this.props.fetchingParams.id,
+      name: this.props.sceneTitle
+    });
+  }
 
   render() {
 
@@ -22,7 +34,14 @@ export default class CardListScene extends Component {
           nomore={nomore}>
 
           { this.props.cardList.map((cardList,index) =>
-            <ExternalPushLink key={'key' + index } web={cardList.link} title="申请信用卡">
+            <ExternalPushLink
+              tracking={{key: 'card', topic: 'type_list', entity: index, id: cardList.id, card_name: cardList.name, name: this.props.sceneTitle}}
+              key={'key' + index }
+              web={cardList.link}
+              componentProps={{
+                landingTracking: {key: 'card', topic: 'type_list', entity: 'show_form', id: cardList.id, name: this.props.sceneTitle, card_name: cardList.name}
+              }}
+              title="申请信用卡">
               <View style={styles.list}>
                 <Image source={{uri: cardList.pic_card}} style={styles.logo}/>
                 <View style={{flex: 1}}>

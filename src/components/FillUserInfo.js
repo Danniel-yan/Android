@@ -169,6 +169,7 @@ export default class FillUserInfo extends AbstractScene {
         <View style={styles.footer}>
 
           <LoanButton
+            tracking={{key: 'fastloan', topic: 'personal_info', entity: 'apply', event: 'clk'}}
             processing={this.props.update.submitting}
             style={styles.btn}
             disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}

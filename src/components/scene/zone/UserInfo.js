@@ -119,7 +119,9 @@ export default class UserInfo extends AbstractScene {
 
           </View>
 
-          <ProcessingButton color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
+          <ProcessingButton
+            tracking={{key:'my_account', entity: 'login', topic: 'set'}}
+            color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
 
         </ScrollView>
       </View>

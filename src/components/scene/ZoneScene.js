@@ -29,9 +29,9 @@ export default class ZoneScene extends AbstractScene {
       checking: true,
       hasToken: false
     };
-    this.sceneKey = "user";
-    this.sceneTopic = "zone";
-    this.sceneEntity = "";
+    this.sceneKey = "my_account";
+    this.sceneTopic = "my_account";
+    this.sceneEntity = "my_account";
   }
 
   componentDidMount() {
@@ -87,7 +87,10 @@ export default class ZoneScene extends AbstractScene {
           </ExternalPushLink>
           */}
 
-          <ExternalPushLink toKey="ContactScene" title="联系我们">
+          <ExternalPushLink
+            tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'}}
+            toKey="ContactScene" title="联系我们">
+
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/contact.png')}/>
               <Text style={zoneStyles.txt}>联系我们</Text>
@@ -95,7 +98,10 @@ export default class ZoneScene extends AbstractScene {
             </View>
           </ExternalPushLink>
 
-          <ExternalPushLink toKey="SettingScene" title="设置">
+          <ExternalPushLink
+            tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_set'}}
+            toKey="SettingScene" title="设置">
+
             <View style={zoneStyles.item}>
               <Image style={zoneStyles.icon} source={require('assets/zone/setting.png')}/>
               <Text style={zoneStyles.txt}>设置</Text>
@@ -135,7 +141,7 @@ export default class ZoneScene extends AbstractScene {
       return (
         <View style={[styles.loginWrap, defaultStyles.centering]}>
           <ExternalPushLink
-            tracking={{key:'Login', entiry: 'login', topic: 'btn_sec', event: 'click'}}
+            tracking={{key:'my_account', entity: 'reg_login', topic: 'btn_sec'}}
             style={[styles.loginBtn, defaultStyles.centering]}
             textStyle={styles.loginBtnText}
             text="登录注册"

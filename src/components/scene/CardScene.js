@@ -21,9 +21,9 @@ export default class CardScene extends AbstractScene {
 
   constructor(props) {
     super(props);
-    this.sceneEntity = "hpg";
-    this.sceneTopic = "credit_card";
-    this.sceneKey = "credit_card";
+    this.sceneEntity = "card";
+    this.sceneTopic = "card";
+    this.sceneKey = "card";
   }
 
   render() {
@@ -85,7 +85,7 @@ export default class CardScene extends AbstractScene {
         <View style={[styles.title,styles.bgColorWhite]}>
           <Text style={styles.titleLeft}>极速办卡</Text>
         </View>
-        <CategoryListContainer/>
+        <CategoryListContainer itemTracking={{key: 'card', topic: 'express_roll'}}/>
       </View>
     )
   }

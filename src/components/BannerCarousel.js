@@ -37,7 +37,7 @@ class BannerCarousel extends Component {
         this.imageItems.push(
             <ExternalPushLink
               web={imgInfo.url}
-              tracking={{key: 'homepage', topic: 'carousel', entity: idx, event: 'click'}}
+              tracking={{key: 'homepage', topic: 'carousel', entity: idx, URL: imgInfo.url}}
               key={idx}>
 
               <View style={{width:screenWidth}}>

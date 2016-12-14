@@ -10,8 +10,9 @@ import {
 
 import { colors } from 'styles/varibles';
 import * as defaultStyles from 'styles';
+import trackingPointGenerator from 'components/high-order/trackingPointGenerator';
 
-export default class Button extends Component {
+class Button extends Component {
   static propTypes = {
     onPress: PropTypes.func,
   };
@@ -29,6 +30,7 @@ export default class Button extends Component {
   }
 
 }
+export default trackingPointGenerator(Button);
 
 const styles = StyleSheet.create({
   btn: {

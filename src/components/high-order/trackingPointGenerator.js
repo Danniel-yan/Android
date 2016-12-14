@@ -4,13 +4,18 @@ import tracker from 'utils/tracker.js';
 export default (Component) => {
 
   return (componentProps) => {
-    let { onPress, tracking, ...props } = componentProps;
+    let { onPress, onBlur, tracking, ...props } = componentProps;
 
-    function _onPress() {
+    function _eventHandle() {
       onPress && onPress.apply(null, arguments);
-      tracking && tracker.trackAction(tracking.key, tracking.entity, tracking.topic, tracking.event);
+      onBlur && onBlur.apply(null, arguments);
+      tracking && tracker.trackAction(Object.assign({event: 'clk'}, tracking));
     }
 
-    return React.createElement(Component, {...props, onPress: _onPress});
+    onPress && (props.onPress = _eventHandle);
+    onBlur && (props.onBlur = _eventHandle);
+
+    return React.createElement(Component, {...props});
+
   } 
 }
