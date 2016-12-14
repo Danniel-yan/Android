@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
+import TrackingPoint from 'components/shared/TrackingPoint';
 
 import { colors } from 'styles/varibles';
 
@@ -50,12 +51,14 @@ class Tab extends Component {
     let props = this.props;
 
     return (
-      <TouchableWithoutFeedback onPress={this._onPress.bind(this)}>
-        <View style={styles.tab}>
-          <Image source={props.isActive ? props.activeIcon : props.icon}/>
-          <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <TrackingPoint
+        tracking={{key: 'menu', topic: props.sceneKey, entity: props.sceneKey }}
+        style={styles.tab}
+        onPress={this._onPress.bind(this)}>
+
+        <Image source={props.isActive ? props.activeIcon : props.icon}/>
+        <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
+      </TrackingPoint>
     )
   }
 

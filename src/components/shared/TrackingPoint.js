@@ -19,7 +19,7 @@ export default class TrackingPoint extends Component {
 
   _onPress() {
     let tracking = this.props.tracking;
-    tracker.trackAction(tracking.tkey, tracking.entity, tracking.topic, tracking.event);
+    tracker.trackAction(tracking);
 
     this.props.onPress && this.props.onPress();
   }
