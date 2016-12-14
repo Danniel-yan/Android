@@ -17,7 +17,7 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
       }
     }
 
-    componentWillMount() {
+    componentDidMount() {
       if(!this.props.fetched || this.props.fetchingParams != this.props.fetchedParams) {
         typeof this.props.fetching == "function" && this.props.fetching(this.props.fetchingParams);
       }
