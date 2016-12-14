@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import RecommendList from 'components/shared/RecommendList.js';
 import Loading from 'components/shared/Loading';
 

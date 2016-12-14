@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { majorPush, majorPop } from 'actions/navigation';
 import CardScene from 'components/scene/CardScene';
-import externalScene from 'components/high-order/externalScene';
+import externalScene from 'high-order/externalScene';
 
 import paginationShopNearby from 'actions/scene/card/shopNearby'
 

@@ -3,7 +3,7 @@ import {
   View,TouchableWithoutFeedback,Text, Image
 } from 'react-native';
 
-import CarouselGenerator from './high-order/CarouselGenerator';
+import CarouselGenerator from 'high-order/CarouselGenerator';
 
 import Dimensions from 'Dimensions';
 

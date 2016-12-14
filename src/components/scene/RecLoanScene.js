@@ -10,7 +10,7 @@ import CountdownButton from 'components/shared/CountdownButton';
 import LocationPicker from 'components/modal/LocationPicker';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
-import { DeviceSwitchComponent, IOSComponentSwitcher } from 'components/high-order/ComponentSwitcher';
+import { DeviceSwitchComponent, IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
 import LoanButton from "containers/shared/LoanButton";
 
 import { rowContainer, centering } from 'styles';

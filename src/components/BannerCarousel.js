@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-native';
 
-import CarouselGenerator from './high-order/CarouselGenerator';
+import CarouselGenerator from 'high-order/CarouselGenerator';
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 import Loading from 'components/shared/Loading'
 

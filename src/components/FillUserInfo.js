@@ -23,7 +23,7 @@ import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
 import WebLink from 'components/shared/WebLink';
 
-import { DeviceSwitchComponent } from 'components/high-order/ComponentSwitcher';
+import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';
 
 const hasCreditStatus = {

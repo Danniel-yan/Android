@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import fetchUser from 'actions/loginUser';
 import ZoneScene from 'components/scene/ZoneScene';
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {

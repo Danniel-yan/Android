@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-import { IOSComponentSwitcher } from 'components/high-order/ComponentSwitcher';
+import { IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
 
 import { colors } from 'styles/varibles';
 

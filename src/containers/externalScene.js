@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import externalScene from 'components/high-order/externalScene';
+import externalScene from 'high-order/externalScene';
 import { externalPop } from 'actions/navigation';
 
 

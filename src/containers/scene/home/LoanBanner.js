@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { window } from 'styles';
 import { ExternalPushLink } from 'containers/shared/Link';
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 
 function mapStateToProps(state) {
   return {

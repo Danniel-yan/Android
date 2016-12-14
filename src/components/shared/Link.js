@@ -9,7 +9,7 @@ import {
 
 import Text from './Text';
 import { colors } from 'styles/varibles';
-import trackingPointGenerator from 'components/high-order/trackingPointGenerator';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
 class Link extends Component {
   static propTypes = {

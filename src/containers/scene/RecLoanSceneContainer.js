@@ -9,7 +9,7 @@ import { setLoanInfo } from 'actions/scene/fast/filterList';
 import submitUserInfo from 'actions/fillUserInfo';
 
 import RecLoanScene from 'components/scene/RecLoanScene';
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {

@@ -10,7 +10,7 @@ import {
 
 import { colors } from 'styles/varibles';
 import * as defaultStyles from 'styles';
-import trackingPointGenerator from 'components/high-order/trackingPointGenerator';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
 class Button extends Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import { connect } from 'react-redux';
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import DefaultLoading from 'components/shared/Loading';
 import { fetchingIOSConfig } from 'actions/iosConfig';
 

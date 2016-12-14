@@ -12,7 +12,7 @@ import {
 
 import panelStyles from './panelStyles';
 
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import RecommendList from 'components/shared/RecommendList';
 import Loading from 'components/shared/Loading';
 import tracker from 'utils/tracker.js';
