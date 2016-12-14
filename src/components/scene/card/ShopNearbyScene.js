@@ -107,7 +107,7 @@ class List extends Component {
       <View>
         {
           props.act && props.act.map((act,index) =>
-            <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams: { id: act.act_id }}}>
+            <ExternalPushLink key={'key' + index} title="活动详情" toKey="ActHotDetailScene" componentProps={{fetchingParams : act.act_id }}>
               <View style={[styles.flexContainerRow,styles.bgColorWhite,styles.act]}>
                 <View style={(act.discount[0].name_en == 'decrease_price') ? styles.decrease_price : styles.discount }>
                   <Text style={{color:'#fff',fontSize:16}}>{act.discount[0].name}</Text>
