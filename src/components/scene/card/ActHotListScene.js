@@ -28,7 +28,7 @@ export default class ActHotListScene extends AbstractScene {
             key={'key' + index}
             title="活动详情"
             toKey="ActHotDetailScene"
-            componentProps={{fetchingParams: { id: props.id }}}>
+            componentProps={{fetchingParams:props.id}}>
               <View style={styles.list}>
                 <Image source={{uri: props.img_list.x3}} style={styles.logo}/>
                 <View style={{flex:1}}>

@@ -1,4 +1,4 @@
-const initState = { isFetching: false, fetched: false, actHot: [] };
+const initState = { isFetching: true, fetched: false, actHot: [] };
 
 export default function actHot(state = initState, action) {
   switch(action.type) {

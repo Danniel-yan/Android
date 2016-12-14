@@ -1,4 +1,4 @@
-const initState = { isFetching: false, fetched: false, detail: {} };
+const initState = { isFetching: true, fetched: false, detail: {} };
 
 export default function actHotDetail(state = initState, action) {
   switch(action.type) {
