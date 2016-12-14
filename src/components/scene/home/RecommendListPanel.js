@@ -30,7 +30,7 @@ export default class RecommendListPanel extends Component {
           <Text style={panelStyles.title}>热门推荐</Text>
 
           <Button
-            tracking={{key: 'homepage', topic: 'rec_loan', entity: 'refresh', event: 'clk'}}
+            tracking={{key: 'homepage', topic: 'rec_loan', entity: 'refresh' }}
             style={panelStyles.addon} onPress={() => this.props.fetching(this.props.offset)
           }>
             <Text style={panelStyles.addonTxt}>换一批</Text>

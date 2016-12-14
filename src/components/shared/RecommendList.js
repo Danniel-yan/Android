@@ -22,7 +22,7 @@ export default class RecommendList extends Component {
         style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
         enableEmptySections={true}
         dataSource={dataSource}
-        renderRow={this.renderRecommend}
+        renderRow={this.renderRecommend.bind(this)}
         />
     )
   }
@@ -32,9 +32,15 @@ export default class RecommendList extends Component {
   }
 
   renderRecommend(data, sID, rowID) {
+    let tracking = Object.assign({
+      entity: rowID,
+      id: data.id,
+      title: data.title
+    }, this.props.itemTracking);
+
     return(
       <ExternalPushLink
-        tracking={{key: 'loan', topic: 'hpg_list', entity: rowID, event: 'clk'}}
+        tracking={tracking}
         title={data.title}
         toKey="LoanDetailScene"
         componentProps={{fetchingParams: data.id }} >

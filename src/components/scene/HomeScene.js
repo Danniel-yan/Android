@@ -49,7 +49,7 @@ export default class HomeScene extends AbstractScene {
           <Banner />
           <LoanNavPanel />
           { this._renderBroadcast() }
-          <RecommendListPanel/>
+          <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}}/>
           {this._renderLoan()}
           {this._renderCard()}
         </ScrollView>

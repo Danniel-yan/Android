@@ -14,6 +14,7 @@ import tracker from 'utils/tracker.js';
 import { colors, iptFontSize } from "styles/varibles";
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 import Button from 'components/shared/ButtonBase';
+import TrackingPoint  from 'components/shared/TrackingPoint';
 
 class LoanNavPanel extends Component {
   constructor(props) {
@@ -32,25 +33,22 @@ class LoanNavPanel extends Component {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC(true)) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC(true, token)) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC();
+      this.navToPBOC(token);
     });
   }
 
-  navToPBOC(fromLogin) {
+  navToPBOC(fromLogin, token) {
     var externalPush = this.props.externalPush, route;
-    AsyncStorage.getItem('userToken').then(token => {
-      AsyncStorage.getItem('environment').then(ev => {
-        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        tracker.trackAction({key: 'homepage', entity: 'credit_report', topic: 'btn_sec', event: 'clk'});
-        // console.log(pbocUrl + "&token=" + token)
-        externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
-      })
-    });
+    AsyncStorage.getItem('environment').then(ev => {
+      var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
+      pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+      // console.log(pbocUrl + "&token=" + token)
+      externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
+    })
   }
 
   _renderInputWrapper() {
@@ -75,7 +73,7 @@ class LoanNavPanel extends Component {
         { this._renderInputWrapper() }
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend', event: 'clk'}}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: (this.props.loginUser.info ? 'recommend_apply' : 'recommend') }}
             title="推荐贷款"
             toKey="RecLoanScene"
             style={LNPStyles.navItem}>
@@ -83,7 +81,7 @@ class LoanNavPanel extends Component {
             <Text style={LNPStyles.navTxt}>推荐贷款</Text>
           </ExternalPushLink>
           <MajorTabLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan', event: 'clk'}}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
             title="极速贷款"
             toKey="LoanScene"
             style={LNPStyles.navItem}>
@@ -91,10 +89,12 @@ class LoanNavPanel extends Component {
             <Image source={require('assets/icons/jisudaikuan.png')}></Image>
             <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>
-          <TouchableOpacity style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
+          <TrackingPoint
+            tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
+            style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
             <Text style={LNPStyles.navTxt}>查信用</Text>
-          </TouchableOpacity>
+          </TrackingPoint>
         </View>
       </View>
     );

@@ -18,7 +18,7 @@ export default connect(mapStateToProps, null)(props => {
   if(props.banner) {
     return (
       <ExternalPushLink
-        tracking={{key: 'homepage', topic: 'large_loan', entity: 'hpgbanner', event: 'clk'}}
+        tracking={{key: 'homepage', topic: 'large_loan', entity: 'hpgbanner', URl: props.banner.url}}
         web={props.banner.url}>
         <Image source={{uri: props.banner.pic}} style={{width: window.width, height:window.width * (176 / 750)}}/>
       </ExternalPushLink>
