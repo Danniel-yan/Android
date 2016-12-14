@@ -21,9 +21,9 @@ class Main extends Component {
     applicationSetup().then(() => {
 
       AsyncStorage.getItem('userToken').then(token => {
-        if(token == null) {
-          this.setState({ initialing: false });
-        } else {
+        this.setState({ initialing: false });
+
+        if(token != null) {
           this.props.fetchingUser();
         }
       });
@@ -43,12 +43,6 @@ class Main extends Component {
         id_user: settings.uuid
       });
     });
-  }
-
-  componentWillReceiveProps(props) {
-    if(this.state.initialing && props.loginUser.fetched) {
-      this.setState({ initialing: false });
-    }
   }
 
   render() {
