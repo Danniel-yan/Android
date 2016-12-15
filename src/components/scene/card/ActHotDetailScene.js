@@ -16,7 +16,7 @@ export default class ActHotDetailScene extends Component {
   constructor(props) {
     super(props);
 
-    let bank = props.banks[0] && props.banks[0].name;
+    let bank = props.detail.banks[0] && props.detail.banks[0].name;
     tracker.trackAction({
       key: 'card',
       entity: 'detail',
