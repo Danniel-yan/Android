@@ -6,6 +6,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.shudu.chaoshi.module.ChannelModule;
+import com.shudu.chaoshi.module.DeviceInfoModule;
 import com.shudu.chaoshi.module.JpushModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
 import com.shudu.chaoshi.module.UmengModule;
@@ -24,7 +25,8 @@ public class AppReactPackage implements ReactPackage {
         return Arrays.asList(new NativeModule[]{
                 new UmengModule(reactContext),
                 new JpushModule(reactContext),
-                new ChannelModule(reactContext)
+                new ChannelModule(reactContext),
+                new DeviceInfoModule(reactContext)
         });
     }
 
