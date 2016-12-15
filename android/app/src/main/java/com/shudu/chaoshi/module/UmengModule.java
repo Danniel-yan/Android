@@ -12,8 +12,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
 
-import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
-
 /**
  * Created by speakJ on 2016/11/24.
  */
@@ -34,17 +32,17 @@ public class UmengModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void onResume() {
-        MobclickAgent.onResume(context);
+        MobclickAgent.onResume(mContext);
     }
 
     @ReactMethod
     public void onPause() {
-        MobclickAgent.onPause(context);
+        MobclickAgent.onPause(mContext);
     }
 
     @ReactMethod
     public void onEvent(String eventName) {
-        AnalysisUtil.create(context).sendEvent(eventName);
+        AnalysisUtil.create(mContext).sendEvent(eventName);
     }
 
     @ReactMethod
@@ -57,7 +55,7 @@ public class UmengModule extends ReactContextBaseJavaModule {
                 String aValue = dataMap.getString(aKey);
                 map.put(aKey, aValue);
             }
-            AnalysisUtil.create(context).sendEvent(eventName, map);
+            AnalysisUtil.create(mContext).sendEvent(eventName, map);
         }
     }
 }

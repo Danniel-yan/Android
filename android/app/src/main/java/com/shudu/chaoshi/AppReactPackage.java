@@ -8,6 +8,7 @@ import com.facebook.react.uimanager.ViewManager;
 import com.shudu.chaoshi.module.ChannelModule;
 import com.shudu.chaoshi.module.JpushModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
+import com.shudu.chaoshi.module.UmengModule;
 
 import java.util.Arrays;
 import java.util.Collections;
