@@ -11,7 +11,7 @@ import {
 import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
 import alert from 'utils/alert';
-import externalScene from 'containers/externalScene';
+import externalScene from 'high-order/externalScene';
 import WebViewGenerator from 'high-order/WebViewGenerator';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
@@ -83,18 +83,34 @@ export default class ExternalNavigation extends Component {
   }
 
   _renderScene(route, navigator) {
-    let { web, backCount, key, title, component: ComponentClass, componentProps } = route;
+    let {
+      web,
+      backCount,
+      key,
+      title,
+      component: ComponentClass,
+      RenderedComponent,
+      componentProps
+    } = route;
 
-    if(web && !ComponentClass) {
-      ComponentClass = WebViewGenerator(route);
+    // 若route已经渲染过，则直接使用旧component，避免重新渲染
+    if(RenderedComponent) {
+      ComponentClass = RenderedComponent;
     }
 
+    // generat scene component
     if(!ComponentClass) {
-      ComponentClass = modules[key];
-    }
+      ComponentClass = web ? WebViewGenerator(route) : modules[key];
 
-    if(route.index !== 0) {
-      ComponentClass = externalScene(ComponentClass, { title, backCount });
+      // append scene header
+      if(route.index !== 0) {
+        ComponentClass = externalScene(ComponentClass, { title, backCount });
+      }
+
+      // 由于React Native Navigator 在push或pop时会调用两次renderScene: prev route及next route;
+      // 这里缓存prev route component到route中。
+      // 避免每次生产新component导致push或pop时, prev component销毁并重新渲染
+      route.RenderedComponent = ComponentClass;
     }
 
     return React.createElement(ComponentClass , { ...componentProps, navigator});
@@ -116,12 +132,14 @@ export default class ExternalNavigation extends Component {
   }
 
   render() {
+    let initRoute = this.props.navigation.routes[0]
+
     return (
       <Navigator
         onDidFocus={this._handleIOSBack.bind(this)}
         ref={nav => this.nav = nav}
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
-        initialRoute={{key: 'MajorNavigation', index: 0}}
+        initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />
     );

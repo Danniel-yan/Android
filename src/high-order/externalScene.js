@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
 } from 'react-native';
 
+import { externalPop } from 'actions/navigation';
 import * as defaultStyles from 'styles';
 import SceneHeader from 'components/shared/SceneHeader';
 
 export default function(ComponentClass, config) {
 
-  return class ExternalPageComponent extends Component {
+  function mapDispatchToProps(dispatch) {
+    return {
+      onBack: () => dispatch(externalPop(config.backCount || 1))
+    };
+  }
+
+  class ExternalPageComponent extends Component {
     state = { title: undefined };
+
+    shouldComponentUpdate() {
+      // TODO check state
+      return false;
+    }
 
     render() {
       let title = this.state.title || config.title || ComponentClass.title || this.props.title;
@@ -25,5 +38,6 @@ export default function(ComponentClass, config) {
     }
   }
 
+  return connect(null, mapDispatchToProps)(ExternalPageComponent);
 }
 
