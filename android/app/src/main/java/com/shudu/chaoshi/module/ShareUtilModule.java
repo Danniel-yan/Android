@@ -60,6 +60,7 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
             model.content = readableMap.getString("content");
             model.title = readableMap.getString("title");
             model.url = readableMap.getString("url");
+            model.icon_url = readableMap.getString("icon_url");
         }
         return model;
     }

@@ -2,6 +2,7 @@ package com.shudu.chaoshi.util;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
 import com.shudu.chaoshi.R;
 import com.shudu.chaoshi.model.ShareContentModel;
@@ -25,15 +26,20 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 public class ShareUtil {
 
     private Context context;
+    private String site;
 
-    public ShareUtil(Context context){
+    public ShareUtil(Context context) {
         this.context = context;
+        site = context.getResources().getString(R.string.app_name);
     }
 
     public void sina(ShareContentModel contentModel) {
         SinaWeibo.ShareParams sp = new SinaWeibo.ShareParams();
         sp.setText(formatUrlEncode(contentModel.content, "%") + contentModel.url);
-        sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        if (TextUtils.isEmpty(contentModel.icon_url))
+            sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        else
+            sp.setImageUrl(contentModel.icon_url);
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(mPlatformActionListener);
         weibo.share(sp);
@@ -44,8 +50,11 @@ public class ShareUtil {
         sp.setTitle(contentModel.title);
         sp.setTitleUrl(contentModel.url);
         sp.setText(formatUrlEncode(contentModel.content, "%"));
-        sp.setSite("账单日");
-        sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        sp.setSite(site);
+        if (TextUtils.isEmpty(contentModel.icon_url))
+            sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        else
+            sp.setImageUrl(contentModel.icon_url);
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         qq.setPlatformActionListener(mPlatformActionListener);
         qq.share(sp);
@@ -56,8 +65,11 @@ public class ShareUtil {
         sp.setTitle(contentModel.title);
         sp.setTitleUrl(contentModel.url);
         sp.setText(formatUrlEncode(contentModel.content, "%"));
-        sp.setSite("账单日");
-        sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        sp.setSite(site);
+        if (TextUtils.isEmpty(contentModel.icon_url))
+            sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        else
+            sp.setImageUrl(contentModel.icon_url);
         Platform qzone = ShareSDK.getPlatform(QZone.NAME);
         qzone.setPlatformActionListener(mPlatformActionListener);
         qzone.share(sp);
@@ -68,7 +80,10 @@ public class ShareUtil {
         sp.setTitle(contentModel.title);
         sp.setShareType(Platform.SHARE_WEBPAGE);
         sp.setText(formatUrlEncode(contentModel.content, "%"));
-        sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        if (TextUtils.isEmpty(contentModel.icon_url))
+            sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        else
+            sp.setImageUrl(contentModel.icon_url);
         sp.setUrl(contentModel.url);
         Platform weixin = ShareSDK.getPlatform(Wechat.NAME);
         weixin.setPlatformActionListener(mPlatformActionListener);
@@ -80,7 +95,10 @@ public class ShareUtil {
         sp.setTitle(formatUrlEncode(contentModel.content, "%"));
         sp.setShareType(Platform.SHARE_WEBPAGE);
         sp.setText(formatUrlEncode(contentModel.content, "%"));
-        sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        if (TextUtils.isEmpty(contentModel.icon_url))
+            sp.setImageData(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo));
+        else
+            sp.setImageUrl(contentModel.icon_url);
         sp.setUrl(contentModel.url);
         Platform circle = ShareSDK.getPlatform(WechatMoments.NAME);
         circle.setPlatformActionListener(mPlatformActionListener);
