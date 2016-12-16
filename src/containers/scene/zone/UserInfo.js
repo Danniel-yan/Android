@@ -14,7 +14,7 @@ import Checkbox from 'components/shared/Checkbox'
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
-import zoneStyles from './styles';
+import zoneStyles from './zoneStyles';
 import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
 import FormGroup from 'components/shared/FormGroup';
