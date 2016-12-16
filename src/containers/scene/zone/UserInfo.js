@@ -96,7 +96,7 @@ class UserInfo extends AbstractScene {
           </FormGroup>
 
           <View style={zoneStyles.optional}>
-            <View style={zoneStyles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
+            <View style={zoneStyles.optionalHeader}><Text style={zoneStyles.optionalTxt}>选填</Text></View>
 
             <FormGroup label="职业身份">
               <Picker
