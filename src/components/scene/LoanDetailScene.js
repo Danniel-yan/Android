@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   StyleSheet,
@@ -22,13 +22,15 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 
 import Picker from 'components/shared/Picker';
 
-export default class LoanDetailScene extends PureComponent {
+export default class LoanDetailScene extends Component {
+
+  tracking() {
+    let detail = this.props.detail;
+    return { key: 'loan', topic: 'product_detail', id: detail.id, title: detail.title };
+  }
 
   constructor(props) {
     super(props);
-    this.sceneEntity= props.detail.title;
-    this.sceneTopic = "detail";
-    this.sceneKey = "loan";
 
     var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
@@ -42,13 +44,6 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   componentWillMount() {
-    if(!this.props.loginUser.fetched) {
-      AsyncStorage.getItem('userToken').then(userToken => {
-        if(userToken != null) {
-          this.props.fetchUser();
-        }
-      })
-    }
 
     var fetchedParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
@@ -213,18 +208,27 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   _renderButton() {
-    let loginUser = this.props.loginUser;
-    let hasLogin = loginUser && loginUser.info && loginUser.info.id_no;
 
-    if(loginUser.isFetching || this.props.isIOSVerifying) { return null; }
+    if(this.props.isIOSVerifying) { return null; }
 
-    if(hasLogin) {
+    let detail = this.props.detail;
+
+    if(this.props.loginUser.valid) {
       return (
         <ExternalPushLink
-          tracking={{key: 'fastloan', topic: 'product_detail', entity: 'apply', event: 'clk'}}
-          style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" web={this.props.detail.url || ''} title={this.props.detail.title}/>
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id, title: detail.title}}
+          style={styles.loanButton}
+          textStyle={styles.loanButtonText}
+          text="去贷款"
+          web={detail.url}
+          title={detail.title}
+          componentProps={{tracking:
+            {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title}
+          }}
+          />
       );
     }
+
 
     return (
       <ExternalPushLink

@@ -16,20 +16,14 @@ import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
-import AbstractScene from 'components/scene/AbstractScene.js';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
-class CardScene extends AbstractScene {
-
-  constructor(props) {
-    super(props);
-    this.sceneEntity = "card";
-    this.sceneTopic = "card";
-    this.sceneKey = "card";
-  }
+class CardScene extends Component {
+  tracking = 'card';
 
   render() {
     let { isPaging, pagination, paginationParams, nomore } = this.props;
@@ -156,4 +150,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardScene);
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(CardScene));

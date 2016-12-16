@@ -7,11 +7,11 @@ import tracker from 'utils/tracker.js';
 
 import { fetchLoanDetail } from 'actions/scene/loanDetail';
 import LoanDetail from 'components/scene/LoanDetailScene';
-import fetchLoginUser from 'actions/loginUser';
 
 import { externalPop, externalPush } from 'actions/navigation';
 
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -25,14 +25,17 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetching: id => dispatch(fetchLoanDetail(id)),
-    fetchUser: () => dispatch(fetchLoginUser()),
     goLoan: (detail) => {
-      tracker.trackAction({ key: 'fastloan', topic: 'product_detail', entity: 'apply', event: 'clk'});
-      dispatch(externalPush({ title: detail.title, web: detail.url, backCount: 2 }))
+      //tracker.trackAction({ key: 'loan', topic: 'product_detail', entity: 'apply', event: 'clk'});
+      dispatch(externalPush({
+        title: detail.title,
+        web: detail.url,
+        backCount: 2
+      }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
   }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, LoanDetail));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(LoanDetail)));

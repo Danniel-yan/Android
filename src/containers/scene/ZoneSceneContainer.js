@@ -1,60 +1,21 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, AsyncStorage, Image } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 
-import fetchUser from 'actions/loginUser';
-
-import AsynCpGenerator from 'high-order/AsynCpGenerator';
-import Loading from 'components/shared/Loading';
-
 import Text from 'components/shared/Text';
-import Button from 'components/shared/Button';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import SceneHeader from 'components/shared/SceneHeader';
 import zoneStyles from './zone/zoneStyles';
 import * as defaultStyles from 'styles';
-import { colors } from 'styles/varibles';
-import trackingPoint from 'high-order/trackingPointGenerator';
-
-import Login from 'containers/Login';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 class ZoneScene extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      checking: true,
-      hasToken: false
-    };
-
-    props.landing && props.landing({key: 'my_account'});
-  }
-
-  componentDidMount() {
-    if(!this.props.loginUser.info) {
-      AsyncStorage.getItem('userToken').then(userToken => {
-        if(userToken != null) {
-          this.props.fetching();
-          this.setState({ hasToken: true, checking: false });
-        } else {
-          this.setState({ hasToken: false, checking: false });
-        }
-      })
-    }
-  }
-
-  componentDidUpdate() {
-    AsyncStorage.getItem('userToken').then(userToken => {
-      if(this.state.hasToken != !!userToken) {
-        this.setState({ hasToken: !!userToken });
-      }
-    })
-  }
+  tracking = 'my_account';
 
   render() {
-    let logined = this.state.hasToken || this.props.loginUser.info;
+    let logined = this.props.loginUser.info;
 
     return (
       <View style={[defaultStyles.container, defaultStyles.bg]}>
@@ -115,7 +76,7 @@ class ZoneScene extends Component {
   _loginInfo() {
     let loginUser = this.props.loginUser;
 
-    if(!loginUser.fetching && loginUser.info) {
+    if(loginUser.info) {
       return (
         <ExternalPushLink title="个人信息" toKey="UserInfo">
           <View style={[zoneStyles.item, zoneStyles.loginWrap]}>
@@ -127,27 +88,17 @@ class ZoneScene extends Component {
       );
     }
 
-    if(this.state.checking || loginUser.isFetching) {
-      return (
-        <View style={[zoneStyles.item, zoneStyles.loginWrap, defaultStyles.centering]}>
-          <Loading/>
-        </View>
-      );
-    }
-
-    if(!this.state.hasToken) {
-      return (
-        <View style={[zoneStyles.loginWrap, defaultStyles.centering]}>
-          <ExternalPushLink
-            tracking={{key:'my_account', entity: 'reg_login', topic: 'btn_sec'}}
-            style={[zoneStyles.loginBtn, defaultStyles.centering]}
-            textStyle={zoneStyles.loginBtnText}
-            text="登录注册"
-            title="登录"
-            toKey="Login"/>
-        </View>
-      );
-    }
+    return (
+      <View style={[zoneStyles.loginWrap, defaultStyles.centering]}>
+        <ExternalPushLink
+          tracking={{key:'my_account', entity: 'reg_login', topic: 'btn_sec'}}
+          style={[zoneStyles.loginBtn, defaultStyles.centering]}
+          textStyle={zoneStyles.loginBtnText}
+          text="登录注册"
+          title="登录"
+          toKey="Login"/>
+      </View>
+    );
   }
 }
 
@@ -155,10 +106,4 @@ function mapStateToProps(state) {
   return { loginUser: state.loginUser }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetching: () => dispatch(fetchUser())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(trackingPoint(ZoneScene))
+export default connect(mapStateToProps)(trackingScene(ZoneScene))

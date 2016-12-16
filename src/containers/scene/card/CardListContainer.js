@@ -13,21 +13,18 @@ import { colors, fontSize } from 'styles/varibles';
 
 import ScrollPagination from 'components/shared/ScrollPagination';
 import { ExternalPushLink } from 'containers/shared/Link';
-import tracker from 'utils/tracker.js';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 import styles from './cardStyles';
 
 class CardListScene extends Component {
 
-  componentDidMount() {
-    tracker.trackAction({
+  tracking() {
+    return {
       key: 'card',
-      topic: 'type_list',
-      entity: 'type_list',
-      event: 'landing',
-      id: this.props.fetchingParams.id,
+      topic: 'card_list',
       name: this.props.sceneTitle
-    });
+    };
   }
 
   render() {
@@ -44,13 +41,14 @@ class CardListScene extends Component {
 
           { this.props.cardList.map((cardList,index) =>
               <ExternalPushLink
-                tracking={{key: 'card', topic: 'type_list', entity: index, id: cardList.id, card_name: cardList.name, name: this.props.sceneTitle}}
+                tracking={{key: 'card', topic: 'card_list', entity: index, id: cardList.id, card_name: cardList.name, bank_name: this.props.sceneTitle}}
                 key={'key' + index }
                 web={cardList.link}
                 componentProps={{
-                landingTracking: {key: 'card', topic: 'type_list', entity: 'show_form', id: cardList.id, name: this.props.sceneTitle, card_name: cardList.name}
-              }}
+                  tracking: {key: 'card', topic: 'card_application', bank_name: this.props.sceneTitle, card_name: cardList.name}
+                }}
                 title="申请信用卡">
+
                 <View style={styles.carList}>
                   <Image source={{uri: cardList.pic_card}} style={styles.carLogo}/>
                   <View style={{flex: 1}}>
@@ -79,4 +77,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading,CardListScene))
+export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(CardListScene)))

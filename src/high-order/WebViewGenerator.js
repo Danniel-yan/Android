@@ -4,6 +4,7 @@ import {
   WebView, Platform, NativeModules
 } from 'react-native';
 import * as defaultStyles from 'styles';
+import { trackingScene } from './trackingPointGenerator';
 
 
 let AndroidWebView;
@@ -17,7 +18,14 @@ export default function (config) {
   url = web || url;
   source = source ? source : { uri: url };
 
-  return class InnerWebView extends Component {
+  class InnerWebView extends Component {
+    constructor(props) {
+      super(props);
+
+      let tracking = props.tracking || { key: web };
+      this.tracking = Object.assign({}, tracking, { key: encodeURIComponent(tracking.key)});
+    }
+
     render() {
       return !(Platform.OS == 'ios') ? this._renderAndroid() : this._renderIOS();
     }
@@ -34,4 +42,6 @@ export default function (config) {
       );
     }
   }
+
+  return trackingScene(InnerWebView);
 }

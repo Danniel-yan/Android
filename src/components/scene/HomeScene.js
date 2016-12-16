@@ -24,14 +24,14 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 export default class HomeScene extends Component {
 
+  tracking = 'homepage';
+
   constructor(props) {
     super(props);
 
     this.state = {
       showSecret: false
     }
-
-    props.landing && props.landing({ key: 'homepage', entity: '', topic: ''});
   }
 
   componentDidMount() {

@@ -11,6 +11,7 @@ import submitUserInfo from 'actions/fillUserInfo';
 import RecLoanScene from 'components/scene/RecLoanScene';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -39,4 +40,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecLoanScene));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(RecLoanScene)));

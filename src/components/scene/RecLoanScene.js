@@ -21,6 +21,8 @@ var screenHeight = Dimensions.get('window').height;
 export default class RecLoanScene extends Component {
   static title = "推荐贷款";
 
+  tracking = {key: 'user', topic: 'complete_info_new_L'};
+
   constructor(props) {
     super(props);
     this.userInfo = Object.assign({}, {
@@ -42,8 +44,6 @@ export default class RecLoanScene extends Component {
     this.sceneKey = "loan";
     this.sceneTopic = "recommand";
     this.sceneEntity = "list";
-
-    props.landing && props.landing({key: 'user', topic: 'complete_info_new_L', entity: ''});
   }
 
   componentDidMount() {

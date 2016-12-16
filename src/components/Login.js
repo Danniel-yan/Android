@@ -16,7 +16,6 @@ import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
 import Checkbox from 'components/shared/Checkbox';
-import tracker from 'utils/tracker';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
@@ -28,16 +27,14 @@ export default class Login extends Component {
 
   static title = '登录';
 
+  tracking = {key: 'user', topic: 'Login'};
+
   state = {
     verifyCode: '',
     mobile: '',
     checkedAgreement: true,
     submitting: false
   };
-
-  componentWillMount() {
-    this.props.landing && this.props.landing({ key: 'user', topic: 'login', entity: '' });
-  }
 
   render() {
     let mobileValid = validators.mobile(this.state.mobile);

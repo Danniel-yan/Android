@@ -33,6 +33,8 @@ const hasCreditStatus = {
 export default class FillUserInfo extends Component {
   static title = '完善个人信息';
 
+  tracking = { key: 'user', topic: 'complete_info_new_S' };
+
   constructor(props) {
     super(props);
     this.sceneEntity="show_form";
@@ -53,7 +55,6 @@ export default class FillUserInfo extends Component {
       verifyCode: loginUser.verify_code || ''
     };
 
-    props.landing && props.landing({ key: 'user', topic: 'complete_info_new_S', entity: ''});
   }
 
   componentWillReceiveProps(nextProps, prevProps) {

@@ -47,7 +47,13 @@ class BankListScene extends Component{
                   <View key={'key'+index} style={styles.itemViewStyle}>
                     <ExternalPushLink
                       tracking={{key: 'card', topic: 'bank_list', entity: index, bank_name: data.name}}
-                      title={data.name} web={data.link}>
+                      title={data.name}
+                      web={data.link}
+                      componentProps={{
+                        tracking: {key: 'card', topic: 'card_application', bank_name: data.name, card_name: data.name}
+                      }}
+                      >
+
                       <View style={[styles.itemViewStyle,styles.row]}>
                         <Image style={styles.thumb} source={{uri: data.pic_card}} />
                         <View>

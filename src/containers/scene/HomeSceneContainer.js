@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { majorPush, majorPop, externalPush, externalPop, majorTab } from 'actions/navigation';
 import { setAmount } from 'actions/scene/fast/filterList';
 import HomeScene from 'components/scene/HomeScene';
-import trackingPointGenerator from 'high-order/trackingPointGenerator';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -23,4 +23,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingPointGenerator(HomeScene));
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(HomeScene));
