@@ -96,11 +96,11 @@ export default class ExternalNavigation extends Component {
     // 若route已经渲染过，则直接使用旧component，避免重新渲染
     if(RenderedComponent) {
       ComponentClass = RenderedComponent;
-    }
+    } else {
 
-    // generat scene component
-    if(!ComponentClass) {
-      ComponentClass = web ? WebViewGenerator(route) : modules[key];
+      if(!ComponentClass) {
+        ComponentClass = web ? WebViewGenerator(route) : modules[key];
+      }
 
       // append scene header
       if(route.index !== 0) {

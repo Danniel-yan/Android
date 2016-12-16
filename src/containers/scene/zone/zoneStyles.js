@@ -29,8 +29,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: colors.secondary,
-    backgroundColor: '#fff',
-    color: colors.secondary
+    backgroundColor: '#fff'
   },
   btnText: {
     fontSize: 18,
