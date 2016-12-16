@@ -9,6 +9,7 @@ import com.shudu.chaoshi.module.ChannelModule;
 import com.shudu.chaoshi.module.DeviceInfoModule;
 import com.shudu.chaoshi.module.JpushModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
+import com.shudu.chaoshi.module.ShareUtilModule;
 import com.shudu.chaoshi.module.UmengModule;
 
 import java.util.Arrays;
@@ -26,7 +27,8 @@ public class AppReactPackage implements ReactPackage {
                 new UmengModule(reactContext),
                 new JpushModule(reactContext),
                 new ChannelModule(reactContext),
-                new DeviceInfoModule(reactContext)
+                new DeviceInfoModule(reactContext),
+                new ShareUtilModule(reactContext)
         });
     }
 

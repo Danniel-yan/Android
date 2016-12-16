@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.jpush.reactnativejpush.JPushPackage;
+import cn.sharesdk.framework.ShareSDK;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -77,6 +78,7 @@ public class MainApplication extends Application implements ReactApplication {
         if (!TextUtils.isEmpty(channel))
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         JpushUtil.init(mContext);
+        ShareSDK.initSDK(this, "1747904cd7a6e");
         ToastHelper.init(mContext);
     }
 

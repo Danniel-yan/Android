@@ -11,7 +11,6 @@ import { container, rowContainer, flexRow, centering, bg } from 'styles';
 import tracker from 'utils/tracker.js';
 
 import Dimensions from 'Dimensions';
-import AbstractScene from 'components/scene/AbstractScene.js';
 import SceneHeader from 'components/shared/SceneHeader';
 
 const jobItems = [
@@ -32,7 +31,7 @@ const trackingConfig = {
 
 var screenWidth = Dimensions.get('window').width;
 
-export default class FastLoanScene extends AbstractScene {
+export default class FastLoanScene extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,12 +46,8 @@ export default class FastLoanScene extends AbstractScene {
       toggleFilter: false,
       toggleSort: false
     };
-    this.sceneEntity = "FAST_LOAN";
-    this.sceneTopic = "";
 
-    this.sceneEntity = "fastloan";
-    this.sceneTopic = "fastloan";
-    this.sceneKey = "fastloan";
+    props.landing && props.landing({key: 'loan' });
   }
   static title = "极速贷款";
 

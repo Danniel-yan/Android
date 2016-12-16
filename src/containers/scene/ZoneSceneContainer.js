@@ -15,11 +15,11 @@ import SceneHeader from 'components/shared/SceneHeader';
 import zoneStyles from './zone/zoneStyles';
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
+import trackingPoint from 'high-order/trackingPointGenerator';
 
 import Login from 'containers/Login';
-import AbstractScene from 'components/scene/AbstractScene.js';
 
-class ZoneScene extends AbstractScene {
+class ZoneScene extends Component {
 
   constructor(props) {
     super(props);
@@ -28,9 +28,8 @@ class ZoneScene extends AbstractScene {
       checking: true,
       hasToken: false
     };
-    this.sceneKey = "my_account";
-    this.sceneTopic = "my_account";
-    this.sceneEntity = "my_account";
+
+    props.landing && props.landing({key: 'my_account'});
   }
 
   componentDidMount() {
@@ -162,4 +161,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ZoneScene)
+export default connect(mapStateToProps, mapDispatchToProps)(trackingPoint(ZoneScene))

@@ -27,11 +27,13 @@ export default StyleSheet.create({
     height: 50,
     marginHorizontal: 10,
     borderRadius: 5,
-    fontSize: 18,
-    color: colors.secondary,
     borderWidth: 1,
     borderColor: colors.secondary,
     backgroundColor: '#fff'
+  },
+  btnText: {
+    fontSize: 18,
+    color: colors.secondary,
   },
   formControl: {
     flex: 1,

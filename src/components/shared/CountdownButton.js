@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Button from './Button'
+import Button from './ButtonBase'
 
+import * as defaultStyles from 'styles';
 
 export default class CountdownButton extends Component {
   static defaultProps = {
@@ -28,12 +29,17 @@ export default class CountdownButton extends Component {
   }
 
   render() {
-    let { style } = this.props;
+    let { disabled, onPress, style, defaultText, countdownText, ...props } = this.props;
     let started = this.state.started;
-    let text = !started ? this.props.defaultText : this._formatText()
+    let text = !started ? defaultText : this._formatText()
 
     return (
-      <Button disabled={started || this.props.disabled} onPress={this._onPress.bind(this)} style={style} text={text} />
+      <Button
+        {...props}
+        style={[defaultStyles.centering, style]}
+        disabled={started || this.props.disabled}
+        onPress={this._onPress.bind(this)}
+        text={text} />
     );
   }
 
@@ -65,5 +71,9 @@ export default class CountdownButton extends Component {
 
   _formatText() {
     return this.props.countdownText.replace('${time}', this.state.countdown);
+  }
+
+  reset() {
+    this._done();
   }
 }

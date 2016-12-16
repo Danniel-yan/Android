@@ -16,8 +16,7 @@ import Checkbox from 'components/shared/Checkbox'
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
-import CountdownButton from 'components/shared/CountdownButton'
-import AbstractScene from 'components/scene/AbstractScene.js';
+import VerifyButton from 'components/shared/VerifyButton'
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
@@ -31,14 +30,14 @@ const hasCreditStatus = {
   no: 0
 }
 
-export default class FillUserInfo extends AbstractScene {
+export default class FillUserInfo extends Component {
   static title = '完善个人信息';
 
   constructor(props) {
     super(props);
-    this.sceneEntity="FILL_INFO";
-    this.sceneTopic = "USER";
-    this.sceneKey = "USER";
+    this.sceneEntity="show_form";
+    this.sceneTopic = "signup_thru_exp_loan";
+    this.sceneKey = "user";
 
     let loginUser = props.loginUser.info || {};
 
@@ -53,6 +52,8 @@ export default class FillUserInfo extends AbstractScene {
       job: loginUser.job || '',
       verifyCode: loginUser.verify_code || ''
     };
+
+    props.landing && props.landing({ key: 'user', topic: 'complete_info_new_S', entity: ''});
   }
 
   componentWillReceiveProps(nextProps, prevProps) {
@@ -122,7 +123,10 @@ export default class FillUserInfo extends AbstractScene {
               />
 
               <View style={styles.addon}>
-                <CountdownButton disabled={!validMobile} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+                <VerifyButton
+                  tracking={{key: 'user', topic: 'complete_info_new_S', entity: 'mob_code_button'}}
+                  mobile={this.state.mobile}
+                  />
               </View>
             </View>
           </FormGroup>
@@ -169,7 +173,7 @@ export default class FillUserInfo extends AbstractScene {
         <View style={styles.footer}>
 
           <LoanButton
-            tracking={{key: 'fastloan', topic: 'personal_info', entity: 'apply', event: 'clk'}}
+            tracking={{key: 'user', topic: 'complete_info_new_S', entity: 'submit', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}}
             processing={this.props.update.submitting}
             style={styles.btn}
             disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}
@@ -179,10 +183,6 @@ export default class FillUserInfo extends AbstractScene {
     );
   }
 
-  _sendVerify() {
-    post('/tool/send-verify-code', { mobile: this.state.mobile})
-      .catch(console.log)
-  }
 
   _submit() {
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
@@ -216,15 +216,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 50,
     backgroundColor: colors.primary
-  },
-
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 26,
-    fontSize: 12,
-    color: '#fff'
   },
 
   addon: {

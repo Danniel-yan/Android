@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  AppState,
   AppRegistry,
   AsyncStorage
 } from 'react-native';
@@ -30,18 +31,27 @@ class Main extends Component {
 
       this.trackingOpenApp();
     });
+
+    AppState.addEventListener('change', this._appStateChange.bind(this))
+  }
+
+  _appStateChange(state) {
+    if(state === 'background') {
+      tracker.trackAction({
+        key: 'user',
+        topic: 'on_pause',
+        entity: 'on_pause',
+        event: 'on_pause',
+      });
+    }
   }
 
   trackingOpenApp() {
-    getAppSettings().then(settings => {
-      tracker.trackAction({
-        key: 'user',
-        topic: 'open_app',
-        entity: 'open_app',
-        event: 'open_app',
-        device_id: settings.deviceId,
-        id_user: settings.uuid
-      });
+    tracker.trackAction({
+      key: 'user',
+      topic: 'open_app',
+      entity: 'open_app',
+      event: 'open_app',
     });
   }
 

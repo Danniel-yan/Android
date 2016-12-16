@@ -1,9 +1,11 @@
-package com.shudu.chaoshi;
+package com.shudu.chaoshi.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.shudu.chaoshi.R;
 
 /**
  * Created by speakJ on 2016/11/28.
