@@ -1,24 +1,24 @@
+import { connect } from 'react-redux';
+
+import { logout } from 'actions/loginUser';
+import { externalPush } from 'actions/navigation';
+
 import React, { Component } from 'react';
 
-import {
-  View,
-  Image,
-  ScrollView,
-  StyleSheet
-} from 'react-native';
+import { View, Image, ScrollView, StyleSheet } from 'react-native';
 
 import Text from 'components/shared/Text';
-import zoneStyles from './styles';
+import zoneStyles from './zoneStyles.js';
 import NextIcon from 'components/shared/NextIcon';
 import Button from 'components/shared/Button';
 import OverlayLoading from 'components/shared/OverlayLoading';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Confirm from 'components/shared/Confirm';
-import About from './About';
+import About from './AboutSceneContainer';
 
 import * as defaultStyles from 'styles';
 
-export default class ContactScene extends Component {
+class SettingScene extends Component {
   constructor(props) {
     super(props);
 
@@ -43,17 +43,17 @@ export default class ContactScene extends Component {
           </ExternalPushLink>
 
           {/*
-          <View style={zoneStyles.item}>
-            <Text style={zoneStyles.txt}>清除缓存</Text>
-            <Text style={styles.txt}>3.30MB</Text>
-            <NextIcon/>
-          </View>
+           <View style={zoneStyles.item}>
+           <Text style={zoneStyles.txt}>清除缓存</Text>
+           <Text style={styles.txt}>3.30MB</Text>
+           <NextIcon/>
+           </View>
 
-          <View style={[zoneStyles.item, zoneStyles.group]}>
-            <Text style={zoneStyles.txt}>前往应用市场评价</Text>
-            <NextIcon/>
-          </View>
-          */}
+           <View style={[zoneStyles.item, zoneStyles.group]}>
+           <Text style={zoneStyles.txt}>前往应用市场评价</Text>
+           <NextIcon/>
+           </View>
+           */}
 
           {this._renderBtn()}
 
@@ -64,8 +64,8 @@ export default class ContactScene extends Component {
         </ScrollView>
 
         <Confirm visible={this.state.showConfirm}
-          onOK={this.logout.bind(this)}
-          onCancel={() => this.setState({ showConfirm: false })}>
+                 onOK={this.logout.bind(this)}
+                 onCancel={() => this.setState({ showConfirm: false })}>
           <Text>确认退出当前账号？</Text>
         </Confirm>
       </View>
@@ -86,10 +86,15 @@ export default class ContactScene extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  txt: {
-    color: '#333',
-    fontSize: 16,
-    marginRight: 5
+function mapState(state) {
+  return { loginUser: state.loginUser };
+}
+
+function mapDispatch(dispatch) {
+  return {
+    logout: () => dispatch(logout()),
+    login: () => dispatch(externalPush({ key: 'Login', title: '登录'}))  
   }
-});
+}
+
+export default connect(mapState, mapDispatch)(SettingScene);

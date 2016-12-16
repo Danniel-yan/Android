@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  AsyncStorage,
-  Image
-} from 'react-native';
+import { View, ScrollView, StyleSheet, AsyncStorage, Image } from 'react-native';
+import { connect } from 'react-redux';
+
+import fetchUser from 'actions/loginUser';
+
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import SceneHeader from 'components/shared/SceneHeader';
-import Loading from 'components/shared/Loading';
-import zoneStyles from './zone/styles';
+import zoneStyles from './zone/zoneStyles';
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles';
 
 import Login from 'containers/Login';
 import AbstractScene from 'components/scene/AbstractScene.js';
 
-export default class ZoneScene extends AbstractScene {
+class ZoneScene extends AbstractScene {
 
   constructor(props) {
     super(props);
@@ -66,26 +65,26 @@ export default class ZoneScene extends AbstractScene {
           {this._loginInfo()}
 
           {/*
-          <View style={zoneStyles.item}>
-            <Image style={zoneStyles.icon} source={require('assets/zone/process.png')}/>
-            <Text style={zoneStyles.txt}>办卡进度查询</Text>
-            <NextIcon/>
-          </View>
+           <View style={zoneStyles.item}>
+           <Image style={zoneStyles.icon} source={require('assets/zone/process.png')}/>
+           <Text style={zoneStyles.txt}>办卡进度查询</Text>
+           <NextIcon/>
+           </View>
 
-          <View style={zoneStyles.item}>
-            <Image style={zoneStyles.icon} source={require('assets/zone/footprint.png')}/>
-            <Text style={zoneStyles.txt}>我的贷款足迹</Text>
-            <NextIcon/>
-          </View>
+           <View style={zoneStyles.item}>
+           <Image style={zoneStyles.icon} source={require('assets/zone/footprint.png')}/>
+           <Text style={zoneStyles.txt}>我的贷款足迹</Text>
+           <NextIcon/>
+           </View>
 
-          <ExternalPushLink title={logined ?  '消息' : '登录'} toKey={logined ? 'MessagesScene' : 'Login'}>
-            <View style={zoneStyles.item}>
-              <Image style={zoneStyles.icon} source={require('assets/zone/message.png')}/>
-              <Text style={zoneStyles.txt}>我的消息</Text>
-              <NextIcon/>
-            </View>
-          </ExternalPushLink>
-          */}
+           <ExternalPushLink title={logined ?  '消息' : '登录'} toKey={logined ? 'MessagesScene' : 'Login'}>
+           <View style={zoneStyles.item}>
+           <Image style={zoneStyles.icon} source={require('assets/zone/message.png')}/>
+           <Text style={zoneStyles.txt}>我的消息</Text>
+           <NextIcon/>
+           </View>
+           </ExternalPushLink>
+           */}
 
           <ExternalPushLink
             tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'}}
@@ -151,7 +150,7 @@ export default class ZoneScene extends AbstractScene {
       );
     }
   }
-} 
+}
 
 const styles = StyleSheet.create({
   loginWrap: {
@@ -172,3 +171,16 @@ const styles = StyleSheet.create({
     fontSize: 17
   }
 });
+
+
+function mapStateToProps(state) {
+  return { loginUser: state.loginUser }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => dispatch(fetchUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ZoneScene)
