@@ -56,7 +56,7 @@ class Tracker {
           url += `&${key}=${encodeURIComponent(config[key])}`
         }
 
-        console.log('tracking: ' + url);
+        log(config);
         fetch(url).then(response => {
             return;
         });
@@ -84,3 +84,12 @@ class Tracker {
 var tracker =  new Tracker();
 export default tracker;
 
+function log({ key, entity, topic, event, ...extend }) {
+  let str = `tracking: key: "${key}", entity: "${entity}", topic: "${topic}", event: "${event}"`;
+
+  for(let ekey in extend) {
+    str += `, ${ekey}: "${extend[ekey]}"`;
+  }
+
+  console.info(str);
+}

@@ -28,9 +28,6 @@ class SettingScene extends Component {
     };
   }
 
-  componentWillReceiveProps() {
-  }
-
   render() {
     return (
       <View style={[defaultStyles.container, defaultStyles.bg]}>
