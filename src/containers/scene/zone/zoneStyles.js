@@ -77,5 +77,22 @@ export default StyleSheet.create({
   linkTxt: {
     fontSize: 16,
     color: '#0090FF'
+  },
+  loginWrap: {
+    height: 93,
+    backgroundColor: '#fff',
+    marginBottom: 5
+  },
+  loginBtn: {
+    width: 90,
+    height: 33,
+    borderColor: colors.secondary,
+    borderWidth: 1,
+    borderRadius: 4,
+    backgroundColor: '#fff',
+  },
+  loginBtnText: {
+    color: colors.secondary,
+    fontSize: 17
   }
 });

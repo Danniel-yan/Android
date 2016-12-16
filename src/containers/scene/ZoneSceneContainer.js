@@ -60,7 +60,7 @@ class ZoneScene extends AbstractScene {
     return (
       <View style={[defaultStyles.container, defaultStyles.bg]}>
         <SceneHeader title="我的"/>
-        <ScrollView style={styles.container}>
+        <ScrollView style={zoneStyles.container}>
 
           {this._loginInfo()}
 
@@ -119,7 +119,7 @@ class ZoneScene extends AbstractScene {
     if(!loginUser.fetching && loginUser.info) {
       return (
         <ExternalPushLink title="个人信息" toKey="UserInfo">
-          <View style={[zoneStyles.item, styles.loginWrap]}>
+          <View style={[zoneStyles.item, zoneStyles.loginWrap]}>
             <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
             <Text style={zoneStyles.txt}>{loginUser.info.username}</Text>
             <NextIcon/>
@@ -130,7 +130,7 @@ class ZoneScene extends AbstractScene {
 
     if(this.state.checking || loginUser.isFetching) {
       return (
-        <View style={[zoneStyles.item, styles.loginWrap, defaultStyles.centering]}>
+        <View style={[zoneStyles.item, zoneStyles.loginWrap, defaultStyles.centering]}>
           <Loading/>
         </View>
       );
@@ -138,11 +138,11 @@ class ZoneScene extends AbstractScene {
 
     if(!this.state.hasToken) {
       return (
-        <View style={[styles.loginWrap, defaultStyles.centering]}>
+        <View style={[zoneStyles.loginWrap, defaultStyles.centering]}>
           <ExternalPushLink
             tracking={{key:'my_account', entity: 'reg_login', topic: 'btn_sec'}}
-            style={[styles.loginBtn, defaultStyles.centering]}
-            textStyle={styles.loginBtnText}
+            style={[zoneStyles.loginBtn, defaultStyles.centering]}
+            textStyle={zoneStyles.loginBtnText}
             text="登录注册"
             title="登录"
             toKey="Login"/>
@@ -151,27 +151,6 @@ class ZoneScene extends AbstractScene {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  loginWrap: {
-    height: 93,
-    backgroundColor: '#fff',
-    marginBottom: 5
-  },
-  loginBtn: {
-    width: 90,
-    height: 33,
-    borderColor: colors.secondary,
-    borderWidth: 1,
-    borderRadius: 4,
-    backgroundColor: '#fff',
-  },
-  loginBtnText: {
-    color: colors.secondary,
-    fontSize: 17
-  }
-});
-
 
 function mapStateToProps(state) {
   return { loginUser: state.loginUser }
