@@ -44,7 +44,11 @@ export default (Component) => {
     }
 
     _landing(tracking) {
-      tracker.trackAction(Object.assign({event: 'landing'}, this._inhanceTracking(tracking)));
+      tracker.trackAction(Object.assign({
+        entity: '',
+        topic: '',
+        event: 'landing'
+      }, this._inhanceTracking(tracking)));
     }
 
     _inhanceTracking(tracking) {

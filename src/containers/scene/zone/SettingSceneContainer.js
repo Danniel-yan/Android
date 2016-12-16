@@ -10,7 +10,7 @@ import { View, Image, ScrollView, StyleSheet } from 'react-native';
 import Text from 'components/shared/Text';
 import zoneStyles from './zoneStyles.js';
 import NextIcon from 'components/shared/NextIcon';
-import Button from 'components/shared/Button';
+import Button from 'components/shared/ButtonBase';
 import OverlayLoading from 'components/shared/OverlayLoading';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Confirm from 'components/shared/Confirm';
@@ -79,9 +79,24 @@ class SettingScene extends Component {
 
   _renderBtn() {
     if(this.props.loginUser.info) {
-      return (<Button onPress={() => this.setState({ showConfirm: true })} text="安全退出" style={zoneStyles.btn}/>)
+      return (
+        <Button
+          onPress={() => this.setState({ showConfirm: true })}
+          text="安全退出"
+          textStyle={zoneStyles.btnText}
+          style={[zoneStyles.btn, defaultStyles.centering]}/>
+      )
     } else {
-      return (<Button onPress={this.props.login} text="登录" style={zoneStyles.btn}/>)
+
+      return (
+        <ExternalPushLink
+          tracking={{key:'my_account', entity: 'login', topic: 'set'}}
+          textStyle={zoneStyles.btnText}
+          style={[zoneStyles.btn, defaultStyles.centering]}
+          text="登录"
+          title="登录"
+          toKey="Login"/>
+      )
     }
   }
 }
@@ -93,7 +108,6 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     logout: () => dispatch(logout()),
-    login: () => dispatch(externalPush({ key: 'Login', title: '登录'}))  
   }
 }
 
