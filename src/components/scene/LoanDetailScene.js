@@ -87,29 +87,37 @@ export default class LoanDetailScene extends PureComponent {
             </View>
 
             <View style={styles.flexContainerRow}>
-              <View style={[styles.flexPanel,{borderRightWidth:0, paddingRight:10,alignItems:'flex-end'}]}>
-                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
-                  <Text style={{fontSize:17,color:'#333'}}>金额</Text>
-                  <TextInput
-                    underlineColorAndroid={'transparent'}
-                    style={[styles.selectBox, styles.pickerTxt]}
-                    keyboardType={'numeric'}
-                    onChangeText={(amount) => { this.setState({amount}); }}
-                    onBlur={(amount) => this.changeAmount(amount)}
-                    value={this.state.amount}/>
-                  <Text>元</Text>
+              <View style={[styles.flexPanel,{borderRightWidth:0, alignItems:'center',flex: 1}]}>
+                <View>
+                  <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
+                    <Text style={{fontSize:17,color:'#333'}}>金额</Text>
+                    <TextInput
+                      underlineColorAndroid={'transparent'}
+                      style={[styles.selectBox, styles.pickerTxt]}
+                      keyboardType={'numeric'}
+                      onChangeText={(amount) => { this.setState({amount}); }}
+                      onBlur={(amount) => this.changeAmount(amount)}
+                      value={this.state.amount}/>
+                    <Text>元</Text>
+                  </View>
+                  <View style={{alignItems: "flex-end"}}>
+                    <Text>额度范围: {detail.amount_showinfo}</Text>
+                  </View>
                 </View>
-                <Text>额度范围: {detail.amount_showinfo}</Text>
               </View>
-              <View style={[styles.flexPanel,{borderRightWidth:0,alignItems:'flex-end'}]}>
-                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
-                  <Text style={{fontSize:17,color:'#333'}}>期数</Text>
+              <View style={[styles.flexPanel,{borderRightWidth:0, alignItems:'center',flex: 1}]}>
+                <View>
+                  <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
+                    <Text style={{fontSize:17,color:'#333'}}>期数</Text>
 
-                  {this._renderPeriodList(detail.period_list)}
+                    {this._renderPeriodList(detail.period_list)}
 
-                  <Text>{detail.period_name}</Text>
+                    <Text>{detail.period_name}</Text>
+                  </View>
+                  <View style={{alignItems: "flex-end"}}>
+                    <Text>期数范围: {detail.period_showinfo}</Text>
+                  </View>
                 </View>
-                <Text>期数范围: {detail.period_showinfo}</Text>
               </View>
             </View>
 
