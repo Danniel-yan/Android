@@ -4,9 +4,8 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage } fr
 import { post } from 'utils/fetch';
 import { FormGroup, IptWrap } from "components/FormGroup";
 import Button from 'components/shared/Button'
-import AbstractScene from 'components/scene/AbstractScene.js';
 
-import CountdownButton from 'components/shared/CountdownButton';
+import VerifyButton from 'components/shared/VerifyButton';
 import LocationPicker from 'components/modal/LocationPicker';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
@@ -19,15 +18,11 @@ import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions';
 var screenHeight = Dimensions.get('window').height;
 
-export default class RecLoanScene extends AbstractScene {
+export default class RecLoanScene extends Component {
   static title = "推荐贷款";
 
   constructor(props) {
     super(props);
-    this.loanInfo = {
-      amount: props.loanInfo.amount || 5000,
-      period: props.loanInfo.period || 12
-    };
     this.userInfo = Object.assign({}, {
       job: 2, mobile_time: 3, credit_status: 1
     }, props.userInfo);
@@ -36,12 +31,19 @@ export default class RecLoanScene extends AbstractScene {
       hasLogin: !!this.userInfo.username,
       mobile: this.userInfo.username || this.userInfo.mobile,
       location: this.userInfo.location,
+      job: this.userInfo.job,
+      realname: '',
+      credit_status: this.userInfo.credit_status,
       showPicker: false,
-      submitSuccess: this.props.submitSuccess
+      submitSuccess: this.props.submitSuccess,
+      amount: props.loanInfo.amount || 5000,
+      period: props.loanInfo.period || 12
     };
     this.sceneKey = "loan";
     this.sceneTopic = "recommand";
     this.sceneEntity = "list";
+
+    props.landing && props.landing({key: 'user', topic: 'complete_info_new_L', entity: ''});
   }
 
   componentDidMount() {
@@ -54,16 +56,23 @@ export default class RecLoanScene extends AbstractScene {
   }
 
   loanValueChanged(name, value) {
-    this.loanInfo[name] = value;
-    this.props.setLoanInfo && this.props.setLoanInfo(this.loanInfo);
+    this.setState({ [name]: value});
+
+    this.props.setLoanInfo && this.props.setLoanInfo({
+      amount: this.state.amount,
+      period: this.state.period
+    });
   }
 
   formValueChanged(name, value) {
     this.userInfo[name] = value;
+    this.setState({ [name]: value });
     // this.props.userInfo && (this.props.userInfo[name] = value);
   }
 
   render() {
+    let { amount, period, name, job, location, credit_status } = this.state;
+
     return (
       <ScrollView style={{position: "relative"}}>
         <View style={{}}>
@@ -73,7 +82,9 @@ export default class RecLoanScene extends AbstractScene {
           { this._renderLoginGroup() }
         </View>
         <View style={{marginTop: 20}}>
-          <LoanButton processing={this.props.submitting}
+          <LoanButton
+            tracking={{key: 'user', topic: 'complete_info_new_L', entity: 'submit ', amount, period, realname: name, city: location, profession: job, own_credit_card: credit_status }}
+            processing={this.props.submitting}
             style={styles.loanButton}
             onPress={() => { this._goLoan() }} />
         </View>
@@ -85,10 +96,10 @@ export default class RecLoanScene extends AbstractScene {
   _renderLoanInfoGroup() {
     return (
       <FormGroup deplayTime={100} iptCollections={ [{
-        name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.loanInfo.amount,
+        name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.state.amount,
         valueChanged: this.loanValueChanged.bind(this)
       }, {
-        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.loanInfo.period,
+        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.state.period,
         items: [{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
           {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
           {value: "24", label: "24"}, {value: "36", label: "36"}],
@@ -152,7 +163,9 @@ export default class RecLoanScene extends AbstractScene {
             </IptWrap>
           </View>
           <View style={{paddingRight: 10}}>
-            <CountdownButton disabled={!this.state.mobile} onPress={this._sendVerify.bind(this)} style={recStyles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+            <VerifyButton
+              tracking={{ key: 'user', topic: 'complete_info_new_L', entity: 'mob_code_button'}}
+              mobile={this.state.mobile}/>
           </View>
         </View>
         <View style={[rowContainer, centering, { height: 46, backgroundColor: "#fff" }]}>
@@ -168,13 +181,6 @@ export default class RecLoanScene extends AbstractScene {
     );
   }
 
-  _sendVerify() {
-    console.log("***Mobile***");
-    console.log({mobile: this.userInfo.mobile})
-    post('/tool/send-verify-code', { mobile: this.userInfo.mobile }).then(rsp => console.log(rsp))
-      .catch(err => { alert('网络异常'); })
-  }
-
   _goLoan() {
     this.props.goLoan && this.props.goLoan(Object.assign({}, this.userInfo, {verify_code: this.verifyCode}));
   }
@@ -186,14 +192,6 @@ export default class RecLoanScene extends AbstractScene {
 }
 
 const recStyles = StyleSheet.create({
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 24,
-    fontSize: 12,
-    color: '#fff'
-  },
   right: {
     position: "absolute",
     right: 0

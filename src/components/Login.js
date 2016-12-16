@@ -11,11 +11,12 @@ import {
 
 import Text from 'components/shared/Text'
 import ProcessingButton from 'components/shared/ProcessingButton'
-import CountdownButton from 'components/shared/CountdownButton'
+import VerifyButton from 'components/shared/VerifyButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
 import Checkbox from 'components/shared/Checkbox';
+import tracker from 'utils/tracker';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
@@ -34,6 +35,10 @@ export default class Login extends Component {
     submitting: false
   };
 
+  componentWillMount() {
+    this.props.landing && this.props.landing({ key: 'user', topic: 'login', entity: '' });
+  }
+
   render() {
     let mobileValid = validators.mobile(this.state.mobile);
     let verifyCodeValid = this.state.verifyCode.length == 6;
@@ -51,7 +56,9 @@ export default class Login extends Component {
             underlineColorAndroid="transparent"
             onChangeText={mobile => this.setState({mobile})}
           />
-          <CountdownButton disabled={!mobileValid} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+          <VerifyButton
+            tracking={{key: 'user', topic: 'login', entity: 'mob_code_button'}}
+            mobile={this.state.mobile}/>
         </View>
 
         <View style={styles.inputGroup}>
@@ -78,14 +85,11 @@ export default class Login extends Component {
           />
         </View>
 
-        <ProcessingButton processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
+        <ProcessingButton
+          tracking={{key: 'user', topic: 'login', entity: 'login_button', cell: this.state.mobile}}
+          processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
       </View>
     );
-  }
-
-  _sendVerify() {
-    post('/tool/send-verify-code', { mobile: this.state.mobile})
-      .catch(console.log)
   }
 
   _submit() {
@@ -144,15 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 30,
     alignItems: 'center'
-  },
-
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 24,
-    fontSize: 12,
-    color: '#fff'
   },
 
   submitBtn: {

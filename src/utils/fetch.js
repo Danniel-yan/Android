@@ -3,7 +3,7 @@ import { getAppSettings, environments } from 'settings';
 
 import alert from './alert';
 
-export const responseStatus = { failre: 0, success: 1 }
+export const responseStatus = { failure: 0, success: 1 }
 export const defaultApiVersion = '0.1';
 
 let coords = null;
@@ -36,7 +36,7 @@ function _get(url, body, responseType) {
     method: 'get'
   })
   .then(response => response[responseType]())
-  .then(requestFailreHandle);
+  .then(requestFailureHandle);
 }
 
 function _post(url, body, responseType) {
@@ -48,11 +48,11 @@ function _post(url, body, responseType) {
     body: JSON.stringify(body)
   })
   .then(response => response[responseType]())
-  .then(requestFailreHandle);
+  .then(requestFailureHandle);
 }
 
-function requestFailreHandle(responseJSON) {
-  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failre) {
+function requestFailureHandle(responseJSON) {
+  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failure) {
     alert(responseJSON.msg);
   }
   return responseJSON

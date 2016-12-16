@@ -16,24 +16,22 @@ import iconNext from 'assets/index-icons/icon_next.png';
 
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 import { ExternalPushLink, MajorTabLink } from 'containers/shared/Link';
-import AbstractScene from 'components/scene/AbstractScene.js';
 import SecretGardenModal from 'components/modal/SecretGarden';
 
 import panelStyles from './home/panelStyles';
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
-export default class HomeScene extends AbstractScene {
+export default class HomeScene extends Component {
 
   constructor(props) {
     super(props);
-    this.sceneEntity="homepage";
-    this.sceneKey = "homepage";
-    this.sceneTopic = "homepage";
 
     this.state = {
       showSecret: false
     }
+
+    props.landing && props.landing({ key: 'homepage', entity: '', topic: ''});
   }
 
   componentDidMount() {
