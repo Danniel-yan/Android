@@ -4,7 +4,7 @@ import { getAppSettings, environments } from 'settings';
 import alert from './alert';
 
 export const responseStatus = { failure: 0, success: 1 }
-export const defaultApiVersion = '0.1';
+export const defaultApiVersion = '0.2';
 
 let coords = null;
 let initedApiParams = false;

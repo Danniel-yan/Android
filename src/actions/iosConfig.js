@@ -30,7 +30,7 @@ export function fetchingIOSConfig() {
       return;
     }
 
-    get("/0.2/app/ios-checking").then(rsp => {
+    get("/app/ios-checking").then(rsp => {
       dispatch(endFetching());
 
       var checking_version = rsp.data ? rsp.data.checking_version : 0;
