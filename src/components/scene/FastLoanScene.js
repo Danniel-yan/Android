@@ -37,7 +37,7 @@ export default class FastLoanScene extends Component {
     this.state = {
       fetchRecParams:{
         amount: props.amount || 5000,
-        period: 12,
+        period: props.period || 12,
         job: 0,
         reslist: [],
         order: 1
