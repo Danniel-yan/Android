@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   flexContainerRow:{
     flexDirection: 'row',
     padding:10,
-    paddingVertical: 15,
     borderBottomWidth:1,
     borderStyle : 'solid',
     borderBottomColor: colors.line,
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
   rightContainerTitle:{
     fontSize:17,
     color:colors.fontColorSecondary,
-    marginBottom:10
+    marginBottom:5
   },
   defaultFont: {
     fontSize: 14
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
   },
   rightContainerSubTitle:{
     fontSize:14,
-    marginBottom: 10
+    marginBottom:5 
   },
   unit:{
     color:'#ff6d17',
