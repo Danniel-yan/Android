@@ -13,6 +13,7 @@ import com.microsoft.codepush.react.CodePush;
 import com.shudu.chaoshi.util.ChannelUtil;
 import com.shudu.chaoshi.util.Constants;
 import com.shudu.chaoshi.util.JpushUtil;
+import com.shudu.chaoshi.util.ShareUtil;
 import com.shudu.chaoshi.util.ToastHelper;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -78,7 +79,8 @@ public class MainApplication extends Application implements ReactApplication {
         if (!TextUtils.isEmpty(channel))
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         JpushUtil.init(mContext);
-        ShareSDK.initSDK(this, "1747904cd7a6e");
+        ShareSDK.initSDK(mContext, "19f8ff0f510f0");
+        ShareUtil.setAppKey();
         ToastHelper.init(mContext);
     }
 

@@ -135,4 +135,36 @@ public class ShareUtil {
         }
         return str;
     }
+
+    public static void setAppKey(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Id", "1");
+        hashMap.put("SortId", "1");
+        hashMap.put("AppKey", "4196267309");
+        hashMap.put("AppSecret", "dba57736a8362bc047184cd46dc0e3e0");
+        hashMap.put("RedirectUrl", "http://www.sharesdk.cn");
+        hashMap.put("ShareByAppClient", "true");
+        hashMap.put("Enable", "true");
+        ShareSDK.setPlatformDevInfo(SinaWeibo.NAME, hashMap);
+
+        hashMap.clear();
+        hashMap.put("Id", "1");
+        hashMap.put("SortId", "1");
+        hashMap.put("AppId", "1105790933");
+        hashMap.put("AppKey", "U29ACaOevpRqoMLc");
+        hashMap.put("ShareByAppClient", "true");
+        hashMap.put("Enable", "true");
+        ShareSDK.setPlatformDevInfo(QQ.NAME, hashMap);
+        ShareSDK.setPlatformDevInfo(QZone.NAME, hashMap);
+
+        hashMap.clear();
+        hashMap.put("Id", "1");
+        hashMap.put("SortId", "1");
+        hashMap.put("AppId", "wx81813cd157b8aed4");
+        hashMap.put("AppSecret", "5c631b7903e33a4996913d31aad4e59d");
+        hashMap.put("BypassApproval", "false");
+        hashMap.put("Enable", "true");
+        ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
+        ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
+    }
 }
