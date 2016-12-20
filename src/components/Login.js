@@ -84,7 +84,10 @@ export default class Login extends Component {
 
         <ProcessingButton
           tracking={{key: 'user', topic: 'login', entity: 'login_button', cell: this.state.mobile}}
-          processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
+          processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)}
+          style={styles.submitBtn}
+          textStyle={styles.submitBtnText}
+          text="登录"/>
       </View>
     );
   }
@@ -150,8 +153,13 @@ const styles = StyleSheet.create({
   submitBtn: {
     marginTop: 50,
     height: 46,
-    backgroundColor: colors.primary,
-    fontSize: 18,
+    backgroundColor: '#fff',
+    borderColor: colors.secondary,
+    borderWidth: 1,
     borderRadius: 8
+  },
+  submitBtnText: {
+    fontSize: 18,
+    color: colors.secondary
   }
 });

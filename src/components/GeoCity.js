@@ -15,7 +15,7 @@ import LocationPicker from 'components/modal/LocationPicker';
 import tracker from 'utils/tracker.js';
 import Button from 'components/shared/ButtonBase';
 
-const startOpacity = 0.3; 
+const startOpacity = 0.3;
 const endOpacity = 1;
 
 export default class GeoCity extends PureComponent {
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
   showLabel: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start'
   },
 
   locTxt: {

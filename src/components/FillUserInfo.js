@@ -11,7 +11,6 @@ import {
 import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
-import ProcessingButton from 'components/shared/ProcessingButton';
 import Checkbox from 'components/shared/Checkbox'
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
@@ -49,7 +48,7 @@ export default class FillUserInfo extends Component {
       editableMobile: !loginUser.username,
       realname: loginUser.realname || '',
       idNO: loginUser.id_no || '',
-      mobile: loginUser.mobile || '',
+      mobile: loginUser.username || loginUser.mobile || '',
       creditStatus: loginUser.credit_status == hasCreditStatus.yes,
       job: loginUser.job || '',
       verifyCode: loginUser.verify_code || ''
@@ -177,6 +176,7 @@ export default class FillUserInfo extends Component {
             tracking={{key: 'user', topic: 'complete_info_new_S', entity: 'submit', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}}
             processing={this.props.update.submitting}
             style={styles.btn}
+            textStyle={styles.btnText}
             disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}
             onPress={this._submit.bind(this)}/>
         </View>
@@ -213,10 +213,13 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    color: '#fff',
-    fontSize: 20,
     height: 50,
     backgroundColor: colors.primary
+  },
+
+  btnText: {
+    color: '#fff',
+    fontSize: 20,
   },
 
   addon: {

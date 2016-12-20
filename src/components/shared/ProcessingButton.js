@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator
 } from 'react-native';
-import Button from './Button';
+import Button from './ButtonBase';
 
 import * as defaultStyles from 'styles';
 

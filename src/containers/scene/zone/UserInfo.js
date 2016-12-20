@@ -36,7 +36,7 @@ class UserInfo extends AbstractScene {
       creditStatus: loginUser.credit_status == hasCreditStatus.yes,
       job: loginUser.job || '',
       realname: loginUser.realname || '',
-      mobile: loginUser.mobile,
+      mobile: loginUser.username || loginUser.mobile,
       idNO: loginUser.id_no || ''
     };
   }
@@ -118,7 +118,10 @@ class UserInfo extends AbstractScene {
 
           <ProcessingButton
             tracking={{key:'my_account', entity: 'login', topic: 'set'}}
-            color={colors.secondary} processing={this.props.update.submitting} style={zoneStyles.btn} disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
+            color={colors.secondary} processing={this.props.update.submitting}
+            style={zoneStyles.btn}
+            textStyle={zoneStyles.btnText}
+            disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
 
         </ScrollView>
       </View>

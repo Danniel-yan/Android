@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  TouchableOpacity,
   Image,
   StyleSheet
 } from 'react-native';
+
+import Button from './ButtonBase';
 
 export default class Checkbox extends Component {
   static propTypes = {
@@ -12,15 +13,14 @@ export default class Checkbox extends Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <Button
         style={this.props.style}
         onPress={this._onPress.bind(this)}
-        activeOpacity={1}
         >
         <Image source={this.props.checked ?
           require('assets/icons/checkbox_checked.png') :
           require('assets/icons/checkbox.png')}/>
-      </TouchableOpacity>
+      </Button>
     );
   }
 

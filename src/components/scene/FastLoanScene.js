@@ -9,6 +9,9 @@ import { RecList, MoreList } from 'containers/scene/fast/ListContainer';
 import { colors } from 'styles/varibles';
 import { container, rowContainer, flexRow, centering, bg } from 'styles';
 import tracker from 'utils/tracker.js';
+import Input from 'components/shared/Input';
+import Picker from 'components/shared/Picker';
+import Button from 'components/shared/ButtonBase';
 
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
@@ -37,7 +40,7 @@ export default class FastLoanScene extends Component {
     this.state = {
       fetchRecParams:{
         amount: props.amount || 5000,
-        period: 12,
+        period: props.period || 12,
         job: 0,
         reslist: [],
         order: 1
@@ -62,12 +65,17 @@ export default class FastLoanScene extends Component {
 
   formValueChanged(name, value) {
     if(this.state.fetchRecParams[name] === value) return;
-    this.state.fetchRecParams = Object.assign({}, this.state.fetchRecParams);
-    this.state.fetchRecParams[name] = value;
-    // console.log(this.state.fetchRecParams);
-    this.fetchingData();
-    this._trackingFilter('btn_sec', value);
-    // if(name == "amount" || name == "period") this.props.setLoanInfo && this.props.setLoanInfo(this.state.fetchRecParams);
+
+    this.setState({
+      fetchRecParams: Object.assign({}, this.state.fetchRecParams, { [name]: value })
+    }, () => {
+      clearTimeout(this.fetchingTimer);
+
+      this.fetchingTimer = setTimeout(() => {
+        this.fetchingData();
+        this._trackingFilter('btn_sec', value);
+      }, 500);
+    });
   }
 
   resListSelected(resList) {
@@ -108,8 +116,8 @@ export default class FastLoanScene extends Component {
         {this._renderDropDownFilters()}
         <View style={{zIndex:-5, borderTopColor: colors.line, borderTopWidth: 1, flex: 1}}>
           <ScrollView>
-            {this._renderFastLoanRecommend()}
-            {this._renderFastLoanMore()}
+            <RecList />
+            <MoreList />
           </ScrollView>
         </View>
 
@@ -117,71 +125,66 @@ export default class FastLoanScene extends Component {
     );
   }
 
-  _renderFastLoanRecommend(){
-    return(
-      <View>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>最佳推荐</Text>
-        </View>
-        <RecList />
-      </View>
-    )
-  }
-
-  _renderFastLoanMore(){
-    return(
-      <View>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>更多选择</Text>
-        </View>
-        <MoreList />
-      </View>
-    )
-  }
 
   _renderLoanGroup() {
     return (
-      <FormGroup iptCollections={ [{
-        name: 'amount', type: 'number', label: '借多少(元)', icon: require('assets/form-icons/jieduoshao.png'), value: this.state.fetchRecParams.amount,
-        valueChanged: this.formValueChanged.bind(this)
-      }, {
-        name: 'period', type: 'picker', label:'借多久(月)', icon: require('assets/form-icons/jieduojiu.png'), value: this.state.fetchRecParams.period,
-        items: [{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
-          {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
-          {value: "24", label: "24"}, {value: "36", label: "36"}],
-        valueChanged: this.formValueChanged.bind(this)
-      }] }></FormGroup>
+      <View style={styles.formGroup}>
+        <View style={[rowContainer, styles.inputGroup]}>
+          <Text>金额</Text>
+          <View style={[rowContainer, centering, styles.inputWrap]}>
+            <Input value={this.state.fetchRecParams.amount + ''} style={[container, styles.formField]} onChangeText={this.formValueChanged.bind(this, 'amount')}></Input>
+            <Text style={styles.formFieldText}>元</Text>
+          </View>
+        </View>
+
+        <View style={[rowContainer, styles.inputGroup]}>
+          <Text>期数</Text>
+          <View style={[rowContainer, centering, styles.inputWrap]}>
+            <Picker
+              style={container}
+              value={this.state.fetchRecParams.period}
+              textStyle={styles.formPickerText}
+              onChange={this.formValueChanged.bind(this, 'period')}
+              items={[{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
+                       {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
+                       {value: "24", label: "24"}, {value: "36", label: "36"}]}></Picker>
+            <Text style={styles.formFieldText}>个月</Text>
+          </View>
+        </View>
+      </View>
     );
   }
 
   _renderDropDownFilters() {
-    var halfWidth = screenWidth / 2;
     var applyResList = [];
     this.props.apply_res_list && this.props.apply_res_list.map((item)=>{
       item && applyResList.push({label: item.name, value: item.key}) ;
     });
     return (
-      <View style={{marginTop: 5, position: "relative", flexDirection:"row", justifyContent: 'space-between', height:32, alignItems: "center"}}>
-        <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleFilter")}>
-          <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleFilter ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={{position: "absolute", overflow: "hidden", left: 0, top: 32, zIndex: 3, width: screenWidth, height: this.state.toggleFilter ? null : 0}}>
+      <View style={{marginTop: 5, position: "relative", flexDirection:"row" }}>
+        <Button style={{flex: 1, height:40, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: "#fff"}} onPress={()=>this.onToggleDrp("toggleFilter")}>
+          <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+        </Button>
+
+        <View style={{position: "absolute", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }}>
+        { !this.state.toggleFilter ? null : 
           <HorizontalCheckboxes
             clickItem={(item, idx) => this._trackingFilter('filter', idx)}
             withBtns={true}
             options={applyResList}
             eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
           </HorizontalCheckboxes>
+        } 
         </View>
-        <TouchableWithoutFeedback onPress={()=>this.onToggleDrp("toggleSort")}>
-          <View style={{width:halfWidth, height:32, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: this.state.toggleSort ? "#E3E3E3" : "#fff"}}>
-            <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 32, zIndex: 3, width: screenWidth/2,  height: this.state.toggleSort ? null : 0}}>
+
+        <Button style={{flex: 1, height:40, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: "#fff"}} onPress={()=>this.onToggleDrp("toggleSort")}>
+          <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
+        </Button>
+
+        <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2  }}>
+        { !this.state.toggleSort ? null : 
           <VerticalRadios selectedIdx={1} options={[{label: "利率低", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
+        }
         </View>
       </View>
     );
@@ -200,6 +203,37 @@ export default class FastLoanScene extends Component {
   }
 }
 const styles = StyleSheet.create({
+  formGroup: {
+    paddingVertical: 10,
+    flexDirection: 'row',
+    height: 46,
+    backgroundColor: '#fff'
+  },
+  inputGroup: {
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: 10
+  },
+  inputWrap: {
+    paddingHorizontal: 10,
+    backgroundColor: '#F2F2F2',
+    marginHorizontal: 10,
+    height: 26,
+    borderRadius: 18
+  },
+  formField: {
+    fontSize: 17,
+    color: '#333',
+    textAlign: 'center'
+  },
+  formPickerText: {
+    color: '#333',
+    fontSize: 17,
+  },
+  formFieldText: {
+    fontSize: 12,
+    color: '#666'
+  },
   title:{
     padding:10,
     flexDirection: 'row',
