@@ -3,6 +3,7 @@ import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, S
 
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
+import AmountInput from 'containers/shared/AmountInput';
 import LoanNavPanel from 'containers/scene/home/LoanNavPanel';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import LoanList from 'containers/scene/home/LoanListContainer';
@@ -45,6 +46,7 @@ export default class HomeScene extends Component {
         {this._renderHeader()}
         <ScrollView>
           <Banner />
+          <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>
           <LoanNavPanel />
           { this._renderBroadcast() }
           <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}}/>

@@ -70,7 +70,6 @@ class LoanNavPanel extends Component {
   render() {
     return !this.props.iosFetched ? null : (
       <View style={[LNPStyles.container]}>
-        { this._renderInputWrapper() }
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: (this.props.loginUser.info ? 'recommend_apply' : 'recommend') }}
@@ -109,36 +108,8 @@ class LoanNavPanel extends Component {
 const LNPStyles = StyleSheet.create({
   container: {
     padding: 8, paddingLeft: 10, paddingRight: 10,
-    height: 136,
+    height: 104,
     backgroundColor: "#FFF"
-  },
-  iptWrap: {
-    backgroundColor: "#F3F3F3",
-    height:32,
-    flex:3,
-    borderTopLeftRadius:14,
-    borderBottomLeftRadius: 14
-  },
-  input: {
-    paddingLeft: 12,
-    height:32,
-    paddingTop:0,paddingBottom:0,
-    fontSize: iptFontSize,
-    flex: 1
-  },
-  btnWrap: {
-    flex:1,
-    height:32,
-    paddingRight: 5,
-    backgroundColor: colors.secondary,
-    borderTopRightRadius:14,
-    borderBottomRightRadius: 14,
-    justifyContent: "center"
-  },
-  btn: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: iptFontSize
   },
   navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'},
   navTxt: { fontSize:iptFontSize, color: "#333", marginTop:8 }
