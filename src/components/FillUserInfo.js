@@ -32,7 +32,11 @@ const hasCreditStatus = {
 export default class FillUserInfo extends Component {
   static title = '完善个人信息';
 
-  tracking = { key: 'user', topic: 'complete_info_new_S' };
+  tracking() {
+    let userFilled = this.props.loginUser.info && this.props.loginUser.info.username;
+
+    return { key: 'loan', topic: userFilled  ? 'complete_info_rtn_S' : 'complete_info_new_S' };
+  }
 
   constructor(props) {
     super(props);
@@ -124,7 +128,7 @@ export default class FillUserInfo extends Component {
 
               <View style={styles.addon}>
                 <VerifyButton
-                  tracking={{key: 'user', topic: 'complete_info_new_S', entity: 'mob_code_button'}}
+                  tracking={Object.assign({ entity: 'mob_code_button'}, this.tracking()) }
                   mobile={this.state.mobile}
                   />
               </View>
@@ -173,7 +177,7 @@ export default class FillUserInfo extends Component {
         <View style={styles.footer}>
 
           <LoanButton
-            tracking={{key: 'user', topic: 'complete_info_new_S', entity: 'submit', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}}
+            tracking={Object.assign({entity: 'apply', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}, this.tracking()) }
             processing={this.props.update.submitting}
             style={styles.btn}
             textStyle={styles.btnText}

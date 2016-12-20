@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl,Button } from 'react-native';
+import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl} from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -17,6 +17,7 @@ import Text from 'components/shared/Text'
 import iconNext from 'assets/index-icons/icon_next.png';
 import triangleDown from 'assets/icons/triangle-down.png';
 import triangleUp from 'assets/icons/triangle-up.png';
+import Button from 'components/shared/ButtonBase';
 
 import {ExternalPushLink} from 'containers/shared/Link';
 
@@ -53,10 +54,10 @@ class ShopNearbyScene extends Component {
     )
   }
 
-  renderShopNearbyList(data){
+  renderShopNearbyList(data, sectionID, rowID){
     return(
       <View style={styles.flexColumn}>
-        <List {...data}/>
+        <List {...data} rowID={rowID}/>
       </View>
     )
   }
@@ -71,7 +72,9 @@ class List extends Component {
     let props = this.props;
     return(
       <View>
-        <View style={[styles.flexContainerRow,styles.bgColorWhite,{marginTop:5}]}>
+        <Button
+          tracking={{key: 'card', topic: 'featured_activity', entity: props.rowID}}
+          style={[styles.flexContainerRow,styles.bgColorWhite]}>
           <Image source={{uri: props.logo_url}} style={styles.shopLogo} />
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{props.shop_name}</Text>
@@ -85,7 +88,7 @@ class List extends Component {
             </View>
 
           </View>
-        </View>
+        </Button>
 
         {this.renderTriangle(props)}
 
@@ -97,14 +100,16 @@ class List extends Component {
     if(!props.act || props.act.length == 0) return null
 
     return(
-      <TouchableOpacity style={{flexDirection: 'row',alignItems:'center'}} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
+      <Button
+        tracking={{key: 'card', topic: 'featured_activity_extend', entity: props.rowID}}
+        style={{flexDirection: 'row',alignItems:'center'}} onPress={()=>{this.setState({ isShow: !this.state.isShow})}}>
         <View>
           <Text style={{fontSize:fontSize.thirteen,color:colors.fontColorPrimary}}>有{props.act.length}条活动</Text>
         </View>
         <View style={{alignItems: 'flex-end',marginLeft:5}}>
           <Image source={this.state.isShow ? triangleDown: triangleUp } />
         </View>
-      </TouchableOpacity>
+      </Button>
     )
   }
   renderTriangle(props){

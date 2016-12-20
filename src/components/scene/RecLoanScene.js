@@ -22,7 +22,10 @@ var screenHeight = Dimensions.get('window').height;
 export default class RecLoanScene extends Component {
   static title = "推荐贷款";
 
-  tracking = {key: 'user', topic: 'complete_info_new_L'};
+  tracking() {
+    return { key: 'loan', topic: this.state.hasLogin  ? 'complete_info_rtn_L' : 'complete_info_new_L' };
+  }
+
 
   constructor(props) {
     super(props);
@@ -83,7 +86,7 @@ export default class RecLoanScene extends Component {
         </View>
         <View style={{marginTop: 20}}>
           <LoanButton
-            tracking={{key: 'user', topic: 'complete_info_new_L', entity: 'submit ', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }}
+            tracking={Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking())}
             processing={this.props.submitting}
             style={styles.loanButton}
             textStyle={styles.loanButtonText}
@@ -193,7 +196,7 @@ export default class RecLoanScene extends Component {
           >
 
           <VerifyButton
-            tracking={{ key: 'user', topic: 'complete_info_new_L', entity: 'mob_code_button'}}
+            tracking={Object.assign({entity: 'mob_code_button'}, this.tracking())}
             mobile={this.state.mobile}/>
         </InputGroup>
 

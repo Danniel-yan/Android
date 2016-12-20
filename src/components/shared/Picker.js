@@ -15,8 +15,9 @@ import { colors } from 'styles/varibles';
 import Text from './Text';
 import Button from './ButtonBase';
 import * as defaultStyles from 'styles';
+import trackingPoint from 'high-order/trackingPointGenerator';
 
-export default class PickerComponent extends Component {
+export class PickerComponent extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired
@@ -111,9 +112,8 @@ export default class PickerComponent extends Component {
   }
 
   _onHide() {
-    this.setState({
-      openModal: false,
-    });
+    this.setState({ openModal: false });
+    this.props.onBlur && this.props.onBlur(this.props.value);
   }
 
   _renderIOSPicker() {
@@ -143,6 +143,9 @@ export default class PickerComponent extends Component {
   }
 
 }
+
+
+export default trackingPoint(PickerComponent);
 
 const styles = StyleSheet.create({
   container: {

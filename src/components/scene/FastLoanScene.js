@@ -23,15 +23,6 @@ const jobItems = [
   {label: "自由职业", value: 8}
 ];
 
-const trackingConfig = {
-  'btn_sec': {
-    '1': 'Staff',
-    '2': 'Businessowner',
-    '4': 'Student',
-    '8': 'Freelance',
-  }
-};
-
 var screenWidth = Dimensions.get('window').width;
 
 export default class FastLoanScene extends Component {
@@ -54,15 +45,6 @@ export default class FastLoanScene extends Component {
   }
   static title = "极速贷款";
 
-  _trackingFilter(topic, value) {
-
-    let entity = trackingConfig[topic] ? trackingConfig[topic][`${value}`] : value;
-    tracker.trackAction({ key: 'fastloan', entity, topic, event: 'clk'});
-
-
-
-  }
-
   formValueChanged(name, value) {
     if(this.state.fetchRecParams[name] === value) return;
 
@@ -73,7 +55,6 @@ export default class FastLoanScene extends Component {
 
       this.fetchingTimer = setTimeout(() => {
         this.fetchingData();
-        this._trackingFilter('btn_sec', value);
       }, 500);
     });
   }
@@ -83,10 +64,12 @@ export default class FastLoanScene extends Component {
     resList && resList.length > 0 && resList.map(res => valueList.push(res.value));
     this.formValueChanged("reslist", valueList);
     this.onToggleDrp("toggleFilter");
+
+    tracker.trackAction({ key: 'loan', entity: 'filter_complete', topic: 'complete', event: 'clk', filter: resList.map(item => item.label).join(',')});
   }
 
   orderSelected(opt) {
-    this._trackingFilter('sort', opt.value);
+    tracker.trackAction({ key: 'loan', topic: 'sort', entity: opt.label, event: 'clk'});
     this.formValueChanged("order", opt.value);
     this.onToggleDrp("toggleSort");
   }
@@ -111,13 +94,15 @@ export default class FastLoanScene extends Component {
           eachLineCount={4}
           needEmpty={true}
           options={jobItems}
-          selectedChanged={opt=>this.formValueChanged("job", opt ? opt.value : 0)}>
+          selectedChanged={opt=> {
+            this.formValueChanged("job", opt ? opt.value : 0)
+            tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
+          }}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}
         <View style={{zIndex:-5, borderTopColor: colors.line, borderTopWidth: 1, flex: 1}}>
           <ScrollView>
-            <RecList />
-            <MoreList />
+            <RecList itemTracking={{key: 'loan', topic: 'rec_loan_list'}}/>
           </ScrollView>
         </View>
 
@@ -132,7 +117,12 @@ export default class FastLoanScene extends Component {
         <View style={[rowContainer, styles.inputGroup]}>
           <Text>金额</Text>
           <View style={[rowContainer, centering, styles.inputWrap]}>
-            <Input value={this.state.fetchRecParams.amount + ''} style={[container, styles.formField]} onChangeText={this.formValueChanged.bind(this, 'amount')}></Input>
+            <Input
+              keyboardType="numeric"
+              tracking={{key: 'loan', topic: 'top', entity: 'amount', event: 'blur',amount: this.state.fetchRecParams.amount }}
+              value={this.state.fetchRecParams.amount + ''}
+              style={[container, styles.formField]}
+              onChangeText={this.formValueChanged.bind(this, 'amount')}></Input>
             <Text style={styles.formFieldText}>元</Text>
           </View>
         </View>
@@ -141,6 +131,7 @@ export default class FastLoanScene extends Component {
           <Text>期数</Text>
           <View style={[rowContainer, centering, styles.inputWrap]}>
             <Picker
+              tracking={{key: 'loan', topic: 'top', entity: 'period', event: 'blur', period: this.state.fetchRecParams.period }}
               style={container}
               value={this.state.fetchRecParams.period}
               textStyle={styles.formPickerText}
@@ -162,22 +153,31 @@ export default class FastLoanScene extends Component {
     });
     return (
       <View style={{marginTop: 5, position: "relative", flexDirection:"row" }}>
-        <Button style={{flex: 1, height:40, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: "#fff"}} onPress={()=>this.onToggleDrp("toggleFilter")}>
+        <Button
+          tracking={{key: 'loan', topic: 'filter', entity: ''}}
+          style={styles.dropButton}
+          onPress={()=>this.onToggleDrp("toggleFilter")}>
           <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
         <View style={{position: "absolute", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }}>
         { !this.state.toggleFilter ? null : 
           <HorizontalCheckboxes
-            clickItem={(item, idx) => this._trackingFilter('filter', idx)}
             withBtns={true}
             options={applyResList}
-            eachLineCount={3} selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
+            eachLineCount={3}
+            onReset={() => {
+              tracker.trackAction({key: 'loan', topic: 'filter_reset', entity: 'reset', event: 'clk'});
+            }}
+            selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
           </HorizontalCheckboxes>
         } 
         </View>
 
-        <Button style={{flex: 1, height:40, flexDirection:"row", alignItems:"center", justifyContent: "center", backgroundColor: "#fff"}} onPress={()=>this.onToggleDrp("toggleSort")}>
+        <Button
+          tracking={{key: 'loan', topic: 'sort', entity: ''}}
+          style={styles.dropButton}
+          onPress={()=>this.onToggleDrp("toggleSort")}>
           <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
@@ -233,6 +233,14 @@ const styles = StyleSheet.create({
   formFieldText: {
     fontSize: 12,
     color: '#666'
+  },
+  dropButton: {
+    flex: 1,
+    height:40,
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent: "center",
+    backgroundColor: "#fff"
   },
   title:{
     padding:10,

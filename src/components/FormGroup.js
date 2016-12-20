@@ -206,6 +206,7 @@ export class HorizontalCheckboxes extends HorizontalRadios {
 
   reset() {
     this.setState({selectedIdxes: []});
+    this.props.onReset && this.props.onReset();
   }
 
   submit() {

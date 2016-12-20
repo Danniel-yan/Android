@@ -216,7 +216,8 @@ export default class LoanDetailScene extends Component {
     if(this.props.loginUser.valid) {
       return (
         <ExternalPushLink
-          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id, title: detail.title}}
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
+                     title: detail.title, amount: this.state.amount, period: this.state.period}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"

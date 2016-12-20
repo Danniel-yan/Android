@@ -140,8 +140,8 @@ export default (ComponentClass) => {
     render() {
       let { navigation, onPress, onBlur, tracking, ...props } = this.props;
 
-      onPress && (props.onPress = this._actionHandle.bind(this));
-      onBlur && (props.onBlur = this._actionHandle.bind(this));
+      props.onPress = this._actionHandle.bind(this);
+      props.onBlur = this._actionHandle.bind(this);
 
       return <ComponentClass {...props} />;
     }
