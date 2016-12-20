@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export const RecList = connect(mapStateToRecResultProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecommendList));
-export const MoreList = connect(mapStateToMoreResultProps, mapDispatchToProps)(AsynCpGenerator(Loading, RecommendList));
+export const MoreList = connect(mapStateToMoreResultProps, mapDispatchToProps)(AsynCpGenerator(null, RecommendList));
