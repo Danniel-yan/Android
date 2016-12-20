@@ -86,7 +86,10 @@ class CardScene extends Component {
 
         <View style={cardEnterStyle.left}>
         { !category ? null :
-        <ExternalPushLink style={centering}>
+        <ExternalPushLink
+          title="信用卡申请"
+          toKey="CardListByCategory"
+          style={centering}>
           <Image source={{uri: category.pic}} style={cardEnterStyle.boxPic} />
           <Text style={cardEnterStyle.categoryTitle}>{category.name}</Text>
           <Text>{category.info}</Text>

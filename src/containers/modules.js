@@ -17,10 +17,12 @@ import ContactScene from 'containers/scene/zone/ContactSceneContainer';
 import SettingScene from 'containers/scene/zone/SettingSceneContainer';
 import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 import UserInfo from 'containers/scene/zone/UserInfo';
+import CardListByCategory from 'containers/scene/card/CardListByCategory';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'CardListByCategory', module: CardListByCategory },
   { key: 'SettingScene', module: SettingScene },
   { key: 'ContactScene', module: ContactScene },
   { key: 'MessagesScene', module: MessagesScene},
