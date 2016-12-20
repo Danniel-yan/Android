@@ -14,7 +14,7 @@ export const environments = {
   test: {
     id: 'test',
     text: '内部用测试环境',
-    api: 'http://139.196.143.236:8001/'
+    api: 'https://shiyishou-test.jujinpan.cn/'
   }
 };
 

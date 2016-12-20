@@ -7,15 +7,15 @@ import externalScene from 'high-order/externalScene';
 import paginationShopNearby from 'actions/scene/card/shopNearby'
 
 import Text from 'components/shared/Text';
-import { colors } from 'styles/varibles';
+import { border, container, rowContainer, centering, colors, responsive, textVerticalCenter } from 'styles';
 import iconNext from 'assets/index-icons/icon_next.png';
 
-import CategoryListContainer from 'containers/scene/home/CategoryListContainer';
-import ActHotContainer from 'containers/scene/card/ActHotContainer';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 import ShopNearbyContainer from 'containers/scene/card/ShopNearbyContainer'
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
+import Banner from 'components/Banner';
+import fetchCardConfig from 'actions/scene/card/cardConfig';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -25,12 +25,29 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 class CardScene extends Component {
   tracking = 'card';
 
+  componentDidMount() {
+    let cardConfig = this.props.cardConfig;
+
+    if(!cardConfig.isFetching && !cardConfig.fetched && !cardConfig.err) {
+      this.props.fetchingCardConfig();
+    }
+
+  }
+
   render() {
-    let { isPaging, pagination, paginationParams, nomore } = this.props;
+    let { cardConfig, isPaging, pagination, paginationParams, nomore } = this.props;
 
     if(this.props.geoError) {
-      return this._geoError();
+      return (
+        <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
+          <SceneHeader title="办卡"/>
+          <ScrollView>
+            {this._children()}
+          </ScrollView>
+        </View>
+      );
     }
+
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -40,58 +57,69 @@ class CardScene extends Component {
           paginationParams={paginationParams}
           pagination={pagination}
           nomore={nomore}>
-          {this._renderActHot()}
-          {this._renderCard()}
-          {this._renderBankList()}
-          {this._renderShopNearby()}
+
+          {this._children()}
         </ScrollPagination>
       </View>
     );
   }
 
-  _geoError() {
-    return (
-      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <SceneHeader title="办卡"/>
-        <ScrollView>
-          {this._renderActHot()}
-          {this._renderCard()}
-          {this._renderBankList()}
-          {this._renderShopNearby()}
-        </ScrollView>
-      </View>
-    );
-  }
+  _children() {
+    let cardConfig = this.props.cardConfig.config;
+    let banner = cardConfig.tab_top_banner && cardConfig.tab_top_banner[0];
 
-  _renderActHot(){
-    return(
+    return (
       <View>
-        <View style={[styles.title,styles.bgColorWhite, {marginTop:5,paddingBottom:5}]}>
-          <Text style={styles.titleLeft}>今天薅什么</Text>
-          <ExternalPushLink style={styles.flexRow} toKey="ActHotListScene" title="今天薅什么">
-            <Text style={styles.titleRight}>更多产品</Text>
-            <Image style={styles.titleRightImg} source={iconNext} />
-          </ExternalPushLink>
-        </View>
-        <ActHotContainer/>
+        { !banner ? null : <Banner to={banner.url} image={banner.pic} height={176}/>}
+        {this._renderCard()}
+        {this._renderBankList()}
+        {this._renderShopNearby()}
       </View>
     )
   }
 
   _renderCard(){
+    let category = this.props.cardConfig.config.tab_category_hot;
+
     return(
-      <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>极速办卡</Text>
+      <View style={[cardEnterStyle.wrap ,styles.bgColorWhite]}>
+
+        <View style={cardEnterStyle.left}>
+        { !category ? null :
+        <ExternalPushLink style={centering}>
+          <Image source={{uri: category.pic}} style={cardEnterStyle.boxPic} />
+          <Text style={cardEnterStyle.categoryTitle}>{category.name}</Text>
+          <Text>{category.info}</Text>
+
+        </ExternalPushLink>
+        }
         </View>
-        <CategoryListContainer itemTracking={{key: 'card', topic: 'express_roll'}}/>
+
+        <View style={container}>
+
+          <ExternalPushLink
+            style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
+            <Text style={[cardEnterStyle.title, {color: '#1A91FE'}]}>办卡进度</Text>
+            <Image source={require('assets/card/jindu.png')}/>
+          </ExternalPushLink>
+
+          <ExternalPushLink
+            style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
+            <Text style={[cardEnterStyle.title, {color: colors.secondary}]}>办卡攻略</Text>
+            <Image source={require('assets/card/gonglue.png')}/>
+          </ExternalPushLink>
+
+        </View>
       </View>
     )
   }
 
   _renderBankList(){
     return(
-      <View>
+      <View style={[styles.bgColorWhite, {marginTop:5}]}>
+        <View style={[styles.title,]}>
+          <Text style={styles.titleLeft}>极速办卡</Text>
+        </View>
         <BankListContainer/>
       </View>
     )
@@ -116,6 +144,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',
+    ...border('bottom')
   },
   bgColorWhite:{
     backgroundColor:colors.white
@@ -140,14 +169,53 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return state.shopNearby
+  return {
+    ...state.shopNearby,
+    cardConfig: state.cardConfig
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchingCardConfig: () => dispatch(fetchCardConfig()),
     fetching : offset => dispatch(paginationShopNearby(offset)),
     pagination: offset => dispatch(paginationShopNearby(offset))
   }
 }
+
+const cardEnterStyle = StyleSheet.create({
+  rowGroup: {
+    ...border('bottom')
+  },
+
+  wrap: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    height: responsive.width(311),
+  },
+
+  title: {
+    marginRight: responsive.width(96),
+    fontSize: 17,
+  },
+
+  left: {
+    ...border('right'),
+    width: responsive.width(332),
+    justifyContent: 'center',
+    alignItems:'center',
+  },
+
+  boxPic: {
+    width: responsive.width(200),
+    height: responsive.width(125),
+  },
+
+  categoryTitle: {
+    ...textVerticalCenter(responsive.height(68)),
+    fontSize:17,
+    color:colors.fontColorSecondary,
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(CardScene));

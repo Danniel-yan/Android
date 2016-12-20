@@ -19,9 +19,11 @@ import loginUser from './loginUser';
 import actDetailBanner from './scene/card/actDetailBanner';
 import repayCalc from './scene/repayCalc';
 import iosConfig from './iosConfig';
+import cardConfig from './scene/card/cardConfig';
 
 export default combineReducers({
   loginUser,
+  cardConfig,
   navigation,
   homeRecommendList,
   filterList,
