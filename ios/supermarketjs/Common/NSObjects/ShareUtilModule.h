@@ -12,18 +12,18 @@
 @interface ShareUtilModule : NSObject<RCTBridgeModule>
 
 // 微信好友圈分享
-- (void)circle:(NSDictionary *)readableMap callback:(RCTPromiseResolveBlock)callback;
+- (void)circle:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 
 // 微信好友分享
-- (void)weixin:(NSDictionary *)readableMap callback:(RCTPromiseResolveBlock)callback;
+- (void)weixin:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 
 // 新浪微博分享
-- (void)sina:(NSDictionary *)readableMap callback:(RCTPromiseResolveBlock)callback;
+- (void)sina:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 
 // qq空间分享
-- (void)qzone:(NSDictionary *)readableMap callback:(RCTPromiseResolveBlock)callback;
+- (void)qzone:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 
 // qq好友分享
-- (void)qq:(NSDictionary *)readableMap callback:(RCTPromiseResolveBlock)callback;
+- (void)qq:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve  rejecter:(RCTPromiseRejectBlock)reject;
 
 @end
