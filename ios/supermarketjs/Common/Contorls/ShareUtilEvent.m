@@ -23,7 +23,7 @@
 }
 
 
-- (void)sharePlatform:(NSInteger)platform diction:(NSDictionary *)diction completionHandler:(void(^)(NSDictionary *result))completion{
+- (void)sharePlatform:(NSInteger)platform diction:(NSDictionary *)diction completionHandler:(void(^)(NSArray *result))completion{
   
   SSDKPlatformType type;
 
@@ -82,17 +82,17 @@
        switch (state) {
          case SSDKResponseStateSuccess:
          {
-           completion(@{@"status":@"success"});
+           completion(@[@{@"status":@"success"}]);
            break;
          }
          case SSDKResponseStateFail:
          {
-           completion(@{@"status":@"faliure"});
+           completion(@[@{@"status":@"faliure"}]);
            break;
          }
            case SSDKResponseStateCancel:
          {
-           completion(@{@"status":@"cancel"});
+           completion(@[@{@"status":@"cancel"}]);
            break;
          }
          default:

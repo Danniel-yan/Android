@@ -12,6 +12,6 @@
 
 + (id)shareInstance;
 
-- (void)sharePlatform:(NSInteger)platform diction:(NSDictionary *)diction completionHandler:(void(^)(NSDictionary *result))completion;
+- (void)sharePlatform:(NSInteger)platform diction:(NSDictionary *)diction completionHandler:(void(^)(NSArray *result))completion;
 
 @end
