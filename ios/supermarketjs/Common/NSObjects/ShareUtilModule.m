@@ -18,10 +18,10 @@ RCT_EXPORT_METHOD(circle:(NSDictionary *)readableMap resolver:(RCTPromiseResolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   if([readableMap isKindOfClass:[NSDictionary class]]){
-    [[ShareUtilEvent shareInstance] sharePlatform:1 diction:readableMap completionHandler:^(NSArray *result) {
+    [[ShareUtilEvent shareInstance] sharePlatform:3 diction:readableMap completionHandler:^(NSArray *result) {
       NSArray *events = [NSArray arrayWithArray:result];
       if (events) {
-        resolve(events);
+        resolve(events[0]);
       }
     }];
 
@@ -33,10 +33,10 @@ RCT_EXPORT_METHOD(weixin:(NSDictionary *)readableMap resolver:(RCTPromiseResolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   if([readableMap isKindOfClass:[NSDictionary class]]){
-    [[ShareUtilEvent shareInstance] sharePlatform:1 diction:readableMap completionHandler:^(NSArray *result) {
+    [[ShareUtilEvent shareInstance] sharePlatform:2 diction:readableMap completionHandler:^(NSArray *result) {
       NSArray *events = [NSArray arrayWithArray:result];
       if (events) {
-        resolve(events);
+        resolve(events[0]);
       }
     }];
 
@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(sina:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBl
     [[ShareUtilEvent shareInstance] sharePlatform:1 diction:readableMap completionHandler:^(NSArray *result) {
       NSArray *events = [NSArray arrayWithArray:result];
       if (events) {
-        resolve(events);
+        resolve(events[0]);
       }
     }];
   }
@@ -62,10 +62,10 @@ RCT_EXPORT_METHOD(qzone:(NSDictionary *)readableMap resolver:(RCTPromiseResolveB
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   if([readableMap isKindOfClass:[NSDictionary class]]){
-    [[ShareUtilEvent shareInstance] sharePlatform:1 diction:readableMap completionHandler:^(NSArray *result) {
+    [[ShareUtilEvent shareInstance] sharePlatform:5 diction:readableMap completionHandler:^(NSArray *result) {
       NSArray *events = [NSArray arrayWithArray:result];
       if (events) {
-        resolve(events);
+        resolve(events[0]);
       }
     }];
 
@@ -77,10 +77,10 @@ RCT_EXPORT_METHOD(qq:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBloc
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   if([readableMap isKindOfClass:[NSDictionary class]]){
-    [[ShareUtilEvent shareInstance] sharePlatform:1 diction:readableMap completionHandler:^(NSArray *result) {
+    [[ShareUtilEvent shareInstance] sharePlatform:4 diction:readableMap completionHandler:^(NSArray *result) {
       NSArray *events = [NSArray arrayWithArray:result];
       if (events) {
-        resolve(events);
+        resolve(events[0]);
       }
     }];
 

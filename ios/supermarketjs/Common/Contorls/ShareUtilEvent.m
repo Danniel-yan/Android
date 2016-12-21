@@ -66,7 +66,7 @@
   
   NSMutableArray* imageArray = [NSMutableArray array];
   if (![imagePath isKindOfClass:[NSString class]] || [imagePath isEqualToString:@""]){
-    [imageArray addObject:[UIImage imageNamed:@"icon-80.png"]];
+    [imageArray addObject:[UIImage imageNamed:@"icon-80"]];
   }else{
       NSData * data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imagePath]];
       UIImage *image = [[UIImage alloc] initWithData:data];
