@@ -59,6 +59,8 @@
 		B87566A41DDE9B4500F74BA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B875669A1DDE9B4500F74BA9 /* main.m */; };
 		B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */; };
 		B875670A1DDEB3B600F74BA9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87567091DDEB3B600F74BA9 /* Bugly.framework */; };
+		B8ECA1761E0A54F200E0A6BE /* ShareUtilModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECA1751E0A54F200E0A6BE /* ShareUtilModule.m */; };
+		B8ECA1931E0A60B700E0A6BE /* ShareUtilEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECA1921E0A60B700E0A6BE /* ShareUtilEvent.m */; };
 		B8FF6C4D1E03DF5E00FB2709 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FF6C241E03DF5E00FB2709 /* ShareSDK.framework */; };
 		B8FF6C4E1E03DF5E00FB2709 /* ShareSDKConfigFile.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B8FF6C271E03DF5E00FB2709 /* ShareSDKConfigFile.bundle */; };
 		B8FF6C4F1E03DF5E00FB2709 /* ShareSDKConfigFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FF6C281E03DF5E00FB2709 /* ShareSDKConfigFile.framework */; };
@@ -337,6 +339,10 @@
 		B87566B51DDEADEF00F74BA9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B87567061DDEB2D100F74BA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B87567091DDEB3B600F74BA9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		B8ECA1751E0A54F200E0A6BE /* ShareUtilModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUtilModule.m; sourceTree = "<group>"; };
+		B8ECA1911E0A60B700E0A6BE /* ShareUtilEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareUtilEvent.h; path = supermarketjs/Common/Contorls/ShareUtilEvent.h; sourceTree = SOURCE_ROOT; };
+		B8ECA1921E0A60B700E0A6BE /* ShareUtilEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareUtilEvent.m; path = supermarketjs/Common/Contorls/ShareUtilEvent.m; sourceTree = SOURCE_ROOT; };
+		B8ECA1941E0A6D5300E0A6BE /* ShareUtilModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareUtilModule.h; sourceTree = "<group>"; };
 		B8FF6C241E03DF5E00FB2709 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		B8FF6C271E03DF5E00FB2709 /* ShareSDKConfigFile.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKConfigFile.bundle; sourceTree = "<group>"; };
 		B8FF6C281E03DF5E00FB2709 /* ShareSDKConfigFile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConfigFile.framework; sourceTree = "<group>"; };
@@ -814,6 +820,8 @@
 			children = (
 				B81A622B1DE67EC7001365BD /* StatisticalEvent.h */,
 				B81A622C1DE67EC7001365BD /* StatisticalEvent.m */,
+				B8ECA1911E0A60B700E0A6BE /* ShareUtilEvent.h */,
+				B8ECA1921E0A60B700E0A6BE /* ShareUtilEvent.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -832,6 +840,8 @@
 				B87566AC1DDE9DF700F74BA9 /* ConstantVariables.m */,
 				B8671AC91DEC140F00943609 /* JpushModule.h */,
 				B8671ACA1DEC140F00943609 /* JpushModule.m */,
+				B8ECA1941E0A6D5300E0A6BE /* ShareUtilModule.h */,
+				B8ECA1751E0A54F200E0A6BE /* ShareUtilModule.m */,
 			);
 			path = NSObjects;
 			sourceTree = "<group>";
@@ -1318,9 +1328,11 @@
 				B86BB7C01DF8265C00E8B720 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				B86BB7BA1DF8265C00E8B720 /* IQUIScrollView+Additions.m in Sources */,
 				B86BB7BD1DF8265C00E8B720 /* IQUIViewController+Additions.m in Sources */,
+				B8ECA1931E0A60B700E0A6BE /* ShareUtilEvent.m in Sources */,
 				B86BB7BE1DF8265C00E8B720 /* IQUIWindow+Hierarchy.m in Sources */,
 				B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */,
 				B86BB7C21DF8265C00E8B720 /* IQBarButtonItem.m in Sources */,
+				B8ECA1761E0A54F200E0A6BE /* ShareUtilModule.m in Sources */,
 				B8671ACB1DEC140F00943609 /* JpushModule.m in Sources */,
 				B86BB7BC1DF8265C00E8B720 /* IQUIView+Hierarchy.m in Sources */,
 				B86BB7B91DF8265C00E8B720 /* IQNSArray+Sort.m in Sources */,

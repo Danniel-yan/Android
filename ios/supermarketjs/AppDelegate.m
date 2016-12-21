@@ -69,8 +69,6 @@
 }
 
 
-//  
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
   [_appDelegateExtend application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
