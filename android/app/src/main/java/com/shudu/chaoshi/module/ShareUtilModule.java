@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.shudu.chaoshi.model.ShareContentModel;
 import com.shudu.chaoshi.util.ShareUtil;
 
@@ -67,10 +68,24 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
     private ShareContentModel setModel(ReadableMap readableMap) {
         ShareContentModel model = new ShareContentModel();
         if (readableMap != null) {
-            model.content = readableMap.getString("content");
-            model.title = readableMap.getString("title");
-            model.url = readableMap.getString("url");
-            model.icon_url = readableMap.getString("icon_url");
+            ReadableMapKeySetIterator it = readableMap.keySetIterator();
+            Class cl = model.getClass();
+            while(it.hasNextKey()) {
+                String key = it.nextKey();
+                try {
+                    cl.getDeclaredField(key).set(model, readableMap.getString(key));
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+//                readableMap.getString(key);
+            }
+//            model.content = readableMap.getString("content");
+//            model.title = readableMap.getString("title");
+//            model.url = readableMap.getString("url");
+//            model.icon_url = readableMap.getString("icon_url");
         }
         return model;
     }

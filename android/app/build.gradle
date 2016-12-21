@@ -121,6 +121,7 @@ android {
     buildTypes {
         debug{
             buildConfigField "String", "CODEPUSH_KEY", "\"LUel5YFNaoRmFv8c55s39w4SuRZwE18X89yfG\""
+            signingConfig signingConfigs.release
         }
         release {
             buildConfigField "String", "CODEPUSH_KEY", "\"GsLre6desbWjoD2MjQD_cYcT4vvlE18X89yfG\""
