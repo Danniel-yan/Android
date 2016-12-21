@@ -1493,8 +1493,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "e6e443dc-0801-4622-b0cf-2b73dcff5f4f";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
+				PROVISIONING_PROFILE = "b88ed3c1-4334-434a-8405-08726cff30a8";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
