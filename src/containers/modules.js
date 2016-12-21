@@ -18,11 +18,13 @@ import SettingScene from 'containers/scene/zone/SettingSceneContainer';
 import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 import UserInfo from 'containers/scene/zone/UserInfo';
 import CardListByCategory from 'containers/scene/card/CardListByCategory';
+import CardProcessList from 'containers/scene/card/CardProcessList';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'CardListByCategory', module: CardListByCategory },
+  { key: 'CardProcessList', module: CardProcessList },
   { key: 'SettingScene', module: SettingScene },
   { key: 'ContactScene', module: ContactScene },
   { key: 'MessagesScene', module: MessagesScene},

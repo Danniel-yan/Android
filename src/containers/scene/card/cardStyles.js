@@ -114,31 +114,6 @@ export default StyleSheet.create({
     marginTop:5,
     justifyContent:'center'
   },
-  itemViewStyle:{
-    width: Dimensions.get('window').width / 2 - 1,
-    height:100
-  },
-  row:{
-    borderRightWidth:1,
-    borderRightColor: colors.line,
-    borderStyle : 'solid',
-    flexDirection:'row',
-    borderBottomWidth:1,
-    borderBottomColor: colors.line,
-    justifyContent: 'center',
-    alignItems:'center'
-  },
-  thumb: {
-    width: 45,
-    height: 45,
-    marginLeft:15,
-    marginRight:15
-  },
-  info:{
-    fontSize:fontSize.thirteen,
-    width:Dimensions.get('window').width/2 - 80,
-    marginTop:6
-  },
   moreBank:{
     width: Dimensions.get('window').width / 2 -1,
     height:100,

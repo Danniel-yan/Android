@@ -16,6 +16,7 @@ import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
 import Banner from 'components/Banner';
 import fetchCardConfig from 'actions/scene/card/cardConfig';
+import GroupTitle from 'components/GroupTitle';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -89,6 +90,9 @@ class CardScene extends Component {
         <ExternalPushLink
           title="信用卡申请"
           toKey="CardListByCategory"
+          componentProps={{
+            selected: category.id
+          }}
           style={centering}>
           <Image source={{uri: category.pic}} style={cardEnterStyle.boxPic} />
           <Text style={cardEnterStyle.categoryTitle}>{category.name}</Text>
@@ -101,12 +105,16 @@ class CardScene extends Component {
         <View style={container}>
 
           <ExternalPushLink
+            title="办卡进度"
+            toKey="CardProcessList"
             style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
             <Text style={[cardEnterStyle.title, {color: '#1A91FE'}]}>办卡进度</Text>
             <Image source={require('assets/card/jindu.png')}/>
           </ExternalPushLink>
 
           <ExternalPushLink
+            title="办卡攻略"
+            toKey="CardStrategyList"
             style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
             <Text style={[cardEnterStyle.title, {color: colors.secondary}]}>办卡攻略</Text>
             <Image source={require('assets/card/gonglue.png')}/>
@@ -120,9 +128,7 @@ class CardScene extends Component {
   _renderBankList(){
     return(
       <View style={[styles.bgColorWhite, {marginTop:5}]}>
-        <View style={[styles.title,]}>
-          <Text style={styles.titleLeft}>极速办卡</Text>
-        </View>
+        <GroupTitle title="极速办卡"/>
         <BankListContainer/>
       </View>
     )
@@ -131,9 +137,7 @@ class CardScene extends Component {
   _renderShopNearby(){
     return(
       <View style={{marginTop:5}}>
-        <View style={[styles.title,styles.bgColorWhite]}>
-          <Text style={styles.titleLeft}>附近优惠</Text>
-        </View>
+        <GroupTitle title="热门活动"/>
         <ShopNearbyContainer/>
       </View>
     )
@@ -142,23 +146,8 @@ class CardScene extends Component {
 }
 
 const styles = StyleSheet.create({
-  title:{
-    padding:10,
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent: 'center',
-    ...border('bottom')
-  },
   bgColorWhite:{
     backgroundColor:colors.white
-  },
-  titleLeft:{
-    fontSize:16,
-    color:colors.fontColorSecondary,
-    flex:1
-  },
-  titleRight:{
-    fontSize:14
   },
   flexRow: {
     flexDirection: 'row',

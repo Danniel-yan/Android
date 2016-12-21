@@ -13,6 +13,7 @@ import Text from 'components/shared/Text';
 import Dimensions from 'Dimensions';
 
 import iconNext from 'assets/index-icons/icon_next.png';
+import Bank from 'components/Bank';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -38,53 +39,24 @@ class BankListScene extends Component{
 
   render(){
 
+    let banks = this.state.bankList.map((bank,index) =>{
+
+      let props = bank.link ?
+        this._bankWebProps(bank, index) : this._bankListProps(bank, index);
+
+      return (
+        <ExternalPushLink key={"bank"+index} {...props}>
+          <Bank info={bank.info} name={bank.name} image={bank.pic_card}/>
+        </ExternalPushLink>
+      )
+    });
+
     return(
-      <View style={[styles.bgColorWhite]}>
-        <View style={{flexDirection:'row',flexWrap: 'wrap'}}>
-          {
-            this.state.bankList.map((data,index) =>{
-                return (data.link) ? (
-                  <View key={'key'+index} style={styles.itemViewStyle}>
-                    <ExternalPushLink
-                      tracking={{key: 'card', topic: 'bank_list', entity: index, bank_name: data.name}}
-                      title={data.name}
-                      web={data.link}
-                      componentProps={{
-                        tracking: {key: 'card', topic: 'card_application', bank_name: data.name, card_name: data.name}
-                      }}
-                      >
+      <View style={[styles.bgColorWhite, {flexDirection:'row',flexWrap: 'wrap', alignItems: 'flex-start'}]}>
 
-                      <View style={[styles.itemViewStyle,styles.row]}>
-                        <Image style={styles.thumb} source={{uri: data.pic_card}} />
-                        <View>
-                          <Text style={{color:colors.fontColorSecondary,fontSize:fontSize.seventeen}}>{data.name}</Text>
-                          <Text style={styles.info}>{data.info}</Text>
-                        </View>
-                      </View>
-                    </ExternalPushLink>
-                  </View>
-                ):(
-                  <View key={'key'+index} style={styles.itemViewStyle}>
-                    <ExternalPushLink
-                      tracking={{key: 'card', topic: 'bank_list', entity: index, bank_name: data.name}}
-                      title={data.name} toKey="CardListScene" componentProps={{fetchingParams: { bankid: data.id , categoryid: 0, offset: 0}}}>
-                      <View style={[styles.itemViewStyle,styles.row]}>
-                        <Image style={styles.thumb} source={{uri: data.pic_card}} />
-                        <View>
-                          <Text style={{color:colors.fontColorSecondary,fontSize:fontSize.seventeen}}>{data.name}</Text>
-                          <Text style={styles.info}>{data.info}</Text>
-                        </View>
-                      </View>
-                    </ExternalPushLink>
-                  </View>
-                )
-              }
-            )
-          }
+        {banks}
 
-          {this.moreBankList(this.props.bankList)}
-        </View>
-
+        {this.moreBankList(this.props.bankList)}
       </View>
     )
   }
@@ -104,6 +76,25 @@ class BankListScene extends Component{
         </ExternalPushLink>
       </View>
     )
+  }
+
+  _bankListProps(bank, index) {
+    return {
+      toKey: 'CardListScene',
+      title: bank.name,
+      tracking:{key: 'card', topic: 'bank_list', entity: index, bank_name: bank.name},
+      componentProps:{fetchingParams: { bankid: bank.id , categoryid: 0, offset: 0}}
+    };
+
+  }
+
+  _bankWebProps(bank, index) {
+    return {
+      web: bank.link,
+      title: bank.name,
+      tracking:{ key: 'card', topic: 'bank_list', entity: index, bank_name: bank.name },
+      componentProps: { tracking: {key: 'card', topic: 'card_application', bank_name: bank.name, card_name: bank.name} }
+    };
   }
 }
 

@@ -10,6 +10,18 @@ export default class DefaultText extends Component {
   }
 }
 
+export class OneLineText extends Component {
+  render() {
+    let { numberOfLines, ellipsizeMode = 'tail', ...props } = this.props;
+    return (
+      <DefaultText
+        {...props}
+        numberOfLines={1}
+        ellipsizeMode={ellipsizeMode}/>
+    )
+  }
+}
+
 const styles = StyleSheet.create({
   defaultText: {
     fontSize: 14,

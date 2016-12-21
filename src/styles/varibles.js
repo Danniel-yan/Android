@@ -12,6 +12,10 @@ export const colors = {
 export const fontSize = {
   seventeen : 17,
   thirteen : 13,
+  large: 17,
+  normal: 14,
+  small: 13,
+  xsmall: 12,
 }
 
 export const statusBarHeight = Platform.OS === 'ios' ? 20 : 0;
