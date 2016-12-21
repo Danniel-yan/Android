@@ -19,7 +19,7 @@ export default class ShareModal extends Component {
     let config = {title: '分享title', content: '分享content', url: 'https://www.madailicai.com' };
 
     return (
-      <OverlayModal onCancel={this.props.onCancel}>
+      <OverlayModal {...this.props} >
 
         <View style={styles.panel}>
           <View style={centering}><Text style={styles.title}>分享</Text></View>
@@ -39,7 +39,7 @@ export default class ShareModal extends Component {
               style={container}/>
           </View>
 
-          <Button style={styles.cancel} textStyle={styles.canceltext} text="取消"/>
+          <Button onPress={this.props.onHide} style={styles.cancel} textStyle={styles.canceltext} text="取消"/>
         </View>
 
       </OverlayModal>
@@ -51,14 +51,11 @@ class WeixinItem extends Component {
   render() {
     return (
       <ShareItem
-        onPress={this.share.bind(this)}
+        {...this.props}
+        share={ShareModuel.weixin}
         text="微信"
         image={require('assets/share-icons/weixin.png')}/>
     );
-  }
-
-  share() {
-    ShareModuel.weixin(this.props.config);
   }
 }
 
@@ -66,14 +63,11 @@ class PengyouquanItem extends Component {
   render() {
     return (
       <ShareItem
-        onPress={this.share.bind(this)}
+        {...this.props}
+        share={ShareModuel.circle}
         text="微信朋友圈"
         image={require('assets/share-icons/pengyouquan.png')}/>
     );
-  }
-
-  share() {
-    ShareModuel.circle(this.props.config);
   }
 }
 
@@ -81,14 +75,11 @@ class SinaItem extends Component {
   render() {
     return (
       <ShareItem
-        onPress={this.share.bind(this)}
+        {...this.props}
+        share={ShareModuel.sina}
         text="新浪微博"
         image={require('assets/share-icons/sina.png')}/>
     );
-  }
-
-  share() {
-    ShareModuel.sina(this.props.config);
   }
 }
 
@@ -96,28 +87,43 @@ class QzoneItem extends Component {
   render() {
     return (
       <ShareItem
-        onPress={this.share.bind(this)}
+        {...this.props}
+        share={ShareModuel.qzone}
         text="QQ空间"
         image={require('assets/share-icons/qzone.png')}/>
     );
   }
-
-  share() {
-    ShareModuel.qzone(this.props.config);
-  }
 }
 
 class ShareItem extends Component {
+  static propTypes = {
+    share: React.PropTypes.func.isRequired,
+    config: React.PropTypes.object.isRequired,
+  };
+
   render() {
 
-    let { style, image, text, ...props } = this.props;
+    let { style, image, text } = this.props;
 
     return (
-      <Button {...props} style={[container, styles.shareItem, centering, style]}>
+      <Button
+        onPress={this._share.bind(this)} style={[container, styles.shareItem, centering, style]}>
         <Image source={image}/>
         <Text style={styles.shareItemText}>{text}</Text>
       </Button>
     );
+  }
+
+  _share() {
+    let { config, share, onError, onCancel, onSuccess, onBackApp } = this.props;
+
+    share(config).then(res => {
+      if(onBackApp) { return onBackApp(res); }
+
+      res.success && onSuccess && onSuccess(res);
+      res.cancel && onCancel && onCancel(res);
+      res.failure && onError && onError(res);
+    });
   }
 }
 

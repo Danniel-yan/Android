@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.shudu.chaoshi.model.ShareContentModel;
 import com.shudu.chaoshi.util.ShareUtil;
 
@@ -80,12 +81,7 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
                     e.printStackTrace();
                 }
 
-//                readableMap.getString(key);
             }
-//            model.content = readableMap.getString("content");
-//            model.title = readableMap.getString("title");
-//            model.url = readableMap.getString("url");
-//            model.icon_url = readableMap.getString("icon_url");
         }
         return model;
     }
@@ -94,35 +90,23 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
         return new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("status", "success");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                promise.resolve(jsonObject);
+                WritableNativeMap writableNativeMap = new WritableNativeMap();
+                writableNativeMap.putString("status", "success");
+                promise.resolve(writableNativeMap);
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("status", "faliure");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                promise.resolve(jsonObject);
+                WritableNativeMap writableNativeMap = new WritableNativeMap();
+                writableNativeMap.putString("status", "failure");
+                promise.resolve(writableNativeMap);
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("status", "cancel");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                promise.resolve(jsonObject);
+                WritableNativeMap writableNativeMap = new WritableNativeMap();
+                writableNativeMap.putString("status", "cancel");
+                promise.resolve(writableNativeMap);
             }
         };
     }

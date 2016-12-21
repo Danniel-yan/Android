@@ -10,16 +10,16 @@ export default class ShareModal extends Component {
   static defaultProps = {
     animationType: 'fade',
     transparent: true,
-    onCancel: () => {}
+    onHide: () => {}
   };
 
   render() {
-    let { onCancel, children, ...props } = this.props;
+    let { onHide, children, ...props } = this.props;
 
     return (
-      <Modal {...props} onRequestClose={onCancel}>
+      <Modal {...props} onRequestClose={onHide}>
 
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onCancel}/>
+        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onHide}/>
 
         {children}
 

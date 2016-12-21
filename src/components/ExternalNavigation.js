@@ -103,8 +103,8 @@ export default class ExternalNavigation extends Component {
       }
 
       // append scene header
-      if(route.index !== 0) {
-        ComponentClass = externalScene(ComponentClass, { title, backCount });
+      if(route.index !== 0 && !ComponentClass.external) {
+        ComponentClass = externalScene(ComponentClass);
       }
 
       // 由于React Native Navigator 在push或pop时会调用两次renderScene: prev route及next route;
@@ -113,7 +113,7 @@ export default class ExternalNavigation extends Component {
       route.RenderedComponent = ComponentClass;
     }
 
-    return React.createElement(ComponentClass , { ...componentProps, navigator});
+    return React.createElement(ComponentClass , { ...componentProps, navigator, title, backCount});
   }
 
   _handleIOSBack(route, navigator) {

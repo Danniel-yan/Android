@@ -12,6 +12,7 @@ import { externalPop, externalPush } from 'actions/navigation';
 
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import externalScene from 'high-order/externalScene';
 
 function mapStateToProps(state) {
   return {
@@ -37,5 +38,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+import ShareButton from 'components/shared/ShareButton';
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(LoanDetail)));
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+SceneComponent = externalScene(SceneComponent, ShareButton);
+SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
+SceneComponent.external = true;
+export default SceneComponent;

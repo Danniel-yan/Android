@@ -8,30 +8,28 @@ import { externalPop } from 'actions/navigation';
 import * as defaultStyles from 'styles';
 import SceneHeader from 'components/shared/SceneHeader';
 
-export default function(ComponentClass, config) {
+export default function(ComponentClass, RightComponent) {
 
   function mapDispatchToProps(dispatch) {
     return {
-      onBack: () => dispatch(externalPop(config.backCount || 1))
+      onBack: (backCount) => dispatch(externalPop(backCount || 1))
     };
   }
 
   class ExternalPageComponent extends Component {
+    static external = true;
+
     state = { title: undefined };
 
-    shouldComponentUpdate() {
-      // TODO check state
-      return false;
-    }
-
     render() {
-      let title = this.state.title || config.title || ComponentClass.title || this.props.title;
+      let { title, ...props } = this.props;
+      title = this.state.title || title || ComponentClass.title;
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader title={title} onBack={this.props.onBack}/>
+          <SceneHeader {...props} title={title} right={RightComponent} onBack={() => this.props.onBack(this.props.backCount)}/>
           <View style={[defaultStyles.container, defaultStyles.bg]}>
-            <ComponentClass sceneTitle={title} {...this.props} onChangeTitle={title => this.setState({title})}/>
+            <ComponentClass sceneTitle={title} {...props} onChangeTitle={title => this.setState({title})}/>
           </View>
         </View>
       )

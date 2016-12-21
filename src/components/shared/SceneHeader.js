@@ -13,7 +13,7 @@ const {
 
 import BackButton from './BackButton';
 import Text from 'components/shared/Text';
-import { headerHeight, statusBarHeight } from 'styles/varibles';
+import { headerHeight, statusBarHeight, centering } from 'styles';
 
 export default class SceneHeader extends Component {
   static defaultProps = {
@@ -26,6 +26,19 @@ export default class SceneHeader extends Component {
         <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
         {this._renderBack()}
         <View style={styles.center}><Text style={styles.title}>{this.props.title}</Text></View>
+        {this._renderRight()}
+      </View>
+    );
+  }
+
+  _renderRight() {
+    let { right: RightComponent } = this.props;
+
+    if(!RightComponent) { return null }
+
+    return (
+      <View style={[centering, styles.right]}>
+        <RightComponent {...this.props}/>
       </View>
     );
   }
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
 
   right: {
     position: 'absolute',
-    right: 10,
+    right: 0,
     bottom: 0,
     top: statusBarHeight,
   },
