@@ -2,12 +2,21 @@ package com.shudu.chaoshi.module;
 
 import android.content.Context;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.shudu.chaoshi.model.ShareContentModel;
 import com.shudu.chaoshi.util.ShareUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 
 /**
  * Created by speakJ on 2016/11/28.
@@ -30,28 +39,29 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void circle(ReadableMap readableMap) {
-        shareUtil.circle(setModel(readableMap));
+    public void circle(ReadableMap readableMap, Promise promise) {
+        shareUtil.circle(setModel(readableMap), getPlatformActionListener(promise));
     }
 
     @ReactMethod
-    public void weixin(ReadableMap readableMap) {
-        shareUtil.weixin(setModel(readableMap));
+    public void weixin(ReadableMap readableMap, Promise promise) {
+        shareUtil.weixin(setModel(readableMap), getPlatformActionListener(promise));
+
     }
 
     @ReactMethod
-    public void sina(ReadableMap readableMap) {
-        shareUtil.sina(setModel(readableMap));
+    public void sina(ReadableMap readableMap, Promise promise) {
+        shareUtil.sina(setModel(readableMap), getPlatformActionListener(promise));
     }
 
     @ReactMethod
-    public void qzone(ReadableMap readableMap) {
-        shareUtil.qzone(setModel(readableMap));
+    public void qzone(ReadableMap readableMap, Promise promise) {
+        shareUtil.qzone(setModel(readableMap), getPlatformActionListener(promise));
     }
 
     @ReactMethod
-    public void qq(ReadableMap readableMap) {
-        shareUtil.qq(setModel(readableMap));
+    public void qq(ReadableMap readableMap, Promise promise) {
+        shareUtil.qq(setModel(readableMap), getPlatformActionListener(promise));
     }
 
     private ShareContentModel setModel(ReadableMap readableMap) {
@@ -63,6 +73,43 @@ public class ShareUtilModule extends ReactContextBaseJavaModule {
             model.icon_url = readableMap.getString("icon_url");
         }
         return model;
+    }
+
+    private PlatformActionListener getPlatformActionListener(final Promise promise) {
+        return new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("status", "success");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                promise.resolve(jsonObject);
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("status", "faliure");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                promise.resolve(jsonObject);
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("status", "cancel");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                promise.resolve(jsonObject);
+            }
+        };
     }
 
 }

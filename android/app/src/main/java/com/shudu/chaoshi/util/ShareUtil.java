@@ -33,7 +33,7 @@ public class ShareUtil {
         site = context.getResources().getString(R.string.app_name);
     }
 
-    public void sina(ShareContentModel contentModel) {
+    public void sina(ShareContentModel contentModel, PlatformActionListener mPlatformActionListener) {
         SinaWeibo.ShareParams sp = new SinaWeibo.ShareParams();
         sp.setText(formatUrlEncode(contentModel.content, "%") + contentModel.url);
         if (TextUtils.isEmpty(contentModel.icon_url))
@@ -45,7 +45,7 @@ public class ShareUtil {
         weibo.share(sp);
     }
 
-    public void qq(ShareContentModel contentModel) {
+    public void qq(ShareContentModel contentModel, PlatformActionListener mPlatformActionListener) {
         QQ.ShareParams sp = new QQ.ShareParams();
         sp.setTitle(contentModel.title);
         sp.setTitleUrl(contentModel.url);
@@ -60,7 +60,7 @@ public class ShareUtil {
         qq.share(sp);
     }
 
-    public void qzone(ShareContentModel contentModel) {
+    public void qzone(ShareContentModel contentModel, PlatformActionListener mPlatformActionListener) {
         QZone.ShareParams sp = new QZone.ShareParams();
         sp.setTitle(contentModel.title);
         sp.setTitleUrl(contentModel.url);
@@ -75,7 +75,7 @@ public class ShareUtil {
         qzone.share(sp);
     }
 
-    public void weixin(ShareContentModel contentModel) {
+    public void weixin(ShareContentModel contentModel, PlatformActionListener mPlatformActionListener) {
         Wechat.ShareParams sp = new Wechat.ShareParams();
         sp.setTitle(contentModel.title);
         sp.setShareType(Platform.SHARE_WEBPAGE);
@@ -90,7 +90,7 @@ public class ShareUtil {
         weixin.share(sp);
     }
 
-    public void circle(ShareContentModel contentModel) {
+    public void circle(ShareContentModel contentModel, PlatformActionListener mPlatformActionListener) {
         WechatMoments.ShareParams sp = new WechatMoments.ShareParams();
         sp.setTitle(formatUrlEncode(contentModel.content, "%"));
         sp.setShareType(Platform.SHARE_WEBPAGE);
@@ -104,26 +104,6 @@ public class ShareUtil {
         circle.setPlatformActionListener(mPlatformActionListener);
         circle.share(sp);
     }
-
-    PlatformActionListener mPlatformActionListener = new PlatformActionListener() {
-        @Override
-        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-            ToastHelper.getInstance().showToast("分享成功");
-
-        }
-
-        @Override
-        public void onError(Platform platform, int i, Throwable throwable) {
-            ToastHelper.getInstance().showToast("分享失败");
-
-        }
-
-        @Override
-        public void onCancel(Platform platform, int i) {
-            ToastHelper.getInstance().showToast("分享取消");
-
-        }
-    };
 
     private String formatUrlEncode(String str, String stripChars) {
         if (str.contains(stripChars)) {
