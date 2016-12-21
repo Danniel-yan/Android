@@ -160,8 +160,7 @@ export default class FastLoanScene extends Component {
           <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
-        <View style={{position: "absolute", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }}>
-        { !this.state.toggleFilter ? null : 
+        <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
           <HorizontalCheckboxes
             withBtns={true}
             options={applyResList}
@@ -171,7 +170,6 @@ export default class FastLoanScene extends Component {
             }}
             selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
           </HorizontalCheckboxes>
-        } 
         </View>
 
         <Button
@@ -181,10 +179,8 @@ export default class FastLoanScene extends Component {
           <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
-        <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2  }}>
-        { !this.state.toggleSort ? null : 
-          <VerticalRadios selectedIdx={1} options={[{label: "利率低", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
-        }
+        <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2, height: !this.state.toggleSort ? 0 : null  }}>
+          <VerticalRadios options={[{label: "利率低", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
         </View>
       </View>
     );
