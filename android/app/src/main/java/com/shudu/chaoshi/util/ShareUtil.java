@@ -122,7 +122,7 @@ public class ShareUtil {
         hashMap.put("SortId", "1");
         hashMap.put("AppKey", "4196267309");
         hashMap.put("AppSecret", "dba57736a8362bc047184cd46dc0e3e0");
-        hashMap.put("RedirectUrl", "http://www.sharesdk.cn");
+        hashMap.put("RedirectUrl", "http://shudu99.com/");
         hashMap.put("ShareByAppClient", "true");
         hashMap.put("Enable", "true");
         ShareSDK.setPlatformDevInfo(SinaWeibo.NAME, hashMap);
