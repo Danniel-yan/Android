@@ -20,6 +20,7 @@ import actDetailBanner from './scene/card/actDetailBanner';
 import repayCalc from './scene/repayCalc';
 import iosConfig from './iosConfig';
 import cardConfig from './scene/card/cardConfig';
+import cardArtical from './cardArtical';
 
 export default combineReducers({
   loginUser,
@@ -34,6 +35,7 @@ export default combineReducers({
   actHot,
   bankList,
   fillUserInfo,
+  cardArtical,
   shopNearby,
   homeOperating,
   actHotDetail,

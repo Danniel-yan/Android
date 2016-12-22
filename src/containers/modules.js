@@ -19,10 +19,14 @@ import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 import UserInfo from 'containers/scene/zone/UserInfo';
 import CardListByCategory from 'containers/scene/card/CardListByCategory';
 import CardProcessList from 'containers/scene/card/CardProcessList';
+import CardArticals from 'containers/scene/CardArticals';
+import CardArticalDetail from 'containers/scene/CardArticalDetail';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'CardArticals', module: CardArticals },
+  { key: 'CardArticalDetail', module: CardArticalDetail },
   { key: 'CardListByCategory', module: CardListByCategory },
   { key: 'CardProcessList', module: CardProcessList },
   { key: 'SettingScene', module: SettingScene },

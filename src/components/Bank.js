@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     height: responsive.width(180)
   },
   name: {
-    fontSize: fontSize.large,
+    fontSize: fontSize.xlarge,
     color: colors.fontColorSecondary
   },
   info: {

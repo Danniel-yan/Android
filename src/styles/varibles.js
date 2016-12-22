@@ -6,13 +6,17 @@ export const colors = {
   line: '#e6e6e6',
   white:'#fff',
   fontColorPrimary:'#666',
-  fontColorSecondary:'#333'
+  fontColorSecondary:'#333',
+  grayLight: '#999',
+  gray: '#666',
+  grayDark: '#333'
 };
 
 export const fontSize = {
   seventeen : 17,
   thirteen : 13,
-  large: 17,
+  xlarge: 17,
+  large: 16,
   normal: 14,
   small: 13,
   xsmall: 12,

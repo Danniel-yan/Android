@@ -113,7 +113,7 @@ export default class ExternalNavigation extends Component {
       route.RenderedComponent = ComponentClass;
     }
 
-    return React.createElement(ComponentClass , { ...componentProps, navigator, title, backCount});
+    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backCount});
   }
 
   _handleIOSBack(route, navigator) {

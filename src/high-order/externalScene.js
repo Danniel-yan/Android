@@ -22,14 +22,13 @@ export default function(ComponentClass, RightComponent) {
     state = { title: undefined };
 
     render() {
-      let { title, ...props } = this.props;
-      title = this.state.title || title || ComponentClass.title;
+      let title = this.state.title || this.props.sceneTitle || ComponentClass.title;
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader {...props} title={title} right={RightComponent} onBack={() => this.props.onBack(this.props.backCount)}/>
+          <SceneHeader {...this.props} title={title} right={RightComponent} onBack={() => this.props.onBack(this.props.backCount)}/>
           <View style={[defaultStyles.container, defaultStyles.bg]}>
-            <ComponentClass sceneTitle={title} {...props} onChangeTitle={title => this.setState({title})}/>
+            <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
           </View>
         </View>
       )

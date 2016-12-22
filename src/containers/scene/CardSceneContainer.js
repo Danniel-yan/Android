@@ -114,7 +114,7 @@ class CardScene extends Component {
 
           <ExternalPushLink
             title="办卡攻略"
-            toKey="CardStrategyList"
+            toKey="CardArticals"
             style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
             <Text style={[cardEnterStyle.title, {color: colors.secondary}]}>办卡攻略</Text>
             <Image source={require('assets/card/gonglue.png')}/>

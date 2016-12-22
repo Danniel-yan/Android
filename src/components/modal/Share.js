@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: fontSize.large,
+    fontSize: fontSize.xlarge,
     color: colors.fontColorSecondary
   },
   content: {
