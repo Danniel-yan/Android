@@ -26,19 +26,19 @@ export default class ShareModal extends Component {
           <View style={[rowContainer, styles.content]}>
             <WeixinItem
               onBackApp={this.props.onHide} 
-              config={config}
+              config={this.props.config}
               style={container}/>
             <PengyouquanItem
               onBackApp={this.props.onHide} 
-              config={config}
+              config={this.props.config}
               style={container}/>
             <SinaItem
               onBackApp={this.props.onHide} 
-              config={config}
+              config={this.props.config}
               style={container}/>
             <QzoneItem
               onBackApp={this.props.onHide} 
-              config={config}
+              config={this.props.config}
               style={container}/>
           </View>
 
