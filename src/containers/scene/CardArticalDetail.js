@@ -43,7 +43,7 @@ class CardArtical extends Component {
   
           <View style={styles.p}>
             <Text style={styles.author}>{props.author}</Text>
-            <Text style={styles.tip}><Text>{props.show_num} 阅读 </Text> {props.time_create} </Text>
+            <Text style={styles.tip}>{props.time_create}     {props.show_num} 阅读</Text>
           </View>
   
           {this._renderContent()}
@@ -154,12 +154,15 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: fontSize.xlarge,
-    color: colors.darkGray
+    color: colors.grayDark
   },
   author: {
     marginBottom: 5,
-    fontSize: fontSize.normal,
-    color: colors.darkGray
+    fontSize: fontSize.small,
+    color: colors.grayDark
+  },
+  tip: {
+    fontSize: fontSize.small,
   },
   p: {
     marginBottom: 20

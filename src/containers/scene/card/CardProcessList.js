@@ -83,10 +83,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetching: () => dispatch(fetchBankList())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, CardListProcess));
+export default connect(mapStateToProps)(CardListProcess);

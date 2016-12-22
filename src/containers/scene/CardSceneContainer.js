@@ -67,7 +67,7 @@ class CardScene extends Component {
 
   _children() {
     let cardConfig = this.props.cardConfig.config;
-    let banner = cardConfig.tab_top_banner && cardConfig.tab_top_banner[0];
+    let banner = cardConfig && cardConfig.tab_top_banner && cardConfig.tab_top_banner[0];
 
     return (
       <View>
