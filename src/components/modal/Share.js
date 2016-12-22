@@ -117,6 +117,8 @@ class ShareItem extends Component {
   _share() {
     let { config, share, onError, onCancel, onSuccess, onBackApp } = this.props;
 
+    config.icon_url = config.icon || 'http://sys-php.oss-cn-shanghai.aliyuncs.com/chaoshi/res/logos/chaoshi-logo.png';
+
     share(config).then(res => {
       if(onBackApp) { return onBackApp(res); }
 

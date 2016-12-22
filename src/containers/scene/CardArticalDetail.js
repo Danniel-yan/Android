@@ -21,8 +21,11 @@ import {
 import ResponsiveImage from 'components/shared/ResponsiveImage';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import BigLoading from 'components/shared/BigLoading';
+import ShareButton from 'components/shared/ShareButton';
 import Text from 'components/shared/Text';
 import { fetchCardArticalDetail } from 'actions/cardArtical';
+import Banner from 'components/Banner';
+import externalScene from 'high-order/externalScene';
 
 
 class CardArtical extends Component {
@@ -32,8 +35,6 @@ class CardArtical extends Component {
     if(!props) {
       return <BigLoading/>
     }
-
-    console.log(props);
 
     return (
       <ScrollView style={container}>
@@ -46,8 +47,20 @@ class CardArtical extends Component {
           </View>
   
           {this._renderContent()}
+          {this._renderBanner()}
         </View>
       </ScrollView>
+    )
+  }
+
+  _renderBanner() {
+    let cardConfig = this.props.cardConfig.config;
+    let banner = cardConfig.info_detail_banner;
+
+    return (
+      <View style={styles.p}>
+        { !banner ? null : <Banner to={banner.url} image={banner.pic} height={176}/>}
+      </View>
     )
   }
 
@@ -107,7 +120,10 @@ function Paragraph(props) {
 
 
 function mapStateToProps(state, ownProps) {
-  return state.cardArtical.details[ownProps.fetchingParams] || { };
+  return {
+    ...(state.cardArtical.details[ownProps.fetchingParams] || { }),
+    cardConfig: state.cardConfig
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -116,7 +132,18 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(BigLoading,  CardArtical));
+const shareConfig = {
+  title: '朋友都说这里能够成功借到钱，我也在用',
+  content: '推荐给你～',
+  url: 'http://t.cn/RIJqMla'
+};
+
+let SceneComponent = AsynCpGenerator(BigLoading, CardArtical);
+SceneComponent = externalScene(SceneComponent, () => <ShareButton config={shareConfig}/>);
+SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
+SceneComponent.external = true;
+export default SceneComponent;
+
 
 const styles = StyleSheet.create({
   container: {

@@ -10,6 +10,7 @@ import LoanDetail from 'components/scene/LoanDetailScene';
 
 import { externalPop, externalPush } from 'actions/navigation';
 
+import ShareButton from 'components/shared/ShareButton';
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import externalScene from 'high-order/externalScene';
@@ -27,7 +28,6 @@ function mapDispatchToProps(dispatch) {
   return {
     fetching: id => dispatch(fetchLoanDetail(id)),
     goLoan: (detail) => {
-      //tracker.trackAction({ key: 'loan', topic: 'product_detail', entity: 'apply', event: 'clk'});
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
@@ -38,10 +38,15 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-import ShareButton from 'components/shared/ShareButton';
+
+const shareConfig = {
+  title: '我刚刚在「钞市」成功申请信用卡，能随时查看办卡进度，太好用啦',
+  content: '推荐给你～',
+  url: 'http://t.cn/RIJqMla'
+};
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
-SceneComponent = externalScene(SceneComponent, ShareButton);
+SceneComponent = externalScene(SceneComponent, () => <ShareButton config={shareConfig}/>);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;
 export default SceneComponent;

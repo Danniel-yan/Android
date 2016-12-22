@@ -19,7 +19,7 @@ export default class ResponsiveImage extends Component {
   }
 
   componentDidMount() {
-    if(!this.state.dimension) {
+    if(!this.state.dimension && !this.props.height) {
       Image.getSize(this.props.uri, (width, height) => {
         dimensions[this.props.uri] = {width, height};
         this.setState({dimension: {width, height}});
@@ -28,14 +28,11 @@ export default class ResponsiveImage extends Component {
   }
 
   render() {
-    if(!this.state.dimension) { return null; }
-    let { uri, width, ...props } = this.props;
-    let height = this.state.dimension.height;
+    let { uri, height, width, ...props } = this.props;
 
-    // 750就认为需要缩放
-    if(width > 750) {
-      height = responsive.height(this.state.dimension.height);
-    }
+    if(!this.state.dimension && !height) { return null; }
+
+    height = responsive.height(height || this.state.dimension.height)
 
     return (
       <Image {...props} style={{height}} source={{uri: uri}}/>
