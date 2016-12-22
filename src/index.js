@@ -20,10 +20,10 @@ function supermarketjs() {
   );
 }
 
-NetInfo.fetch().done((reach) => {
-  if(/wifi/i.test(reach)) {
-    codePush.sync();
-  }
-});
+//NetInfo.fetch().done((reach) => {
+//  if(/wifi/i.test(reach)) {
+//    codePush.sync();
+//  }
+//});
 
 AppRegistry.registerComponent('supermarketjs', () => supermarketjs);
