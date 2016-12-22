@@ -16,7 +16,6 @@ import { rowContainer, border, colors, fontSize, container, centering } from 'st
 
 export default class ShareModal extends Component {
   render() {
-    let config = {title: '分享title', content: '分享content', url: 'https://www.madailicai.com' };
 
     return (
       <OverlayModal {...this.props} >
