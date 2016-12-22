@@ -25,15 +25,19 @@ export default class ShareModal extends Component {
 
           <View style={[rowContainer, styles.content]}>
             <WeixinItem
+              onBackApp={this.props.onHide} 
               config={config}
               style={container}/>
             <PengyouquanItem
+              onBackApp={this.props.onHide} 
               config={config}
               style={container}/>
             <SinaItem
+              onBackApp={this.props.onHide} 
               config={config}
               style={container}/>
             <QzoneItem
+              onBackApp={this.props.onHide} 
               config={config}
               style={container}/>
           </View>
@@ -119,7 +123,7 @@ class ShareItem extends Component {
     config.icon_url = config.icon || 'http://sys-php.oss-cn-shanghai.aliyuncs.com/chaoshi/res/logos/chaoshi-logo.png';
 
     share(config).then(res => {
-      if(onBackApp) { return onBackApp(res); }
+      onBackApp && onBackApp(res)
 
       res.success && onSuccess && onSuccess(res);
       res.cancel && onCancel && onCancel(res);
