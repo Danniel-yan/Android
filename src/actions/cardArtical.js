@@ -33,8 +33,13 @@ export function fetchCardArticals(){
 
 export function fetchCardArticalDetail(id) {
 
-  return function (dispatch, getStore) {
-    console.log('.........get', getStore);
+  return function (dispatch, getState) {
+    const state = getState();
+    const details = state.cardArtical.details;
+
+    if(details[id]) {
+      return dispatch({type: 'receiveCardArticalDetail', id, detail: details[id].detail});
+    }
 
     dispatch({type: 'requestCardArticalDetail', id})
 

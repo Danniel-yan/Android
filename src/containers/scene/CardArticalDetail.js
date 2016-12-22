@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     color: colors.darkGray
   },
   p: {
-    marginBottom: 15
+    marginBottom: 20
   },
   text: {
     lineHeight: 20,
