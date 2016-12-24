@@ -22,6 +22,8 @@ import iosConfig from './iosConfig';
 import cardConfig from './scene/card/cardConfig';
 import cardArtical from './cardArtical';
 
+import online from './online';
+
 export default combineReducers({
   loginUser,
   cardConfig,
@@ -43,5 +45,6 @@ export default combineReducers({
   cardList,
   actDetailBanner,
   repayCalc,
+  online,
   iosConfig
 });

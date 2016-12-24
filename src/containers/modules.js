@@ -21,10 +21,19 @@ import CardListByCategory from 'containers/scene/card/CardListByCategory';
 import CardProcessList from 'containers/scene/card/CardProcessList';
 import CardArticals from 'containers/scene/CardArticals';
 import CardArticalDetail from 'containers/scene/CardArticalDetail';
+import CertificationHome from 'containers/online/CertificationHome';
+import OnlineCreditCards from 'containers/online/CreditCards';
+import OnlineCreditCardForm from 'containers/online/CreditCardForm';
+import OnlineCreditCardVerify from 'containers/online/CreditCardVerify';
+import OnlineCreditCardStatus from 'containers/online/CreditCardStatus';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
-  { key: 'HomeScene', module: HomeScene },
+  { key: 'HomeScene', module: CertificationHome },
+  { key: 'OnlineCreditCards', module: OnlineCreditCards },
+  { key: 'OnlineCreditCardForm', module: OnlineCreditCardForm },
+  { key: 'OnlineCreditCardVerify', module: OnlineCreditCardVerify },
+  { key: 'OnlineCreditCardStatus', module: OnlineCreditCardStatus },
   { key: 'CardArticals', module: CardArticals },
   { key: 'CardArticalDetail', module: CardArticalDetail },
   { key: 'CardListByCategory', module: CardListByCategory },

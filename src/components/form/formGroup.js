@@ -9,7 +9,8 @@ import * as defaultStyle from 'styles';
 export default function formGroup(FormField) {
   return class FormGroup extends Component {
     static defaultProps = {
-      style: {}
+      style: {},
+      value: ''
     }
 
     render() {

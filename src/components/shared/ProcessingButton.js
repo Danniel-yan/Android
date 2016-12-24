@@ -7,6 +7,7 @@ import Button from './ButtonBase';
 import * as defaultStyles from 'styles';
 
 export default class ProcessingButton extends Component {
+
   render() {
     let { processing, onPress, ...props } = this.props;
 
@@ -44,6 +45,14 @@ export default class ProcessingButton extends Component {
       this.inProcessing = null;
     }, 500);
 
-    this.props.onPress();
+
+    if(this.props.prePress) {
+      Promise.resolve(this.props.prePress()).then((res) => {
+        this.inProcessing = null;
+        this.props.onPress(res);
+      }).catch(console.log);
+    } else {
+      this.props.onPress();
+    }
   }
 }
