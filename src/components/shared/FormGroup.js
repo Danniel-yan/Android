@@ -6,7 +6,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from 'components/shared/Text';
 import * as defaultStyles from 'styles';
 
@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
   formGroup: {
     height: 55,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
 
   controlLabel: {

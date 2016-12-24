@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox'
@@ -238,8 +238,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     justifyContent: 'center'
   },
 
