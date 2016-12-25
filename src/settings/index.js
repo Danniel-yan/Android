@@ -19,9 +19,9 @@ export const environments = {
 };
 
 const staticSettings = {
-  appVersion: '0.0.1',
+  appVersion: DeviceInfo.getVersion(),
   OS: Platform.OS == 'ios' ? 2 : 1,
-  osVersion: Platform.OS == 'ios' ? 'ios' : Platform.Version,
+  osVersion: DeviceInfo.getSystemVersion(),
   channel: '',
   deviceId: DeviceInfo.getUniqueID(),
   uuid: '',
