@@ -71,7 +71,11 @@ class CardScene extends Component {
 
     return (
       <View>
-        { !banner ? null : <Banner to={banner.url} image={banner.pic} height={176}/>}
+        { !banner ? null : <Banner
+          tracking={{key: 'card', topic: 'carousal' }}
+          to={banner.url}
+          image={banner.pic}
+          height={176}/>}
         {this._renderCard()}
         {this._renderBankList()}
         {this._renderShopNearby()}
@@ -88,6 +92,7 @@ class CardScene extends Component {
         <View style={cardEnterStyle.left}>
         { !category ? null :
         <ExternalPushLink
+          tracking={{key: 'card', topic:'btn_sec_1', entity: 'type'}}
           title="信用卡申请"
           toKey="CardListByCategory"
           componentProps={{
@@ -105,14 +110,16 @@ class CardScene extends Component {
         <View style={container}>
 
           <ExternalPushLink
+            tracking={{key: 'card', topic: 'btn_sec_2.1', entity: 'progress'}}
             title="办卡进度"
-            toKey="CardProcessList"
+            toKey="CardProgressList"
             style={[rowContainer, centering, cardEnterStyle.rowGroup]}>
             <Text style={[cardEnterStyle.title, {color: '#1A91FE'}]}>办卡进度</Text>
             <Image source={require('assets/card/jindu.png')}/>
           </ExternalPushLink>
 
           <ExternalPushLink
+            tracking={{key: 'card', topic: 'btn_sec_2.1', entity: 'guide'}}
             title="办卡攻略"
             toKey="CardArticals"
             style={[rowContainer, centering, cardEnterStyle.rowGroup]}>

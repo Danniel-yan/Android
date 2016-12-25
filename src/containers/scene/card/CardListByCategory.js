@@ -16,11 +16,22 @@ import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import ScrollPagination from 'components/shared/ScrollPagination';
 import Loading from 'components/shared/Loading';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 
 import Button from 'components/shared/ButtonBase';
 
 class CardListByCategory extends Component {
+
+  tracking() {
+    let name = this.props.category[this.props.selected].name;
+
+    return {
+      key: 'card',
+      topic: 'type_list',
+      card_type: name
+    };
+  }
 
   constructor(props) {
     super(props);
@@ -58,6 +69,7 @@ class CardListByCategory extends Component {
       return <Loading/>;
     }
 
+    let typeName = this.props.category[this.props.selected].name
     let Scroll = this.props.cardList.cardList.length < 10 ? ScrollView : ScrollPagination;
 
     return (
@@ -70,6 +82,7 @@ class CardListByCategory extends Component {
           this.props.cardList.cardList.map((card, index) => {
             return (
               <ExternalPushLink
+                tracking={{key: 'card', topic: 'type_list_card_list', entity: index, card_name: card.name, type: typeName }}
                 title="申请信用卡"
                 key={"card"+index}
                 web={card.link}
@@ -162,4 +175,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, CardListByCategory));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AsynCpGenerator(Loading, trackingScene(CardListByCategory)));

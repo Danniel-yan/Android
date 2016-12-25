@@ -26,7 +26,7 @@ class Tracking extends Component {
     stack.push(routes[0].curTab);
 
     routes.slice(1).forEach(route => {
-      stack.push(route.web || route.key);
+      stack.push(encodeURIComponent(route.web || route.key));
     })
 
     return stack.join('/')

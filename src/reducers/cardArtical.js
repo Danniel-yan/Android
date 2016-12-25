@@ -1,7 +1,7 @@
 import { fetchCardArticalDetail, fetchCardArticals } from 'actions/cardArtical';
 
 const articals = {
-  isFetching: false,
+  isFetching: true,
   fetched: false,
   articals: [],
   err: null,

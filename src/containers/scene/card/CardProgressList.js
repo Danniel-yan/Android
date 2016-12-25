@@ -18,8 +18,12 @@ import GroupTitle from 'components/GroupTitle';
 import Bank from 'components/Bank';
 import Banner from 'components/Banner';
 import Button from 'components/shared/ButtonBase';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
-class CardListProcess extends Component {
+class CardListProgress extends Component {
+  tracking() {
+    return {key: 'card', topic: 'btn_sec_2.1', entity: 'progress'}
+  }
 
   render() {
     return (
@@ -83,4 +87,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(CardListProcess);
+export default connect(mapStateToProps)(trackingScene(CardListProgress));
