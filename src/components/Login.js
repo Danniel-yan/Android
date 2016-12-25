@@ -36,9 +36,15 @@ export default class Login extends Component {
     submitting: false
   };
 
+  componentDidUpdate() {
+    if(this.state.mobile || !this.state.checkedAgreement || this.state.verifyCode) {
+      this.changed = true;
+    }
+  }
+
   render() {
     let mobileValid = validators.mobile(this.state.mobile);
-    let verifyCodeValid = this.state.verifyCode.length == 6;
+    const disabled = !this.state.checkedAgreement || !mobileValid ;
 
     return (
       <View style={[defaultStyles.container, styles.container]}>
@@ -82,9 +88,13 @@ export default class Login extends Component {
           />
         </View>
 
+        <View style={styles.txtRow}>
+          {this.state.err ? <Text style={styles.err}>{this.state.err}</Text> : null}
+        </View>
+
         <ProcessingButton
           tracking={{key: 'user', topic: 'login', entity: 'login_button', cell: this.state.mobile}}
-          processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)}
+          processing={this.state.submitting} onPress={this._submit.bind(this)}
           style={styles.submitBtn}
           textStyle={styles.submitBtnText}
           text="登录"/>
@@ -92,7 +102,35 @@ export default class Login extends Component {
     );
   }
 
+  _validation() {
+    let mobileValid = validators.mobile(this.state.mobile);
+    let codeValid = this.state.verifyCode.length > 0;
+    const disabled = !this.state.checkedAgreement || !mobileValid;
+
+    if(!mobileValid) {
+      this.setState({err: '请输入11位手机号'});
+      return false;
+    }
+
+    if(!codeValid) {
+      this.setState({err: '请输入验证码'});
+      return false;
+    }
+
+    if(!this.state.checkedAgreement) {
+      this.setState({err: '必须接受服务协议'});
+      return false;
+    }
+
+    this.setState({err: ''});
+    return true;
+  }
+
   _submit() {
+    if(!this.changed || !this._validation()) {
+      return null;
+    }
+
     if(this.submitting) { return; }
 
     this.submitting = true;
@@ -161,5 +199,9 @@ const styles = StyleSheet.create({
   submitBtnText: {
     fontSize: 18,
     color: colors.secondary
+  },
+  err: {
+    marginTop: 20,
+    color: colors.error
   }
 });

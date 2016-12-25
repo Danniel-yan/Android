@@ -14,8 +14,7 @@ export default function loginUser(state = initState, action){
     case 'logouting':
       return Object.assign({}, state, { logouting: true });
     case 'logouted':
-      state.info = null;
-      return Object.assign({}, state, { fetched: false, logouting: false });
+      return Object.assign({}, state, { valid: false, info: null, fetched: false, logouting: false });
     default:
       return state;
   }
