@@ -15,9 +15,17 @@ import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import externalScene from 'high-order/externalScene';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  let detail = { ...state.loanDetail };
+
+  if(state.loanDetail.fetchedParams != ownProps.fetchingParams) {
+    detail.isFetching = true;
+    detail.fetched = false;
+    detail.detail = {};
+  }
+
   return {
-    ...state.loanDetail,
+    ...detail,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying

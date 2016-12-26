@@ -37,7 +37,7 @@ class LoanNavPanel extends Component {
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(token);
+      this.navToPBOC(false, token);
     });
   }
 

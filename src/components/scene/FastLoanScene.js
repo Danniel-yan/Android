@@ -26,6 +26,8 @@ const jobItems = [
 var screenWidth = Dimensions.get('window').width;
 
 export default class FastLoanScene extends Component {
+  tracking = 'loan'
+
   constructor(props) {
     super(props);
     this.state = {
@@ -96,7 +98,7 @@ export default class FastLoanScene extends Component {
           options={jobItems}
           selectedChanged={opt=> {
             this.formValueChanged("job", opt ? opt.value : 0)
-            tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
+            opt && tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
           }}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}

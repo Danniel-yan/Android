@@ -72,7 +72,7 @@ class CardScene extends Component {
     return (
       <View>
         { !banner ? null : <Banner
-          tracking={{key: 'card', topic: 'carousal' }}
+          tracking={{key: 'card', topic: 'carousal', entity: '' }}
           to={banner.url}
           image={banner.pic}
           height={176}/>}

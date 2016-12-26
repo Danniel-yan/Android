@@ -55,6 +55,7 @@ class CardListProgress extends Component {
         <ExternalPushLink
           title="办卡进度"
           key={"bank"+index}
+          tracking={{key: 'card', topic: 'progress_bank_list', entity: index}}
           web={bank.process_link}
           style={styles.bankItem}
           >
