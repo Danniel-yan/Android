@@ -109,6 +109,7 @@ export class PickerComponent extends Component {
     this.setState({
       openModal: false,
     });
+    this.props.onBlur && this.props.onBlur(value);
   }
 
   _onHide() {

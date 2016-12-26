@@ -15,6 +15,7 @@ import Button from 'components/shared/ButtonBase';
 
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 const jobItems = [
   {label: "上班族", value: 1},
@@ -25,7 +26,7 @@ const jobItems = [
 
 var screenWidth = Dimensions.get('window').width;
 
-export default class FastLoanScene extends Component {
+class FastLoanScene extends Component {
   tracking = 'loan'
 
   constructor(props) {
@@ -264,3 +265,5 @@ const styles = StyleSheet.create({
     // backgroundColor: "gray"
   }
 })
+
+export default trackingScene(FastLoanScene)
