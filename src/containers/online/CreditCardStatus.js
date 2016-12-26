@@ -24,6 +24,8 @@ class CreditCardStatus extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = { checked: false}
   }
 
   componentDidMount() {
@@ -56,11 +58,11 @@ class CreditCardStatus extends Component {
     let button = '';
     let statusText = '正在导入...';
 
-    if(status == 'success') {
+    if(this.state.checked && status == 'success') {
       image = successImage;
       button = '完成'
       statusText = '导入完成，请返回首页查看！';
-    } else if(status == 'failure') {
+    } else if(this.state.checked && status == 'failure') {
       image = failureImage;
       button = '重新导入账单';
       statusText = '信用卡认证失败，请重新认证！';
@@ -85,6 +87,8 @@ class CreditCardStatus extends Component {
   }
 
   _checkStatus() {
+    this.props.fetching();
+    this.setState({checked: true})
     this.timer = setInterval(() => {
       this.props.fetching();
     }, 5000);

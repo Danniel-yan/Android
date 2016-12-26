@@ -4,16 +4,12 @@ import {
   View,
   StatusBar,
   StyleSheet,
-  NavigationExperimental
+  Image,
+  Text,
 } from 'react-native';
 
-const {
-  Header: NavigationHeader
-} = NavigationExperimental;
-
-import BackButton from './BackButton';
-import Text from 'components/shared/Text';
 import { headerHeight, statusBarHeight, centering } from 'styles';
+import { ExternalPopLink } from 'containers/shared/Link';
 
 export default class SceneHeader extends Component {
   static defaultProps = {
@@ -44,11 +40,15 @@ export default class SceneHeader extends Component {
   }
 
   _renderBack() {
-    if(!this.props.onBack) { return null; }
+    if(!this.props.backCount) { return null; }
 
     return (
       <View style={styles.left}>
-        <BackButton onPress={this.props.onBack}/>
+        <ExternalPopLink {...this.props}>
+          <View style={[styles.btn, centering]}>
+            <Image source={require('assets/icons/back.png')}/>
+          </View>
+        </ExternalPopLink>
       </View>
     );
   }
@@ -91,5 +91,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  btn: {
+    height: 36,
+    width: 60,
+    paddingRight: 25,
   }
 });

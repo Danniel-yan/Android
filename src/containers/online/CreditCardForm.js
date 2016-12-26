@@ -36,8 +36,6 @@ class CreditCardForm extends Component {
 
   _validation() {
     let errors = this.state.errors;
-    // TODO remove
-    return true;
 
     for(let field in errors) {
       if(errors[field]) {
@@ -100,6 +98,10 @@ class CreditCardForm extends Component {
   }
 
   _onFormChange(name, value) {
+    if(typeof value == 'string') {
+      value = value.trim();
+    }
+
     this.formChanged = true;
     let curTab = this.props.detail[this.state.tabIndex]
     let field = curTab.description.find(item => item.name == name)

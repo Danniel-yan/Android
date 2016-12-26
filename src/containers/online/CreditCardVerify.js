@@ -12,7 +12,7 @@ import {
   Text,
 } from 'react-native';
 
-import { post } from 'utils/fetch';
+import { post, responseStatus } from 'utils/fetch';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import onlineStyles from './styles';
@@ -29,7 +29,6 @@ export default class CreditCardVerify extends Component {
   }
 
   render() {
-    console.log();
 
     let disabled = this.state.val_code.length == 0;
     let hasImg = this.props.val_code.type == 'img';
@@ -41,7 +40,7 @@ export default class CreditCardVerify extends Component {
         </View>
 
         <InputGroup
-          valueChanged={value => this.setState({val_code: value})}
+          valueChanged={this._inputChange.bind(this, 'val_code')}
           value={this.state.val_code}
           placeholder="请输入验证码"
           style={{input: styles.input}} />
@@ -60,14 +59,28 @@ export default class CreditCardVerify extends Component {
     );
   }
 
+  _inputChange(name, value) {
+    if(typeof value == 'string') {
+      value = value.trim();
+    }
+
+    this.setState({[name]: value})
+  }
+
   _submit() {
+    this.setState({submitting: true});
     let body = {ticket_id: this.props.ticket_id, val_code: this.state.val_code};
     return post('/bill/bank-second-login', body).then(response => {
+      this.setState({submitting: false});
+
       if(response.res == responseStatus.success) {
         return true;
       }
 
       throw response.msg;
+    }).catch(err => {
+      this.setState({submitting: false});
+      throw err;
     });
   }
 }

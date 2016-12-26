@@ -232,7 +232,7 @@ class UserInfo extends Component {
 
   _inputChange(field, value) {
     this.formChanged = true;
-    value = value.trim && value.trim() || value;
+    value = typeof value == 'string' ? value.trim() : value;
     let form = {...this.state.form, [field]: value };
     this.setState({ form });
   }

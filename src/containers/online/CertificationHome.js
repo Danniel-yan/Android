@@ -17,7 +17,6 @@ import bankStatus from './status';
 
 class CertificationHome extends Component {
   render() {
-    console.log('....', this.props);
 
     return (
       <ScrollView>

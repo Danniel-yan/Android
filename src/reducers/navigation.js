@@ -86,15 +86,15 @@ export default function navigation(state = initState, action) {
         return state;
       }
 
-      let bankCount = action.bankCount || 1;
+      let endIndex = -(action.route.backCount || 1) ;
       let routes = state.routes;
 
-      if(action.key) {
-        let toIndex = routes.findIndex(route => route.key == action.key);
-        bankCount = routes.length - toIndex + 1;
+      if(action.route.key) {
+        let toIndex = routes.findIndex(route => route.key == action.route.key);
+        endIndex = toIndex + 1;
       }
 
-      routes = routes.slice(0, routes.length - bankCount);
+      routes = routes.slice(0, endIndex);
 
       return {
         ...state,

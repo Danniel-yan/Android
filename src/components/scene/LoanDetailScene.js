@@ -212,6 +212,18 @@ export default class LoanDetailScene extends Component {
     if(this.props.isIOSVerifying) { return null; }
 
     let detail = this.props.detail;
+    let logined = this.props.loginUser.info;
+
+    return (
+      <ExternalPushLink
+        style={styles.loanButton}
+        textStyle={styles.loanButtonText}
+        text="去贷款"
+        toKey={logined ? 'OnlineUserInfo' : 'Login'}
+        title="完善个人信息"
+        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
+        />
+    );
 
     if(this.props.loginUser.valid) {
       return (
