@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView , StyleSheet, Image , TouchableOpacity, TouchableHighlight, RefreshControl} from 'react-native';
+import { Image, View, ListView , StyleSheet, TouchableOpacity, TouchableHighlight, RefreshControl} from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -13,8 +13,9 @@ import Dimensions from 'Dimensions'
 import * as defaultStyle from 'styles';
 
 import Text from 'components/shared/Text'
+import RemoteImage from 'components/shared/RemoteImage'
+import NextIcon from 'components/shared/NextIcon'
 
-import iconNext from 'assets/index-icons/icon_next.png';
 import triangleDown from 'assets/icons/triangle-down.png';
 import triangleUp from 'assets/icons/triangle-up.png';
 import Button from 'components/shared/ButtonBase';
@@ -75,7 +76,7 @@ class List extends Component {
         <Button
           tracking={{key: 'card', topic: 'featured_activity', entity: props.rowID}}
           style={[styles.flexContainerRow,styles.bgColorWhite]}>
-          <Image source={{uri: props.logo_url}} style={styles.shopLogo} />
+          <RemoteImage uri={props.logo_url} style={styles.shopLogo} />
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{props.shop_name}</Text>
             <View style={{flexDirection: 'row',alignItems: 'center'}}>
@@ -131,7 +132,7 @@ class List extends Component {
                       style={{fontSize:16,color:colors.fontColorPrimary, height: 22, lineHeight: 22}}>{act.title}</Text>
                   </View>
                   <View style={styles.flexEnd}>
-                    <Image source={iconNext} />
+                    <NextIcon/>
                   </View>
                 </View>
               </ExternalPushLink>
