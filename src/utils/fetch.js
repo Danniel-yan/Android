@@ -41,7 +41,7 @@ function _get(url, body, responseType) {
 
 function _post(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api request: ', url, body);
+  console.log('api request: ', url);
   return fetch(url, {
     method: 'POST',
     headers,

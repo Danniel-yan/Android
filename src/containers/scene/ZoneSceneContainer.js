@@ -67,6 +67,14 @@ class ZoneScene extends Component {
               <NextIcon/>
             </View>
           </ExternalPushLink>
+
+           <ExternalPushLink title={logined ?  '消息' : '登录'} toKey={logined ? 'OnlineUserInfo' : 'Login'}>
+           <View style={zoneStyles.item}>
+           <Image style={zoneStyles.icon} source={require('assets/zone/message.png')}/>
+           <Text style={zoneStyles.txt}>我的消息</Text>
+           <NextIcon/>
+           </View>
+           </ExternalPushLink>
         </ScrollView>
 
       </View>
