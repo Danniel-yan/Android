@@ -48,7 +48,6 @@ export default class ProcessingButton extends Component {
 
     if(this.props.prePress) {
       Promise.resolve(this.props.prePress()).then((res) => {
-        this.inProcessing = null;
         this.props.onPress(res);
       }).catch(console.log);
     } else {

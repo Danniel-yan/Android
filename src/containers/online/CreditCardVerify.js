@@ -18,6 +18,7 @@ import ProcessingButton from 'components/shared/ProcessingButton';
 import onlineStyles from './styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { InputGroup } from 'components/form';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 export default class CreditCardVerify extends Component {
 
@@ -28,14 +29,15 @@ export default class CreditCardVerify extends Component {
   }
 
   render() {
+    console.log();
 
-    let disabled = this.state.val_code.length > 0;
-    let img = this.props.val_code.value;
+    let disabled = this.state.val_code.length == 0;
+    let hasImg = this.props.val_code.type == 'img';
 
     return (
       <ScrollView contentContainerStyle={onlineStyles.container}>
         <View style={[centering]}>
-          {img ? <Image style={styles.img} source={{uri: img}} /> : null}
+          {hasImg ? <Image style={styles.img} source={{uri: this.props.val_code.value}} /> : null}
         </View>
 
         <InputGroup
@@ -44,9 +46,12 @@ export default class CreditCardVerify extends Component {
           placeholder="请输入验证码"
           style={{input: styles.input}} />
 
-        <ProcessingButton
+        <ExternalPushLink
+          toKey="OnlineCreditCardStatus"
+          title="导入账单"
+          backCount={0}
           processing={this.state.submitting}
-          onPress={this._submit.bind(this)}
+          prePress={this._submit.bind(this)}
           disabled={disabled}
           style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
           textStyle={onlineStyles.btnText}
@@ -56,10 +61,13 @@ export default class CreditCardVerify extends Component {
   }
 
   _submit() {
-    return;
     let body = {ticket_id: this.props.ticket_id, val_code: this.state.val_code};
-    post('/bill/bank-second-login', body).then(response => {
-      console.log(response);
+    return post('/bill/bank-second-login', body).then(response => {
+      if(response.res == responseStatus.success) {
+        return true;
+      }
+
+      throw response.msg;
     });
   }
 }

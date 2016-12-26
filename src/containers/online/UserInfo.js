@@ -39,15 +39,19 @@ class UserInfo extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
-    let user = props.user.data || {};
+    let user = props.user.data || {
+      person_name: '郑盛诗',
+      id_no: '522530198708240014',
+      mobile: '18964165910',
+      education: '大学本科',
+      profession: '工薪族',
+      company: '上海凯岸信息',
+    };
 
     let form = {
       person_name: user.person_name || '',
       id_no: user.id_no || '',
       mobile: user.mobile || '',
-      credit_status: user.credit_status == hasCreditStatus.yes,
       profession: user.profession || '',
       education: user.education || '',
       company: user.company || '',
@@ -60,7 +64,7 @@ class UserInfo extends Component {
   }
 
   _validation() {
-    let { education, company, verify_code, mobile, id_no, profession, credit_status, person_name } = this.state.form;
+    let { education, company, verify_code, mobile, id_no, profession, person_name } = this.state.form;
 
     const validMobile = validators.mobile(mobile);
     const validVerifyCode = verify_code.length > 1;
@@ -80,7 +84,7 @@ class UserInfo extends Component {
   }
 
   render() {
-    let { education, verify_code, mobile, id_no, profession, credit_status, person_name } = this.state.form;
+    let { education, company, verify_code, mobile, id_no, profession, person_name } = this.state.form;
 
     let error = this._validation();
     let disabled = !this.formChanged || !!error;
@@ -153,14 +157,6 @@ class UserInfo extends Component {
               />
             </FormGroup>
 
-            <FormGroup label="有信用卡资质">
-              <Checkbox
-                style={styles.pickerGroup}
-                checked={credit_status == true}
-                onChange={this._inputChange.bind(this, 'credit_status')}
-                />
-            </FormGroup>
-
             <FormGroup label="教育程度">
               <Picker
                 style={styles.pickerGroup}
@@ -174,7 +170,7 @@ class UserInfo extends Component {
               <TextInput style={styles.formControl}
                 clearButtonMode="while-editing"
                 maxLength={20}
-                value={this.state.company}
+                value={company}
                 underlineColorAndroid="transparent"
                 onChangeText={this._inputChange.bind(this, 'company')}
               />
@@ -209,21 +205,21 @@ class UserInfo extends Component {
       let form = this.state.form;
       navigator.geolocation.getCurrentPosition(position => {
         const coords = position.coords;
-        form.lati = coords.latitude; 
-        form.long = Math.abs(coords.longitude);
+        // TODO remove test coords
+        form.lati = '31.183424'//coords.latitude; 
+        form.long = '121.322987'//Math.abs(coords.longitude);
         form.phone_model = DeviceInfo.getModel();
         form.phone_system_version = DeviceInfo.getSystemVersion();
         console.log(form)
 
         post('/loanctcf/first-filter', form).then(response => {
           if(response.res = responseStatus.success) {
-            externalPush({key: 'CertificationHome'})
+            this.props.goHome();
           }
-          this._submittingEnd();
         }).catch(err => {
-          this._submittingEnd();
+          console.log(err);
           alert('网络错误')
-        });
+        }).finally(this._submittingEnd.bind(this));
       });
     });
   }
@@ -335,7 +331,7 @@ function mapStateToProps(state) {
   let pickers = state.online.pickers;
 
   return {
-    isFetching: user.isFetching && pickers.isFetching,
+    isFetching: user.isFetching || pickers.isFetching,
     fetched: user.fetched && pickers.fetched,
     err: user.err || pickers.err,
     user, 
@@ -345,7 +341,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())}
+    fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
+    goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' }))
   }
 }
 

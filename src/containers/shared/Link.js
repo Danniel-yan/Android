@@ -20,7 +20,7 @@ export const ExternalReplaceLink = connect(null, dispatch => {
 })(Link);
 
 export const ExternalPopLink = connect(null, dispatch => {
-  return { onPress: (props) => dispatch(externalPop(props.backCount)) }
+  return { onPress: (route) => dispatch(externalPop(route)) }
 })(Link);
 
 export const MajorPushLink = connect(null, dispatch => {

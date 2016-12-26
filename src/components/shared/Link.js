@@ -19,6 +19,6 @@ export default class Link extends Component {
       ...props,
       key: toKey,
       component: toComponent
-    }, prePressResult));
+    }, typeof prePressResult == 'object' ? prePressResult : {}));
   }
 }

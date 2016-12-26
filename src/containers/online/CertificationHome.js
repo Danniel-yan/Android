@@ -13,15 +13,19 @@ import NextIcon from 'components/shared/NextIcon';
 import MenuItem from 'components/shared/MenuItem';
 import { border, fontSize, rowContainer, container, colors, centering } from 'styles';
 
-export default class CertificationHome extends Component {
+import bankStatus from './status';
+
+class CertificationHome extends Component {
   render() {
+    console.log('....', this.props);
+
     return (
       <ScrollView>
         <ExternalPushLink
           title="信用卡认证"
           toKey="OnlineCreditCards">
           <MenuItem title="信用卡认证" icon={require('assets/online/icon-xyk.png')}>
-            <Text style={[styles.status, styles[this.props.status]]}>未认证</Text>
+            <Text style={[styles.status, styles[this.props.status]]}>{bankStatus[this.props.bankResult.status]}</Text>
           </MenuItem>
         </ExternalPushLink>
 
@@ -29,7 +33,7 @@ export default class CertificationHome extends Component {
           title="运营商认证"
           >
           <MenuItem title="运营商认证" icon={require('assets/online/icon-yys.png')}>
-            <Text style={[styles.status, styles[this.props.status]]}>未认证</Text>
+            <Text style={[styles.status, styles[this.props.status]]}>{bankStatus[this.props.yysResult.status]}</Text>
           </MenuItem>
         </ExternalPushLink>
 
@@ -59,3 +63,32 @@ const styles = StyleSheet.create({
     color: colors.grayDark
   }
 });
+
+
+
+import { connect } from 'react-redux';
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
+import actions from 'actions/online';
+
+function mapStateToProps(state) {
+  let bank = state.online.bankResult;
+  let yys = state.online.yysResult;
+
+  return {
+    isFetching: bank.isFetching || yys.isFetching,
+    fetched: bank.fetched && yys.fetched,
+    bankResult: bank,
+    yysResult: yys,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => {dispatch(actions.bankResult()); dispatch(actions.yysResult())},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AsynCpGenerator(Loading, trackingScene(CertificationHome)));
