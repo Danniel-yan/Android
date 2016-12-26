@@ -40,4 +40,4 @@ const NSString  *MKQQAppKey = @"F1B2VqxrsTjWmkbx";
 //阿里百川
 const NSString* MKOpenIMUserId = @"anteaterproject";
 const NSString* MKOpenIMPassword = @"Amst123mysql";
-const NSString* MKOpenIMAPPKey = @"23457692";
+const NSString* MKOpenIMAPPKey = @"23579028";
