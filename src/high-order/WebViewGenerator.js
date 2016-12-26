@@ -22,8 +22,8 @@ export default function (config) {
     constructor(props) {
       super(props);
 
-      let tracking = props.tracking || { key: web };
-      this.tracking = Object.assign({}, tracking, { key: encodeURIComponent(tracking.key)});
+      let tracking = props.tracking || { key: 'webview' };
+      this.tracking = Object.assign({URL: url}, tracking, { key: encodeURIComponent(tracking.key)});
     }
 
     render() {

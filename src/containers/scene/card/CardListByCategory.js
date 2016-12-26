@@ -24,7 +24,7 @@ import Button from 'components/shared/ButtonBase';
 class CardListByCategory extends Component {
 
   tracking() {
-    let name = this.props.category[this.props.selected].name;
+    let name = this._selectedCategory().name;
 
     return {
       key: 'card',
@@ -69,7 +69,7 @@ class CardListByCategory extends Component {
       return <Loading/>;
     }
 
-    let typeName = this.props.category[this.props.selected].name
+    let typeName = this._selectedCategory().name
     let Scroll = this.props.cardList.cardList.length < 10 ? ScrollView : ScrollPagination;
 
     return (
@@ -132,6 +132,10 @@ class CardListByCategory extends Component {
       bankid: 0,
       categoryid: selected 
     });
+  }
+
+  _selectedCategory() {
+    return this.props.category.find(cate => cate.id == this.state.selected);
   }
 }
 
