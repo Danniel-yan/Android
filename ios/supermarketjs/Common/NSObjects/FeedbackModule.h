@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
 
-@interface FeedbackModule : NSObject
+@interface FeedbackModule : NSObject<RCTBridgeModule>
 
 @end
