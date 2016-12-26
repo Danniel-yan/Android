@@ -36,3 +36,8 @@ const NSString  *MKWeChatAppSecret = @"5c631b7903e33a4996913d31aad4e59d";
 //QQ
 const NSString  *MKQQAppID = @"1105891810";
 const NSString  *MKQQAppKey = @"F1B2VqxrsTjWmkbx";
+
+//阿里百川
+const NSString* MKOpenIMUserId = @"anteaterproject";
+const NSString* MKOpenIMPassword = @"Amst123mysql";
+const NSString* MKOpenIMAPPKey = @"23457692";

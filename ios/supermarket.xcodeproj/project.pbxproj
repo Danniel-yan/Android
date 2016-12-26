@@ -27,6 +27,25 @@
 		88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88326F281E03918E0093C055 /* libRCTCameraRoll.a */; };
 		886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886006501DF01C8F00971978 /* libRCTAnimation.a */; };
 		924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */; };
+		A639C54F1E10EAFA0036819E /* AmrCodecFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5461E10EAFA0036819E /* AmrCodecFMWK.framework */; };
+		A639C5501E10EAFA0036819E /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5471E10EAFA0036819E /* SecurityGuardSDK.framework */; };
+		A639C5511E10EAFA0036819E /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5481E10EAFA0036819E /* UTDID.framework */; };
+		A639C5521E10EAFA0036819E /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5491E10EAFA0036819E /* UTMini.framework */; };
+		A639C5531E10EAFA0036819E /* WQConnectorBundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C54A1E10EAFA0036819E /* WQConnectorBundle.framework */; };
+		A639C5541E10EAFA0036819E /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A639C54B1E10EAFA0036819E /* yw_1222.jpg */; };
+		A639C5551E10EAFA0036819E /* YWFeedbackAudioExtentionFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C54C1E10EAFA0036819E /* YWFeedbackAudioExtentionFMWK.framework */; };
+		A639C5561E10EAFA0036819E /* YWFeedbackFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C54D1E10EAFA0036819E /* YWFeedbackFMWK.framework */; };
+		A639C5571E10EAFA0036819E /* YWHybridWebViewFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C54E1E10EAFA0036819E /* YWHybridWebViewFMWK.framework */; };
+		A639C5701E10EF150036819E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C56F1E10EF150036819E /* AddressBook.framework */; };
+		A639C5721E10EF3A0036819E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5711E10EF3A0036819E /* CoreLocation.framework */; };
+		A639C5741E10EF570036819E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5731E10EF570036819E /* CoreData.framework */; };
+		A639C5761E10EF7D0036819E /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5751E10EF7D0036819E /* libstdc++.6.0.9.tbd */; };
+		A639C5781E10EF9A0036819E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5771E10EF9A0036819E /* MobileCoreServices.framework */; };
+		A639C57A1E10EFDD0036819E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5791E10EFDD0036819E /* AudioToolbox.framework */; };
+		A639C57C1E10EFFB0036819E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57B1E10EFFB0036819E /* AVFoundation.framework */; };
+		A639C57E1E10F0270036819E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57D1E10F0270036819E /* AssetsLibrary.framework */; };
+		A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57F1E10F03C0036819E /* CoreMotion.framework */; };
+		A639C5831E10F2A40036819E /* FeedbackModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A639C5821E10F2A40036819E /* FeedbackModule.m */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
@@ -283,6 +302,26 @@
 		88326ECF1E037D4D0093C055 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		88326F231E03918E0093C055 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		886006481DF01C8F00971978 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		A639C5461E10EAFA0036819E /* AmrCodecFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmrCodecFMWK.framework; sourceTree = "<group>"; };
+		A639C5471E10EAFA0036819E /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityGuardSDK.framework; sourceTree = "<group>"; };
+		A639C5481E10EAFA0036819E /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
+		A639C5491E10EAFA0036819E /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
+		A639C54A1E10EAFA0036819E /* WQConnectorBundle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WQConnectorBundle.framework; sourceTree = "<group>"; };
+		A639C54B1E10EAFA0036819E /* yw_1222.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222.jpg; sourceTree = "<group>"; };
+		A639C54C1E10EAFA0036819E /* YWFeedbackAudioExtentionFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWFeedbackAudioExtentionFMWK.framework; sourceTree = "<group>"; };
+		A639C54D1E10EAFA0036819E /* YWFeedbackFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWFeedbackFMWK.framework; sourceTree = "<group>"; };
+		A639C54E1E10EAFA0036819E /* YWHybridWebViewFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWHybridWebViewFMWK.framework; sourceTree = "<group>"; };
+		A639C56F1E10EF150036819E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		A639C5711E10EF3A0036819E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A639C5731E10EF570036819E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A639C5751E10EF7D0036819E /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		A639C5771E10EF9A0036819E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		A639C5791E10EFDD0036819E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A639C57B1E10EFFB0036819E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A639C57D1E10F0270036819E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		A639C57F1E10F03C0036819E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		A639C5811E10F2A40036819E /* FeedbackModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackModule.h; sourceTree = "<group>"; };
+		A639C5821E10F2A40036819E /* FeedbackModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackModule.m; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -395,18 +434,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */,
+				A639C57E1E10F0270036819E /* AssetsLibrary.framework in Frameworks */,
+				A639C57C1E10EFFB0036819E /* AVFoundation.framework in Frameworks */,
+				A639C57A1E10EFDD0036819E /* AudioToolbox.framework in Frameworks */,
+				A639C5781E10EF9A0036819E /* MobileCoreServices.framework in Frameworks */,
+				A639C5761E10EF7D0036819E /* libstdc++.6.0.9.tbd in Frameworks */,
+				A639C5741E10EF570036819E /* CoreData.framework in Frameworks */,
+				A639C5721E10EF3A0036819E /* CoreLocation.framework in Frameworks */,
+				A639C5701E10EF150036819E /* AddressBook.framework in Frameworks */,
 				B8FF6C7E1E03E06500FB2709 /* ImageIO.framework in Frameworks */,
 				B8FF6C7C1E03E03B00FB2709 /* libstdc++.tbd in Frameworks */,
+				A639C5521E10EAFA0036819E /* UTMini.framework in Frameworks */,
 				B8FF6C7A1E03E02300FB2709 /* libicucore.tbd in Frameworks */,
 				B8FF6C781E03E00000FB2709 /* JavaScriptCore.framework in Frameworks */,
 				88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */,
+				A639C54F1E10EAFA0036819E /* AmrCodecFMWK.framework in Frameworks */,
 				B8FF6C561E03DF5E00FB2709 /* TencentOpenAPI.framework in Frameworks */,
 				886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */,
+				A639C5571E10EAFA0036819E /* YWHybridWebViewFMWK.framework in Frameworks */,
 				B8FF6C581E03DF5E00FB2709 /* libWeiboSDK.a in Frameworks */,
 				B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */,
 				B8FF6C521E03DF5E00FB2709 /* ShareSDKUI.framework in Frameworks */,
 				B875668C1DDE9AC300F74BA9 /* libresolv.tbd in Frameworks */,
 				B8FF6C5F1E03DF5E00FB2709 /* ShareSDKConnector.framework in Frameworks */,
+				A639C5551E10EAFA0036819E /* YWFeedbackAudioExtentionFMWK.framework in Frameworks */,
 				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
 				B8FF6C501E03DF5E00FB2709 /* ShareSDKExtension.framework in Frameworks */,
 				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
@@ -415,6 +467,7 @@
 				B8FF6C5A1E03DF5E00FB2709 /* libWeChatSDK.a in Frameworks */,
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
+				A639C5561E10EAFA0036819E /* YWFeedbackFMWK.framework in Frameworks */,
 				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
 				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
 				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
@@ -428,13 +481,16 @@
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				B8FF6C5D1E03DF5E00FB2709 /* MOBFoundation.framework in Frameworks */,
+				A639C5511E10EAFA0036819E /* UTDID.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				A639C5531E10EAFA0036819E /* WQConnectorBundle.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				B8FF6C4F1E03DF5E00FB2709 /* ShareSDKConfigFile.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				A639C5501E10EAFA0036819E /* SecurityGuardSDK.framework in Frameworks */,
 				075FFAB7726A4FF2BB00CC0E /* libRCTJPushModule.a in Frameworks */,
 				924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */,
 				B8FF6C4D1E03DF5E00FB2709 /* ShareSDK.framework in Frameworks */,
@@ -646,6 +702,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A639C5451E10EAFA0036819E /* YWFramework */ = {
+			isa = PBXGroup;
+			children = (
+				A639C5461E10EAFA0036819E /* AmrCodecFMWK.framework */,
+				A639C5471E10EAFA0036819E /* SecurityGuardSDK.framework */,
+				A639C5481E10EAFA0036819E /* UTDID.framework */,
+				A639C5491E10EAFA0036819E /* UTMini.framework */,
+				A639C54A1E10EAFA0036819E /* WQConnectorBundle.framework */,
+				A639C54B1E10EAFA0036819E /* yw_1222.jpg */,
+				A639C54C1E10EAFA0036819E /* YWFeedbackAudioExtentionFMWK.framework */,
+				A639C54D1E10EAFA0036819E /* YWFeedbackFMWK.framework */,
+				A639C54E1E10EAFA0036819E /* YWHybridWebViewFMWK.framework */,
+			);
+			path = YWFramework;
+			sourceTree = "<group>";
+		};
 		B81A61EF1DE53502001365BD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +823,15 @@
 		B87566801DDE9A1300F74BA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A639C57F1E10F03C0036819E /* CoreMotion.framework */,
+				A639C57D1E10F0270036819E /* AssetsLibrary.framework */,
+				A639C57B1E10EFFB0036819E /* AVFoundation.framework */,
+				A639C5791E10EFDD0036819E /* AudioToolbox.framework */,
+				A639C5771E10EF9A0036819E /* MobileCoreServices.framework */,
+				A639C5751E10EF7D0036819E /* libstdc++.6.0.9.tbd */,
+				A639C5731E10EF570036819E /* CoreData.framework */,
+				A639C5711E10EF3A0036819E /* CoreLocation.framework */,
+				A639C56F1E10EF150036819E /* AddressBook.framework */,
 				B8FF6C7D1E03E06500FB2709 /* ImageIO.framework */,
 				B8FF6C7B1E03E03B00FB2709 /* libstdc++.tbd */,
 				B8FF6C791E03E02300FB2709 /* libicucore.tbd */,
@@ -798,6 +879,7 @@
 		B875669B1DDE9B4500F74BA9 /* SDKs */ = {
 			isa = PBXGroup;
 			children = (
+				A639C5451E10EAFA0036819E /* YWFramework */,
 				B8FF6C231E03DF5E00FB2709 /* ShareSDK */,
 				B81A62131DE56AEA001365BD /* UMMobClick */,
 				B87567081DDEB3B600F74BA9 /* Bugly */,
@@ -842,6 +924,8 @@
 				B8671ACA1DEC140F00943609 /* JpushModule.m */,
 				B8ECA1941E0A6D5300E0A6BE /* ShareUtilModule.h */,
 				B8ECA1751E0A54F200E0A6BE /* ShareUtilModule.m */,
+				A639C5811E10F2A40036819E /* FeedbackModule.h */,
+				A639C5821E10F2A40036819E /* FeedbackModule.m */,
 			);
 			path = NSObjects;
 			sourceTree = "<group>";
@@ -1285,6 +1369,7 @@
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B8FF6C511E03DF5E00FB2709 /* ShareSDKUI.bundle in Resources */,
 				B8FF6C591E03DF5E00FB2709 /* WeiboSDK.bundle in Resources */,
+				A639C5541E10EAFA0036819E /* yw_1222.jpg in Resources */,
 				B8FF6C5E1E03DF5E00FB2709 /* ShareSDK.bundle in Resources */,
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
 				B8FF6C5B1E03DF5E00FB2709 /* read_me.txt in Resources */,
@@ -1335,6 +1420,7 @@
 				B8ECA1761E0A54F200E0A6BE /* ShareUtilModule.m in Sources */,
 				B8671ACB1DEC140F00943609 /* JpushModule.m in Sources */,
 				B86BB7BC1DF8265C00E8B720 /* IQUIView+Hierarchy.m in Sources */,
+				A639C5831E10F2A40036819E /* FeedbackModule.m in Sources */,
 				B86BB7B91DF8265C00E8B720 /* IQNSArray+Sort.m in Sources */,
 				B87566A41DDE9B4500F74BA9 /* main.m in Sources */,
 				B86BB7C61DF8265C00E8B720 /* IQUIView+IQKeyboardToolbar.m in Sources */,
@@ -1433,6 +1519,7 @@
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/YWFramework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1481,6 +1568,7 @@
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/YWFramework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
