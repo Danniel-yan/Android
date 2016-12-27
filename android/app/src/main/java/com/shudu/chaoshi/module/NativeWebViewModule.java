@@ -10,19 +10,20 @@
 package com.shudu.chaoshi.module;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -51,6 +52,7 @@ import com.facebook.react.views.webview.events.TopLoadingErrorEvent;
 import com.facebook.react.views.webview.events.TopLoadingFinishEvent;
 import com.facebook.react.views.webview.events.TopLoadingStartEvent;
 import com.facebook.react.views.webview.events.TopMessageEvent;
+import com.shudu.chaoshi.util.webview.MyWebChromeClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,6 +112,12 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
     @Nullable
     WebView.PictureListener mPictureListener;
     private Context mContext;
+
+    public final static int FILECHOOSER_RESULTCODE = 1;
+    public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_5 = 2;
+    public ValueCallback<Uri> mUploadMessage;
+    public ValueCallback<Uri[]> mUploadMessageForAndroid5;
+
 
     private static class ReactWebViewClient extends WebViewClient {
 
@@ -340,16 +348,59 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
     @Override
     protected WebView createViewInstance(ThemedReactContext reactContext) {
         ReactWebView webView = new ReactWebView(reactContext);
-        webView.setWebChromeClient(new WebChromeClient() {
+        webView.setWebChromeClient(new MyWebChromeClient() {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
+            }
+
+            @Override
+            public void setWebCall(WebCall webCall) {
+                super.setWebCall(new WebCall() {
+                    @Override
+                    public void fileChose(ValueCallback<Uri> uploadMsg) {
+                        openFileChooserImpl(uploadMsg);
+                    }
+
+                    @Override
+                    public void fileChose5(ValueCallback<Uri[]> uploadMsg) {
+                        openFileChooserImplForAndroid5(uploadMsg);
+                    }
+
+                    private void openFileChooserImpl(ValueCallback<Uri> uploadMsg) {
+                        mUploadMessage = uploadMsg;
+                        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                        i.addCategory(Intent.CATEGORY_OPENABLE);
+                        i.setType("image/*");
+                        Intent intent = Intent.createChooser(i, "File Chooser");
+                        intent.putExtra("mUploadMessage", (Parcelable) mUploadMessage);
+                        ((Activity) mContext).startActivityForResult(intent,
+                                FILECHOOSER_RESULTCODE);
+                    }
+
+                    private void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
+                        mUploadMessageForAndroid5 = uploadMsg;
+                        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                        contentSelectionIntent.setType("image/*");
+
+                        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+                        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+                        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
+                        chooserIntent.putExtra("mUploadMessageForAndroid5", (Parcelable) mUploadMessageForAndroid5);
+
+                        ((Activity) mContext).startActivityForResult(chooserIntent,
+                                FILECHOOSER_RESULTCODE_FOR_ANDROID_5);
+                    }
+                });
             }
         });
         reactContext.addLifecycleEventListener(webView);
         mWebViewConfig.configWebView(webView);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAllowFileAccess(true);
 
         // Fixes broken full-screen modals/galleries due to body height being 0.
         webView.setLayoutParams(
