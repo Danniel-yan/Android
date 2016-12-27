@@ -11,6 +11,7 @@ package com.shudu.chaoshi.module;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,16 +20,20 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.facebook.common.logging.FLog;
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -52,6 +57,7 @@ import com.facebook.react.views.webview.events.TopLoadingErrorEvent;
 import com.facebook.react.views.webview.events.TopLoadingFinishEvent;
 import com.facebook.react.views.webview.events.TopLoadingStartEvent;
 import com.facebook.react.views.webview.events.TopMessageEvent;
+import com.shudu.chaoshi.activity.MainActivity;
 import com.shudu.chaoshi.util.webview.MyWebChromeClient;
 
 import org.json.JSONException;
@@ -63,6 +69,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
@@ -114,10 +121,45 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
     private Context mContext;
 
     public final static int FILECHOOSER_RESULTCODE = 1;
-    public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_5 = 2;
     public ValueCallback<Uri> mUploadMessage;
     public ValueCallback<Uri[]> mUploadMessageForAndroid5;
 
+    private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
+        @Override
+        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+            if (requestCode == FILECHOOSER_RESULTCODE) {
+
+                Uri result = intent == null || resultCode != RESULT_OK ? null
+                        : intent.getData();
+                if(mUploadMessage != null) {
+                    mUploadMessage.onReceiveValue(result);
+                }
+                if(mUploadMessageForAndroid5 != null) {
+                    Uri[] results = null;
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (intent != null) {
+                            String dataString = intent.getDataString();
+                            ClipData clipData = intent.getClipData();
+                            if (clipData != null) {
+                                results = new Uri[clipData.getItemCount()];
+                                for (int i = 0; i < clipData.getItemCount(); i++) {
+                                    ClipData.Item item = clipData.getItemAt(i);
+                                    results[i] = item.getUri();
+                                }
+                            }
+                            if (dataString != null)
+                                results = new Uri[]{Uri.parse(dataString)};
+                        }
+                    }
+
+                    mUploadMessageForAndroid5.onReceiveValue(results);
+                }
+
+            }
+        }
+
+        ;
+    };
 
     private static class ReactWebViewClient extends WebViewClient {
 
@@ -330,6 +372,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
 
     public NativeWebViewModule(ReactApplicationContext reactContext) {
         mContext = reactContext.getBaseContext();
+        reactContext.addActivityEventListener(mActivityEventListener);
         mWebViewConfig = new WebViewConfig() {
             public void configWebView(WebView webView) {
             }
@@ -346,54 +389,38 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
     }
 
     @Override
-    protected WebView createViewInstance(ThemedReactContext reactContext) {
+    protected WebView createViewInstance(final ThemedReactContext reactContext) {
         ReactWebView webView = new ReactWebView(reactContext);
-        webView.setWebChromeClient(new MyWebChromeClient() {
+
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
-
-            @Override
-            public void setWebCall(WebCall webCall) {
-                super.setWebCall(new WebCall() {
-                    @Override
-                    public void fileChose(ValueCallback<Uri> uploadMsg) {
-                        openFileChooserImpl(uploadMsg);
-                    }
-
-                    @Override
-                    public void fileChose5(ValueCallback<Uri[]> uploadMsg) {
-                        openFileChooserImplForAndroid5(uploadMsg);
-                    }
-
-                    private void openFileChooserImpl(ValueCallback<Uri> uploadMsg) {
-                        mUploadMessage = uploadMsg;
-                        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                        i.addCategory(Intent.CATEGORY_OPENABLE);
-                        i.setType("image/*");
-                        Intent intent = Intent.createChooser(i, "File Chooser");
-                        intent.putExtra("mUploadMessage", (Parcelable) mUploadMessage);
-                        ((Activity) mContext).startActivityForResult(intent,
-                                FILECHOOSER_RESULTCODE);
-                    }
-
-                    private void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
-                        mUploadMessageForAndroid5 = uploadMsg;
-                        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                        contentSelectionIntent.setType("image/*");
-
-                        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-                        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
-                        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
-                        chooserIntent.putExtra("mUploadMessageForAndroid5", (Parcelable) mUploadMessageForAndroid5);
-
-                        ((Activity) mContext).startActivityForResult(chooserIntent,
-                                FILECHOOSER_RESULTCODE_FOR_ANDROID_5);
-                    }
-                });
+            // For Android  > 4.1.1
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                mUploadMessage = uploadMsg;
+//                openFileChooserView();
             }
+
+            // For Android > 5.0
+            public boolean onShowFileChooser (WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+                mUploadMessageForAndroid5 = filePathCallback;
+                openFileChooserView();
+                return true;
+            }
+
+            private void openFileChooserView(){
+                try {
+                    final Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                    galleryIntent.setType("image/*");
+                    final Intent chooserIntent = Intent.createChooser(galleryIntent, "choose file");
+                    reactContext.getCurrentActivity().startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         });
         reactContext.addLifecycleEventListener(webView);
         mWebViewConfig.configWebView(webView);
