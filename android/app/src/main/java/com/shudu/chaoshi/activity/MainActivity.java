@@ -1,11 +1,6 @@
 package com.shudu.chaoshi.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.webkit.ValueCallback;
-
 import com.facebook.react.ReactActivity;
 import com.shudu.chaoshi.MainApplication;
 import com.umeng.analytics.MobclickAgent;
