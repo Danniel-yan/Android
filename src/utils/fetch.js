@@ -53,7 +53,8 @@ function _post(url, body, responseType) {
 
 function requestFailureHandle(responseJSON) {
   if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failure) {
-    alert(responseJSON.msg);
+    // TODO remove
+    //alert(responseJSON.msg);
   }
   return responseJSON
 }

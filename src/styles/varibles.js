@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 
 export const colors = {
   error: '#DF001B',
+  link: '#1A91FE',
   primary: '#FE271E',
   secondary: '#FFAF32',
   line: '#e6e6e6',

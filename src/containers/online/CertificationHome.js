@@ -30,6 +30,7 @@ class CertificationHome extends Component {
 
         <ExternalPushLink
           title="运营商认证"
+          toKey="OnlineYysForm"
           >
           <MenuItem title="运营商认证" icon={require('assets/online/icon-yys.png')}>
             <Text style={[styles.status, styles[this.props.status]]}>{bankStatus[this.props.yysResult.status]}</Text>

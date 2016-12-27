@@ -27,10 +27,18 @@ import OnlineCreditCards from 'containers/online/CreditCards';
 import OnlineCreditCardForm from 'containers/online/CreditCardForm';
 import OnlineCreditCardVerify from 'containers/online/CreditCardVerify';
 import OnlineCreditCardStatus from 'containers/online/CreditCardStatus';
+import OnlineYysForm from 'containers/online/YysForm';
+import OnlineYysFormStatus from 'containers/online/YysFormStatus';
+import OnlinePreLoanFailure from 'containers/online/PreLoanFailure';
+import OnlinePreLoanExpire from 'containers/online/PreLoanExpire';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
-  { key: 'HomeScene', module: HomeScene },
+  { key: 'HomeScene', module: OnlinePreLoanExpire },
+  { key: 'OnlineYysForm', module: OnlineYysForm },
+  { key: 'OnlinePreLoanFailure', module: OnlinePreLoanFailure },
+  { key: 'OnlinePreLoanExpire', module: OnlinePreLoanExpire },
+  { key: 'OnlineYysFormStatus', module: OnlineYysFormStatus },
   { key: 'OnlineCreditCards', module: OnlineCreditCards },
   { key: 'CertificationHome', module: CertificationHome },
   { key: 'OnlineUserInfo', module: OnlineUserInfo },
