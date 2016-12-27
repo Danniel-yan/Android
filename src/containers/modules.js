@@ -34,7 +34,7 @@ import OnlinePreLoanExpire from 'containers/online/PreLoanExpire';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
-  { key: 'HomeScene', module: OnlinePreLoanExpire },
+  { key: 'HomeScene', module: HomeScene },
   { key: 'OnlineYysForm', module: OnlineYysForm },
   { key: 'OnlinePreLoanFailure', module: OnlinePreLoanFailure },
   { key: 'OnlinePreLoanExpire', module: OnlinePreLoanExpire },
