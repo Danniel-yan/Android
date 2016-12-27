@@ -205,7 +205,7 @@ export default class FillUserInfo extends Component {
                 <Checkbox checked={checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
                 <Text onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
                 <WebLink
-                  source={require('assets/html/agreement.html')}
+                  source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
                   toKey="Agreement"
                   text="《钞市服务协议》" title="《钞市服务协议》"
                 />
