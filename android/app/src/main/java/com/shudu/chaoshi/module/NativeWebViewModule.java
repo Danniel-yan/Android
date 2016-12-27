@@ -57,8 +57,6 @@ import com.facebook.react.views.webview.events.TopLoadingErrorEvent;
 import com.facebook.react.views.webview.events.TopLoadingFinishEvent;
 import com.facebook.react.views.webview.events.TopLoadingStartEvent;
 import com.facebook.react.views.webview.events.TopMessageEvent;
-import com.shudu.chaoshi.activity.MainActivity;
-import com.shudu.chaoshi.util.webview.MyWebChromeClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
