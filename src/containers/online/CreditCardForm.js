@@ -28,22 +28,25 @@ class CreditCardForm extends Component {
     this.state = {
       tabIndex: 0,
       form: { },
+      valids: { },
       errors: { }
     };
 
     this.formRegs = {};
   }
 
+  componentWillUnmount() {
+    this.unmount = true;
+  }
+
   _validation() {
-    let errors = this.state.errors;
+    const valids = this.state.valids;
 
-    for(let field in errors) {
-      if(errors[field]) {
-        return false;
-      }
-    }
+    let curTab = this.props.detail[this.state.tabIndex]
 
-    return true;
+    return !curTab.description.find(field => {
+      return !valids[field.name];
+    })
   }
 
   render() {
@@ -84,6 +87,8 @@ class CreditCardForm extends Component {
     };
 
     return post('/bill/bank-login', body).then(response => {
+      if(this.unmount) { return }
+
       this.setState({submitting: false});
 
       if(response.res == responseStatus.success) {
@@ -114,7 +119,8 @@ class CreditCardForm extends Component {
 
     this.setState({
       form: {...this.state.form, [name]: value},
-      errors: { ...this.state.errors, [name]: errmsg }
+      errors: { ...this.state.errors, [name]: errmsg },
+      valids: { ...this.state.valids, [name]: !errmsg },
     });
   }
 
@@ -212,7 +218,10 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  const detail = state.online.bankDetail[ownProps.fetchingParams] || { };
+  const detail = state.online.bankDetail[ownProps.fetchingParams] || {
+    isFetching: true,
+    feched: false
+  };
 
   return { ...detail }
 }

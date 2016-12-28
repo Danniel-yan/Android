@@ -214,13 +214,25 @@ export default class LoanDetailScene extends Component {
     let detail = this.props.detail;
     let logined = this.props.loginUser.info;
 
+
+    //0=初筛通过，可以申请预授信，1=预授信申请已通过，2=预授信申请已经提交，3=预授信申请被拒绝，4=申请流程已过期，5=当前无法提交预授信申请，6=网银账单已过期，7=网银账单尚未通过审核，8=运营商账单已过期，9=运营商账单尚未通过审核
+    
+    let nextRoute = logined ?
+      { toKey: 'OnlineUserInfo', title: '完善个人信息'} :
+      { toKey: 'Login', title: '登录'};
+    if(this.props.preloanStatus == 1) {
+      nextRoute = {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
+    } else if(this.props.preloanStatus == 0) {
+      nextRoute = {toKey: 'CertificationHome', title: '信息认证'};
+    } else if(this.props.preloanStatus == 4) {
+      nextRoute = {toKey: 'OnlinePreloanExpire', title: '预授信申请结果'};
+    }
     return (
       <ExternalPushLink
+        {...nextRoute}
         style={styles.loanButton}
         textStyle={styles.loanButtonText}
         text="去贷款"
-        toKey={logined ? 'OnlineUserInfo' : 'Login'}
-        title="完善个人信息"
         componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
         />
     );

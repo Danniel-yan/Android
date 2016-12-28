@@ -8,12 +8,14 @@ import {
   ScrollView
 } from 'react-native';
 
-import { ExternalPopLink } from 'containers/shared/Link';
+import { ExternalReplaceLink } from 'containers/shared/Link';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import { container, colors, fontSize, centering} from 'styles';
 import onlineStyles from './styles';
 
-export default function(props) {
+function PreloanExpire(props) {
+  let data = props.data;
+
   return (
     <ScrollView>
       <View style={[styles.banner, centering]}>
@@ -26,20 +28,21 @@ export default function(props) {
 
       <View style={styles.item}>
         <Text style={[styles.text, container]}>预受额度：</Text>
-        <Text style={styles.text}>50,000.00</Text>
+        <Text style={styles.text}>{data.sug_loan_amount}</Text>
       </View>
 
       <View style={styles.item}>
-        <Text style={[styles.text, container]}>预受额度：</Text>
-        <Text style={styles.text}>50,000.00</Text>
+        <Text style={[styles.text, container]}>借款期限：</Text>
+        <Text style={styles.text}>{data.sug_term}期</Text>
       </View>
 
       <View style={styles.item}>
-        <Text style={[styles.text, container]}>预受额度：</Text>
-        <Text style={styles.text}>50,000.00</Text>
+        <Text style={[styles.text, container]}>预授费率</Text>
+        <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
       </View>
 
-      <ExternalPopLink
+      <ExternalReplaceLink
+        title="信息认证"
         style={[onlineStyles.btn, {marginHorizontal: 10, marginTop: 80}]}
         textStyle={onlineStyles.btnText}
         toKey="CertificationHome"
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 40,
+    backgroundColor: '#fff',
     paddingHorizontal: 10
   },
   text: {
@@ -80,3 +84,24 @@ const styles = StyleSheet.create({
     color: colors.grayDark
   }
 });
+
+
+
+import { connect } from 'react-redux';
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import Loading from 'components/shared/Loading';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import actions from 'actions/online';
+
+function mapStateToProps(state) {
+  return state.online.preloanStatus;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => dispatch(actions.preloanStatus()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AsynCpGenerator(Loading, trackingScene(PreloanExpire)));

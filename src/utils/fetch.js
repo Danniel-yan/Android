@@ -36,6 +36,7 @@ function _get(url, body, responseType) {
     method: 'get'
   })
   .then(response => response[responseType]())
+  .then(log.bind(null, url, body))
   .then(requestFailureHandle);
 }
 
@@ -48,7 +49,13 @@ function _post(url, body, responseType) {
     body: JSON.stringify(body)
   })
   .then(response => response[responseType]())
+  .then(log.bind(null, url, body))
   .then(requestFailureHandle);
+}
+
+function log(url, body, response) {
+  console.log(url, body, response);
+  return response;
 }
 
 function requestFailureHandle(responseJSON) {

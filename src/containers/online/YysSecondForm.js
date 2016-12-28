@@ -85,6 +85,7 @@ export default class YysSecondForm extends Component {
             </View>
 
             <ProcessingButton
+              color={colors.grayDark}
               processing={this.state.submitting}
               onPress={this._submit.bind(this)}
               disabeld={this.state.error}
@@ -104,12 +105,16 @@ export default class YysSecondForm extends Component {
   }
 
   _submit() {
+    let body = {
+      ticket_id: this.props.ticket_id,
+      val_code: this.state.val_code
+    };
+
     this.setState({ submitting: true }, () => {
-      post('/bill/yys-second-login').then(response => {
+
+      post('/bill/yys-second-login', body).then(response => {
         this.setState({ submitting: false});
 
-          this.props.verifySuccess();
-          return;
         if(response.res == responseStatus.success) {
           this.setState({ submitting: false });
           this.props.verifySuccess();

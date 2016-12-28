@@ -9,6 +9,9 @@ export default StyleSheet.create({
     height: 42,
     borderRadius: 4,
   },
+  btnOffset: {
+    marginHorizontal: 10
+  },
   btnDisable: {
     backgroundColor: '#C8C8C8'
   },

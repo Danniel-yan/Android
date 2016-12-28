@@ -6,11 +6,13 @@ import pickers from './pickers';
 import bankResult from './bankResult';
 import yysResult from './yysResult';
 import yysForms from './yysForms';
-import preloanSatus from './preloanSatus';
+import preloanStatus from './preloanStatus';
+import preloan from './preloan';
 
 export default {
   banks,
-  preloanSatus,
+  preloan,
+  preloanStatus,
   bankDetail,
   submitCreditCard,
   userInfo,

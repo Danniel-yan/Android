@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 
 export const colors = {
+  success: '#219C1A',
   error: '#DF001B',
   link: '#1A91FE',
   primary: '#FE271E',

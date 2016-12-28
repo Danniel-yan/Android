@@ -36,21 +36,24 @@ class YysForm extends Component {
       visibleVerify: false,
       submitting: false,
       form: { },
+      valids: { },
       errors: { }
     };
 
   }
 
+  // 返回提交过程中用户返回
+  componentWillUnmount() {
+    this.unmount = true;
+  }
+
   _validation() {
-    let errors = this.state.errors;
+    const valids = this.state.valids;
 
-    for(let field in errors) {
-      if(errors[field]) {
-        return false;
-      }
-    }
+    return !this.props.description.find(field => {
+      return !valids[field.name];
+    })
 
-    return true;
   }
 
   render() {
@@ -61,6 +64,7 @@ class YysForm extends Component {
         <ScrollView>
           <YysBanner/>
           {this._form()}
+          <Text style={styles.submitError}>{this.state.error}</Text>
           <ProcessingButton
             processing={this.state.submitting}
             onPress={this._submit.bind(this)}
@@ -100,37 +104,40 @@ class YysForm extends Component {
       };
 
       // TODO remove
-      let response = {
-        res: 1,
-        data:  {
-          "ticket_id": "ea8029b2-c81c-11e6-b5e3-00163e00ed7a_1482393720.03", //ticket_id 供二次登录时使用
-          "second_login": 1, //是否需要二次登陆，0=不需要，1=需要
-          "val_code": { 
-              "type": "sms", //验证码类型，sms=手机验证码，img=图片验证码
-              "value": "null" //图片验证码的base64数据
-          }
-        }
-      }
+      //let response = {
+      //  res: 1,
+      //  data:  {
+      //    "ticket_id": "ea8029b2-c81c-11e6-b5e3-00163e00ed7a_1482393720.03", //ticket_id 供二次登录时使用
+      //    "second_login": 1, //是否需要二次登陆，0=不需要，1=需要
+      //    "val_code": { 
+      //        "type": "sms", //验证码类型，sms=手机验证码，img=图片验证码
+      //        "value": "null" //图片验证码的base64数据
+      //    }
+      //  }
+      //}
 
       // TODO remove
-      if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
-        this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
-      } else if(response.res == responseStatus.success) {
-        this.setState({submitting: false});
-        this.props.loginSuccess();
-      } else {
-        this.setState({submitting: false });
-      }
-      return;
+      //if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
+      //  this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
+      //} else if(response.res == responseStatus.success) {
+      //  this.setState({submitting: false});
+      //  this.props.loginSuccess();
+      //} else {
+      //  this.setState({submitting: false });
+      //}
+      //return;
       post('/bill/yys-login', body).then(response => {
+        if(this.unmount) {
+          return;
+        }
 
         if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
           this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
         } else if(response.res == responseStatus.success) {
-          this.setState({submitting: false});
+          this.setState({submitting: false });
           this.props.loginSuccess();
         } else {
-          this.setState({submitting: false });
+          this.setState({submitting: false, error: response.msg });
         }
 
       }).catch(err => {
@@ -155,7 +162,8 @@ class YysForm extends Component {
 
     this.setState({
       form: {...this.state.form, [name]: value},
-      errors: { ...this.state.errors, [name]: errmsg }
+      errors: { ...this.state.errors, [name]: errmsg },
+      valids: { ...this.state.valids, [name]: !errmsg },
     });
   }
 
@@ -206,6 +214,12 @@ const styles = StyleSheet.create({
     fontSize: fontSize.xsmall,
     color: colors.error,
     backgroundColor: '#fff'
+  },
+  submitError: {
+    marginVertical: 10,
+    textAlign: 'center',
+    fontSize: fontSize.xsmall,
+    color: colors.error,
   }
 });
 
@@ -216,7 +230,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginSuccess: (props) => dispatch(externalPush({key: 'OnlineYysFormStatus', ...props, backCount: 0})),
+    loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backCount: 0})),
     fetching: () => dispatch(actions.yysForms())
   }
 }

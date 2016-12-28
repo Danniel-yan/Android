@@ -8,12 +8,14 @@ export default {
   5: '初筛未通过',
   6: '账单审核中',
   7: '账单审核失败',
-  8: '账单审核已过期'
+  8: '账单审核已过期',
+  9: '当前不在初筛状态',
+  10: '登录中，可中断'
 };
 
 export const successStatus = [0];
-export const failureStatus = [1, 4, 5, 7, 8];
-export const processingStatus = [2, 3, 6];
+export const failureStatus = [1, 4, 5, 7, 8, 9];
+export const processingStatus = [2, 3, 6, 10];
 
 export function parseStatus(status) {
   if(successStatus.includes(status)) {

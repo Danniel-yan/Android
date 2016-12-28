@@ -14,10 +14,16 @@ import ShareButton from 'components/shared/ShareButton';
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import externalScene from 'high-order/externalScene';
+import onlineActions from 'actions/online';
 
 function mapStateToProps(state) {
+  let { isFetching, ...detail } = state.loanDetail;
+  let { preloanStatusFetching, ...preloan } = state.online.preloanStatus;
+
   return {
-    ...state.loanDetail,
+    isFetching: isFetching || preloanStatusFetching,
+    ...detail,
+    preloanStatus: preloan.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
@@ -26,7 +32,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: id => dispatch(fetchLoanDetail(id)),
+    fetching: id => {
+      dispatch(fetchLoanDetail(id))
+      dispatch(onlineActions.preloanStatus());
+    },
     goLoan: (detail) => {
       dispatch(externalPush({
         title: detail.title,
