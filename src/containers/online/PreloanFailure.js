@@ -9,31 +9,25 @@ import {
 } from 'react-native';
 
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
+import Banner from './Banner';
 import { container, colors, fontSize, centering} from 'styles';
 
 export default function(props) {
   return (
-    <View style={[container]}>
-      <ScrollView>
-        <View style={centering}>
-          <Image source={require('assets/online/info.png')}/>
-          <Text style={styles.text}>很遗憾，您的申请未通过</Text>
-        </View>
+    <ScrollView>
+      <Banner
+        icon={require('assets/online/info.png')}
+        text="很遗憾，您的申请未通过"
+      />
 
-        <View style={styles.header}><Text>您可以选择其他贷款</Text></View>
+      <View style={styles.header}><Text>您可以选择其他贷款</Text></View>
 
-        <RecommendListPanel/>
-      </ScrollView>
-    </View>
+      <RecommendListPanel/>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    marginVertical: 16,
-    fontSize: fontSize.large,
-    color: colors.grayDark
-  },
   header: {
     paddingVertical: 10,
     paddingLeft: 10,

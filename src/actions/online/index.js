@@ -8,9 +8,11 @@ import yysResult from './yysResult';
 import yysForms from './yysForms';
 import preloanStatus from './preloanStatus';
 import preloan from './preloan';
+import approveStatus from './approveStatus';
 
 export default {
   banks,
+  approveStatus,
   preloan,
   preloanStatus,
   bankDetail,

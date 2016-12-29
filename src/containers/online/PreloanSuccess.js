@@ -46,9 +46,7 @@ class PreloanSuccess extends Component {
             placeholder="请输入申请金额"/>
         </View>
 
-        <View style={[styles.tip, centering]}>
-          <Text style={styles.text}>{this._tip()}</Text>
-        </View>
+        <ExpireGroup style={styles.tip} date={this.props.data.time_expire}/>
 
 
         <ProcessingButton
@@ -90,14 +88,6 @@ class PreloanSuccess extends Component {
   _submit() {
   }
 
-  _tip() {
-    let date = new Date(this.props.data.time_expire);
-    let dis = date.getTime() - Date.now();
-
-    let disDay = Math.ceil(dis / 24 / 60 / 60 / 1000);
-
-    return `还${disDay}天，有效期至${date.getMonth()+1}月${date.getDate()}日`;
-  }
 }
 
 
@@ -188,10 +178,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large
   },
   tip: {
-    paddingHorizontal: 10,
-    backgroundColor: '#fff',
     marginTop: 20,
-    height: 45,
   },
   inputWrap: {
     paddingHorizontal: 10,

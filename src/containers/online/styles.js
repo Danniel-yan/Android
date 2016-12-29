@@ -10,7 +10,7 @@ export default StyleSheet.create({
     borderRadius: 4,
   },
   btnOffset: {
-    marginHorizontal: 10
+    margin: 10
   },
   btnDisable: {
     backgroundColor: '#C8C8C8'

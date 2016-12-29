@@ -12,17 +12,17 @@ import { ExternalReplaceLink } from 'containers/shared/Link';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import { container, colors, fontSize, centering} from 'styles';
 import onlineStyles from './styles';
+import Banner from './Banner';
 
 function PreloanExpire(props) {
   let data = props.data;
 
   return (
     <ScrollView>
-      <View style={[styles.banner, centering]}>
-        <Image style={styles.img} source={require('assets/online/info.png')}/>
-        <Text style={styles.tip}>抱歉，您的预授信额度已过期</Text>
-        <Text style={styles.tip}>如需要，请重新申请</Text>
-      </View>
+      <Banner
+        icon={require('assets/online/info.png')}
+        text={"抱歉，您的预授信额度已过期\n如需要，请重新申请"}
+      />
 
       <Text style={styles.header}>预授信详情</Text>
 
@@ -52,20 +52,6 @@ function PreloanExpire(props) {
 }
 
 const styles = StyleSheet.create({
-  banner: {
-    paddingTop: 30,
-    paddingBottom: 50,
-    backgroundColor: '#f1f1f1'
-  },
-  img: {
-    marginBottom: 16,
-  },
-  tip: {
-    textAlign: 'center',
-    marginHorizontal: 80,
-    fontSize: fontSize.large,
-    color: colors.grayDark
-  },
   header: {
     paddingVertical: 10,
     paddingLeft: 10,

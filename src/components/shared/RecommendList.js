@@ -42,7 +42,7 @@ export default class RecommendList extends Component {
       <ExternalPushLink
         tracking={tracking}
         title={data.title}
-        toKey="LoanDetailScene"
+        toKey="OnlineTrialRefundPlan"
         componentProps={{fetchingParams: data.id }} >
         <View style={styles.flexContainerRow}>
           <Image source={{uri: data.logo_list}} style={styles.thumbnail} />

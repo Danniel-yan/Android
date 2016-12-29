@@ -9,8 +9,10 @@ import yysResult from './yysResult';
 import yysForms from './yysForms';
 import preloanStatus from './preloanStatus';
 import preloan from './preloan';
+import approveStatus from './approveStatus';
 
 export default combineReducers({
+  approveStatus,
   preloanStatus,
   preloan,
   banks,

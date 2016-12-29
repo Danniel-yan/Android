@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image } from 'react-native';
+import { NativeModules, View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
@@ -10,8 +10,16 @@ import zoneStyles from './zone/zoneStyles';
 import * as defaultStyles from 'styles';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 
+
 class ZoneScene extends Component {
 
+  _haha() {
+    NativeModules.FaceMegModule.bankCardVerify().then(res => {
+      console.log('.............' + res);
+    }).catch(err => {
+      console.log('.............' + err);
+    })
+  }
   tracking = 'my_account';
 
   render() {
@@ -47,6 +55,7 @@ class ZoneScene extends Component {
            */}
 
           <ExternalPushLink
+            prePress={this._haha.bind(this)}
             tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'}}
             toKey="ContactScene" title="联系我们">
 

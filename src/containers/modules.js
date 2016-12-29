@@ -32,11 +32,23 @@ import OnlineYysFormStatus from 'containers/online/YysFormStatus';
 import OnlinePreloanSuccess from 'containers/online/PreloanSuccess';
 import OnlinePreloanFailure from 'containers/online/PreloanFailure';
 import OnlinePreloanExpire from 'containers/online/PreloanExpire';
+import OnlineLoanForm from 'containers/online/LoanForm';
+import OnlineApproveStatus from 'containers/online/ApproveStatus';
+import OnlineLoanSign from 'containers/online/LoanSign';
+import OnlineReceiptCard from 'containers/online/ReceiptCard';
+import OnlineSignSuccess from 'containers/online/SignSuccess';
+import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'OnlineYysForm', module: OnlineYysForm },
+  { key: 'OnlineTrialRefundPlan', module: OnlineTrialRefundPlan },
+  { key: 'OnlineSignSuccess', module: OnlineSignSuccess },
+  { key: 'OnlineReceiptCard', module: OnlineReceiptCard },
+  { key: 'OnlineLoanSign', module: OnlineLoanSign },
+  { key: 'OnlineLoanForm', module: OnlineLoanForm },
+  { key: 'OnlineApproveStatus', module: OnlineApproveStatus },
   { key: 'OnlineYysFormStatus', module: OnlineYysFormStatus },
   { key: 'OnlinePreloanSuccess', module: OnlinePreloanSuccess },
   { key: 'OnlinePreloanFailure', module: OnlinePreloanFailure },
