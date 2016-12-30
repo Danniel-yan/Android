@@ -51,7 +51,6 @@
 //创建界面
 -(void)creatView{
     self.title = @"活体检测";
-    
     self.headerView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.headerView setImage:[MGLiveBundle LiveImageWithName:@"header_bg_img"]];
     [self.headerView setContentMode:UIViewContentModeScaleAspectFill];
@@ -59,7 +58,6 @@
     
     self.bottomView = [[MyBottomView alloc] initWithFrame:CGRectMake(0, MG_WIN_WIDTH+self.topViewHeight, MG_WIN_WIDTH, MG_WIN_HEIGHT-MG_WIN_WIDTH-self.topViewHeight)
                                                    andCountDownType:MGCountDownTypeRing];
-    
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.bottomView];
 }
@@ -70,7 +68,6 @@
     
     MyFinishViewController *finishVC = [[MyFinishViewController alloc] initWithNibName:nil bundle:nil];
     [finishVC setCheckOK:check];
-    
     if (check == YES) {
         FaceIDData *faceData = [self.liveManager getFaceIDData];
         [finishVC setFaceData: faceData];

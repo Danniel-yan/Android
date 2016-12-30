@@ -92,32 +92,30 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
   MGIDCardManager *cardManager = [[MGIDCardManager alloc] init];
   [cardManager IDCardStartDetection:rootVC IdCardSide:IDCARD_SIDE_BACK
                              finish:^(MGIDCardModel *model) {
-                               [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfImage:[model croppedImageOfIDCard]]];
-                               weakSelf.dataDic[@"images"] = weakSelf.imagesArry;
+                        [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfImage:[model croppedImageOfIDCard]]];
+                        weakSelf.dataDic[@"images"] = weakSelf.imagesArry;
                                resolver(weakSelf.dataDic);
                              }
                                errr:^(MGIDCardError) {
-                                 NSError *error;
-                                 reject(@"",@"识别失败",error);
+                              NSError *error;
+                              reject(@"",@"识别失败",error);
                                }];
   
 }
 #pragma mark 银行卡识别
-
 - (void)bankCardTheVerify:(RCTPromiseResolveBlock)resolver WithReject:(RCTPromiseRejectBlock)reject{
 #if TARGET_IPHONE_SIMULATOR
 #else
   __unsafe_unretained FaceMegModule *weakSelf = self;
   [weakSelf.imagesArry removeAllObjects];
   BOOL bankcard = [MGBankCardManager getLicense];
-  
   if (!bankcard) {
     [[[UIAlertView alloc] initWithTitle:@"提示" message:@"SDK授权失败，请检查" delegate:self cancelButtonTitle:@"完成" otherButtonTitles:nil, nil] show];
     return;
   }
   UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-
   MGBankCardManager *cardManager = [[MGBankCardManager alloc] init];
+  cardManager.viewType = MGBankCardViewCardBox;
   [cardManager CardStart:rootVC finish:^(MGBankCardModel *result) {
     [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfImage:result.bankCardImage]];
     weakSelf.dataDic[@"images"] = weakSelf.imagesArry;
@@ -125,10 +123,8 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     resolver(weakSelf.dataDic);
   }];
 #endif
-  
 }
 #pragma mark 图片转换成base64
-
 - (NSString*)getBase64ImageStrOfImage:(UIImage*)image
 {
   NSData *imageData        = UIImagePNGRepresentation(image);
