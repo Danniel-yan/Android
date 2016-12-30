@@ -20,10 +20,8 @@ class Main extends Component {
 
   componentDidMount() {
     applicationSetup().then(() => {
-
       AsyncStorage.getItem('userToken').then(token => {
         this.setState({ initialing: false });
-
         if(token != null) {
           this.props.fetchingUser();
         }

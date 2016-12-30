@@ -27,6 +27,25 @@
 		88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88326F281E03918E0093C055 /* libRCTCameraRoll.a */; };
 		886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886006501DF01C8F00971978 /* libRCTAnimation.a */; };
 		924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */; };
+		A61A5D121E14B72A00F0556A /* MyBottomView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */; };
+		A61A5D131E14B72A00F0556A /* MyFinishViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */; };
+		A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */; };
+		A61A5D151E14B72A00F0556A /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFF1E14B72A00F0556A /* MyViewController.mm */; };
+		A61A5D161E14B72A00F0556A /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D011E14B72A00F0556A /* MGBankCard.framework */; };
+		A61A5D171E14B72A00F0556A /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */; };
+		A61A5D181E14B72A00F0556A /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D041E14B72A00F0556A /* MGIDCard.framework */; };
+		A61A5D191E14B72A00F0556A /* MGIDCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */; };
+		A61A5D1A1E14B72A00F0556A /* MGLivenessDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D0A1E14B72A00F0556A /* MGLivenessDetection.framework */; };
+		A61A5D1B1E14B72A00F0556A /* MGLiveResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D0B1E14B72A00F0556A /* MGLiveResource.bundle */; };
+		A61A5D1C1E14B72A00F0556A /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = A61A5D0D1E14B72A00F0556A /* UIImage+FixOrientation.m */; };
+		A61A5D1D1E14B72A00F0556A /* MGBaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D0E1E14B72A00F0556A /* MGBaseKit.framework */; };
+		A61A5D1E1E14B72A00F0556A /* no_card_user.png in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D101E14B72A00F0556A /* no_card_user.png */; };
+		A61A5D1F1E14B72A00F0556A /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D111E14B72A00F0556A /* photo.png */; };
+		A61A5D2F1E14B79800F0556A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D2E1E14B79800F0556A /* CoreText.framework */; };
+		A61A5D311E14B7A300F0556A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D301E14B7A300F0556A /* CoreMotion.framework */; };
+		A61A5D331E14B7B800F0556A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D321E14B7B800F0556A /* CoreMedia.framework */; };
+		A61A5D351E14B7C600F0556A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D341E14B7C600F0556A /* AVFoundation.framework */; };
+		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
@@ -283,6 +302,33 @@
 		88326ECF1E037D4D0093C055 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		88326F231E03918E0093C055 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		886006481DF01C8F00971978 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		A61A5CF91E14B72A00F0556A /* MyBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBottomView.h; sourceTree = "<group>"; };
+		A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyBottomView.mm; sourceTree = "<group>"; };
+		A61A5CFB1E14B72A00F0556A /* MyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFinishViewController.h; sourceTree = "<group>"; };
+		A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyFinishViewController.mm; sourceTree = "<group>"; };
+		A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFinishViewController.xib; sourceTree = "<group>"; };
+		A61A5CFE1E14B72A00F0556A /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		A61A5CFF1E14B72A00F0556A /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyViewController.mm; sourceTree = "<group>"; };
+		A61A5D011E14B72A00F0556A /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
+		A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
+		A61A5D041E14B72A00F0556A /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
+		A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGIDCardResource.bundle; sourceTree = "<group>"; };
+		A61A5D071E14B72A00F0556A /* LivenessDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessDetector.h; sourceTree = "<group>"; };
+		A61A5D081E14B72A00F0556A /* LivenessEnumType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessEnumType.h; sourceTree = "<group>"; };
+		A61A5D091E14B72A00F0556A /* MGFaceQualityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGFaceQualityManager.h; sourceTree = "<group>"; };
+		A61A5D0A1E14B72A00F0556A /* MGLivenessDetection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGLivenessDetection.framework; sourceTree = "<group>"; };
+		A61A5D0B1E14B72A00F0556A /* MGLiveResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGLiveResource.bundle; sourceTree = "<group>"; };
+		A61A5D0C1E14B72A00F0556A /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		A61A5D0D1E14B72A00F0556A /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		A61A5D0E1E14B72A00F0556A /* MGBaseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBaseKit.framework; sourceTree = "<group>"; };
+		A61A5D101E14B72A00F0556A /* no_card_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_card_user.png; sourceTree = "<group>"; };
+		A61A5D111E14B72A00F0556A /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
+		A61A5D2E1E14B79800F0556A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A61A5D301E14B7A300F0556A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		A61A5D321E14B7B800F0556A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A61A5D341E14B7C600F0556A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
+		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -395,8 +441,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A61A5D351E14B7C600F0556A /* AVFoundation.framework in Frameworks */,
+				A61A5D331E14B7B800F0556A /* CoreMedia.framework in Frameworks */,
+				A61A5D311E14B7A300F0556A /* CoreMotion.framework in Frameworks */,
+				A61A5D2F1E14B79800F0556A /* CoreText.framework in Frameworks */,
 				B8FF6C7E1E03E06500FB2709 /* ImageIO.framework in Frameworks */,
 				B8FF6C7C1E03E03B00FB2709 /* libstdc++.tbd in Frameworks */,
+				A61A5D1A1E14B72A00F0556A /* MGLivenessDetection.framework in Frameworks */,
 				B8FF6C7A1E03E02300FB2709 /* libicucore.tbd in Frameworks */,
 				B8FF6C781E03E00000FB2709 /* JavaScriptCore.framework in Frameworks */,
 				88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */,
@@ -416,6 +467,7 @@
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
 				7F1B45271DDDD1F100BE3FB8 /* libz.tbd in Frameworks */,
+				A61A5D1D1E14B72A00F0556A /* MGBaseKit.framework in Frameworks */,
 				7F1B45251DDDD1E900BE3FB8 /* Security.framework in Frameworks */,
 				7F1B45231DDDD1BF00BE3FB8 /* SystemConfiguration.framework in Frameworks */,
 				B8FF6C551E03DF5E00FB2709 /* WechatConnector.framework in Frameworks */,
@@ -428,9 +480,11 @@
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				B8FF6C5D1E03DF5E00FB2709 /* MOBFoundation.framework in Frameworks */,
+				A61A5D181E14B72A00F0556A /* MGIDCard.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				A61A5D161E14B72A00F0556A /* MGBankCard.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				B8FF6C4F1E03DF5E00FB2709 /* ShareSDKConfigFile.framework in Frameworks */,
@@ -646,6 +700,74 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A61A5CF71E14B72A00F0556A /* FaceSDK */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5CF81E14B72A00F0556A /* CustemLivingTest */,
+				A61A5D001E14B72A00F0556A /* MegBankCard */,
+				A61A5D031E14B72A00F0556A /* MegIDCardQuality */,
+				A61A5D061E14B72A00F0556A /* MegLive */,
+				A61A5D0E1E14B72A00F0556A /* MGBaseKit.framework */,
+				A61A5D0F1E14B72A00F0556A /* Source */,
+			);
+			path = FaceSDK;
+			sourceTree = "<group>";
+		};
+		A61A5CF81E14B72A00F0556A /* CustemLivingTest */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5CF91E14B72A00F0556A /* MyBottomView.h */,
+				A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */,
+				A61A5CFB1E14B72A00F0556A /* MyFinishViewController.h */,
+				A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */,
+				A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */,
+				A61A5CFE1E14B72A00F0556A /* MyViewController.h */,
+				A61A5CFF1E14B72A00F0556A /* MyViewController.mm */,
+			);
+			path = CustemLivingTest;
+			sourceTree = "<group>";
+		};
+		A61A5D001E14B72A00F0556A /* MegBankCard */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5D011E14B72A00F0556A /* MGBankCard.framework */,
+				A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */,
+			);
+			path = MegBankCard;
+			sourceTree = "<group>";
+		};
+		A61A5D031E14B72A00F0556A /* MegIDCardQuality */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5D041E14B72A00F0556A /* MGIDCard.framework */,
+				A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */,
+			);
+			path = MegIDCardQuality;
+			sourceTree = "<group>";
+		};
+		A61A5D061E14B72A00F0556A /* MegLive */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5D071E14B72A00F0556A /* LivenessDetector.h */,
+				A61A5D081E14B72A00F0556A /* LivenessEnumType.h */,
+				A61A5D091E14B72A00F0556A /* MGFaceQualityManager.h */,
+				A61A5D0A1E14B72A00F0556A /* MGLivenessDetection.framework */,
+				A61A5D0B1E14B72A00F0556A /* MGLiveResource.bundle */,
+				A61A5D0C1E14B72A00F0556A /* UIImage+FixOrientation.h */,
+				A61A5D0D1E14B72A00F0556A /* UIImage+FixOrientation.m */,
+			);
+			path = MegLive;
+			sourceTree = "<group>";
+		};
+		A61A5D0F1E14B72A00F0556A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A61A5D101E14B72A00F0556A /* no_card_user.png */,
+				A61A5D111E14B72A00F0556A /* photo.png */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		B81A61EF1DE53502001365BD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +873,10 @@
 		B87566801DDE9A1300F74BA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A61A5D341E14B7C600F0556A /* AVFoundation.framework */,
+				A61A5D321E14B7B800F0556A /* CoreMedia.framework */,
+				A61A5D301E14B7A300F0556A /* CoreMotion.framework */,
+				A61A5D2E1E14B79800F0556A /* CoreText.framework */,
 				B8FF6C7D1E03E06500FB2709 /* ImageIO.framework */,
 				B8FF6C7B1E03E03B00FB2709 /* libstdc++.tbd */,
 				B8FF6C791E03E02300FB2709 /* libicucore.tbd */,
@@ -798,6 +924,7 @@
 		B875669B1DDE9B4500F74BA9 /* SDKs */ = {
 			isa = PBXGroup;
 			children = (
+				A61A5CF71E14B72A00F0556A /* FaceSDK */,
 				B8FF6C231E03DF5E00FB2709 /* ShareSDK */,
 				B81A62131DE56AEA001365BD /* UMMobClick */,
 				B87567081DDEB3B600F74BA9 /* Bugly */,
@@ -842,6 +969,8 @@
 				B8671ACA1DEC140F00943609 /* JpushModule.m */,
 				B8ECA1941E0A6D5300E0A6BE /* ShareUtilModule.h */,
 				B8ECA1751E0A54F200E0A6BE /* ShareUtilModule.m */,
+				A686D9951E1624190048717E /* FaceMegModule.h */,
+				A686D9961E1624190048717E /* FaceMegModule.mm */,
 			);
 			path = NSObjects;
 			sourceTree = "<group>";
@@ -1013,7 +1142,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = V525ELK535;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1279,14 +1408,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */,
 				B8FF6C571E03DF5E00FB2709 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B8FF6C5C1E03DF5E00FB2709 /* README.txt in Resources */,
 				B8FF6C4E1E03DF5E00FB2709 /* ShareSDKConfigFile.bundle in Resources */,
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B8FF6C511E03DF5E00FB2709 /* ShareSDKUI.bundle in Resources */,
+				A61A5D1F1E14B72A00F0556A /* photo.png in Resources */,
+				A61A5D191E14B72A00F0556A /* MGIDCardResource.bundle in Resources */,
 				B8FF6C591E03DF5E00FB2709 /* WeiboSDK.bundle in Resources */,
+				A61A5D171E14B72A00F0556A /* MGBankCardResource.bundle in Resources */,
 				B8FF6C5E1E03DF5E00FB2709 /* ShareSDK.bundle in Resources */,
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
+				A61A5D1E1E14B72A00F0556A /* no_card_user.png in Resources */,
+				A61A5D1B1E14B72A00F0556A /* MGLiveResource.bundle in Resources */,
 				B8FF6C5B1E03DF5E00FB2709 /* read_me.txt in Resources */,
 				B86BB7C71DF8265C00E8B720 /* IQKeyboardManager.bundle in Resources */,
 			);
@@ -1331,14 +1466,19 @@
 				B8ECA1931E0A60B700E0A6BE /* ShareUtilEvent.m in Sources */,
 				B86BB7BE1DF8265C00E8B720 /* IQUIWindow+Hierarchy.m in Sources */,
 				B87566AD1DDE9DF700F74BA9 /* ConstantVariables.m in Sources */,
+				A61A5D131E14B72A00F0556A /* MyFinishViewController.mm in Sources */,
 				B86BB7C21DF8265C00E8B720 /* IQBarButtonItem.m in Sources */,
+				A686D9971E1624190048717E /* FaceMegModule.mm in Sources */,
 				B8ECA1761E0A54F200E0A6BE /* ShareUtilModule.m in Sources */,
 				B8671ACB1DEC140F00943609 /* JpushModule.m in Sources */,
 				B86BB7BC1DF8265C00E8B720 /* IQUIView+Hierarchy.m in Sources */,
 				B86BB7B91DF8265C00E8B720 /* IQNSArray+Sort.m in Sources */,
+				A61A5D121E14B72A00F0556A /* MyBottomView.mm in Sources */,
 				B87566A41DDE9B4500F74BA9 /* main.m in Sources */,
 				B86BB7C61DF8265C00E8B720 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				B86BB7BB1DF8265C00E8B720 /* IQUITextFieldView+Additions.m in Sources */,
+				A61A5D151E14B72A00F0556A /* MyViewController.mm in Sources */,
+				A61A5D1C1E14B72A00F0556A /* UIImage+FixOrientation.m in Sources */,
 				B86BB7BF1DF8265C00E8B720 /* IQKeyboardManager.m in Sources */,
 				B86BB7C51DF8265C00E8B720 /* IQToolbar.m in Sources */,
 				B86BB7C41DF8265C00E8B720 /* IQTitleBarButtonItem.m in Sources */,
@@ -1419,10 +1559,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wang fei (9H43E5724G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = V525ELK535;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1433,6 +1573,10 @@
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegBankCard",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegIDCardQuality",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegLive",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1442,7 +1586,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1457,8 +1601,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "2d2327ca-9a4c-4952-b6f6-ab7086234856";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi dev";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1468,9 +1612,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shudu(Shanghai) Information technology Co., Ltd. (V525ELK535)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V525ELK535;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1481,6 +1625,10 @@
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/supermarketjs/SDKs/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegBankCard",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegIDCardQuality",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK/MegLive",
+					"$(PROJECT_DIR)/supermarketjs/SDKs/FaceSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1490,7 +1638,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1505,8 +1653,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "b88ed3c1-4334-434a-8405-08726cff30a8";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

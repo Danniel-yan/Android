@@ -1,0 +1,6 @@
+framework module MGBankCard {
+  umbrella header "MGBankCard.h"
+
+  export *
+  module * { export * }
+}
