@@ -10,8 +10,10 @@
 #import <MGLivenessDetection/MGLivenessDetection.h>
 #import "MyViewController.h"
 #import <MGIDCard/MGIDCard.h>
+#import <MGBaseKit/MGBaseKit.h>
 #import <MGBankCard/MGBankCard.h>
 #import <MGBankCard/MGBankCardManager.h>
+#import <MGBankCard/MGBankCardModel.h>
 #import "AppDelegate.h"
 @interface FaceMegModule()
 @property (nonatomic , strong)  NSMutableArray  *imagesArry;
@@ -36,17 +38,17 @@
 }
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(idCardVerifyFromFront:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(idCardVerifyFromFront:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   [self idCardVerifyFromTheFront:resolve WithReject:reject];
 }
 
-RCT_EXPORT_METHOD(idCardVerifyFromBack:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(idCardVerifyFromBack:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   [self idCardVerifyFromTheBack:resolve WithReject:reject];
 }
 
-RCT_EXPORT_METHOD(bankCardVerify:(NSDictionary *)readableMap resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   [self bankCardTheVerify:resolve WithReject:reject];
 }
@@ -113,10 +115,11 @@ RCT_EXPORT_METHOD(bankCardVerify:(NSDictionary *)readableMap resolver:(RCTPromis
     [[[UIAlertView alloc] initWithTitle:@"提示" message:@"SDK授权失败，请检查" delegate:self cancelButtonTitle:@"完成" otherButtonTitles:nil, nil] show];
     return;
   }
+  UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+
   MGBankCardManager *cardManager = [[MGBankCardManager alloc] init];
-  [cardManager CardStart:self finish:^(MGBankCardModel * _Nullable result) {
-    
-    [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfImage:result.image]];
+  [cardManager CardStart:rootVC finish:^(MGBankCardModel *result) {
+    [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfImage:result.bankCardImage]];
     weakSelf.dataDic[@"images"] = weakSelf.imagesArry;
     weakSelf.dataDic[@"value"] = result.bankCardNumber;
     resolver(weakSelf.dataDic);
