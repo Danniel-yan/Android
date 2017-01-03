@@ -163,7 +163,7 @@ class FastLoanScene extends Component {
           <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
-        <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
+        <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 31, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
           <HorizontalCheckboxes
             withBtns={true}
             options={applyResList}
