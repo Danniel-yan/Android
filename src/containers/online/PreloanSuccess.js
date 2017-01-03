@@ -8,15 +8,22 @@ import {
   Text
 } from 'react-native';
 
-import Input from 'components/shared/Input';
 import ProcessingButton from 'components/shared/ProcessingButton';
+import RangeInput from 'components/shared/RangeInput';
 import onlineStyles from './styles';
 import ExpireGroup  from './ExpireGroup';
 import { border, fontSize, rowContainer, container, colors, centering } from 'styles';
 
 class PreloanSuccess extends Component {
-  state = {
-    submitting: false
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      submitting: false,
+      amount: props.data.sug_loan_amount,
+    }
+
   }
 
   render() {
@@ -39,16 +46,20 @@ class PreloanSuccess extends Component {
           <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
         </View>
 
-        <View style={styles.inputWrap}>
+        <View style={styles.amountWrap}>
           <Text style={styles.text}>申请金额：</Text>
-          <Input
-            maxLength={5}
-            style={[container, styles.input]}
-            placeholder="请输入申请金额"/>
+          <RangeInput
+            style={styles.amountSelector}
+            value={this.state.amount}
+            onChange={this._formChange.bind(this, 'amount')}
+            step={1000}
+            min={10000}
+            minLabel="1万"
+            maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
+            max={data.sug_loan_amount}/>
         </View>
 
         <ExpireGroup style={styles.tip} date={this.props.data.time_expire}/>
-
 
         <ProcessingButton
           processing={this.state.submitting}
@@ -62,28 +73,8 @@ class PreloanSuccess extends Component {
     );
   }
 
-  _selector() {
-    let max = this.props.data.sug_loan_amount;
-
-    return (
-      <View>
-        <View style={styles.sbg}>
-          <Animated.View style={styles.scur}>
-            <View style={styles.spoint}>
-            </View>
-            <View style={[centering, styles.svalue]}>
-              <Text style={styles.snum}>12222</Text>
-              <View style={styles.triangle}/>
-            </View>
-          </Animated.View>
-        </View>
-
-        <View style={styles.sfooter}>
-          <Text style={[container, styles.text]}>1万</Text>
-          <Text style={styles.text}>{(max / 10000).toFixed(1)}万</Text>
-        </View>
-      </View>
-    );
+  _formChange(name, value) {
+    this.setState({ [name]: value })
   }
 
   _submit() {
@@ -93,69 +84,17 @@ class PreloanSuccess extends Component {
 
 
 const styles = StyleSheet.create({
-  sbg: {
-    marginTop: 60,
-    position: 'relative',
-    height: 6,
-    backgroundColor: '#F2F2F2',
-    borderWidth: 0.5,
-    borderColor: '#ddd',
-    borderRadius: 3,
-  },
-  scur: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    height: 6,
-    width: 200,
-    backgroundColor: '#FFBE00',
-    borderRadius: 3,
-  },
-  spoint: {
-    position: 'absolute',
-    right: -3,
-    bottom: -3,
-    width: 14,
-    height: 14,
-    backgroundColor: '#FFBE00',
-    borderRadius: 7,
-  },
-  triangle: {
-    position: 'absolute',
-    bottom: -4,
-    left: 31,
-    ...border('top', 4, '#FFBE00'),
-    ...border('right', 4, 'transparent'),
-    ...border('left', 4, 'transparent'),
-  },
-  svalue: {
-    position: 'absolute',
-    right: -31,
-    top: -36,
-    width: 70,
-    height: 26,
-    backgroundColor: '#FFBE00',
-  },
-  snum: {
-    fontSize: fontSize.small,
-    color: '#fff'
-  },
-  sfooter: {
-    height: 36,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   banner: {
     marginBottom: 10,
     paddingVertical: 20,
     paddingHorizontal: 10,
     backgroundColor: '#fff'
   },
-  selectorWrap: {
+  amountWrap: {
+    paddingVertical: 15,
     marginTop: 10,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
-    paddingVertical: 20,
   },
   title: {
     fontSize: fontSize.xlarge,
@@ -166,6 +105,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     color: colors.grayDark
+  },
+  amountSelector: {
+    marginTop: 20,
+    marginHorizontal: 10
   },
   descItem: {
     alignItems: 'center',
@@ -181,17 +124,6 @@ const styles = StyleSheet.create({
   tip: {
     marginTop: 20,
   },
-  inputWrap: {
-    paddingHorizontal: 10,
-    marginTop: 10,
-    height: 45,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  input: {
-    textAlign: 'right'
-  }
 });
 
 
