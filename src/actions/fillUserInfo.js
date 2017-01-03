@@ -39,6 +39,7 @@ export default function submitUserInfo(body, successCallBack) {
             successCallBack && successCallBack();
           }, err => alert(err));
         } else {
+          alert(response.msg);
           dispatch(submitError(response.msg));
         }
 

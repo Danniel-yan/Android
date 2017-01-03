@@ -116,17 +116,6 @@ export default class ExternalNavigation extends Component {
     return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backCount});
   }
 
-  _handleIOSBack(route, navigator) {
-    if(!this.nav) { return }
-
-    let externalRoutes = this.props.navigation.routes;
-    let routes = this.nav.getCurrentRoutes();
-
-    if(externalRoutes.length > routes.length) {
-      this.props.externalPop();
-    }
-  }
-
   shouldComponentUpdate() {
     return false;
   }
@@ -134,11 +123,15 @@ export default class ExternalNavigation extends Component {
   render() {
     let initRoute = this.props.navigation.routes[0]
 
+    const FloatFromRight = {
+      ...Navigator.SceneConfigs.FloatFromRight,
+      gestures: {pop: { disabled: true }},
+    };
+
     return (
       <Navigator
-        onDidFocus={this._handleIOSBack.bind(this)}
         ref={nav => this.nav = nav}
-        configureScene={() => Navigator.SceneConfigs.FloatFromRight}
+        configureScene={() => FloatFromRight}
         initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />

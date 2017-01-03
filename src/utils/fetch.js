@@ -36,8 +36,7 @@ function _get(url, body, responseType) {
     method: 'get'
   })
   .then(response => response[responseType]())
-  .then(log.bind(null, url, body))
-  .then(requestFailureHandle);
+  .then(log.bind(null, url, body));
 }
 
 function _post(url, body, responseType) {
@@ -49,21 +48,12 @@ function _post(url, body, responseType) {
     body: JSON.stringify(body)
   })
   .then(response => response[responseType]())
-  .then(log.bind(null, url, body))
-  .then(requestFailureHandle);
+  .then(log.bind(null, url, body));
 }
 
 function log(url, body, response) {
   console.log(url, body, response);
   return response;
-}
-
-function requestFailureHandle(responseJSON) {
-  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failure) {
-    // TODO remove
-    //alert(responseJSON.msg);
-  }
-  return responseJSON
 }
 
 function absoluteUrl(url) {
