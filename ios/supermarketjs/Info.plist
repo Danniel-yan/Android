@@ -12,14 +12,12 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleVersion</key>
-	<string>3</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -49,6 +47,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>4</string>
+	<key>CodePushDeploymentKey</key>
+	<string>R5UKbBut_85Dut_LE3dCz7ELu5MgE18X89yfG</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>
@@ -82,8 +84,6 @@
 		<string>mqzoneopensdkapi</string>
 		<string>mqzoneopensdk</string>
 	</array>
-	<key>CodePushDeploymentKey</key>
-	<string>R5UKbBut_85Dut_LE3dCz7ELu5MgE18X89yfG</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

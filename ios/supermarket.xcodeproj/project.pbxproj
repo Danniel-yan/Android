@@ -1505,10 +1505,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wang fei (9H43E5724G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = V525ELK535;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1544,8 +1545,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "2d2327ca-9a4c-4952-b6f6-ab7086234856";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi dev";
+				PROVISIONING_PROFILE = "3ec276b2-6439-4f10-8a21-91d63d2eb881";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1555,9 +1556,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = supermarketjs/supermarket.temp_caseinsensitive_renamejs.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shudu(Shanghai) Information technology Co., Ltd. (V525ELK535)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V525ELK535;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1593,7 +1595,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "b88ed3c1-4334-434a-8405-08726cff30a8";
+				PROVISIONING_PROFILE = "d597a9f7-f42f-47e8-9400-983f8cc23e9f";
 				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
