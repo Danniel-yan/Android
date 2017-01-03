@@ -125,15 +125,13 @@ export default class ExternalNavigation extends Component {
 
     const FloatFromRight = {
       ...Navigator.SceneConfigs.FloatFromRight,
-      gestures: null,
+      gestures: {pop: { disabled: true }},
     };
-    let configure = Platform.OS == 'ios' ? FloatFromRight : FloatFromBottomAndroid;
 
     return (
       <Navigator
-        interactivePopGestureEnabled={false}
         ref={nav => this.nav = nav}
-        configureScene={() => configure}
+        configureScene={() => FloatFromRight}
         initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />
