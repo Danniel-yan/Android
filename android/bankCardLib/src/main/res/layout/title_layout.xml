@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2A2F3A"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/title_layout_returnRel"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_return_select"
+            android:clickable="true"
+            android:focusable="true" >
+
+            <ImageView
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:clickable="false"
+                android:focusable="false"
+                android:src="@drawable/retunimage" />
+        </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/resutl_layout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="银行卡识别"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</RelativeLayout>
