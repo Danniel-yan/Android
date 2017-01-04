@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.megvii.bankcard.BankCardRecognition;
-import com.megvii.demo.SharedUtil;
+import com.megvii.demo.util.SharedUtil;
 import com.megvii.demo.util.Util;
 import com.shudu.chaoshi.util.FileUtil;
 
