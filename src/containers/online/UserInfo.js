@@ -31,15 +31,16 @@ const hasCreditStatus = {
 }
 
 class UserInfo extends Component {
-
   tracking() {
-    return { key: 'onlineUserInfo' };
+    return { key: 'onlineUserInfo' }
   }
 
   constructor(props) {
     super(props);
 
-    let user = props.user.data || {
+    console.log(props.user);
+    //let user = props.user.data || {};
+    let user = {
       person_name: '郑盛诗',
       id_no: '522530198708240014',
       mobile: '18964165910',

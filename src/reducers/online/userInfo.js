@@ -1,7 +1,6 @@
 const initUserInfo = {
   isFetching: true,
   fetched: false,
-  user: {},
   err: null
 };
 
@@ -10,7 +9,7 @@ export default function userInfo(state = initUserInfo, action) {
     case 'requetOnlineUser':
       return Object.assign({}, state, { isFetching: true, fetched: false });
     case 'receiveOnlineUser':
-      return Object.assign({}, state, { isFetching: false, fetched: true, user: action.user });
+      return Object.assign({}, state, { isFetching: false, fetched: true, ...action.user });
     case 'requetOnlineUserError':
       return Object.assign({}, state, { isFetching: false, fetched: false, err: action.err });
     default: 

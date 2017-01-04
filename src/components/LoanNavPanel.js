@@ -37,7 +37,7 @@ class LoanNavPanel extends Component {
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(token);
+      this.navToPBOC(false, token);
     });
   }
 
@@ -90,7 +90,7 @@ class LoanNavPanel extends Component {
           </MajorTabLink>
           <TrackingPoint
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
-            style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
+            style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
             <Text style={LNPStyles.navTxt}>查信用</Text>
           </TrackingPoint>
