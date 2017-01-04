@@ -9,7 +9,7 @@ import {
 import { centering, colors, fontSize } from 'styles';
 
 export default function(props) {
-  let date = new Date(props.date);
+  let date = new Date(Date.parse(props.date));
   let dis = date.getTime() - Date.now();
 
   let disDay = Math.ceil(dis / 24 / 60 / 60 / 1000);

@@ -4,18 +4,31 @@ import {
   View,
   Text,
   Image,
+  NativeModules,
   StyleSheet,
 } from 'react-native';
 
+import ProcessingButton from 'components/shared/ProcessingButton';
 import { centering, responsive, border, container, rowContainer, colors, fontSize } from 'styles';
+import { post, responseStatus } from 'utils/fetch';
+
 const statusTexts = {
   success: '识别成功',
   failure: '识别失败',
 };
 
+const typeToFn = {
+  idFront: 'idCardVerifyFromFront',
+  idBack: 'idCardVerifyFromFront',
+  bankCard: 'bankCarddVerify'
+}
+
 export default class CameraInput extends Component {
+
   state = {
-    status: ''
+    status: '',
+    submitting: false,
+    value: null
   };
 
   render() {
@@ -26,7 +39,11 @@ export default class CameraInput extends Component {
       <View>
         <Text style={[styles.statusText, styles[status]]}>{statusText}</Text>
         <View style={styles.container}>
-          <InputTouch label={this.props.label}/>
+
+        <ProcessingButton onPress={this._onPress.bind(this)} style={[styles.touchWrap, centering]}>
+          { this.state.value ? <Image source={{uri:this.state.value.images[0]}}/> : <InputEmpty label={this.props.label}/>}
+        </ProcessingButton>
+
           <View style={[styles.example]}>
             <Text style={styles.exampleText}>示例</Text>
             <Image style={styles.exampleImage} source={this.props.example}/>
@@ -36,11 +53,22 @@ export default class CameraInput extends Component {
     );
   }
 
+  _onPress() {
+    NativeModules.FaceMegModule[typeToFn[this.props.type]]().then(res => {
+      console.log(res);
+      this.setState({
+        value: res
+      });
+    });
+  }
+
+  _submit() {
+  }
 }
 
-function InputTouch(props) {
+function InputEmpty(props) {
   return (
-    <View style={[styles.touchWrap, centering]}>
+    <View style={[container, centering]}>
       <Image style={styles.touchIcon} source={require('assets/online/plus.png')}/>
       <Text style={styles.touchLabel}>{props.label}</Text>
     </View>

@@ -25,7 +25,7 @@ class LoanForm extends Component {
     super(props);
 
     this.state = {
-      mobile: props.mobile,
+      amount: props.amount,
       idFront: '',
       idBack: '',
       cardFront: '',
@@ -34,7 +34,7 @@ class LoanForm extends Component {
   }
 
   render() {
-    let { idFront, idBack, cardFront } = this.state;
+    let { idFront, idBack, cardFront, } = this.state;
     const disabled = !(idFront && idBack && cardFront);
 
     return (
@@ -42,15 +42,28 @@ class LoanForm extends Component {
         <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
 
         <View style={[styles.container, {paddingBottom: 30}]}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'idFront')} label="身份证正面" example={require('assets/online/id-front.png')}/>
+          <CameraInput
+            type="idFront"
+            onChange={this._onInputChange.bind(this, 'idFront')}
+            label="身份证正面"
+            example={require('assets/online/id-front.png')}
+          />
 
-          <CameraInput onChange={this._onInputChange.bind(this, 'idBack')} label="身份证反面" example={require('assets/online/id-back.png')}/>
+          <CameraInput
+            type="idBack"
+            onChange={this._onInputChange.bind(this, 'idBack')}
+            label="身份证反面"
+            example={require('assets/online/id-back.png')}/>
         </View>
 
         <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
         <View style={styles.container}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'cardFront')} label="信用卡正面" example={require('assets/online/card-front.png')}/>
+          <CameraInput
+            type="bankCard"
+            onChange={this._onInputChange.bind(this, 'cardFront')}
+            label="信用卡正面"
+            example={require('assets/online/card-front.png')}/>
           {this._cardTip()}
         </View>
 
@@ -59,7 +72,7 @@ class LoanForm extends Component {
             style={{wrap: styles.input}}
             label="信用卡号码"
             value={this.state.cardFront}
-            editable={false}
+            valueChanged={this._onInputChange.bind(this, 'cardFront')}
           />
           <InputGroup
             style={{wrap: styles.input}}
