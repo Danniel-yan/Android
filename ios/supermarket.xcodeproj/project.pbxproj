@@ -31,8 +31,6 @@
 		A61A5D131E14B72A00F0556A /* MyFinishViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */; };
 		A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */; };
 		A61A5D151E14B72A00F0556A /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFF1E14B72A00F0556A /* MyViewController.mm */; };
-		A61A5D161E14B72A00F0556A /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D011E14B72A00F0556A /* MGBankCard.framework */; };
-		A61A5D171E14B72A00F0556A /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */; };
 		A61A5D181E14B72A00F0556A /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D041E14B72A00F0556A /* MGIDCard.framework */; };
 		A61A5D191E14B72A00F0556A /* MGIDCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */; };
 		A61A5D1A1E14B72A00F0556A /* MGLivenessDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D0A1E14B72A00F0556A /* MGLivenessDetection.framework */; };
@@ -45,6 +43,8 @@
 		A61A5D311E14B7A300F0556A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D301E14B7A300F0556A /* CoreMotion.framework */; };
 		A61A5D331E14B7B800F0556A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D321E14B7B800F0556A /* CoreMedia.framework */; };
 		A61A5D351E14B7C600F0556A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D341E14B7C600F0556A /* AVFoundation.framework */; };
+		A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */; };
+		A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */; };
 		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
@@ -309,8 +309,6 @@
 		A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFinishViewController.xib; sourceTree = "<group>"; };
 		A61A5CFE1E14B72A00F0556A /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		A61A5CFF1E14B72A00F0556A /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyViewController.mm; sourceTree = "<group>"; };
-		A61A5D011E14B72A00F0556A /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
-		A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
 		A61A5D041E14B72A00F0556A /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
 		A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGIDCardResource.bundle; sourceTree = "<group>"; };
 		A61A5D071E14B72A00F0556A /* LivenessDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessDetector.h; sourceTree = "<group>"; };
@@ -327,6 +325,8 @@
 		A61A5D301E14B7A300F0556A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		A61A5D321E14B7B800F0556A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A61A5D341E14B7C600F0556A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
+		A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
 		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
 		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
@@ -463,6 +463,7 @@
 				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
 				B875668A1DDE9AA600F74BA9 /* Security.framework in Frameworks */,
 				B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */,
+				A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */,
 				B8FF6C5A1E03DF5E00FB2709 /* libWeChatSDK.a in Frameworks */,
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
@@ -484,7 +485,6 @@
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
-				A61A5D161E14B72A00F0556A /* MGBankCard.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				B8FF6C4F1E03DF5E00FB2709 /* ShareSDKConfigFile.framework in Frameworks */,
@@ -703,8 +703,8 @@
 		A61A5CF71E14B72A00F0556A /* FaceSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A6635AA71E1CEEFF0071C2B8 /* MegBankCard */,
 				A61A5CF81E14B72A00F0556A /* CustemLivingTest */,
-				A61A5D001E14B72A00F0556A /* MegBankCard */,
 				A61A5D031E14B72A00F0556A /* MegIDCardQuality */,
 				A61A5D061E14B72A00F0556A /* MegLive */,
 				A61A5D0E1E14B72A00F0556A /* MGBaseKit.framework */,
@@ -725,15 +725,6 @@
 				A61A5CFF1E14B72A00F0556A /* MyViewController.mm */,
 			);
 			path = CustemLivingTest;
-			sourceTree = "<group>";
-		};
-		A61A5D001E14B72A00F0556A /* MegBankCard */ = {
-			isa = PBXGroup;
-			children = (
-				A61A5D011E14B72A00F0556A /* MGBankCard.framework */,
-				A61A5D021E14B72A00F0556A /* MGBankCardResource.bundle */,
-			);
-			path = MegBankCard;
 			sourceTree = "<group>";
 		};
 		A61A5D031E14B72A00F0556A /* MegIDCardQuality */ = {
@@ -766,6 +757,15 @@
 				A61A5D111E14B72A00F0556A /* photo.png */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		A6635AA71E1CEEFF0071C2B8 /* MegBankCard */ = {
+			isa = PBXGroup;
+			children = (
+				A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */,
+				A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */,
+			);
+			path = MegBankCard;
 			sourceTree = "<group>";
 		};
 		B81A61EF1DE53502001365BD /* Resource */ = {
@@ -1142,7 +1142,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = V525ELK535;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1411,13 +1411,13 @@
 				A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */,
 				B8FF6C571E03DF5E00FB2709 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B8FF6C5C1E03DF5E00FB2709 /* README.txt in Resources */,
+				A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */,
 				B8FF6C4E1E03DF5E00FB2709 /* ShareSDKConfigFile.bundle in Resources */,
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B8FF6C511E03DF5E00FB2709 /* ShareSDKUI.bundle in Resources */,
 				A61A5D1F1E14B72A00F0556A /* photo.png in Resources */,
 				A61A5D191E14B72A00F0556A /* MGIDCardResource.bundle in Resources */,
 				B8FF6C591E03DF5E00FB2709 /* WeiboSDK.bundle in Resources */,
-				A61A5D171E14B72A00F0556A /* MGBankCardResource.bundle in Resources */,
 				B8FF6C5E1E03DF5E00FB2709 /* ShareSDK.bundle in Resources */,
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
 				A61A5D1E1E14B72A00F0556A /* no_card_user.png in Resources */,
@@ -1559,7 +1559,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = V525ELK535;
@@ -1601,8 +1601,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3ec276b2-6439-4f10-8a21-91d63d2eb881";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1612,7 +1612,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V525ELK535;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1653,8 +1653,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3ec276b2-6439-4f10-8a21-91d63d2eb881";
+				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

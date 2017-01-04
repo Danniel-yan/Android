@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		l6Mm/VbAExY6P40jiPpvGv5MklQ=
+		</data>
 		<key>Headers/MGBankCard.h</key>
 		<data>
 		gnB1og12dFrmOx103FcUQOh4yh4=
@@ -62,7 +66,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		YuzrgC26sf6UKaX6AkhJPzZaN+E=
+		CJidUk7aZ1EZ7UvX7j1wkIyKzPg=
 		</data>
 		<key>MGBankCardResource.bundle/BankCardModel.resource</key>
 		<data>
