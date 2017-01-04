@@ -14,6 +14,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.megvii.demo.util.Util;
 
+import java.lang.reflect.Array;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -22,7 +23,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class FaceMegModule extends ReactContextBaseJavaModule {
     private Context mContext;
-//    private IdCardUtil idcardUtil;
+    //    private IdCardUtil idcardUtil;
     private static final String MODULE_NAME = "FaceMegModule";
     public static final int REQUEST_CODE = 1;
     private Promise promise;
@@ -30,8 +31,9 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
     private final ActivityEventListener mActivityEventListener = new ActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-            if (requestCode == REQUEST_CODE && resultCode == ((Activity)mContext).RESULT_OK){
+            if (requestCode == REQUEST_CODE && resultCode == ((Activity) mContext).RESULT_OK) {
                 promise.resolve(data.getStringExtra("bankNum"));
+                promise.resolve(data.getCharArrayExtra("bankcardBase64"));
             }
         }
 
@@ -92,7 +94,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
             intent.putExtra(Util.KEY_ISDEBUGE, false);
             intent.putExtra(Util.KEY_ISALLCARD, true);
             intent.putExtra("promise", (Parcelable) promise);
-            ((Activity)mContext).startActivityForResult(intent, REQUEST_CODE);
+            ((Activity) mContext).startActivityForResult(intent, REQUEST_CODE);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }
