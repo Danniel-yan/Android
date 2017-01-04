@@ -188,8 +188,7 @@ export default class LoanDetailScene extends Component {
           textStyle={styles.pickerTxt}
           value={ this.state.value }
           onChange={value => {
-            this._formChange('value', value);
-            this._fetchRepay();
+            this.setState({value}, this._fetchRepay.bind(this))
           }}
           items={ periodList }
           />
