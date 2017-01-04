@@ -1,7 +1,7 @@
 package com.shudu.chaoshi.util;
 
 /**
- * Created by weileek on 2015-8-4.
+ * Created by ysr on 2017-1-4.
  */
 import java.io.IOException;
 import java.io.OutputStream;

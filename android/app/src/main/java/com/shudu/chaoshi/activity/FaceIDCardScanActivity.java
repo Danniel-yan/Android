@@ -1,8 +1,5 @@
-package com.megvii.idcardlib;
+package com.shudu.chaoshi.activity;
 
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +8,13 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.megvii.idcardlib.R;
 import com.megvii.idcardlib.util.DialogUtil;
 import com.megvii.idcardlib.util.ICamera;
@@ -29,7 +25,11 @@ import com.megvii.idcardquality.IDCardQualityAssessment;
 import com.megvii.idcardquality.IDCardQualityResult;
 import com.megvii.idcardquality.bean.IDCardAttr;
 
-public class IDCardScanActivity extends Activity implements
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+
+public class FaceIDCardScanActivity extends Activity implements
 		TextureView.SurfaceTextureListener, Camera.PreviewCallback {
 
 	private TextureView textureView;
@@ -187,7 +187,7 @@ public class IDCardScanActivity extends Activity implements
 
 					if (mIsVertical) {
 						imgData = RotaterUtil.rotate(imgData, imageWidth,
-								imageHeight, mICamera.getCameraAngle(IDCardScanActivity.this));
+								imageHeight, mICamera.getCameraAngle(FaceIDCardScanActivity.this));
 						imageWidth = mICamera.cameraHeight;
 						imageHeight = mICamera.cameraWidth;
 					}
@@ -229,7 +229,7 @@ public class IDCardScanActivity extends Activity implements
 									IDCardQualityResult.IDCardFailedType errType = result.fails
 											.get(0);
 									if (errType != mLstErrType) {
-										Util.showToast(IDCardScanActivity.this,
+										Util.showToast(FaceIDCardScanActivity.this,
 												Util.errorType2HumanStr(
 														result.fails.get(0),
 														mSide));
@@ -260,7 +260,7 @@ public class IDCardScanActivity extends Activity implements
 						Util.bmp2byteArr(result.croppedImageOfPortrait()));
 			}
 			setResult(RESULT_OK, intent);
-			Util.cancleToast(IDCardScanActivity.this);
+			Util.cancleToast(FaceIDCardScanActivity.this);
 			finish();
 		}
 	}
@@ -268,7 +268,7 @@ public class IDCardScanActivity extends Activity implements
 	public static void startMe(Context context, IDCardAttr.IDCardSide side) {
 		if (side == null || context == null)
 			return;
-		Intent intent = new Intent(context, IDCardScanActivity.class);
+		Intent intent = new Intent(context, FaceIDCardScanActivity.class);
 		intent.putExtra("side",
 				side == IDCardAttr.IDCardSide.IDCARD_SIDE_FRONT ? 0 : 1);
 		context.startActivity(intent);

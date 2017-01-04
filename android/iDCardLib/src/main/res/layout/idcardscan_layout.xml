@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.megvii.idcardlib.IDCardScanActivity" >
+    tools:context="com.shudu.chaoshi.FaceIDCardScanActivity" >
 
     <TextureView
         android:id="@+id/idcardscan_layout_surface"
