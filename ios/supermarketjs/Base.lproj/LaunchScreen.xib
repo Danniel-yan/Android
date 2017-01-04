@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,13 +15,13 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5DFD1E70-1F31-4D20-8B79-3CEE7615108A" translatesAutoresizingMaskIntoConstraints="NO" id="Ato-68-dMr">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="131EA760-84D3-4F7E-AD1D-D5910942B78C" translatesAutoresizingMaskIntoConstraints="NO" id="Ato-68-dMr">
                     <rect key="frame" x="158" y="220" width="164" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="RJQ-df-A5b"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="7698838D-C866-4A1C-851D-9BC70A5B2331" translatesAutoresizingMaskIntoConstraints="NO" id="9IT-HJ-DAm">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="432FF32F-EDC7-485D-A7CB-D896AB6B7C26" translatesAutoresizingMaskIntoConstraints="NO" id="9IT-HJ-DAm">
                     <rect key="frame" x="160" y="120" width="160" height="90"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="160" id="pNY-ir-Q4Q"/>
@@ -42,7 +42,7 @@
         </view>
     </objects>
     <resources>
-        <image name="5DFD1E70-1F31-4D20-8B79-3CEE7615108A" width="164" height="18">
+        <image name="131EA760-84D3-4F7E-AD1D-D5910942B78C" width="164" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -290,7 +290,7 @@ pTewN7k3zDfQN9s35DfpN/E39Df5OAg4DDgTOBs4KDgtOC84MTg2OD44QThGOE44UThjOGY4awAAAAAA
 AAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAADhtA
 </mutableData>
         </image>
-        <image name="7698838D-C866-4A1C-851D-9BC70A5B2331" width="157" height="87">
+        <image name="432FF32F-EDC7-485D-A7CB-D896AB6B7C26" width="157" height="87">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
