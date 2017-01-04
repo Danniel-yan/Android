@@ -33,11 +33,11 @@ class LoanNavPanel extends Component {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC(true, token)) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn(true)) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(false, token);
+      this.navToPBOC(fromLogin, token);
     });
   }
 
@@ -47,6 +47,7 @@ class LoanNavPanel extends Component {
       var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
       pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
       // console.log(pbocUrl + "&token=" + token)
+      // console.log(fromLogin);
       externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
     })
   }
@@ -74,7 +75,7 @@ class LoanNavPanel extends Component {
           </MajorTabLink>
           <TrackingPoint
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
-            style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this, 2)}>
+            style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
             <Text style={LNPStyles.navTxt}>查信用</Text>
           </TrackingPoint>
