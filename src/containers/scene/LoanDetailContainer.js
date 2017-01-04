@@ -15,26 +15,39 @@ import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import externalScene from 'high-order/externalScene';
 import onlineActions from 'actions/online';
+import { loanType } from 'constants';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   let { isFetching, ...detail } = state.loanDetail;
-  let { preloanStatusFetching, ...preloan } = state.online.preloanStatus;
+  let { isFetching: preloanStatusFetching, ...preloan } = state.online.preloanStatus;
+  let { isFetching: firstFilterStatusFetching, ...userInfo } = state.online.userInfo;
+
+
+  const isPageFetching = isFetching ||
+    (ownProps.loan_type == loanType.chaoshidai && (preloanStatusFetching || firstFilterStatusFetching))
 
   return {
-    isFetching: isFetching || preloanStatusFetching,
+    isFetching: isFetching || preloanStatusFetching || firstFilterStatusFetching ,
     ...detail,
     preloanStatus: preloan.status,
+    firstFilterStatus: userInfo.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps, a) {
+
   return {
     fetching: id => {
+
+      if(ownProps.loan_type == loanType.chaoshidai) {
+        dispatch(onlineActions.preloanStatus());
+        dispatch(onlineActions.userInfo());
+      }
+
       dispatch(fetchLoanDetail(id))
-      dispatch(onlineActions.preloanStatus());
     },
     goLoan: (detail) => {
       dispatch(externalPush({

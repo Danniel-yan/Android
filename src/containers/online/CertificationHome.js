@@ -78,7 +78,6 @@ class CertificationHome extends Component {
 
       throw response.msg
     }).catch(err => {
-      console.log(err);
       this.setState({ submitting: false });
       throw err;
     });
@@ -131,7 +130,7 @@ class CertificationHome extends Component {
   statusStyle(status) {
     if(status == 0) {
       return styles.success
-    } else if(status != 1) {
+    } else if(!/2|3|5|7/.test(status)) {
       return styles.failure
     }
   }
@@ -141,12 +140,16 @@ class CertificationHome extends Component {
       return '认证通过';
     } 
 
-    if(status == 1) {
+    if(status == 2) {
       return '未认证';
     } 
 
-    if(status == 6) {
+    if(/3|5|7/.test(status)) {
       return '认证中...';
+    } 
+
+    if(status == 9) {
+      return '已过期';
     } 
 
     return '认证失败';
@@ -197,7 +200,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitPreloan: () => dispatch(actions.preloan),
+    submitPreloan: () => dispatch(actions.preloan()),
     fetching: () => {
       dispatch(actions.bankResult());
       dispatch(actions.yysResult())

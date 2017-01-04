@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/resutl_layout_rootRel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="horizontal" >
+
+    <include
+        android:id="@+id/resutl_layout_titleRel"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="326.4dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resutl_layout_titleRel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/result_bankcard_titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请确认银行卡号"
+            android:textColor="#636564"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/result_bankcard_image"
+            android:layout_width="326.4dip"
+            android:layout_height="86.4dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="15dip"
+            android:scaleType="centerCrop" />
+
+        <com.megvii.demo.util.MoreEditView
+            android:id="@+id/result_bankcard_editText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="#323B45"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <TextView
+            android:id="@+id/result_bankcard_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="30dip"
+            android:text="如卡号有误或无法识别\n可尝试返回重新扫描或手动修改"
+            android:textColor="#72726E"
+            android:textSize="17sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/result_bankcard_confidencetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dip"
+            android:text="confidence"
+            android:textColor="#71716D"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/result_layout_sureBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:layout_marginTop="50dip"
+            android:background="@drawable/btn_backselect"
+            android:text="确认"
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</RelativeLayout>

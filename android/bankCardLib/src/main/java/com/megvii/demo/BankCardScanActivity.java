@@ -161,16 +161,16 @@ public class BankCardScanActivity extends Activity implements
 		int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
 		int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
 
-		Parameters parameters = mCamera.getParameters();
+		Camera.Parameters parameters = mCamera.getParameters();
 		mBestPreviewSize = Util.getNearestRatioSize(parameters, screenWidth,
 				screenHeight);
 		int cameraWidth = mBestPreviewSize.width;
 		int cameraHeight = mBestPreviewSize.height;
 		parameters.setPreviewSize(cameraWidth, cameraHeight);
 		List<String> focusModes = parameters.getSupportedFocusModes();
-		if (focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+		if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
 			parameters
-					.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+					.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
 		}
 
 		// Rect rect = new Rect();
@@ -193,7 +193,7 @@ public class BankCardScanActivity extends Activity implements
 		int layout_width = (int) (scale * mBestPreviewSize.height);
 		int layout_height = (int) (scale * mBestPreviewSize.width);
 
-		LayoutParams layout_params = new LayoutParams(
+		RelativeLayout.LayoutParams layout_params = new RelativeLayout.LayoutParams(
 				layout_width, layout_height);
 		layout_params.addRule(RelativeLayout.CENTER_IN_PARENT);
 		textureView.setLayoutParams(layout_params);
@@ -551,8 +551,8 @@ public class BankCardScanActivity extends Activity implements
 	 */
 	public int getCameraAngle() {
 		int rotateAngle = 90;
-		Camera.CameraInfo info = new Camera.CameraInfo();
-		Camera.getCameraInfo(0, info);
+		android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+		android.hardware.Camera.getCameraInfo(0, info);
 		int rotation = getWindowManager().getDefaultDisplay().getRotation();
 		int degrees = 0;
 		switch (rotation) {

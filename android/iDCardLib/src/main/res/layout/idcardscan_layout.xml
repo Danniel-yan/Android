@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.megvii.idcardlib.IDCardScanActivity" >
+
+    <TextureView
+        android:id="@+id/idcardscan_layout_surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.megvii.idcardlib.util.IDCardIndicator
+        android:id="@+id/idcardscan_layout_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/idcardscan_layout_fps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:textColor="#00ff00"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/idcardscan_layout_error_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#7f000000"
+        android:textColor="#ffffffff"
+        android:visibility="gone" />
+
+    <com.megvii.idcardlib.util.MyTextView
+        android:id="@+id/idcardscan_layout_topTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="#7f000000"
+        android:text="是四个能力考试呢是四个能力考试呢"
+        android:textColor="#ffffffff"
+        android:visibility="gone" />
+
+</RelativeLayout>
