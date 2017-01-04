@@ -41,19 +41,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-
         <activity
-            android:name="com.shudu.chaoshi.FaceBankCardScanActivity"
+            android:name=".activity.FaceBankCardScanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".FaceBankCardInitActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- shareSdk -->

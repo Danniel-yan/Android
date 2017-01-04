@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +22,63 @@ import java.io.OutputStream;
  * Created by ysr on 16/12/29.
  */
 public class BitmapUtils {
+
+    //（根据路径获取图片压缩并按比例大小压缩方法）：
+
+    public static String getImageByPath(String srcPath) throws Exception {
+        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        newOpts.inJustDecodeBounds = true;
+        //打开图片获取分辨率
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        //传过来图片分辨率的宽度和高度
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        //这里设置高度为800f
+        //这里设置宽度为480f
+        float hh = 240.0F;
+        float ww = 320.0F;
+        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        //be=1表示不缩放
+        int be = 1;
+        //如果宽度大的话根据宽度固定大小缩放
+        if ((w > h) && (w > ww))
+            be = (int) (newOpts.outWidth / ww);
+            //如果高度高的话根据宽度固定大小缩放
+        else if ((w < h) && (h > hh)) {
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        //设置缩放比例
+        newOpts.inSampleSize = be;
+        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        //压缩好比例大小后再进行质量压缩
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        int options = 90;
+        //循环判断如果压缩后图片是否大于80kb,大于继续压缩
+        while (Base64.encode(baos.toByteArray()).length / 1024 > 90) {
+            //重置baos即清空baos
+            baos.reset();
+            //这里压缩options%，把压缩后的数据存放到baos中
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            //每次都减少10
+            options -= 10;
+        }
+        return new String(Base64.encode(baos.toByteArray()), "utf-8");
+    }
+
+    //（根据路径获取图片并按比例大小压缩方法）：
+    public static String getImageByPathNew(String srcPath) throws Exception {
+        //打开图片获取分辨率
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        return new String(Base64.encode(baos.toByteArray()), "utf-8");
+    }
 
     /**
      * 保存图片到文件
@@ -150,4 +208,5 @@ public class BitmapUtils {
         }
         return inSampleSize;
     }
+
 }

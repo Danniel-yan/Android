@@ -1,4 +1,4 @@
-package com.shudu.chaoshi;
+package com.shudu.chaoshi.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,14 +24,13 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.facebook.react.bridge.Promise;
 import com.megvii.bankcard.BankCardRecognition;
 import com.megvii.bankcard.bean.BankCardResult;
 import com.megvii.demo.util.BankCardIndicator;
 import com.megvii.demo.util.IDCardIndicator;
 import com.megvii.demo.util.RotaterUtil;
 import com.megvii.demo.util.Util;
-import com.shudu.chaoshi.module.FaceMegModule;
+import com.shudu.chaoshi.util.BitmapUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -476,13 +475,17 @@ public class FaceBankCardScanActivity extends Activity implements
 			public void run() {
 //				Intent intent = new Intent(FaceBankCardScanActivity.this,
 //						ResultActivity.class);
-				Intent intent = new Intent();
-				intent.putExtra("bankNum", bankNum);
-				intent.putExtra("confidence", confidenc);
-				intent.putExtra("filePath", filePath);
-				intent.putExtra(Util.KEY_ISDEBUGE, isDebuge);
-				intent.putExtra(Util.KEY_TITLE, "银行卡识别");
-				setResult(FaceMegModule.REQUEST_CODE, intent);
+                Intent intent = new Intent();
+                intent.putExtra("bankNum", bankNum);
+//				intent.putExtra("confidence", confidenc);
+                try {
+                    intent.putExtra("bankcardBase64", BitmapUtils.getImageByPathNew(filePath));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                intent.putExtra(Util.KEY_ISDEBUGE, isDebuge);
+                intent.putExtra(Util.KEY_TITLE, "银行卡识别");
+                setResult(RESULT_OK, intent);
 //				startActivityForResult(intent, INTO_RESULT_PAGE);
 				finish();
 			}
