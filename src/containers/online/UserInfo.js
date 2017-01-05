@@ -21,7 +21,6 @@ import alert from 'utils/alert';
 import { externalPush } from 'actions/navigation';
 import { get, post, responseStatus } from 'utils/fetch';
 import FormGroup from 'components/shared/FormGroup';
-import WebLink from 'components/shared/WebLink';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 
