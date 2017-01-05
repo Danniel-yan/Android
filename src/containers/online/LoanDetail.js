@@ -9,11 +9,14 @@ import {
 
 import RefundPlan from './RefundPlan';
 import L2RItem from './L2RItem';
+import GroupTitle from 'components/GroupTitle';
+import { colors } from 'styles';
 
 class LoanDetail extends Component {
   render() {
+    console.log(this.props);
     let props = this.props;
-    const serviceAmount = props.repayPlanResult[0].repayAmount;
+    const serviceAmount = props.repayPlanResults[0].repayAmount;
     const plans = props.repayPlanResults.slice(1);
 
     return (
@@ -32,6 +35,8 @@ class LoanDetail extends Component {
 
 import { connect } from 'react-redux';
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import externalScene from 'high-order/externalScene';
+import { ExternalPushLink } from 'containers/shared/Link';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
@@ -48,5 +53,14 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(LoanDetail)));
+function RightButton(props) {
+  return (
+    <ExternalPushLink style={{marginRight: 10}} textStyle={{color: colors.secondary}} web="..." text="合同"/>
+  );
+}
+
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+SceneComponent = externalScene(SceneComponent, RightButton);
+SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
+SceneComponent.external = true;
+export default SceneComponent;

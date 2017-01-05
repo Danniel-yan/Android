@@ -28,13 +28,14 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...detail,
+    onlineStatus: state.online.status.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps, a) {
+function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {

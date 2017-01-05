@@ -8,7 +8,7 @@ export default function() {
       response = {
         "res": 1,
         "data": {
-          "status": 13,
+          "status": 5,
           "time_expire_status":0,
           "time_expire":"1970-01-01 08:00:00",
         }
