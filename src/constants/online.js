@@ -8,3 +8,6 @@ export const preloanStatus = {
   expire: 4,
   failure: 3,
 };
+
+export const approveStatus = {
+}

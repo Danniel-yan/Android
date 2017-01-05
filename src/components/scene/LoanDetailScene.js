@@ -261,18 +261,33 @@ export default class LoanDetailScene extends Component {
   }
 
   _chaoshidaiNextRoute() {
-    let { preloanStatus, firstFilterStatus } = this.props;
+    let { onlineStatus } = this.props;
 
-    if(firstFilterStatus != firstFilterStatusSuccess) {
+    //进度状态：0=提交初筛，1=初筛失败，2=初筛通过，3=已申请预授信，4=预授信失败，5=预授信成功，11=提交合同，12=合同提交中，13=提交成功,14=放款失败，15=放款成功，100=没有贷款申请信息
+ 
+    if(onlineStatus < 2) {
       return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
     }
 
-    if(preloanStatus == preloanStatusConstants.success) {
+    if(onlineStatus == 5) {
       return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
     }
 
-    if(preloanStatus == preloanStatusConstants.expire) {
+    if(onlineStatus == 4) {
       return {toKey: 'OnlinePreloanExpire', title: '预授信申请结果'};
+    }
+
+    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
+    if([6, 7, 8, 9, 10].includes(onlineStatus)) {
+      return {toKey: 'OnlineApproveStatus', title: '审批状态'};
+    }
+
+    if([11, 12, 13, 14].includes(onlineStatus)) {
+      return {toKey: 'OnlineSignSuccess', title: '签约'};
+    }
+
+    if([15].includes(onlineStatus)) {
+      return {toKey: 'OnlineLoanDetail', title: '借款详情'};
     }
 
     return {toKey: 'CertificationHome', title: '信息认证'};

@@ -26,6 +26,7 @@ class LoanForm extends Component {
 
     this.state = {
       amount: props.amount,
+      card_no: '',
       idFront: '',
       idBack: '',
       cardFront: '',
@@ -35,7 +36,7 @@ class LoanForm extends Component {
 
   render() {
     let { idFront, idBack, cardFront, } = this.state;
-    const disabled = !(idFront && idBack && cardFront);
+    const disabled = !(idFront && idBack && cardFront) || !card_no || !mobile;
 
     return (
       <ScrollView>
@@ -123,6 +124,26 @@ class LoanForm extends Component {
   }
 
   _submit() {
+    this.setState({ error: '', submitting: true})
+
+    return post('/loanctcf/apply', {
+      apply_amount: this.state.amount,
+      credit_card_no: this.state.card_no,
+      credit_card_no_auto: this.state.cardFront.value,
+      credit_card_mobile: this.state.mobile
+    }).then(response => {
+
+      if(response.res == responseStatus.success) {
+        this.setState({ submitting: false })
+        return true;
+      }
+
+      throw response.msg
+    })
+    .catch((msg) => {
+      this.setState({ error: msg })
+      throw msg;
+    })
   }
 }
 

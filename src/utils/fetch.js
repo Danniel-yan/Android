@@ -76,6 +76,7 @@ function setupParams() {
   return AsyncStorage.getItem('environment')
     .then(env => environment = environments[env] || environments[environments.defaultEnvironment])
     .then(setApiParams)
+    .then(setupCity)
 }
 
 function setApiParams() {
@@ -108,3 +109,9 @@ void function setupLocation() {
 
   }, console.log, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }();
+
+function setupCity() {
+  return AsyncStorage.getItem('geoLocation').then(city => {
+    apiParams += `city=${city}`;
+  })
+};

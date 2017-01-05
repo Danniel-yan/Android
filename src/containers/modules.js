@@ -37,12 +37,14 @@ import OnlineApproveStatus from 'containers/online/ApproveStatus';
 import OnlineLoanSign from 'containers/online/LoanSign';
 import OnlineReceiptCard from 'containers/online/ReceiptCard';
 import OnlineSignSuccess from 'containers/online/SignSuccess';
+import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'OnlineYysForm', module: OnlineYysForm },
+  { key: 'OnlineLoanDetail', module: OnlineLoanDetail },
   { key: 'OnlineTrialRefundPlan', module: OnlineTrialRefundPlan },
   { key: 'OnlineSignSuccess', module: OnlineSignSuccess },
   { key: 'OnlineReceiptCard', module: OnlineReceiptCard },

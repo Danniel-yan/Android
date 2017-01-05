@@ -1,16 +1,17 @@
 const initState = {
   isFetching: true,
   fetched: false,
-  error: null
-}
+  banks: []
+};
 
 export default function(state = initState, action) {
   switch(action.type) {
-    case 'requestOnlineApproveStatus':
+    case 'requestOnlineContractBanks':
       return initState;
-    case 'receiveOnlineApproveStatus':
-      return Object.assign({}, state, { isFetching: false, fetched: false, ...action.status});
+    case 'receiveOnlineContractBanks':
+      return Object.assign({}, state, { isFetching: false, fetched: true, banks: action.banks})
     default: 
       return state;
   }
 }
+

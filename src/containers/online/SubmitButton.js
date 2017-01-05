@@ -4,14 +4,14 @@ import ProcessingButton from 'components/shared/ProcessingButton';
 import { ExternalPushLink } from 'containers/shared/Link';
 import onlineStyles from './styles';
 
-export default function({disabled, offset, ...props}) {
+export default function({disabled, ...props}) {
 
   if(props.toKey) {
     return (
       <ExternalPushLink
         {...props}
         disabled={disabled}
-        style={[onlineStyles.btn, offset && onlineStyles.btnOffset, disabled && onlineStyles.btnDisable]}
+        style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
         textStyle={onlineStyles.btnText}
         />
     );
@@ -21,7 +21,7 @@ export default function({disabled, offset, ...props}) {
     <ProcessingButton
       {...props}
       disabled={disabled}
-      style={[onlineStyles.btn, offset && onlineStyles.btnOffset, disabled && onlineStyles.btnDisable]}
+      style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
       textStyle={onlineStyles.btnText}
       />
   );
