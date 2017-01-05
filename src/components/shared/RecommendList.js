@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { View, ListView, Image  } from 'react-native';
 
 import Text from 'components/shared/Text';
+import RemoteImage from 'components/shared/RemoteImage';
 import styles from 'styles/loan';
 
-import iconNext from 'assets/index-icons/icon_next.png';
+import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import * as defaultStyle from 'styles';
 
@@ -22,7 +23,7 @@ export default class RecommendList extends Component {
         style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
         enableEmptySections={true}
         dataSource={dataSource}
-        renderRow={this.renderRecommend}
+        renderRow={this.renderRecommend.bind(this)}
         />
     )
   }
@@ -32,14 +33,20 @@ export default class RecommendList extends Component {
   }
 
   renderRecommend(data, sID, rowID) {
+    let tracking = Object.assign({
+      entity: rowID,
+      id: data.id,
+      title: data.title
+    }, this.props.itemTracking);
+
     return(
       <ExternalPushLink
-        tracking={{key: 'loan', topic: 'hpg_list', entity: rowID, event: 'click'}}
+        tracking={tracking}
         title={data.title}
         toKey="LoanDetailScene"
         componentProps={{fetchingParams: data.id }} >
         <View style={styles.flexContainerRow}>
-          <Image source={{uri: data.logo_list}} style={styles.thumbnail} />
+          <RemoteImage uri={data.logo_list} style={styles.thumbnail} />
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{data.title}</Text>
             <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
@@ -50,7 +57,7 @@ export default class RecommendList extends Component {
             </View>
           </View>
 
-          <Image source={iconNext} />
+          <NextIcon/>
         </View>
       </ExternalPushLink>
     )

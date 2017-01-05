@@ -11,7 +11,7 @@ import {
 
 import Text from 'components/shared/Text'
 import ProcessingButton from 'components/shared/ProcessingButton'
-import CountdownButton from 'components/shared/CountdownButton'
+import VerifyButton from 'components/shared/VerifyButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
 import WebLink from 'components/shared/WebLink';
@@ -27,6 +27,8 @@ export default class Login extends Component {
 
   static title = '登录';
 
+  tracking = {key: 'user', topic: 'Login'};
+
   state = {
     verifyCode: '',
     mobile: '',
@@ -34,9 +36,15 @@ export default class Login extends Component {
     submitting: false
   };
 
+  componentDidUpdate() {
+    if(this.state.mobile || !this.state.checkedAgreement || this.state.verifyCode) {
+      this.changed = true;
+    }
+  }
+
   render() {
     let mobileValid = validators.mobile(this.state.mobile);
-    let verifyCodeValid = this.state.verifyCode.length == 6;
+    const disabled = !this.state.checkedAgreement || !mobileValid ;
 
     return (
       <View style={[defaultStyles.container, styles.container]}>
@@ -51,7 +59,9 @@ export default class Login extends Component {
             underlineColorAndroid="transparent"
             onChangeText={mobile => this.setState({mobile})}
           />
-          <CountdownButton disabled={!mobileValid} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+          <VerifyButton
+            tracking={{key: 'user', topic: 'login', entity: 'mob_code_button'}}
+            mobile={this.state.mobile}/>
         </View>
 
         <View style={styles.inputGroup}>
@@ -72,23 +82,55 @@ export default class Login extends Component {
           <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
           <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
           <WebLink
-            source={require('./agreement.html')}
+            source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
             toKey="Agreement"
             text="《钞市服务协议》" title="《钞市服务协议》"
           />
         </View>
 
-        <ProcessingButton processing={this.state.submitting} disabled={!this.state.checkedAgreement || !mobileValid || !verifyCodeValid} onPress={this._submit.bind(this)} style={styles.submitBtn} text="登录"/>
+        <View style={styles.txtRow}>
+          {this.state.err ? <Text style={styles.err}>{this.state.err}</Text> : null}
+        </View>
+
+        <ProcessingButton
+          tracking={{key: 'user', topic: 'login', entity: 'login_button', cell: this.state.mobile}}
+          processing={this.state.submitting} onPress={this._submit.bind(this)}
+          style={styles.submitBtn}
+          textStyle={styles.submitBtnText}
+          text="登录"/>
       </View>
     );
   }
 
-  _sendVerify() {
-    post('/tool/send-verify-code', { mobile: this.state.mobile})
-      .catch(console.log)
+  _validation() {
+    let mobileValid = validators.mobile(this.state.mobile);
+    let codeValid = this.state.verifyCode.length > 0;
+    const disabled = !this.state.checkedAgreement || !mobileValid;
+
+    if(!mobileValid) {
+      this.setState({err: '请输入11位手机号'});
+      return false;
+    }
+
+    if(!codeValid) {
+      this.setState({err: '请输入验证码'});
+      return false;
+    }
+
+    if(!this.state.checkedAgreement) {
+      this.setState({err: '必须接受服务协议'});
+      return false;
+    }
+
+    this.setState({err: ''});
+    return true;
   }
 
   _submit() {
+    if(!this.changed || !this._validation()) {
+      return null;
+    }
+
     if(this.submitting) { return; }
 
     this.submitting = true;
@@ -146,20 +188,20 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 24,
-    fontSize: 12,
-    color: '#fff'
-  },
-
   submitBtn: {
     marginTop: 50,
     height: 46,
-    backgroundColor: colors.primary,
-    fontSize: 18,
+    backgroundColor: '#fff',
+    borderColor: colors.secondary,
+    borderWidth: 1,
     borderRadius: 8
+  },
+  submitBtnText: {
+    fontSize: 18,
+    color: colors.secondary
+  },
+  err: {
+    marginTop: 20,
+    color: colors.error
   }
 });

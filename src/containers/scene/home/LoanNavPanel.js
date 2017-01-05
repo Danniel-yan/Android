@@ -8,6 +8,7 @@ import { setAmount } from 'actions/scene/fast/filterList';
 
 function mapStateToProps(state) {
   return {
+    loginUser: state.loginUser,
     token: state.fillUserInfo.token,
     isIOSVerifying: state.iosConfig.isIOSVerifying,
     iosFetched: state.iosConfig.fetched
@@ -16,7 +17,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setAmount: amount => dispatch(setAmount(amount)),
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route))
   }

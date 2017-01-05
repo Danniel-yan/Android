@@ -22,6 +22,20 @@ const NSString   *MKUMengAppKey = @"58353a14c8957634ce000dd7";
 //Bugly
 const NSString   *MKBuglyAppID = @"900059043";
 
-@implementation ConstantVariables
 
-@end
+//Sina
+const NSString  *MKSinaWeiboAppKey = @"4196267309";
+const NSString  *MKSinaWeiboAppSecret = @"dba57736a8362bc047184cd46dc0e3e0";
+const NSString  *MKSinaRedirectUri = @"http://shudu99.com/";
+
+//微信
+const NSString  *MKWeChatAppID = @"wx81813cd157b8aed4";
+const NSString  *MKWeChatAppSecret = @"5c631b7903e33a4996913d31aad4e59d";
+
+
+//QQ
+const NSString  *MKQQAppID = @"1105891810";
+const NSString  *MKQQAppKey = @"F1B2VqxrsTjWmkbx";
+
+//阿里百川
+const NSString* MKOpenIMAPPKey = @"23579028";

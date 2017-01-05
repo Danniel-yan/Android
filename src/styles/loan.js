@@ -1,6 +1,6 @@
 'use strict';
 import { StyleSheet } from 'react-native';
-import { colors, textVerticalCenter } from 'styles';
+import { border, colors, textVerticalCenter } from 'styles';
 import Dimensions from 'Dimensions';
 
 const styles = StyleSheet.create({
@@ -14,10 +14,7 @@ const styles = StyleSheet.create({
   flexContainerRow:{
     flexDirection: 'row',
     padding:10,
-    paddingVertical: 15,
-    borderBottomWidth:1,
-    borderStyle : 'solid',
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     alignItems: 'center'
   },
   rightContainer : {
@@ -28,7 +25,7 @@ const styles = StyleSheet.create({
   rightContainerTitle:{
     fontSize:17,
     color:colors.fontColorSecondary,
-    marginBottom:10
+    marginBottom:5
   },
   defaultFont: {
     fontSize: 14
@@ -41,7 +38,7 @@ const styles = StyleSheet.create({
   },
   rightContainerSubTitle:{
     fontSize:14,
-    marginBottom: 10
+    marginBottom:5 
   },
   unit:{
     color:'#ff6d17',
@@ -52,9 +49,7 @@ const styles = StyleSheet.create({
   },
   flexContainerColumn: {
     justifyContent: 'center',
-    borderRightWidth:0.5,
-    borderRightColor: colors.line,
-    borderStyle : 'solid',
+    ...border('right'),
     paddingTop:10,
     paddingBottom:10,
     alignItems:'center',
@@ -152,8 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex:1,
     alignItems:'center',
-    borderRightWidth:1,
-    borderRightColor: colors.line,
+    ...border('right'),
     marginTop:15,
     marginBottom:15
   },

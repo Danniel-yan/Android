@@ -31,6 +31,32 @@ extern NSString   *MKUMengAppKey;
  */
 extern NSString   *MKBuglyAppID;
 
-@interface ConstantVariables : NSObject
 
-@end
+
+/**
+ * Share Key
+ */
+extern NSString  *MKSinaWeiboAppKey;
+extern NSString  *MKSinaWeiboAppSecret;
+extern NSString  *MKSinaRedirectUri;
+
+
+extern NSString  *MKWeChatAppID;
+extern NSString  *MKWeChatAppSecret;
+
+extern NSString  *MKQQAppID;
+extern NSString  *MKQQAppKey;
+
+/**
+ * 阿里百川 Key
+ */
+//阿里百川
+extern NSString* MKOpenIMUserId ;
+extern NSString* MKOpenIMPassword ;
+extern NSString* MKOpenIMAPPKey ;
+
+
+
+
+
+

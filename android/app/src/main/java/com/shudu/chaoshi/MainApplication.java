@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -13,6 +14,7 @@ import com.microsoft.codepush.react.CodePush;
 import com.shudu.chaoshi.util.ChannelUtil;
 import com.shudu.chaoshi.util.Constants;
 import com.shudu.chaoshi.util.JpushUtil;
+import com.shudu.chaoshi.util.ShareUtil;
 import com.shudu.chaoshi.util.ToastHelper;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -21,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.jpush.reactnativejpush.JPushPackage;
+import cn.sharesdk.framework.ShareSDK;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -77,6 +80,9 @@ public class MainApplication extends Application implements ReactApplication {
         if (!TextUtils.isEmpty(channel))
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         JpushUtil.init(mContext);
+        ShareSDK.initSDK(mContext, "19f8ff0f510f0");
+        FeedbackAPI.init(this, "23579028");
+        ShareUtil.setAppKey();
         ToastHelper.init(mContext);
     }
 

@@ -1,4 +1,5 @@
 import { Dimensions, Platform } from 'react-native';
+import { colors } from './varibles';
 
 // 设计稿宽度
 const defaultWidth = 750;
@@ -22,4 +23,13 @@ export const textVerticalCenter = (height) => {
     [Platform.OS == 'ios' ? 'lineHeight' : 'height']: height,
     textAlignVertical: 'center',
   }
+}
+
+export function border(pos) {
+  pos = pos.charAt(0).toUpperCase() + pos.substr(1);
+
+  return {
+    [`border${pos}Width`]: 0.5,
+    [`border${pos}Color`]: colors.line
+  };
 }

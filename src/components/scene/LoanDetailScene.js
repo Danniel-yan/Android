@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,7 +10,6 @@ import {
 
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
-import WebLink from 'components/shared/WebLink';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
@@ -23,41 +22,55 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 
 import Picker from 'components/shared/Picker';
 
-export default class LoanDetailScene extends PureComponent {
+export default class LoanDetailScene extends Component {
+
+  tracking() {
+    let detail = this.props.detail;
+    return { key: 'loan', topic: 'product_detail', id: detail.id, title: detail.title };
+  }
 
   constructor(props) {
     super(props);
-    this.sceneEntity= props.detail.title;
-    this.sceneTopic = "detail";
-    this.sceneKey = "loan";
+
+    var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
     this.state = {
-      amount: String(props.detail.amount_min),
-      value: props.detail.period_list[0],
-      id: props.detail.id
+      amount: repayParams ? repayParams.amount.toString() : String(props.detail.amount_min),
+      value: repayParams ? repayParams.period : props.detail.period_list[0],
+      id: repayParams ? repayParams.id : props.detail.id
     };
 
     this.changeFlag = null;
-
   }
 
   componentWillMount() {
-    if(!this.props.loginUser.fetched) {
-      AsyncStorage.getItem('userToken').then(userToken => {
-        if(userToken != null) {
-          this.props.fetchUser();
-        }
-      })
-    }
 
+    var fetchedParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
+
+    if(fetchedParams && fetchedParams.amount == parseInt(this.state.amount) && fetchedParams.period == this.state.value && fetchedParams.id == this.state.id) return;
     this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
   }
 
-  changeAmount(amount) {
-    this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
+  _formChange(name, value) {
+    this.setState({ [name]: value })
+  }
+
+  _fetchRepay() {
+    this.props.fetchRepay({
+      id: this.state.id,
+      amount: parseInt(this.state.amount),
+      period: this.state.value
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.repayCalc.error){
+      this.setState({amount: String(nextProps.repayCalc.fetchedParams.amount)});
+    }
   }
 
   render() {
+
     let detail = this.props.detail;
     let sectionList = [], length = detail.apply_list.length;
     detail.apply_list.map((item, idx) => { sectionList.push(item); if(idx !== length - 1) sectionList.push("processIcon"); })
@@ -77,29 +90,37 @@ export default class LoanDetailScene extends PureComponent {
             </View>
 
             <View style={styles.flexContainerRow}>
-              <View style={[styles.flexPanel,{borderRightWidth:0, paddingRight:10,alignItems:'flex-end'}]}>
-                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
-                  <Text style={{fontSize:17,color:'#333'}}>金额</Text>
-                  <TextInput
-                    underlineColorAndroid={'transparent'}
-                    style={[styles.selectBox, styles.pickerTxt]}
-                    keyboardType={'numeric'}
-                    onChangeText={(amount) => { this.state.amount = amount; }}
-                    onBlur={(amount) => this.changeAmount(amount)}
-                    defaultValue={this.state.amount}/>
-                  <Text>元</Text>
+              <View style={[styles.flexPanel,{borderRightWidth:0, alignItems:'center',flex: 1}]}>
+                <View>
+                  <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
+                    <Text style={{fontSize:17,color:'#333'}}>金额</Text>
+                    <TextInput
+                      underlineColorAndroid={'transparent'}
+                      style={[styles.selectBox, styles.pickerTxt]}
+                      keyboardType={'numeric'}
+                      onChangeText={this._formChange.bind(this, 'amount')}
+                      onBlur={this._fetchRepay.bind(this)}
+                      value={this.state.amount}/>
+                    <Text>元</Text>
+                  </View>
+                  <View style={{alignItems: "flex-end"}}>
+                    <Text>额度范围: {detail.amount_showinfo}</Text>
+                  </View>
                 </View>
-                <Text>额度范围: {detail.amount_showinfo}</Text>
               </View>
-              <View style={[styles.flexPanel,{borderRightWidth:0,alignItems:'flex-end'}]}>
-                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
-                  <Text style={{fontSize:17,color:'#333'}}>期数</Text>
+              <View style={[styles.flexPanel,{borderRightWidth:0, alignItems:'center',flex: 1}]}>
+                <View>
+                  <View style={{flexDirection: 'row',justifyContent: 'center',alignItems:'center'}}>
+                    <Text style={{fontSize:17,color:'#333'}}>期数</Text>
 
-                  {this._renderPeriodList(detail.period_list)}
+                    {this._renderPeriodList(detail.period_list)}
 
-                  <Text>{detail.period_name}</Text>
+                    <Text>{detail.period_name}</Text>
+                  </View>
+                  <View style={{alignItems: "flex-end"}}>
+                    <Text>期数范围: {detail.period_showinfo}</Text>
+                  </View>
                 </View>
-                <Text>期数范围: {detail.period_showinfo}</Text>
               </View>
             </View>
 
@@ -166,7 +187,9 @@ export default class LoanDetailScene extends PureComponent {
           style={styles.selectBox}
           textStyle={styles.pickerTxt}
           value={ this.state.value }
-          onChange={(value)=>{ this.props.fetchRepay({id:this.state.id,amount: this.state.amount ,period: value})}}
+          onChange={value => {
+            this.setState({value}, this._fetchRepay.bind(this))
+          }}
           items={ periodList }
           />
       )
@@ -195,18 +218,28 @@ export default class LoanDetailScene extends PureComponent {
   }
 
   _renderButton() {
-    let loginUser = this.props.loginUser;
-    let hasLogin = loginUser && loginUser.info && loginUser.info.id_no;
 
-    if(loginUser.isFetching || this.props.isIOSVerifying) { return null; }
+    if(this.props.isIOSVerifying) { return null; }
 
-    if(hasLogin) {
+    let detail = this.props.detail;
+
+    if(this.props.loginUser.valid) {
       return (
-        <WebLink
-          tracking={{key: 'detail', topic: 'btn_sec', entity: 'application', event: 'click'}}
-          style={styles.loanButton} textStyle={styles.loanButtonText} text="去贷款" url={this.props.detail.url || ''} title={this.props.detail.title}/>
+        <ExternalPushLink
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
+                     title: detail.title, amount: this.state.amount, period: this.state.period}}
+          style={styles.loanButton}
+          textStyle={styles.loanButtonText}
+          text="去贷款"
+          web={detail.url}
+          title={detail.title}
+          componentProps={{tracking:
+            {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title}
+          }}
+          />
       );
     }
+
 
     return (
       <ExternalPushLink

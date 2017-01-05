@@ -3,14 +3,14 @@ import { getAppSettings, environments } from 'settings';
 
 import alert from './alert';
 
-export const responseStatus = { failre: 0, success: 1 }
+export const responseStatus = { failure: 0, success: 1 }
 export const defaultApiVersion = '0.2';
 
 let coords = null;
 let initedApiParams = false;
 
 let environment;
-let apiParams;
+let apiParams = '';
 let userToken;
 
 const headers = {
@@ -36,23 +36,23 @@ function _get(url, body, responseType) {
     method: 'get'
   })
   .then(response => response[responseType]())
-  .then(requestFailreHandle);
+  .then(requestFailureHandle);
 }
 
 function _post(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api request: ', url);
+  console.log('api request: ', url, body);
   return fetch(url, {
     method: 'POST',
     headers,
     body: JSON.stringify(body)
   })
   .then(response => response[responseType]())
-  .then(requestFailreHandle);
+  .then(requestFailureHandle);
 }
 
-function requestFailreHandle(responseJSON) {
-  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failre) {
+function requestFailureHandle(responseJSON) {
+  if(typeof responseJSON == 'object' && responseJSON.res === responseStatus.failure) {
     alert(responseJSON.msg);
   }
   return responseJSON
@@ -87,7 +87,7 @@ function setApiParams() {
   return getAppSettings().then(appSettings => {
     initedApiParams = true;
 
-    apiParams = `app_version=${appSettings.appVersion}&channel=${appSettings.channel}&`;
+    apiParams += `app_version=${appSettings.appVersion}&channel=${appSettings.channel}&`;
     apiParams += `dev_id=${appSettings.deviceId}&os_type=${appSettings.OS}&`;
     apiParams += `os_version=${appSettings.osVersion}&uuid=${appSettings.uuid}&`;
   });

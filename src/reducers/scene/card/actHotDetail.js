@@ -1,11 +1,11 @@
-const initState = { isFetching: false, fetched: false, detail: {} };
+const initState = { isFetching: true, fetched: false, detail: {} };
 
 export default function actHotDetail(state = initState, action) {
   switch(action.type) {
     case 'requestActHotDetail':
       return Object.assign({}, state, { isFetching: true , fetched: false });
     case 'receiveActHotDetail':
-      return Object.assign({}, state, { isFetching: false, fetched: true, detail: action.detail } )
+      return Object.assign({}, state, { isFetching: false, fetchedParams: action.fetchedParams, fetched: true, detail: action.detail } )
     default:
       return state
   }

@@ -3,8 +3,9 @@ import {
   View,TouchableWithoutFeedback,Text, Image
 } from 'react-native';
 
-import CarouselGenerator from './high-order/CarouselGenerator';
+import CarouselGenerator from 'high-order/CarouselGenerator';
 
+import { fontSize } from 'styles';
 import Dimensions from 'Dimensions';
 
 var screenWidth = Dimensions.get('window').width;
@@ -13,7 +14,7 @@ var configs = {
   horizontal: false,
   pagingEnabled: true,
   intervalTime: 2000,
-  height: 36,
+  height: 26,
   scrollEnabled: false
 };
 
@@ -30,7 +31,7 @@ class BroadcastCarousel extends Component {
         this.msgItems.push(
           <TouchableWithoutFeedback key={idx}>
             <View style={[{flexDirection: "row", alignItems: "center", width:screenWidth, height:configs.height, padding:0}]}>
-              <Text style={{width:screenWidth, fontSize: 16}}>{message}</Text>
+              <Text style={{width:screenWidth, fontSize: fontSize.small}}>{message}</Text>
             </View>
           </TouchableWithoutFeedback>
           );

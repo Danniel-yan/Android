@@ -8,9 +8,10 @@ import {
   StyleSheet
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { centering } from 'styles';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
-export default class Button extends Component {
+class Button extends Component {
   static propTypes = {
     onPress: PropTypes.func,
     text: PropTypes.string
@@ -27,7 +28,7 @@ export default class Button extends Component {
       <TouchableNativeFeedback
         {...props}
         background={TouchableNativeFeedback.SelectableBackground()}>
-        <View style={style}>
+        <View style={[centering, style]}>
           {this._renderChildren()}
         </View>
       </TouchableNativeFeedback>
@@ -35,11 +36,12 @@ export default class Button extends Component {
   }
 
   _renderIOS() {
-    let { children, ...props } = this.props;
+    let { children, style, ...props } = this.props;
 
     return (
       <TouchableOpacity
         {...props}
+        style={[centering, style]}
         activeOpacity ={0.7}
         >
         {this._renderChildren()}
@@ -57,3 +59,5 @@ export default class Button extends Component {
     );
   }
 }
+
+export default trackingPointGenerator(Button);

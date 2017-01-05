@@ -10,12 +10,11 @@ export default function loginUser(state = initState, action){
     case 'fetchingUser':
       return Object.assign({}, state, { isFetching: true });
     case 'receiveUser':
-      return Object.assign({}, state, { isFetching: false, fetched: true, info: action.info });
+      return Object.assign({}, state, { isFetching: false, fetched: true, info: action.info, valid: action.info && action.info.id_no  });
     case 'logouting':
       return Object.assign({}, state, { logouting: true });
     case 'logouted':
-      state.info = null;
-      return Object.assign({}, state, { fetched: false, logouting: false });
+      return Object.assign({}, state, { valid: false, info: null, fetched: false, logouting: false });
     default:
       return state;
   }

@@ -3,6 +3,8 @@ import Login from 'components/Login';
 import { externalPop } from 'actions/navigation';
 import fetchingUser from 'actions/loginUser';
 
+import { trackingScene } from 'high-order/trackingPointGenerator';
+
 function mapDispatch(dispatch) {
   return {
     loginSuccess: () => {
@@ -12,4 +14,4 @@ function mapDispatch(dispatch) {
   };
 }
 
-export default connect(null, mapDispatch)(Login);
+export default connect(null, mapDispatch)(trackingScene(Login));

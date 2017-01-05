@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import fetchHomeOperating from 'actions/scene/home/operating'
 
-import AsynCpGenerator from 'components/high-order/AsynCpGenerator';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import BroadcastCarousel from 'components/BroadcastCarousel';
 import Loading from 'components/shared/Loading';
 

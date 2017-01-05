@@ -5,7 +5,7 @@ import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
 import CardScene from './scene/CardSceneContainer';
-import ZoneScene from 'containers/scene/ZoneScene';
+import ZoneScene from 'containers/scene/ZoneSceneContainer';
 import Login from 'containers/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 import FillUserInfo from 'containers/FillUserInfo';
@@ -13,14 +13,22 @@ import ActHotListScene from 'containers/scene/card/ActHotListContainer';
 import ActHotDetailScene from 'containers/scene/card/ActHotDetailContainer';
 import MessagesScene from 'containers/scene/MessagesScene';
 import CardListScene from 'containers/scene/card/CardListContainer'
-import ContactScene from 'components/scene/zone/ContactScene';
-import SettingScene from 'containers/scene/zone/SettingScene';
+import ContactScene from 'containers/scene/zone/ContactSceneContainer';
+import SettingScene from 'containers/scene/zone/SettingSceneContainer';
 import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 import UserInfo from 'containers/scene/zone/UserInfo';
+import CardListByCategory from 'containers/scene/card/CardListByCategory';
+import CardProgressList from 'containers/scene/card/CardProgressList';
+import CardArticals from 'containers/scene/CardArticals';
+import CardArticalDetail from 'containers/scene/CardArticalDetail';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'CardArticals', module: CardArticals },
+  { key: 'CardArticalDetail', module: CardArticalDetail },
+  { key: 'CardListByCategory', module: CardListByCategory },
+  { key: 'CardProgressList', module: CardProgressList },
   { key: 'SettingScene', module: SettingScene },
   { key: 'ContactScene', module: ContactScene },
   { key: 'MessagesScene', module: MessagesScene},

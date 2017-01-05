@@ -13,8 +13,9 @@ import Text from './shared/Text';
 import { post } from 'utils/fetch';
 import LocationPicker from 'components/modal/LocationPicker';
 import tracker from 'utils/tracker.js';
+import Button from 'components/shared/ButtonBase';
 
-const startOpacity = 0.3; 
+const startOpacity = 0.3;
 const endOpacity = 1;
 
 export default class GeoCity extends PureComponent {
@@ -70,21 +71,22 @@ export default class GeoCity extends PureComponent {
   }
 
   _onPress() {
-    tracker.trackAction('homepage', 'postion', 'top', 'click');
+    tracker.trackAction({ key: 'homepage', topic: 'top', entity: 'postion', event: 'clk'});
     this.setState({showPicker: true})
   }
 
   render() {
     return (
       <View style={[this.props.style]}>
-        <TouchableOpacity
+        <Button
+          tracking={{key: 'homepage', topic: 'top', entity: 'city'}}
           style={styles.showLabel}
           onPress={this._onPress.bind(this)}>
           <Animated.Image style={{ opacity: this.state.location ? 1 : this.state.bounceValue}} source={require('assets/icons/pin2.png')}/>
           <Text ellipsizeMode="middle" numberOfLines={1} style={styles.locTxt}>
             {this.state.err && !this.state.location? '手动定位' : this.state.location}
           </Text>
-        </TouchableOpacity>
+        </Button>
 
         <LocationPicker visible={this.state.showPicker} onChange={this.onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </View>
@@ -105,6 +107,7 @@ const styles = StyleSheet.create({
   showLabel: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start'
   },
 
   locTxt: {

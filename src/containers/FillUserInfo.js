@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FillUserInfo from 'components/FillUserInfo';
 import submitUserInfo from 'actions/fillUserInfo';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -17,4 +18,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FillUserInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(FillUserInfo));

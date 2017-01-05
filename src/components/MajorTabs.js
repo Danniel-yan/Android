@@ -8,47 +8,20 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-import { IOSComponentSwitcher } from 'components/high-order/ComponentSwitcher';
+import { IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
+import TrackingPoint from 'components/shared/TrackingPoint';
 
 import { colors } from 'styles/varibles';
-
-import iconHome from 'assets/tab-icons/home.png';
-import iconLoan from 'assets/tab-icons/loan.png';
-import iconCard from 'assets/tab-icons/card.png';
-import iconZone from 'assets/tab-icons/zone.png';
-
-import iconHomeActive from 'assets/tab-icons/home_active.png';
-import iconLoanActive from 'assets/tab-icons/loan_active.png';
-import iconCardActive from 'assets/tab-icons/card_active.png';
-import iconZoneActive from 'assets/tab-icons/zone_active.png';
-
-let tabs = [{
-  text: '首页',
-  icon: iconHome,
-  activeIcon: iconHomeActive,
-  sceneKey: 'HomeScene'
-}, {
-  text: '贷款',
-  icon: iconLoan,
-  activeIcon: iconLoanActive,
-  sceneKey: 'LoanScene'
-}, {
-  text: '办卡',
-  icon: iconCard,
-  activeIcon: iconCardActive,
-  sceneKey: 'CardScene'
-}, {
-  text: '我的',
-  icon: iconZone,
-  activeIcon: iconZoneActive,
-  sceneKey: 'ZoneScene'
-}];
-
 
 class MajorTabs extends Component {
 
   render() {
-    var iconCardSceneForHide = this.props.isIOSVerifying ? "CardScene" : null;
+    var iconCardSceneForHide = this.props.isIOSVerifying ? "CardScene" : null,
+      nav = this.props.nav, tabs =  [];
+
+    for(var key in nav) {
+      if(typeof nav[key] == "object" && typeof nav[key].icon) tabs.push(Object.assign({}, nav[key], {sceneKey: key}));
+    }
 
     return (
       <View>
@@ -71,19 +44,21 @@ class MajorTabs extends Component {
 
 }
 
-export default IOSComponentSwitcher(MajorTabs);
+export default IOSComponentSwitcher(MajorTabs, null);
 
 class Tab extends Component {
   render() {
     let props = this.props;
 
     return (
-      <TouchableWithoutFeedback onPress={this._onPress.bind(this)}>
-        <View style={styles.tab}>
-          <Image source={props.isActive ? props.activeIcon : props.icon}/>
-          <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <TrackingPoint
+        tracking={{key: 'menu', topic: props.sceneKey, entity: props.sceneKey }}
+        style={styles.tab}
+        onPress={this._onPress.bind(this)}>
+
+        <Image source={props.isActive ? props.activeIcon : props.icon}/>
+        <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
+      </TrackingPoint>
     )
   }
 

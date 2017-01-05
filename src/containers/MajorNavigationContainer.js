@@ -4,7 +4,7 @@ import MajorNavigation from 'components/MajorNavigation';
 import { majorTab } from 'actions/navigation';
 
 function mapStateToProps(state) {
-  return { navigation: state.navigation.routes[0] };
+  return { navigation: state.navigation.routes[0], tabs: state.navigation.tabs };
 }
 
 function mapDispatchToProps(dispatch) {

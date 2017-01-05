@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import externalScene from 'components/high-order/externalScene';
+import externalScene from 'high-order/externalScene';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import {
@@ -12,7 +12,7 @@ import Link from './Link';
 import * as defaultStyles from 'styles';
 
 import { externalPop } from 'actions/navigation';
-import WebViewGenerator from 'components/high-order/WebViewGenerator';
+import WebViewGenerator from 'high-order/WebViewGenerator';
 
 
 export default class WebLink extends Component {

@@ -14,14 +14,14 @@ export const environments = {
   test: {
     id: 'test',
     text: '内部用测试环境',
-    api: 'http://139.196.143.236:8001/'
+    api: 'https://shiyishou-test.jujinpan.cn/'
   }
 };
 
 const staticSettings = {
-  appVersion: '0.0.1',
+  appVersion: DeviceInfo.getVersion(),
   OS: Platform.OS == 'ios' ? 2 : 1,
-  osVersion: Platform.OS == 'ios' ? 'ios' : Platform.Version,
+  osVersion: DeviceInfo.getSystemVersion(),
   channel: '',
   deviceId: DeviceInfo.getUniqueID(),
   uuid: '',

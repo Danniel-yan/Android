@@ -9,7 +9,7 @@ import {
 
 import Text from './Text';
 import { colors } from 'styles/varibles';
-import trackingPointGenerator from 'components/high-order/trackingPointGenerator';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
 class Link extends Component {
   static propTypes = {
@@ -58,15 +58,14 @@ class Link extends Component {
   }
 
   _onPress() {
-    let { onPress, toKey, toComponent, title, web } = this.props;
+    let { onPress, toKey, toComponent, title, ...props } = this.props;
 
     Promise.resolve(this.props.prePress()).then(() => {
       onPress({
-        web,
+        ...props,
         title,
         key: toKey,
-        component: toComponent,
-        componentProps: this.props.componentProps
+        component: toComponent
       });
     })
     .catch(console.log)

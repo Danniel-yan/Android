@@ -9,14 +9,15 @@ import {
   PickerIOS,
   Image,
   Platform,
-  Button
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from './Text';
+import Button from './ButtonBase';
 import * as defaultStyles from 'styles';
+import trackingPoint from 'high-order/trackingPointGenerator';
 
-export default class PickerComponent extends Component {
+export class PickerComponent extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired
@@ -26,57 +27,66 @@ export default class PickerComponent extends Component {
     items: []
   };
 
+  get items() {
+    if(this.props.items && this.props.items.length == 0) {
+      return this.props.items;
+    }
+
+    let items = this.props.items.map(item => {
+      return typeof item == 'object' ? item : { label: item, value: item }
+    });
+
+    return items;
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedValue: props.value,
       openModal: false
     };
   }
 
   render() {
     return (
-      <TouchableOpacity
+      <Button
         style={this.props.style}
-        activeOpacity={1}
         onPress={() => this.setState({openModal: true})}
         >
 
         <Text style={this.props.textStyle}>{this._label()}</Text>
 
         <Modal
-          animationType="slide"
+          animationType="fade"
           visible={this.state.openModal}
           transparent={true}
           onRequestClose={() => this.setState({openModal: false})}
           >
 
-          <TouchableOpacity style={defaultStyles.container} activeOpacity={1} onPress={this._onHide.bind(this)}>
-          </TouchableOpacity>
+          <TouchableOpacity style={[defaultStyles.container, styles.bg]} activeOpacity={1} onPress={this._onHide.bind(this)}/>
           {Platform.OS == 'ios' ? this._renderIOSPicker() : this._renderAndroidPicker()}
         </Modal>
-      </TouchableOpacity>
+      </Button>
     );
   }
 
   _label() {
-    if(!this.state.selectedValue) {
+    if(!this.props.value) {
       return '';
     }
 
-    var selectedItem = this.props.items.find(item => item.value == this.state.selectedValue);
+    var selectedItem = this.items.find(item => item.value == this.props.value);
 
     return selectedItem ? selectedItem.label : "";
   }
 
   _renderAndroidPicker() {
-    const style = this.props.items.length > 4 ? { height: 168} : undefined;
+    const style = this.items.length > 4 ? { height: 178} : undefined;
 
     return (
       <View style={[styles.container, style]}>
         <ScrollView>
-          { this.props.items.map(item => {
+          { this.items.map(item => {
             return (
               <TouchableNativeFeedback
                 key={`key${item.value}`}
@@ -98,35 +108,33 @@ export default class PickerComponent extends Component {
 
     this.setState({
       openModal: false,
-      selectedValue: value
     });
+    this.props.onBlur && this.props.onBlur(value);
   }
 
   _onHide() {
-    this.setState({
-      openModal: false,
-      selectedValue: this.state.selectedValue
-    });
+    this.setState({ openModal: false });
+    this.props.onBlur && this.props.onBlur(this.props.value);
   }
 
   _renderIOSPicker() {
     return (
       <View style={[styles.container, styles.containerIOS]}>
         <View style={styles.header}>
-          <Button style={styles.btn} onPress={this._onChange.bind(this)} title="确定"/>
+          <Button style={styles.btn} textStyle={styles.btnText} onPress={this._onHide.bind(this)} text="完成"/>
         </View>
 
         <PickerIOS
           style={styles.picker}
-          selectedValue={this.state.selectedValue}
-          onValueChange={selectedValue => this.setState({selectedValue})}>
+          selectedValue={this.props.value}
+          onValueChange={this.props.onChange}>
 
-          { this.props.items.map(item => {
+          { this.items.map(item => {
             return (
               <PickerIOS.Item
                 key={`item${item.value}`}
                 value={item.value}
-                label={item.label}
+                label={'' + item.label}
               />
             );
           }) }
@@ -135,11 +143,10 @@ export default class PickerComponent extends Component {
     );
   }
 
-  _onChange() {
-    this.props.onChange(this.state.selectedValue);
-    this.setState({ openModal: false });
-  }
 }
+
+
+export default trackingPoint(PickerComponent);
 
 const styles = StyleSheet.create({
   container: {
@@ -147,8 +154,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderTopWidth: 1,
-    borderTopColor: colors.line,
+    ...border('top'),
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
   },
@@ -157,12 +163,16 @@ const styles = StyleSheet.create({
     height: 200
   },
 
+  bg: {
+    backgroundColor: 'rgba(0,0,0,.5)'
+  },
+
   header: {
+    paddingHorizontal: 10,
     height: 40,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
 
   picker: {
@@ -172,13 +182,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  btn: {
-    fontSize: 12
+  btnText: {
+    fontSize: 16,
   },
 
   androidItem: {
     height: 42,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   }
 });

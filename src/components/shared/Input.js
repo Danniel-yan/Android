@@ -2,8 +2,9 @@ import React, { PropTypes, Component } from 'react';
 
 import { StyleSheet, TextInput, Platform } from 'react-native';
 import { iptFontSize } from 'styles/varibles';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
-export default class Input extends Component {
+class Input extends Component {
   render() {
     var ds = Platform.OS === 'ios' ? { fontSize: iptFontSize } : { height: 20, fontSize: iptFontSize, padding: 0 };
 
@@ -16,3 +17,5 @@ export default class Input extends Component {
     );
   }
 }
+
+export default trackingPointGenerator(Input);

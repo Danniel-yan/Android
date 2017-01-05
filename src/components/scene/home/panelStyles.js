@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 
 export default StyleSheet.create({
   panel: {
@@ -9,8 +9,7 @@ export default StyleSheet.create({
   header: {
     flexDirection: 'row',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
 
   title: {

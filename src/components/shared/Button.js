@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 
 import { colors } from 'styles/varibles';
+import trackingPointGenerator from 'high-order/trackingPointGenerator';
 
-export default class Button extends Component {
+class Button extends Component {
   static propTypes = {
     onPress: PropTypes.func,
     text: PropTypes.string
@@ -68,6 +69,9 @@ export default class Button extends Component {
     );
   }
 }
+
+export default trackingPointGenerator(Button);
+
 
 const styles = StyleSheet.create({
   btn: {

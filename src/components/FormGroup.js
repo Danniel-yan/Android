@@ -206,6 +206,7 @@ export class HorizontalCheckboxes extends HorizontalRadios {
 
   reset() {
     this.setState({selectedIdxes: []});
+    this.props.onReset && this.props.onReset();
   }
 
   submit() {
@@ -286,9 +287,9 @@ const IptWrapStyles = StyleSheet.create({
   }
 });
 const HRadiosStyles = StyleSheet.create({
-  container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", padding: 8, paddingLeft: hPadding, paddingRight: hPadding },
-  optWrap: { borderRadius:20, borderWidth: 1, borderColor: colors.line, alignItems: "center", padding: 4, flexDirection: 'row', height: 36, marginTop: 4},
-  opt: { color: "#999", paddingBottom:1, textAlign:"center", fontSize: screenWidth > 320 ? 16 : 14, flex:1 },
+  container: { flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', backgroundColor: "#fff", paddingTop: 5, paddingBottom: 10 },
+  optWrap: { marginBottom: 5, alignItems: 'center', justifyContent: 'center',borderRadius:13, borderWidth: 1, borderColor: colors.line, alignItems: "center", height: 26 },
+  opt: { color: "#999", paddingBottom:1, fontSize: 14 },
   select: { color: "#FE271E", borderColor: "#FE271E" },
   sedWrp: { borderColor: "#FE271E" }, sedTxt: { color: "#FE271E" }
 });

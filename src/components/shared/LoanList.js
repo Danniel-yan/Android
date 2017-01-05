@@ -26,7 +26,7 @@ export default class LoanList extends Component {
   renderLoan(data, sID, rowID){
     return(
       <ExternalPushLink
-        tracking={{key: 'loan', topic: 'big_list', entity: rowID, event: 'click'}}
+        tracking={{key: 'homepage', topic: 'large_loan_list', entity: rowID, id: data.id, title: data.title}}
         title={data.title}
         toKey="LoanDetailScene"
         componentProps={{fetchingParams: data.id }} >

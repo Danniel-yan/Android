@@ -1,3 +1,12 @@
+import iconHome from 'assets/tab-icons/home.png';
+import iconLoan from 'assets/tab-icons/loan.png';
+import iconCard from 'assets/tab-icons/card.png';
+import iconZone from 'assets/tab-icons/zone.png';
+
+import iconHomeActive from 'assets/tab-icons/home_active.png';
+import iconLoanActive from 'assets/tab-icons/loan_active.png';
+import iconCardActive from 'assets/tab-icons/card_active.png';
+import iconZoneActive from 'assets/tab-icons/zone_active.png';
 
 import { NavigationExperimental } from 'react-native';
 const { StateUtils: NavigationStateUtils } = NavigationExperimental;
@@ -10,27 +19,60 @@ const initState = {
     key: 'MajorNavigation',
     curTab: 'HomeScene',
     index: 0,
-    
+
     HomeScene: {
       index: 0,
       isActive: true,
-      routes: [{ key: 'HomeScene'}]
+      routes: [{ key: 'HomeScene'}],
+      text: '首页',
+      icon: iconHome,
+      activeIcon: iconHomeActive
     },
 
     LoanScene: {
       index: 0,
-      routes: [{ key: 'LoanScene'}]
+      routes: [{ key: 'LoanScene'}],
+      text: '贷款',
+      icon: iconLoan,
+      activeIcon: iconLoanActive
     },
 
     CardScene: {
       index: 0,
-      routes: [{ key: 'CardScene'}]
+      routes: [{ key: 'CardScene'}],
+      text: '办卡',
+      icon: iconCard,
+      activeIcon: iconCardActive
     },
 
     ZoneScene: {
       index: 0,
-      routes: [{ key: 'ZoneScene'}]
+      routes: [{ key: 'ZoneScene'}],
+      text: '我的',
+      icon: iconZone,
+      activeIcon: iconZoneActive
     },
+  }],
+  tabs: [{
+    text: '首页',
+    icon: iconHome,
+    activeIcon: iconHomeActive,
+    sceneKey: 'HomeScene'
+  }, {
+    text: '贷款',
+    icon: iconLoan,
+    activeIcon: iconLoanActive,
+    sceneKey: 'LoanScene'
+  }, {
+    text: '办卡',
+    icon: iconCard,
+    activeIcon: iconCardActive,
+    sceneKey: 'CardScene'
+  }, {
+    text: '我的',
+    icon: iconZone,
+    activeIcon: iconZoneActive,
+    sceneKey: 'ZoneScene'
   }]
 };
 
@@ -40,7 +82,17 @@ export default function navigation(state = initState, action) {
     case 'externalPush':
       return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
-      return NavigationStateUtils.pop(state);
+      if (state.index <= 0) {
+        return state;
+      }
+
+      const routes = state.routes.slice(0, -action.num);
+
+      return {
+        ...state,
+        index: routes.length - 1,
+        routes
+      };
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
     case 'externalJumpTo':
@@ -114,7 +166,7 @@ function majorTab(state, tabName) {
     ...major,
     curTab: tabName,
     [curTab]: curScene,
-    [nextScene]: nextScene
+    [tabName]: nextScene
   };
 
   return updateMajor(state, major);

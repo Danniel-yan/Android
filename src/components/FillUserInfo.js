@@ -8,22 +8,20 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
-import ProcessingButton from 'components/shared/ProcessingButton';
 import Checkbox from 'components/shared/Checkbox'
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
-import CountdownButton from 'components/shared/CountdownButton'
-import AbstractScene from 'components/scene/AbstractScene.js';
+import VerifyButton from 'components/shared/VerifyButton'
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
 import WebLink from 'components/shared/WebLink';
 
-import { DeviceSwitchComponent } from 'components/high-order/ComponentSwitcher';
+import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';
 
 const hasCreditStatus = {
@@ -31,14 +29,20 @@ const hasCreditStatus = {
   no: 0
 }
 
-export default class FillUserInfo extends AbstractScene {
+export default class FillUserInfo extends Component {
   static title = '完善个人信息';
+
+  tracking() {
+    let userFilled = this.props.loginUser.info && this.props.loginUser.info.username;
+
+    return { key: 'loan', topic: userFilled  ? 'complete_info_rtn_S' : 'complete_info_new_S' };
+  }
 
   constructor(props) {
     super(props);
-    this.sceneEntity="FILL_INFO";
-    this.sceneTopic = "USER";
-    this.sceneKey = "USER";
+    this.sceneEntity="show_form";
+    this.sceneTopic = "signup_thru_exp_loan";
+    this.sceneKey = "user";
 
     let loginUser = props.loginUser.info || {};
 
@@ -48,11 +52,12 @@ export default class FillUserInfo extends AbstractScene {
       editableMobile: !loginUser.username,
       realname: loginUser.realname || '',
       idNO: loginUser.id_no || '',
-      mobile: loginUser.mobile || '',
+      mobile: loginUser.username || loginUser.mobile || '',
       creditStatus: loginUser.credit_status == hasCreditStatus.yes,
       job: loginUser.job || '',
       verifyCode: loginUser.verify_code || ''
     };
+
   }
 
   componentWillReceiveProps(nextProps, prevProps) {
@@ -61,6 +66,48 @@ export default class FillUserInfo extends AbstractScene {
     if(user && user.id_no) {
       this.props.onSubmitSuccess(user);
     }
+  }
+
+  _validation() {
+    if(!this.formChanged) {
+      return false;
+    }
+
+    let { editableMobile, checkedAgreement, username, verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
+
+    const validMobile = validators.mobile(mobile);
+    const validVerifyCode = !editableMobile || editableMobile && verifyCode.length > 0;
+    const validName = realname.length >= 2;
+    const validID = validators.idNO(idNO);
+    const validAgreement = !editableMobile || editableMobile && checkedAgreement;
+
+    if(!validName) {
+      this.setState({error: '请输入有效的名字'});
+      return false;
+    }
+
+    if(!validID) {
+      this.setState({error: '请输入有效的身份证号'});
+      return false;
+    }
+
+    if(!validMobile) {
+      this.setState({error: '请输入正确的手机号'});
+      return false;
+    }
+
+    if(!validVerifyCode) {
+      this.setState({error: '请输入验证码'});
+      return false;
+    }
+
+    if(!validAgreement) {
+      this.setState({error: '请接受钞市服务协议'});
+      return false;
+    }
+
+    this.setState({error: ''});
+    return true;
   }
 
   render() {
@@ -122,7 +169,10 @@ export default class FillUserInfo extends AbstractScene {
               />
 
               <View style={styles.addon}>
-                <CountdownButton disabled={!validMobile} onPress={this._sendVerify.bind(this)} style={styles.verifyBtn} defaultText="获取验证码" countdownText="${time}秒后可获取"/>
+                <VerifyButton
+                  tracking={Object.assign({ entity: 'mob_code_button'}, this.tracking()) }
+                  mobile={this.state.mobile}
+                  />
               </View>
             </View>
           </FormGroup>
@@ -153,15 +203,18 @@ export default class FillUserInfo extends AbstractScene {
             { editableMobile  && (
               <View style={styles.txtRow}>
                 <Checkbox checked={checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
-                <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
+                <Text onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
                 <WebLink
-                  source={require('./agreement.html')}
+                  source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
                   toKey="Agreement"
                   text="《钞市服务协议》" title="《钞市服务协议》"
                 />
               </View>
             )}
 
+            <View style={styles.txtRow}>
+              <Text style={styles.error}>{this.state.error}</Text>
+            </View>
           </View>
 
         </ScrollView>
@@ -169,19 +222,17 @@ export default class FillUserInfo extends AbstractScene {
         <View style={styles.footer}>
 
           <LoanButton
+            tracking={Object.assign({entity: 'apply', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}, this.tracking()) }
             processing={this.props.update.submitting}
             style={styles.btn}
-            disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}
+            textStyle={styles.btnText}
+            disabled={this.state.error !== ''}
             onPress={this._submit.bind(this)}/>
         </View>
       </View>
     );
   }
 
-  _sendVerify() {
-    post('/tool/send-verify-code', { mobile: this.state.mobile})
-      .catch(console.log)
-  }
 
   _submit() {
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
@@ -190,12 +241,16 @@ export default class FillUserInfo extends AbstractScene {
   }
 
   _inputChange(field, value) {
-    this.setState({ [field]: value });
+    this.formChanged = true;
+    this.setState({ [field]: value }, this._validation.bind(this));
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+  },
+  error: {
+    color: colors.error
   },
 
   formControl: {
@@ -211,19 +266,13 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    color: '#fff',
-    fontSize: 20,
     height: 50,
     backgroundColor: colors.primary
   },
 
-  verifyBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    width: 80,
-    height: 26,
-    fontSize: 12,
-    color: '#fff'
+  btnText: {
+    color: '#fff',
+    fontSize: 20,
   },
 
   addon: {
@@ -238,8 +287,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     justifyContent: 'center'
   },
 

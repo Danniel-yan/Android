@@ -11,8 +11,8 @@ import {
 import modules from 'containers/modules';
 import WebView from 'containers/shared/WebView';
 import alert from 'utils/alert';
-import externalScene from 'containers/externalScene';
-import WebViewGenerator from 'components/high-order/WebViewGenerator';
+import externalScene from 'high-order/externalScene';
+import WebViewGenerator from 'high-order/WebViewGenerator';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -57,7 +57,7 @@ export default class ExternalNavigation extends Component {
       return false;
     }
 
-    alert('请再按一次返回键退出钞市');
+    alert('再按一次退出钞市应用');
 
     // 连续两次回退按钮推出应用
     this.exitTimer = setTimeout(() => {
@@ -73,7 +73,7 @@ export default class ExternalNavigation extends Component {
     let nextNavigation = nextProps.navigation;
 
     if(routes.length > nextNavigation.routes.length) {
-      this.nav.pop()
+      this.nav.popN(routes.length - nextNavigation.routes.length);
     } else if(routes.length < nextNavigation.routes.length) {
       this.nav.push(nextNavigation.routes[nextNavigation.index])
     } else if(routes.slice(-1)[0].key != nextNavigation.routes.slice(-1)[0].key) {
@@ -83,21 +83,37 @@ export default class ExternalNavigation extends Component {
   }
 
   _renderScene(route, navigator) {
-    let { web, key, title, component: ComponentClass, componentProps } = route;
+    let {
+      web,
+      backCount,
+      key,
+      title,
+      component: ComponentClass,
+      RenderedComponent,
+      componentProps
+    } = route;
 
-    if(web && !ComponentClass) {
-      ComponentClass = WebViewGenerator(route);
+    // 若route已经渲染过，则直接使用旧component，避免重新渲染
+    if(RenderedComponent) {
+      ComponentClass = RenderedComponent;
+    } else {
+
+      if(!ComponentClass) {
+        ComponentClass = web ? WebViewGenerator(route) : modules[key];
+      }
+
+      // append scene header
+      if(route.index !== 0 && !ComponentClass.external) {
+        ComponentClass = externalScene(ComponentClass);
+      }
+
+      // 由于React Native Navigator 在push或pop时会调用两次renderScene: prev route及next route;
+      // 这里缓存prev route component到route中。
+      // 避免每次生产新component导致push或pop时, prev component销毁并重新渲染
+      route.RenderedComponent = ComponentClass;
     }
 
-    if(!ComponentClass) {
-      ComponentClass = modules[key];
-    }
-
-    if(route.index !== 0) {
-      ComponentClass = externalScene(ComponentClass, title);
-    }
-
-    return React.createElement(ComponentClass , { ...componentProps, navigator});
+    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backCount});
   }
 
   _handleIOSBack(route, navigator) {
@@ -116,12 +132,14 @@ export default class ExternalNavigation extends Component {
   }
 
   render() {
+    let initRoute = this.props.navigation.routes[0]
+
     return (
       <Navigator
         onDidFocus={this._handleIOSBack.bind(this)}
         ref={nav => this.nav = nav}
         configureScene={() => Navigator.SceneConfigs.FloatFromRight}
-        initialRoute={{key: 'MajorNavigation', index: 0}}
+        initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />
     );
