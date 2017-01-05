@@ -106,8 +106,6 @@ class LoanSign extends Component {
     this.setState({ submitting: true })
 
     return post('/loanctcf/create-contract').then(response => {
-      // TODO remove
-      response.res = responseStatus.success
 
       if(response.res == responseStatus.failure) {
         throw response.msg

@@ -113,9 +113,6 @@ class ReceiptCard extends Component {
       mobile, bank_card_no, bank_name
     }).then(response => {
 
-      // TODO remove
-      response.res = responseStatus.success;
-
       if(response.res == responseStatus.success) {
         this.setState({ submitting: false });
         this.props.onSuccess(bank_card_no);
