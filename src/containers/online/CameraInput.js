@@ -12,11 +12,6 @@ import ProcessingButton from 'components/shared/ProcessingButton';
 import { textVerticalCenter, centering, responsive, border, container, rowContainer, colors, fontSize } from 'styles';
 import { post, responseStatus } from 'utils/fetch';
 
-const statusTexts = {
-  success: '识别成功',
-  failure: '识别失败',
-};
-
 const typeToFn = {
   idFront: 'idCardVerifyFromFront',
   idBack: 'idCardVerifyFromBack',
@@ -35,12 +30,20 @@ export default class CameraInput extends Component {
   state = {
     status: '',
     submitting: false,
-    value: null
+    value: null,
+    error: '1'
   };
 
   render() {
     let status = this.state.status;
-    let statusText = status ? `${this.props.label}${statusTexts[status]}` : '';
+
+    let statusText = '';
+
+    if(status == 'success') {
+      statusText = '识别成功';
+    } else if(status == 'failure') {
+      statusText = this.state.error
+    }
 
     return (
       <View>
@@ -72,27 +75,38 @@ export default class CameraInput extends Component {
 
   _onPress() {
     NativeModules.FaceMegModule[typeToFn[this.props.type]]().then(res => {
+      res.value = (res.value && res.value.replace(/\s/g, '')) || true;
       this.setState({ value: res }, this._upload.bind(this));
-    }).catch(console.log);
+    }).catch(err => {
+      this.setState({ error: err})
+    });
   }
 
   _upload() {
     this.setState({ submitting: true });
 
-    post('/loanctcf/add-image', {
+    let body = {
       img: this.state.value.images[0],
       ext: 'png',
-      type: typeValue[this.props.type]
-    })
+      type: typeValue[this.props.type],
+    }
+
+    if(this.props.type == 'bankCard') {
+      body.credit_card_no_auto = this.state.value.value || '';
+    }
+
+    post('/loanctcf/add-image', body)
     .then(this._uploandAvatar.bind(this))
     .then(response => {
       if(response.res == responseStatus.failure) { throw response.msg }
 
       this.setState({ status: 'success'})
-      this.props.onChange(this.state.value);
+      this.props.onChange(this.state.value.value || true);
     })
     .catch(err => {
-      this.setState({ status: 'failure'})
+      this.props.onChange(undefined);
+      this.setState({ status: 'failure', error: err})
+      console.log(err);
     })
     .finally(() => {
       this.setState({ submitting: false });
