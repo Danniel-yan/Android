@@ -39,13 +39,13 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {
-
       if(ownProps.loan_type == loanType.chaoshidai) {
         dispatch(onlineActions.status());
       }
 
       dispatch(fetchLoanDetail(id))
     },
+    fetchOnlineStatus: () => dispatch(onlineActions.status()),
     goLoan: (detail) => {
       dispatch(externalPush({
         title: detail.title,

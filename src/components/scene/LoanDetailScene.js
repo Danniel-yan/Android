@@ -231,7 +231,7 @@ export default class LoanDetailScene extends Component {
     if(this.props.detail.loan_type == loanType.chaoshidai) {
       return (
         <ExternalPushLink
-          {...this._chaoshidaiNextRoute()}
+          {...this._chaoshidaiRouteProps()}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
@@ -269,17 +269,22 @@ export default class LoanDetailScene extends Component {
     );
   }
 
-  _chaoshidaiNextRoute() {
+  _chaoshidaiRouteProps() {
     let logined = this.props.loginUser.info;
     let { onlineStatus } = this.props;
     let { status, time_expire_status } = onlineStatus;
 
+
     if(!logined) {
-      return { toKey: 'Login', title: '登录'};
+      return {
+        loginSuccess: this.props.fetchOnlineStatus,
+        toKey: 'Login',
+        title: '登录'
+      };
     }
 
-    if(status < 2) {
-      return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
+    if(status == 2) {
+      return {toKey: 'CertificationHome', title: '信息认证'};
     }
 
     if(status == 5 && time_expire_status == 1) {
@@ -303,6 +308,6 @@ export default class LoanDetailScene extends Component {
       return {toKey: 'OnlineLoanDetail', title: '借款详情'};
     }
 
-    return {toKey: 'CertificationHome', title: '信息认证'};
+    return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
   }
 }

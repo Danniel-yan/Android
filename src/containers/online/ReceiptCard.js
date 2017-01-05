@@ -13,6 +13,7 @@ import SubmitButton from './SubmitButton';
 import { InputGroup, PickerGroup } from 'components/form';
 import { post, responseStatus } from 'utils/fetch';
 import { colors, responsive, fontSize, border } from 'styles';
+import ErrorInfo from './ErrorInfo';
 
 class ReceiptCard extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ class ReceiptCard extends Component {
 
         <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
 
-        <Text style={styles.error}>{error}</Text>
+        <ErrorInfo msg={this.state.error}/>
 
         <SubmitButton
           backCount={1}
@@ -128,12 +129,6 @@ class ReceiptCard extends Component {
 
 
 const styles = StyleSheet.create({
-  error: {
-    textAlign: 'center',
-    marginVertical: 10,
-    fontSize: fontSize.normal,
-    color: colors.error
-  },
   item: {
     height: 55
   },
