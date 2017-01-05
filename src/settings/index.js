@@ -19,11 +19,7 @@ export const environments = {
 };
 
 const staticSettings = {
-  appVersion: DeviceInfo.getVersion(),
-  OS: Platform.OS == 'ios' ? 2 : 1,
-  osVersion: DeviceInfo.getSystemVersion(),
   channel: '',
-  deviceId: DeviceInfo.getUniqueID(),
   uuid: '',
 };
 
@@ -72,11 +68,10 @@ function setupUUID() {
       return fetch(`${environmentSettings.api}-/user/uuid`)
         .then(response => response.json())
         .then(response => {
-          console.log(response);
 
           if(response.res == 1) {
             staticSettings.uuid = response.data.uuid;
-            tracker.user_id = uuid;
+            tracker.user_id = response.data.uuid;
             return AsyncStorage.setItem('uuid', response.data.uuid);
           }
 
@@ -93,12 +88,7 @@ function setupUUID() {
 function setupEnvironment() {
   return AsyncStorage.getItem('environment')
     .then(environment => {
-      let envName = environments.defaultEnvironment;
-
-      // 重置json模式的缓存
-      if(environment && !/^\{/.test(environment)) {
-        envName = environment;
-      }
+      let envName = environment || environments.defaultEnvironment;
 
       environmentSettings = environments[envName];
       return AsyncStorage.setItem('environment', envName);

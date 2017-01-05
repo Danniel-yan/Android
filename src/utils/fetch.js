@@ -1,5 +1,6 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Platform } from 'react-native';
 import { getAppSettings, environments } from 'settings';
+import DeviceInfo from 'react-native-device-info';
 
 import alert from './alert';
 
@@ -10,7 +11,12 @@ let coords = null;
 let initedApiParams = false;
 
 let environment;
-let apiParams = '';
+let apiParams = {
+  app_version:  DeviceInfo.getVersion(),
+  dev_id: DeviceInfo.getUniqueID(),
+  os_version: DeviceInfo.getSystemVersion(),
+  os_type: Platform.OS == 'ios' ? 2 : 1,
+};
 let userToken;
 
 const headers = {
@@ -31,7 +37,7 @@ export function post(url, body, responseType = 'json') {
 
 function _get(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api request: ', url);
+  console.log('api get request: ', url);
   return fetch(url, {
     method: 'get'
   })
@@ -41,7 +47,7 @@ function _get(url, body, responseType) {
 
 function _post(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api request: ', url);
+  console.log('api post request: ', url);
   return fetch(url, {
     method: 'POST',
     headers,
@@ -57,18 +63,26 @@ function log(url, body, response) {
 }
 
 function absoluteUrl(url) {
-  url = url.replace(/^\/(-\/)?/, '');
+  let host = environment.api.replace(/\/$/, '');
+  url = url.replace(/^\//, '');
 
-  let hasVersion = /^(\d+(\.\d+)*\/)/.test(url);
-  url = !hasVersion ? `${defaultApiVersion}/${url}` : url;
+  let params = queryParams();
+  params += userToken ? `token=${userToken}` : ''
+
   let join = /\?/.test(url) ? '&' : '?';
-  url = `${environment.api}${url}${join}${apiParams}`;
+  url = `${host}/${defaultApiVersion}/${url}${join}${params}`;
 
-  url += userToken ? `token=${userToken}` : ''
 
   return url;
 }
 
+function queryParams() {
+  let query = ''
+  for(let key in apiParams) {
+    query += `${key}=${apiParams[key]}&`;
+  }
+  return query;
+}
 
 function setupParams() {
   if(environment) { return; }
@@ -86,9 +100,8 @@ function setApiParams() {
   return getAppSettings().then(appSettings => {
     initedApiParams = true;
 
-    apiParams += `app_version=${appSettings.appVersion}&channel=${appSettings.channel}&`;
-    apiParams += `dev_id=${appSettings.deviceId}&os_type=${appSettings.OS}&`;
-    apiParams += `os_version=${appSettings.osVersion}&uuid=${appSettings.uuid}&`;
+    apiParams.channel = appSettings.channel;
+    apiParams.uuid = appSettings.uuid;
   });
 
 
@@ -105,13 +118,14 @@ void function setupLocation() {
     coords = position.coords;
     coords.longitude = Math.abs(coords.longitude);
 
-    apiParams += `lati=${coords.latitude}&long=${coords.longitude}&`;
+    apiParams.lati = coords.latitude;
+    apiParams.long = coords.longitude;
 
   }, console.log, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }();
 
 function setupCity() {
   return AsyncStorage.getItem('geoLocation').then(city => {
-    apiParams += `city=${city}`;
-  })
+    apiParams.city = city || '';
+  }).catch(console.log)
 };
