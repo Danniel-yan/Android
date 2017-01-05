@@ -25,7 +25,8 @@ class LoanForm extends Component {
     super(props);
 
     this.state = {
-      mobile: props.mobile,
+      amount: props.amount,
+      card_no: '',
       idFront: '',
       idBack: '',
       cardFront: '',
@@ -34,23 +35,36 @@ class LoanForm extends Component {
   }
 
   render() {
-    let { idFront, idBack, cardFront } = this.state;
-    const disabled = !(idFront && idBack && cardFront);
+    let { idFront, idBack, cardFront, } = this.state;
+    const disabled = !(idFront && idBack && cardFront) || !card_no || !mobile;
 
     return (
       <ScrollView>
         <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
 
         <View style={[styles.container, {paddingBottom: 30}]}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'idFront')} label="身份证正面" example={require('assets/online/id-front.png')}/>
+          <CameraInput
+            type="idFront"
+            onChange={this._onInputChange.bind(this, 'idFront')}
+            label="身份证正面"
+            example={require('assets/online/id-front.png')}
+          />
 
-          <CameraInput onChange={this._onInputChange.bind(this, 'idBack')} label="身份证反面" example={require('assets/online/id-back.png')}/>
+          <CameraInput
+            type="idBack"
+            onChange={this._onInputChange.bind(this, 'idBack')}
+            label="身份证反面"
+            example={require('assets/online/id-back.png')}/>
         </View>
 
         <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
         <View style={styles.container}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'cardFront')} label="信用卡正面" example={require('assets/online/card-front.png')}/>
+          <CameraInput
+            type="bankCard"
+            onChange={this._onInputChange.bind(this, 'cardFront')}
+            label="信用卡正面"
+            example={require('assets/online/card-front.png')}/>
           {this._cardTip()}
         </View>
 
@@ -59,7 +73,7 @@ class LoanForm extends Component {
             style={{wrap: styles.input}}
             label="信用卡号码"
             value={this.state.cardFront}
-            editable={false}
+            valueChanged={this._onInputChange.bind(this, 'cardFront')}
           />
           <InputGroup
             style={{wrap: styles.input}}
@@ -110,6 +124,26 @@ class LoanForm extends Component {
   }
 
   _submit() {
+    this.setState({ error: '', submitting: true})
+
+    return post('/loanctcf/apply', {
+      apply_amount: this.state.amount,
+      credit_card_no: this.state.card_no,
+      credit_card_no_auto: this.state.cardFront.value,
+      credit_card_mobile: this.state.mobile
+    }).then(response => {
+
+      if(response.res == responseStatus.success) {
+        this.setState({ submitting: false })
+        return true;
+      }
+
+      throw response.msg
+    })
+    .catch((msg) => {
+      this.setState({ error: msg })
+      throw msg;
+    })
   }
 }
 

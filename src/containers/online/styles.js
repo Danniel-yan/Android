@@ -4,13 +4,11 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   btn: {
+    margin: 10,
     marginTop: responsive.height(60),
     backgroundColor: colors.primary,
     height: 42,
     borderRadius: 4,
-  },
-  btnOffset: {
-    margin: 10
   },
   btnDisable: {
     backgroundColor: '#C8C8C8'
@@ -41,5 +39,5 @@ export default StyleSheet.create({
     zIndex: 2,
     fontSize: fontSize.xsmall,
     color: colors.error
-  }
+  },
 });

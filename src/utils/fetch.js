@@ -10,7 +10,7 @@ let coords = null;
 let initedApiParams = false;
 
 let environment;
-let apiParams;
+let apiParams = '';
 let userToken;
 
 const headers = {
@@ -76,6 +76,7 @@ function setupParams() {
   return AsyncStorage.getItem('environment')
     .then(env => environment = environments[env] || environments[environments.defaultEnvironment])
     .then(setApiParams)
+    .then(setupCity)
 }
 
 function setApiParams() {
@@ -85,7 +86,7 @@ function setApiParams() {
   return getAppSettings().then(appSettings => {
     initedApiParams = true;
 
-    apiParams = `app_version=${appSettings.appVersion}&channel=${appSettings.channel}&`;
+    apiParams += `app_version=${appSettings.appVersion}&channel=${appSettings.channel}&`;
     apiParams += `dev_id=${appSettings.deviceId}&os_type=${appSettings.OS}&`;
     apiParams += `os_version=${appSettings.osVersion}&uuid=${appSettings.uuid}&`;
   });
@@ -108,3 +109,9 @@ void function setupLocation() {
 
   }, console.log, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }();
+
+function setupCity() {
+  return AsyncStorage.getItem('geoLocation').then(city => {
+    apiParams += `city=${city}`;
+  })
+};

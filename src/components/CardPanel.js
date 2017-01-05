@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
   View,
-  Image,
   StyleSheet
 } from 'react-native';
 
 import Text from 'components/shared/Text';
+import RemoteImage from 'components/shared/RemoteImage';
 import { responsive, container, colors } from 'styles';
 import Dimensions from 'Dimensions';
 
@@ -14,7 +14,7 @@ export default (props) => {
 
   return (
     <View style={[styles.panel, style]}>
-      <Image source={{uri: props.pic_card}} style={styles.logo}/>
+      <RemoteImage uri={props.pic_card} style={styles.logo}/>
 
       <View style={container}>
         <Text

@@ -14,14 +14,14 @@ import {
 import Text from 'components/shared/Text';
 import { get } from 'utils/fetch';
 import * as defaultStyles from 'styles';
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import alert from 'utils/alert';
 import Loading from 'components/shared/Loading';
 
 const sectionHeaderHeight = 30;
 const sectionRowHeight = 40;
-const rowBorderWidth = 1;
+const rowBorderWidth = 0.5;
 
 export default class LocationPicker extends PureComponent {
 
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center',
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
 
   rowTxt: {

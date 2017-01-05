@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 const ShareModuel = NativeModules.ShareUtilModule;
+const defaultIcon = 'http://sys-php.oss-cn-shanghai.aliyuncs.com/chaoshi/res/logos/chaoshi-logo.png';
 
 import Button from 'components/shared/ButtonBase';
 import Text from 'components/shared/Text';
@@ -120,9 +121,9 @@ class ShareItem extends Component {
   _share() {
     let { config, share, onError, onCancel, onSuccess, onBackApp } = this.props;
 
-    config.icon_url = config.icon || 'http://sys-php.oss-cn-shanghai.aliyuncs.com/chaoshi/res/logos/chaoshi-logo.png';
+    let shareConfig = Object.assign({}, config, { icon_url: config.icon || defaultIcon} );
 
-    share(config).then(res => {
+    share(shareConfig).then(res => {
       onBackApp && onBackApp(res)
 
       res.success && onSuccess && onSuccess(res);

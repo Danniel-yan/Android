@@ -15,28 +15,36 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import Loading from 'components/shared/Loading';
 
 import CardArticalListItem from 'components/CardArticalListItem';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
-function CardArticals(props) {
+class CardArticals extends Component {
+  tracking() {
+    return {key: 'card', topic: 'btn_sec_2.1', entity: 'guide'}
+  }
 
-  let articals = props.articals.map((artical, index) => {
+  render() {
+    console.log('articals ',this.props);
+    let props = this.props;
+    let articals = props.articals.map((artical, index) => {
+      return (
+        <ExternalPushLink
+          title="办卡攻略"
+          key={"artical"+index}
+          toKey="CardArticalDetail"
+          componentProps={{fetchingParams: artical.id}}
+          >
+          <CardArticalListItem {...artical}/>
+        </ExternalPushLink>
+      ) 
+    })
+
     return (
-      <ExternalPushLink
-        title="办卡攻略"
-        key={"artical"+index}
-        toKey="CardArticalDetail"
-        componentProps={{fetchingParams: artical.id}}
-        >
-        <CardArticalListItem {...artical}/>
-      </ExternalPushLink>
-    ) 
-  })
+      <ScrollView style={dstyles.container}>
+        {articals}
+      </ScrollView>
+    )
 
-  return (
-    <ScrollView style={dstyles.container}>
-      {articals}
-    </ScrollView>
-  )
-
+  }
 }
 
 
@@ -51,4 +59,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, CardArticals));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AsynCpGenerator(Loading, trackingScene(CardArticals)));

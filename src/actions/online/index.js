@@ -1,3 +1,4 @@
+import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
 import submitCreditCard from './submitCreditCard';
@@ -8,11 +9,16 @@ import yysResult from './yysResult';
 import yysForms from './yysForms';
 import preloanStatus from './preloanStatus';
 import preloan from './preloan';
-import approveStatus from './approveStatus';
+import applyResult from './applyResult';
+import contractBanks from './contractBanks';
+import loanDetail from './loanDetail';
 
 export default {
+  loanDetail,
+  contractBanks,
+  applyResult,
+  status,
   banks,
-  approveStatus,
   preloan,
   preloanStatus,
   bankDetail,

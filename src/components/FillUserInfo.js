@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox'
@@ -66,6 +66,48 @@ export default class FillUserInfo extends Component {
     if(user && user.id_no) {
       this.props.onSubmitSuccess(user);
     }
+  }
+
+  _validation() {
+    if(!this.formChanged) {
+      return false;
+    }
+
+    let { editableMobile, checkedAgreement, username, verifyCode, mobile, idNO, job, creditStatus, realname } = this.state;
+
+    const validMobile = validators.mobile(mobile);
+    const validVerifyCode = !editableMobile || editableMobile && verifyCode.length > 0;
+    const validName = realname.length >= 2;
+    const validID = validators.idNO(idNO);
+    const validAgreement = !editableMobile || editableMobile && checkedAgreement;
+
+    if(!validName) {
+      this.setState({error: '请输入有效的名字'});
+      return false;
+    }
+
+    if(!validID) {
+      this.setState({error: '请输入有效的身份证号'});
+      return false;
+    }
+
+    if(!validMobile) {
+      this.setState({error: '请输入正确的手机号'});
+      return false;
+    }
+
+    if(!validVerifyCode) {
+      this.setState({error: '请输入验证码'});
+      return false;
+    }
+
+    if(!validAgreement) {
+      this.setState({error: '请接受钞市服务协议'});
+      return false;
+    }
+
+    this.setState({error: ''});
+    return true;
   }
 
   render() {
@@ -161,15 +203,18 @@ export default class FillUserInfo extends Component {
             { editableMobile  && (
               <View style={styles.txtRow}>
                 <Checkbox checked={checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
-                <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
+                <Text onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
                 <WebLink
-                  source={require('./agreement.html')}
+                  source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
                   toKey="Agreement"
                   text="《钞市服务协议》" title="《钞市服务协议》"
                 />
               </View>
             )}
 
+            <View style={styles.txtRow}>
+              <Text style={styles.error}>{this.state.error}</Text>
+            </View>
           </View>
 
         </ScrollView>
@@ -181,7 +226,7 @@ export default class FillUserInfo extends Component {
             processing={this.props.update.submitting}
             style={styles.btn}
             textStyle={styles.btnText}
-            disabled={!(validAgreement && validName && validMobile && validVerifyCode && validID)}
+            disabled={this.state.error !== ''}
             onPress={this._submit.bind(this)}/>
         </View>
       </View>
@@ -196,12 +241,16 @@ export default class FillUserInfo extends Component {
   }
 
   _inputChange(field, value) {
-    this.setState({ [field]: value });
+    this.formChanged = true;
+    this.setState({ [field]: value }, this._validation.bind(this));
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+  },
+  error: {
+    color: colors.error
   },
 
   formControl: {
@@ -238,8 +287,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     justifyContent: 'center'
   },
 

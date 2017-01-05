@@ -7,8 +7,9 @@ import {
 
 import Button from 'components/shared/ButtonBase';
 import ShareModal from 'components/modal/Share';
+import { IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
 
-export default class ShareButton extends Component {
+class ShareButton extends Component {
 
   constructor(props) {
     super(props);
@@ -19,6 +20,8 @@ export default class ShareButton extends Component {
   }
 
   render() {
+    if(this.props.isIOSVerifying) { return null }
+
     return (
       <Button style={styles.btn} onPress={() => this.setState({showModal: true})}>
         <Image source={require('assets/share-icons/share.png')}/>
@@ -28,6 +31,8 @@ export default class ShareButton extends Component {
     );
   }
 }
+
+export default IOSComponentSwitcher(ShareButton, null);
 
 const styles = StyleSheet.create({
   btn: {

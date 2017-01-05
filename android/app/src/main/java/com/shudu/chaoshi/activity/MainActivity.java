@@ -1,7 +1,6 @@
 package com.shudu.chaoshi.activity;
 
 import android.os.Bundle;
-
 import com.facebook.react.ReactActivity;
 import com.shudu.chaoshi.MainApplication;
 import com.umeng.analytics.MobclickAgent;

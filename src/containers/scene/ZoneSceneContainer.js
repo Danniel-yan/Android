@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
 import NextIcon from 'components/shared/NextIcon';
+import Button from 'components/shared/ButtonBase';
 import { ExternalPushLink } from 'containers/shared/Link';
 import SceneHeader from 'components/shared/SceneHeader';
 import zoneStyles from './zone/zoneStyles';
@@ -77,10 +78,21 @@ class ZoneScene extends Component {
             </View>
           </ExternalPushLink>
 
+          <Button onPress={this._service.bind(this)}>
+            <View style={zoneStyles.item}>
+            <Image style={zoneStyles.icon} source={require('assets/zone/service.png')}/>
+            <Text style={zoneStyles.txt}>用户反馈</Text>
+            <NextIcon/>
+            </View>
+          </Button>
         </ScrollView>
 
       </View>
     );
+  }
+
+  _service() {
+    NativeModules.FeedbackModule.openFeedback();
   }
 
   _loginInfo() {

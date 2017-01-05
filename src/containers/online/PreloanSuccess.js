@@ -8,7 +8,7 @@ import {
   Text
 } from 'react-native';
 
-import ProcessingButton from 'components/shared/ProcessingButton';
+import { ExternalPushLink } from 'containers/shared/Link';
 import RangeInput from 'components/shared/RangeInput';
 import onlineStyles from './styles';
 import ExpireGroup  from './ExpireGroup';
@@ -20,7 +20,6 @@ class PreloanSuccess extends Component {
     super(props);
 
     this.state = {
-      submitting: false,
       amount: props.data.sug_loan_amount,
     }
 
@@ -61,10 +60,11 @@ class PreloanSuccess extends Component {
 
         <ExpireGroup style={styles.tip} date={this.props.data.time_expire}/>
 
-        <ProcessingButton
-          processing={this.state.submitting}
+        <ExternalPushLink
+          toKey="OnlineLoanForm"
+          title="借款申请"
+          componentProps={{ amount: this.state.amount }}
           text="立即申请"
-          onPress={this._submit.bind(this)}
           style={[onlineStyles.btn, onlineStyles.btnOffset ]}
           textStyle={onlineStyles.btnText}
         />
@@ -75,9 +75,6 @@ class PreloanSuccess extends Component {
 
   _formChange(name, value) {
     this.setState({ [name]: value })
-  }
-
-  _submit() {
   }
 
 }

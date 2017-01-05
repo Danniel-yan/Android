@@ -1,6 +1,6 @@
 
 import { StyleSheet } from 'react-native';
-import { colors, fontSize } from 'styles/varibles';
+import { border, colors, fontSize } from 'styles';
 import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
@@ -92,9 +92,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',
-    borderTopWidth:1,
-    borderStyle : 'solid',
-    borderTopColor: colors.line,
+    ...border('top'),
     paddingTop:8,
     paddingBottom:8
   },
@@ -117,9 +115,7 @@ export default StyleSheet.create({
   moreBank:{
     width: Dimensions.get('window').width / 2 -1,
     height:100,
-    borderRightWidth:1,
-    borderRightColor: colors.line,
-    borderStyle : 'solid',
+    ...border('right'),
     justifyContent: 'center',
     alignItems:'center'
   },
@@ -130,9 +126,7 @@ export default StyleSheet.create({
     paddingLeft:15,
     paddingRight:15,
     flexDirection: 'row',
-    borderBottomWidth:1,
-    borderStyle : 'solid',
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     marginTop:5
   },
   carLogo:{
@@ -147,15 +141,12 @@ export default StyleSheet.create({
   shopLogo:{
     width:50,
     height:50,
-    borderWidth:1,
-    borderColor: colors.line
   },
   flexContainerRow:{
     flexDirection: 'row',
     paddingVertical:15,
     paddingHorizontal:10,
-    borderBottomWidth:1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
   rightContainer : {
     paddingLeft : 10,

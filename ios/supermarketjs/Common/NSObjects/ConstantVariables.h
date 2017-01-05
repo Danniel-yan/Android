@@ -47,3 +47,16 @@ extern NSString  *MKWeChatAppSecret;
 extern NSString  *MKQQAppID;
 extern NSString  *MKQQAppKey;
 
+/**
+ * 阿里百川 Key
+ */
+//阿里百川
+extern NSString* MKOpenIMUserId ;
+extern NSString* MKOpenIMPassword ;
+extern NSString* MKOpenIMAPPKey ;
+
+
+
+
+
+

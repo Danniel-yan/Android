@@ -18,7 +18,7 @@ import SettingScene from 'containers/scene/zone/SettingSceneContainer';
 import BankCardListScene from 'containers/scene/card/BankCardListContainer';
 import UserInfo from 'containers/scene/zone/UserInfo';
 import CardListByCategory from 'containers/scene/card/CardListByCategory';
-import CardProcessList from 'containers/scene/card/CardProcessList';
+import CardProgressList from 'containers/scene/card/CardProgressList';
 import CardArticals from 'containers/scene/CardArticals';
 import CardArticalDetail from 'containers/scene/CardArticalDetail';
 import CertificationHome from 'containers/online/CertificationHome';
@@ -37,12 +37,14 @@ import OnlineApproveStatus from 'containers/online/ApproveStatus';
 import OnlineLoanSign from 'containers/online/LoanSign';
 import OnlineReceiptCard from 'containers/online/ReceiptCard';
 import OnlineSignSuccess from 'containers/online/SignSuccess';
+import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
   { key: 'OnlineYysForm', module: OnlineYysForm },
+  { key: 'OnlineLoanDetail', module: OnlineLoanDetail },
   { key: 'OnlineTrialRefundPlan', module: OnlineTrialRefundPlan },
   { key: 'OnlineSignSuccess', module: OnlineSignSuccess },
   { key: 'OnlineReceiptCard', module: OnlineReceiptCard },
@@ -62,7 +64,7 @@ import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
   { key: 'CardArticals', module: CardArticals },
   { key: 'CardArticalDetail', module: CardArticalDetail },
   { key: 'CardListByCategory', module: CardListByCategory },
-  { key: 'CardProcessList', module: CardProcessList },
+  { key: 'CardProgressList', module: CardProgressList },
   { key: 'SettingScene', module: SettingScene },
   { key: 'ContactScene', module: ContactScene },
   { key: 'MessagesScene', module: MessagesScene},

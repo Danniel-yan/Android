@@ -19,20 +19,15 @@ import SubmitButton from './SubmitButton';
 import Banner from './Banner';
 
 
-const approveStatus = {
-  success: 1,
-  failure: 0,
-  expire: 2
-}
-
 function ApproveStatus(props) {
 
-  if(props.status == approveStatus.success) {
-    return (<ApproveSuccess {...props}/>);
-  } else if(props.status == approveStatus.failure) {
-    return (<ApproveFailure {...props}/>);
-  } else if(props.status == approveStatus.expire) {
+  //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
+  if(props.status == 10 && props.time_expire_status == 1) {
     return (<ApproveExpire {...props}/>);
+  } else if(props.status == 10) {
+    return (<ApproveSuccess {...props}/>);
+  } else if(props.status == 9 || props.status == 7) {
+    return (<ApproveFailure {...props}/>);
   } else {
     return (<Approving {...props}/>);
   }
@@ -126,9 +121,9 @@ function ApproveExpire(props) {
       <LoanDetailPanel {...data}/>
 
       <SubmitButton
-        title="签约"
+        title="信息认证"
         offset={true}
-        toKey="OnlineLoanSign"
+        toKey="CertificationHome"
         text="重新申请"/>
     </ScrollView>
   );
@@ -159,12 +154,12 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return state.online.approveStatus;
+  return state.online.status;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(actions.approveStatus()),
+    fetching: () => dispatch(actions.status()),
   }
 }
 
