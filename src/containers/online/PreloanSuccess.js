@@ -58,7 +58,7 @@ class PreloanSuccess extends Component {
             max={data.sug_loan_amount}/>
         </View>
 
-        <ExpireGroup style={styles.tip} date={this.props.data.time_expire}/>
+        <ExpireGroup style={styles.tip} date={this.props.onlineStatus.time_expire}/>
 
         <ExternalPushLink
           toKey="OnlineLoanForm"
@@ -131,7 +131,10 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return state.online.preloanStatus;
+  return {
+    ...state.online.preloanStatus,
+    onlineStatus: state.online.status
+  };
 }
 
 function mapDispatchToProps(dispatch) {

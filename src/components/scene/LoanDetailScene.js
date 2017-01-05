@@ -227,7 +227,6 @@ export default class LoanDetailScene extends Component {
     if(this.props.isIOSVerifying) { return null; }
 
     let detail = this.props.detail;
-    let logined = this.props.loginUser.info;
 
     if(this.props.detail.loan_type == loanType.chaoshidai) {
       return (
@@ -271,32 +270,36 @@ export default class LoanDetailScene extends Component {
   }
 
   _chaoshidaiNextRoute() {
+    let logined = this.props.loginUser.info;
     let { onlineStatus } = this.props;
+    let { status, time_expire_status } = onlineStatus;
 
-    //进度状态：0=提交初筛，1=初筛失败，2=初筛通过，3=已申请预授信，4=预授信失败，5=预授信成功，11=提交合同，12=合同提交中，13=提交成功,14=放款失败，15=放款成功，100=没有贷款申请信息
- 
-    if(onlineStatus < 2) {
+    if(!logined) {
+      return { toKey: 'Login', title: '登录'};
+    }
+
+    if(status < 2) {
       return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
     }
 
-    if(onlineStatus == 5) {
-      return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
-    }
-
-    if(onlineStatus == 4) {
+    if(status == 5 && time_expire_status == 1) {
       return {toKey: 'OnlinePreloanExpire', title: '预授信申请结果'};
     }
 
+    if(status == 5) {
+      return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
+    }
+
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-    if([6, 7, 8, 9, 10].includes(onlineStatus)) {
+    if([6, 7, 8, 9, 10].includes(status)) {
       return {toKey: 'OnlineApproveStatus', title: '审批状态'};
     }
 
-    if([11, 12, 13, 14].includes(onlineStatus)) {
+    if([11, 12, 13, 14].includes(status)) {
       return {toKey: 'OnlineSignSuccess', title: '签约'};
     }
 
-    if([15].includes(onlineStatus)) {
+    if([15].includes(status)) {
       return {toKey: 'OnlineLoanDetail', title: '借款详情'};
     }
 

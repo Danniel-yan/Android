@@ -8,7 +8,7 @@ import {
   ScrollView
 } from 'react-native';
 
-import { ExternalReplaceLink } from 'containers/shared/Link';
+import { ExternalPushLink } from 'containers/shared/Link';
 import RecommendListPanel from 'containers/scene/home/RecommendListContainer';
 import { container, colors, fontSize, centering} from 'styles';
 import onlineStyles from './styles';
@@ -41,7 +41,7 @@ function PreloanExpire(props) {
         <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
       </View>
 
-      <ExternalReplaceLink
+      <ExternalPushLink
         title="信息认证"
         style={[onlineStyles.btn, {marginHorizontal: 10, marginTop: 80}]}
         textStyle={onlineStyles.btnText}

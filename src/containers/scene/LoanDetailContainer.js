@@ -28,7 +28,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...detail,
-    onlineStatus: state.online.status.status,
+    onlineStatus: state.online.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
