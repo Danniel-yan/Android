@@ -1,40 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_launcher"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="30dp"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_surpermarket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击钞市主页面" />
-        <!--<Button
-            android:id="@+id/btn_faceverify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击人脸识别检测" />-->
-
-        <Button
-            android:id="@+id/btn_bankcardverify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击银行卡识别检测" />
-
-        <Button
-            android:id="@+id/btn_idcardverify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击身份证识别检测" />
-
-    </LinearLayout>
+    android:background="@mipmap/bg_launcher">
 
 </LinearLayout>

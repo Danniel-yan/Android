@@ -77,6 +77,7 @@ public class BitmapUtils {
         //打开图片获取分辨率
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return new String(Base64.encode(baos.toByteArray()), "utf-8");
     }
 

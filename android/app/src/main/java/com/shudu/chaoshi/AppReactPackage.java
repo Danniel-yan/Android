@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.shudu.chaoshi.module.ChannelModule;
 import com.shudu.chaoshi.module.DeviceInfoModule;
+import com.shudu.chaoshi.module.FaceMegModule;
 import com.shudu.chaoshi.module.FeedbackModule;
 import com.shudu.chaoshi.module.JpushModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
@@ -30,7 +31,8 @@ public class AppReactPackage implements ReactPackage {
                 new ChannelModule(reactContext),
                 new DeviceInfoModule(reactContext),
                 new ShareUtilModule(reactContext),
-                new FeedbackModule(reactContext)
+                new FeedbackModule(reactContext),
+                new FaceMegModule(reactContext)
         });
     }
 

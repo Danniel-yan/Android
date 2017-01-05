@@ -19,10 +19,6 @@ import com.shudu.chaoshi.activity.FaceIDCardScanActivity;
 import com.shudu.chaoshi.util.Base64;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by yshr on 16/12/30.
@@ -36,7 +32,6 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
     private int REQUEST_IDCARDBACK = 3; // 身份证反面识别
 
     private Promise mPromise;
-    private String uuid;
     private String strImage;
     private String strPortraitImg;
 
@@ -53,8 +48,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 writableNativeMap.putString("value", bankNum);
                 writableNativeMap.putArray("images", writableArray);
                 mPromise.resolve(writableNativeMap);
-            }
-            if (requestCode == REQUEST_IDCARDFRONT && resultCode == Activity.RESULT_OK) {
+            } else if (requestCode == REQUEST_IDCARDFRONT && resultCode == Activity.RESULT_OK) {
                 byte[] idcardImgData = data.getByteArrayExtra("idcardImg");
                 byte[] portraitImg = data.getByteArrayExtra("portraitImg");
                 try {
@@ -71,8 +65,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 writableNativeMap.putString("value", "");
                 writableNativeMap.putArray("images", writableArray);
                 mPromise.resolve(writableNativeMap);
-            }
-            if (requestCode == REQUEST_IDCARDBACK && resultCode == Activity.RESULT_OK) {
+            } else if (requestCode == REQUEST_IDCARDBACK && resultCode == Activity.RESULT_OK) {
                 byte[] idcardImgData = data.getByteArrayExtra("idcardImg");
                 try {
                     strImage = new String(Base64.encode(idcardImgData), "utf-8");
@@ -107,6 +100,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void idCardVerifyFromFront(Promise promise) {
+        mPromise = promise;
         try {
             Intent intent = new Intent(mContext,
                     FaceIDCardScanActivity.class);
@@ -121,7 +115,8 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void idCardVerifyFromBack() {
+    public void idCardVerifyFromBack(Promise promise) {
+        mPromise = promise;
         try {
             Intent intent = new Intent(mContext,
                     FaceIDCardScanActivity.class);
