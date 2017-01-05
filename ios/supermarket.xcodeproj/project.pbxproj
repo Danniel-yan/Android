@@ -824,6 +824,8 @@
 				A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */,
 			);
 			path = MegBankCard;
+			sourceTree = "<group>";
+		};
 		A639C5451E10EAFA0036819E /* YWFramework */ = {
 			isa = PBXGroup;
 			children = (
