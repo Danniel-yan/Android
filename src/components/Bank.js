@@ -18,12 +18,13 @@ import {
   fontSize
 } from 'styles';
 
+import RemoteImage from 'components/shared/RemoteImage';
 import { OneLineText } from 'components/shared/Text';
 
 export default ({ name, image, info, style }) => {
   return (
     <View style={[centering, styles.bank]}>
-      <Image style={styles.icon} source={{uri: image}}/>
+      <RemoteImage style={styles.icon} uri={image}/>
       <View style={[styles.content, container]}>
         <OneLineText style={styles.name}>{name}</OneLineText>
         { !info ? null : <OneLineText style={styles.info}>{info}</OneLineText>}

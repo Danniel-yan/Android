@@ -57,7 +57,7 @@ export default class ExternalNavigation extends Component {
       return false;
     }
 
-    alert('请再按一次返回键退出钞市');
+    alert('再按一次退出钞市应用');
 
     // 连续两次回退按钮推出应用
     this.exitTimer = setTimeout(() => {

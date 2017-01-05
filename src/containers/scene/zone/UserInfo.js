@@ -121,7 +121,7 @@ class UserInfo extends AbstractScene {
             color={colors.secondary} processing={this.props.update.submitting}
             style={zoneStyles.btn}
             textStyle={zoneStyles.btnText}
-            disabled={!(validName && validMobile && validID)} onPress={this._submit.bind(this)} text="保存"/>
+            onPress={this._submit.bind(this)} text="保存"/>
 
         </ScrollView>
       </View>

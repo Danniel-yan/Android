@@ -56,8 +56,16 @@ export default class LoanDetailScene extends Component {
     this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
   }
 
-  changeAmount(amount) {
-    this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
+  _formChange(name, value) {
+    this.setState({ [name]: value })
+  }
+
+  _fetchRepay() {
+    this.props.fetchRepay({
+      id: this.state.id,
+      amount: parseInt(this.state.amount),
+      period: this.state.value
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,8 +103,8 @@ export default class LoanDetailScene extends Component {
                       underlineColorAndroid={'transparent'}
                       style={[styles.selectBox, styles.pickerTxt]}
                       keyboardType={'numeric'}
-                      onChangeText={(amount) => { this.setState({amount}); }}
-                      onBlur={(amount) => this.changeAmount(amount)}
+                      onChangeText={this._formChange.bind(this, 'amount')}
+                      onBlur={this._fetchRepay.bind(this)}
                       value={this.state.amount}/>
                     <Text>元</Text>
                   </View>
@@ -184,7 +192,9 @@ export default class LoanDetailScene extends Component {
           style={styles.selectBox}
           textStyle={styles.pickerTxt}
           value={ this.state.value }
-          onChange={(value)=>{ this.props.fetchRepay({id:this.state.id,amount: this.state.amount ,period: value})}}
+          onChange={value => {
+            this.setState({value}, this._fetchRepay.bind(this))
+          }}
           items={ periodList }
           />
       )

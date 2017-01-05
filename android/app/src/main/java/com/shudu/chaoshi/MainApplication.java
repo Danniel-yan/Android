@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -81,6 +82,7 @@ public class MainApplication extends Application implements ReactApplication {
             MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Constants.UMENG_APPKEY, channel));
         JpushUtil.init(mContext);
         ShareSDK.initSDK(mContext, "19f8ff0f510f0");
+        FeedbackAPI.init(this, "23579028");
         ShareUtil.setAppKey();
         ToastHelper.init(mContext);
         IdCardInit.netWorkWarranty(mContext);

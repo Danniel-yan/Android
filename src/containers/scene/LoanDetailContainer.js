@@ -18,9 +18,16 @@ import onlineActions from 'actions/online';
 import { loanType } from 'constants';
 
 function mapStateToProps(state, ownProps) {
+  let detail = { ...state.loanDetail };
+
+  if(state.loanDetail.fetchedParams != ownProps.fetchingParams) {
+    detail.isFetching = true;
+    detail.fetched = false;
+    detail.detail = {};
+  }
+
   return {
-    ...state.loanDetail,
-    onlineStatus: state.online.status.status,
+    ...detail,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
