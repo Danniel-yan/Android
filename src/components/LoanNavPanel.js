@@ -33,11 +33,11 @@ class LoanNavPanel extends Component {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC(true, token)) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn(true)) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(false, token);
+      this.navToPBOC(fromLogin, token);
     });
   }
 
