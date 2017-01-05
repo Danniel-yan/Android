@@ -50,7 +50,7 @@ public class IDCardIndicator extends View {
 
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
+							int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
 		int width = right - left;
 		int height = bottom - top;
@@ -77,20 +77,20 @@ public class IDCardIndicator extends View {
 		int height_1 = (int) ((mBankCardDrawRect.right - mBankCardDrawRect.left) / 3.78f);
 		//显示得银行卡号高度
 		float numHeight = IDCARD_NUMRATIO * height_1;
-		
+
 		float height_value = (height_1 - numHeight) / 2;
-		
+
 		mBankCardDrawRect.left = centerX - content_width / 2;
 		mBankCardDrawRect.top = centerY - height_1 / 4;
 		mBankCardDrawRect.right = centerX + content_width / 2;
 		mBankCardDrawRect.bottom = centerY + height_1 - height_1 / 4;
-		
+
 		Log.w("ceshi", "numHeight===" + numHeight + ", content_height===" + content_height);
 		mBankCardShowDrawRect.left = mBankCardDrawRect.left;
 		mBankCardShowDrawRect.top = mBankCardDrawRect.top + (int)height_value;
 		mBankCardShowDrawRect.right = mBankCardDrawRect.right;
 		mBankCardShowDrawRect.bottom = mBankCardDrawRect.bottom - (int)height_value;
-		
+
 		// mDrawRect = mBankCardDrawRect;
 		Log.w("ceshi", "idcardindicator++++mDrawRect===" + mDrawRect);
 	}
