@@ -11,6 +11,7 @@ import {
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 import { ExternalPushLink } from 'containers/shared/Link';
+import alert from 'utils/alert';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
@@ -40,6 +41,7 @@ export default class LoanDetailScene extends Component {
     var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
     this.state = {
+      checkingGPS: false,
       amount: repayParams ? repayParams.amount.toString() : String(props.detail.amount_min),
       value: repayParams ? repayParams.period : props.detail.period_list[0],
       id: repayParams ? repayParams.id : props.detail.id
@@ -231,6 +233,7 @@ export default class LoanDetailScene extends Component {
     if(this.props.detail.loan_type == loanType.chaoshidai) {
       return (
         <ExternalPushLink
+          processing={this.state.checkingGPS}
           {...this._chaoshidaiRouteProps()}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
@@ -308,6 +311,20 @@ export default class LoanDetailScene extends Component {
       return {toKey: 'OnlineLoanDetail', title: '借款详情'};
     }
 
-    return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
+    return { toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)};
+  }
+
+  checkGPS() {
+    this.setState({ checkingGPS: true })
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState({ checkingGPS: false })
+        resolve('');
+      }, () => {
+        alert('请打开定位');
+        this.setState({ checkingGPS: false })
+        reject('');
+      });
+    })
   }
 }

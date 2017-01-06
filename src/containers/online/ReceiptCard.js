@@ -86,7 +86,8 @@ class ReceiptCard extends Component {
         <ErrorInfo msg={this.state.error}/>
 
         <SubmitButton
-          backCount={1}
+          processing={this.state.submitting}
+          backRoute={{ backCount: 1}}
           disabled={!!formError || !this.changed}
           onPress={this.submit.bind(this)}
           text="提交"
@@ -106,7 +107,7 @@ class ReceiptCard extends Component {
   }
 
   submit() {
-    this.setState({ submitting: true });
+    this.setState({ submitting: true, error: '' });
 
     let { mobile, bank_card_no, bank_name } = this.state;
 

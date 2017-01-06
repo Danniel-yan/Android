@@ -70,13 +70,8 @@ function ApproveFailure(props) {
 
 function ApproveSuccess(props) {
 
-  let data = {
-    sug_loan_amount: 15000,
-    sug_term: 24,
-    interest_down: 1.2,
-    interest_up: 1.7,
-    tiem_expire: '2016-12-31 00:00:00'
-  }
+  let data = props.resultdata;
+  console.log(data)
 
   return (
     <ScrollView>
@@ -87,7 +82,7 @@ function ApproveSuccess(props) {
 
       <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
       <LoanDetailPanel {...data}/>
-      <ExpireGroup style={styles.time} date={data.tiem_expire}/>
+      <ExpireGroup style={styles.time} date={props.time_expire}/>
 
       <SubmitButton
         title="签约"
@@ -154,12 +149,18 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return state.online.status;
+  return { 
+    ...state.online.applyResult,
+    ...state.online.status,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(actions.status()),
+    fetching: () => {
+      dispatch(actions.status());
+      dispatch(actions.applyResult());
+    }
   }
 }
 

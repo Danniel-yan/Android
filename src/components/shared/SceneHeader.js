@@ -40,11 +40,9 @@ export default class SceneHeader extends Component {
   }
 
   _renderBack() {
-    let backRoute = this.props.backRoute;
+    let backRoute = this.props.backRoute || {};
 
-    if(!backRoute || (backRoute.backCount === 0 && !backRoute.key)) {
-      return null;
-    }
+    if(backRoute.backButton === false) { return null; }
 
     return (
       <View style={styles.left}>

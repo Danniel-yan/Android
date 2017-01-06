@@ -92,16 +92,16 @@ class CertificationHome extends Component {
       </MenuItem>
     );
 
-    if(bankStatus != 0) {
+    if([0,3,5,7].includes(bankStatus)) {
       return (
-        <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
-          {item}
-        </ExternalPushLink>
+        <View>{item}</View>
       );
     }
 
     return (
-      <View>{item}</View>
+      <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
+        {item}
+      </ExternalPushLink>
     );
   }
 
@@ -114,17 +114,17 @@ class CertificationHome extends Component {
       </MenuItem>
     );
 
-    if(yysStatus != 0) {
+    if([0,3,5,7].includes(yysStatus)) {
       return (
-        <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
-          {item}
-        </ExternalPushLink>
+        <View>{item}</View>
       );
     }
 
     return (
-      <View>{item}</View>
-    );
+      <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
+        {item}
+      </ExternalPushLink>
+    )
   }
 
   statusStyle(status) {

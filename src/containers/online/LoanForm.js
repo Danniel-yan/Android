@@ -10,9 +10,11 @@ import {
 import { border, container, rowContainer, colors, fontSize } from 'styles';
 import GroupTitle from 'components/GroupTitle';
 import CameraInput from './CameraInput';
+import { post, responseStatus } from 'utils/fetch';
 import { InputGroup } from 'components/form';
 import { ExternalPushLink } from 'containers/shared/Link';
 import onlineStyles from './styles';
+import ErrorInfo from './ErrorInfo';
 
 const inputStatus = {
   checking: 1,
@@ -38,7 +40,8 @@ class LoanForm extends Component {
   }
 
   render() {
-    let { idFront, idBack, credit_card_no, credit_card_mobile } = this.state;
+    let { idFront, idBack, } = this.state;
+    let { credit_card_no, credit_card_mobile } = this.state.form;
     const disabled = !(idFront && idBack && credit_card_no && credit_card_mobile);
 
     return (
@@ -88,10 +91,12 @@ class LoanForm extends Component {
           />
         </View>
 
+        <ErrorInfo msg={this.state.error}/>
+
         <ExternalPushLink 
           title="审批状态"
           backKey="LoanDetailScene"
-          backCount={2}
+          backRoute={{ key: 'LoanDetailScene' }}
           toKey="OnlineApproveStatus"
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
@@ -153,6 +158,7 @@ class LoanForm extends Component {
     return post('/loanctcf/apply', this.state.form).then(response => {
 
       if(response.res == responseStatus.success) {
+        this.props.fetchStatus();
         this.setState({ submitting: false })
         return true;
       }
@@ -160,7 +166,7 @@ class LoanForm extends Component {
       throw response.msg
     })
     .catch((msg) => {
-      this.setState({ error: msg })
+      this.setState({ submitting: false, error: msg })
       throw msg;
     })
   }
@@ -208,6 +214,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchStatus: () => dispatch(actions.status()),
     fetching: () => {
       dispatch(actions.preloanStatus())
       dispatch(actions.userInfo())

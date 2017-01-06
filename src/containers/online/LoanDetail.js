@@ -14,7 +14,6 @@ import { colors } from 'styles';
 
 class LoanDetail extends Component {
   render() {
-    console.log(this.props);
     let props = this.props;
     const serviceAmount = props.repayPlanResults[0].repayAmount;
     const plans = props.repayPlanResults.slice(1);

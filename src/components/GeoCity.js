@@ -71,7 +71,6 @@ export default class GeoCity extends PureComponent {
   }
 
   _onPress() {
-    tracker.trackAction({ key: 'homepage', topic: 'top', entity: 'postion', event: 'clk'});
     this.setState({showPicker: true})
   }
 

@@ -171,16 +171,14 @@ class UserInfo extends Component {
 
           </View>
 
-          <ErrorInfo msg={error}/>
+          <ErrorInfo msg={error || this.state.error}/>
 
           <SubmitButton
-            key="CertificationHome"
-            title="信息认证"
             processing={this.state.submitting}
             textStyle={styles.btnText}
             disabled={disabled}
             text="去贷款"
-            prePress={this._submit.bind(this)}/>
+            onPress={this._submit.bind(this)}/>
 
         </ScrollView>
 
@@ -195,16 +193,15 @@ class UserInfo extends Component {
       let form = this.state.form;
       navigator.geolocation.getCurrentPosition(position => {
         const coords = position.coords;
-        // TODO remove test coords
-        form.lati = '31.183424'//coords.latitude; 
-        form.long = '121.322987'//Math.abs(coords.longitude);
+        form.lati = coords.latitude; 
+        form.long = Math.abs(coords.longitude);
         form.phone_model = DeviceInfo.getModel();
         form.phone_system_version = DeviceInfo.getSystemVersion();
-        console.log(form)
 
         post('/loanctcf/first-filter', form).then(response => {
-          if(response.res = responseStatus.success) {
+          if(response.res == responseStatus.success) {
             this.setState({ submitting: false})
+            this.props.fetchStatus();
             this.props.goHome();
           } else {
             throw response.msg;
@@ -305,6 +302,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchStatus: () => dispatch(actions.status()),
     fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
     goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' }))
   }

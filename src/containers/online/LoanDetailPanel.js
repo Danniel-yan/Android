@@ -16,9 +16,9 @@ import BankListContainer from 'containers/scene/card/BankListContainer';
 export default function(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <L2RText left="借款额度：" right={props.sug_loan_amount}/>
+      <L2RText left="借款额度：" right={props.approve_amount}/>
       <L2RText left="借款期限：" right={`${props.sug_term}期`}/>
-      <L2RText left="月费率：" right={`${props.interest_down}-${props.interest_up}`}/>
+      <L2RText left="月费率：" right={`${props.month_fee}%`}/>
     </View>
   );
 }

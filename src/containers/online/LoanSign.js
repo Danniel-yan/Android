@@ -44,7 +44,7 @@ class LoanSign extends Component {
           </L2RItem>
 
           <L2RItem left="借款期限" right={loan.sug_term} />
-          <L2RItem left="月服务费率" right={loan.month_fee} />
+          <L2RItem left="月服务费率" right={`${loan.month_fee}%`} />
 
           <ExternalPushLink
             toKey="OnlineTrialRefundPlan"
@@ -110,6 +110,7 @@ class LoanSign extends Component {
       if(response.res == responseStatus.failure) {
         throw response.msg
       }
+      this.props.fetchStatus();
       return true;
     }).catch(err => {
       this.setState({ submitting: false, error: err });
@@ -158,14 +159,20 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
+  let userInfo = state.online.userInfo;
+  let applyResult = state.online.applyResult;
+
   return {
-    userInfo: state.online.userInfo.data,
-    ...state.online.applyResult
+    ...state.online.applyResult,
+    userInfo: userInfo.data,
+    isFetching: userInfo.isFetching || applyResult.isFetching,
+    fetched: userInfo.fetched && applyResult.fetched
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchStatus: () => dispatch(actions.status()),
     fetching: () => {
       dispatch(actions.applyResult())
       dispatch(actions.userInfo())

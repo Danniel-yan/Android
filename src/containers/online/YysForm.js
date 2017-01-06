@@ -231,7 +231,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backRoute: {backCount: 0}})),
+    loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backRoute: {key: 'CertificationHome', backButton: false}})),
     fetching: () => dispatch(actions.yysForms())
   }
 }
