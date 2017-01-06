@@ -52,7 +52,6 @@ public class FaceBankCardScanActivity extends Activity implements
     BankCardIndicator mIndicatorView;
     private IDCardIndicator mIDCardIndicator;
     ImageView image, image2;
-    private Rect roi_temp;
 
     private DecodeThread mDecoder = null;
     private Camera.Size mBestPreviewSize = null;
@@ -301,7 +300,7 @@ public class FaceBankCardScanActivity extends Activity implements
                             imageHeight, Angle);
                     imageWidth = mBestPreviewSize.height;
                     imageHeight = mBestPreviewSize.width;
-                    RectF rectF = mIDCardIndicator.getBankCardPosition();
+                    RectF rectF = mIDCardIndicator.getPosition();
                     if (!isAllBankCard)
                         rectF = mIndicatorView.getPosition();
                     Rect roi = new Rect();
@@ -318,8 +317,8 @@ public class FaceBankCardScanActivity extends Activity implements
                         roi.right = roi.right - 1;
                     if (!isEven01(roi.bottom))
                         roi.bottom = roi.bottom - 1;
-                    RectF rectF_temp = mIDCardIndicator.getPosition();
-                    roi_temp = new Rect();
+                    RectF rectF_temp = mIDCardIndicator.getBankCardPosition();
+                    Rect roi_temp = new Rect();
                     roi_temp.left = (int) (rectF_temp.left * imageWidth);
                     roi_temp.top = (int) (rectF_temp.top * imageHeight);
                     roi_temp.right = (int) (rectF_temp.right * imageWidth);
@@ -335,7 +334,7 @@ public class FaceBankCardScanActivity extends Activity implements
                     final long startTime = System.currentTimeMillis();
                     BankCardResult bankCardResult = mRecognition
                             .recognizeNV21Data(imgData, imageWidth,
-                                    imageHeight, roi);
+                                    imageHeight, roi_temp);
                     final long endTime = System.currentTimeMillis();
 
                     final String num = bankCardResult.bankCardNumber;
@@ -462,7 +461,7 @@ public class FaceBankCardScanActivity extends Activity implements
         YuvImage yuvImage = new YuvImage(data, mCamera.getParameters()
                 .getPreviewFormat(), width, hight, null);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        yuvImage.compressToJpeg(roi_temp, 80, byteArrayOutputStream);
+        yuvImage.compressToJpeg(rect, 80, byteArrayOutputStream);
         byte[] jpegData = byteArrayOutputStream.toByteArray();
         // 获取照相后的bitmap
         final Bitmap tmpBitmap = BitmapFactory.decodeByteArray(jpegData, 0,
