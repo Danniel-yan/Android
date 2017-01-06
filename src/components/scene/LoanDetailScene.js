@@ -56,8 +56,16 @@ export default class LoanDetailScene extends Component {
     this.props.fetchRepay({id:this.state.id, amount: parseInt(this.state.amount), period: this.state.value})
   }
 
-  changeAmount(amount) {
-    this.props.fetchRepay({id:this.state.id,amount: parseInt(this.state.amount) ,period: this.state.value});
+  _formChange(name, value) {
+    this.setState({ [name]: value })
+  }
+
+  _fetchRepay() {
+    this.props.fetchRepay({
+      id: this.state.id,
+      amount: parseInt(this.state.amount),
+      period: this.state.value
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,8 +103,8 @@ export default class LoanDetailScene extends Component {
                       underlineColorAndroid={'transparent'}
                       style={[styles.selectBox, styles.pickerTxt]}
                       keyboardType={'numeric'}
-                      onChangeText={(amount) => { this.setState({amount}); }}
-                      onBlur={(amount) => this.changeAmount(amount)}
+                      onChangeText={this._formChange.bind(this, 'amount')}
+                      onBlur={this._fetchRepay.bind(this)}
                       value={this.state.amount}/>
                     <Text>元</Text>
                   </View>
@@ -184,7 +192,9 @@ export default class LoanDetailScene extends Component {
           style={styles.selectBox}
           textStyle={styles.pickerTxt}
           value={ this.state.value }
-          onChange={(value)=>{ this.props.fetchRepay({id:this.state.id,amount: this.state.amount ,period: value})}}
+          onChange={value => {
+            this.setState({value}, this._fetchRepay.bind(this))
+          }}
           items={ periodList }
           />
       )
@@ -217,12 +227,11 @@ export default class LoanDetailScene extends Component {
     if(this.props.isIOSVerifying) { return null; }
 
     let detail = this.props.detail;
-    let logined = this.props.loginUser.info;
 
     if(this.props.detail.loan_type == loanType.chaoshidai) {
       return (
         <ExternalPushLink
-          {...this._chaoshidaiNextRoute()}
+          {...this._chaoshidaiRouteProps()}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
@@ -260,21 +269,45 @@ export default class LoanDetailScene extends Component {
     );
   }
 
-  _chaoshidaiNextRoute() {
-    let { preloanStatus, firstFilterStatus } = this.props;
+  _chaoshidaiRouteProps() {
+    let logined = this.props.loginUser.info;
+    let { onlineStatus } = this.props;
+    let { status, time_expire_status } = onlineStatus;
 
-    if(firstFilterStatus != firstFilterStatusSuccess) {
-      return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
+
+    if(!logined) {
+      return {
+        loginSuccess: this.props.fetchOnlineStatus,
+        toKey: 'Login',
+        title: '登录'
+      };
     }
 
-    if(preloanStatus == preloanStatusConstants.success) {
-      return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
+    if(status == 2) {
+      return {toKey: 'CertificationHome', title: '信息认证'};
     }
 
-    if(preloanStatus == preloanStatusConstants.expire) {
+    if(status == 5 && time_expire_status == 1) {
       return {toKey: 'OnlinePreloanExpire', title: '预授信申请结果'};
     }
 
-    return {toKey: 'CertificationHome', title: '信息认证'};
+    if(status == 5) {
+      return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
+    }
+
+    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
+    if([6, 7, 8, 9, 10].includes(status)) {
+      return {toKey: 'OnlineApproveStatus', title: '审批状态'};
+    }
+
+    if([11, 12, 13, 14].includes(status)) {
+      return {toKey: 'OnlineSignSuccess', title: '签约'};
+    }
+
+    if([15].includes(status)) {
+      return {toKey: 'OnlineLoanDetail', title: '借款详情'};
+    }
+
+    return { toKey: 'OnlineUserInfo', title: '完善个人信息'};
   }
 }

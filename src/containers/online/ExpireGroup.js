@@ -7,9 +7,10 @@ import {
 } from 'react-native';
 
 import { centering, colors, fontSize } from 'styles';
+import parseDate from 'utils/parseDate';
 
 export default function(props) {
-  let date = new Date(props.date);
+  let date = parseDate(props.date);
   let dis = date.getTime() - Date.now();
 
   let disDay = Math.ceil(dis / 24 / 60 / 60 / 1000);

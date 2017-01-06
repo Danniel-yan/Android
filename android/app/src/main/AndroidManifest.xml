@@ -1,7 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shudu.chaoshi"
-    android:versionCode="1"
-    android:versionName="1.0">
+    package="com.shudu.chaoshi">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -25,7 +23,7 @@
 
     <application
         android:name=".MainApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -46,12 +44,10 @@
         <activity
             android:name=".activity.FaceBankCardScanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FaceIDCardScanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- shareSdk -->

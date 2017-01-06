@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import {
   View,
-  Image,
   StyleSheet,
   ScrollView
 } from 'react-native';
@@ -19,6 +18,7 @@ import {
 } from 'styles';
 
 import Text from 'components/shared/Text';
+import RemoteImage from 'components/shared/RemoteImage';
 
 export default (props) => {
   return (
@@ -37,7 +37,7 @@ export default (props) => {
         </View>
       </View>
 
-      <Image style={styles.icon} source={{uri: props.pic}}/>
+      <RemoteImage style={styles.icon} uri={props.pic}/>
     </View>
   );
 }

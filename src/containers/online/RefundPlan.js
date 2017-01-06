@@ -29,11 +29,13 @@ export default function RefundPlan(props) {
 }
 
 function TR(props) {
+  let date = props.repayDate.split(' ')[0];
+
   return (
     <View style={[flexRow, styles.tr]}>
-      <Text style={[styles.col1, styles.text]}>{props.row}</Text>
-      <Text style={[container, styles.text]}>{props.date}</Text>
-      <Text style={[container, styles.text]}>{props.amount}</Text>
+      <Text style={[styles.col1, styles.text]}>{props.phases}</Text>
+      <Text style={[container, styles.text]}>{date}</Text>
+      <Text style={[container, styles.text]}>{props.repayAmount}</Text>
     </View>
   );
 }

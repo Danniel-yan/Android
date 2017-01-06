@@ -13,11 +13,6 @@ import GroupTitle from 'components/GroupTitle';
 import L2RText from 'components/shared/L2RText';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 
-const approveStatus = {
-  success: 1,
-  failure: 0,
-}
-
 export default function(props) {
   return (
     <View style={[styles.container, props.style]}>

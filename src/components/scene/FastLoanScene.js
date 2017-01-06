@@ -15,6 +15,7 @@ import Button from 'components/shared/ButtonBase';
 
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 const jobItems = [
   {label: "上班族", value: 1},
@@ -25,7 +26,9 @@ const jobItems = [
 
 var screenWidth = Dimensions.get('window').width;
 
-export default class FastLoanScene extends Component {
+class FastLoanScene extends Component {
+  tracking = 'loan'
+
   constructor(props) {
     super(props);
     this.state = {
@@ -96,7 +99,7 @@ export default class FastLoanScene extends Component {
           options={jobItems}
           selectedChanged={opt=> {
             this.formValueChanged("job", opt ? opt.value : 0)
-            tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
+            opt && tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
           }}>
         </HorizontalRadios>
         {this._renderDropDownFilters()}
@@ -160,7 +163,7 @@ export default class FastLoanScene extends Component {
           <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
-        <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 41, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
+        <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 31, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
           <HorizontalCheckboxes
             withBtns={true}
             options={applyResList}
@@ -262,3 +265,5 @@ const styles = StyleSheet.create({
     // backgroundColor: "gray"
   }
 })
+
+export default trackingScene(FastLoanScene)

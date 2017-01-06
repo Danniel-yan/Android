@@ -18,42 +18,39 @@ import onlineActions from 'actions/online';
 import { loanType } from 'constants';
 
 function mapStateToProps(state, ownProps) {
-  let { isFetching, ...detail } = state.loanDetail;
-  let { isFetching: preloanStatusFetching, ...preloan } = state.online.preloanStatus;
-  let { isFetching: firstFilterStatusFetching, ...userInfo } = state.online.userInfo;
+  let detail = { ...state.loanDetail };
 
-
-  const isPageFetching = isFetching ||
-    (ownProps.loan_type == loanType.chaoshidai && (preloanStatusFetching || firstFilterStatusFetching))
+  if(state.loanDetail.fetchedParams != ownProps.fetchingParams) {
+    detail.isFetching = true;
+    detail.fetched = false;
+    detail.detail = {};
+  }
 
   return {
-    isFetching: isFetching || preloanStatusFetching || firstFilterStatusFetching ,
     ...detail,
-    preloanStatus: preloan.status,
-    firstFilterStatus: userInfo.status,
+    onlineStatus: state.online.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps, a) {
+function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {
-
       if(ownProps.loan_type == loanType.chaoshidai) {
-        dispatch(onlineActions.preloanStatus());
-        dispatch(onlineActions.userInfo());
+        dispatch(onlineActions.status());
       }
 
       dispatch(fetchLoanDetail(id))
     },
+    fetchOnlineStatus: () => dispatch(onlineActions.status()),
     goLoan: (detail) => {
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
-        backCount: 2
+        backRoute: { key: 'LoanDetailScene' }
       }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))

@@ -11,24 +11,52 @@ import L2RText from 'components/shared/L2RText';
 import GroupTitle from 'components/GroupTitle';
 import SubmitButton from './SubmitButton';
 import { InputGroup, PickerGroup } from 'components/form';
-
+import { post, responseStatus } from 'utils/fetch';
 import { colors, responsive, fontSize, border } from 'styles';
+import ErrorInfo from './ErrorInfo';
 
 class ReceiptCard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      mobile: '',
-      card: '',
-      bank: ''
+      submitting: false,
+      mobile: props.userInfo.mobile,
+      bank_card_no: '',
+      bank_name: '',
+      error: ''
     };
+  }
+
+  validation() {
+    if(!this.changed) { return ''; }
+
+    let { mobile, bank_card_no, bank_name } = this.state;
+
+    if(mobile.length != 11) {
+      return '请输入11位手机号码';
+    }
+
+    if(bank_card_no.length == 0) {
+      return '请输入银行卡号';
+    }
+
+    if(bank_name.length == 0) {
+      return '请选择开户银行';
+    }
+
+    return '';
   }
   
   render() {
+    let banksText = this.props.banks.join('、');
+    let userInfo = this.props.userInfo;
+    let formError = this.validation();
+    let error = this.state.error || formError;
+
     return (
       <ScrollView>
-        <L2RText left="姓名" right="123" style={styles.item} rightStyle={styles.input}/>
+        <L2RText left="姓名" right={userInfo.person_name} style={styles.item} rightStyle={styles.input}/>
         <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="注：由于是收款及扣款银行卡，请认真填写"/>
         <InputGroup
           label="预留手机号"
@@ -40,23 +68,27 @@ class ReceiptCard extends Component {
         <InputGroup
           label="银行卡号"
           keyboardType="numeric"
-          value={this.state.card}
-          valueChanged={this._formChange.bind(this, 'card')}
+          value={this.state.bank_card_no}
+          valueChanged={this._formChange.bind(this, 'bank_card_no')}
           style={{wrap: styles.item, input: styles.input}}
         />
         <PickerGroup
           label="开户银行"
-          value={this.state.bank}
-          valueChanged={this._formChange.bind(this, 'bank')}
+          value={this.state.bank_name}
+          valueChanged={this._formChange.bind(this, 'bank_name')}
           style={{wrap: styles.item}}
-          items={['广大', '哈哈']}
+          items={this.props.banks}
           textStyle={styles.input}
         />
 
-        <Text style={styles.bankTip}>限支持银行：广发银行、光大银行、兴业银行、平安银行、工商银行、农业银行、中国银行、建设银行、中心银行、交通银行、民生银行、浦发银行、上海银行、招商银行</Text>
+        <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
+
+        <ErrorInfo msg={this.state.error}/>
 
         <SubmitButton
-          offset={true}
+          backCount={1}
+          disabled={!!formError || !this.changed}
+          onPress={this.submit.bind(this)}
           text="提交"
         />
       </ScrollView>
@@ -68,7 +100,30 @@ class ReceiptCard extends Component {
       value = value.trim();
     }
 
+    this.changed = true;
+
     this.setState({ [name]: value });
+  }
+
+  submit() {
+    this.setState({ submitting: true });
+
+    let { mobile, bank_card_no, bank_name } = this.state;
+
+    post('/loanctcf/contract-bind-bank', {
+      mobile, bank_card_no, bank_name
+    }).then(response => {
+
+      if(response.res == responseStatus.success) {
+        this.setState({ submitting: false });
+        this.props.onSuccess(bank_card_no);
+        return;
+      }
+      this.setState({ error: response.msg, submitting: false });
+    })
+    .catch(err => {
+      this.setState({ error: '网络出错', submitting: false });
+    })
   }
 }
 
@@ -102,14 +157,22 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
+import { externalPop } from 'actions/navigation';
 
 function mapStateToProps(state) {
-  return state.online.approveStatus;
+  return {
+    userInfo: state.online.userInfo.data,
+    banks: state.online.contractBanks.banks
+  };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
-    fetching: () => dispatch(actions.approveStatus()),
+    fetching: () => dispatch(actions.contractBanks()),
+    onSuccess: (value) => {
+      ownProps.onSuccess(value);
+      dispatch(externalPop());
+    }
   }
 }
 

@@ -45,8 +45,8 @@ export default class CategoryList extends Component {
       <ExternalPushLink
         tracking={tracking}
         title={data.name}
-        toKey="CardListScene"
-        componentProps={{fetchingParams: { categoryid: data.id , bankid: 0, offset:0}}}>
+        toKey="CardListByCategory"
+        componentProps={{selected: data.id }}>
         <View style={[boxStyles.box]}>
           <Image source={{uri: data.pic}} style={boxStyles.boxPic} />
           <Text style={boxStyles.title}>

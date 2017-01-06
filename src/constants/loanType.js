@@ -1,4 +1,4 @@
 export const loanType = {
-  chaoshidai: 0,
-  normal: 1
+  chaoshidai: 1,
+  normal: 0
 };

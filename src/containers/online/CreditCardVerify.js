@@ -19,6 +19,7 @@ import onlineStyles from './styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { InputGroup } from 'components/form';
 import { ExternalPushLink } from 'containers/shared/Link';
+import ErrorInfo from './ErrorInfo';
 
 export default class CreditCardVerify extends Component {
 
@@ -45,10 +46,12 @@ export default class CreditCardVerify extends Component {
           placeholder="请输入验证码"
           style={{input: styles.input}} />
 
+        <ErrorInfo msg={this.state.error}/>
+
         <ExternalPushLink
           toKey="OnlineCreditCardStatus"
           title="导入账单"
-          backCount={0}
+          backRoute={{ backCount: 0}}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
           disabled={disabled}
@@ -79,7 +82,7 @@ export default class CreditCardVerify extends Component {
 
       throw response.msg;
     }).catch(err => {
-      this.setState({submitting: false});
+      this.setState({submitting: false, error: err});
       throw err;
     });
   }

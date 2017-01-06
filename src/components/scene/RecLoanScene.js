@@ -131,7 +131,6 @@ export default class RecLoanScene extends Component {
         />
 
         <InputGroup
-          keyboardType="numeric"
           maxLength={18}
           label="身份证号"
           icon={require('assets/form-icons/shenfenzheng.png')}

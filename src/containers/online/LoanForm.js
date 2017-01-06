@@ -25,32 +25,49 @@ class LoanForm extends Component {
     super(props);
 
     this.state = {
-      mobile: props.mobile,
+      form: {
+        credit_card_mobile: props.userInfo && props.userInfo.mobile || '',
+        credit_card_no: '',
+        credit_card_no_auto: '',
+        apply_amount: props.amount
+      },
       idFront: '',
       idBack: '',
-      cardFront: '',
       submitting: false
     }
   }
 
   render() {
-    let { idFront, idBack, cardFront } = this.state;
-    const disabled = !(idFront && idBack && cardFront);
+    let { idFront, idBack, credit_card_no, credit_card_mobile } = this.state;
+    const disabled = !(idFront && idBack && credit_card_no && credit_card_mobile);
 
     return (
       <ScrollView>
         <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
 
         <View style={[styles.container, {paddingBottom: 30}]}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'idFront')} label="身份证正面" example={require('assets/online/id-front.png')}/>
+          <CameraInput
+            type="idFront"
+            onChange={this._idChange.bind(this, 'idFront')}
+            label="身份证正面"
+            example={require('assets/online/id-front.png')}
+          />
 
-          <CameraInput onChange={this._onInputChange.bind(this, 'idBack')} label="身份证反面" example={require('assets/online/id-back.png')}/>
+          <CameraInput
+            type="idBack"
+            onChange={this._idChange.bind(this, 'idBack')}
+            label="身份证反面"
+            example={require('assets/online/id-back.png')}/>
         </View>
 
         <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
         <View style={styles.container}>
-          <CameraInput onChange={this._onInputChange.bind(this, 'cardFront')} label="信用卡正面" example={require('assets/online/card-front.png')}/>
+          <CameraInput
+            type="bankCard"
+            onChange={this._cardChange.bind(this)}
+            label="信用卡正面"
+            example={require('assets/online/card-front.png')}/>
           {this._cardTip()}
         </View>
 
@@ -58,16 +75,16 @@ class LoanForm extends Component {
           <InputGroup
             style={{wrap: styles.input}}
             label="信用卡号码"
-            value={this.state.cardFront}
-            editable={false}
+            value={this.state.form.credit_card_no}
+            valueChanged={this._onInputChange.bind(this, 'credit_card_no')}
           />
           <InputGroup
             style={{wrap: styles.input}}
-            label="信用卡预留手机号码"
+            label="预留手机号码"
             placeholder="信用卡预留手机号码"
             maxLength={11}
-            value={this.state.mobile}
-            valueChanged={this._onInputChange.bind(this, 'mobile')}
+            value={this.state.form.credit_card_mobile}
+            valueChanged={this._onInputChange.bind(this, 'credit_card_mobile')}
           />
         </View>
 
@@ -93,23 +110,59 @@ class LoanForm extends Component {
     return (
       <Text style={styles.tipText}>
         请上传尾号为
-        {
-        cards.map((card, index) => {
-          return <Text key={'card'+index}><Text style={styles.cardNum}>{card}</Text>{index ? '或' : ''}</Text>
-        })
-        }
+        { cards.map(this._cardNos.bind(this)) }
         信用卡正面照片
       </Text>
     );
   }
 
+  _cardNos(card, index) {
+    return (
+      <Text key={'card'+index}>
+        {index ? '或' : ''}
+        <Text style={styles.cardNum}>{card}</Text>
+      </Text>
+    );
+  }
+
+  _idChange(name, value) {
+    this.setState({ [name]: value });
+  }
+
+  _cardChange(value) {
+    let form = this.state.form;
+
+    form.credit_card_no_auto = value;
+    form.credit_card_no = value;
+
+    this.setState({ form });
+  }
+
   _onInputChange(name, value) {
     value = typeof value == 'string' ? value.trim() : value;
+    let form = this.state.form;
 
-    this.setState({ [name]: value })
+    form[name] = value;
+
+    this.setState({ form });
   }
 
   _submit() {
+    this.setState({ error: '', submitting: true})
+
+    return post('/loanctcf/apply', this.state.form).then(response => {
+
+      if(response.res == responseStatus.success) {
+        this.setState({ submitting: false })
+        return true;
+      }
+
+      throw response.msg
+    })
+    .catch((msg) => {
+      this.setState({ error: msg })
+      throw msg;
+    })
   }
 }
 
@@ -132,6 +185,7 @@ const styles = StyleSheet.create({
     color: colors.gray
   },
   input: {
+    paddingHorizontal: 0,
     borderBottomWidth: 0,
     ...border('top')
   }
@@ -146,12 +200,18 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return { ...state.online.preloanStatus, mobile: state.loginUser.info.mobile};
+  return {
+    ...state.online.preloanStatus,
+    userInfo: state.online.userInfo.data,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(actions.preloanStatus()),
+    fetching: () => {
+      dispatch(actions.preloanStatus())
+      dispatch(actions.userInfo())
+    },
   }
 }
 

@@ -91,5 +91,5 @@ function log({ key, entity, topic, event, ...extend }) {
     str += `, ${ekey}: "${extend[ekey]}"`;
   }
 
-  console.info(str);
+  console.debug(str);
 }

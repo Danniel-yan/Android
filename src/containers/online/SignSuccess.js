@@ -17,7 +17,7 @@ export default function(props) {
       <Banner
         icon={require('assets/online/approve-success.png')}
         text="恭喜，您已成功签约"
-        footer="钱款将于1-3打到您填写的储蓄银行卡中，请知悉！"
+        footer="钱款将于1-3个工作日打到您填写的储蓄银行卡中，请知悉！"
       />
 
       <View style={styles.footer}>

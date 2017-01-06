@@ -11,7 +11,7 @@ import {
 import Input from 'components/shared/Input';
 
 import tracker from 'utils/tracker.js';
-import { colors, iptFontSize } from "styles/varibles";
+import { fontSize, colors } from "styles/varibles";
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 import Button from 'components/shared/ButtonBase';
 import TrackingPoint  from 'components/shared/TrackingPoint';
@@ -29,42 +29,27 @@ class LoanNavPanel extends Component {
     this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
-  onPressIconBtn(fromLogin) {
+  onPressIconBtn() {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC(true, token)) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn()) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(false, token);
+      this.navToPBOC(token);
     });
   }
 
-  navToPBOC(fromLogin, token) {
+  navToPBOC(token) {
     var externalPush = this.props.externalPush, route;
     AsyncStorage.getItem('environment').then(ev => {
       var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
       pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
       // console.log(pbocUrl + "&token=" + token)
-      externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
+      // console.log(fromLogin);
+      externalPush && externalPush({web: pbocUrl + "&token=" + token, backRoute: { key: 'MajorNavigation' }});
     })
-  }
-
-  _renderInputWrapper() {
-    return this.props.isIOSVerifying ? null : (<View style={{height:25,flexDirection:"row", paddingBottom:12}}>
-      <View style={LNPStyles.iptWrap} >
-      <Input
-        tracking={{key: 'homepage', topic: 'btn_sec', entity: 'amount'}}
-        type={"number"} style={LNPStyles.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
-        this.setState({text: text.replace(/[^\d]/g,'')})
-      }} defaultValue={this.state.text}></Input></View>
-      <View style={[LNPStyles.btnWrap]}>
-        <Button
-          tracking={{key: 'homepage', topic: 'btn_sec', entity: 'i_want_money', amount: this.state.text}}
-          onPress={this.onPressNumberBtn.bind(this)}><Text style={[LNPStyles.btn]}>我要借钱</Text></Button>
-      </View>
-    </View>);
   }
 
   render() {
@@ -107,12 +92,12 @@ class LoanNavPanel extends Component {
 
 const LNPStyles = StyleSheet.create({
   container: {
-    padding: 8, paddingLeft: 10, paddingRight: 10,
-    height: 104,
+    paddingLeft: 10, paddingRight: 10,
+    height: 86,
     backgroundColor: "#FFF"
   },
   navItem: {flex:1, flexDirection:'column', justifyContent:'center', alignItems: 'center'},
-  navTxt: { fontSize:iptFontSize, color: "#333", marginTop:8 }
+  navTxt: { fontSize: fontSize.normal, color: "#333", marginTop:4 }
 });
 
 module.exports = LoanNavPanel;

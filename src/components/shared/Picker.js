@@ -11,7 +11,7 @@ import {
   Platform,
 } from 'react-native';
 
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 import Text from './Text';
 import Button from './ButtonBase';
 import * as defaultStyles from 'styles';
@@ -109,6 +109,7 @@ export class PickerComponent extends Component {
     this.setState({
       openModal: false,
     });
+    this.props.onBlur && this.props.onBlur(value);
   }
 
   _onHide() {
@@ -153,8 +154,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderTopWidth: 1,
-    borderTopColor: colors.line,
+    ...border('top'),
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
   },
@@ -172,8 +172,7 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   },
 
   picker: {
@@ -189,7 +188,6 @@ const styles = StyleSheet.create({
 
   androidItem: {
     height: 42,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom'),
   }
 });

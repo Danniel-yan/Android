@@ -26,7 +26,7 @@ class Tracking extends Component {
     stack.push(routes[0].curTab);
 
     routes.slice(1).forEach(route => {
-      stack.push(route.web || route.key);
+      stack.push(encodeURIComponent(route.web || route.key));
     })
 
     return stack.join('/')
@@ -140,18 +140,28 @@ export default (ComponentClass) => {
     render() {
       let { navigation, onPress, onBlur, tracking, ...props } = this.props;
 
-      props.onPress = this._actionHandle.bind(this);
-      props.onBlur = this._actionHandle.bind(this);
+      props.onPress = this._onPress.bind(this);
+      props.onBlur = this._onBlur.bind(this);
 
       return <ComponentClass {...props} />;
     }
 
-    _actionHandle() {
-      let { onPress, onBlur, tracking, ...props } = this.props;
-      onPress && onPress.apply(null, arguments);
+    _onBlur() {
+      let { onBlur, tracking, ...props } = this.props;
+      let event = { event: 'blur' };
+
       onBlur && onBlur.apply(null, arguments);
 
-      tracking && tracker.trackAction(Object.assign({event: 'clk'}, this._inhanceTracking(tracking)));
+      tracking && tracker.trackAction(Object.assign(event, this._inhanceTracking(tracking)));
+    }
+
+    _onPress() {
+      let { onPress, onBlur, tracking, ...props } = this.props;
+      let event = { event: 'clk' };
+
+      onPress && onPress.apply(null, arguments);
+
+      tracking && tracker.trackAction(Object.assign(event, this._inhanceTracking(tracking)));
     }
 
   }

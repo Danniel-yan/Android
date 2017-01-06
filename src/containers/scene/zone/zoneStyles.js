@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from 'styles/varibles';
+import { border, colors } from 'styles';
 
 export default StyleSheet.create({
   item: {
@@ -8,8 +8,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     height: 52,
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line
+    ...border('bottom')
   },
   txt: {
     flex: 1,
@@ -51,8 +50,7 @@ export default StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.line,
+    ...border('bottom'),
     justifyContent: 'center'
   },
 

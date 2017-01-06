@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
 import NextIcon from 'components/shared/NextIcon';
+import Button from 'components/shared/ButtonBase';
 import { ExternalPushLink } from 'containers/shared/Link';
 import SceneHeader from 'components/shared/SceneHeader';
 import zoneStyles from './zone/zoneStyles';
@@ -13,13 +14,6 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 
 class ZoneScene extends Component {
 
-  _haha() {
-    NativeModules.FaceMegModule.bankCardVerify().then(res => {
-      console.log('.............' + res);
-    }).catch(err => {
-      console.log('.............' + err);
-    })
-  }
   tracking = 'my_account';
 
   render() {
@@ -55,7 +49,6 @@ class ZoneScene extends Component {
            */}
 
           <ExternalPushLink
-            prePress={this._haha.bind(this)}
             tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'}}
             toKey="ContactScene" title="联系我们">
 
@@ -77,10 +70,21 @@ class ZoneScene extends Component {
             </View>
           </ExternalPushLink>
 
+          <Button onPress={this._service.bind(this)}>
+            <View style={zoneStyles.item}>
+            <Image style={zoneStyles.icon} source={require('assets/zone/service.png')}/>
+            <Text style={zoneStyles.txt}>用户反馈</Text>
+            <NextIcon/>
+            </View>
+          </Button>
         </ScrollView>
 
       </View>
     );
+  }
+
+  _service() {
+    NativeModules.FeedbackModule.openFeedback();
   }
 
   _loginInfo() {
