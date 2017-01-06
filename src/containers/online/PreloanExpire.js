@@ -45,7 +45,7 @@ function PreloanExpire(props) {
         title="信息认证"
         style={[onlineStyles.btn, {marginHorizontal: 10, marginTop: 80}]}
         textStyle={onlineStyles.btnText}
-        toKey="CertificationHome"
+        toKey="OnlineUserInfo"
         text="重新申请"/>
     </ScrollView>
   );

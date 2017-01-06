@@ -37,16 +37,7 @@ class UserInfo extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.user);
-    //let user = props.user.data || {};
-    let user = {
-      person_name: '郑盛诗',
-      id_no: '522530198708240014',
-      mobile: '18964165910',
-      education: '大学本科',
-      profession: '工薪族',
-      company: '上海凯岸信息',
-    };
+    let user = props.user.data || {};
 
     let form = {
       person_name: user.person_name || '',

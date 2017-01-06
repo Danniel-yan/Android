@@ -15,6 +15,7 @@ import Loading from 'components/shared/Loading';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import YysBanner from './YysBanner';
 import YysSecondForm from './YysSecondForm';
+import ErrorInfo from './ErrorInfo';
 
 import actions from 'actions/online';
 
@@ -64,7 +65,7 @@ class YysForm extends Component {
         <ScrollView>
           <YysBanner/>
           {this._form()}
-          <Text style={styles.submitError}>{this.state.error}</Text>
+          <ErrorInfo msg={this.state.error}/>
           <ProcessingButton
             processing={this.state.submitting}
             onPress={this._submit.bind(this)}
@@ -95,7 +96,7 @@ class YysForm extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true}, () => {
+    this.setState({ submitting: true, error: ''}, () => {
 
       let body = {
         ...this.state.form,
@@ -230,7 +231,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backCount: 0})),
+    loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backRoute: {backCount: 0}})),
     fetching: () => dispatch(actions.yysForms())
   }
 }
