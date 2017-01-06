@@ -490,7 +490,7 @@ public class FaceBankCardScanActivity extends Activity implements
                 intent.putExtra("bankNum", bankNum);
 //				intent.putExtra("confidence", confidenc);
                 try {
-                    intent.putExtra("bankcardBase64", BitmapUtils.getImageByPathNew(filePath));
+                    intent.putExtra("bankcardBase64", BitmapUtils.getImageByPath(filePath));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

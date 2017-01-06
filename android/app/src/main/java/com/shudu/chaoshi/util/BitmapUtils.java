@@ -10,7 +10,6 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.TextUtils;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,16 +57,16 @@ public class BitmapUtils {
         //压缩好比例大小后再进行质量压缩
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         //质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        int options = 90;
+        int options = 100;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
         //循环判断如果压缩后图片是否大于80kb,大于继续压缩
         while (Base64.encode(baos.toByteArray()).length / 1024 > 90) {
             //重置baos即清空baos
             baos.reset();
+            //每次都减少5
+            options -= 5;
             //这里压缩options%，把压缩后的数据存放到baos中
             bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
-            //每次都减少10
-            options -= 10;
         }
         return new String(Base64.encode(baos.toByteArray()), "utf-8");
     }
