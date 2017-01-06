@@ -37,7 +37,7 @@ class CardListProgress extends Component {
   }
 
   _renderBanner() {
-    let cardConfig = this.props.cardConfig.config;
+    let cardConfig = this.props.cardConfig.config || {};
     let banner = cardConfig.process_top_banner && cardConfig.process_top_banner[0];
 
     if(!banner) { return null}
