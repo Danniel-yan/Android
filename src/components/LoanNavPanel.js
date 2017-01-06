@@ -29,26 +29,26 @@ class LoanNavPanel extends Component {
     this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
-  onPressIconBtn(fromLogin) {
+  onPressIconBtn() {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn(true)) } };
+        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn()) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(fromLogin, token);
+      this.navToPBOC(token);
     });
   }
 
-  navToPBOC(fromLogin, token) {
+  navToPBOC(token) {
     var externalPush = this.props.externalPush, route;
     AsyncStorage.getItem('environment').then(ev => {
       var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
       pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
       // console.log(pbocUrl + "&token=" + token)
       // console.log(fromLogin);
-      externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
+      externalPush && externalPush({web: pbocUrl + "&token=" + token, backRoute: { key: 'MajorNavigation' }});
     })
   }
 

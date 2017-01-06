@@ -80,21 +80,45 @@ const initState = {
 export default function navigation(state = initState, action) {
   switch(action.type) {
     case 'externalPush':
-      return NavigationStateUtils.push(state, action.route);
+      //return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
-      if (state.index <= 0) {
+
+      const routes = state.routes;
+      const route = action.route;
+
+      let { key, component, web, backRoute } = route;
+
+        // 指定component及web直接push
+      if(component || web) {
+        route.key = route.key || Math.random().toString();
+        return NavigationStateUtils.push(state, route);
+      }
+
+      let popToRouteIndex = -1;
+
+      if(key) {
+        popToRouteIndex = routes.findIndex(route => route.key == key);
+
+        // 不存在的route，进行push
+        if(popToRouteIndex == -1) {
+          return NavigationStateUtils.push(state, route);
+        }
+
+        popToRouteIndex += 1;
+      }
+
+      // pop操作
+      if(routes.length == 1) {
         return state;
       }
 
-      let endIndex = -(action.route.backCount || 1) ;
-      let routes = state.routes;
-
-      if(action.route.key) {
-        let toIndex = routes.findIndex(route => route.key == action.route.key);
-        endIndex = toIndex + 1;
+      if(backRoute && backRoute.key) {
+        popToRouteIndex = 1 + routes.findIndex(route => route.key == backRoute.key);
+      } else if(backRoute && backRoute.backCount) {
+        popToRouteIndex = -backRoute.backCount;
       }
 
-      routes = routes.slice(0, endIndex);
+      routes = routes.slice(0, popToRouteIndex);
 
       return {
         ...state,

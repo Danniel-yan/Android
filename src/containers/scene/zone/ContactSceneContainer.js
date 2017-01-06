@@ -30,7 +30,7 @@ export default function ContactScene(props) {
           <Text style={zoneStyles.txt}>商务合作</Text>
         </View>
         <View style={[zoneStyles.item, zoneStyles.itemBody]}>
-          <Text style={zoneStyles.linkTxt}>hejunxian01@chinatopcredit.com</Text>
+          <Text style={zoneStyles.linkTxt}>hejunxian01@madailicai.com</Text>
         </View>
       </View>
     </ScrollView>

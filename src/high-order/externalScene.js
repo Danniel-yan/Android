@@ -18,14 +18,14 @@ export default function(ComponentClass, RightComponent) {
 
     render() {
       let title = this.state.title || this.props.sceneTitle || ComponentClass.title;
-      let { backCount, ...props } = this.props;
-      backCount = backCount === undefined ? 1 : backCount;
+      let { backRoute, ...props } = this.props;
+      backRoute = backRoute === undefined ? { backCount: 1 } : backRoute;
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader {...props} backCount={backCount} title={title} right={RightComponent} />
+          <SceneHeader {...props} backRoute={backRoute} title={title} right={RightComponent} />
           <View style={[defaultStyles.container, defaultStyles.bg]}>
-            <ComponentClass {...props} backCount={backCount} onChangeTitle={title => this.setState({title})}/>
+            <ComponentClass {...props} backRoute={backRoute} onChangeTitle={title => this.setState({title})}/>
           </View>
         </View>
       )

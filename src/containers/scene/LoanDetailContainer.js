@@ -50,7 +50,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
-        backCount: 2
+        backRoute: { key: 'LoanDetailScene' }
       }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))

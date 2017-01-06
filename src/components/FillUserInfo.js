@@ -19,7 +19,7 @@ import VerifyButton from 'components/shared/VerifyButton'
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
-import { ExternalPushLink } from 'components/shared/ExternalPushLink';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';

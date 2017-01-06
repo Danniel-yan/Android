@@ -85,7 +85,7 @@ export default class ExternalNavigation extends Component {
   _renderScene(route, navigator) {
     let {
       web,
-      backCount,
+      backRoute,
       key,
       title,
       component: ComponentClass,
@@ -113,7 +113,7 @@ export default class ExternalNavigation extends Component {
       route.RenderedComponent = ComponentClass;
     }
 
-    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backCount});
+    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backRoute});
   }
 
   shouldComponentUpdate() {
