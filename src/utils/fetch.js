@@ -37,7 +37,7 @@ export function post(url, body, responseType = 'json') {
 
 function _get(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api get request: ', url);
+  console.debug('api get request: ', url);
   return fetch(url, {
     method: 'get'
   })
@@ -47,7 +47,7 @@ function _get(url, body, responseType) {
 
 function _post(url, body, responseType) {
   url = absoluteUrl(url);
-  console.log('api post request: ', url);
+  console.debug('api post request: ', url);
   return fetch(url, {
     method: 'POST',
     headers,
@@ -58,7 +58,7 @@ function _post(url, body, responseType) {
 }
 
 function log(url, body, response) {
-  console.log(url, body, response);
+  console.debug(url, body, response);
   return response;
 }
 
@@ -121,11 +121,11 @@ void function setupLocation() {
     apiParams.lati = coords.latitude;
     apiParams.long = coords.longitude;
 
-  }, console.log, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
+  }, console.debug, {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000})
 }();
 
 function setupCity() {
   return AsyncStorage.getItem('geoLocation').then(city => {
     apiParams.city = city || '';
-  }).catch(console.log)
+  }).catch(console.debug)
 };
