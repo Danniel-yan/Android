@@ -10,7 +10,6 @@ import {
 
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
-import ProcessingButton from 'components/shared/ProcessingButton';
 import Checkbox from 'components/shared/Checkbox'
 import DeviceInfo from 'react-native-device-info';
 import Picker from 'components/shared/Picker';
@@ -21,6 +20,8 @@ import alert from 'utils/alert';
 import { externalPush } from 'actions/navigation';
 import { get, post, responseStatus } from 'utils/fetch';
 import FormGroup from 'components/shared/FormGroup';
+import SubmitButton from './SubmitButton';
+import ErrorInfo from './ErrorInfo';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 
@@ -170,15 +171,16 @@ class UserInfo extends Component {
 
           </View>
 
-          <Text style={styles.error}>{error}</Text>
+          <ErrorInfo msg={error}/>
 
-          <ProcessingButton
+          <SubmitButton
+            key="CertificationHome"
+            title="信息认证"
             processing={this.state.submitting}
-            style={[styles.btn, disabled && styles.disabledBtn]}
             textStyle={styles.btnText}
             disabled={disabled}
             text="去贷款"
-            onPress={this._submit.bind(this)}/>
+            prePress={this._submit.bind(this)}/>
 
         </ScrollView>
 
@@ -188,11 +190,8 @@ class UserInfo extends Component {
 
 
   _submit() {
-    if(this.submitting) { return }
-    this.submitting = true;
 
-
-    this.setState({ submitting: true }, () => {
+    this.setState({ submitting: true, error: '' }, () => {
       let form = this.state.form;
       navigator.geolocation.getCurrentPosition(position => {
         const coords = position.coords;
@@ -205,20 +204,17 @@ class UserInfo extends Component {
 
         post('/loanctcf/first-filter', form).then(response => {
           if(response.res = responseStatus.success) {
+            this.setState({ submitting: false})
             this.props.goHome();
+          } else {
+            throw response.msg;
           }
         }).catch(err => {
           console.log(err);
-          alert('网络错误')
-        }).finally(this._submittingEnd.bind(this));
+          this.setState({ submitting: false, error: err})
+        });
       });
     });
-  }
-
-  _submittingEnd() {
-    this.setState({submitting: false}, () => {
-      this.submitting = false;
-    })
   }
 
   _inputChange(field, value) {
@@ -243,29 +239,6 @@ const styles = StyleSheet.create({
 
   footer: {
     height: 50,
-  },
-
-  btn: {
-    borderRadius: 5,
-    marginTop: 20,
-    marginHorizontal: 10,
-    height: 50,
-    backgroundColor: colors.primary
-  },
-
-  disabledBtn: {
-    backgroundColor: '#C8C8C8'
-  },
-
-  error: {
-    margin: 10,
-    color: colors.error,
-    fontSize: fontSize.small
-  },
-
-  btnText: {
-    color: '#fff',
-    fontSize: 20,
   },
 
   addon: {

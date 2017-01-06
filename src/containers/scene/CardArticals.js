@@ -23,7 +23,6 @@ class CardArticals extends Component {
   }
 
   render() {
-    console.log('articals ',this.props);
     let props = this.props;
     let articals = props.articals.map((artical, index) => {
       return (
