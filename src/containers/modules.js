@@ -40,6 +40,8 @@ import OnlineSignSuccess from 'containers/online/SignSuccess';
 import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
+import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
+
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -79,7 +81,9 @@ import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
   { key: 'CardListScene', module: CardListScene },
   { key: 'BankCardListScene', module: BankCardListScene },
   { key: 'Login', module: Login },
-  { key: 'UserInfo', module: UserInfo }
+  { key: 'UserInfo', module: UserInfo },
+
+  { key: 'CreditLoan', module: CreditLoanHomeScene }
 ].forEach(item => {
   modules[item.key] = item.module;
 });

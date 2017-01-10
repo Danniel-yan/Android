@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeModules, View, ScrollView, Image } from 'react-native';
+import { NativeModules, View, ScrollView, Image, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
@@ -10,6 +10,8 @@ import SceneHeader from 'components/shared/SceneHeader';
 import zoneStyles from './zone/zoneStyles';
 import * as defaultStyles from 'styles';
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import TrackingPoint  from 'components/shared/TrackingPoint';
+import { externalPush, majorTab } from 'actions/navigation';
 
 
 class ZoneScene extends Component {
@@ -48,27 +50,21 @@ class ZoneScene extends Component {
            </ExternalPushLink>
            */}
 
-          <ExternalPushLink
-            tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'}}
-            toKey="ContactScene" title="联系我们">
 
-            <View style={zoneStyles.item}>
-              <Image style={zoneStyles.icon} source={require('assets/zone/contact.png')}/>
-              <Text style={zoneStyles.txt}>联系我们</Text>
-              <NextIcon/>
-            </View>
-          </ExternalPushLink>
+           {this._reportInfo()}
 
-          <ExternalPushLink
-            tracking={{key: 'my_account', topic: 'btn_sec', entity: 'icon_set'}}
-            toKey="SettingScene" title="设置">
-
-            <View style={zoneStyles.item}>
-              <Image style={zoneStyles.icon} source={require('assets/zone/setting.png')}/>
-              <Text style={zoneStyles.txt}>设置</Text>
-              <NextIcon/>
-            </View>
-          </ExternalPushLink>
+           {
+             this._renderNavItem(require('assets/zone/contact.png'), "联系我们", {
+               tracking: {key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'},
+               toKey: "ContactScene", title:"联系我们"
+             })
+           }
+           {
+             this._renderNavItem(require('assets/zone/setting.png'), "设置", {
+               tracking: {key: 'my_account', topic: 'btn_sec', entity: 'icon_set'},
+               toKey: "SettingScene", title:"设置"
+             })
+           }
 
           <Button onPress={this._service.bind(this)}>
             <View style={zoneStyles.item}>
@@ -114,10 +110,69 @@ class ZoneScene extends Component {
       </View>
     );
   }
+
+  _navToPBOC() {
+    var externalPush = this.props.externalPush, route;
+    var environment = "production";
+    AsyncStorage.getItem('environment').then(ev=>{
+      environment = ev;
+      return AsyncStorage.getItem("userToken");
+    }).then(token => {
+        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
+        pbocUrl = environment=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+        // console.log(pbocUrl + "&token=" + token);
+        externalPush && externalPush({web: pbocUrl + "&token=" + token});
+    })
+  }
+
+  _reportInfo() {
+    let loginUser = this.props.loginUser;
+
+    return loginUser.info ? (
+      <View>
+        {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {})}
+        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {})}
+        {this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {})}
+        <TrackingPoint
+          tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
+          title="征信报告"
+          onPress={this._navToPBOC.bind(this)}>
+          <View style={zoneStyles.item}>
+            <Image style={[zoneStyles.icon]} source={require('assets/zone/zhengxinbaogao.png')}/>
+            <Text style={zoneStyles.txt}>征信报告</Text>
+            <NextIcon/>
+          </View>
+        </TrackingPoint>
+        {this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {})}
+        {this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {})}
+        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {})}
+      </View>
+    ) : null;
+  }
+
+  _renderNavItem(icon, txt, navProps) {
+    return (
+      <ExternalPushLink
+        {...navProps}>
+        <View style={zoneStyles.item}>
+          <Image style={zoneStyles.icon} source={icon}/>
+          <Text style={zoneStyles.txt}>{txt}</Text>
+          <NextIcon/>
+        </View>
+      </ExternalPushLink>
+    )
+  }
 }
 
 function mapStateToProps(state) {
   return { loginUser: state.loginUser }
 }
 
-export default connect(mapStateToProps)(trackingScene(ZoneScene))
+function mapDispatchToProps(dispatch) {
+  return {
+    externalPush: route => dispatch(externalPush(route)),
+    majorTab: route => dispatch(majorTab(route))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(ZoneScene))
