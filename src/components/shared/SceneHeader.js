@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { headerHeight, statusBarHeight, centering } from 'styles';
-import { ExternalPopLink } from 'containers/shared/Link';
+import Button from 'components/shared/ProcessingButton';
 
 export default class SceneHeader extends Component {
   static defaultProps = {
@@ -40,17 +40,15 @@ export default class SceneHeader extends Component {
   }
 
   _renderBack() {
-    let backRoute = this.props.backRoute || {};
-
-    if(backRoute.backButton === false) { return null; }
+    if(!this.props.onBack) { return null; }
 
     return (
       <View style={styles.left}>
-        <ExternalPopLink {...this.props}>
+        <Button onPress={this.props.onBack} >
           <View style={[styles.btn, centering]}>
             <Image source={require('assets/icons/back.png')}/>
           </View>
-        </ExternalPopLink>
+        </Button>
       </View>
     );
   }

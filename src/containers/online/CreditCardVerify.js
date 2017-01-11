@@ -51,7 +51,8 @@ export default class CreditCardVerify extends Component {
         <ExternalPushLink
           toKey="OnlineCreditCardStatus"
           title="导入账单"
-          backRoute={{key: 'CertificationHome', backButton: false}}
+          backButton={false}
+          backRoute={{key: 'CertificationHome' }}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
           disabled={disabled}

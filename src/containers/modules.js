@@ -6,7 +6,7 @@ import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'containers/scene/ZoneSceneContainer';
-import Login from 'containers/Login';
+import Login from 'components/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';

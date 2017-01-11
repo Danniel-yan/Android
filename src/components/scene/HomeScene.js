@@ -63,22 +63,6 @@ export default class HomeScene extends Component {
     return !this.props.iosFetched || this.props.isIOSVerifying ? null : <Broadcast />;
   }
 
-  _pressIcon(iconKey) {
-    if(iconKey !== 2) return;
-
-    this.navToPBOC()
-  }
-
-  _pressNumberBtn(amount) {
-    amount && this.props.setAmount && this.props.setAmount(amount);
-    // this._externalNavTo("LoanScene");
-    this.props.majorTab && this.props.majorTab("LoanScene");
-  }
-
-  _externalNavTo(navKey) {
-    this.props.externalPush && this.props.externalPush({key: navKey});
-  }
-
   _renderHeader() {
     return (
       <View style={styles.header}>
@@ -87,23 +71,6 @@ export default class HomeScene extends Component {
         <View style={styles.right}></View>
       </View>
     )
-  }
-
-  navToPBOC() {
-    AsyncStorage.getItem('userToken').then(token => {
-      var externalPush = this.props.externalPush, route;
-      if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC()) } };
-        externalPush && externalPush(route);
-        return;
-      }
-      AsyncStorage.getItem('environment').then(ev => {
-        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        console.log(pbocUrl + "&token=" + token)
-        externalPush && externalPush({web: pbocUrl + "&token=" + token});
-      })
-    })
   }
 
   _memoryPress() {

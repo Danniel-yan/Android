@@ -18,19 +18,21 @@ export default function(ComponentClass, RightComponent) {
 
     render() {
       let title = this.state.title || this.props.sceneTitle || ComponentClass.title;
-      let { backRoute, ...props } = this.props;
-      backRoute = backRoute === undefined ? { backCount: 1 } : backRoute;
+      const Header = this.props.backButton === false ? SceneHeader : BackHeader;
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader {...props} backRoute={backRoute} title={title} right={RightComponent} />
+          <Header {...this.props} title={title} right={RightComponent} />
           <View style={[defaultStyles.container, defaultStyles.bg]}>
-            <ComponentClass {...props} backRoute={backRoute} onChangeTitle={title => this.setState({title})}/>
+            <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
           </View>
         </View>
       )
     }
   }
-
 }
+
+const BackHeader = connect(null, dispatch => {
+  return { onBack: () => dispatch(externalPop()) }
+})(SceneHeader);
 

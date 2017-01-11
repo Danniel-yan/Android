@@ -76,7 +76,6 @@ const initState = {
   }]
 };
 
-
 export default function navigation(state = initState, action) {
   switch(action.type) {
     case 'externalPush':
@@ -86,7 +85,9 @@ export default function navigation(state = initState, action) {
       const routes = state.routes;
       const route = action.route;
 
-      let { key, component, web, backRoute } = route;
+      if(!route) { return pop(state); }
+
+      let { key, component, web } = route;
 
         // 指定component及web直接push
       if(component || web) {
@@ -112,19 +113,8 @@ export default function navigation(state = initState, action) {
         return state;
       }
 
-      if(backRoute && backRoute.key) {
-        popToRouteIndex = 1 + routes.findIndex(route => route.key == backRoute.key);
-      } else if(backRoute && backRoute.backCount) {
-        popToRouteIndex = -backRoute.backCount;
-      }
+      return popToIndex(popToRouteIndex);
 
-      routes = routes.slice(0, popToRouteIndex);
-
-      return {
-        ...state,
-        index: routes.length - 1,
-        routes
-      };
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
     case 'externalJumpTo':
@@ -212,4 +202,38 @@ function updateMajor(state, major) {
       ...state.routes.slice(1)
     ]
   }
+}
+
+function pop(state) {
+  const routes = state.routes;
+  const lastestRoute = routes[routes.length - 1];
+  const backRoute = lastestRoute.backRoute;
+
+  let popToRouteIndex = -1;
+
+  if(backRoute) {
+    return popToRoute(state, backRoute);
+  }
+
+  return popToIndex(state, popToRouteIndex);
+}
+
+function popToRoute(state, backRoute) {
+  let popToRouteIndex = -backRoute.backCount;
+
+  if(backRoute.key) {
+    popToRouteIndex = 1 + state.routes.findIndex(route => route.key == backRoute.key);
+  }
+
+  return popToIndex(state, popToRouteIndex);
+}
+
+function popToIndex(state, popToRouteIndex) {
+  const routes = state.routes.slice(0, popToRouteIndex);
+
+  return {
+    ...state,
+    index: routes.length - 1,
+    routes
+  };
 }
