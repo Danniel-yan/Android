@@ -1,17 +1,32 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Image, View, Text, StyleSheet ,Modal,Dimensions} from 'react-native';
 import Button from 'components/shared/ButtonBase';
+import ModalDialog from './modal'
+
+const {height, width} = Dimensions.get('window');
 
 export default class CreditLimitPanel extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        openModal : false
+    }
   }
 
-  _toggleCreditPanel() {
-
+  _openCreditPanel() {
+    this.setState({openModal : true})
   }
+  _closeCreditPanel (){
+    this.setState({openModal : false})
+  }
+
+
 
   render() {
+    const flags = {
+        modalFlag : this.state.openModal,
+        closeModal : this._closeCreditPanel.bind(this),
+    }
     return (
       <View style={CLPStyles.container}>
         <View><Text style={CLPStyles.headerTxt}>授信额度-最高可贷</Text></View>
@@ -21,9 +36,10 @@ export default class CreditLimitPanel extends Component {
           <Button
             style={CLPStyles.btn}
             tracking={{}}
-            onPress={this._toggleCreditPanel.bind(this)}
+            onPress={this._openCreditPanel.bind(this)}
           ><Text style={CLPStyles.btnTxt}>立即授信</Text></Button>
         </View>
+        <ModalDialog flags = {flags}/>
       </View>
     );
   }
