@@ -131,7 +131,7 @@ class ZoneScene extends Component {
     return loginUser.info ? (
       <View>
         {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {})}
-        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {})}
+        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "FundScene", title:"公积金查询"})}
         {this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {})}
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
