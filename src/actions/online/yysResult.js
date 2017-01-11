@@ -10,12 +10,13 @@ export default function(body) {
 
     getBillList(Object.assign({}, body, { type: 'yys' })).then(response => {
       if(response.res == responseStatus.success) {
-        var billList = response.data;
-        var existSuccessBill = false;
-        billList && billList.length > 0 && billList.map(bill => { existSuccessBill = existSuccessBill || bill.status == 8 });
+        var billList = response.data, existSuccessBill = false, lastestBill;
+
+        billList && billList.length > 0 && (lastestBill = billList[0]);
+        lastestBill && billList.map(bill => { existSuccessBill = existSuccessBill || bill.status == 8 });
 
         dispatch({type: 'receiveYYSEntryStatus', existSuccessBill: existSuccessBill});
-        dispatch({type: 'receiveOnlineYysResult'});
+        dispatch({type: 'receiveOnlineYysResult', status: lastestBill ? lastestBill.status : undefined});
       }
     });
     //
