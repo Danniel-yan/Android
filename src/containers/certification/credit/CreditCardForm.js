@@ -64,7 +64,7 @@ class CreditCardForm extends Component {
               title="导入账单"
               toKey="OnlineCreditCardStatus"
               prePress={this._submit.bind(this)}
-              disabled={disabled}
+
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -232,5 +232,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(
-//   AsynCpGenerator(Loading, CreditCardForm));
+  export default connect(mapStateToProps, mapDispatchToProps)(
+    AsynCpGenerator(Loading, CreditCardForm));
