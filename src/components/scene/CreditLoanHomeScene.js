@@ -49,7 +49,7 @@ export default class CreditLoanHomeScene extends Component {
             </View>
           </View>
         </View>
-        <View style = {{height:106}}>
+        <View style = {{flex:1}}>
             <Banner />
         </View>
       </View>
@@ -75,7 +75,7 @@ const _styles = {
   splitTop: { marginTop: 5 },
   bdRight: { borderRightWidth: 1, borderRightColor: "#E6E6E6" },
   bdBottom: { borderBottomWidth: 1, borderBottomColor: "#E6E6E6" },
-  item: { flexDirection: "row", alignItems: "center", height: 68, borderBottomWidth: 1, borderBottomColor: "#E6E6E6" },
+  item: { flexDirection: "row", alignItems: "center", height: 60, borderBottomWidth: 1, borderBottomColor: "#E6E6E6" },
   icon: { width:34, height:34, marginHorizontal: 10 },
   txt: { fontSize: 14, paddingHorizontal: 4 ,flex : 1,}
 }
