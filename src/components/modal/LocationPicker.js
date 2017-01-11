@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ListView,
   Modal,
+  TextInput
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -29,7 +30,8 @@ export default class LocationPicker extends PureComponent {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
+      result:[]
     };
   }
 
@@ -44,7 +46,9 @@ export default class LocationPicker extends PureComponent {
       return;
     }
 
-    get('/app/city-list').then(response => {
+    let url = (nextProps.mark == 'city' ? '/app/city-list' : '/bill/gjj-login-elements');
+
+    get(url).then(response => {
 
       let sections = {};
       let secIDs = [];
@@ -73,7 +77,9 @@ export default class LocationPicker extends PureComponent {
 
     let main = isShow ? this._renderMain() : null;
     let sidebar = isShow ? this._renderSidebar() : null;
-    let loading = !isShow ? this._renderLoading() : null 
+    let loading = !isShow ? this._renderLoading() : null;
+
+    let search = this._renderSearch();
 
     return (
       <View>
@@ -86,7 +92,10 @@ export default class LocationPicker extends PureComponent {
 
         <View style={defaultStyles.container}>
           <SceneHeader onBack={this.props.onHide} title="城市选择"/>
-
+          <View>
+            {search}
+            {this._renderResult()}
+          </View>
           <View style={[defaultStyles.rowContainer, defaultStyles.bg]}>
             {loading}
             {main}
@@ -101,7 +110,45 @@ export default class LocationPicker extends PureComponent {
     );
   }
 
+  _renderSearch(){
+    return (
+      <TextInput
+        placeholder='搜索城市'
+        style={{height:30,backgroundColor:'#fff',fontSize:12,color:'#A5A5A5',paddingLeft:10,borderWidth:1,borderColor:'#e6e6e6'}}
+        onFocus={ () => {this.setState({shown: false})}}
+        onChangeText = {this._renderCity.bind(this, 'city')}
+        />
+    )
+  }
+
+  _renderCity(city, value){
+    if(!value) {
+      this.setState({shown: true,result:[]})
+    }else{
+      this.setState({result: this.state.sections[value] })
+    }
+  }
+
+  _renderResult(){
+
+    console.log(this.state.result)
+
+    if(!this.state.result) return null;
+
+    return(
+      <ScrollView>
+        { this.state.result.map( (city, idx) =>
+            <View style={{padding: 10}} key={`${idx}`}><Text onPress={() => this.props.onChange(city)}>{city}</Text></View>
+        )}
+      </ScrollView>
+    )
+  }
+
+
   _renderLoading() {
+
+    if( this.state.shown == false ) return null;
+
     return (<View style={[defaultStyles.container, defaultStyles.centering, styles.loading]}><Loading color="white"/></View>);
   }
 
