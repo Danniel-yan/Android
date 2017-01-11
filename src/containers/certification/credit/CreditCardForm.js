@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Image,
   Text,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -19,7 +20,9 @@ import { post, responseStatus } from 'utils/fetch';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
-import onlineStyles from './styles';
+import onlineStyles from './../styles';
+
+const needSecondLogin = 1;
 
 class CreditCardForm extends Component {
   constructor(props) {
@@ -64,7 +67,7 @@ class CreditCardForm extends Component {
               title="导入账单"
               toKey="OnlineCreditCardStatus"
               prePress={this._submit.bind(this)}
-
+              disabled={disabled}
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -86,20 +89,26 @@ class CreditCardForm extends Component {
       login_target: curTab.login_target
     };
 
-    return post('/bill/bank-login', body).then(response => {
-      if(this.unmount) { return }
+    return AsyncStorage.getItem("loan_type").then(type => {
+      body.loan_type = type;
+      return post('/bill/bank-login', body).then(response => {
+       if(this.unmount) { return }
 
-      this.setState({submitting: false});
+       this.setState({submitting: false});
 
-      if(response.res == responseStatus.success) {
-        return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data}};
-      }
+       if(response.res == responseStatus.success) {
+         if(response.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+         // return {componentProps: {...response.data}};
+         return {componentProps: {...response.data, bank_id: this.props.bank_id}};
+       }
 
-      throw response.msg;
-    }).catch(err => {
-      this.setState({submitting: false});
-      throw err;
-    })
+       throw response.msg;
+     }).catch(err => {
+       this.setState({submitting: false});
+       throw err;
+     })
+    });
+
   }
 
   _onFormChange(name, value) {

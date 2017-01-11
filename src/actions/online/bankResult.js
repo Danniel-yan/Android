@@ -1,17 +1,22 @@
-import { get, responseStatus } from 'utils/fetch';
+import { get, post, responseStatus } from 'utils/fetch';
 
+import getBillList from './billList';
 
-export default function() {
+export default function(body) {
 
   // auto refresh
   return dispatch => {
 
     dispatch({type: 'requestOnlineBankResult'});
-
-    get('/bill/bank-ctcf-result').then(response => {
+    getBillList(body).then(response => {
       if(response.res == responseStatus.success) {
-        dispatch({type: 'receiveOnlineBankResult', status: response.data.status})
+        var billList = response.data;
+        var existSuccessBill = false;
+        billList && billList.length > 0 && billList.map(bill => { existSuccessBill = existSuccessBill || bill.status == 8 });
+
+        dispatch({type: 'receiveBankEntryStatus', existSuccessBill: existSuccessBill});
+        dispatch({type: 'receiveOnlineBankResult'});
       }
-    })
+    });
   }
 }

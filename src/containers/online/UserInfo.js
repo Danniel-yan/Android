@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -116,7 +117,7 @@ class UserInfo extends Component {
             />
           </FormGroup>
 
-          
+
           <FormGroup label="输入验证码">
             <View style={[rowContainer, centering]}>
 
@@ -193,23 +194,27 @@ class UserInfo extends Component {
       let form = this.state.form;
       navigator.geolocation.getCurrentPosition(position => {
         const coords = position.coords;
-        form.lati = coords.latitude; 
+        form.lati = coords.latitude;
         form.long = Math.abs(coords.longitude);
         form.phone_model = DeviceInfo.getModel();
         form.phone_system_version = DeviceInfo.getSystemVersion();
 
-        post('/loanctcf/first-filter', form).then(response => {
-          if(response.res == responseStatus.success) {
-            this.setState({ submitting: false})
-            this.props.fetchStatus();
-            this.props.goHome();
-          } else {
-            throw response.msg;
-          }
-        }).catch(err => {
-          console.log(err);
-          this.setState({ submitting: false, error: err})
+        AsyncStorage.getItem("loan_type").then(type => {
+          type && (form.loan_type = type);
+          return post('/loanctcf/first-filter', form).then(response => {
+            if(response.res == responseStatus.success) {
+              this.setState({ submitting: false})
+              this.props.fetchStatus();
+              this.props.goHome();
+            } else {
+              throw response.msg;
+            }
+          }).catch(err => {
+            console.log(err);
+            this.setState({ submitting: false, error: err})
+          });
         });
+
       });
     });
   }
@@ -295,7 +300,7 @@ function mapStateToProps(state) {
     isFetching: user.isFetching || pickers.isFetching,
     fetched: user.fetched && pickers.fetched,
     err: user.err || pickers.err,
-    user, 
+    user,
     pickers,
   }
 }

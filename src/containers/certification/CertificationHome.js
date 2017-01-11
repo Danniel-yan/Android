@@ -30,10 +30,10 @@ class CertificationHome extends Component {
   }
 
   render() {
-    let bankStatus = this.props.bankResult.status;
-    let yysStatus = this.props.yysResult.status;
+    let bank = this.props.bankResult.existSuccessBill;
+    let yys = this.props.yysResult.existSuccessBill;
 
-    let disabled = bankStatus != 0 || yysStatus != 0; 
+    let disabled = !bank || !yys;
 
     return (
       <ScrollView>
@@ -84,19 +84,20 @@ class CertificationHome extends Component {
   }
 
   cardItem() {
-    let bankStatus = this.props.bankResult.status;
+    let existSuccess = this.props.bankResult.existSuccessBill;
 
     let item = (
       <MenuItem title="信用卡认证" icon={require('assets/online/icon-xyk.png')}>
-        <Text style={[styles.status, this.statusStyle(bankStatus)]}>{this.statusLabel(bankStatus)}</Text>
+        <Text style={[styles.status, this.statusStyle(existSuccess)]}>{this.statusLabel(existSuccess)}</Text>
       </MenuItem>
     );
 
-    if([0,3,5,7].includes(bankStatus)) {
-      return (
-        <View>{item}</View>
-      );
-    }
+    // if([0,3,5,7].includes(bankStatus)) {
+    //   return (
+    //     <View>{item}</View>
+    //   );
+    // }
+    if(existSuccess) return item;
 
     return (
       <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
@@ -107,18 +108,20 @@ class CertificationHome extends Component {
 
   yysItem() {
     let yysStatus = this.props.yysResult.status;
+    let existSuccess = this.props.yysResult.existSuccessBill;
 
     let item = (
       <MenuItem title="运营商认证" icon={require('assets/online/icon-yys.png')}>
-        <Text style={[styles.status, this.statusStyle(yysStatus)]}>{this.statusLabel(yysStatus)}</Text>
+        <Text style={[styles.status, this.statusStyle(existSuccess)]}>{this.statusLabel(existSuccess)}</Text>
       </MenuItem>
     );
 
-    if([0,3,5,7].includes(yysStatus)) {
-      return (
-        <View>{item}</View>
-      );
-    }
+    // if([0,3,5,7].includes(yysStatus)) {
+    //   return (
+    //     <View>{item}</View>
+    //   );
+    // }
+    if(existSuccess) return item;
 
     return (
       <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
@@ -127,32 +130,12 @@ class CertificationHome extends Component {
     )
   }
 
-  statusStyle(status) {
-    if(status == 0) {
-      return styles.success
-    } else if(!/2|3|5|7/.test(status)) {
-      return styles.failure
-    }
+  statusStyle(existSuccess) {
+    return existSuccess ? styles.success : styles.failure;
   }
 
-  statusLabel(status) {
-    if(status == 0) {
-      return '认证通过';
-    } 
-
-    if(status == 2) {
-      return '未认证';
-    } 
-
-    if(/3|5|7/.test(status)) {
-      return '认证中...';
-    } 
-
-    if(status == 9) {
-      return '已过期';
-    } 
-
-    return '认证失败';
+  statusLabel(existSuccess) {
+    return existSuccess ? "认证通过" : "未认证";
   }
 }
 
@@ -194,19 +177,22 @@ function mapStateToProps(state) {
     isFetching: bank.isFetching || yys.isFetching,
     fetched: bank.fetched && yys.fetched,
     bankResult: bank,
-    yysResult: yys
+    yysResult: yys,
+    fetchingParams: { loan_type: state.online.loan_type }
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
-    fetching: () => {
-      dispatch(actions.bankResult());
-      dispatch(actions.yysResult())
+    fetching: (params) => {
+      console.log(params);
+      dispatch(actions.bankResult(params));
+      dispatch(actions.yysResult(params));
     },
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(CertificationHome)));
+  AsynCpGenerator(Loading, trackingScene(CertificationHome))
+);

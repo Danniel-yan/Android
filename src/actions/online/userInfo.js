@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { get, post, responseStatus } from 'utils/fetch';
 
 export default function requestUser() {
@@ -6,15 +7,18 @@ export default function requestUser() {
 
     dispatch({type: 'requetOnlineUser'});
 
-    return get('/loanctcf/first-filter-status').then(response => {
-      if(response.res == responseStatus.success) {
-        dispatch({type: 'receiveOnlineUser', user: response.data})
-      } else {
-        dispatch({type: 'receiveOnlineUserError' })
-      }
-    }).catch(err => {
-      dispatch({type: 'requestOnlineUserError' })
-    })
+    AsyncStorage.getItem("loan_type").then(type => {
+      return post('/loanctcf/first-filter-status', type ? { loan_type: type } : {}).then(response => {
+        if(response.res == responseStatus.success) {
+          dispatch({type: 'receiveOnlineUser', user: response.data})
+        } else {
+          dispatch({type: 'receiveOnlineUserError' })
+        }
+      }).catch(err => {
+        dispatch({type: 'requestOnlineUserError' })
+      })
+    });
+
+
   }
 }
-
