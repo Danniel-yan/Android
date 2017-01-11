@@ -5,14 +5,14 @@ export default function() {
 
     get('/loanctcf/status').then(response => {
       // TODO remove
-      //      response = {
-      //        "res": 1,
-      //        "data": {
-      //          "status": 5,
-      //          "time_expire_status":0,
-      //          "time_expire":"1970-01-01 08:00:00",
-      //        }
-      //      }
+          //  response = {
+          //    "res": 1,
+          //    "data": {
+          //      "status": 5,
+          //      "time_expire_status":0,
+          //      "time_expire":"1970-01-01 08:00:00",
+          //    }
+          //  }
 
       if(response.res == responseStatus.success) {
         dispatch({ type: 'receiveOnlineStatus', status: response.data })

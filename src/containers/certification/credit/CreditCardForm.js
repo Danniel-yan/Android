@@ -64,7 +64,7 @@ class CreditCardForm extends Component {
               title="导入账单"
               toKey="OnlineCreditCardStatus"
               prePress={this._submit.bind(this)}
-              disabled={disabled}
+
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -91,10 +91,8 @@ class CreditCardForm extends Component {
 
       this.setState({submitting: false});
 
-      if(response.res == responseStatus.success && response.data.second_login == 1) {
+      if(response.res == responseStatus.success) {
         return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data}};
-      } else if(response.res == responseStatus.success) {
-        return true;
       }
 
       throw response.msg;
@@ -234,5 +232,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(
-//   AsynCpGenerator(Loading, CreditCardForm));
+  export default connect(mapStateToProps, mapDispatchToProps)(
+    AsynCpGenerator(Loading, CreditCardForm));

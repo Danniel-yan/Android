@@ -21,11 +21,11 @@ import CardListByCategory from 'containers/scene/card/CardListByCategory';
 import CardProgressList from 'containers/scene/card/CardProgressList';
 import CardArticals from 'containers/scene/CardArticals';
 import CardArticalDetail from 'containers/scene/CardArticalDetail';
-import CertificationHome from 'containers/online/CertificationHome';
+import CertificationHome from 'containers/certification/credit/CertificationHome';
 import OnlineUserInfo from 'containers/online/UserInfo';
 import OnlineCreditCards from 'containers/online/CreditCards';
-import OnlineCreditCardForm from 'containers/online/CreditCardForm';
-import OnlineCreditCardVerify from 'containers/online/CreditCardVerify';
+import OnlineCreditCardForm from 'containers/certification/credit/CreditCardForm';
+import OnlineCreditCardVerify from 'containers/certification/credit/CreditCardVerify';
 import OnlineCreditCardStatus from 'containers/online/CreditCardStatus';
 import OnlineYysForm from 'containers/online/YysForm';
 import OnlineYysFormStatus from 'containers/online/YysFormStatus';
@@ -39,6 +39,8 @@ import OnlineReceiptCard from 'containers/online/ReceiptCard';
 import OnlineSignSuccess from 'containers/online/SignSuccess';
 import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
+
+import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
 
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -79,7 +81,9 @@ import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
   { key: 'CardListScene', module: CardListScene },
   { key: 'BankCardListScene', module: BankCardListScene },
   { key: 'Login', module: Login },
-  { key: 'UserInfo', module: UserInfo }
+  { key: 'UserInfo', module: UserInfo },
+
+  { key: 'CreditLoan', module: CreditLoanHomeScene }
 ].forEach(item => {
   modules[item.key] = item.module;
 });

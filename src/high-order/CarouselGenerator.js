@@ -22,18 +22,22 @@ CarouselGenerator = function(configs) {
                 this.state = {
                     currentIndex: 0
                 }
+
+                this.generateInfos();
             }
 
             generateInfos() {
                 var props = this.props;
                 this._height = props.height || configs.height || 22;
 
+                this._itemHeight = props.itemHeight || configs.itemHeight || this._height;
+
                 this._scrollEnabled = configs.scrollEnabled !== false;
                 this._horizontal = configs.horizontal || false;
                 this._pagingEnabled = configs.pagingEnabled || false;
                 this._intervalTime = configs.intervalTime || 4000;
 
-                this._pageCount = items ? items.length : 0;
+                this._pageCount = items ? Math.ceil(items.length / (this._height / this._itemHeight)) : 0;
 
                 this._scrollStep = this._horizontal ? Dimensions.get('window').width : this._height;
             }
@@ -67,7 +71,7 @@ CarouselGenerator = function(configs) {
             }
 
             render() {
-                this.generateInfos();
+
                 this._runCarouselBanner();
                 return (
                     <View style={[styles.container, { height: this._height }]}>

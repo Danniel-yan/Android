@@ -277,7 +277,8 @@ export default class LoanDetailScene extends Component {
     let { onlineStatus } = this.props;
     let { status, time_expire_status } = onlineStatus;
 
-
+    console.log("***************status");
+    console.log(status);
     if(!logined) {
       return {
         loginSuccess: this.props.fetchOnlineStatus,
@@ -320,8 +321,8 @@ export default class LoanDetailScene extends Component {
       navigator.geolocation.getCurrentPosition(position => {
         this.setState({ checkingGPS: false })
         resolve('');
-      }, () => {
-        alert('请打开定位');
+      }, (error) => {
+        alert(JSON.stringify(error));
         this.setState({ checkingGPS: false })
         reject('');
       });
