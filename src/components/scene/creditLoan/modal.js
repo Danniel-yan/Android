@@ -5,15 +5,23 @@ import {
     Modal,
     Dimensions,
     Image,
+    TouchableOpacity,
     StyleSheet
 } from 'react-native';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
+import CertifPanel from 'containers/creditLoan/CertifPanel';
 
 const {height, width} = Dimensions.get('window');
 
 export default class ModalDialog extends Component {
+
+  closeModal() {
+    var closeFunc = this.props.flags ? this.props.flags.closeModal : null;
+    closeFunc && closeFunc();
+  }
+
     render (){
         return (
           <Modal
@@ -22,29 +30,8 @@ export default class ModalDialog extends Component {
            visible = {this.props.flags.modalFlag}
            onRequestClose={() => {}}>
            <View style = {{backgroundColor : 'rgba(0,0,0,.5)',width:width,height:height,flex:1}}>
-            <View style = {{flex : 1}}></View>
-            <View style = {{backgroundColor : 'white',height:467}}>
-
-                    <View style = {styles.title}><Text style= {styles.titleL}>提额资料</Text><Text style={styles.titleR}>提额资料</Text></View>
-                    <View>
-                    {
-                      this._renderItem(require("assets/credit-icons/xinyongkazhangdan.png"), "信用卡账单", '未认证','最高提升到10万额度',{})
-                    }
-                    {
-                      this._renderItem(require("assets/credit-icons/shenfenrenzheng.png"), "身份认证", '未认证','认证完毕，可获500-1000额度',{})
-                    }
-                    {
-                      this._renderItem(require("assets/credit-icons/yanghanzhenxinbaogao.png"), "央行征信报告", '未认证','认证完毕，可增加30%贷款成功率',{})
-                    }
-                    {
-                      this._renderItem(require("assets/credit-icons/tongxunlushouquan.png"), "通讯录授权", '未授权','授权完毕，可获500-1000额度',{})
-                    }
-                    {
-                      this._renderItem(require("assets/credit-icons/yunyinshangrenzheng.png"), "运营商认证", '未认证' ,'认证完毕，可获1000-3000',{})
-                    }
-                </View>
-
-            </View>
+            <TouchableOpacity style = {{flex : 1}} onPress={this.closeModal.bind(this)}></TouchableOpacity>
+            <CertifPanel closeModal={this.props.flags ? this.props.flags.closeModal : null} />
 
            </View>
           </Modal>

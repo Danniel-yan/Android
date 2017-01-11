@@ -177,18 +177,16 @@ function mapStateToProps(state) {
     isFetching: bank.isFetching || yys.isFetching,
     fetched: bank.fetched && yys.fetched,
     bankResult: bank,
-    yysResult: yys,
-    fetchingParams: { loan_type: state.online.loan_type }
+    yysResult: yys
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
-    fetching: (params) => {
-      console.log(params);
-      dispatch(actions.bankResult(params));
-      dispatch(actions.yysResult(params));
+    fetching: () => {
+      dispatch(actions.bankResult());
+      dispatch(actions.yysResult());
     },
   }
 }
