@@ -41,7 +41,7 @@ import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
 import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
-
+import FundScene from 'containers/scene/fund/FundSceneContainer'
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -83,7 +83,8 @@ import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
   { key: 'Login', module: Login },
   { key: 'UserInfo', module: UserInfo },
 
-  { key: 'CreditLoan', module: CreditLoanHomeScene }
+  { key: 'CreditLoan', module: CreditLoanHomeScene },
+  { key: 'FundScene', module: FundScene }
 ].forEach(item => {
   modules[item.key] = item.module;
 });
