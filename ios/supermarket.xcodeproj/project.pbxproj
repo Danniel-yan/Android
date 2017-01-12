@@ -43,9 +43,6 @@
 		A61A5D311E14B7A300F0556A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D301E14B7A300F0556A /* CoreMotion.framework */; };
 		A61A5D331E14B7B800F0556A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D321E14B7B800F0556A /* CoreMedia.framework */; };
 		A61A5D351E14B7C600F0556A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D341E14B7C600F0556A /* AVFoundation.framework */; };
-		A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */; };
-		A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */; };
-		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
 		A639C54F1E10EAFA0036819E /* AmrCodecFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5461E10EAFA0036819E /* AmrCodecFMWK.framework */; };
 		A639C5501E10EAFA0036819E /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5471E10EAFA0036819E /* SecurityGuardSDK.framework */; };
 		A639C5511E10EAFA0036819E /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C5481E10EAFA0036819E /* UTDID.framework */; };
@@ -65,6 +62,9 @@
 		A639C57E1E10F0270036819E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57D1E10F0270036819E /* AssetsLibrary.framework */; };
 		A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57F1E10F03C0036819E /* CoreMotion.framework */; };
 		A639C5831E10F2A40036819E /* FeedbackModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A639C5821E10F2A40036819E /* FeedbackModule.m */; };
+		A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */; };
+		A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */; };
+		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
@@ -344,10 +344,6 @@
 		A61A5D301E14B7A300F0556A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		A61A5D321E14B7B800F0556A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A61A5D341E14B7C600F0556A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
-		A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
-		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
-		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
 		A639C5461E10EAFA0036819E /* AmrCodecFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmrCodecFMWK.framework; sourceTree = "<group>"; };
 		A639C5471E10EAFA0036819E /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityGuardSDK.framework; sourceTree = "<group>"; };
 		A639C5481E10EAFA0036819E /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -368,6 +364,10 @@
 		A639C57F1E10F03C0036819E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		A639C5811E10F2A40036819E /* FeedbackModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackModule.h; sourceTree = "<group>"; };
 		A639C5821E10F2A40036819E /* FeedbackModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackModule.m; sourceTree = "<group>"; };
+		A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
+		A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
+		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
+		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -817,15 +817,6 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		A6635AA71E1CEEFF0071C2B8 /* MegBankCard */ = {
-			isa = PBXGroup;
-			children = (
-				A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */,
-				A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */,
-			);
-			path = MegBankCard;
-			sourceTree = "<group>";
-		};
 		A639C5451E10EAFA0036819E /* YWFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +831,15 @@
 				A639C54E1E10EAFA0036819E /* YWHybridWebViewFMWK.framework */,
 			);
 			path = YWFramework;
+			sourceTree = "<group>";
+		};
+		A6635AA71E1CEEFF0071C2B8 /* MegBankCard */ = {
+			isa = PBXGroup;
+			children = (
+				A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */,
+				A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */,
+			);
+			path = MegBankCard;
 			sourceTree = "<group>";
 		};
 		B81A61EF1DE53502001365BD /* Resource */ = {
@@ -1692,7 +1692,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
 				PROVISIONING_PROFILE = "3ec276b2-6439-4f10-8a21-91d63d2eb881";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
 				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1747,8 +1746,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
 				PRODUCT_NAME = supermarket.temp_caseinsensitive_renamejs;
-				PROVISIONING_PROFILE = "3ec276b2-6439-4f10-8a21-91d63d2eb881";
-				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi AdHoc";
 				PROVISIONING_PROFILE = "d597a9f7-f42f-47e8-9400-983f8cc23e9f";
 				PROVISIONING_PROFILE_SPECIFIER = "shudu chaoshi appstore";
 				VERSIONING_SYSTEM = "apple-generic";

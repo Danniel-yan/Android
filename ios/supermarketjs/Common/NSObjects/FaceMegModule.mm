@@ -18,6 +18,7 @@
 @interface FaceMegModule()
 @property (nonatomic , strong)  NSMutableArray  *imagesArry;
 @property (nonatomic , strong)  NSMutableDictionary  *dataDic;
+@property (nonatomic , strong)  MyViewController  *myViewController;
 
 
 @end
@@ -52,6 +53,36 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 {
   [self bankCardTheVerify:resolve WithReject:reject];
 }
+RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  [self megLiveVerify:resolve rejecter:reject];
+}
+
+
+#pragma mark 活体检查
+
+- (void)megLiveTest:(RCTPromiseResolveBlock)resolver WithReject:(RCTPromiseRejectBlock)reject
+{
+  UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+  MyViewController *myVC = [[MyViewController alloc] initWithDefauleSetting];
+  self.myViewController = myVC;
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:myVC];
+  __unsafe_unretained FaceMegModule *weakSelf = self;
+  
+  myVC.block = ^(FaceIDData *data){
+    //    [weakSelf meg]
+    NSArray *imageDataArry = [data.images allValues];
+    for (NSData *data in imageDataArry) {
+      [weakSelf.imagesArry addObject:[weakSelf getBase64ImageStrOfIamgeData:data]];
+    }
+    weakSelf.dataDic[@"images"] = weakSelf.imagesArry;
+    resolver(weakSelf.dataDic);
+    [weakSelf.myViewController dismissViewControllerAnimated:YES completion:nil];
+  };
+  [rootVC presentViewController:nav animated:YES completion:nil];
+  
+}
+
 
 #pragma mark 身份证正面识别
 - (void)idCardVerifyFromTheFront:(RCTPromiseResolveBlock)resolver WithReject:(RCTPromiseRejectBlock)reject{
@@ -124,6 +155,15 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
   }];
 #endif
 }
+#pragma mark 二进制转换成base64
+
+- (NSString*)getBase64ImageStrOfIamgeData:(NSData*)image
+{
+  NSString *encodeImageStr = [image base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  return encodeImageStr;
+
+}
+
 #pragma mark 图片转换成base64
 - (NSString*)getBase64ImageStrOfImage:(UIImage*)image
 {
