@@ -15,7 +15,7 @@ import Loading from 'components/shared/Loading';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import YysBanner from './YysBanner';
 import YysSecondForm from './YysSecondForm';
-import ErrorInfo from './ErrorInfo';
+import ErrorInfo from './../ErrorInfo';
 
 import actions from 'actions/online';
 
@@ -25,7 +25,7 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush} from 'actions/navigation';
 
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
-import onlineStyles from './styles';
+import onlineStyles from './../styles';
 
 const needSecondLogin = 1;
 
@@ -110,7 +110,7 @@ class YysForm extends Component {
       //  data:  {
       //    "ticket_id": "ea8029b2-c81c-11e6-b5e3-00163e00ed7a_1482393720.03", //ticket_id 供二次登录时使用
       //    "second_login": 1, //是否需要二次登陆，0=不需要，1=需要
-      //    "val_code": { 
+      //    "val_code": {
       //        "type": "sms", //验证码类型，sms=手机验证码，img=图片验证码
       //        "value": "null" //图片验证码的base64数据
       //    }

@@ -11,10 +11,10 @@ import {
 
 import { get, responseStatus } from 'utils/fetch';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
-import onlineStyles from './styles';
+import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPopLink } from 'containers/shared/Link';
-import { parseStatus } from './status';
+import { parseStatus } from './../status';
 
 import successImage from 'assets/online/yys-success.png';
 import failureImage from 'assets/online/yys-failure.png';

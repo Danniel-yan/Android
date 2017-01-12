@@ -73,7 +73,8 @@ class CertifPanel extends Component {
   }
 
   renderTiE() {
-    var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.existSuccessBill;
+    var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.existSuccessBill,
+      yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.existSuccessBill;
     return (
       <View>
         <Item
@@ -97,7 +98,7 @@ class CertifPanel extends Component {
           confirm={bankSuccess ? "已认证" : "未认证"}
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{title:"信用卡账单", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); }}}/>
+          navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); }}}/>
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
@@ -111,8 +112,10 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
           title="运营商认证"
-          confirm="未认证"
-          tips="认证完毕，可获1000-3000额度"/>
+          confirm={yysSuccess ? "已认证" : "未认证"}
+          tips="认证完毕，可获1000-3000额度"
+          textStyle={yysSuccess ? {color: colors.success} : {color: colors.error}}
+          navProps={{title:"运营商认证", toKey:"OnlineYysForm", prePress: () => { this.closeModal(); }}}/>
       </View>
     );
   }
