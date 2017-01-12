@@ -13,39 +13,29 @@ import { get, responseStatus } from 'utils/fetch';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
-import { ExternalPopLink, ExternalPushLink } from 'containers/shared/Link';
+import { ExternalPopLink } from 'containers/shared/Link';
 import { parseStatus } from './../status';
+
+import getBillList from 'actions/online/billList';
 
 import successImage from 'assets/online/import-success.png';
 import failureImage from 'assets/online/import-failure.png';
 import ingImage from 'assets/online/importing.gif';
 
-import getBillList from 'actions/online/billList';
-
 class CreditCardStatus extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props)
 
-    this.state = { checked: false }
-    this.fetching();
+    this.state = { checked: false, status: "processing" };
   }
 
   componentDidMount() {
-    // this._checkStatus();
-    this.fetching();
-  }
-
-  componentDidUpdate() {
-    // let status = parseStatus(this.props.bankResult.status);
-    // if(status == 'success' || status == 'failure') {
-    //   clearInterval(this.timer)
-    // }
+    this._getBillStatus();
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer)
+    clearTimeout(this.timeFlag)
   }
 
   render() {
@@ -57,7 +47,8 @@ class CreditCardStatus extends Component {
   }
 
   _content() {
-    let status = parseStatus(this.props.bankResult.status);
+    let status = this.state.status;
+
 
     let image = ingImage;
     let button = '';
@@ -72,6 +63,8 @@ class CreditCardStatus extends Component {
       button = '重新导入账单';
       statusText = '信用卡认证失败，请重新认证！';
     }
+    // console.log("checked: " + this.state.checked);
+    // console.log("status: " + status);
 
     return (
       <ScrollView contentContainerStyle={[container, onlineStyles.container ]}>
@@ -91,25 +84,19 @@ class CreditCardStatus extends Component {
     );
   }
 
-  _checkStatus() {
-    //this.props.fetching();
-    this.setState({checked: true})
-    this.timer = setInterval(() => {
-      //this.props.fetching();
-      console.log("FETCHING****")
-    }, 5000);
-  }
+  _getBillStatus() {
+    this.setState({checked: true});
 
-  fetching() {
-    var { bank_id } = this.props || {};
+    getBillList({login_target: this.props.bank_id}).then(response=>{
+      var lastBill = response && response.data && response.data.length > 0 ? response.data[0] : null;
+      lastBill && (this.state.status = parseStatus(parseInt(lastBill.status)));
 
-    this.setState({checked: true})
-    console.log(this.props);
-    getBillList({ login_target: bank_id }).then(response => {
-      var data = response.data, bill = data && data[0];
-
-      console.log("data");
-      console.log(data);
+      if(this.state.status == 'success' || this.state.status == 'failure') {
+        clearTimeout(this.timeFlag);
+        this.setState({status: this.state.status});
+      } else {
+        this.timeFlag = setTimeout(() => this._getBillStatus(), 5000);
+      }
     })
   }
 }
@@ -131,20 +118,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
-import { connect } from 'react-redux';
 import { trackingScene } from 'high-order/trackingPointGenerator';
-import Loading from 'components/shared/Loading';
-import actions from 'actions/online';
-
-// function mapStateToProps(state) {
-//   return { bankResult: state.online.bankResult};
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     fetching: (params) => dispatch(actions.bankResult(params)),
-//   }
-// }
 
 export default (trackingScene(CreditCardStatus));
