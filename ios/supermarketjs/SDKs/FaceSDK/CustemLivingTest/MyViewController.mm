@@ -18,9 +18,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeSystem];
+  [rightBut setTitle:@"返回" forState:UIControlStateNormal];
+  [rightBut setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+  rightBut.frame = CGRectMake(10, 0, 40, 40);
+  self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:rightBut];
+  [rightBut addTarget:self action:@selector(dissmissView) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
 }
 
+- (void)dissmissView{
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
