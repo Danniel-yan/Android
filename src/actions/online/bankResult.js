@@ -9,7 +9,7 @@ export default function(body) {
 
     dispatch({type: 'requestOnlineBankResult'});
     var state = getState(), loanType = state && state.online && state.online.loanType ? state.online.loanType.type : null;
-    loanType && (body.loan_type = loanType);
+    body = Object.assign({loan_type: loanType}, body);
     getBillList(body).then(response => {
       if(response.res == responseStatus.success) {
         var billList = response.data, lastestBill = null, existSuccessBill = false;
@@ -19,7 +19,7 @@ export default function(body) {
 
 
         dispatch({type: 'receiveBankEntryStatus', existSuccessBill: existSuccessBill});
-        dispatch({type: 'receiveOnlineBankResult', status: lastestBill ? lastestBill.status : undefined});
+        dispatch({type: 'receiveOnlineBankResult', status: lastestBill ? lastestBill.status : undefined, billList: billList});
       }
     });
   }

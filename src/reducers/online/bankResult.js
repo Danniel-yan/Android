@@ -3,7 +3,8 @@ const initState = {
   fetched: false,
   status: undefined,
   err: undefined,
-  existSuccessBill: false
+  existSuccessBill: false,
+  billList: []
 };
 
 export default function(state = initState, action) {
@@ -13,7 +14,9 @@ export default function(state = initState, action) {
     case 'receiveBankEntryStatus':
       return Object.assign({}, state, { existSuccessBill: action.existSuccessBill})
     case 'receiveOnlineBankResult':
-      return Object.assign({}, state, { isFetching: false, fetched: true, status: action.status})
+      var newStatus = Object.assign({}, state, { isFetching: false, fetched: true, status: action.status });
+      newStatus.billList = action.billList || [];
+      return newStatus;
     default:
       return state;
   }

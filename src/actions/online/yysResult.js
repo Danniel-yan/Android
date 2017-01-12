@@ -9,7 +9,7 @@ export default function(body) {
     dispatch({type: 'requestOnlineYysResult'});
 
     var state = getState(), loanType = state && state.online && state.online.loanType ? state.online.loanType.type : null;
-    loanType && (body.loan_type = loanType);
+    body = Object.assign({loan_type: loanType}, body);
 
     getBillList(Object.assign({}, body, { type: 'yys' })).then(response => {
       if(response.res == responseStatus.success) {
