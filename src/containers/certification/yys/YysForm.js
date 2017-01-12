@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Image,
   Text,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -127,23 +128,27 @@ class YysForm extends Component {
       //  this.setState({submitting: false });
       //}
       //return;
-      post('/bill/yys-login', body).then(response => {
-        if(this.unmount) {
-          return;
-        }
+      return AsyncStorage.getItem("loan_type").then(type => {
+        body.loan_type = type;
+        post('/bill/yys-login', body).then(response => {
+          if(this.unmount) {
+            return;
+          }
 
-        if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
-          this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
-        } else if(response.res == responseStatus.success) {
-          this.setState({submitting: false });
-          this.props.loginSuccess();
-        } else {
-          this.setState({submitting: false, error: response.msg });
-        }
+          if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
+            this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
+          } else if(response.res == responseStatus.success) {
+            this.setState({submitting: false });
+            this.props.loginSuccess();
+          } else {
+            this.setState({submitting: false, error: response.msg });
+          }
 
-      }).catch(err => {
-        this.setState({submitting: false});
-      })
+        }).catch(err => {
+          this.setState({submitting: false});
+        })
+      });
+
     });
   }
 
