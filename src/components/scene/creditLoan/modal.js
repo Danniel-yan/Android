@@ -10,14 +10,9 @@ import {
 } from 'react-native';
 
 import { ExternalPushLink } from 'containers/shared/Link';
-
 import CertifPanel from 'containers/creditLoan/CertifPanel';
 
-const {height, width} = Dimensions.get('window');
-
-
-
-function _renderItem(icon, title, confirm,tips,navProps) {
+function Item({icon, title, confirm, tips, navProps = {}}) {
  return (
    <ExternalPushLink {...navProps}>
      <View style = {[styles.item,styles.bdTop]}>
@@ -39,51 +34,64 @@ function _renderItem(icon, title, confirm,tips,navProps) {
 
 class TiEZiliao extends Component {
 
-    render (){
-        return (
-            <View>
-                 {
-                   _renderItem(require("assets/credit-icons/shenfenrenzheng.png"), "身份证", '未认证','认证完毕，可获500-1000额度',{})
-                 }
-                 {
-                   _renderItem(require("assets/credit-icons/tongxunlushouquan.png"), "通讯录授权", '未授权','认证完毕，可获500-1000额度',{})
-                 }
-                 {
-                   _renderItem(require("assets/credit-icons/yanghanzhenxinbaogao.png"), "央行征信报告", '未认证','认证完毕，可增加30%贷款成功率',{})
-                 }
-                  {
-                   _renderItem(require("assets/credit-icons/xinyongkazhangdan.png"), "信用卡账单", '未认证','最高可提升到10万额度',{})
-                 }
-                 {
-                   _renderItem(require("assets/credit-icons/gongjijinbaogao.png"), "公积金报告", '未认证','最高可提高到10万额度',{})
-                 }
-                 {
-                   _renderItem(require("assets/credit-icons/shebaobaogao.png"), "社保报告", '未认证' ,'认证完毕，可获500-1000',{})
-                 }
-                 {
-                   _renderItem(require("assets/credit-icons/yunyinshangrenzheng.png"), "运营商认证", '未认证' ,'认证完毕，可获1000-3000',{})
-                 }
-            </View>
-         )
-    }
+  render (){
+    return (
+      <View>
+        <Item
+          icon={require("assets/credit-icons/shenfenrenzheng.png")}
+          title="身份证"
+          confirm="未授权"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/tongxunlushouquan.png")}
+          title="通讯录授权"
+          confirm="未授权"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/yanghanzhenxinbaogao.png")}
+          title="央行征信报告"
+          confirm="未认证"
+          tips="认证完毕，可增加30%贷款成功率"/>
+        <Item
+          icon={require("assets/credit-icons/xinyongkazhangdan.png")}
+          title="信用卡账单"
+          confirm="未认证"
+          tips="最高可提升到10万额度"/>
+        <Item
+          icon={require("assets/credit-icons/gongjijinbaogao.png")}
+          title="公积金报告"
+          confirm="未认证"
+          tips="最高可提高到10万额度"/>
+        <Item
+          icon={require("assets/credit-icons/shebaobaogao.png")}
+          title="社保报告"
+          confirm="未认证"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
+          title="运营商认证"
+          confirm="未认证"
+          tips="认证完毕，可获1000-3000额度"/>
+      </View>
+     )
+  }
  }
-
 
 class ShouXin extends Component {
     render (){
         return (
-            <View>
-
-                <View>
-                   {
-                     _renderItem(require("assets/credit-icons/gongjijinbaogao.png"), "公积金报告", '未认证','授权完毕，可获500-1000额度',{})
-                   }
-                   {
-                     _renderItem(require("assets/credit-icons/shebaobaogao.png"), "社保报告", '未认证' ,'认证完毕，可获1000-3000额度',{})
-                   }
-               </View>
-            </View>
-
+          <View>
+            <Item
+              icon={require("assets/credit-icons/gongjijinbaogao.png")}
+              title="公积金报告"
+              confirm="未认证"
+              tips="最高可提高到10万额度"/>
+            <Item
+              icon={require("assets/credit-icons/shebaobaogao.png")}
+              title="社保报告"
+              confirm="未认证"
+              tips="认证完毕，可获500-1000额度"/>
+          </View>
         )
     }
 }
@@ -105,10 +113,9 @@ export default class ModalDialog extends Component {
                <View style = {{flex : 1}}>
                     <View style = {{flex : 1,backgroundColor : 'rgba(0,0,0,.5)'}}></View>
                     <View style = {styles.container}>
-                        <View style = {{backgroundColor : 'white',height:525}}>
+                        <View style = {{backgroundColor : 'white',height:520}}>
                         {this.state.shouXinFlag?(<View style = {styles.title}><Text style= {styles.titleL} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text><Text style={styles.titleR} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text></View>)
                             : (<View style = {styles.title}><Text style= {[styles.titleL,{color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text><Text style={[styles.titleR,{color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text></View>)}
-
                         {this.state.shouXinFlag?<TiEZiliao /> : <ShouXin />}
                         </View>
                     </View>
@@ -116,8 +123,6 @@ export default class ModalDialog extends Component {
             </Modal>
         )
     }
-
-
     toggleSceneShouXin() {
         this.setState ({
             shouXinFlag : false
