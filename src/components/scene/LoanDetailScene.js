@@ -277,7 +277,6 @@ export default class LoanDetailScene extends Component {
     let { onlineStatus } = this.props;
     let { status, time_expire_status } = onlineStatus;
 
-
     if(!logined) {
       return {
         loginSuccess: this.props.fetchOnlineStatus,
@@ -287,31 +286,35 @@ export default class LoanDetailScene extends Component {
     }
 
     if(status == 2) {
-      return {toKey: 'CertificationHome', title: '信息认证'};
+      return this.mergeProps({toKey: 'CertificationHome', title: '信息认证'});
     }
 
     if(status == 5 && time_expire_status == 1) {
-      return {toKey: 'OnlinePreloanExpire', title: '预授信申请结果'};
+      return this.mergeProps({toKey: 'OnlinePreloanExpire', title: '预授信申请结果'});
     }
 
     if(status == 5) {
-      return {toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'};
+      return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'});
     }
 
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
     if([6, 7, 8, 9, 10].includes(status)) {
-      return {toKey: 'OnlineApproveStatus', title: '审批状态'};
+      return this.mergeProps({toKey: 'OnlineApproveStatus', title: '审批状态'});
     }
 
     if([11, 12, 13, 14].includes(status)) {
-      return {toKey: 'OnlineSignSuccess', title: '签约'};
+      return this.mergeProps({toKey: 'OnlineSignSuccess', title: '签约'});
     }
 
     if([15].includes(status)) {
-      return {toKey: 'OnlineLoanDetail', title: '借款详情'};
+      return this.mergeProps({toKey: 'OnlineLoanDetail', title: '借款详情'});
     }
 
-    return { toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)};
+    return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
+  }
+
+  mergeProps(props) {
+    return Object.assign({ componentProps: { loan_type: this.props.detail.loan_type}}, props);
   }
 
   checkGPS() {

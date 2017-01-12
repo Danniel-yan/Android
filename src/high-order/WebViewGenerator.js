@@ -14,16 +14,15 @@ if(Platform.OS == 'android') {
 }
 
 export default function (config) {
-  let { web, url, source } = config;
-  url = web || url;
-  source = source ? source : { uri: url };
+  let { web, url } = config;
+  const source = typeof web == 'object' ? web : { uri: web || url };
 
   class InnerWebView extends Component {
     constructor(props) {
       super(props);
 
       let tracking = props.tracking || { key: 'webview' };
-      this.tracking = Object.assign({URL: url}, tracking, { key: encodeURIComponent(tracking.key)});
+      this.tracking = Object.assign({URL: web || url || ''}, tracking, { key: encodeURIComponent(tracking.key)});
     }
 
     render() {
