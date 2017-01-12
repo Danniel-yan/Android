@@ -11,9 +11,33 @@ import { colors } from 'styles';
 
 const {height, width} = Dimensions.get('window');
 
+function Item({icon, title, confirm, tips, navProps = {}, textStyle}) {
+ return (
+   <ExternalPushLink {...navProps}>
+     <View style = {[styles.item,styles.bdTop]}>
+       <Image source={icon} style = {styles.icon}/>
+       <View style = {{flex : 1}}>
+         <View style = {styles.top}>
+             <Text style = {styles.topL}>{title}</Text>
+             <View style = {{flex : 1,flexDirection : 'row'}}>
+                 <Text style = {[styles.topR, textStyle]}>{confirm}</Text>
+                 <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
+             </View>
+         </View>
+         <Text style = {{paddingLeft : 20,color: '#999',fontSize : 14}}>{tips}</Text>
+       </View>
+     </View>
+   </ExternalPushLink>
+ );
+}
+
 class CertifPanel extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+        shouXinFlag : true
+    }
   }
 
   closeModal() {
@@ -24,35 +48,91 @@ class CertifPanel extends Component {
   render() {
     var bankResult = this.props.bankResult;
     return (
-      <View style = {{backgroundColor : 'white',height:467}}>
-        <View style = {styles.title}><Text style= {styles.titleL}>提额资料</Text><Text style={styles.titleR}>提额资料</Text></View>
-        <View>
-        {
-          this._renderItem(require("assets/credit-icons/xinyongkazhangdan.png"), "信用卡账单",
-            bankResult.existSuccessBill ? "已认证" : "未认证",
-            '最高提升到10万额度', {
-              title:"信用卡账单", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); }
-            },
-            bankResult.existSuccessBill ? {color: colors.success} : {color: colors.error}
-          )
-        }
-        {
-          this._renderItem(require("assets/credit-icons/shenfenrenzheng.png"), "身份认证", '未认证','认证完毕，可获500-1000额度',{})
-        }
-        {
-          this._renderItem(require("assets/credit-icons/yanghanzhenxinbaogao.png"), "央行征信报告", '未认证','认证完毕，可增加30%贷款成功率',{})
-        }
-        {
-          this._renderItem(require("assets/credit-icons/tongxunlushouquan.png"), "通讯录授权", '未授权','授权完毕，可获500-1000额度',{})
-        }
-        {
-          this._renderItem(require("assets/credit-icons/yunyinshangrenzheng.png"), "运营商认证", '未认证' ,'认证完毕，可获1000-3000',{})
-        }
-        </View>
+
+          <View style = {{backgroundColor : 'white',height:520}}>
+          {
+            <View style = {styles.title}>
+              <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text>
+              <Text style={[styles.titleR,this.state.shouXinFlag ? {} : {color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text>
+            </View>
+          }
+          {this.state.shouXinFlag ? this.renderTiE() : this.renderShouXin()}
+          </View>
+    );
+  }
+
+  toggleSceneShouXin() {
+      this.setState ({
+          shouXinFlag : false
+      })
+  }
+  toggleSceneTiE(){
+       this.setState ({
+          shouXinFlag : true
+      })
+  }
+
+  renderTiE() {
+    var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.existSuccessBill;
+    return (
+      <View>
+        <Item
+          icon={require("assets/credit-icons/shenfenrenzheng.png")}
+          title="身份证"
+          confirm="未授权"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/tongxunlushouquan.png")}
+          title="通讯录授权"
+          confirm="未授权"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/yanghanzhenxinbaogao.png")}
+          title="央行征信报告"
+          confirm="未认证"
+          tips="认证完毕，可增加30%贷款成功率"/>
+        <Item
+          icon={require("assets/credit-icons/xinyongkazhangdan.png")}
+          title="信用卡账单"
+          confirm={bankSuccess ? "已认证" : "未认证"}
+          tips="最高可提升到10万额度"
+          textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
+          navProps={{title:"信用卡账单", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); }}}/>
+        <Item
+          icon={require("assets/credit-icons/gongjijinbaogao.png")}
+          title="公积金报告"
+          confirm="未认证"
+          tips="最高可提高到10万额度"/>
+        <Item
+          icon={require("assets/credit-icons/shebaobaogao.png")}
+          title="社保报告"
+          confirm="未认证"
+          tips="认证完毕，可获500-1000额度"/>
+        <Item
+          icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
+          title="运营商认证"
+          confirm="未认证"
+          tips="认证完毕，可获1000-3000额度"/>
       </View>
     );
   }
-  // bankResult.existSuccessBill ? (<Text style=[{styles.topR}, {color: styles.success}]>已认证</Text>):(<Text style=[{styles.topR}, {color: styles.error}]>未认证</Text>),
+
+  renderShouXin() {
+    return (
+      <View>
+        <Item
+          icon={require("assets/credit-icons/gongjijinbaogao.png")}
+          title="公积金报告"
+          confirm="未认证"
+          tips="最高可提高到10万额度"/>
+        <Item
+          icon={require("assets/credit-icons/shebaobaogao.png")}
+          title="社保报告"
+          confirm="未认证"
+          tips="认证完毕，可获500-1000额度"/>
+      </View>
+    );
+  }
 
   _renderItem(icon, title, confirm, tips,navProps, textStyle) {
       return (
@@ -76,6 +156,14 @@ class CertifPanel extends Component {
 }
 
 const styles = StyleSheet.create({
+    container : {
+        backgroundColor : 'rgba(0,0,0,.5)',
+        flex:1,
+        position : 'absolute',
+        bottom : 0,
+        left : 0,
+        right : 0
+    },
     title : {
         flexDirection:'row',
         paddingVertical:10,
@@ -98,7 +186,7 @@ const styles = StyleSheet.create({
 
         flexDirection : 'row',
         alignItems : 'center',
-        paddingVertical: 15,
+        paddingVertical: 12,
         paddingLeft : 10,
         paddingRight : 5
     },

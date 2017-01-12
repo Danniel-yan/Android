@@ -39,7 +39,7 @@ export default class CreditLimitPanel extends Component {
             onPress={this._openCreditPanel.bind(this)}
           ><Text style={CLPStyles.btnTxt}>立即授信</Text></Button>
         </View>
-        <ModalDialog flags = {flags}/>
+        <ModalDialog flags={flags} closeModal={() => this._closeCreditPanel()}/>
       </View>
     );
   }
