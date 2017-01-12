@@ -97,7 +97,7 @@ class CreditCardForm extends Component {
        this.setState({submitting: false});
 
        if(response.res == responseStatus.success) {
-         if(response.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+         if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
          // return {componentProps: {...response.data}};
          return {componentProps: {...response.data, bank_id: this.props.bank_id}};
        }
