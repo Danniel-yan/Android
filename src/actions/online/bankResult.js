@@ -5,9 +5,11 @@ import getBillList from './billList';
 export default function(body) {
 
   // auto refresh
-  return dispatch => {
+  return (dispatch, getState) => {
 
     dispatch({type: 'requestOnlineBankResult'});
+    var state = getState(), loanType = state && state.online && state.online.loanType ? state.online.loanType.type : null;
+    loanType && (body.loan_type = loanType);
     getBillList(body).then(response => {
       if(response.res == responseStatus.success) {
         var billList = response.data, lastestBill = null, existSuccessBill = false;

@@ -4,9 +4,12 @@ import getBillList from './billList';
 
 export default function(body) {
 
-  return dispatch => {
+  return (dispatch, getState) => {
 
     dispatch({type: 'requestOnlineYysResult'});
+
+    var state = getState(), loanType = state && state.online && state.online.loanType ? state.online.loanType.type : null;
+    loanType && (body.loan_type = loanType);
 
     getBillList(Object.assign({}, body, { type: 'yys' })).then(response => {
       if(response.res == responseStatus.success) {
@@ -19,11 +22,5 @@ export default function(body) {
         dispatch({type: 'receiveOnlineYysResult', status: lastestBill ? lastestBill.status : undefined});
       }
     });
-    //
-    // get('/bill/yys-ctcf-result').then(response => {
-    //   if(response.res = responseStatus.success) {
-    //     dispatch({type: 'receiveOnlineYysResult', status: response.data.status})
-    //   }
-    // })
   }
 }

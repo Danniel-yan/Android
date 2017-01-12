@@ -199,21 +199,22 @@ class UserInfo extends Component {
         form.phone_model = DeviceInfo.getModel();
         form.phone_system_version = DeviceInfo.getSystemVersion();
 
-        AsyncStorage.getItem("loan_type").then(type => {
-          type && (form.loan_type = type);
-          return post('/loanctcf/first-filter', form).then(response => {
-            if(response.res == responseStatus.success) {
-              this.setState({ submitting: false})
-              this.props.fetchStatus();
-              this.props.goHome();
-            } else {
-              throw response.msg;
-            }
-          }).catch(err => {
-            console.log(err);
-            this.setState({ submitting: false, error: err})
-          });
+
+        var loanType = this.props.loanType || 0;
+        loanType && (form.loan_type = loanType);
+        return post('/loanctcf/first-filter', form).then(response => {
+          if(response.res == responseStatus.success) {
+            this.setState({ submitting: false})
+            this.props.fetchStatus();
+            this.props.goHome();
+          } else {
+            throw response.msg;
+          }
+        }).catch(err => {
+          console.log(err);
+          this.setState({ submitting: false, error: err})
         });
+
 
       });
     });
@@ -302,6 +303,7 @@ function mapStateToProps(state) {
     err: user.err || pickers.err,
     user,
     pickers,
+    loanType: state.online.loanType.type
   }
 }
 

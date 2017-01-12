@@ -89,25 +89,24 @@ class CreditCardForm extends Component {
       login_target: curTab.login_target
     };
 
-    return AsyncStorage.getItem("loan_type").then(type => {
-      body.loan_type = type;
-      return post('/bill/bank-login', body).then(response => {
-       if(this.unmount) { return }
+    var loanType = this.props.loanType || 0;
+    body.loan_type = loanType;
+    return post('/bill/bank-login', body).then(response => {
+     if(this.unmount) { return }
 
-       this.setState({submitting: false});
+     this.setState({submitting: false});
 
-       if(response.res == responseStatus.success) {
-         if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
-         // return {componentProps: {...response.data}};
-         return {componentProps: {...response.data, bank_id: this.props.bank_id}};
-       }
+     if(response.res == responseStatus.success) {
+       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+       // return {componentProps: {...response.data}};
+       return {componentProps: {...response.data, bank_id: this.props.bank_id}};
+     }
 
-       throw response.msg;
-     }).catch(err => {
-       this.setState({submitting: false});
-       throw err;
-     })
-    });
+     throw response.msg;
+   }).catch(err => {
+     this.setState({submitting: false});
+     throw err;
+   })
 
   }
 
@@ -232,7 +231,7 @@ function mapStateToProps(state, ownProps) {
     feched: false
   };
 
-  return { ...detail }
+  return { ...detail, loanType: state.online.loanType.type }
 }
 
 function mapDispatchToProps(dispatch) {

@@ -128,8 +128,9 @@ class YysForm extends Component {
       //  this.setState({submitting: false });
       //}
       //return;
-      return AsyncStorage.getItem("loan_type").then(type => {
-        body.loan_type = type;
+
+        var loanType = this.props.loanType || 0;
+        body.loan_type = loanType;
         post('/bill/yys-login', body).then(response => {
           if(this.unmount) {
             return;
@@ -147,7 +148,7 @@ class YysForm extends Component {
         }).catch(err => {
           this.setState({submitting: false});
         })
-      });
+
 
     });
   }
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  return state.online.yysForms;
+  return {...state.online.yysForms, loanType: state.online.loanType.type};
 }
 
 function mapDispatchToProps(dispatch) {

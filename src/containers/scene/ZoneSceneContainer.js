@@ -12,6 +12,7 @@ import * as defaultStyles from 'styles';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import { externalPush, majorTab } from 'actions/navigation';
+import onlineActions from 'actions/online';
 
 
 class ZoneScene extends Component {
@@ -171,7 +172,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     externalPush: route => dispatch(externalPush(route)),
-    majorTab: route => dispatch(majorTab(route))
+    majorTab: route => dispatch(majorTab(route)),
+    setLoanType: () => dispatch(onlineActions.setLoanType(9999))
   }
 }
 

@@ -40,6 +40,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     fetching: id => {
       if(ownProps.loan_type == loanType.chaoshidai) {
+        dispatch(onlineActions.setLoanType(ownProps.loan_type))
         dispatch(onlineActions.status());
       }
 
@@ -53,7 +54,8 @@ function mapDispatchToProps(dispatch, ownProps) {
         backRoute: { key: 'LoanDetailScene' }
       }))
     },
-    fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
+    fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams)),
+    setLoanType: () => dispatch(onlineActions.setLoanType(1))
   }
 }
 

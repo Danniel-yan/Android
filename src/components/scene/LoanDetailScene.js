@@ -238,10 +238,9 @@ export default class LoanDetailScene extends Component {
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
-          prePress={() => AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())}
           />
       );
-      // this.props.detail.loan_type.toString()
+      // prePress={ () => this.props.setLoanType() }  AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())
     }
 
     if(this.props.loginUser.valid) {
