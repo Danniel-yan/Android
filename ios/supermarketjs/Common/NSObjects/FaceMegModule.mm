@@ -70,7 +70,7 @@ RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
   UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeCustom];
   [rightBut setImage:[UIImage imageNamed:@"return_button"] forState:UIControlStateNormal];
   rightBut.frame = CGRectMake(10, 0, 50, 40);
-  nav.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBut];
+  nav.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBut];
   [rightBut addTarget:self action:@selector(dissmissView) forControlEvents:UIControlEventTouchUpInside];
   __unsafe_unretained FaceMegModule *weakSelf = self;
   
