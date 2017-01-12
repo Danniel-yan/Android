@@ -55,18 +55,22 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 }
 RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self megLiveVerify:resolve rejecter:reject];
+  [self megLiveTest:resolve WithReject:reject];
 }
 
 
 #pragma mark 活体检查
-
 - (void)megLiveTest:(RCTPromiseResolveBlock)resolver WithReject:(RCTPromiseRejectBlock)reject
 {
   UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
   MyViewController *myVC = [[MyViewController alloc] initWithDefauleSetting];
   self.myViewController = myVC;
   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:myVC];
+  UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeCustom];
+  [rightBut setImage:[UIImage imageNamed:@"return_button"] forState:UIControlStateNormal];
+  rightBut.frame = CGRectMake(10, 0, 50, 40);
+  nav.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBut];
+  [rightBut addTarget:self action:@selector(dissmissView) forControlEvents:UIControlEventTouchUpInside];
   __unsafe_unretained FaceMegModule *weakSelf = self;
   
   myVC.block = ^(FaceIDData *data){
@@ -83,6 +87,12 @@ RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
   
 }
 
+#pragma mark 返回
+- (void)dissmissView{
+  if (self.myViewController) {
+    [self.myViewController dismissViewControllerAnimated:YES completion:nil];
+  }
+}
 
 #pragma mark 身份证正面识别
 - (void)idCardVerifyFromTheFront:(RCTPromiseResolveBlock)resolver WithReject:(RCTPromiseRejectBlock)reject{
