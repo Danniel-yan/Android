@@ -236,6 +236,7 @@ public class FaceLivenessActivity extends Activity implements PreviewCallback,
             bundle.putSerializable("imagesMap", myMap);
             intent.putExtras(bundle);
             setResult(RESULT_OK, intent);
+            finish();
 
         } else
             changeType(mIDetection.mDetectionSteps.get(mCurStep), 10);
