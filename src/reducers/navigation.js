@@ -113,7 +113,7 @@ export default function navigation(state = initState, action) {
         return state;
       }
 
-      return popToIndex(popToRouteIndex);
+      return popToIndex(state, popToRouteIndex);
 
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);

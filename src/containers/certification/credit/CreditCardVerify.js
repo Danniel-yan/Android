@@ -15,11 +15,11 @@ import {
 import { post, responseStatus } from 'utils/fetch';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import ProcessingButton from 'components/shared/ProcessingButton';
-import onlineStyles from './styles';
+import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { InputGroup } from 'components/form';
 import { ExternalPushLink } from 'containers/shared/Link';
-import ErrorInfo from './ErrorInfo';
+import ErrorInfo from './../ErrorInfo';
 
 export default class CreditCardVerify extends Component {
 

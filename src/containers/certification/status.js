@@ -13,8 +13,8 @@ export default {
   10: '登录中，可中断'
 };
 
-export const successStatus = [0];
-export const failureStatus = [2, 4, 6, 8, 9];
+export const successStatus = [8];
+export const failureStatus = [2, 4, 6, 9];
 export const processingStatus = [3, 5, 7];
 
 export function parseStatus(status) {

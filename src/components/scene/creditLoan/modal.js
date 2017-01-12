@@ -5,13 +5,16 @@ import {
     Modal,
     Dimensions,
     Image,
+    TouchableOpacity,
     StyleSheet
 } from 'react-native';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
+import CertifPanel from 'containers/creditLoan/CertifPanel';
 
 const {height, width} = Dimensions.get('window');
+
 
 
 function _renderItem(icon, title, confirm,tips,navProps) {

@@ -28,7 +28,7 @@ export class CreditCards extends Component {
           key={"bank"+index}
           title="信用卡认证"
           toKey="OnlineCreditCardForm"
-          componentProps={{fetchingParams: bank.id}}
+          componentProps={{fetchingParams: bank.id, bank_id: bank.id}}
           >
           <MenuItem
             iconStyle={styles.icon}

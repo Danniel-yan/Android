@@ -49,8 +49,10 @@ class LoanNavPanel extends Component {
       // console.log(pbocUrl + "&token=" + token)
       // console.log(fromLogin);
       // externalPush && externalPush({web: pbocUrl + "&token=" + token, backRoute: { key: 'MajorNavigation' }});
+      AsyncStorage.setItem("loan_type", "0").then(() => {
+        externalPush && externalPush({ key: "CreditLoan", title: "信用贷" })
+      })
 
-      externalPush && externalPush({ key: "CreditLoan", title: "信用贷" })
     })
   }
 

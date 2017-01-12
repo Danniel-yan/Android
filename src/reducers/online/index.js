@@ -28,5 +28,13 @@ export default combineReducers({
   pickers,
   bankResult,
   yysResult,
-  yysForms
+  yysForms,
+  loanType: function(state, action) {
+    switch(action.type) {
+      case "setLoanType":
+        return action.value || 1;
+      default:
+        return 1;
+    }
+  }
 })

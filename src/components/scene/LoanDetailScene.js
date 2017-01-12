@@ -238,8 +238,10 @@ export default class LoanDetailScene extends Component {
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
+          prePress={() => AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())}
           />
       );
+      // this.props.detail.loan_type.toString()
     }
 
     if(this.props.loginUser.valid) {
@@ -277,8 +279,6 @@ export default class LoanDetailScene extends Component {
     let { onlineStatus } = this.props;
     let { status, time_expire_status } = onlineStatus;
 
-    console.log("***************status");
-    console.log(status);
     if(!logined) {
       return {
         loginSuccess: this.props.fetchOnlineStatus,
@@ -288,7 +288,10 @@ export default class LoanDetailScene extends Component {
     }
 
     if(status == 2) {
-      return {toKey: 'CertificationHome', title: '信息认证'};
+      return {
+        toKey: 'CertificationHome',
+        title: '信息认证',
+        componentProps: { fetchingParams: { loan_type: this.props.detail.loan_type } }};
     }
 
     if(status == 5 && time_expire_status == 1) {

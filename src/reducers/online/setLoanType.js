@@ -9,7 +9,7 @@ const initState = {
 export default function(state = initState, action) {
   switch(action.type) {
     case 'requestOnlineBankResult':
-      return Object.assign({}, state, { isFetching: true, fetched: false });
+      return initState;
     case 'receiveBankEntryStatus':
       return Object.assign({}, state, { existSuccessBill: action.existSuccessBill})
     case 'receiveOnlineBankResult':
