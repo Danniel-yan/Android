@@ -64,9 +64,9 @@ class TiEZiliao extends Component {
                    _renderItem(require("assets/credit-icons/yunyinshangrenzheng.png"), "运营商认证", '未认证' ,'认证完毕，可获1000-3000',{})
                  }
             </View>
-        )
+         )
     }
-}
+ }
 
 
 class ShouXin extends Component {
