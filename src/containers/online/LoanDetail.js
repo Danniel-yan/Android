@@ -11,6 +11,7 @@ import RefundPlan from './RefundPlan';
 import L2RItem from './L2RItem';
 import GroupTitle from 'components/GroupTitle';
 import { colors } from 'styles';
+import { post, responseStatus } from 'utils/fetch';
 
 class LoanDetail extends Component {
   render() {
@@ -52,10 +53,35 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function RightButton(props) {
-  return (
-    <ExternalPushLink style={{marginRight: 10}} textStyle={{color: colors.secondary}} web="..." text="合同"/>
-  );
+class RightButton extends Component {
+  state = { html: '' }
+
+  componentDidMount() {
+
+    post('/loanctcf/contract-html', { loan_type: this.props.loan_type}).then(response => {
+      if(response.res == responseStatus.success) {
+        this.setState({
+          html: response.data.html
+        });
+      }
+    })
+
+  }
+
+  render() {
+    if(!this.state.html) {
+      return null;
+    }
+
+    return (
+      <ExternalPushLink
+        style={{marginRight: 10}}
+        textStyle={{color: colors.secondary}}
+        web={{html: this.state.html}}
+        title="借款合同"
+        text="合同"/>
+    );
+  }
 }
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));

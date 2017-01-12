@@ -66,14 +66,17 @@
 - (void)liveDetectionFinish:(MGLivenessDetectionFailedType)type checkOK:(BOOL)check liveDetectionType:(MGLiveDetectionType)detectionType{
     [super liveDetectionFinish:type checkOK:check liveDetectionType:detectionType];
     
-    MyFinishViewController *finishVC = [[MyFinishViewController alloc] initWithNibName:nil bundle:nil];
-    [finishVC setCheckOK:check];
+//    MyFinishViewController *finishVC = [[MyFinishViewController alloc] initWithNibName:nil bundle:nil];
+//    [finishVC setCheckOK:check];
     if (check == YES) {
         FaceIDData *faceData = [self.liveManager getFaceIDData];
-        [finishVC setFaceData: faceData];
+      if (self.block) {
+        self.block(faceData);
+      }
+//        [finishVC setFaceData: faceData];
     }
     
-    [self.navigationController pushViewController:finishVC animated:YES];
+//    [self.navigationController pushViewController:finishVC animated:YES];
 }
 
 
