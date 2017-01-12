@@ -1,5 +1,6 @@
 package com.shudu.chaoshi.activity;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -45,6 +46,7 @@ import com.megvii.livenesslib.util.IMediaPlayer;
 import com.megvii.livenesslib.util.Screen;
 import com.megvii.livenesslib.util.SensorUtil;
 import com.shudu.chaoshi.util.CodeHelp;
+import com.shudu.chaoshi.util.SerializableHashMap;
 
 public class FaceLivenessActivity extends Activity implements PreviewCallback,
         DetectionListener, TextureView.SurfaceTextureListener {
@@ -226,14 +228,15 @@ public class FaceLivenessActivity extends Activity implements PreviewCallback,
         if (mCurStep >= mIDetection.mDetectionSteps.size()) {
             mProgressBar.setVisibility(View.VISIBLE);
 //            handleResult(R.string.verify_success);
-            CodeHelp.getBestImageAndDelta(mDetector.getFaceIDDataStruct());
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                }
-            }, 300);
+            Intent intent = new Intent();
+            HashMap<String, byte[]> imagesMap = CodeHelp.getBestImageAndDelta(mDetector.getFaceIDDataStruct());
+            SerializableHashMap myMap=new SerializableHashMap();
+            myMap.setMap(imagesMap);//将hashmap数据添加到封装的myMap中
+            Bundle bundle=new Bundle();
+            bundle.putSerializable("imagesMap", myMap);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+
         } else
             changeType(mIDetection.mDetectionSteps.get(mCurStep), 10);
 

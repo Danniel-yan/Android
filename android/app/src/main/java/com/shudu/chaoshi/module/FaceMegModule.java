@@ -3,6 +3,7 @@ package com.shudu.chaoshi.module;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
@@ -18,9 +19,8 @@ import com.shudu.chaoshi.activity.FaceBankCardScanActivity;
 import com.shudu.chaoshi.activity.FaceIDCardScanActivity;
 import com.shudu.chaoshi.activity.FaceLivenessActivity;
 import com.shudu.chaoshi.util.Base64;
-import com.shudu.chaoshi.util.BitmapUtils;
+import com.shudu.chaoshi.util.SerializableHashMap;
 
-import java.io.FileDescriptor;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -38,14 +38,6 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
     private Promise mPromise;
     private String strImage; // 身份证正反面照
     private String strPortraitImg; // 身份证正面头照
-    private String image_best; //人脸识别最清楚照片
-    private String image_env; //人脸识别全景照片
-    // 人脸识别动作过程中照片
-    private String image_action1;
-    private String image_action2;
-    private String image_action3;
-    private String imagePath; //人脸识别图片保存路径
-
 
     private final ActivityEventListener mActivityEventListener = new ActivityEventListener() {
         @Override
@@ -91,18 +83,13 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 mPromise.resolve(writableNativeMap);
             } else if (requestCode == REQUEST_FACELIVENESS && resultCode == Activity.RESULT_OK) {
                 try {
-                    imagePath = BitmapUtils.initPath();
-                    image_best = imagePath + "/image_best.jpg";
-                    image_env = imagePath + "/image_env.jpg";
-                    image_action1 = imagePath + "/image_action1.jpg";
-                    image_action2 = imagePath + "/image_action2.jpg";
-                    image_action3 = imagePath + "/image_action3.jpg";
+                    Bundle bundle = data.getExtras();
+                    SerializableHashMap serializableHashMap = (SerializableHashMap) bundle.get("imagesMap");
                     WritableArray writableArray = new WritableNativeArray();
-                    writableArray.pushString(BitmapUtils.getImageByPath(image_best));
-                    writableArray.pushString(BitmapUtils.getImageByPath(image_env));
-                    writableArray.pushString(BitmapUtils.getImageByPath(image_action1));
-                    writableArray.pushString(BitmapUtils.getImageByPath(image_action2));
-                    writableArray.pushString(BitmapUtils.getImageByPath(image_action2));
+                    for (final String key : serializableHashMap.getMap().keySet()) {
+                        byte[] dataImage = serializableHashMap.getMap().get(key);
+                        writableArray.pushString(new String(Base64.encode(dataImage), "utf-8"));
+                    }
                     WritableNativeMap writableNativeMap = new WritableNativeMap();
                     writableNativeMap.putString("value", "");
                     writableNativeMap.putArray("images", writableArray);
