@@ -53,9 +53,10 @@ RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 {
   [self bankCardTheVerify:resolve WithReject:reject];
 }
+
 RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self megLiveVerify:resolve rejecter:reject];
+  [self megLiveTest:resolve WithReject:reject];
 }
 
 
