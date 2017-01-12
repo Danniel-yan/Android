@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -21,9 +22,13 @@ import java.io.OutputStream;
  * Created by ysr on 16/12/29.
  */
 public class BitmapUtils {
+    private static final File parentPath = Environment.getExternalStorageDirectory();
+    private static String storagePath = "";
+    private static final String DST_FOLDER_NAME = "pic_temp";
+    public static String tmpPath = "";
+
 
     //（根据路径获取图片压缩并按比例大小压缩方法）：
-
     public static String getImageByPath(String srcPath) throws Exception {
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
@@ -209,4 +214,51 @@ public class BitmapUtils {
         return inSampleSize;
     }
 
+    /**
+     * @param b
+     */
+    public static String saveBitmap(Bitmap b) {
+        String path = "";
+        try {
+            path = initPath();
+        } catch (Exception e) {
+        }
+
+        long dataTake = System.currentTimeMillis();
+        String imgCaptureFace = dataTake + "";
+        String jpegName = path + "/" + imgCaptureFace + ".jpg";
+
+        BitmapUtils.saveBmpToFile(b, jpegName, Bitmap.CompressFormat.JPEG);
+        tmpPath = jpegName;
+        return jpegName;
+
+    }
+
+
+    public static String saveBitmap(Bitmap b, String name) {
+
+        String path = "";
+        try {
+            path = initPath();
+        } catch (Exception e) {
+        }
+//        long dataTake = System.currentTimeMillis();
+        String jpegName = path + "/" + name + ".jpg";
+        BitmapUtils.saveBmpToFile(b, jpegName, Bitmap.CompressFormat.JPEG);
+        return jpegName;
+    }
+
+    /**
+     * @return
+     */
+    public static String initPath() throws Exception {
+        if (storagePath.equals("")) {
+            storagePath = parentPath.getAbsolutePath() + "/" + DST_FOLDER_NAME;
+            File f = new File(storagePath);
+            if (!f.exists()) {
+                f.mkdir();
+            }
+        }
+        return storagePath;
+    }
 }
