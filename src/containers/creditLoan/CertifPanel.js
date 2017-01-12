@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -7,6 +7,7 @@ import Loading from 'components/shared/Loading';
 import actions from 'actions/online';
 
 import { ExternalPushLink } from 'containers/shared/Link';
+import { externalPush, majorTab } from 'actions/navigation';
 import { colors } from 'styles';
 
 const {height, width} = Dimensions.get('window');
@@ -72,6 +73,23 @@ class CertifPanel extends Component {
       })
   }
 
+  _navToPBOC() {
+    var externalPush = this.props.externalPush, route;
+    var environment = "production";
+    AsyncStorage.getItem('environment').then(ev=>{
+      environment = ev;
+      return AsyncStorage.getItem("userToken");
+    }).then(token => {
+        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
+        pbocUrl = environment=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
+        // console.log(pbocUrl + "&token=" + token);
+        return externalPush && externalPush({web: pbocUrl + "&token=" + token, title: "央行征信"});
+        //return { web: pbocUrl + "&token=" + token, title: "央行征信" }
+    })
+    this.closeModal();
+    // return false;
+  }
+
   renderTiE() {
     var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.existSuccessBill,
       yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.existSuccessBill;
@@ -87,11 +105,21 @@ class CertifPanel extends Component {
           title="通讯录授权"
           confirm="未授权"
           tips="认证完毕，可获500-1000额度"/>
-        <Item
-          icon={require("assets/credit-icons/yanghanzhenxinbaogao.png")}
-          title="央行征信报告"
-          confirm="未认证"
-          tips="认证完毕，可增加30%贷款成功率"/>
+        <TouchableOpacity onPress={() => {this._navToPBOC()}}>
+          <View style = {[styles.item,styles.bdTop]}>
+            <Image source={require("assets/credit-icons/yanghanzhenxinbaogao.png")} style = {styles.icon}/>
+            <View style = {{flex : 1}}>
+              <View style = {styles.top}>
+                  <Text style = {styles.topL}>央行征信报告</Text>
+                  <View style = {{flex : 1,flexDirection : 'row'}}>
+                      <Text style = {[styles.topR]}>未认证</Text>
+                      <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
+                  </View>
+              </View>
+              <Text style = {{paddingLeft : 20,color: '#999',fontSize : 14}}>认证完毕，可增加30%贷款成功率</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
         <Item
           icon={require("assets/credit-icons/xinyongkazhangdan.png")}
           title="信用卡账单"
@@ -240,6 +268,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.bankResult());
       dispatch(actions.yysResult());
     },
+    externalPush: (route) => dispatch(externalPush(route))
   }
 }
 

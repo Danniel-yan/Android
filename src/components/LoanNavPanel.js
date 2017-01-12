@@ -80,7 +80,7 @@ class LoanNavPanel extends Component {
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
             style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
-            <Text style={LNPStyles.navTxt}>查信用</Text>
+            <Text style={LNPStyles.navTxt}>信用贷</Text>
           </TrackingPoint>
         </View>
       </View>
