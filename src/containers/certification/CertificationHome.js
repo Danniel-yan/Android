@@ -17,7 +17,12 @@ import LoadingModal from './LoadingModal';
 import onlineStyles from './styles';
 import { border, fontSize, rowContainer, container, colors, centering } from 'styles';
 
-import bankStatus, { parseStatus } from './status';
+const statusLabels = {
+  success: '认证成功',
+  failure: '认证失败',
+  none: '未认证',
+  progressing: '认证中...'
+}
 
 class CertificationHome extends Component {
 
@@ -30,10 +35,10 @@ class CertificationHome extends Component {
   }
 
   render() {
-    let bank = this.props.bankResult.existSuccessBill;
-    let yys = this.props.yysResult.existSuccessBill;
+    let bank = this.props.bankResult.status;
+    let yys = this.props.yysResult.status;
 
-    let disabled = !bank || !yys;
+    let disabled = !(bank == 'success' && yys == 'success');
 
     return (
       <ScrollView>
@@ -46,7 +51,7 @@ class CertificationHome extends Component {
         <View style={styles.alert}>
           <Text style={[styles.alertText, {marginBottom: 5}]}>注：</Text>
           <Text style={styles.alertText}>1.请使用超过6个月的信用卡认证；</Text>
-          <Text style={styles.alertText}>2.请使用超过3个月的手机号进行认证；</Text>
+          <Text style={styles.alertText}>2.请使用超过6个月的手机号进行认证；</Text>
           <Text style={styles.alertText}>3.如果认证失败，可以更换其他卡号或手机号再次认证；</Text>
         </View>
 
@@ -84,20 +89,17 @@ class CertificationHome extends Component {
   }
 
   cardItem() {
-    let existSuccess = this.props.bankResult.existSuccessBill;
+    let status = this.props.bankResult.status;
 
     let item = (
       <MenuItem title="信用卡认证" icon={require('assets/online/icon-xyk.png')}>
-        <Text style={[styles.status, this.statusStyle(existSuccess)]}>{this.statusLabel(existSuccess)}</Text>
+        <Text style={[styles.status, styles[status]]}>{statusLabels[status]}</Text>
       </MenuItem>
     );
 
-    // if([0,3,5,7].includes(bankStatus)) {
-    //   return (
-    //     <View>{item}</View>
-    //   );
-    // }
-    if(existSuccess) return item;
+    if(['success', 'progressing'].includes(status)) {
+      return item;
+    }
 
     return (
       <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
@@ -107,21 +109,17 @@ class CertificationHome extends Component {
   }
 
   yysItem() {
-    let yysStatus = this.props.yysResult.status;
-    let existSuccess = this.props.yysResult.existSuccessBill;
+    let status = this.props.yysResult.status;
 
     let item = (
       <MenuItem title="运营商认证" icon={require('assets/online/icon-yys.png')}>
-        <Text style={[styles.status, this.statusStyle(existSuccess)]}>{this.statusLabel(existSuccess)}</Text>
+        <Text style={[styles.status, styles[status]]}>{statusLabels[status]}</Text>
       </MenuItem>
     );
 
-    // if([0,3,5,7].includes(yysStatus)) {
-    //   return (
-    //     <View>{item}</View>
-    //   );
-    // }
-    if(existSuccess) return item;
+    if(['success', 'progressing'].includes(status)) {
+      return item;
+    }
 
     return (
       <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
@@ -130,13 +128,6 @@ class CertificationHome extends Component {
     )
   }
 
-  statusStyle(existSuccess) {
-    return existSuccess ? styles.success : styles.failure;
-  }
-
-  statusLabel(existSuccess) {
-    return existSuccess ? "认证通过" : "未认证";
-  }
 }
 
 const styles = StyleSheet.create({

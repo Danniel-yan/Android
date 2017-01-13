@@ -16,9 +16,6 @@ import { responsive, border, fontSize, flexRow, rowContainer, container, colors,
 import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPopLink, ExternalPushLink } from 'containers/shared/Link';
-import { parseStatus } from './../status';
-
-import getBillList from 'actions/online/billList';
 
 import successImage from 'assets/online/import-success.png';
 import failureImage from 'assets/online/import-failure.png';
@@ -36,6 +33,12 @@ class CreditCardStatus extends Component {
     this._getBillStatus();
   }
 
+  componentDidUpdate() {
+    if(this.props.status == 'success' || this.props.status == 'failure') {
+      clearInterval(this.timer)
+    }
+  }
+
   componentWillUnmount() {
     clearTimeout(this.timeFlag)
   }
@@ -49,7 +52,7 @@ class CreditCardStatus extends Component {
   }
 
   _content() {
-    let status = this.state.status, loanType = this.props.loanType;
+    let status = this.props.status, loanType = this.props.loanType;
 
 
     let image = ingImage;
@@ -97,17 +100,8 @@ class CreditCardStatus extends Component {
   _getBillStatus() {
     this.setState({checked: true});
 
-    getBillList({login_target: this.props.bank_id, loan_type: this.props.loanType || 0}).then(response=>{
-      var lastBill = response && response.data && response.data.length > 0 ? response.data[0] : null;
-      lastBill && (this.state.status = parseStatus(parseInt(lastBill.status)));
-
-      if(this.state.status == 'success' || this.state.status == 'failure') {
-        clearTimeout(this.timeFlag);
-        this.setState({status: this.state.status});
-      } else {
-        this.timeFlag = setTimeout(() => this._getBillStatus(), 5000);
-      }
-    })
+    this.props.fetchingBillStatus();
+    this.timeFlag = setTimeout(() => this.props.fetchingBillStatus(), 5000);
   }
 }
 
@@ -129,10 +123,17 @@ const styles = StyleSheet.create({
 });
 
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import actions from 'actions/online';
 
 function mapStateToProps(state, ownProps) {
   // return { loanType: 0 }
-  return { loanType: state.online.loanType.type }
+  return { loanType: state.online.loanType.type, status: state.online.bankResult.status }
 }
 
-export default connect(mapStateToProps, null)(trackingScene(CreditCardStatus));
+function mapDispatch(dispatch) {
+  return {
+    fetchingBillStatus: () => dispatch(actions.bankResult())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus));

@@ -21,6 +21,7 @@ class BillList extends Component{
 }
 
 function mapStateToProps(state) {
+  // TODO 这个billList是不是应该不是这么取的
   return { billList: state.online.bankResult.billList || [] }
 }
 

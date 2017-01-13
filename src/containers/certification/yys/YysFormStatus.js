@@ -14,7 +14,6 @@ import { responsive, border, fontSize, flexRow, rowContainer, container, colors,
 import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPopLink } from 'containers/shared/Link';
-import { parseStatus } from './../status';
 
 import successImage from 'assets/online/yys-success.png';
 import failureImage from 'assets/online/yys-failure.png';
@@ -32,8 +31,7 @@ class YysFormStatus extends Component {
   }
 
   componentDidUpdate() {
-    let status = parseStatus(this.props.status);
-    if(status == 'success' || status == 'failure') {
+    if(this.props.status == 'success' || this.props.status == 'failure') {
       clearInterval(this.timer)
     }
   }
@@ -51,7 +49,7 @@ class YysFormStatus extends Component {
   }
 
   _content() {
-    let status = parseStatus(this.props.status);
+    let status = this.props.status;
 
     let image = successImage;
     let button = '';

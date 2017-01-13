@@ -18,6 +18,7 @@ import actions from 'actions/online';
 import { InputGroup } from 'components/form';
 import { post, responseStatus } from 'utils/fetch';
 import { ExternalPushLink } from 'containers/shared/Link';
+import ErrorInfo from '../ErrorInfo';
 
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
@@ -62,6 +63,7 @@ class CreditCardForm extends Component {
           <ScrollView contentContainerStyle={onlineStyles.container}>
             {this._form()}
 
+            <ErrorInfo msg={this.state.error}/>
             <ExternalPushLink
               processing={this.state.submitting}
               title="导入账单"
@@ -79,7 +81,7 @@ class CreditCardForm extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true});
+    this.setState({ submitting: true, error: ''});
 
     let curTab = this.props.detail[this.state.tabIndex]
 
@@ -103,9 +105,9 @@ class CreditCardForm extends Component {
      }
 
      throw response.msg;
-   }).catch(err => {
-     this.setState({submitting: false});
-     throw err;
+   }).catch(error => {
+     this.setState({submitting: false, error});
+     throw error;
    })
 
   }
