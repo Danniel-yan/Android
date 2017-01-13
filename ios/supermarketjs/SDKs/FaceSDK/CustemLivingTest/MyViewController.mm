@@ -18,11 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeSystem];
-  [rightBut setTitle:@"返回" forState:UIControlStateNormal];
-  [rightBut setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-  rightBut.frame = CGRectMake(10, 0, 40, 40);
-  self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:rightBut];
+  UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeCustom];
+  [rightBut setImage:[UIImage imageNamed:@"return_button"] forState:UIControlStateNormal];
+  [rightBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+  rightBut.frame = CGRectMake(0, 0, 30, 40);
+  UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+  item.width = -15;
+  UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:rightBut];
+  self.navigationItem.leftBarButtonItems = @[item,leftItem];
   [rightBut addTarget:self action:@selector(dissmissView) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
 }
