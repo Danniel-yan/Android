@@ -35,6 +35,8 @@ class CameraInput extends Component {
   };
 
   render() {
+    // console.log(this.props);
+
     let status = this.state.status;
 
     let statusText = '';
@@ -89,13 +91,14 @@ class CameraInput extends Component {
       img: this.state.value.images[0],
       ext: 'png',
       type: typeValue[this.props.type],
-      loan_type: this.props.loanType
+      loan_type: parseInt(this.props.loanType)
     }
 
     if(this.props.type == 'bankCard') {
       body.credit_card_no_auto = this.state.value.value || '';
     }
 
+    console.log(body);
     post('/loanctcf/add-image', body)
     .then(this._uploandAvatar.bind(this))
     .then(response => {
@@ -126,7 +129,8 @@ class CameraInput extends Component {
     return post('/loanctcf/add-image', {
       img: this.state.value.images[1],
       ext: 'png',
-      type: typeValue.idAvatar
+      type: typeValue.idAvatar,
+      loan_type: parseInt(this.props.loanType)
     })
   }
 }
