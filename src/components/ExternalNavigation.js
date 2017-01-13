@@ -69,13 +69,28 @@ export default class ExternalNavigation extends Component {
   componentWillReceiveProps(nextProps) {
     // TODO, safe push/pop
 
-    let routes = this.nav.getCurrentRoutes();
     let nextNavigation = nextProps.navigation;
 
-    if(routes.length > nextNavigation.routes.length) {
-      this.nav.popN(routes.length - nextNavigation.routes.length);
-    } else if(routes.length < nextNavigation.routes.length) {
+    let routes = this.nav.getCurrentRoutes();
+    let nextRoute = nextNavigation.routes
+
+    const curLength = routes.length;
+    const nextLength = nextRoute.length;
+
+    if(curLength > nextLength) {
+      const nextLastRoute = nextRoute[nextLength - 1];
+      const curLastRoute = routes[curLength - 1];
+
+      if(nextLastRoute != curLastRoute) {
+        this.nav.replacePreviousAndPop(nextLastRoute);
+      } else {
+        this.nav.popN(curLength - nextLength);
+      }
+
+    } else if(curLength < nextLength) {
+
       this.nav.push(nextNavigation.routes[nextNavigation.index])
+
     } else if(routes.slice(-1)[0].key != nextNavigation.routes.slice(-1)[0].key) {
       this.nav.replace(nextNavigation.routes[nextNavigation.index]);
     }

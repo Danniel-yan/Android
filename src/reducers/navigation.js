@@ -113,7 +113,7 @@ export default function navigation(state = initState, action) {
         return state;
       }
 
-      return popToIndex(state, popToRouteIndex);
+      return popToIndex(state, popToRouteIndex, route);
 
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
@@ -225,11 +225,28 @@ function popToRoute(state, backRoute) {
     popToRouteIndex = 1 + state.routes.findIndex(route => route.key == backRoute.key);
   }
 
-  return popToIndex(state, popToRouteIndex);
+  return popToIndex(state, popToRouteIndex, backRoute);
 }
 
-function popToIndex(state, popToRouteIndex) {
-  const routes = state.routes.slice(0, popToRouteIndex);
+function popToIndex(state, popToRouteIndex, route) {
+  let routes = state.routes.slice(0, popToRouteIndex);
+
+  if(route) {
+    let lastRoute = routes.pop();
+    let mergeParams = {};
+
+    if(route.title) {
+      mergeParams.title = route.title;
+    }
+    if(route.componentProps) {
+      mergeParams.componentProps = route.componentProps;
+    }
+
+    routes = [
+      ...routes,
+      Object.assign({}, lastRoute, mergeParams)
+    ];
+  }
 
   return {
     ...state,
