@@ -89,7 +89,7 @@ class CameraInput extends Component {
       img: this.state.value.images[0],
       ext: 'png',
       type: typeValue[this.props.type],
-      loan_type: this.props.type
+      loan_type: this.props.loanType
     }
 
     if(this.props.type == 'bankCard') {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
-  return state.online.loanType;
+  return { loanType: state.online.loanType.type };
 }
 
 export default connect(mapStateToProps, null)(CameraInput);
