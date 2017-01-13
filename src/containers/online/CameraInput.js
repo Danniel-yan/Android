@@ -25,7 +25,7 @@ const typeValue = {
   bankCard: 3
 }
 
-export default class CameraInput extends Component {
+class CameraInput extends Component {
 
   state = {
     status: '',
@@ -89,6 +89,7 @@ export default class CameraInput extends Component {
       img: this.state.value.images[0],
       ext: 'png',
       type: typeValue[this.props.type],
+      loan_type: this.props.type
     }
 
     if(this.props.type == 'bankCard') {
@@ -185,3 +186,11 @@ const styles = StyleSheet.create({
     color: colors.grayLight
   }
 });
+
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+  return state.online.loanType;
+}
+
+export default connect(mapStateToProps, null)(CameraInput);

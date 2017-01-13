@@ -52,8 +52,8 @@ class PreloanSuccess extends Component {
             value={this.state.amount}
             onChange={this._formChange.bind(this, 'amount')}
             step={1000}
-            min={10000}
-            minLabel="1万"
+            min={15000}
+            minLabel="1.5万"
             maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
             max={data.sug_loan_amount}/>
         </View>
@@ -142,6 +142,12 @@ function mapDispatchToProps(dispatch) {
     fetching: () => dispatch(actions.preloanStatus()),
   }
 }
+
+// export default class PreClearComponent extends Component {
+//
+// }
+//
+// function
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   AsynCpGenerator(Loading, trackingScene(PreloanSuccess)));
