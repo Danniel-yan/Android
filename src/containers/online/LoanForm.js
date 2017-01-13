@@ -93,7 +93,7 @@ class LoanForm extends Component {
 
         <ErrorInfo msg={this.state.error}/>
 
-        <ExternalPushLink 
+        <ExternalPushLink
           title="审批状态"
           backKey="LoanDetailScene"
           backRoute={{ key: 'LoanDetailScene' }}
@@ -155,7 +155,7 @@ class LoanForm extends Component {
   _submit() {
     this.setState({ error: '', submitting: true})
 
-    return post('/loanctcf/apply', this.state.form).then(response => {
+    return post('/loanctcf/apply', Object.assign({}, this.state.form, { loan_type: parseInt(this.props.loanType) }) this.state.form).then(response => {
 
       if(response.res == responseStatus.success) {
         this.props.fetchStatus();
@@ -209,6 +209,7 @@ function mapStateToProps(state) {
   return {
     ...state.online.preloanStatus,
     userInfo: state.online.userInfo.data,
+    loanType: state.online.loanType.type
   };
 }
 
