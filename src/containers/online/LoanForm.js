@@ -155,7 +155,7 @@ class LoanForm extends Component {
   _submit() {
     this.setState({ error: '', submitting: true})
 
-    return post('/loanctcf/apply', Object.assign({}, this.state.form, { loan_type: parseInt(this.props.loanType) }) this.state.form).then(response => {
+    return post('/loanctcf/apply', Object.assign({}, this.state.form, { loan_type: parseInt(this.props.loanType) }), this.state.form).then(response => {
 
       if(response.res == responseStatus.success) {
         this.props.fetchStatus();
