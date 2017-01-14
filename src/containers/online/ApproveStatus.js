@@ -149,10 +149,14 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return { 
+  return Object.assign({}, {
     ...state.online.applyResult,
     ...state.online.status,
-  }
+  }, {
+    isFetching: state.online.applyResult.isFetching,
+    fetched: state.online.applyResult.fetched
+
+  })
 }
 
 function mapDispatchToProps(dispatch) {

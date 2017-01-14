@@ -16,11 +16,15 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import ErrorInfo from 'containers/online/ErrorInfo';
 
+import onlineActions from 'actions/online'
+
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import NextIcon from 'components/shared/NextIcon';
 
-export default class FundLoginScene extends Component{
+const GjjLocationPicker = connect(state => { return { gjjLoginElements: state.online.gjjLoginElements.elements } })(LocationPicker);
+
+class FundLoginScene extends Component{
 
   constructor(props){
     super(props);
@@ -42,11 +46,12 @@ export default class FundLoginScene extends Component{
                      style={styles.input}
                      placeholder='请选择您所在的城市'
                      underlineColorAndroid="transparent"
+                     editable={false}
                      onChangeText={(location) => { this.setState({location}) }}
             />
           <NextIcon/>
 
-          <LocationPicker mark='fundCity' visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
+          <GjjLocationPicker mark='fundCity' visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
         </TouchableOpacity>
 
         {
@@ -57,6 +62,7 @@ export default class FundLoginScene extends Component{
                          style={styles.input}
                          placeholder='请选择你的登陆类型'
                          underlineColorAndroid="transparent"
+                         editable={false}
                          onChangeText={(typeName) => { this.setState({typeName}) }}
                 />
               <NextIcon/>
@@ -200,3 +206,19 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
+
+function mapStateToProps(state) {
+  return {
+    isFetching: state.online.gjjLoginElements.isFetching,
+    fetched: state.online.gjjLoginElements.fetched
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    gjjLoginElements: () => dispatch(onlineActions.gjjLoginElements()),
+    fetching: () => dispatch(onlineActions.gjjLoginElements())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, FundLoginScene));

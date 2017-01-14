@@ -51,7 +51,9 @@ export default class LocationPicker extends PureComponent {
 
     let url = (mark == 'city' ? '/app/city-list' : '/bill/gjj-login-elements');
 
-    get(url).then(response => {
+    var cityResource = mark == 'city' || !this.props.gjjLoginElements ? get(url) : new Promise((resolve) => { resolve({data: this.props.gjjLoginElements})})
+
+    cityResource.then(response => {
 
       let sections = {};
       let secIDs = [];
@@ -201,7 +203,7 @@ export default class LocationPicker extends PureComponent {
     let rowHeight = sectionRowHeight + rowBorderWidth;
     let { secIDs, sections } = this.state;
     let toHeight = sectionHeaderHeight * idx;
-    
+
     secIDs.slice(0, idx).map((sec, idx) => {
       let sectionHeight = sections[sec].length * rowHeight;
       toHeight += sectionHeight;

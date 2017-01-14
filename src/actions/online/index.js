@@ -12,7 +12,8 @@ import preloan from './preloan';
 import applyResult from './applyResult';
 import contractBanks from './contractBanks';
 import loanDetail from './loanDetail';
-import billDetail from './billDetail'
+import billDetail from './billDetail';
+import gjjLoginElements from './gjjLoginElements';
 
 export default {
   loanDetail,
@@ -34,5 +35,6 @@ export default {
   billDetail,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };
-  }
+  },
+  gjjLoginElements
 }

@@ -3,12 +3,13 @@ import { get, responseStatus } from 'utils/fetch';
 export default function(dispatch) {
 
   return (dispatch, getState) => {
+    var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
 
     dispatch({ type: 'requestOnlineLoanDetail' })
 
-    get('/loanctcf/contract-content').then(response => {
+    get(`/loanctcf/contract-content?loan_type=${loan_type}`).then(response => {
       // TODO remove
-      //      response = 
+      //      response =
       //{
       //    "res": 1,
       //    "data": {

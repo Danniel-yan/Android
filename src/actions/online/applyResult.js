@@ -1,12 +1,12 @@
-import { get, responseStatus } from 'utils/fetch';
+import { get, post, responseStatus } from 'utils/fetch';
 
 export default function() {
   return (dispatch, getState) => {
     dispatch({ type: 'requestOnlineApproveResult' })
-
-    get('/loanctcf/apply-result').then(response => {
+    var state = getState(), loanType = state.online.loanType.type || 0;
+    post('/loanctcf/apply-result', { loan_type: parseInt(loanType) }).then(response => {
       // TODO remove
-      //      response = 
+      //      response =
       //{
       //    "res": 1,
       //    "data": {
