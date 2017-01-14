@@ -44,7 +44,6 @@ import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
 import FundLogin from 'containers/certification/fund/FundLogin';
 import BillList from 'containers/bill/BillListContainer';
 import BillDetail from 'containers/bill/BillDetailContainer';
-import FundReport from 'containers/certification/fund/FundReport';
 import GjjReport from 'containers/bill/GjjDetailContainer';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
@@ -91,7 +90,6 @@ import GjjReport from 'containers/bill/GjjDetailContainer';
   { key: 'FundLogin', module: FundLogin },
   { key: 'BillList', module: BillList },
   { key: 'BillDetail', module: BillDetail },
-  { key: 'FundReport', module: FundReport },
   { key: 'GjjReport', module: GjjReport }
 ].forEach(item => {
   modules[item.key] = item.module;
