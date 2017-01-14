@@ -45,6 +45,7 @@ import FundLogin from 'containers/certification/fund/FundLogin';
 import BillList from 'containers/bill/BillListContainer';
 import BillDetail from 'containers/bill/BillDetailContainer';
 import GjjReport from 'containers/bill/GjjDetailContainer';
+import GjjStatus from 'containers/certification/fund/GjjStatus';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -90,7 +91,8 @@ import GjjReport from 'containers/bill/GjjDetailContainer';
   { key: 'FundLogin', module: FundLogin },
   { key: 'BillList', module: BillList },
   { key: 'BillDetail', module: BillDetail },
-  { key: 'GjjReport', module: GjjReport }
+  { key: 'GjjReport', module: GjjReport },
+  { key: 'GjjStatus', module: GjjStatus }
 ].forEach(item => {
   modules[item.key] = item.module;
 });

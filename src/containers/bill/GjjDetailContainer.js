@@ -14,7 +14,9 @@ class GjjDetailReport extends Component{
   }
 
   render() {
-    let detail = this.props.detail && this.props.detail.data ? this.props.detail.data : {};
+    let detail = this.props.detail && this.props.detail.data ? this.props.detail.data : null;
+
+    if(!detail) return (<View><Text>{this.props.err}</Text></View>)
 
     let userInfo = detail.user_info ? detail.user_info : {};
 
@@ -180,7 +182,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log(state.online.gjjDetail);
   return state.online.gjjDetail;
 }
 

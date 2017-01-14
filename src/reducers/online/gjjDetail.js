@@ -13,7 +13,7 @@ export default function(state = initState, action) {
       return newState;
     case 'receiveGjjDetail':
       var newState = Object.assign({}, state, { isFetching: false, fetched: true, detail: action.detail });
-      newState.err = action.err;
+      newState.err = action.error;
       return newState;
     default:
       return state;
