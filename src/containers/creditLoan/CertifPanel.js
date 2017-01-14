@@ -56,7 +56,7 @@ class CertifPanel extends Component {
     var bankResult = this.props.bankResult, yysResult = this.props.yysResult;
     return this.state.fetching || bankResult.isFetching || yysResult.isFetching ? <Loading /> : (
 
-          <View style = {{backgroundColor : 'white',height:520}}>
+          <View style = {{backgroundColor : 'white',height:378}}>
           {
             <View style = {styles.title}>
               <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text>
@@ -140,18 +140,7 @@ class CertifPanel extends Component {
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; }}}/>
-        <Item
-          icon={require("assets/credit-icons/gongjijinbaogao.png")}
-          title="公积金报告"
-          confirm={statusDir[gjjResult.status]}
-          tips="最高可提高到10万额度"
-          textStyle={gjjSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
-        <Item
-          icon={require("assets/credit-icons/shebaobaogao.png")}
-          title="社保报告"
-          confirm="未认证"
-          tips="认证完毕，可获500-1000额度"/>
+
         <Item
           icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
           title="运营商认证"
@@ -164,13 +153,17 @@ class CertifPanel extends Component {
   }
 
   renderShouXin() {
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
+    var gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
     return (
       <View>
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
-          confirm="未认证"
-          tips="最高可提高到10万额度"/>
+          confirm={statusDir[gjjResult.status]}
+          tips="最高可提高到10万额度"
+          textStyle={gjjSuccess ? {color: colors.success} : {color: colors.error}}
+          navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
         <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"

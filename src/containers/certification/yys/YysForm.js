@@ -107,9 +107,15 @@ class YysForm extends Component {
     this.setState({visibleVerify: false});
   }
 
-  _onVerifySuccess() {
-    this.setState({visibleVerify: false});
-    this.props.loginSuccess();
+  _onVerifySuccess(resData) {
+    this.setState({visibleVerify: false}, () => {
+      if(resData && resData.re_second_login == 1) {
+        this.setState({submitting: false, visibleVerify: true, submitResult: resData});
+        return;
+      }
+      this.props.loginSuccess();
+    });
+
   }
 
   _submit() {
@@ -235,4 +241,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, YysForm));
+  AsynCpGenerator(Loading, YysForm, true));

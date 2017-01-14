@@ -5,8 +5,8 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import onlineActions from 'actions/online';
 
-const payStatus = { "NORMAL": "正常" }
-const cardTypes = { "ID_CARD": "身份证" }
+const payStatus = { "NONE": "未缴纳", "NORMAL": "正常", "SUSPENSE": "停缴", "CLOSED" : "注销" };
+const cardTypes = { "ID_CARD": "身份证", "PASSPORT": "护照" };
 
 class GjjDetailReport extends Component{
   constructor(props) {

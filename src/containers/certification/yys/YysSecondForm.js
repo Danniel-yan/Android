@@ -45,7 +45,7 @@ export default class YysSecondForm extends Component {
       let keyboardHeight = e.endCoordinates.height;
 
       let pos = (windowHeight - (keyboardHeight + innerHeight));
-      
+
       Animated.timing(this.state.pos, {
         toValue: pos - orgPos,
         duration: 200
@@ -117,7 +117,7 @@ export default class YysSecondForm extends Component {
 
         if(response.res == responseStatus.success) {
           this.setState({ submitting: false });
-          this.props.verifySuccess();
+          this.props.verifySuccess(responseData);
         } else {
           this.setState({ submitting: false, error: response.msg });
         }
