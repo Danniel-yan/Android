@@ -105,6 +105,7 @@ class CertifPanel extends Component {
     var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
     var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.status == "success",
       yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.status == "success";
+      gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
     return (
       <View>
         <Item
@@ -142,8 +143,9 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
-          confirm="未认证"
+          confirm={statusDir[gjjResult.status]}
           tips="最高可提高到10万额度"
+          textStyle={gjjSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
         <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
@@ -265,12 +267,14 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   let bank = state.online.bankResult;
   let yys = state.online.yysResult;
+  let gjj = state.online.gjjResult;
 
   return {
-    isFetching: bank.bankBillFetching || yys.yysBillFetching,
-    fetched: !(bank.bankBillFetching || yys.yysBillFetching),
+    isFetching: bank.bankBillFetching || yys.yysBillFetching || gjj.isFetching,
+    fetched: !(bank.bankBillFetching || yys.yysBillFetching || gjj.isFetching),
     bankResult: bank,
     yysResult: yys,
+    gjjResult: gjj,
     userInfo: state.online.userInfo
   }
 }
@@ -281,6 +285,7 @@ function mapDispatchToProps(dispatch) {
     fetching: () => {
       dispatch(actions.bankBillList());
       dispatch(actions.yysBillList());
+      dispatch(actions.gjjResult());
     },
     externalPush: (route) => dispatch(externalPush(route))
   }

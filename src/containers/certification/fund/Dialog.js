@@ -9,32 +9,34 @@ import {
 import { get } from 'utils/fetch';
 import { border, colors } from 'styles';
 
-class Dialog extends Component {
+class LoanTypeDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      config:[]
+      config: this.props.loginConfig
     }
   }
 
-  componentDidMount() {
-
-    let { location } = this.props;
-
-    var elements = new Promise((resolve) => { resolve({data: this.props.elements})})
-
-    elements.then(response => {
-      response.data
-        .filter(config => config.area_name == location )
-        .forEach((config) => {
-          console.log(config)
-          this.setState({config: config.login_config})
-        })
-    })
-
-
-  }
+  // componentDidMount() {
+  //
+  //   let { location } = this.props;
+  //
+  //   var elements = new Promise((resolve) => { resolve({data: this.props.elements})})
+  //
+  //   elements.then(response => {
+  //     response.data
+  //       .filter(config => config.area_name == location )
+  //       .forEach((config) => {
+  //         console.log(config)
+  //         this.setState({config: config.login_config})
+  //       })
+  //   })
+  //
+  //   //this.props.loginConfig.forEach(config => this.setState({config, co}))
+  // }
   render(){
+    var configList = this.props.loginConfig;
+
     return(
       <Modal
         visible={this.props.visible}
@@ -43,7 +45,7 @@ class Dialog extends Component {
         >
         <View style={styles.dialogBg}>
           <View style={styles.dialogBody}>
-            {this.state.config.map( (config, idx) =>
+            {configList.map( (config, idx) =>
               <TouchableOpacity key={'key' + idx} style={styles.dialogList}>
                 <Text onPress={() => this.props.onChange(config)} >{config.login_type_name}</Text>
               </TouchableOpacity>
@@ -81,4 +83,4 @@ function mapStateToProps(state) {
   return state.online.gjjLoginElements
 }
 
-export default connect(mapStateToProps, null)(Dialog)
+export default connect(mapStateToProps, null)(LoanTypeDialog)

@@ -3,7 +3,7 @@ import {
   View
 } from 'react-native';
 
-var AsynCpGenerator = function(FetchingCp, ElementCp) {
+var AsynCpGenerator = function(FetchingCp, ElementCp, forceFetcing) {
   return class AsynCp extends Component {
     static propTypes = {
       fetching: PropTypes.func.isRequired
@@ -13,14 +13,17 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
       super(props);
 
       this.state = {
-        isFetching: this.props.isFetching
+        isFetching: this.props.isFetching,
+        forceFetcing: forceFetcing
       }
+      this.forceFetcing = forceFetcing;
     }
 
     componentDidMount() {
-      if(!this.props.fetched || this.props.fetchingParams != this.props.fetchedParams) {
+      if((!this.props.fetched || this.props.fetchingParams != this.props.fetchedParams) || this.forceFetcing) {
         typeof this.props.fetching == "function" && this.props.fetching(this.props.fetchingParams);
       }
+      this.forceFetcing = false;
     }
 
     renderFetchingCp() {
@@ -32,7 +35,7 @@ var AsynCpGenerator = function(FetchingCp, ElementCp) {
     }
 
     render() {
-      if(this.props.isFetching && !this.props.fetched) return this.renderFetchingCp();
+      if((this.props.isFetching && !this.props.fetched) || this.forceFetcing) return this.renderFetchingCp();
 
       return this.renderElementCp();
     }

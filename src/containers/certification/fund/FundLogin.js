@@ -30,7 +30,7 @@ class FundLoginScene extends Component{
     super(props);
 
     this.state = {
-      visibleVerify: false, submitting: false,
+      visibleSecondVerify: false, submitting: false,
       showPicker: false, showDialog: false
     };
 
@@ -56,7 +56,7 @@ class FundLoginScene extends Component{
 
         {
           this.state.location ? (
-            <TouchableOpacity onPress={() => this.setState({showDialog: true}) } style={styles.inputGroup}>
+            <TouchableOpacity onPress={() => { this.state.configList && this.state.configList.length > 1 && this.setState({showDialog: true})} } style={styles.inputGroup}>
               <Text style={styles.text}>登陆类型</Text>
               <TextInput value={this.state.typeName}
                          style={styles.input}
@@ -67,7 +67,11 @@ class FundLoginScene extends Component{
                 />
               <NextIcon/>
 
-              <Dialog visible={this.state.showDialog} location={this.state.location} onChange={this._onChangeDialog.bind(this)} onHide={() => this.setState({showDialog: false})}/>
+              {
+                this.state.configList && this.state.configList.length > 1 ?
+                <Dialog visible={this.state.showDialog} location={this.state.location} onChange={this._onChangeDialog.bind(this)} loginConfig={this.state.configList} onHide={() => this.setState({showDialog: false})}/>
+                : null
+              }
             </TouchableOpacity>
           ): null
         }
@@ -101,8 +105,8 @@ class FundLoginScene extends Component{
 
         <FundSecondLogin
           {...this.state.submitResult}
-          onHide={() => this.setState({visibleVerify: false})}
-          visible={this.state.visibleVerify}
+          onHide={() => this.setState({visibleSecondVerify: false})}
+          visible={this.state.visibleSecondVerify}
           />
       </View>
 
@@ -119,11 +123,18 @@ class FundLoginScene extends Component{
   }
 
   _onChange(location) {
+    // console.log(location)
+    var loginEle = this.props.loginElements.find(ele => ele.area_name == location),
+      configList = loginEle ? loginEle.login_config : null,
+      defaultConfig = configList && configList.length == 1 ? configList[0] : {};
+
     this.setState({
       location,
       showPicker: false,
-      config:{},
-      typeName:''
+      configList: configList,
+      config: defaultConfig,
+      typeName: defaultConfig.login_type_name || '',
+      description: defaultConfig.description || {}
     });
 
   }
@@ -140,7 +151,6 @@ class FundLoginScene extends Component{
       let { login_target, login_type, description } = this.state.config;
 
       if(this.submitting) { return; }
-
       this.submitting = true;
 
       let body = {}
@@ -150,10 +160,9 @@ class FundLoginScene extends Component{
       post('/bill/gjj-login', Object.assign({loan_type: 0, login_target, login_type}, body))
       .then(response => {
           if(response.res == responseStatus.success && response.data.second_login == 1) {
-            this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
+            this.setState({submitting: false, visibleSecondVerify: true, submitResult: response.data});
           }else if(response.res == responseStatus.success){
             this.setState({submitting: false });
-
           }else {
             this.setState({submitting: false, error: response.msg });
           }
@@ -210,7 +219,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     isFetching: state.online.gjjLoginElements.isFetching,
-    fetched: state.online.gjjLoginElements.fetched
+    fetched: state.online.gjjLoginElements.fetched,
+    loginElements: state.online.gjjLoginElements.elements
   }
 }
 

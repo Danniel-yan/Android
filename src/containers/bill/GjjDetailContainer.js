@@ -3,16 +3,28 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
-import actions from 'actions/online';
+import onlineActions from 'actions/online';
 
-class FundReportScene extends Component{
+const payStatus = { "NORMAL": "正常" }
+const cardTypes = { "ID_CARD": "身份证" }
+
+class GjjDetailReport extends Component{
   constructor(props) {
     super(props);
   }
-  render() {
 
-    let {real_name,gender,card_type,id_card,begin_date,pay_status,corporation_name,
-      corporation_ratio,customer_ratio,base_number,fund_balance,last_pay_date} = this.props;
+  render() {
+    let detail = this.props.detail && this.props.detail.data ? this.props.detail.data : {};
+
+    let userInfo = detail.user_info ? detail.user_info : {};
+
+    let { real_name, gender, card_type, pay_status, id_card, card_no, begin_date,
+      corporation_number, corporation_name, corporation_ratio, customer_ratio, base_number, fund_balance, last_pay_date } = userInfo;
+
+      console.log("detail")
+    console.log(detail)
+
+    id_card = id_card || card_no;
 
     return (
       <ScrollView style={styles.container}>
@@ -22,7 +34,7 @@ class FundReportScene extends Component{
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(real_name) => { this.setState({real_name}) }}
+                     editable={false}
             />
         </View>
 
@@ -32,27 +44,27 @@ class FundReportScene extends Component{
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(gender) => { this.setState({gender}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>证件类型</Text>
-          <TextInput value={card_type}
+          <TextInput value={cardTypes[card_type]}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(card_type) => { this.setState({card_type}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>证件号码</Text>
-          <TextInput value={id_card}
+          <TextInput value={id_card.toString()}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(id_card) => { this.setState({id_card}) }}
+                     editable={false}
             />
         </View>
 
@@ -62,17 +74,17 @@ class FundReportScene extends Component{
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(begin_date) => { this.setState({begin_date}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>存缴状态</Text>
-          <TextInput value={pay_status}
+          <TextInput value={payStatus[pay_status]}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(pay_status) => { this.setState({pay_status}) }}
+                     editable={false}
             />
         </View>
 
@@ -82,47 +94,47 @@ class FundReportScene extends Component{
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(corporation_name) => { this.setState({corporation_name}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>单位缴存</Text>
-          <TextInput value={corporation_ratio}
+          <TextInput value={corporation_ratio ? corporation_ratio.toString() : ""}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(corporation_ratio) => { this.setState({corporation_ratio}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>个人缴存</Text>
-          <TextInput value={customer_ratio}
+          <TextInput value={customer_ratio ? customer_ratio.toString() : ""}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(customer_ratio) => { this.setState({customer_ratio}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>基数</Text>
-          <TextInput value={base_number}
+          <TextInput value={base_number ? base_number.toString() : ""}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(base_number) => { this.setState({base_number}) }}
+                     editable={false}
             />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.text}>公积金余额</Text>
-          <TextInput value={fund_balance}
+          <TextInput value={fund_balance ? fund_balance.toString() : ""}
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(fund_balance) => { this.setState({fund_balance}) }}
+                     editable={false}
             />
         </View>
 
@@ -132,7 +144,7 @@ class FundReportScene extends Component{
                      style={styles.input}
                      placeholder=''
                      underlineColorAndroid="transparent"
-                     onChangeText={(last_pay_date) => { this.setState({last_pay_date}) }}
+                     editable={false}
             />
         </View>
 
@@ -160,20 +172,24 @@ const styles = StyleSheet.create({
     marginLeft: 18,
     marginRight: 10,
     fontSize: 12,
-    color: '#A5A5A5',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    textAlign: "right",
+    color: "#333"
   },
+  text: { color: '#A5A5A5' }
 })
 
 function mapStateToProps(state) {
-  return state.billDetail;
+  console.log(state.online.gjjDetail);
+  return state.online.gjjDetail;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(actions.billDetail())
+    beforeRender: () => dispatch({type: "requestGjjDetail"}),
+    fetching: () => dispatch(onlineActions.gjjDetail())
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, FundReportScene));
+  AsynCpGenerator(Loading, GjjDetailReport, true));

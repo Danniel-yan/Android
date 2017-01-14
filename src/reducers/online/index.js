@@ -14,7 +14,8 @@ import applyResult from './applyResult';
 import contractBanks from './contractBanks';
 import loanDetail from './loanDetail';
 import loanType from './loanType';
-import billDetail from './billDetail';
+import gjjResult from './gjjResult';
+import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 
 export default combineReducers({
@@ -33,6 +34,7 @@ export default combineReducers({
   yysResult,
   yysForms,
   loanType,
-  billDetail,
-  gjjLoginElements
+  gjjResult,
+  gjjLoginElements,
+  gjjDetail
 })

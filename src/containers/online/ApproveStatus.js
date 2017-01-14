@@ -153,8 +153,8 @@ function mapStateToProps(state) {
     ...state.online.applyResult,
     ...state.online.status,
   }, {
-    isFetching: state.online.applyResult.isFetching,
-    fetched: state.online.applyResult.fetched
+    // isFetching: state.online.applyResult.isFetching,
+    // fetched: state.online.applyResult.fetched
 
   })
 }

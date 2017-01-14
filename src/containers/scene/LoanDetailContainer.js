@@ -66,7 +66,7 @@ const shareConfig = {
   url: 'http://t.cn/RIJqMla'
 };
 
-let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);
 SceneComponent = externalScene(SceneComponent, () => <ShareButton config={shareConfig}/>);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;

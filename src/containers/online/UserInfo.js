@@ -281,4 +281,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(UserInfo)));
+  AsynCpGenerator(Loading, trackingScene(UserInfo), true));
