@@ -61,11 +61,11 @@ class LoanNavPanel extends Component {
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: (this.props.loginUser.info ? 'recommend_apply' : 'recommend') }}
-            title="推荐贷款"
+            title="贷款推荐"
             toKey="RecLoanScene"
             style={LNPStyles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text style={LNPStyles.navTxt}>推荐贷款</Text>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_1.gif', width : 50, height: 50}}></Image>
+            <Text style={LNPStyles.navTxt}>贷款推荐</Text>
           </ExternalPushLink>
           <MajorTabLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
@@ -73,15 +73,24 @@ class LoanNavPanel extends Component {
             toKey="LoanScene"
             style={LNPStyles.navItem}>
 
-            <Image source={require('assets/icons/jisudaikuan.png')}></Image>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_2.gif', width : 50, height: 50}}></Image>
             <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>
           <TrackingPoint
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
             style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
-            <Image source={require('assets/icons/chaxinyong.png')}></Image>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_3.gif', width : 50, height: 50}}></Image>
             <Text style={LNPStyles.navTxt}>信用贷</Text>
           </TrackingPoint>
+          <ExternalPushLink
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
+            title="简单贷"
+            toKey="LoanScene"
+            componentProps = {{onBack : true}}
+            style={LNPStyles.navItem}>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_4.gif', width : 50, height: 50}}></Image>
+            <Text style={LNPStyles.navTxt}>简单贷</Text>
+          </ExternalPushLink>
         </View>
       </View>
     );
