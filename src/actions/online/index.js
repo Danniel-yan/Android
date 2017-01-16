@@ -12,6 +12,7 @@ import preloan from './preloan';
 import applyResult from './applyResult';
 import contractBanks from './contractBanks';
 import loanDetail from './loanDetail';
+import billDetail from './billDetail'
 
 export default {
   loanDetail,
@@ -28,6 +29,7 @@ export default {
   bankResult,
   yysResult,
   yysForms,
+  billDetail,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };
   }
