@@ -35,12 +35,12 @@ class CreditCardStatus extends Component {
 
   componentDidUpdate() {
     if(this.props.status == 'success' || this.props.status == 'failure') {
-      clearInterval(this.timer)
+      clearInterval(this.timeFlag)
     }
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeFlag)
+    clearInterval(this.timeFlag)
   }
 
   render() {
@@ -101,7 +101,7 @@ class CreditCardStatus extends Component {
     this.setState({checked: true});
 
     this.props.fetchingBillStatus();
-    this.timeFlag = setTimeout(() => this.props.fetchingBillStatus(), 5000);
+    this.timeFlag = setInterval(() => this.props.fetchingBillStatus(), 5000);
   }
 }
 

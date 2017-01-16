@@ -278,7 +278,6 @@ export default class LoanDetailScene extends Component {
     let { onlineStatus } = this.props;
     let { status, time_expire_status } = onlineStatus;
 
-      return this.mergeProps({toKey: 'OnlineYysFormStatus', title: '审批状态'});
     if(!logined) {
       return {
         loginSuccess: this.props.fetchOnlineStatus,

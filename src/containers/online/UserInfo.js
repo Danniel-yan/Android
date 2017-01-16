@@ -72,7 +72,7 @@ class UserInfo extends Component {
   render() {
     let { education, company, id_no, profession, person_name } = this.state.form;
 
-    let error = this._validation();
+    let error = this.formChanged && this._validation();
     let disabled = !this.formChanged || !!error;
     // 第二次进入默认不禁用
     if(!this.state.firstTime && !this.formChanged) {

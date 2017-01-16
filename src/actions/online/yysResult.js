@@ -52,6 +52,10 @@ function checkBillFilter(loan_type) {
 
     const res = response.data.find(res => res.data_type == 'yys') || {};
 
+    if(res.is_expire == 1) {
+      return expire();
+    }
+
     switch(+res.status) {
       case 3:
         return success();
@@ -61,6 +65,10 @@ function checkBillFilter(loan_type) {
         return progressing();
     }
   })
+}
+
+function expire() {
+  return { type: 'receiveOnlineYysResult', status: 'expire' }
 }
 
 function none() {

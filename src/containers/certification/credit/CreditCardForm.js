@@ -70,6 +70,8 @@ class CreditCardForm extends Component {
               toKey="OnlineCreditCardStatus"
               prePress={this._submit.bind(this)}
               disabled={disabled}
+              backButton={false}
+              backRoute={{key: 'CertificationHome'}}
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>

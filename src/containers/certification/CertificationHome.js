@@ -21,6 +21,7 @@ const statusLabels = {
   success: '认证成功',
   failure: '认证失败',
   none: '未认证',
+  expire: '认证过期',
   progressing: '认证中...'
 }
 
@@ -140,6 +141,9 @@ const styles = StyleSheet.create({
     color: colors.success
   },
   failure: {
+    color: colors.error
+  },
+  expire: {
     color: colors.error
   },
   alert: {
