@@ -34,7 +34,7 @@ class CreditCardStatus extends Component {
   }
 
   componentDidUpdate() {
-    if(this.props.status == 'success' || this.props.status == 'failure') {
+    if(this.state.checked && (!this.props.isFetching) && (this.props.status == 'success' || this.props.status == 'failure')) {
       clearInterval(this.timeFlag)
     }
   }
@@ -98,10 +98,10 @@ class CreditCardStatus extends Component {
   }
 
   _getBillStatus() {
-    this.setState({checked: true});
-
     this.props.fetchingBillStatus();
+
     this.timeFlag = setInterval(() => this.props.fetchingBillStatus(), 5000);
+    this.setState({checked: true});
   }
 }
 
@@ -127,7 +127,10 @@ import actions from 'actions/online';
 
 function mapStateToProps(state, ownProps) {
   // return { loanType: 0 }
-  return { loanType: state.online.loanType.type, status: state.online.bankResult.status }
+  return {
+    isFetching: state.online.bankResult.isFetching,
+    loanType: state.online.loanType.type,
+    status: state.online.bankResult.status }
 }
 
 function mapDispatch(dispatch) {
