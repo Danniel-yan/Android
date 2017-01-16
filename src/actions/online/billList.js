@@ -3,7 +3,7 @@ import { get, responseStatus } from 'utils/fetch';
 
 export default function(body, getState) {
   var { type, status, ticket_id, login_target, loan_type } = body || {}, url;
-  
+
   type = type || "bank_wap";
   loan_type = loan_type || 0;
   url = `/bill/bill-list?type=${type}&loan_type=${loan_type}`;

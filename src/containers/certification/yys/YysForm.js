@@ -40,11 +40,11 @@ class YysForm extends Component {
     if(props.description) {
       props.description.map(desc => {
         if(desc.show_name == '姓名') {
-          form[desc.name] = props.userInfo.person_name;
+          form[desc.name] = props.userInfo ? props.userInfo.person_name : '';
           valids[desc.name] = true;
         }
         if(desc.show_name == '身份证号') {
-          form[desc.name] = props.userInfo.id_no;
+          form[desc.name] = props.userInfo ? props.userInfo.id_no : '';
           valids[desc.name] = true;
         }
       })
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo.data};
+  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {} };
 }
 
 function mapDispatchToProps(dispatch) {

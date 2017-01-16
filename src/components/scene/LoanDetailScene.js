@@ -288,7 +288,7 @@ export default class LoanDetailScene extends Component {
 
     // 预授信失败
     if(status == 4) {
-      return this.mergeProps({toKey: 'OnlinePreloanFailure', title: '预授信申请结果'});
+      return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
     }
 
     if(status == 5 && time_expire_status == 1) {

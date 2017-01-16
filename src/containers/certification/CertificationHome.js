@@ -31,8 +31,14 @@ class CertificationHome extends Component {
     super(props);
 
     this.state = {
-      submitting: false
+      submitting: false,
+      fetching: true
     }
+  }
+
+  componentDidMount() {
+    this.props.fetching && this.props.fetching();
+    this.setState({fetching: false});
   }
 
   render() {
@@ -41,7 +47,7 @@ class CertificationHome extends Component {
 
     let disabled = !(bank == 'success' && yys == 'success');
 
-    return (
+    return this.state.fetching || this.props.bankResult.isFetching || this.props.yysResult.isFetching ? <Loading /> : (
       <ScrollView>
 
         {this.cardItem()}
@@ -187,5 +193,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(CertificationHome))
+  trackingScene(CertificationHome)
 );

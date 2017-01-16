@@ -90,9 +90,15 @@ class CertifPanel extends Component {
     // return false;
   }
 
+  statusTxt(status) {
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
+    return statusDir[status] || "未认证";
+  }
+
   renderTiE() {
-    var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.existSuccessBill,
-      yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.existSuccessBill;
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
+    var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.status == "success",
+      yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.status == "success";
     return (
       <View>
         <Item
@@ -123,10 +129,10 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/xinyongkazhangdan.png")}
           title="信用卡账单"
-          confirm={bankSuccess ? "已认证" : "未认证"}
+          confirm={statusDir[bankResult.status]}
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); }}}/>
+          navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; }}}/>
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
@@ -140,7 +146,7 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
           title="运营商认证"
-          confirm={yysSuccess ? "已认证" : "未认证"}
+          confirm={statusDir[yysResult.status]}
           tips="认证完毕，可获1000-3000额度"
           textStyle={yysSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{title:"运营商认证", toKey:"OnlineYysForm", prePress: () => { this.closeModal(); }}}/>
@@ -254,10 +260,11 @@ function mapStateToProps(state) {
   let yys = state.online.yysResult;
 
   return {
-    isFetching: bank.isFetching || yys.isFetching,
-    fetched: bank.fetched && yys.fetched,
+    isFetching: bank.bankBillFetching || yys.yysBillFetching,
+    fetched: !(bank.bankBillFetching || yys.yysBillFetching),
     bankResult: bank,
-    yysResult: yys
+    yysResult: yys,
+    userInfo: state.online.userInfo
   }
 }
 
@@ -265,8 +272,8 @@ function mapDispatchToProps(dispatch) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
     fetching: () => {
-      dispatch(actions.bankResult());
-      dispatch(actions.yysResult());
+      dispatch(actions.bankBillList());
+      dispatch(actions.yysBillList());
     },
     externalPush: (route) => dispatch(externalPush(route))
   }

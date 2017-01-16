@@ -4,8 +4,8 @@ import bankDetail from './bankDetail';
 import submitCreditCard from './submitCreditCard';
 import userInfo from './userInfo';
 import pickers from './pickers';
-import bankResult from './bankResult';
-import yysResult from './yysResult';
+import bankResult, { bankBillList } from './bankResult';
+import yysResult, { yysBillList } from './yysResult';
 import yysForms from './yysForms';
 import preloanStatus from './preloanStatus';
 import preloan from './preloan';
@@ -26,7 +26,9 @@ export default {
   userInfo,
   pickers,
   bankResult,
+  bankBillList,
   yysResult,
+  yysBillList,
   yysForms,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };

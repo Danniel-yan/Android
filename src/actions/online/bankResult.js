@@ -1,25 +1,18 @@
 import { post, get, responseStatus } from 'utils/fetch';
 
 import getBillList from './billList';
+import banks from './banks';
 
-export default function(body) {
-
+export function bankBillList(body) {
   return (dispatch, getState) => {
-
-    dispatch({type: 'requestOnlineBankResult'});
-
     var state = getState(), loanType = state.online.loanType ? state.online.loanType.type : null;
 
-    return checkBillFilter(loanType).then(res => {
-      if(res) {
-        return dispatch(res);
-      }
-
-      return getBillList(Object.assign({loan_type: loanType, type: 'bank_wap'}, body));
-
-    }).then(response => {
+    if(!state.online.banks.fetched) dispatch(banks());
+    dispatch({type: "bankBillFetchStart"});
+    return getBillList(Object.assign({loan_type: loanType, type: 'bank_wap'}, body)).then(response => {
       if(response.res == responseStatus.success) {
         var billList = response.data || [];
+        dispatch({ type: "receiveOnlineBankBilllList", billList: billList });
 
         // 仅判断最后一条数据，正在进行中不让用户重复提交。
         const lastestBill = billList[0];
@@ -29,17 +22,35 @@ export default function(body) {
           return dispatch(none());
         }
 
-        if([7, 8].includes(+lastestBill.status)) {
-          return dispatch(progressing());
+        if([8].includes(+lastestBill.status)) {
+          return dispatch(success());
         }
 
-        if([2, 6, 9].includes(+lastestBill.status)) {
+        if([2,4,6,9].includes(+lastestBill.status)) {
           return dispatch(failure());
         }
+
+        return dispatch(progressing());
       }
     })
+  }
+}
 
+export default function(body) {
 
+  return (dispatch, getState) => {
+
+    dispatch({type: 'requestOnlineBankResult'});
+
+    var state = getState(), loanType = state.online.loanType ? state.online.loanType.type : null;
+
+    if(loanType == 0 || loanType == 9999) return dispatch(bankBillList(body));
+    return checkBillFilter(loanType).then(res => {
+      if(res) {
+        return dispatch(res);
+      }
+      return dispatch(bankBillList(body));
+    })
   }
 }
 
@@ -52,6 +63,10 @@ function checkBillFilter(loan_type) {
 
     const res = response.data.find(res => res.data_type == 'bank_wap') || {};
 
+    if(res.status == 3 && res.is_expire == 1) {
+      return expire();
+    }
+
     switch(+res.status) {
       case 3:
         return success();
@@ -61,6 +76,10 @@ function checkBillFilter(loan_type) {
         return progressing();
     }
   })
+}
+
+function expire() {
+  return { type: 'receiveOnlineBankResult', status: 'expire' }
 }
 
 function none() {
@@ -78,4 +97,3 @@ function failure() {
 function progressing() {
   return { type: 'receiveOnlineBankResult', status: 'progressing' }
 }
-
