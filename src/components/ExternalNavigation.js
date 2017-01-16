@@ -104,7 +104,8 @@ export default class ExternalNavigation extends Component {
       title,
       component: ComponentClass,
       RenderedComponent,
-      componentProps
+      componentProps,
+      ...routeProps
     } = route;
 
     // 若route已经渲染过，则直接使用旧component，避免重新渲染
@@ -127,7 +128,7 @@ export default class ExternalNavigation extends Component {
       route.RenderedComponent = ComponentClass;
     }
 
-    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title });
+    return React.createElement(ComponentClass , { ...routeProps, ...componentProps, navigator, sceneTitle: title });
   }
 
   shouldComponentUpdate() {
