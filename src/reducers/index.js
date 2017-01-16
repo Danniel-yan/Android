@@ -20,7 +20,6 @@ import repayCalc from './scene/repayCalc';
 import iosConfig from './iosConfig';
 import cardConfig from './scene/card/cardConfig';
 import cardArtical from './cardArtical';
-import gjjSecondLogin from './scene/fund/gjjSecondLogin'
 
 import online from './online';
 
@@ -45,6 +44,5 @@ export default combineReducers({
   actDetailBanner,
   repayCalc,
   online,
-  iosConfig,
-  gjjSecondLogin
+  iosConfig
 });

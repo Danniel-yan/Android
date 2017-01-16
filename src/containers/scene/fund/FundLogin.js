@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView , TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { View, Text, ScrollView , TextInput, StyleSheet, Image, TouchableOpacity , AsyncStorage} from 'react-native';
 
 import * as defaultStyles from 'styles';
 
@@ -7,10 +8,17 @@ import ProcessingButton from 'components/shared/ProcessingButton'
 import { colors } from 'styles/varibles'
 import LocationPicker from 'components/modal/LocationPicker';
 import Dialog from './Dialog'
-
 import { post, responseStatus } from 'utils/fetch';
 
-import requestGjjSecondLogin from 'actions/scene/fund/gjjSecondLogin';
+import FundSecondLogin from './FundSecondLogin';
+
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
+import ErrorInfo from 'containers/online/ErrorInfo';
+
+import { ExternalPushLink } from 'containers/shared/Link';
+
+import NextIcon from 'components/shared/NextIcon';
 
 export default class FundLoginScene extends Component{
 
@@ -18,9 +26,8 @@ export default class FundLoginScene extends Component{
     super(props);
 
     this.state = {
-      submitting: false,
-      showPicker: false,
-      showDialog: false,
+      visibleVerify: false, submitting: false,
+      showPicker: false, showDialog: false
     };
 
   }
@@ -29,7 +36,7 @@ export default class FundLoginScene extends Component{
 
     return(
       <View style={styles.container}>
-        <View style={styles.inputGroup}>
+        <TouchableOpacity onPress={() => this.setState({showPicker: true}) } style={styles.inputGroup}>
           <Text style={styles.text}>请选择城市</Text>
           <TextInput value={this.state.location}
                      style={styles.input}
@@ -37,16 +44,14 @@ export default class FundLoginScene extends Component{
                      underlineColorAndroid="transparent"
                      onChangeText={(location) => { this.setState({location}) }}
             />
-          <TouchableOpacity onPress={() => this.setState({showPicker: true}) }>
-            <Image source={require('assets/icons/arrow-left.png')}/>
-          </TouchableOpacity>
+          <NextIcon/>
 
           <LocationPicker mark='fundCity' visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
-        </View>
+        </TouchableOpacity>
 
         {
           this.state.location ? (
-            <View style={styles.inputGroup}>
+            <TouchableOpacity onPress={() => this.setState({showDialog: true}) } style={styles.inputGroup}>
               <Text style={styles.text}>登陆类型</Text>
               <TextInput value={this.state.typeName}
                          style={styles.input}
@@ -54,29 +59,30 @@ export default class FundLoginScene extends Component{
                          underlineColorAndroid="transparent"
                          onChangeText={(typeName) => { this.setState({typeName}) }}
                 />
-              <TouchableOpacity onPress={() => this.setState({showDialog: true}) }>
-                <Image source={require('assets/icons/arrow-left.png')}/>
-              </TouchableOpacity>
+              <NextIcon/>
 
               <Dialog visible={this.state.showDialog} location={this.state.location} onChange={this._onChangeDialog.bind(this)} onHide={() => this.setState({showDialog: false})}/>
-            </View>
+            </TouchableOpacity>
           ): null
         }
 
         {
-          this.state.loginType ? (
-          this.state.loginType.map( (config,idx) =>
+          this.state.description ? (
+          this.state.description.map( (config,idx) =>
               <View key={'key' + idx } style={styles.inputGroup}>
                 <Text style={styles.text}>{config.show_name}</Text>
                 <TextInput
-                           style={styles.input}
-                           underlineColorAndroid="transparent"
-                           onChangeText={this._inputChange.bind(this, config.name)}
+                  style={styles.input}
+                  placeholder={'请输入'+ config.show_name}
+                  secureTextEntry={config.name == 'password'}
+                  onChangeText={this._onFormChange.bind(this, config.name)}
                   />
               </View>
           )
           ):null
         }
+
+        <ErrorInfo msg={this.state.error}/>
 
         <View style={{justifyContent: 'center',alignItems: 'center',}}>
           <ProcessingButton
@@ -86,6 +92,12 @@ export default class FundLoginScene extends Component{
             textStyle={styles.submitBtnText}
             text="提交"/>
         </View>
+
+        <FundSecondLogin
+          {...this.state.submitResult}
+          onHide={() => this.setState({visibleVerify: false})}
+          visible={this.state.visibleVerify}
+          />
       </View>
 
     )
@@ -94,7 +106,7 @@ export default class FundLoginScene extends Component{
   _onChangeDialog(config){
     this.setState({
       config,
-      loginType:config.description,
+      description: config.description,
       typeName: config.login_type_name,
       showDialog: false
     });
@@ -104,47 +116,47 @@ export default class FundLoginScene extends Component{
     this.setState({
       location,
       showPicker: false,
-      loginType:[],
+      config:{},
       typeName:''
     });
 
   }
 
-  _inputChange(field, value) {
-    this.setState({[field]: value });
+  _onFormChange(field, value) {
+    this.setState({
+      [field]: value
+    });
   }
 
   _submit() {
 
-    let { login_target, login_type, description } = this.state.config;
+    this.setState({ submitting: true, error: ''}, () => {
+      let { login_target, login_type, description } = this.state.config;
 
-    if(this.submitting) { return; }
+      if(this.submitting) { return; }
 
-    this.submitting = true;
+      this.submitting = true;
 
-    let body = {}
-    description.map(obj => {
-      body[obj.name] = this.state[obj.name];
-    })
-
-    this.setState({
-      submitting: true
-    }, () => {
-
+      let body = {}
+      description.map(obj => {
+        body[obj.name] = this.state[obj.name];
+      })
       post('/bill/gjj-login', Object.assign({loan_type: 0, login_target, login_type}, body))
-        .then(response => {
-          if(response.res == responseStatus.success){
-            if(response.data.second_login == 0 ){
+      .then(response => {
+          if(response.res == responseStatus.success && response.data.second_login == 1) {
+            this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
+          }else if(response.res == responseStatus.success){
+            this.setState({submitting: false });
 
-            }
+          }else {
+            this.setState({submitting: false, error: response.msg });
           }
         })
-        .catch(err => { console.log(err); })
-        .finally(() => {
-          this.submitting = false;
-          this.setState({submitting: false})
+        .catch(err => {
+          this.setState({submitting: false});
         })
-    });
+
+    })
   }
 
 }
