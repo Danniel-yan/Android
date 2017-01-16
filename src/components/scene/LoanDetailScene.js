@@ -12,6 +12,7 @@ import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 import { ExternalPushLink } from 'containers/shared/Link';
 import alert from 'utils/alert';
+import { externalPop } from 'actions/navigation';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
@@ -247,7 +248,7 @@ export default class LoanDetailScene extends Component {
       return (
         <ExternalPushLink
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
-                     title: detail.title, amount: this.state.amount, period: this.state.period}}
+                     title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
@@ -280,7 +281,10 @@ export default class LoanDetailScene extends Component {
 
     if(!logined) {
       return {
-        loginSuccess: this.props.fetchOnlineStatus,
+        loginSuccess: () => {
+          this.props.fetchOnlineStatus();
+          this.props.dispatch(externalPop());
+        },
         toKey: 'Login',
         title: '登录'
       };
