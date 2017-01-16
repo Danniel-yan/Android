@@ -12,6 +12,7 @@ import * as defaultStyles from 'styles';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import { externalPush, majorTab } from 'actions/navigation';
+import onlineActions from 'actions/online';
 
 
 class ZoneScene extends Component {
@@ -130,8 +131,8 @@ class ZoneScene extends Component {
 
     return loginUser.info ? (
       <View>
-        {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {})}
-        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "FundScene", title:"公积金查询"})}
+        {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} })}
+        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "FundLogin", title:"公积金查询"})}
         {this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {})}
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
@@ -171,7 +172,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     externalPush: route => dispatch(externalPush(route)),
-    majorTab: route => dispatch(majorTab(route))
+    majorTab: route => dispatch(majorTab(route)),
+    setLoanType: () => dispatch(onlineActions.setLoanType(9999))
   }
 }
 

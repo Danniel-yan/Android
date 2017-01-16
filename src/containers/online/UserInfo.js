@@ -16,7 +16,6 @@ import DeviceInfo from 'react-native-device-info';
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
 import { container, rowContainer, centering, fontSize, colors } from 'styles';
-import VerifyButton from 'components/shared/VerifyButton'
 import alert from 'utils/alert';
 import { externalPush } from 'actions/navigation';
 import { get, post, responseStatus } from 'utils/fetch';
@@ -44,43 +43,41 @@ class UserInfo extends Component {
     let form = {
       person_name: user.person_name || '',
       id_no: user.id_no || '',
-      mobile: user.mobile || '',
+      mobile: props.mobile,
       profession: user.profession || '',
       education: user.education || '',
       company: user.company || '',
-      verify_code: user.verify_code || ''
     };
 
     this.state = {
-      form
+      form,
+      firstTime: !user.person_name
     }
   }
 
   _validation() {
-    let { education, company, verify_code, mobile, id_no, profession, person_name } = this.state.form;
+    let { education, company, id_no, profession, person_name } = this.state.form;
 
-    const validMobile = validators.mobile(mobile);
-    const validVerifyCode = verify_code.length > 1;
     const validName = person_name.length >= 2;
     const validID = validators.idNO(id_no);
-
-    if(!this.formChanged) { return ''; }
 
     if(person_name.length < 2) { return '请输入有效姓名'; }
 
     if(!validID) { return '请输入有效身份证号'; }
-    if(!validMobile) { return '请输入有效手机号'; }
-    if(!validVerifyCode) { return '请输入验证码'; }
     if(profession == '') { return '请选择职业身份'; }
     if(education == '') { return '请选择教育程度'; }
     if(company.length == 0) { return '请输入单位名称'; }
   }
 
   render() {
-    let { education, company, verify_code, mobile, id_no, profession, person_name } = this.state.form;
+    let { education, company, id_no, profession, person_name } = this.state.form;
 
-    let error = this._validation();
+    let error = this.formChanged && this._validation();
     let disabled = !this.formChanged || !!error;
+    // 第二次进入默认不禁用
+    if(!this.state.firstTime && !this.formChanged) {
+      disabled = false;
+    }
 
     return (
       <View style={container}>
@@ -104,39 +101,6 @@ class UserInfo extends Component {
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'id_no')}
             />
-          </FormGroup>
-
-          <FormGroup label="注册手机号">
-            <TextInput style={styles.formControl}
-              clearButtonMode="while-editing"
-              keyboardType="numeric"
-              maxLength={11}
-              value={mobile}
-              underlineColorAndroid="transparent"
-              onChangeText={this._inputChange.bind(this, 'mobile')}
-            />
-          </FormGroup>
-
-
-          <FormGroup label="输入验证码">
-            <View style={[rowContainer, centering]}>
-
-              <TextInput style={styles.formControl}
-                clearButtonMode="while-editing"
-                keyboardType="numeric"
-                maxLength={6}
-                value={verify_code}
-                underlineColorAndroid="transparent"
-                onChangeText={this._inputChange.bind(this, 'verify_code')}
-              />
-
-              <View style={styles.addon}>
-                <VerifyButton
-                  tracking={Object.assign({ entity: 'mob_code_button'}, this.tracking()) }
-                  mobile={this.state.mobile}
-                  />
-              </View>
-            </View>
           </FormGroup>
 
           <View style={styles.optional}>
@@ -199,21 +163,22 @@ class UserInfo extends Component {
         form.phone_model = DeviceInfo.getModel();
         form.phone_system_version = DeviceInfo.getSystemVersion();
 
-        AsyncStorage.getItem("loan_type").then(type => {
-          type && (form.loan_type = type);
-          return post('/loanctcf/first-filter', form).then(response => {
-            if(response.res == responseStatus.success) {
-              this.setState({ submitting: false})
-              this.props.fetchStatus();
-              this.props.goHome();
-            } else {
-              throw response.msg;
-            }
-          }).catch(err => {
-            console.log(err);
-            this.setState({ submitting: false, error: err})
-          });
+
+        var loanType = this.props.loanType || 0;
+        loanType && (form.loan_type = loanType);
+        return post('/loanctcf/first-filter', form).then(response => {
+          if(response.res == responseStatus.success) {
+            this.setState({ submitting: false})
+            this.props.fetchStatus();
+            this.props.goHome();
+          } else {
+            throw response.msg;
+          }
+        }).catch(err => {
+          console.log(err);
+          this.setState({ submitting: false, error: err})
         });
+
 
       });
     });
@@ -301,7 +266,9 @@ function mapStateToProps(state) {
     fetched: user.fetched && pickers.fetched,
     err: user.err || pickers.err,
     user,
+    mobile: state.loginUser.info.username,
     pickers,
+    loanType: state.online.loanType.type
   }
 }
 

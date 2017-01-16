@@ -34,11 +34,27 @@ class YysForm extends Component {
   constructor(props) {
     super(props);
 
+    let form = {};
+    let valids = {};
+
+    if(props.description) {
+      props.description.map(desc => {
+        if(desc.show_name == '姓名') {
+          form[desc.name] = props.userInfo.person_name;
+          valids[desc.name] = true;
+        }
+        if(desc.show_name == '身份证号') {
+          form[desc.name] = props.userInfo.id_no;
+          valids[desc.name] = true;
+        }
+      })
+    }
+
     this.state = {
       visibleVerify: false,
       submitting: false,
-      form: { },
-      valids: { },
+      form,
+      valids,
       errors: { }
     };
 
@@ -105,31 +121,8 @@ class YysForm extends Component {
         login_target: this.props.login_target
       };
 
-      // TODO remove
-      //let response = {
-      //  res: 1,
-      //  data:  {
-      //    "ticket_id": "ea8029b2-c81c-11e6-b5e3-00163e00ed7a_1482393720.03", //ticket_id 供二次登录时使用
-      //    "second_login": 1, //是否需要二次登陆，0=不需要，1=需要
-      //    "val_code": {
-      //        "type": "sms", //验证码类型，sms=手机验证码，img=图片验证码
-      //        "value": "null" //图片验证码的base64数据
-      //    }
-      //  }
-      //}
-
-      // TODO remove
-      //if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
-      //  this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
-      //} else if(response.res == responseStatus.success) {
-      //  this.setState({submitting: false});
-      //  this.props.loginSuccess();
-      //} else {
-      //  this.setState({submitting: false });
-      //}
-      //return;
-      return AsyncStorage.getItem("loan_type").then(type => {
-        body.loan_type = type;
+        var loanType = this.props.loanType || 0;
+        body.loan_type = loanType;
         post('/bill/yys-login', body).then(response => {
           if(this.unmount) {
             return;
@@ -147,7 +140,7 @@ class YysForm extends Component {
         }).catch(err => {
           this.setState({submitting: false});
         })
-      });
+
 
     });
   }
@@ -231,7 +224,7 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  return state.online.yysForms;
+  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo.data};
 }
 
 function mapDispatchToProps(dispatch) {

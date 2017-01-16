@@ -49,9 +49,8 @@ class LoanNavPanel extends Component {
       // console.log(pbocUrl + "&token=" + token)
       // console.log(fromLogin);
       // externalPush && externalPush({web: pbocUrl + "&token=" + token, backRoute: { key: 'MajorNavigation' }});
-      AsyncStorage.setItem("loan_type", "0").then(() => {
-        externalPush && externalPush({ key: "CreditLoan", title: "信用贷" })
-      })
+      externalPush && externalPush({ key: "CreditLoan", title: "信用贷" })
+      this.props.setLoanType && this.props.setLoanType(0);
 
     })
   }
@@ -81,7 +80,7 @@ class LoanNavPanel extends Component {
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
             style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
             <Image source={require('assets/icons/chaxinyong.png')}></Image>
-            <Text style={LNPStyles.navTxt}>查信用</Text>
+            <Text style={LNPStyles.navTxt}>信用贷</Text>
           </TrackingPoint>
         </View>
       </View>

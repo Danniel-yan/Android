@@ -13,6 +13,7 @@ import preloan from './preloan';
 import applyResult from './applyResult';
 import contractBanks from './contractBanks';
 import loanDetail from './loanDetail';
+import loanType from './loanType'
 
 export default combineReducers({
   loanDetail,
@@ -28,5 +29,6 @@ export default combineReducers({
   pickers,
   bankResult,
   yysResult,
-  yysForms
+  yysForms,
+  loanType
 })

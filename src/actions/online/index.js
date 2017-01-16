@@ -27,5 +27,8 @@ export default {
   pickers,
   bankResult,
   yysResult,
-  yysForms
+  yysForms,
+  setLoanType: function(loanType) {
+    return { type: "SetLoanType", value: loanType };
+  }
 }

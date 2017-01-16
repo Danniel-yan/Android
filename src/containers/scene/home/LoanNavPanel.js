@@ -5,6 +5,7 @@ import LoanNavPanel from 'components/LoanNavPanel';
 
 import { externalPush, majorTab } from 'actions/navigation';
 import { setAmount } from 'actions/scene/fast/filterList';
+import onlineActions from 'actions/online'
 
 function mapStateToProps(state) {
   return {
@@ -18,7 +19,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     externalPush: route => dispatch(externalPush(route)),
-    majorTab: route => dispatch(majorTab(route))
+    majorTab: route => dispatch(majorTab(route)),
+    setLoanType: () => dispatch(onlineActions.setLoanType(0))
   }
 }
 

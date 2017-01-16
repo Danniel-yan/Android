@@ -18,6 +18,7 @@ import actions from 'actions/online';
 import { InputGroup } from 'components/form';
 import { post, responseStatus } from 'utils/fetch';
 import { ExternalPushLink } from 'containers/shared/Link';
+import ErrorInfo from '../ErrorInfo';
 
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
@@ -62,12 +63,15 @@ class CreditCardForm extends Component {
           <ScrollView contentContainerStyle={onlineStyles.container}>
             {this._form()}
 
+            <ErrorInfo msg={this.state.error}/>
             <ExternalPushLink
               processing={this.state.submitting}
               title="导入账单"
               toKey="OnlineCreditCardStatus"
               prePress={this._submit.bind(this)}
               disabled={disabled}
+              backButton={false}
+              backRoute={{key: 'CertificationHome'}}
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -79,7 +83,7 @@ class CreditCardForm extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true});
+    this.setState({ submitting: true, error: ''});
 
     let curTab = this.props.detail[this.state.tabIndex]
 
@@ -89,25 +93,24 @@ class CreditCardForm extends Component {
       login_target: curTab.login_target
     };
 
-    return AsyncStorage.getItem("loan_type").then(type => {
-      body.loan_type = type;
-      return post('/bill/bank-login', body).then(response => {
-       if(this.unmount) { return }
+    var loanType = this.props.loanType || 0;
+    body.loan_type = loanType;
+    return post('/bill/bank-login', body).then(response => {
+     if(this.unmount) { return }
 
-       this.setState({submitting: false});
+     this.setState({submitting: false});
 
-       if(response.res == responseStatus.success) {
-         if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
-         // return {componentProps: {...response.data}};
-         return {componentProps: {...response.data, bank_id: this.props.bank_id}};
-       }
+     if(response.res == responseStatus.success) {
+       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+       // return {componentProps: {...response.data}};
+       return {componentProps: {...response.data, bank_id: this.props.bank_id}};
+     }
 
-       throw response.msg;
-     }).catch(err => {
-       this.setState({submitting: false});
-       throw err;
-     })
-    });
+     throw response.msg;
+   }).catch(error => {
+     this.setState({submitting: false, error});
+     throw error;
+   })
 
   }
 
@@ -232,7 +235,7 @@ function mapStateToProps(state, ownProps) {
     feched: false
   };
 
-  return { ...detail }
+  return { ...detail, loanType: state.online.loanType.type }
 }
 
 function mapDispatchToProps(dispatch) {

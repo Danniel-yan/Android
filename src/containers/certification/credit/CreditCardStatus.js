@@ -6,17 +6,16 @@ import {
   Image,
   StyleSheet,
   Text,
-  Modal,
+  TouchableOpacity,
+  Modal
 } from 'react-native';
+import { connect } from "react-redux";
 
 import { get, responseStatus } from 'utils/fetch';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
-import { ExternalPopLink } from 'containers/shared/Link';
-import { parseStatus } from './../status';
-
-import getBillList from 'actions/online/billList';
+import { ExternalPopLink, ExternalPushLink } from 'containers/shared/Link';
 
 import successImage from 'assets/online/import-success.png';
 import failureImage from 'assets/online/import-failure.png';
@@ -34,8 +33,14 @@ class CreditCardStatus extends Component {
     this._getBillStatus();
   }
 
+  componentDidUpdate() {
+    if(this.props.status == 'success' || this.props.status == 'failure') {
+      clearInterval(this.timeFlag)
+    }
+  }
+
   componentWillUnmount() {
-    clearTimeout(this.timeFlag)
+    clearInterval(this.timeFlag)
   }
 
   render() {
@@ -47,30 +52,38 @@ class CreditCardStatus extends Component {
   }
 
   _content() {
-    let status = this.state.status;
+    let status = this.props.status, loanType = this.props.loanType;
 
 
     let image = ingImage;
     let button = '';
-    let statusText = '正在导入...';
+    let statusText = (<Text style={styles.text}>正在导入...</Text>);
+    let popKey = "CertificationHome";
+
+    if(loanType == 0) popKey = "CreditLoan";
+    if(loanType == 9999) popKey = "ZoneScene";
 
     if(this.state.checked && status == 'success') {
       image = successImage;
       button = '完成'
-      statusText = '导入完成，请返回首页查看！';
+      statusText = loanType == 0 ? (
+        <View style={{flexDirection: "row", marginVertical: 30, alignItems: "center"}}>
+          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>导入完成，请至</Text>
+          <ExternalPushLink toKey={"BillList"} title={"我的账单"}><View><Text style={{fontSize: fontSize.normal, color: colors.primary}}>我的账单</Text></View></ExternalPushLink>
+          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>查看！.</Text>
+        </View>
+      ) : (<Text style={styles.text}>导入完成，请返回首页查看！.</Text>);
     } else if(this.state.checked && status == 'failure') {
       image = failureImage;
       button = '重新导入账单';
-      statusText = '信用卡认证失败，请重新认证！';
+      statusText = (<Text style={styles.text}>信用卡认证失败，请重新认证！.</Text>);
     }
-    // console.log("checked: " + this.state.checked);
-    // console.log("status: " + status);
 
     return (
       <ScrollView contentContainerStyle={[container, onlineStyles.container ]}>
         <View style={centering}>
           <Image style={styles.image} source={image}/>
-          <Text style={styles.text}>{statusText}</Text>
+          {statusText}
         </View>
 
         { !button ? null : <ExternalPopLink
@@ -78,7 +91,7 @@ class CreditCardStatus extends Component {
           style={[onlineStyles.btn, centering, styles.btn]}
           textStyle={onlineStyles.btnText}
           text={button}
-          toKey="CertificationHome"/>
+          toKey={popKey}/>
         }
       </ScrollView>
     );
@@ -87,17 +100,8 @@ class CreditCardStatus extends Component {
   _getBillStatus() {
     this.setState({checked: true});
 
-    getBillList({login_target: this.props.bank_id}).then(response=>{
-      var lastBill = response && response.data && response.data.length > 0 ? response.data[0] : null;
-      lastBill && (this.state.status = parseStatus(parseInt(lastBill.status)));
-
-      if(this.state.status == 'success' || this.state.status == 'failure') {
-        clearTimeout(this.timeFlag);
-        this.setState({status: this.state.status});
-      } else {
-        this.timeFlag = setTimeout(() => this._getBillStatus(), 5000);
-      }
-    })
+    this.props.fetchingBillStatus();
+    this.timeFlag = setInterval(() => this.props.fetchingBillStatus(), 5000);
   }
 }
 
@@ -119,5 +123,17 @@ const styles = StyleSheet.create({
 });
 
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import actions from 'actions/online';
 
-export default (trackingScene(CreditCardStatus));
+function mapStateToProps(state, ownProps) {
+  // return { loanType: 0 }
+  return { loanType: state.online.loanType.type, status: state.online.bankResult.status }
+}
+
+function mapDispatch(dispatch) {
+  return {
+    fetchingBillStatus: () => dispatch(actions.bankResult())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus));

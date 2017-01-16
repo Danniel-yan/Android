@@ -9,11 +9,9 @@ const initState = {
 export default function(state = initState, action) {
   switch(action.type) {
     case 'requestOnlineYysResult':
-      return initState;
-    case 'receiveYYSEntryStatus':
-      return Object.assign({}, state, { existSuccessBill: action.existSuccessBill});
+      return Object.assign({}, state, { isFetching: true });
     case 'receiveOnlineYysResult':
-      return Object.assign({}, state, { isFetching: false, fetched: true });
+      return Object.assign({}, state, { isFetching: false, fetched: true, status: action.status });
     default:
       return state;
   }

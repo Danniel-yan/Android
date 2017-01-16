@@ -238,10 +238,9 @@ export default class LoanDetailScene extends Component {
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
-          prePress={() => AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())}
           />
       );
-      // this.props.detail.loan_type.toString()
+      // prePress={ () => this.props.setLoanType() }  AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())
     }
 
     if(this.props.loginUser.valid) {
@@ -287,9 +286,9 @@ export default class LoanDetailScene extends Component {
       };
     }
 
-    if(status == 2) {
-
-      return this.mergeProps({toKey: 'CertificationHome', title: '信息认证', componentProps: { fetchingParams: { loan_type: this.props.detail.loan_type } }});
+    // 预授信失败
+    if(status == 4) {
+      return this.mergeProps({toKey: 'OnlinePreloanFailure', title: '预授信申请结果'});
     }
 
     if(status == 5 && time_expire_status == 1) {
@@ -313,6 +312,7 @@ export default class LoanDetailScene extends Component {
       return this.mergeProps({toKey: 'OnlineLoanDetail', title: '借款详情'});
     }
 
+    // 1,2
     return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
   }
 

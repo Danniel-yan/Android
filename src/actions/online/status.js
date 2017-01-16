@@ -3,8 +3,8 @@ import { get, post, responseStatus } from 'utils/fetch';
 
 export default function() {
   return (dispatch, getState) => {
-    AsyncStorage.getItem("loan_type").then(type => {
-      post('/loanctcf/status', type ? { loan_type: type } : {}).then(response => {
+      var state = getState(), type = state.online.loanType.type || 0;
+      return post('/loanctcf/status', type ? { loan_type: type } : {}).then(response => {
         // TODO remove
             //  response = {
             //    "res": 1,
@@ -19,10 +19,5 @@ export default function() {
           dispatch({ type: 'receiveOnlineStatus', status: response.data })
         }
       }).catch(console.log)
-
-    });
-
-
-
   }
 }

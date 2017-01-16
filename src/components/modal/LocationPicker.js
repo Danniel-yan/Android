@@ -42,11 +42,14 @@ export default class LocationPicker extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    let { mark } = nextProps.mark;
+
     if(!nextProps.visible || this.state.sections) {
       return;
     }
 
-    let url = (nextProps.mark == 'city' ? '/app/city-list' : '/bill/gjj-login-elements');
+    let url = (mark == 'city' ? '/app/city-list' : '/bill/gjj-login-elements');
 
     get(url).then(response => {
 
@@ -55,31 +58,36 @@ export default class LocationPicker extends PureComponent {
 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((sec, secIdx) => {
         response.data
-          .filter(city => city.pinyin_first.toUpperCase() == sec)
+          .filter(city => (mark == 'city') ? city.pinyin_first.toUpperCase() == sec : city.area_name_pinyin_first.toUpperCase() == sec)
           .forEach((city, rowIdx) => {
+
             !secIDs.includes(sec) && secIDs.push(sec);
 
-            (sections[sec] || (sections[sec] = [])).push(city.shortname);
+            (sections[sec] || (sections[sec] = [])).push(mark == 'city'? city.shortname : city.area_name );
+
           });
       });
 
       this.setState({
         loading: false,
         secIDs,
-        sections
+        sections,
       });
 
     }).catch(err => console.log(err) )
   }
 
   render() {
+
+    let { mark } = this.props;
+
     let isShow = !this.state.loading && this.state.shown;
 
     let main = isShow ? this._renderMain() : null;
     let sidebar = isShow ? this._renderSidebar() : null;
     let loading = !isShow ? this._renderLoading() : null;
 
-    let search = this._renderSearch();
+    let search = (mark == 'fundCity')? this._renderSearch() : null ;
 
     return (
       <View>
@@ -125,13 +133,14 @@ export default class LocationPicker extends PureComponent {
     if(!value) {
       this.setState({shown: true,result:[]})
     }else{
+
+      console.log(this.state.sections);
+
       this.setState({result: this.state.sections[value] })
     }
   }
 
   _renderResult(){
-
-    console.log(this.state.result)
 
     if(!this.state.result) return null;
 
