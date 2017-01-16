@@ -247,7 +247,7 @@ export default class LoanDetailScene extends Component {
       return (
         <ExternalPushLink
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
-                     title: detail.title, amount: this.state.amount, period: this.state.period}}
+                     title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
