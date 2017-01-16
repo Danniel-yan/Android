@@ -39,7 +39,6 @@ class BillList extends Component{
     for(var i in billList) {
       var bankId = billList[i].login_target;
       var bankInfo = banks.find(bank => bank.id == bankId);
-      // billList[i] = Object.assign({}, billList[i], bankInfo);
       billList[i].name = bankInfo.name;
       billList[i].logo = bankInfo.logo;
     }
@@ -57,7 +56,6 @@ class BillList extends Component{
       <View style={{padding: 10}}>
       {
         billList.map((bill, idx) => {
-          console.log(bill);
           return (
             <BillItem key={idx} billId={bill.id} bankName={bill.name} bankLogo={bill.logo.px80} userName={bill.name_on_card} userCardNo={bill.card_no} />
           )
@@ -78,9 +76,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  // var state = getState(); console.log(state.online.banks.banks)
   return {
-    fetching: () => dispatch(onlineActions.bankBillList())
+    fetching: () => { dispatch(onlineActions.setLoanType(9999)); dispatch( onlineActions.bankBillList()); }
   }
 }
 

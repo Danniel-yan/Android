@@ -37,8 +37,14 @@ class CertifPanel extends Component {
     super(props);
 
     this.state = {
-        shouXinFlag : true
+        shouXinFlag : true,
+        fetching: true
     }
+  }
+
+  componentDidMount() {
+    this.props.fetching && this.props.fetching();
+    this.setState({fetching: false});
   }
 
   closeModal() {
@@ -47,8 +53,8 @@ class CertifPanel extends Component {
   }
 
   render() {
-    var bankResult = this.props.bankResult;
-    return (
+    var bankResult = this.props.bankResult, yysResult = this.props.yysResult;
+    return this.state.fetching || bankResult.isFetching || yysResult.isFetching ? <Loading /> : (
 
           <View style = {{backgroundColor : 'white',height:520}}>
           {
@@ -280,5 +286,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, CertifPanel)
+  CertifPanel
 );
