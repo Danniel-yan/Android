@@ -50,6 +50,7 @@ import FindHome from 'containers/scene/find/findHome';
 import AddBankCard from 'containers/scene/find/addBankCard';
 import CreditReport from 'containers/scene/find/creditReport';
 import BlackListhome from 'containers/blackList/Home';
+import Reports from 'containers/scene/find/reports'
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -100,7 +101,8 @@ import BlackListhome from 'containers/blackList/Home';
   { key: 'FindHome', module:  FindHome},
   { key: 'BlackListhome', module: BlackListhome},
   { key: 'AddBankCard', module: AddBankCard},
-  { key: 'CreditReport', module: CreditReport}
+  { key: 'CreditReport', module: CreditReport},
+  { key: 'Reports', module: Reports}
 ].forEach(item => {
   modules[item.key] = item.module;
 });
