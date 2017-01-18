@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, ScrollView, AsyncStorage } from 'react-native';
+import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, ScrollView, AsyncStorage, Dimensions } from 'react-native';
 
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
@@ -22,6 +22,7 @@ import SecretGardenModal from 'components/modal/SecretGarden';
 import panelStyles from './home/panelStyles';
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const { width, height } = Dimensions.get('window');
 
 export default class HomeScene extends Component {
 
@@ -65,11 +66,13 @@ export default class HomeScene extends Component {
 
   _renderHeader() {
     return (
+      <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width}}>
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View style={styles.center}><Text onPress={this._memoryPress.bind(this)} style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}></View>
       </View>
+      </Image>
     )
   }
 
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: headerHeight,
     paddingTop: statusBarHeight,
-    backgroundColor: colors.primary,
+    backgroundColor: 'transparent',
     alignItems: 'center'
   },
 

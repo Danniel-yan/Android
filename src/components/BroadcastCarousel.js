@@ -45,7 +45,7 @@ class BroadcastCarousel extends Component {
       // return <Carousel height={130} />
       return (
         <View style={{height:configs.height, paddingLeft:10, paddingRight: 10, flexDirection: "row", alignItems:"center", backgroundColor: "#F3F3F3"}}>
-          <Image style={{marginRight: 10}} source={require('assets/icons/laba.png')}></Image>
+          <Image style={{marginRight: 10}} source={require('assets/icons/icon_laba.png')}></Image>
           <View style={{flex: 1, height:configs.height}}><Carousel height={configs.height} /></View>
         </View>
       );
