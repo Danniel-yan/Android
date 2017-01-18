@@ -62,9 +62,9 @@
 		A639C57E1E10F0270036819E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57D1E10F0270036819E /* AssetsLibrary.framework */; };
 		A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57F1E10F03C0036819E /* CoreMotion.framework */; };
 		A639C5831E10F2A40036819E /* FeedbackModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A639C5821E10F2A40036819E /* FeedbackModule.m */; };
-		A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */; };
-		A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */; };
 		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
+		A68EC45F1E2F02D400EBC82A /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68EC45D1E2F02D400EBC82A /* MGBankCard.framework */; };
+		A68EC4601E2F02D400EBC82A /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A68EC45E1E2F02D400EBC82A /* MGBankCardResource.bundle */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
 		B81A622A1DE67D7F001365BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62291DE67D7F001365BD /* libsqlite3.tbd */; };
 		B81A622D1DE67EC7001365BD /* StatisticalEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A622C1DE67EC7001365BD /* StatisticalEvent.m */; };
@@ -364,10 +364,10 @@
 		A639C57F1E10F03C0036819E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		A639C5811E10F2A40036819E /* FeedbackModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackModule.h; sourceTree = "<group>"; };
 		A639C5821E10F2A40036819E /* FeedbackModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackModule.m; sourceTree = "<group>"; };
-		A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
-		A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
 		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
 		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
+		A68EC45D1E2F02D400EBC82A /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
+		A68EC45E1E2F02D400EBC82A /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		B81A62281DE57299001365BD /* supermarket.temp_caseinsensitive_renamejs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = supermarket.temp_caseinsensitive_renamejs.entitlements; path = ../supermarket.temp_caseinsensitive_renamejs.entitlements; sourceTree = "<group>"; };
 		B81A62291DE67D7F001365BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -489,6 +489,7 @@
 				A61A5D1A1E14B72A00F0556A /* MGLivenessDetection.framework in Frameworks */,
 				A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */,
 				A639C57E1E10F0270036819E /* AssetsLibrary.framework in Frameworks */,
+				A68EC45F1E2F02D400EBC82A /* MGBankCard.framework in Frameworks */,
 				A639C57C1E10EFFB0036819E /* AVFoundation.framework in Frameworks */,
 				A639C57A1E10EFDD0036819E /* AudioToolbox.framework in Frameworks */,
 				A639C5781E10EF9A0036819E /* MobileCoreServices.framework in Frameworks */,
@@ -517,7 +518,6 @@
 				B875668E1DDE9AE200F74BA9 /* SystemConfiguration.framework in Frameworks */,
 				B875668A1DDE9AA600F74BA9 /* Security.framework in Frameworks */,
 				B87566881DDE9A9A00F74BA9 /* CoreTelephony.framework in Frameworks */,
-				A6635AAA1E1CEEFF0071C2B8 /* MGBankCard.framework in Frameworks */,
 				B8FF6C5A1E03DF5E00FB2709 /* libWeChatSDK.a in Frameworks */,
 				B87566861DDE9A7C00F74BA9 /* CoreFoundation.framework in Frameworks */,
 				B87566841DDE9A7500F74BA9 /* CFNetwork.framework in Frameworks */,
@@ -761,7 +761,7 @@
 		A61A5CF71E14B72A00F0556A /* FaceSDK */ = {
 			isa = PBXGroup;
 			children = (
-				A6635AA71E1CEEFF0071C2B8 /* MegBankCard */,
+				A68EC45C1E2F02D400EBC82A /* MegBankCard */,
 				A61A5CF81E14B72A00F0556A /* CustemLivingTest */,
 				A61A5D031E14B72A00F0556A /* MegIDCardQuality */,
 				A61A5D061E14B72A00F0556A /* MegLive */,
@@ -833,11 +833,11 @@
 			path = YWFramework;
 			sourceTree = "<group>";
 		};
-		A6635AA71E1CEEFF0071C2B8 /* MegBankCard */ = {
+		A68EC45C1E2F02D400EBC82A /* MegBankCard */ = {
 			isa = PBXGroup;
 			children = (
-				A6635AA81E1CEEFF0071C2B8 /* MGBankCard.framework */,
-				A6635AA91E1CEEFF0071C2B8 /* MGBankCardResource.bundle */,
+				A68EC45D1E2F02D400EBC82A /* MGBankCard.framework */,
+				A68EC45E1E2F02D400EBC82A /* MGBankCardResource.bundle */,
 			);
 			path = MegBankCard;
 			sourceTree = "<group>";
@@ -1497,7 +1497,6 @@
 				A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */,
 				B8FF6C571E03DF5E00FB2709 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B8FF6C5C1E03DF5E00FB2709 /* README.txt in Resources */,
-				A6635AAB1E1CEEFF0071C2B8 /* MGBankCardResource.bundle in Resources */,
 				B8FF6C4E1E03DF5E00FB2709 /* ShareSDKConfigFile.bundle in Resources */,
 				B87566A11DDE9B4500F74BA9 /* LaunchScreen.xib in Resources */,
 				B8FF6C511E03DF5E00FB2709 /* ShareSDKUI.bundle in Resources */,
@@ -1509,6 +1508,7 @@
 				B87566A21DDE9B4500F74BA9 /* Images.xcassets in Resources */,
 				A61A5D1E1E14B72A00F0556A /* no_card_user.png in Resources */,
 				A61A5D1B1E14B72A00F0556A /* MGLiveResource.bundle in Resources */,
+				A68EC4601E2F02D400EBC82A /* MGBankCardResource.bundle in Resources */,
 				B8FF6C5B1E03DF5E00FB2709 /* read_me.txt in Resources */,
 				B86BB7C71DF8265C00E8B720 /* IQKeyboardManager.bundle in Resources */,
 			);
@@ -1676,7 +1676,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1731,7 +1731,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = supermarketjs/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
