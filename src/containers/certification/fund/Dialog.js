@@ -9,7 +9,7 @@ import {
 import { get } from 'utils/fetch';
 import { border, colors } from 'styles';
 
-export default class Dialog extends Component {
+class Dialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,11 +21,13 @@ export default class Dialog extends Component {
 
     let { location } = this.props;
 
-    get('/bill/gjj-login-elements').then(response => {
+    var elements = new Promise((resolve) => { resolve({data: this.props.elements})})
 
+    elements.then(response => {
       response.data
         .filter(config => config.area_name == location )
         .forEach((config) => {
+          console.log(config)
           this.setState({config: config.login_config})
         })
     })
@@ -53,7 +55,6 @@ export default class Dialog extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   dialogBg:{
     flex: 1,
@@ -72,4 +73,12 @@ const styles = StyleSheet.create({
     paddingVertical:10,
     ...border('bottom'),
   }
-})
+});
+
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+  return state.online.gjjLoginElements
+}
+
+export default connect(mapStateToProps, null)(Dialog)

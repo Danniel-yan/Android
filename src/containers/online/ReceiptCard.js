@@ -47,7 +47,7 @@ class ReceiptCard extends Component {
 
     return '';
   }
-  
+
   render() {
     let banksText = this.props.banks.join('、');
     let userInfo = this.props.userInfo;
@@ -111,8 +111,10 @@ class ReceiptCard extends Component {
 
     let { mobile, bank_card_no, bank_name } = this.state;
 
+    var loan_type = parseInt(this.props.loanType) || 0;
+
     post('/loanctcf/contract-bind-bank', {
-      mobile, bank_card_no, bank_name
+      mobile, bank_card_no, bank_name, loan_type
     }).then(response => {
 
       if(response.res == responseStatus.success) {
@@ -163,7 +165,8 @@ import { externalPop } from 'actions/navigation';
 function mapStateToProps(state) {
   return {
     userInfo: state.online.userInfo.data,
-    banks: state.online.contractBanks.banks
+    banks: state.online.contractBanks.banks,
+    loanType: state.online.loanType.type
   };
 }
 

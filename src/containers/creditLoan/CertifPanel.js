@@ -143,7 +143,8 @@ class CertifPanel extends Component {
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
           confirm="未认证"
-          tips="最高可提高到10万额度"/>
+          tips="最高可提高到10万额度"
+          navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
         <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"

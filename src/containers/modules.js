@@ -41,10 +41,10 @@ import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
 import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
-import FundLogin from 'containers/scene/fund/FundLogin';
+import FundLogin from 'containers/certification/fund/FundLogin';
 import BillList from 'containers/bill/BillListContainer';
 import BillDetail from 'containers/bill/BillDetailContainer';
-import FundReport from 'containers/scene/fund/FundReport';
+import FundReport from 'containers/certification/fund/FundReport';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },

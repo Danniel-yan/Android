@@ -105,7 +105,7 @@ class LoanSign extends Component {
   _submit() {
     this.setState({ submitting: true })
 
-    return post('/loanctcf/create-contract').then(response => {
+    return post('/loanctcf/create-contract', { loan_type: parseInt(this.props.loanType) || 0 }).then(response => {
 
       if(response.res == responseStatus.failure) {
         throw response.msg
@@ -166,7 +166,8 @@ function mapStateToProps(state) {
     ...state.online.applyResult,
     userInfo: userInfo.data,
     isFetching: userInfo.isFetching || applyResult.isFetching,
-    fetched: userInfo.fetched && applyResult.fetched
+    fetched: userInfo.fetched && applyResult.fetched,
+    loanType: state.online.loanType.type
   };
 }
 
