@@ -61,16 +61,16 @@ class CreditCardStatus extends Component {
     let popKey = "CertificationHome";
 
     if(loanType == 0) popKey = "CreditLoan";
-    if(loanType == 9999) popKey = "ZoneScene";
+    // if(loanType == 9999) popKey = "ZoneScene"; // "我的"页面不需要认证流程
 
     if(this.state.checked && status == 'success') {
       image = successImage;
       button = '完成'
-      statusText = loanType == 9999 ? (
+      statusText = loanType == 0 ? (
         <View style={{flexDirection: "row", marginVertical: 30, alignItems: "center"}}>
           <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>导入完成，请至</Text>
           <ExternalPushLink toKey={"BillList"} title={"我的账单"}><View><Text style={{fontSize: fontSize.normal, color: colors.primary}}>我的账单</Text></View></ExternalPushLink>
-          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>查看！.</Text>
+          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>查看！</Text>
         </View>
       ) : (<Text style={styles.text}>导入完成，请返回首页查看！.</Text>);
     } else if(this.state.checked && status == 'failure') {

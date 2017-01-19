@@ -55,7 +55,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams)),
-    setLoanType: () => dispatch(onlineActions.setLoanType(1))
+    setLoanType: (type) => dispatch(onlineActions.setLoanType(type || 1))
   }
 }
 

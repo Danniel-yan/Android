@@ -97,12 +97,12 @@ class CertifPanel extends Component {
   }
 
   statusTxt(status) {
-    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
-    return statusDir[status] || "未认证";
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "去认证" };
+    return statusDir[status] || "去认证";
   }
 
   renderTiE() {
-    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "去认证" };
     var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.status == "success",
       yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.status == "success";
       gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
@@ -158,7 +158,7 @@ class CertifPanel extends Component {
         {false ? <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"
-          confirm="未认证"
+          confirm="去认证"
           tips="认证完毕，可获500-1000额度"/> : null}
         <Item
           icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
@@ -172,7 +172,7 @@ class CertifPanel extends Component {
   }
 
   renderShouXin() {
-    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "未认证" };
+    var statusDir = { "success": "已认证", "failure": "认证失败", "none": "去认证" };
     var gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
     return (
       <View>
@@ -186,7 +186,7 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"
-          confirm="未认证"
+          confirm="去认证"
           tips="认证完毕，可获500-1000额度"/>
       </View>
     );
