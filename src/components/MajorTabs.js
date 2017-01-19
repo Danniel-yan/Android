@@ -56,7 +56,7 @@ class Tab extends Component {
         style={styles.tab}
         onPress={this._onPress.bind(this)}>
 
-        <Image source={{uri : props.isActive ? props.activeIcon : props.icon, width: 28, height : 28}}/>
+        <Image source={{uri : props.isActive ? props.activeIcon : props.icon}} style = {props.isActive ? styles.widthActive : styles.width}/>
         <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
       </TrackingPoint>
     )
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    paddingBottom: 8,
+    paddingBottom: 6,
     height: 55,
     alignItems: 'center',
     justifyContent: 'flex-end'
@@ -106,5 +106,13 @@ const styles = StyleSheet.create({
   },
   activeTabFont: {
     color: colors.primary
+  },
+  width : {
+    width : 27,
+    height : 27
+  },
+  widthActive : {
+    width : 38,
+    height : 38
   }
 });

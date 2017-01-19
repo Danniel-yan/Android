@@ -16,7 +16,7 @@ export default class CreditLoanHomeScene extends Component {
 
   render() {
     return (
-      <View>
+      <View style = {{flex : 1}}>
         <View style={[_styles.itemBg]}>
           <CreditLimitPanel />
         </View>
@@ -49,7 +49,7 @@ export default class CreditLoanHomeScene extends Component {
             </View>
           </View>
         </View>
-        <View style = {{flex:1}}>
+        <View style = {{flex : 1, justifyContent : 'flex-end'}}>
             <Banner />
         </View>
       </View>
