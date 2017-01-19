@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -8,7 +8,7 @@ import actions from 'actions/online';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush, majorTab } from 'actions/navigation';
-import { colors } from 'styles';
+import { colors, centering } from 'styles';
 
 const {height, width} = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ function Item({icon, title, confirm, tips, navProps = {}, textStyle}) {
        <View style = {{flex : 1}}>
          <View style = {styles.top}>
              <Text style = {styles.topL}>{title}</Text>
-             <View style = {{flex : 1,flexDirection : 'row'}}>
+             <View style = {{flex : 1,flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
                  <Text style = {[styles.topR, textStyle]}>{confirm}</Text>
                  <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
              </View>
@@ -56,11 +56,11 @@ class CertifPanel extends Component {
     var bankResult = this.props.bankResult, yysResult = this.props.yysResult;
     return this.state.fetching || bankResult.isFetching || yysResult.isFetching ? <Loading /> : (
 
-          <View style = {{backgroundColor : 'white',height:378}}>
+          <View style = {{backgroundColor : 'white'}}>
           {
             <View style = {styles.title}>
               <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text>
-              <Text style={[styles.titleR,this.state.shouXinFlag ? {} : {color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text>
+              { false ?  <Text style={[styles.titleR,this.state.shouXinFlag ? {} : {color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text> : null}
             </View>
           }
           {this.state.shouXinFlag ? this.renderTiE() : this.renderShouXin()}
@@ -106,26 +106,34 @@ class CertifPanel extends Component {
     var bankResult = this.props.bankResult, bankSuccess = bankResult && bankResult.status == "success",
       yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.status == "success";
       gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
+
+    var pIF = this.props.pbocIsFetching, pStatus = this.props.pbocStatus;
+
     return (
       <View>
-        <Item
+        {false ? <Item
           icon={require("assets/credit-icons/shenfenrenzheng.png")}
           title="身份证"
           confirm="未授权"
-          tips="认证完毕，可获500-1000额度"/>
-        <Item
+          tips="认证完毕，可获500-1000额度"/> : null}
+        {false ? <Item
           icon={require("assets/credit-icons/tongxunlushouquan.png")}
           title="通讯录授权"
           confirm="未授权"
-          tips="认证完毕，可获500-1000额度"/>
+          tips="认证完毕，可获500-1000额度"/> : null}
         <TouchableOpacity onPress={() => {this._navToPBOC()}}>
           <View style = {[styles.item,styles.bdTop]}>
             <Image source={require("assets/credit-icons/yanghanzhenxinbaogao.png")} style = {styles.icon}/>
             <View style = {{flex : 1}}>
               <View style = {styles.top}>
                   <Text style = {styles.topL}>央行征信报告</Text>
-                  <View style = {{flex : 1,flexDirection : 'row'}}>
-                      <Text style = {[styles.topR]}>未认证</Text>
+                  <View style = {{flex : 1, flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
+                  {pIF ? (<ActivityIndicator
+                    animating={true}
+                    style={[centering, {marginRight: 6, height: 14}]}
+                    color={"#333"}
+                    size="small"
+                  />):(<Text style = {[styles.topR]}>{statusDir[pStatus]}</Text>)}
                       <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
                   </View>
               </View>
@@ -140,7 +148,18 @@ class CertifPanel extends Component {
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; }}}/>
-
+        <Item
+          icon={require("assets/credit-icons/gongjijinbaogao.png")}
+          title="公积金报告"
+          confirm={statusDir[gjjResult.status]}
+          tips="最高可提高到10万额度"
+          textStyle={gjjSuccess ? {color: colors.success} : {color: colors.error}}
+          navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
+        {false ? <Item
+          icon={require("assets/credit-icons/shebaobaogao.png")}
+          title="社保报告"
+          confirm="未认证"
+          tips="认证完毕，可获500-1000额度"/> : null}
         <Item
           icon={require("assets/credit-icons/yunyinshangrenzheng.png")}
           title="运营商认证"
@@ -268,7 +287,9 @@ function mapStateToProps(state) {
     bankResult: bank,
     yysResult: yys,
     gjjResult: gjj,
-    userInfo: state.online.userInfo
+    userInfo: state.online.userInfo,
+    pbocStatus: state.online.pboc.status,
+    pbocIsFetching: state.online.pboc.fetcingStatus
   }
 }
 
@@ -279,6 +300,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.bankBillList());
       dispatch(actions.yysBillList());
       dispatch(actions.gjjResult());
+      dispatch(actions.pboc.getStatus());
     },
     externalPush: (route) => dispatch(externalPush(route))
   }

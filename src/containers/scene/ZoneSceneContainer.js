@@ -135,7 +135,7 @@ class ZoneScene extends Component {
         {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "GjjReport", title:"公积金报告", prePress: ()=>{
           return this.props.gjjPreNavigate();
         } })}
-        {this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {})}
+        {false ? this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {}) : null}
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
           title="征信报告"
@@ -146,8 +146,8 @@ class ZoneScene extends Component {
             <NextIcon/>
           </View>
         </TrackingPoint>
-        {this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {})}
-        {this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {})}
+        {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
+        {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
         {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {})}
       </View>
     ) : null;

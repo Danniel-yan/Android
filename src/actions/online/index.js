@@ -15,6 +15,7 @@ import loanDetail from './loanDetail';
 import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
+import { initial, getStatus } from './pboc';
 
 export default {
   loanDetail,
@@ -38,5 +39,6 @@ export default {
     return { type: "SetLoanType", value: loanType };
   },
   gjjLoginElements,
-  gjjDetail
+  gjjDetail,
+  pboc: { initial, getStatus }
 }

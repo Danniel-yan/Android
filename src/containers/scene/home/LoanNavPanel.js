@@ -20,7 +20,8 @@ function mapDispatchToProps(dispatch) {
   return {
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
-    setLoanType: () => dispatch(onlineActions.setLoanType(0))
+    setLoanType: () => dispatch(onlineActions.setLoanType(0)),
+    pbocInitial: () => dispatch(onlineActions.pboc.initial())
   }
 }
 

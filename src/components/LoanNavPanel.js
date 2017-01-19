@@ -37,21 +37,16 @@ class LoanNavPanel extends Component {
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(token);
+      this.navToCreditLoan(token);
     });
   }
 
-  navToPBOC(token) {
+  navToCreditLoan(token) {
     var externalPush = this.props.externalPush, route;
     AsyncStorage.getItem('environment').then(ev => {
-      var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-      pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-      // console.log(pbocUrl + "&token=" + token)
-      // console.log(fromLogin);
-      // externalPush && externalPush({web: pbocUrl + "&token=" + token, backRoute: { key: 'MajorNavigation' }});
-      externalPush && externalPush({ key: "CreditLoan", title: "信用贷" })
+      externalPush && externalPush({ key: "CreditLoan", title: "信用贷", backRoute: { key: "MajorNavigation" } });
       this.props.setLoanType && this.props.setLoanType(0);
-
+      this.props.pbocInitial && this.props.pbocInitial();
     })
   }
 
