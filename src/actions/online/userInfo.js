@@ -19,3 +19,16 @@ export default function requestUser() {
     })
   }
 }
+
+
+export function creditScore() {
+  return (dispatch, getState) => {
+    dispatch({ type: "requestUserCreditScore" });
+
+    return get("/user/credit-score").then(response => {
+      if(response.res == responseStatus.success) {
+        dispatch({type: "receiveUserCreditScore", score: response.data.score})
+      }
+    })
+  }
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text } from 'react-native';
 
 import { ExternalPushLink } from 'containers/shared/Link';
-import CreditLimitPanel from './creditLoan/CreditLimitPanel';
+import CreditLimitPanel from 'containers/creditLoan/CreditLimitPanel';
 import CreditBroadcast from 'containers/scene/creditLoan/CreditBroadcast';
 import Banner from 'containers/scene/home/Banner';
 
@@ -66,6 +66,10 @@ export default class CreditLoanHomeScene extends Component {
         </View>
       </ExternalPushLink>
     );
+  }
+
+  componentDidMount() {
+    this.props.fetching && this.props.fetching();
   }
 }
 

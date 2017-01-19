@@ -59,7 +59,7 @@ class CertifPanel extends Component {
           <View style = {{backgroundColor : 'white'}}>
           {
             <View style = {styles.title}>
-              <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>提额资料</Text>
+              <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>信用提升资料</Text>
               { false ?  <Text style={[styles.titleR,this.state.shouXinFlag ? {} : {color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text> : null}
             </View>
           }

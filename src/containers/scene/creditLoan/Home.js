@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import CreditLoanHomeScene from 'components/scene/CreditLoanHomeScene';
+import onlineActions from 'actions/online';
 
 // module.exports = CreditLoanHomeScene
-export default CreditLoanHomeScene
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => dispatch(onlineActions.creditScore())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CreditLoanHomeScene)

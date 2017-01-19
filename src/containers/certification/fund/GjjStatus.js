@@ -90,7 +90,9 @@ class GjjStatus extends Component {
               textStyle={onlineStyles.btnText}
               text={button}
               title={"公积金报告"}
-              toKey={pushKey} />
+              toKey={pushKey}
+              backRoute={{key: "CreditLoan", title: "信用贷"}}
+              />
           ) : (
             <ExternalPopLink
               style={[onlineStyles.btn, centering, styles.btn]}

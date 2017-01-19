@@ -2,7 +2,7 @@ import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
 import submitCreditCard from './submitCreditCard';
-import userInfo from './userInfo';
+import userInfo, { creditScore } from './userInfo';
 import pickers from './pickers';
 import bankResult, { bankBillList } from './bankResult';
 import yysResult, { yysBillList } from './yysResult';
@@ -28,6 +28,7 @@ export default {
   bankDetail,
   submitCreditCard,
   userInfo,
+  creditScore,
   pickers,
   bankResult,
   bankBillList,

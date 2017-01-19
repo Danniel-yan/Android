@@ -41,6 +41,7 @@ class CreditCardForm extends Component {
 
   componentWillUnmount() {
     this.unmount = true;
+    this.props.updateCreditScore && this.props.updateCreditScore();
   }
 
   _validation() {
@@ -240,7 +241,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: (id) => dispatch(actions.bankDetail(id))
+    fetching: (id) => dispatch(actions.bankDetail(id)),
+    updateCreditScore: () => dispatch(actions.creditScore())
   }
 }
 

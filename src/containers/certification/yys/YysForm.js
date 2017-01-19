@@ -63,6 +63,7 @@ class YysForm extends Component {
   // 返回提交过程中用户返回
   componentWillUnmount() {
     this.unmount = true;
+    this.props.updateCreditScore && this.props.updateCreditScore();
   }
 
   _validation() {
@@ -236,7 +237,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backButton: false, backRoute: {key: 'CertificationHome' }})),
-    fetching: () => dispatch(actions.yysForms())
+    fetching: () => dispatch(actions.yysForms()),
+    updateCreditScore: () => dispatch(actions.creditScore())
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeModules, View, ScrollView, Image, AsyncStorage, Clipboard } from 'react-native';
+import { NativeModules, View, ScrollView, Image, AsyncStorage, TouchableOpacity, TouchableWithoutFeedback, Clipboard } from 'react-native';
 import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
@@ -16,10 +16,19 @@ import onlineActions from 'actions/online';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
+import OverlayModal from 'components/modal/OverlayModal';
 
 class ZoneScene extends Component {
 
   tracking = 'my_account';
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalVisible: false
+    }
+  }
 
   render() {
     let logined = this.props.loginUser.info;
@@ -62,6 +71,14 @@ class ZoneScene extends Component {
                toKey: "ContactScene", title:"联系我们"
              })
            }
+           <TouchableOpacity onPress={() => this.clipWeiXing()}>
+             <View style={zoneStyles.item}>
+               <Image style={zoneStyles.icon} source={require('assets/zone/weixingonggonghao.png')}/>
+               <Text style={{color: '#333', fontSize: 17}}>微信公共号</Text>
+               <Text style={[zoneStyles.txt, {textAlign: "right", color: "#A4A4A4", fontSize: 12}]}>在微信搜索「钞市」</Text>
+               <NextIcon/>
+             </View>
+           </TouchableOpacity>
            {
              this._renderNavItem(require('assets/zone/setting.png'), "设置", {
                tracking: {key: 'my_account', topic: 'btn_sec', entity: 'icon_set'},
@@ -77,7 +94,20 @@ class ZoneScene extends Component {
             </View>
           </Button>
         </ScrollView>
-
+        <OverlayModal
+          visible={this.state.modalVisible}
+          onHide={() => this.setState({modalVisible: false})}
+          style={{alignItems: "center", justifyContent: "center"}}
+          overlayStyle={{backgroundColor: 'rgba(0,0,0,.2)'}}>
+          <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false})}>
+          <View style={{alignItems: "center", justifyContent: "center", flex: 1}}>
+            <View style={{paddingHorizontal: 30, paddingVertical: 25, backgroundColor: "#323334", borderRadius: 6}}>
+              <View style={{}}><Text style={{textAlign: "center", fontSize: 14, color: "#EAEBEB"}}>已复制「钞市」到你的剪切板，</Text></View>
+              <View style={{marginTop: 10}}><Text style={{textAlign: "center", fontSize: 14, color: "#EAEBEB"}}>请打开微信粘贴关注！</Text></View>
+            </View>
+          </View>
+          </TouchableWithoutFeedback>
+        </OverlayModal>
       </View>
     );
   }
@@ -168,6 +198,12 @@ class ZoneScene extends Component {
         </View>
       </ExternalPushLink>
     )
+  }
+
+  clipWeiXing() {
+    Clipboard.setString('钞市');
+
+    this.setState({ modalVisible: true });
   }
 }
 

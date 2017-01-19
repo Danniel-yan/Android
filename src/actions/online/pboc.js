@@ -27,23 +27,37 @@ export function initial() {
   }
 }
 
+// export function getStatus() {
+//   return (dispatch, getState) => {
+//     var state = getState(), pbocInfo = state && state.online ? state.online.pboc : null;
+//     if(!pbocInfo.token || pbocInfo.fetcingStatus) return null;
+//     var apiUrl = pbocInfo.api + "/-/credit/status" + "?token=" + pbocInfo.token;
+//     dispatch({type: "FetcingPBOCStatus"});
+//     console.log("FETCHING PBOC : ", apiUrl);
+//     fetch(apiUrl, {method: "GET"}).then(response => response["json"]()).then(response => {
+//       var resStatus = response.data.status, status = "none";
+//       if([-1, 0].includes(resStatus)) {
+//         status = "none";
+//       } else if(resStatus == 1) {
+//         status = "processing";
+//       } else if(resStatus == 2) {
+//         status = "success";
+//       } else if(resStatus == 3) {
+//         status = "failure";
+//       }
+//       dispatch({type: "ReceivePBOCStatus", status});
+//     })
+//   }
+// }
+
 export function getStatus() {
-  return (dispatch, getState) => {
-    var state = getState(), pbocInfo = state && state.online ? state.online.pboc : null;
-    if(!pbocInfo.token || pbocInfo.fetcingStatus) return null;
-    var apiUrl = pbocInfo.api + "/-/credit/status" + "?token=" + pbocInfo.token;
+  return (dispatch) => {
     dispatch({type: "FetcingPBOCStatus"});
-    console.log("FETCHING PBOC : ", apiUrl);
-    fetch(apiUrl, {method: "GET"}).then(response => response["json"]()).then(response => {
-      var resStatus = response.data.status, status = "none";
-      if([-1, 0].includes(resStatus)) {
-        status = "none";
-      } else if(resStatus == 1) {
-        status = "processing";
-      } else if(resStatus == 2) {
-        status = "success";
-      } else if(resStatus == 3) {
-        status = "failure";
+    get("/credit/report-status").then(response=> {
+      var status = "none";
+      if(response.res == responseStatus.success) {
+        var statusKey = response.data.satus;
+        status = statusKey == 1 ? "success" : "none";
       }
       dispatch({type: "ReceivePBOCStatus", status});
     })

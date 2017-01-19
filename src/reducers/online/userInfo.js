@@ -1,7 +1,10 @@
 const initUserInfo = {
   isFetching: true,
   fetched: false,
-  err: null
+  err: null,
+
+  isFetchingCreditScore: false,
+  creditScore: null
 };
 
 export default function userInfo(state = initUserInfo, action) {
@@ -12,7 +15,12 @@ export default function userInfo(state = initUserInfo, action) {
       return Object.assign({}, state, { isFetching: false, fetched: true, ...action.user });
     case 'requetOnlineUserError':
       return Object.assign({}, state, { isFetching: false, fetched: false, err: action.err });
-    default: 
+
+    case 'requestUserCreditScore':
+      return Object.assign({}, state, { isFetchingCreditScore: true });
+    case 'receiveUserCreditScore':
+      return Object.assign({}, state, { isFetchingCreditScore: false, creditScore: action.score });
+    default:
       return state;
   }
 }
