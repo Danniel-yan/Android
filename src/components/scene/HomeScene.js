@@ -66,7 +66,7 @@ export default class HomeScene extends Component {
 
   _renderHeader() {
     return (
-      <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width}}>
+      <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width, height: headerHeight}}>
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View style={styles.center}><Text onPress={this._memoryPress.bind(this)} style={styles.titleTxt}>钞市</Text></View>
