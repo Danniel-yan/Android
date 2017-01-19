@@ -36,7 +36,7 @@ class FastLoanScene extends Component {
         amount: props.amount || 5000,
         period: props.period || 12,
         job: 0,
-        reslist: [props.selectIndex],
+        reslist: props.selectIndex ? [props.selectIndex] : [],
         order: 1
       },
       isFetchingRec: true,
