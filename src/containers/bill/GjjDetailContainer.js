@@ -5,8 +5,8 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import onlineActions from 'actions/online';
 
-const payStatus = { "NORMAL": "正常" }
-const cardTypes = { "ID_CARD": "身份证" }
+const payStatus = { "NONE": "未缴纳", "NORMAL": "正常", "SUSPENSE": "停缴", "CLOSED" : "注销" };
+const cardTypes = { "ID_CARD": "身份证", "PASSPORT": "护照" };
 
 class GjjDetailReport extends Component{
   constructor(props) {
@@ -14,7 +14,9 @@ class GjjDetailReport extends Component{
   }
 
   render() {
-    let detail = this.props.detail && this.props.detail.data ? this.props.detail.data : {};
+    let detail = this.props.detail && this.props.detail.data ? this.props.detail.data : null;
+
+    if(!detail) return (<View><Text>{this.props.err}</Text></View>)
 
     let userInfo = detail.user_info ? detail.user_info : {};
 
@@ -180,7 +182,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log(state.online.gjjDetail);
   return state.online.gjjDetail;
 }
 

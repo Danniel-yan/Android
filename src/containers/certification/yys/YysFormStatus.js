@@ -23,21 +23,21 @@ class YysFormStatus extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { checked: false}
+    this.state = { checked: false, status: "processing" };
   }
 
   componentDidMount() {
-    this._checkStatus();
+    this._getYysBillStatus();
   }
 
   componentDidUpdate() {
-    if(this.props.status == 'success' || this.props.status == 'failure') {
-      clearInterval(this.timer)
+    if(this.state.checked && (!this.props.isFetching) && (this.props.status == 'success' || this.props.status == 'failure')) {
+      clearInterval(this.timeFlag)
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer)
+    clearInterval(this.timeFlag)
   }
 
   render() {
@@ -49,11 +49,15 @@ class YysFormStatus extends Component {
   }
 
   _content() {
-    let status = this.props.status;
+    let status = this.props.status, loanType = this.props.loanType;
 
     let image = successImage;
     let button = '';
     let statusText = '正在导入...';
+    let popKey = "CertificationHome";
+
+    if(loanType == 0) popKey = "CreditLoan";
+    if(loanType == 9999) popKey = "ZoneScene";
 
     if(this.state.checked && status == 'success') {
       image = successImage;
@@ -77,18 +81,17 @@ class YysFormStatus extends Component {
           style={[onlineStyles.btn, centering, styles.btn]}
           textStyle={onlineStyles.btnText}
           text={button}
-          toKey="CertificationHome"/>
+          toKey={popKey}/>
         }
       </ScrollView>
     );
   }
 
-  _checkStatus() {
-    this.props.fetching();
-    this.setState({checked: true})
-    this.timer = setInterval(() => {
-      this.props.fetching();
-    }, 5000);
+  _getYysBillStatus() {
+    this.props.fetchingYysBillStatus();
+
+    this.timeFlag = setInterval(() => this.props.fetchingYysBillStatus(), 5000);
+    this.setState({checked: true});
   }
 }
 
@@ -116,12 +119,16 @@ import Loading from 'components/shared/Loading';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  return state.online.yysResult;
+  return {
+    status: state.online.yysResult.status,
+    isFetching: state.online.yysResult.isFetching,
+    loanType: state.online.loanType.type
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(actions.yysResult()),
+    fetchingYysBillStatus: () => dispatch(actions.yysResult()),
   }
 }
 

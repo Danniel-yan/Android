@@ -82,7 +82,16 @@ export default class ExternalNavigation extends Component {
       const curLastRoute = routes[curLength - 1];
 
       if(nextLastRoute != curLastRoute) {
-        this.nav.replacePreviousAndPop(nextLastRoute);
+        var distance = curLength - nextLength;
+
+        if(distance > 1 ) {
+          var nxtPopRoute = routes.find(route => route.key == nextLastRoute.key);
+          this.nav.popToRoute(nxtPopRoute);
+        } else {
+          this.nav.replacePreviousAndPop(nextLastRoute);
+        }
+
+
       } else {
         this.nav.popN(curLength - nextLength);
       }

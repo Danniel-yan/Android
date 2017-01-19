@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
-import {
-  View,
+import { connect } from 'react-redux';
+import { View,
   ScrollView,
   Image,
   StyleSheet,
@@ -9,9 +8,9 @@ import {
   TouchableOpacity,
   Modal
 } from 'react-native';
-import { connect } from "react-redux";
 
-import { get, responseStatus } from 'utils/fetch';
+import onlineActions from 'actions/online';
+
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 import SceneHeader from 'components/shared/SceneHeader';
@@ -20,8 +19,9 @@ import { ExternalPopLink, ExternalPushLink } from 'containers/shared/Link';
 import successImage from 'assets/online/import-success.png';
 import failureImage from 'assets/online/import-failure.png';
 import ingImage from 'assets/online/importing.gif';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
-class CreditCardStatus extends Component {
+class GjjStatus extends Component {
 
   constructor(props) {
     super(props);
@@ -54,11 +54,10 @@ class CreditCardStatus extends Component {
   _content() {
     let status = this.props.status, loanType = this.props.loanType;
 
-
     let image = ingImage;
     let button = '';
     let statusText = (<Text style={styles.text}>正在导入...</Text>);
-    let popKey = "CertificationHome";
+    let popKey = "CreditLoan";
 
     if(loanType == 0) popKey = "CreditLoan";
     if(loanType == 9999) popKey = "ZoneScene";
@@ -66,17 +65,12 @@ class CreditCardStatus extends Component {
     if(this.state.checked && status == 'success') {
       image = successImage;
       button = '完成'
-      statusText = loanType == 9999 ? (
-        <View style={{flexDirection: "row", marginVertical: 30, alignItems: "center"}}>
-          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>导入完成，请至</Text>
-          <ExternalPushLink toKey={"BillList"} title={"我的账单"}><View><Text style={{fontSize: fontSize.normal, color: colors.primary}}>我的账单</Text></View></ExternalPushLink>
-          <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>查看！.</Text>
-        </View>
-      ) : (<Text style={styles.text}>导入完成，请返回首页查看！.</Text>);
+      statusText = (<Text style={styles.text}>导入完成</Text>);
     } else if(this.state.checked && status == 'failure') {
       image = failureImage;
-      button = '重新导入账单';
-      statusText = (<Text style={styles.text}>信用卡认证失败，请重新认证！.</Text>);
+      button = '重新导入';
+      statusText = (<Text style={styles.text}>公积金认证失败，请重新认证！.</Text>);
+      popKey = 'FundLogin';
     }
 
     return (
@@ -87,20 +81,19 @@ class CreditCardStatus extends Component {
         </View>
 
         { !button ? null : <ExternalPopLink
-          prePress={this.props.onHide}
           style={[onlineStyles.btn, centering, styles.btn]}
           textStyle={onlineStyles.btnText}
           text={button}
-          toKey={popKey}/>
+          toKey={popKey} />
         }
       </ScrollView>
     );
   }
 
   _getBillStatus() {
-    this.props.fetchingBillStatus();
+    this.props.fetchGjjResult();
 
-    this.timeFlag = setInterval(() => this.props.fetchingBillStatus(), 5000);
+    this.timeFlag = setInterval(() => this.props.fetchGjjResult(), 5000);
     this.setState({checked: true});
   }
 }
@@ -122,21 +115,21 @@ const styles = StyleSheet.create({
   }
 });
 
-import { trackingScene } from 'high-order/trackingPointGenerator';
-import actions from 'actions/online';
-
-function mapStateToProps(state, ownProps) {
-  // return { loanType: 0 }
+function mapStateToProps(state) {
+  // return {
+  //   isFetching: state.onlinne.gjjResult.isFetching,
+  //   gjjResult: state.online.gjjResult
+  // }
   return {
-    isFetching: state.online.bankResult.isFetching,
+    isFetching: state.online.gjjResult.isFetching,
     loanType: state.online.loanType.type,
-    status: state.online.bankResult.status }
+    status: state.online.gjjResult.status }
 }
 
-function mapDispatch(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    fetchingBillStatus: () => dispatch(actions.bankResult())
-  }
+    fetchGjjResult: () => dispatch(onlineActions.gjjResult())
+  };
 }
 
-export default connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus));
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(GjjStatus));

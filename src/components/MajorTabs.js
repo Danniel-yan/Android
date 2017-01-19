@@ -56,7 +56,7 @@ class Tab extends Component {
         style={styles.tab}
         onPress={this._onPress.bind(this)}>
 
-        <Image source={props.isActive ? props.activeIcon : props.icon}/>
+        <Image source={{uri : props.isActive ? props.activeIcon : props.icon, width: 28, height : 28}}/>
         <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
       </TrackingPoint>
     )

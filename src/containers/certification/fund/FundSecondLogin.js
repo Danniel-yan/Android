@@ -9,14 +9,23 @@ import {
   Text,Modal,TextInput
 } from 'react-native';
 
+import Input from 'components/shared/Input';
+
 import ProcessingButton from 'components/shared/ProcessingButton';
 import { post, responseStatus } from 'utils/fetch';
-import { border, colors, fontSize } from 'styles';
 import SceneHeader from 'components/shared/SceneHeader';
+import OverlayModal from 'components/modal/OverlayModal';
+
+
+import { window, border, fontSize, container, centering, colors, responsive } from 'styles';
 
 const sectionHeaderHeight = 30;
 const sectionRowHeight = 40;
 const rowBorderWidth = 0.5;
+
+const AnimatedView = Animated.View;
+const needSecondLogin = 1;
+const innerHeight = responsive.height(384);
 
 export default class FundSecondLoginScene extends Component{
 
@@ -25,50 +34,75 @@ export default class FundSecondLoginScene extends Component{
 
     this.state = {
       submitting: false,
+      error: '',
       value: '',
+      pos: new Animated.Value(0)
     };
+  }
+
+  componentDidMount() {
+    let windowHeight = window.height;
+    let orgPos = (windowHeight - innerHeight) / 2;
+
+    Keyboard.addListener('keyboardWillShow', (e) => {
+      let keyboardHeight = e.endCoordinates.height;
+
+      let pos = (windowHeight - (keyboardHeight + innerHeight));
+
+      Animated.timing(this.state.pos, {
+        toValue: pos - orgPos,
+        duration: 200
+      }).start();
+    });
+
+    Keyboard.addListener('keyboardWillHide', (e) => {
+      Animated.timing(this.state.pos, {
+        toValue: 0,
+        duration: 200
+      }).start();
+    });
   }
 
   render(){
 
-    if(this.props.visible== false) return null;
+    if(this.props.visible == false) return null;
 
     let hasImg = this.props.val_code.type == 'img';
 
     return(
-      <Modal
-        animationType="slide"
-        visible={this.props.visible}
-        onRequestClose={this.props.onHide}
-        onShow={() => this.setState({ visible: true})}>
+      <OverlayModal
+        onHide={this.props.onHide}
+        visible={this.props.visible}>
 
-        <View>
-          <SceneHeader onBack={this.props.onHide} title="公积金查询"/>
+        <View style={[container, centering]}>
+          <Animated.View style={[styles.container, {transform: [{translateY:this.state.pos}]}]}>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.text}>{this.props.val_code.type == 'sms' ? '手机验证码': '图片验证码'}</Text>
-            <TextInput value={this.state.value}
-                       style={styles.input}
-                       placeholder={'请输入'+ this.props.val_code.type == 'sms' ? '手机验证码': '图片验证码'}
-                       underlineColorAndroid="transparent"
-                       onChangeText={(value) => { this.setState({value}) }}
+            <View style={[container]}>
+              <Text style={styles.header}>{!hasImg ? '手机验证码': '图片验证码'}</Text>
+
+              <View style={[styles.inputWrap, { flexDirection: "row" }]}>
+                <Input
+                  style={[container, styles.input]}
+                  onChangeText={this._onFormChange.bind(this, 'val_code')}
+                />
+                { hasImg ? <Image style={{width: 70, height: 40, marginRight: 10}} source={{uri: this.props.val_code.value}}/> :null }
+              </View>
+
+              <Text style={styles.error}>{this.state.error}</Text>
+            </View>
+
+            <ProcessingButton
+              processing={this.state.submitting}
+              onPress={this._submit.bind(this)}
+              disabeld={this.state.error}
+              style={styles.submitBtn}
+              textStyle={styles.submitBtnText}
+              text="提交"
               />
-            { hasImg ? <Image source={{uri: this.props.val_code.value}}/> :null }
-          </View>
-          <Text style={styles.error}>{this.state.error}</Text>
-
-          <ProcessingButton
-            color={colors.grayDark}
-            processing={this.state.submitting}
-            onPress={this._submit.bind(this)}
-            disabeld={this.state.error}
-            style={styles.submitBtn}
-            textStyle={styles.submitBtnText}
-            text="提交"
-            />
+            </Animated.View>
         </View>
 
-      </Modal>
+      </OverlayModal>
     )
   }
   _submit(){
@@ -77,7 +111,7 @@ export default class FundSecondLoginScene extends Component{
       ticket_id: this.props.ticket_id,
       value: this.state.value
     };
-
+    if(!body.value) return;
     this.setState({ submitting: true }, () => {
 
       post('/bill/gjj-second-login', body).then(response => {
@@ -85,7 +119,7 @@ export default class FundSecondLoginScene extends Component{
 
         if(response.res == responseStatus.success) {
           this.setState({ submitting: false });
-
+          this.props.verifySuccess();
         } else {
           this.setState({ submitting: false, error: response.msg });
         }
@@ -107,13 +141,28 @@ export default class FundSecondLoginScene extends Component{
     let errmsg = !value ? '请填写验证码' : '';
 
     this.setState({
-      [name]: value
+      [name]: value,
+      error: errmsg
     });
   }
 
 }
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+    borderRadius: 10,
+    width: responsive.width(602),
+    height: innerHeight
+  },
+  header: {
+    marginVertical: responsive.height(50),
+    textAlign: 'center',
+    fontSize: fontSize.xlarge,
+    color: colors.grayDark
+  },
   sectionHeader: {
     height: sectionHeaderHeight,
     paddingTop: 5,
@@ -129,24 +178,26 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E6E6E6',
     paddingHorizontal:10
   },
+  inputWrap: {
+    height: responsive.height(80),
+    paddingHorizontal: responsive.width(74)
+  },
   input: {
-    flex: 1,
-    marginLeft: 18,
-    marginRight: 10,
-    fontSize: 12,
-    color: '#A5A5A5',
-    backgroundColor: '#fff'
+    textAlign: 'center',
+    backgroundColor: '#F8F8F8',
+    borderWidth: 0.5,
+    borderColor: '#D9D9D9',
+    borderRadius: 6
   },
   submitBtn: {
     marginTop: 50,
     height: 40,
-    backgroundColor: '#FF003C',
     borderRadius: 4,
-    width:250
+    ...border('top')
   },
   submitBtnText: {
     fontSize: 20,
-    color: '#fff',
+    color: '#1A91FE',
   },
   error: {
     marginTop: 5,
@@ -155,4 +206,3 @@ const styles = StyleSheet.create({
     fontSize: fontSize.xsmall
   },
 });
-
