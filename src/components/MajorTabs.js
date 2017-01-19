@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   width : {
     width : 27,
-    height : 27
+    height: 27
   },
   widthActive : {
     width : 38,

@@ -62,16 +62,16 @@ const CLPStyles = StyleSheet.create({
     paddingHorizontal:  20
   },
   headerTxt: {
-    textAlign: "center", fontSize: 16
+    textAlign: "center", fontSize: 16,color : '#333'
   },
   valueTxt: {
     textAlign: "center", fontSize: 70,
-    color: "rgba(255,196,70,100)",
+    color: "#FFC445",
     paddingBottom: 10
   },
   btn: {
-    borderRadius: 20, height: 30, padding: 5,
-    backgroundColor: "rgba(255,196,70,100)"
+    borderRadius: 20, height: 40, padding: 5,
+    backgroundColor: "#FFC445"
   },
   btnTxt: {
     fontSize: 20, color: "white"
