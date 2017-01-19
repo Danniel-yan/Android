@@ -77,7 +77,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => { dispatch(onlineActions.setLoanType(9999)); dispatch( onlineActions.bankBillList()); }
+    fetching: () => { dispatch(onlineActions.bankBillList({loan_type: 9999})); }
   }
 }
 

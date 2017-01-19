@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeModules, View, ScrollView, Image, AsyncStorage } from 'react-native';
+import { NativeModules, View, ScrollView, Image, AsyncStorage, Clipboard } from 'react-native';
 import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
@@ -14,6 +14,8 @@ import TrackingPoint  from 'components/shared/TrackingPoint';
 import { externalPush, majorTab } from 'actions/navigation';
 import onlineActions from 'actions/online';
 
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
 class ZoneScene extends Component {
 
@@ -131,7 +133,9 @@ class ZoneScene extends Component {
 
     return loginUser.info ? (
       <View>
-        {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} })}
+        { this.props.bankBillList && this.props.bankBillList.length > 0 ?
+          this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} }) : null
+        }
         {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "GjjReport", title:"公积金报告", prePress: ()=>{
           return this.props.gjjPreNavigate();
         } })}
@@ -168,11 +172,19 @@ class ZoneScene extends Component {
 }
 
 function mapStateToProps(state) {
-  return { loginUser: state.loginUser }
+  return {
+    loginUser: state.loginUser,
+    isFetching: state.online.bankBillFetching,
+    bankBillList: state.online.bankResult.billList
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetching: () => {
+      dispatch(onlineActions.setLoanType(9999));
+      dispatch(onlineActions.bankBillList());
+    },
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
     setLoanType: () => dispatch(onlineActions.setLoanType(9999)),
@@ -183,4 +195,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(ZoneScene))
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(ZoneScene)))

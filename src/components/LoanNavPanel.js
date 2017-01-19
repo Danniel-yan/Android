@@ -79,12 +79,12 @@ class LoanNavPanel extends Component {
           </TrackingPoint>
           <ExternalPushLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
-            title="简单贷"
+            title="低息贷"
             toKey="LoanScene"
             componentProps = {{onBack : true}}
             style={LNPStyles.navItem}>
             <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_4.gif', width : 50, height: 50}}></Image>
-            <Text style={LNPStyles.navTxt}>简单贷</Text>
+            <Text style={LNPStyles.navTxt}>低息贷</Text>
           </ExternalPushLink>
         </View>
       </View>

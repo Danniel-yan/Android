@@ -193,9 +193,11 @@ class FundLoginScene extends Component{
           }else {
             this.setState({submitting: false, error: response.msg });
           }
+          this.submitting = false;
         })
         .catch(err => {
           this.setState({submitting: false});
+          this.submitting = false;
         })
 
     })
