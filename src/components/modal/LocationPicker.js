@@ -43,7 +43,7 @@ export default class LocationPicker extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
 
-    let { mark } = nextProps.mark;
+    let mark = nextProps && nextProps.mark ? nextProps.mark : "city";
 
     if(!nextProps.visible || this.state.sections) {
       return;

@@ -66,7 +66,7 @@ class LocationField extends Component {
 
         <Text style={this.props.textStyle}>{value}</Text>
 
-        <LocationPicker visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
+        <LocationPicker mark='city' visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </Button>
     );
   }
