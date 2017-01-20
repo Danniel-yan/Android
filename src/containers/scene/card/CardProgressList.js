@@ -20,6 +20,8 @@ import Banner from 'components/Banner';
 import Button from 'components/shared/ButtonBase';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 
+import fetchCardConfig from 'actions/scene/card/cardConfig';
+
 class CardListProgress extends Component {
   tracking() {
     return {key: 'card', topic: 'btn_sec_2.1', entity: 'progress'}
@@ -61,7 +63,7 @@ class CardListProgress extends Component {
           >
           <Bank name={bank.name} image={bank.pic_card}/>
         </ExternalPushLink>
-      ) 
+      )
     })
 
     return (
@@ -84,8 +86,20 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     cardConfig: state.cardConfig,
-    bankList: state.bankList
+    bankList: state.bankList,
+    isFetching: state.bankList.isFetching || state.cardConfig.isFetching,
+    fetched: state.bankList.fetched && state.cardConfig.fetched
   };
 }
 
-export default connect(mapStateToProps)(trackingScene(CardListProgress));
+function mapDispatchToProps(dispatch) {
+  return {
+    fetching: () => {
+      console.log(this);
+      dispatch(fetchCardConfig());
+      dispatch(fetchBankList());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(CardListProgress)));
