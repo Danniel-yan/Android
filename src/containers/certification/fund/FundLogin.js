@@ -109,6 +109,7 @@ class FundLoginScene extends Component{
           <ExternalPushLink
             style={[styles.submitBtn, { marginTop: 5, backgroundColor: "#d3d3d3" }]}
             textStyle={{color: "#fff"}}
+            title={"公积金报告"}
             toKey={"GjjReport"} text={"查看已有报告"}>
           </ExternalPushLink>
         </View>

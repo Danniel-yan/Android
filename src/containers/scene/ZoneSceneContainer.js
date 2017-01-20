@@ -182,7 +182,7 @@ class ZoneScene extends Component {
         </TrackingPoint>
         {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
         {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
-        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {})}
+        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {title:"办卡进度", toKey:"CardProgressList"})}
       </View>
     ) : null;
   }
