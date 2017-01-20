@@ -71,7 +71,6 @@ export default class GeoCity extends PureComponent {
   }
 
   _onPress() {
-    tracker.trackAction({ key: 'homepage', topic: 'top', entity: 'postion', event: 'clk'});
     this.setState({showPicker: true})
   }
 
@@ -88,7 +87,7 @@ export default class GeoCity extends PureComponent {
           </Text>
         </Button>
 
-        <LocationPicker visible={this.state.showPicker} onChange={this.onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
+        <LocationPicker mark='city' visible={this.state.showPicker} onChange={this.onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </View>
     );
   }

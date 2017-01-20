@@ -11,11 +11,18 @@ import {
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
 import { ExternalPushLink } from 'containers/shared/Link';
+import alert from 'utils/alert';
+import { externalPop } from 'actions/navigation';
 
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
 import * as defaultStyles from 'styles';
+import {
+  loanType,
+  firstFilterStatusSuccess,
+  preloanStatus as preloanStatusConstants
+} from 'constants';
 
 import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
@@ -35,6 +42,7 @@ export default class LoanDetailScene extends Component {
     var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
     this.state = {
+      checkingGPS: false,
       amount: repayParams ? repayParams.amount.toString() : String(props.detail.amount_min),
       value: repayParams ? repayParams.period : props.detail.period_list[0],
       id: repayParams ? repayParams.id : props.detail.id
@@ -223,11 +231,24 @@ export default class LoanDetailScene extends Component {
 
     let detail = this.props.detail;
 
+    if(this.props.detail.loan_type == loanType.chaoshidai) {
+      return (
+        <ExternalPushLink
+          processing={this.state.checkingGPS}
+          {...this._chaoshidaiRouteProps()}
+          style={styles.loanButton}
+          textStyle={styles.loanButtonText}
+          text="去贷款"
+          />
+      );
+      // prePress={ () => this.props.setLoanType() }  AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())
+    }
+
     if(this.props.loginUser.valid) {
       return (
         <ExternalPushLink
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
-                     title: detail.title, amount: this.state.amount, period: this.state.period}}
+                     title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
@@ -251,5 +272,69 @@ export default class LoanDetailScene extends Component {
         componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
         />
     );
+  }
+
+  _chaoshidaiRouteProps() {
+    let logined = this.props.loginUser.info;
+    let { onlineStatus } = this.props;
+    let { status, time_expire_status } = onlineStatus;
+
+    if(!logined) {
+      return {
+        loginSuccess: () => {
+          this.props.fetchOnlineStatus();
+          this.props.dispatch(externalPop());
+        },
+        toKey: 'Login',
+        title: '登录'
+      };
+    }
+
+    // 预授信失败
+    if(status == 4) {
+      return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
+    }
+
+    if(status == 5 && time_expire_status == 1) {
+      return this.mergeProps({toKey: 'OnlinePreloanExpire', title: '预授信申请结果'});
+    }
+
+    if(status == 5) {
+      return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'});
+    }
+
+    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
+    if([6, 7, 8, 9, 10].includes(status)) {
+      return this.mergeProps({toKey: 'OnlineApproveStatus', title: '审批状态'});
+    }
+
+    if([11, 12, 13, 14].includes(status)) {
+      return this.mergeProps({toKey: 'OnlineSignSuccess', title: '签约'});
+    }
+
+    if([15].includes(status)) {
+      return this.mergeProps({toKey: 'OnlineLoanDetail', title: '借款详情'});
+    }
+
+    // 1,2
+    return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
+  }
+
+  mergeProps(props) {
+    return Object.assign({ componentProps: { loan_type: this.props.detail.loan_type}}, props);
+  }
+
+  checkGPS() {
+    this.setState({ checkingGPS: true })
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState({ checkingGPS: false })
+        resolve('');
+      }, (error) => {
+        alert(JSON.stringify(error));
+        this.setState({ checkingGPS: false })
+        reject('');
+      });
+    })
   }
 }

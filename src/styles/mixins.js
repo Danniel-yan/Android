@@ -25,11 +25,11 @@ export const textVerticalCenter = (height) => {
   }
 }
 
-export function border(pos) {
+export function border(pos, width = 0.5, color = colors.line) {
   pos = pos.charAt(0).toUpperCase() + pos.substr(1);
 
   return {
-    [`border${pos}Width`]: 0.5,
-    [`border${pos}Color`]: colors.line
+    [`border${pos}Width`]: width,
+    [`border${pos}Color`]: color
   };
 }

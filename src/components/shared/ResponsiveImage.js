@@ -14,7 +14,7 @@ export default class ResponsiveImage extends Component {
     super(props);
 
     this.state = {
-      dimension: dimensions[props.uri]
+      dimension: dimensions[props.uri] || {}
     }
   }
 
@@ -28,14 +28,14 @@ export default class ResponsiveImage extends Component {
   }
 
   render() {
-    let { uri, height, width, ...props } = this.props;
+    let { uri, height, style, width, ...props } = this.props;
 
-    if(!this.state.dimension && !height) { return null; }
+    if(!this.state.dimension && !height && !style) { return null; }
 
     height = responsive.height(height || this.state.dimension.height)
 
     return (
-      <Image {...props} style={{height}} source={{uri: uri}}/>
+      <Image {...props} style={[{height}, style]} source={{uri: uri}}/>
     );
   }
 }

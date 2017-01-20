@@ -44,7 +44,7 @@ export default class RecommendList extends Component {
         tracking={tracking}
         title={data.title}
         toKey="LoanDetailScene"
-        componentProps={{fetchingParams: data.id }} >
+        componentProps={{fetchingParams: data.id, ...data }} >
         <View style={styles.flexContainerRow}>
           <RemoteImage uri={data.logo_list} style={styles.thumbnail} />
           <View style={styles.rightContainer}>

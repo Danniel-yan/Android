@@ -19,7 +19,7 @@ import VerifyButton from 'components/shared/VerifyButton'
 import alert from 'utils/alert';
 import { get, post } from 'utils/fetch';
 import FormGroup from './shared/FormGroup';
-import WebLink from 'components/shared/WebLink';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';
@@ -204,9 +204,8 @@ export default class FillUserInfo extends Component {
               <View style={styles.txtRow}>
                 <Checkbox checked={checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
                 <Text onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
-                <WebLink
-                  source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
-                  toKey="Agreement"
+                <ExternalPushLink
+                  web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'
                   text="《钞市服务协议》" title="《钞市服务协议》"
                 />
               </View>

@@ -1,15 +1,17 @@
-import iconHome from 'assets/tab-icons/home.png';
-import iconLoan from 'assets/tab-icons/loan.png';
-import iconCard from 'assets/tab-icons/card.png';
-import iconZone from 'assets/tab-icons/zone.png';
 
-import iconHomeActive from 'assets/tab-icons/home_active.png';
-import iconLoanActive from 'assets/tab-icons/loan_active.png';
-import iconCardActive from 'assets/tab-icons/card_active.png';
-import iconZoneActive from 'assets/tab-icons/zone_active.png';
 
 import { NavigationExperimental } from 'react-native';
 const { StateUtils: NavigationStateUtils } = NavigationExperimental;
+
+const iconHome = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_1-nor.gif';
+const iconLoan = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_2-nor.gif';
+const iconCard = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_3-nor.gif';
+const iconZone = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_4-nor.gif';
+
+const iconHomeActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_1-light.gif';
+const iconLoanActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_2-light.gif';
+const iconCardActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_3-light.gif';
+const iconZoneActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_4-light.gif';
 
 const majorNavigationIndex = 0;
 
@@ -76,23 +78,45 @@ const initState = {
   }]
 };
 
-
 export default function navigation(state = initState, action) {
   switch(action.type) {
     case 'externalPush':
-      return NavigationStateUtils.push(state, action.route);
+      //return NavigationStateUtils.push(state, action.route);
     case 'externalPop':
-      if (state.index <= 0) {
+
+      const routes = state.routes;
+      const route = action.route;
+
+      if(!route) { return pop(state); }
+
+      let { key, component, web } = route;
+
+        // 指定component及web直接push
+      if(component || web) {
+        route.key = route.key || Math.random().toString();
+        return NavigationStateUtils.push(state, route);
+      }
+
+      let popToRouteIndex = -1;
+
+      if(key) {
+        popToRouteIndex = routes.findIndex(route => route.key == key);
+
+        // 不存在的route，进行push
+        if(popToRouteIndex == -1) {
+          return NavigationStateUtils.push(state, route);
+        }
+
+        popToRouteIndex += 1;
+      }
+
+      // pop操作
+      if(routes.length == 1) {
         return state;
       }
 
-      const routes = state.routes.slice(0, -action.num);
+      return popToIndex(state, popToRouteIndex, route);
 
-      return {
-        ...state,
-        index: routes.length - 1,
-        routes
-      };
     case 'externalReplace':
       return NavigationStateUtils.replaceAtIndex(state, state.routes.length - 1,action.route);
     case 'externalJumpTo':
@@ -180,4 +204,55 @@ function updateMajor(state, major) {
       ...state.routes.slice(1)
     ]
   }
+}
+
+function pop(state) {
+  const routes = state.routes;
+  const lastestRoute = routes[routes.length - 1];
+  const backRoute = lastestRoute.backRoute;
+
+  let popToRouteIndex = -1;
+
+  if(backRoute) {
+    return popToRoute(state, backRoute);
+  }
+
+  return popToIndex(state, popToRouteIndex);
+}
+
+function popToRoute(state, backRoute) {
+  let popToRouteIndex = -backRoute.backCount;
+
+  if(backRoute.key) {
+    popToRouteIndex = 1 + state.routes.findIndex(route => route.key == backRoute.key);
+  }
+
+  return popToIndex(state, popToRouteIndex, backRoute);
+}
+
+function popToIndex(state, popToRouteIndex, route) {
+  let routes = state.routes.slice(0, popToRouteIndex);
+
+  if(route) {
+    let lastRoute = routes.pop();
+    let mergeParams = {};
+
+    if(route.title) {
+      mergeParams.title = route.title;
+    }
+    if(route.componentProps) {
+      mergeParams.componentProps = route.componentProps;
+    }
+
+    routes = [
+      ...routes,
+      Object.assign({}, lastRoute, mergeParams)
+    ];
+  }
+
+  return {
+    ...state,
+    index: routes.length - 1,
+    routes
+  };
 }

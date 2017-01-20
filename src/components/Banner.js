@@ -11,6 +11,7 @@ export default (props) => {
   return (
     <ExternalPushLink
       tracking={tracking}
+      style={{ alignItems: 'stretch' }}
       web={to}>
       <ResponsiveImage {...imageProps} uri={image} />
     </ExternalPushLink>

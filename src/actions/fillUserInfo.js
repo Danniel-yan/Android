@@ -28,7 +28,7 @@ export default function submitUserInfo(body, successCallBack) {
 
     dispatch(submitting());
 
-    post('/user/update-info', body)
+    return post('/user/update-info', body)
       .then(response => {
 
         if(response.res === responseStatus.success) {
@@ -39,9 +39,11 @@ export default function submitUserInfo(body, successCallBack) {
             successCallBack && successCallBack();
           }, err => alert(err));
         } else {
+          alert(response.msg);
           dispatch(submitError(response.msg));
         }
 
+        return response;
       })
       .catch(err => dispatch(submitError(err)))
   }

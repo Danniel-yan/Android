@@ -69,13 +69,37 @@ export default class ExternalNavigation extends Component {
   componentWillReceiveProps(nextProps) {
     // TODO, safe push/pop
 
-    let routes = this.nav.getCurrentRoutes();
     let nextNavigation = nextProps.navigation;
 
-    if(routes.length > nextNavigation.routes.length) {
-      this.nav.popN(routes.length - nextNavigation.routes.length);
-    } else if(routes.length < nextNavigation.routes.length) {
+    let routes = this.nav.getCurrentRoutes();
+    let nextRoute = nextNavigation.routes
+
+    const curLength = routes.length;
+    const nextLength = nextRoute.length;
+
+    if(curLength > nextLength) {
+      const nextLastRoute = nextRoute[nextLength - 1];
+      const curLastRoute = routes[curLength - 1];
+
+      if(nextLastRoute != curLastRoute) {
+        var distance = curLength - nextLength;
+
+        if(distance > 1 ) {
+          var nxtPopRoute = routes.find(route => route.key == nextLastRoute.key);
+          this.nav.popToRoute(nxtPopRoute);
+        } else {
+          this.nav.replacePreviousAndPop(nextLastRoute);
+        }
+
+
+      } else {
+        this.nav.popN(curLength - nextLength);
+      }
+
+    } else if(curLength < nextLength) {
+
       this.nav.push(nextNavigation.routes[nextNavigation.index])
+
     } else if(routes.slice(-1)[0].key != nextNavigation.routes.slice(-1)[0].key) {
       this.nav.replace(nextNavigation.routes[nextNavigation.index]);
     }
@@ -85,12 +109,12 @@ export default class ExternalNavigation extends Component {
   _renderScene(route, navigator) {
     let {
       web,
-      backCount,
       key,
       title,
       component: ComponentClass,
       RenderedComponent,
-      componentProps
+      componentProps,
+      ...routeProps
     } = route;
 
     // 若route已经渲染过，则直接使用旧component，避免重新渲染
@@ -113,18 +137,7 @@ export default class ExternalNavigation extends Component {
       route.RenderedComponent = ComponentClass;
     }
 
-    return React.createElement(ComponentClass , { ...componentProps, navigator, sceneTitle: title, backCount});
-  }
-
-  _handleIOSBack(route, navigator) {
-    if(!this.nav) { return }
-
-    let externalRoutes = this.props.navigation.routes;
-    let routes = this.nav.getCurrentRoutes();
-
-    if(externalRoutes.length > routes.length) {
-      this.props.externalPop();
-    }
+    return React.createElement(ComponentClass , { ...routeProps, ...componentProps, navigator, sceneTitle: title });
   }
 
   shouldComponentUpdate() {
@@ -134,11 +147,15 @@ export default class ExternalNavigation extends Component {
   render() {
     let initRoute = this.props.navigation.routes[0]
 
+    const FloatFromRight = {
+      ...Navigator.SceneConfigs.FloatFromRight,
+      gestures: {pop: { disabled: true }},
+    };
+
     return (
       <Navigator
-        onDidFocus={this._handleIOSBack.bind(this)}
         ref={nav => this.nav = nav}
-        configureScene={() => Navigator.SceneConfigs.FloatFromRight}
+        configureScene={() => FloatFromRight}
         initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />

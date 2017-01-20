@@ -30,7 +30,7 @@
 //新浪微博SDK头文件
 #import "WeiboSDK.h"
 
-
+#import <MGBaseKit/MGBaseKit.h>
 @interface AppDelegateExtend ()<JPUSHRegisterDelegate>
 
 @end
@@ -54,7 +54,6 @@
     UMConfigInstance.appKey = MKUMengAppKey;
     UMConfigInstance.channelId = @"App Store";
     [MobClick startWithConfigure:UMConfigInstance];
-  
   
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
@@ -83,8 +82,17 @@
           NSLog(@"registrationID获取失败，code：%d",resCode);
         }
     }];
-  
-  
+#if TARGET_IPHONE_SIMULATOR
+#else
+  [MGLicenseManager licenseForNetWokrFinish:^(bool License) {
+    if (License) {
+      NSLog(@"SDK 授权【成功】");
+    }else{
+      NSLog(@"SDK 授权【失败】");
+    }
+  }];
+  #endif
+
   [ShareSDK registerApp:@"19f997391731a" activePlatforms:@[
                           @(SSDKPlatformTypeSinaWeibo),
                           @(SSDKPlatformTypeWechat),

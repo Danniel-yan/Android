@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import fetchingUser from 'actions/loginUser';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 import {
   View,
@@ -14,17 +17,14 @@ import ProcessingButton from 'components/shared/ProcessingButton'
 import VerifyButton from 'components/shared/VerifyButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
-import WebLink from 'components/shared/WebLink';
+import { externalPop } from 'actions/navigation';
+import { ExternalPushLink } from 'containers/shared/Link';
 import Checkbox from 'components/shared/Checkbox';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
 
-export default class Login extends Component {
-  static defaultProps = {
-    loginSuccess: () => {}
-  };
-
+class Login extends Component {
   static title = '登录';
 
   tracking = {key: 'user', topic: 'Login'};
@@ -81,10 +81,11 @@ export default class Login extends Component {
         <View style={styles.txtRow}>
           <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
           <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>阅读并接受</Text>
-          <WebLink
-            source={{uri: 'https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'}}
-            toKey="Agreement"
-            text="《钞市服务协议》" title="《钞市服务协议》"
+          <ExternalPushLink
+            web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'
+            text="《钞市服务协议》"
+            title="《钞市服务协议》"
+            textStyle={{ color: colors.secondary}}
           />
         </View>
 
@@ -147,13 +148,23 @@ export default class Login extends Component {
             throw response.msg;
           }
         })
-        .then(this.props.customLoginSuccess || this.props.loginSuccess)
+        .then(this.loginSuccess.bind(this))
         .catch(err => { console.log(err); })
         .finally(() => {
           this.submitting = false;
           this.setState({submitting: false})
         })
     });
+  }
+
+  loginSuccess() {
+    this.props.dispatch(fetchingUser());
+
+    if(this.props.loginSuccess) {
+      this.props.loginSuccess();
+    } else {
+      this.props.dispatch(externalPop());
+    }
   }
 }
 
@@ -205,3 +216,5 @@ const styles = StyleSheet.create({
     color: colors.error
   }
 });
+
+export default trackingScene(Login);

@@ -14,6 +14,8 @@ import ShareButton from 'components/shared/ShareButton';
 import { fetchRepayCalc } from 'actions/scene/repayCalc'
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import externalScene from 'high-order/externalScene';
+import onlineActions from 'actions/online';
+import { loanType } from 'constants';
 
 function mapStateToProps(state, ownProps) {
   let detail = { ...state.loanDetail };
@@ -26,23 +28,34 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...detail,
+    onlineStatus: state.online.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
+
   return {
-    fetching: id => dispatch(fetchLoanDetail(id)),
+    fetching: id => {
+      if(ownProps.loan_type == loanType.chaoshidai) {
+        dispatch(onlineActions.setLoanType(ownProps.loan_type))
+        dispatch(onlineActions.status());
+      }
+
+      dispatch(fetchLoanDetail(id))
+    },
+    fetchOnlineStatus: () => dispatch(onlineActions.status()),
     goLoan: (detail) => {
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
-        backCount: 2
+        backRoute: { key: 'LoanDetailScene' }
       }))
     },
-    fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams))
+    fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams)),
+    setLoanType: (type) => dispatch(onlineActions.setLoanType(type || 1))
   }
 }
 
@@ -53,7 +66,7 @@ const shareConfig = {
   url: 'http://t.cn/RIJqMla'
 };
 
-let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);
 SceneComponent = externalScene(SceneComponent, () => <ShareButton config={shareConfig}/>);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;

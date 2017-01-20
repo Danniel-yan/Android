@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ListView,
   Modal,
+  TextInput
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -29,7 +30,8 @@ export default class LocationPicker extends PureComponent {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
+      result:[]
     };
   }
 
@@ -40,40 +42,54 @@ export default class LocationPicker extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    let { mark } = nextProps.mark;
+
     if(!nextProps.visible || this.state.sections) {
       return;
     }
 
-    get('/app/city-list').then(response => {
+    let url = (mark == 'city' ? '/app/city-list' : '/bill/gjj-login-elements');
+
+    var cityResource = mark == 'city' || !this.props.gjjLoginElements ? get(url) : new Promise((resolve) => { resolve({data: this.props.gjjLoginElements})})
+
+    cityResource.then(response => {
 
       let sections = {};
       let secIDs = [];
 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((sec, secIdx) => {
         response.data
-          .filter(city => city.pinyin_first.toUpperCase() == sec)
+          .filter(city => (mark == 'city') ? city.pinyin_first.toUpperCase() == sec : city.area_name_pinyin_first.toUpperCase() == sec)
           .forEach((city, rowIdx) => {
+
             !secIDs.includes(sec) && secIDs.push(sec);
 
-            (sections[sec] || (sections[sec] = [])).push(city.shortname);
+            (sections[sec] || (sections[sec] = [])).push(mark == 'city'? city.shortname : city.area_name );
+
           });
       });
 
       this.setState({
         loading: false,
         secIDs,
-        sections
+        sections,
       });
 
     }).catch(err => console.log(err) )
   }
 
   render() {
+
+    let { mark } = this.props;
+
     let isShow = !this.state.loading && this.state.shown;
 
     let main = isShow ? this._renderMain() : null;
     let sidebar = isShow ? this._renderSidebar() : null;
-    let loading = !isShow ? this._renderLoading() : null 
+    let loading = !isShow ? this._renderLoading() : null;
+
+    let search = (mark == 'fundCity')? this._renderSearch() : null ;
 
     return (
       <View>
@@ -86,7 +102,10 @@ export default class LocationPicker extends PureComponent {
 
         <View style={defaultStyles.container}>
           <SceneHeader onBack={this.props.onHide} title="城市选择"/>
-
+          <View>
+            {search}
+            {this._renderResult()}
+          </View>
           <View style={[defaultStyles.rowContainer, defaultStyles.bg]}>
             {loading}
             {main}
@@ -101,7 +120,44 @@ export default class LocationPicker extends PureComponent {
     );
   }
 
+  _renderSearch(){
+    return (
+      <TextInput
+        placeholder='搜索城市'
+        style={{height:30,backgroundColor:'#fff',fontSize:12,color:'#A5A5A5',paddingLeft:10,borderWidth:1,borderColor:'#e6e6e6'}}
+        onFocus={ () => {this.setState({shown: false})}}
+        onChangeText = {this._renderCity.bind(this, 'city')}
+        />
+    )
+  }
+
+  _renderCity(city, value){
+    if(!value) {
+      this.setState({shown: true,result:[]})
+    }else{
+
+      this.setState({result: this.state.sections[value] })
+    }
+  }
+
+  _renderResult(){
+
+    if(!this.state.result) return null;
+
+    return(
+      <ScrollView>
+        { this.state.result.map( (city, idx) =>
+            <View style={{padding: 10}} key={`${idx}`}><Text onPress={() => this.props.onChange(city)}>{city}</Text></View>
+        )}
+      </ScrollView>
+    )
+  }
+
+
   _renderLoading() {
+
+    if( this.state.shown == false ) return null;
+
     return (<View style={[defaultStyles.container, defaultStyles.centering, styles.loading]}><Loading color="white"/></View>);
   }
 
@@ -145,7 +201,7 @@ export default class LocationPicker extends PureComponent {
     let rowHeight = sectionRowHeight + rowBorderWidth;
     let { secIDs, sections } = this.state;
     let toHeight = sectionHeaderHeight * idx;
-    
+
     secIDs.slice(0, idx).map((sec, idx) => {
       let sectionHeight = sections[sec].length * rowHeight;
       toHeight += sectionHeight;

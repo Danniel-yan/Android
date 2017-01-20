@@ -14,12 +14,12 @@ export default class ShareModal extends Component {
   };
 
   render() {
-    let { onHide, children, ...props } = this.props;
+    let { onHide, onRequestClose, children, overlayStyle, ...props } = this.props;
 
     return (
-      <Modal {...props} onRequestClose={onHide}>
+      <Modal {...props} onRequestClose={onRequestClose || onHide}>
 
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onHide}/>
+        <TouchableOpacity style={[styles.overlay, overlayStyle]} activeOpacity={1} onPress={onHide}/>
 
         {children}
 

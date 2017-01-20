@@ -153,7 +153,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'librarys', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'librarys')
     compile project(':react-native-code-push')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':jpush-react-native')
@@ -165,8 +165,11 @@ dependencies {
     compile project(':react-native-device-info')
     compile project(':react-native-code-push')
     compile 'com.facebook.fresco:animated-gif:0.11.0'
+    compile project(':iDCardLib')
+    compile project(':bankCardLib')
     compile(name: 'alisdk-feedback-2.5.0', ext: 'aar')
     compile(name: 'securityguardaar3-5.1.81', ext: 'aar')
+    compile project(':livenessLib')
 }
 
 // Run this once to be able to run the application with BUCK

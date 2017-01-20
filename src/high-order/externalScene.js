@@ -10,23 +10,19 @@ import SceneHeader from 'components/shared/SceneHeader';
 
 export default function(ComponentClass, RightComponent) {
 
-  function mapDispatchToProps(dispatch) {
-    return {
-      onBack: (backCount) => dispatch(externalPop(backCount || 1))
-    };
-  }
 
-  class ExternalPageComponent extends Component {
+  return class ExternalPageComponent extends Component {
     static external = true;
 
     state = { title: undefined };
 
     render() {
       let title = this.state.title || this.props.sceneTitle || ComponentClass.title;
+      const Header = this.props.backButton === false ? SceneHeader : BackHeader;
   
       return (
         <View style={defaultStyles.container}>
-          <SceneHeader {...this.props} title={title} right={RightComponent} onBack={() => this.props.onBack(this.props.backCount)}/>
+          <Header {...this.props} title={title} right={RightComponent} />
           <View style={[defaultStyles.container, defaultStyles.bg]}>
             <ComponentClass {...this.props} onChangeTitle={title => this.setState({title})}/>
           </View>
@@ -34,7 +30,9 @@ export default function(ComponentClass, RightComponent) {
       )
     }
   }
-
-  return connect(null, mapDispatchToProps)(ExternalPageComponent);
 }
+
+const BackHeader = connect(null, dispatch => {
+  return { onBack: () => dispatch(externalPop()) }
+})(SceneHeader);
 

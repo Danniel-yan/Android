@@ -12,10 +12,10 @@ export function externalReplace(route) {
   };
 }
 
-export function externalPop(num = 1) {
+export function externalPop(route) {
   return {
     type: 'externalPop',
-    num
+    route
   };
 }
 

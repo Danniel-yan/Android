@@ -36,7 +36,7 @@ class FastLoanScene extends Component {
         amount: props.amount || 5000,
         period: props.period || 12,
         job: 0,
-        reslist: [],
+        reslist: props.selectIndex ? [props.selectIndex] : [],
         order: 1
       },
       isFetchingRec: true,
@@ -165,6 +165,7 @@ class FastLoanScene extends Component {
 
         <View style={[{position: "absolute", overflow: "hidden", left: 0, top: 31, right: 0, zIndex: 3, paddingTop: 10 }, !this.state.toggleFilter ? { paddingTop: 0, height: 0 } : {}]}>
           <HorizontalCheckboxes
+            selectedIdxes = {this.state.fetchRecParams.reslist}
             withBtns={true}
             options={applyResList}
             eachLineCount={3}

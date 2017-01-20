@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import { colors } from 'styles/varibles';
-import { environments, switchEnvironment } from 'settings';
 
 import CheckImage from 'assets/icons/check.png';
 import Text from 'components/shared/Text';

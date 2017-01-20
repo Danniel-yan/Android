@@ -1,4 +1,5 @@
 import { post, responseStatus } from 'utils/fetch';
+import alert from 'utils/alert';
 
 export function requestRepayCalc(){
   return {
@@ -38,6 +39,7 @@ export function fetchRepayCalc(params){
         if(response.res === responseStatus.success) {
           dispatch(receiveRepayCalc(response.data, params))
         }else{
+          alert(response.msg);
           dispatch(receiveError());
         }
       })

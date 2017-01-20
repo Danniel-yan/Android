@@ -11,7 +11,7 @@ import Text from 'components/shared/Text';
 export default ({offset = true, title, style, textStyle, children}) => {
   return (
     <View style={[styles.wrap, offset && styles.offset, style]}>
-      <View style={styles.container}>
+      <View style={[container, styles.container]}>
         <Text style={[styles.title, textStyle]}>{title}</Text>
       </View>
       <View style={centering}>
@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     ...border('bottom')
   },
   container: {
-    ...container,
     justifyContent: 'center',
   },
   title: {

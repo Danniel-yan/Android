@@ -6,7 +6,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { applicationSetup, getAppSettings } from 'settings'
+import { applicationSetup } from 'settings'
 import ExternalNavigationContainer from 'containers/ExternalNavigationContainer';
 import BigLoading from 'components/shared/BigLoading';
 import tracker from 'utils/tracker';
@@ -20,10 +20,8 @@ class Main extends Component {
 
   componentDidMount() {
     applicationSetup().then(() => {
-
       AsyncStorage.getItem('userToken').then(token => {
         this.setState({ initialing: false });
-
         if(token != null) {
           this.props.fetchingUser();
         }

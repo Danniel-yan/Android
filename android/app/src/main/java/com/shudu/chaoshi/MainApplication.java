@@ -13,6 +13,8 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
 import com.shudu.chaoshi.util.ChannelUtil;
 import com.shudu.chaoshi.util.Constants;
+import com.shudu.chaoshi.util.FaceLivenessInit;
+import com.shudu.chaoshi.util.IdCardInit;
 import com.shudu.chaoshi.util.JpushUtil;
 import com.shudu.chaoshi.util.ShareUtil;
 import com.shudu.chaoshi.util.ToastHelper;
@@ -84,6 +86,8 @@ public class MainApplication extends Application implements ReactApplication {
         FeedbackAPI.init(this, "23579028");
         ShareUtil.setAppKey();
         ToastHelper.init(mContext);
+        IdCardInit.netWorkWarranty(mContext);
+        FaceLivenessInit.netWorkWarranty(mContext);
     }
 
     public static final Context getMyApplicationContext() {

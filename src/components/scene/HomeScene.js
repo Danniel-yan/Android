@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, ScrollView, AsyncStorage } from 'react-native';
+import { TouchableOpacity, StatusBar, Image, View, Text, StyleSheet, Platform, ScrollView, AsyncStorage, Dimensions } from 'react-native';
 
 import Banner from 'containers/scene/home/Banner';
 import Broadcast from 'containers/scene/home/Broadcast';
@@ -22,6 +22,7 @@ import SecretGardenModal from 'components/modal/SecretGarden';
 import panelStyles from './home/panelStyles';
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const { width, height } = Dimensions.get('window');
 
 export default class HomeScene extends Component {
 
@@ -63,47 +64,16 @@ export default class HomeScene extends Component {
     return !this.props.iosFetched || this.props.isIOSVerifying ? null : <Broadcast />;
   }
 
-  _pressIcon(iconKey) {
-    if(iconKey !== 2) return;
-
-    this.navToPBOC()
-  }
-
-  _pressNumberBtn(amount) {
-    amount && this.props.setAmount && this.props.setAmount(amount);
-    // this._externalNavTo("LoanScene");
-    this.props.majorTab && this.props.majorTab("LoanScene");
-  }
-
-  _externalNavTo(navKey) {
-    this.props.externalPush && this.props.externalPush({key: navKey});
-  }
-
   _renderHeader() {
     return (
+      <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width, height: headerHeight}}>
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View style={styles.center}><Text onPress={this._memoryPress.bind(this)} style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}></View>
       </View>
+      </Image>
     )
-  }
-
-  navToPBOC() {
-    AsyncStorage.getItem('userToken').then(token => {
-      var externalPush = this.props.externalPush, route;
-      if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.navToPBOC()) } };
-        externalPush && externalPush(route);
-        return;
-      }
-      AsyncStorage.getItem('environment').then(ev => {
-        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        console.log(pbocUrl + "&token=" + token)
-        externalPush && externalPush({web: pbocUrl + "&token=" + token});
-      })
-    })
   }
 
   _memoryPress() {
@@ -160,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: headerHeight,
     paddingTop: statusBarHeight,
-    backgroundColor: colors.primary,
+    backgroundColor: 'transparent',
     alignItems: 'center'
   },
 

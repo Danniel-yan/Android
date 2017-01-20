@@ -29,26 +29,24 @@ class LoanNavPanel extends Component {
     this.props.majorTab && this.props.majorTab("LoanScene");
   }
 
-  onPressIconBtn(fromLogin) {
+  onPressIconBtn() {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { customLoginSuccess: () => (this.onPressIconBtn(true)) } };
+        route = { key: "Login", componentProps: { loginSuccess: () => (this.onPressIconBtn()) } };
         externalPush && externalPush(route);
         return;
       }
-      this.navToPBOC(fromLogin, token);
+      this.navToCreditLoan(token);
     });
   }
 
-  navToPBOC(fromLogin, token) {
+  navToCreditLoan(token) {
     var externalPush = this.props.externalPush, route;
     AsyncStorage.getItem('environment').then(ev => {
-      var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-      pbocUrl = ev=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-      // console.log(pbocUrl + "&token=" + token)
-      // console.log(fromLogin);
-      externalPush && externalPush({web: pbocUrl + "&token=" + token, backCount: (fromLogin ? 2 : 1)});
+      externalPush && externalPush({ key: "CreditLoan", title: "信用贷", backRoute: { key: "MajorNavigation" } });
+      this.props.setLoanType && this.props.setLoanType(0);
+      this.props.pbocInitial && this.props.pbocInitial();
     })
   }
 
@@ -58,11 +56,11 @@ class LoanNavPanel extends Component {
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: (this.props.loginUser.info ? 'recommend_apply' : 'recommend') }}
-            title="推荐贷款"
+            title="贷款推荐"
             toKey="RecLoanScene"
             style={LNPStyles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text style={LNPStyles.navTxt}>推荐贷款</Text>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_1.gif', width : 50, height: 50}}></Image>
+            <Text style={LNPStyles.navTxt}>贷款推荐</Text>
           </ExternalPushLink>
           <MajorTabLink
             tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
@@ -70,15 +68,24 @@ class LoanNavPanel extends Component {
             toKey="LoanScene"
             style={LNPStyles.navItem}>
 
-            <Image source={require('assets/icons/jisudaikuan.png')}></Image>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_2.gif', width : 50, height: 50}}></Image>
             <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>
           <TrackingPoint
             tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
             style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
-            <Image source={require('assets/icons/chaxinyong.png')}></Image>
-            <Text style={LNPStyles.navTxt}>查信用</Text>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_3.gif', width : 50, height: 50}}></Image>
+            <Text style={LNPStyles.navTxt}>信用贷</Text>
           </TrackingPoint>
+          <ExternalPushLink
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
+            title="低息贷"
+            toKey="LoanScene"
+            componentProps = {{onBack : true}}
+            style={LNPStyles.navItem}>
+            <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_4.gif', width : 50, height: 50}}></Image>
+            <Text style={LNPStyles.navTxt}>低息贷</Text>
+          </ExternalPushLink>
         </View>
       </View>
     );

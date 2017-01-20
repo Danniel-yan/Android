@@ -6,7 +6,7 @@ import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'containers/scene/ZoneSceneContainer';
-import Login from 'containers/Login';
+import Login from 'components/Login';
 import LoanDetailScene from 'containers/scene/LoanDetailContainer';
 import FillUserInfo from 'containers/FillUserInfo';
 import ActHotListScene from 'containers/scene/card/ActHotListContainer';
@@ -21,10 +21,52 @@ import CardListByCategory from 'containers/scene/card/CardListByCategory';
 import CardProgressList from 'containers/scene/card/CardProgressList';
 import CardArticals from 'containers/scene/CardArticals';
 import CardArticalDetail from 'containers/scene/CardArticalDetail';
+import CertificationHome from 'containers/certification/CertificationHome';
+import OnlineUserInfo from 'containers/online/UserInfo';
+import OnlineCreditCards from 'containers/certification/credit/CreditCards';
+import OnlineCreditCardForm from 'containers/certification/credit/CreditCardForm';
+import OnlineCreditCardVerify from 'containers/certification/credit/CreditCardVerify';
+import OnlineCreditCardStatus from 'containers/certification/credit/CreditCardStatus';
+import OnlineYysForm from 'containers/certification/yys/YysForm';
+import OnlineYysFormStatus from 'containers/certification/yys/YysFormStatus';
+import OnlinePreloanSuccess from 'containers/online/PreloanSuccess';
+import OnlinePreloanFailure from 'containers/online/PreloanFailure';
+import OnlinePreloanExpire from 'containers/online/PreloanExpire';
+import OnlineLoanForm from 'containers/online/LoanForm';
+import OnlineApproveStatus from 'containers/online/ApproveStatus';
+import OnlineLoanSign from 'containers/online/LoanSign';
+import OnlineReceiptCard from 'containers/online/ReceiptCard';
+import OnlineSignSuccess from 'containers/online/SignSuccess';
+import OnlineLoanDetail from 'containers/online/LoanDetail';
+import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 
+import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
+import FundLogin from 'containers/certification/fund/FundLogin';
+import BillList from 'containers/bill/BillListContainer';
+import BillDetail from 'containers/bill/BillDetailContainer';
+import GjjReport from 'containers/bill/GjjDetailContainer';
+import GjjStatus from 'containers/certification/fund/GjjStatus';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
+  { key: 'OnlineYysForm', module: OnlineYysForm },
+  { key: 'OnlineLoanDetail', module: OnlineLoanDetail },
+  { key: 'OnlineTrialRefundPlan', module: OnlineTrialRefundPlan },
+  { key: 'OnlineSignSuccess', module: OnlineSignSuccess },
+  { key: 'OnlineReceiptCard', module: OnlineReceiptCard },
+  { key: 'OnlineLoanSign', module: OnlineLoanSign },
+  { key: 'OnlineLoanForm', module: OnlineLoanForm },
+  { key: 'OnlineApproveStatus', module: OnlineApproveStatus },
+  { key: 'OnlineYysFormStatus', module: OnlineYysFormStatus },
+  { key: 'OnlinePreloanSuccess', module: OnlinePreloanSuccess },
+  { key: 'OnlinePreloanFailure', module: OnlinePreloanFailure },
+  { key: 'OnlinePreloanExpire', module: OnlinePreloanExpire },
+  { key: 'OnlineCreditCards', module: OnlineCreditCards },
+  { key: 'CertificationHome', module: CertificationHome },
+  { key: 'OnlineUserInfo', module: OnlineUserInfo },
+  { key: 'OnlineCreditCardForm', module: OnlineCreditCardForm },
+  { key: 'OnlineCreditCardVerify', module: OnlineCreditCardVerify },
+  { key: 'OnlineCreditCardStatus', module: OnlineCreditCardStatus },
   { key: 'CardArticals', module: CardArticals },
   { key: 'CardArticalDetail', module: CardArticalDetail },
   { key: 'CardListByCategory', module: CardListByCategory },
@@ -43,7 +85,14 @@ import CardArticalDetail from 'containers/scene/CardArticalDetail';
   { key: 'CardListScene', module: CardListScene },
   { key: 'BankCardListScene', module: BankCardListScene },
   { key: 'Login', module: Login },
-  { key: 'UserInfo', module: UserInfo }
+  { key: 'UserInfo', module: UserInfo },
+
+  { key: 'CreditLoan', module: CreditLoanHomeScene },
+  { key: 'FundLogin', module: FundLogin },
+  { key: 'BillList', module: BillList },
+  { key: 'BillDetail', module: BillDetail },
+  { key: 'GjjReport', module: GjjReport },
+  { key: 'GjjStatus', module: GjjStatus }
 ].forEach(item => {
   modules[item.key] = item.module;
 });
