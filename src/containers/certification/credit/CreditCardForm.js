@@ -77,11 +77,10 @@ class CreditCardForm extends Component {
             <ExternalPushLink
               processing={this.state.submitting}
               title="导入账单"
-              toKey="OnlineCreditCardStatus"
+              toKey={"OnlineCreditCardStatus"}
               prePress={this._submit.bind(this)}
               disabled={disabled}
-              backButton={false}
-              backRoute={{key: 'CertificationHome'}}
+              backRoute={{key: this.props.loanType != 0 ? 'CertificationHome' : "CreditLoan"}}
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -107,13 +106,14 @@ class CreditCardForm extends Component {
 
     var loanType = this.props.loanType || 0;
     body.loan_type = loanType;
+
     return post('/bill/bank-login', body).then(response => {
      if(this.unmount) { return }
 
      this.setState({submitting: false});
 
      if(response.res == responseStatus.success) {
-       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', backRoute:{key: 'OnlineCreditCardForm'}, componentProps: {...response.data, bank_id: this.props.bank_id}};
        // return {componentProps: {...response.data}};
        return {componentProps: {...response.data, bank_id: this.props.bank_id}};
      }

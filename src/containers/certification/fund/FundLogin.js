@@ -204,7 +204,7 @@ class FundLoginScene extends Component{
             this.setState({submitting: false, visibleSecondVerify: true, submitResult: response.data});
           }else if(response.res == responseStatus.success){
             this.setState({submitting: false });
-            this.props.externalPush({ key: "GjjStatus", title: "公积金认证" });
+            this.props.externalPush({ key: "GjjStatus", title: "公积金认证", backRoute: {key: this.props.loanType != 0 ? 'CertificationHome' : "CreditLoan"} });
           }else {
             this.setState({submitting: false, error: response.msg });
           }
@@ -219,7 +219,7 @@ class FundLoginScene extends Component{
   }
 
   _onSecondVerifySuccess() {
-    this.props.externalPush({ key: "GjjStatus", title: "公积金认证" });
+    this.props.externalPush({ key: "GjjStatus", title: "公积金认证", backRoute: {key: this.props.loanType != 0 ? 'CertificationHome' : "CreditLoan"} });
   }
 
   componentWillUnmount() {
@@ -272,7 +272,8 @@ function mapStateToProps(state) {
   return {
     isFetching: state.online.gjjLoginElements.isFetching,
     fetched: state.online.gjjLoginElements.fetched,
-    loginElements: state.online.gjjLoginElements.elements
+    loginElements: state.online.gjjLoginElements.elements,
+    loanType: state.online.loanType.type
   }
 }
 
