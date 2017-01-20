@@ -16,12 +16,9 @@ export default class findHome extends Component {
   render (){
     const logined = this.props.loginUser.info;
     return(
-      <View style = {{flex : 1, backgroundColor : '#eee'}}>
+      <View style = {{flex : 1, backgroundColor : '#e6e6e6'}}>
         <SceneHeader
-          title="发现"
-          bgColor='red'
-          textColor='#fff'
-        />
+          title="发现"/>
         <ScrollView
           showsVerticalScrollIndicator = {false}
         >
@@ -31,46 +28,46 @@ export default class findHome extends Component {
             title="办卡"
             componentProps ={{onBack : true}}
             style={styles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>办卡</Text>
+            <Image source={require('assets/discovery/icon_banka.png')} style = {styles.navImg}></Image>
+            <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="黑名单查询"
             toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>黑名单</Text>
+            <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
+            <Text style = {styles.navTxt}>黑名单</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="信用贷"
             toKey="CreditLoan"
             style={styles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>查征信</Text>
+            <Image source={require('assets/discovery/icon_chazhengxin.png')} style = {styles.navImg}></Image>
+            <Text style = {styles.navTxt}>查征信</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="我的账单"
             toKey="BillList"
             style={styles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>查账单</Text>
+            <Image source={require('assets/discovery/icon_chazhangdan.png')} style = {styles.navImg}></Image>
+            <Text style = {styles.navTxt}>查账单</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="公积金查询"
             toKey="FundLogin"
             style={styles.navItem}>
-            <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>查公积金</Text>
+            <Image source={require('assets/discovery/icon_chagongjijin.png')} style = {styles.navImg}></Image>
+            <Text style = {styles.navTxt}>查公积金</Text>
           </ExternalPushLink>
         </View>
         <TouchableHighlight onPress = {this._pushToFastLoan()}>
-          <View style = {{flexDirection : 'row',marginVertical : 5}}>
-            <Text style = {{marginHorizontal : 10, }}>极速贷款</Text>
-            <Text style = {{fontSize : 11, marginTop : 4}}>流程简单，半小时到账</Text>
+          <View style = {{flexDirection : 'row',marginTop : 2, backgroundColor: '#fff', paddingVertical : 8}}>
+            <Text style = {{marginLeft : 10, marginRight : 15, fontSize : 14, color : '#333'}}>极速贷款</Text>
+            <Text style = {{fontSize : 16, color : "#999", fontSize : 14, marginTop : -2,}}>流程简单，半小时到账</Text>
           </View>
         </TouchableHighlight>
         <Banner />
-        <View style = {{marginVertical : 5,paddingBottom : 10, backgroundColor : '#fff'}}>
+        <View style = {{backgroundColor : '#fff', marginBottom : 5}}>
           <LoanProduct />
         </View>
         <View style = {{backgroundColor : '#fff', paddingTop : 10}}><Artical /></View>
@@ -113,5 +110,9 @@ const styles = StyleSheet.create({
     fontSize : 16,
     lineHeight : Platform.OS === 'ios' ? 57 : 40,
     textAlign : 'center'
-  }
+  },
+  navImg : {
+    width : 36,
+    height : 36,
+  },
 });

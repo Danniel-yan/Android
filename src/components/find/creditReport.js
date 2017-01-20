@@ -7,7 +7,7 @@ export default class creditReport extends Component {
   render(){
     return (
       <View style = {{flex : 1}}>
-        <Text style = {{marginVertical : 20, paddingLeft : 20, fontSize : 16}}>主要报告</Text>
+        <Text style = {{marginVertical : 15, paddingLeft : 10, fontSize : 14, color : '#FF6D17'}}>主要报告内容</Text>
         <View style = {{backgroundColor : '#fff'}}>
           {this._renderNavItem( '多机构申请风险等级', '中级')}
           {this._renderNavItem( '是否命中网贷黑名单', '未命中')}
@@ -21,7 +21,7 @@ export default class creditReport extends Component {
         <View style={zoneStyles.item}>
           <Text style={[zoneStyles.txt,{fontSize : 14}]}>{txt}</Text>
           <View style = {{flexDirection : 'row'}}>
-            <Text style = {{color : 'orange'}}>{status}</Text>
+            <Text style = {styles.status}>{status}</Text>
             <NextIcon/>
           </View>
         </View>
@@ -31,3 +31,10 @@ export default class creditReport extends Component {
 
 }
 
+const styles = StyleSheet.create({
+  status : {
+    color : '#FF6D17',
+    fontSize : 14,
+    marginRight : 5
+  }
+})

@@ -36,7 +36,7 @@ class blackListHome extends Component {
           <View style={styles.item}>
             <Text style={styles.itemTitle}>真实姓名</Text>
             <TextInput
-              placeholder='请输入您的姓名'
+              placeholder='请输入您的真实姓名'
               style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
@@ -65,7 +65,10 @@ class blackListHome extends Component {
               maxLength={11}
             />
           </View>
-          <Text style={{paddingLeft : 10, marginBottom : 20}}>我们提供付费代查网贷征信服务，查询费用3元／次</Text>
+          <View style = {{flexDirection : 'row', marginBottom : 20,}}>
+            <Text style={{paddingLeft : 10,  fontSize : 12, color : '#666'}}>我们提供付费代查网贷征信服务，查询费用</Text>
+            <Text style = {{color : '#FF6D17', fontSize : 12}}>3元／次</Text>
+          </View>
           <View style={styles.btn}>
             <Button
               style={styles.submitBtn}
@@ -104,29 +107,11 @@ class blackListHome extends Component {
         <View style={zoneStyles.item}>
           <Text style={[zoneStyles.txt,{fontSize:14}]}>{txt}</Text>
           <View style={{flexDirection : 'row'}}>
-            <Text style={{color : 'orange'}}>{status.status}</Text>
+            <Text style={{color : '#FF6D17'}}>{status.status}</Text>
             <NextIcon/>
           </View>
         </View>
       </ExternalPushLink>
-    )
-  }
-
-  renderItem(title,placeholder,value,maxLength){
-    return (
-      <View style={styles.item}>
-        <Text style={styles.itemTitle}>{title}</Text>
-        <View style={styles.borderBottomStyle}>
-          <TextInput
-            placeholder={placeholder}
-            style={styles.itemInput}
-            underlineColorAndroid="transparent"
-            clearButtonMode="while-editing"
-            onChangeText={value => this.setState({value})}
-            maxLength={maxLength}
-          />
-        </View>
-      </View>
     )
   }
 
@@ -204,7 +189,7 @@ const styles = StyleSheet.create({
     color : 'blue'
   },
   top : {
-    marginBottom : 20
+    marginBottom : 5
   },
   bottom : {
     backgroundColor : '#fff',
@@ -220,26 +205,29 @@ const styles = StyleSheet.create({
     borderBottomWidth : 1,
     borderBottomColor : '#cecece',
     height : 50,
-    alignItems : 'center'
+    alignItems : 'center',
+    justifyContent : 'center',
   },
   itemTitle : {
-    marginBottom : 10,
-    width : 100
+   // marginBottom : 10,
+    width : 100,
+    fontSize : 16,
+    color : '#333'
   },
   itemInput : {
     fontSize : 16,
     height : 25,
     flex : 1,
     textAlign : 'right',
-    paddingRight : 20
+    paddingRight : 20,
+    color : '#666',
+    marginTop : 5
   },
   submitBtn: {
     marginTop: 10,
     height: 46,
-    backgroundColor: '#fff',
-    borderWidth: 1,
     borderRadius: 8,
-    backgroundColor: 'blue',
+    backgroundColor: '#FE271E',
   },
   submitBtnText: {
     fontSize: 18,
@@ -248,22 +236,24 @@ const styles = StyleSheet.create({
   footer : {
     flexDirection : 'row',
     height : 20,
-    alignItems : 'center'
+    alignItems : 'center',
+    marginBottom : 5
   },
   footerTitle : {
-    color : 'orange',
+    color : '#FF6D17',
     marginBottom : 10,
 
   },
   footerCircle : {
     fontSize : 30,
     lineHeight : 18,
-    color : 'orange',
+    color : '#FF6D17',
     backgroundColor : 'transparent',
     marginRight : 3
   },
   footerTxt : {
-    flex : 1
+    flex : 1,
+    color : '#333'
   }
 });
 

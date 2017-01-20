@@ -53,12 +53,14 @@ export default class loanProduct extends Component {
         componentProps={{fetchingParams: data.id, ...data }}>
         <View style={[boxStyles.box]}>
           <Image source={{uri: data.logo_list}} style={boxStyles.boxPic} />
-          <Text style={boxStyles.title}>
-            {data.title}
-          </Text>
-          <View style = {{flexDirection : 'row'}}>
-           <Text style = {{color : 'orange'}}>{data.interest}／{data.interest_period}</Text>
-           <Text>费率</Text>
+          <View>
+            <Text style={boxStyles.title}>
+              {data.title}
+            </Text>
+            <View style = {{flexDirection : 'row'}}>
+             <Text style = {{color : '#FF6D17',fontSize : 12}}>{data.interest}／{data.interest_period}</Text>
+             <Text style = {{color : '#333', fontSize : 12}}>费率</Text>
+            </View>
           </View>
         </View>
       </ExternalPushLink>
@@ -68,28 +70,26 @@ export default class loanProduct extends Component {
 }
 
 const boxStyles = StyleSheet.create({
-  box: {
-    marginVertical: 5,
-    marginLeft: 5,
-    width: responsive.width(220),
-    height: responsive.width(300),
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems:'center',
-    marginBottom : 15,
-    marginTop : 1
-  },
+    box : {
+      width : 115,
+      height : 122,
+      borderRightWidth : 1,
+      borderRightColor : '#E6E6E6',
+      justifyContent: 'center',
+      alignItems:'center',
+      marginRight : 1,
+      backgroundColor : '#FFF',
+    },
+    boxPic : {
+      width : 50,
+      height : 50,
+      marginBottom : 10
+    },
+    title : {
+      fontSize : 15,
+      color : '#333',
+      textAlign : 'center',
+      marginBottom : 5
+    },
 
-  boxPic: {
-    width: responsive.width(200),
-    height: responsive.width(200),
-    marginTop: 30
-  },
-
-  title: {
-    ...textVerticalCenter(responsive.height(64)),
-    fontSize:16,
-    color:colors.fontColorSecondary,
-  }
 });
