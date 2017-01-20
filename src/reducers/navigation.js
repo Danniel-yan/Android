@@ -35,6 +35,7 @@ const initState = {
       index: 0,
       routes: [{ key: 'LoanScene'}],
       text: '贷款',
+      isLarge : true,
       icon: iconLoan,
       activeIcon: iconLoanActive
     },
