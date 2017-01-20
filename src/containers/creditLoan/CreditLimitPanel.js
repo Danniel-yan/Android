@@ -6,6 +6,8 @@ import ModalDialog from 'components/scene/creditLoan/modal'
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import onlineActions from 'actions/online';
+import TrackingPoint  from 'components/shared/TrackingPoint';
+import tracker from 'utils/tracker.js';
 
 import { connect } from 'react-redux';
 
@@ -20,7 +22,8 @@ class CreditLimitPanel extends Component {
   }
 
   _openCreditPanel() {
-    this.setState({openModal : true})
+    this.setState({openModal : true});
+    tracker.trackAction({key: 'credit_loan', topic: 'verification', entity: '', event: 'pop'});
   }
   _closeCreditPanel (){
     this.setState({openModal : false})
@@ -36,13 +39,14 @@ class CreditLimitPanel extends Component {
     return (
       <View style={CLPStyles.container}>
         <View><Text style={CLPStyles.headerTxt}>信用完整度</Text></View>
-        <View style = {{flexDirection : 'row', justifyContent : 'center'}}>
-          <Text style={CLPStyles.valueTxt}>{this.props.creditScore}</Text><Text style={[CLPStyles.valueTxt,{fontSize:40,marginTop : 25}]}>%</Text>
-        </View>
+        <TrackingPoint style = {{flexDirection : 'row', justifyContent : 'center'}}
+          tracking={{ key: 'credit_loan', topic: 'LOC_percentage', entity: '', event: 'clk'}}>
+          <Text style={CLPStyles.valueTxt}>{this.props.creditScore || 0}</Text><Text style={[CLPStyles.valueTxt,{fontSize:40,marginTop : 25}]}>%</Text>
+        </TrackingPoint>
         <View>
           <Button
             style={CLPStyles.btn}
-            tracking={{}}
+            tracking={{key: 'credit_loan', topic: 'improve_now', entity: '', event: 'clk'}}
             onPress={this._openCreditPanel.bind(this)}
           ><Text style={CLPStyles.btnTxt}>立即提升</Text></Button>
         </View>

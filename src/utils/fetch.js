@@ -5,7 +5,7 @@ import DeviceInfo from 'react-native-device-info';
 import alert from './alert';
 
 export const responseStatus = { failure: 0, success: 1 }
-export const defaultApiVersion = '0.2';
+export const defaultApiVersion = '0.3';
 
 let coords = null;
 let initedApiParams = false;

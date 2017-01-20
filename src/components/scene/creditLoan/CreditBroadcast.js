@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 
 import CarouselGenerator from 'high-order/CarouselGenerator';
+import TrackingPoint  from 'components/shared/TrackingPoint';
 
 import { fontSize } from 'styles';
 
@@ -28,11 +29,11 @@ export default class CreditBroadcast extends Component {
     this.msgItems = [];
     messageList.map((message, idx) => {
       this.msgItems.push(
-        <TouchableWithoutFeedback key={idx}>
+        <TrackingPoint key={idx} tracking={{ key: 'credit_loan', topic: 'brocast', entity: "" }}>
           <View style={[{flexDirection: "row", alignItems: "center", height:configs.itemHeight, padding:0}]}>
             <Text style={{fontSize: 11}}>{message}</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </TrackingPoint>
         );
     });
 

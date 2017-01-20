@@ -55,7 +55,7 @@ class LoanNavPanel extends Component {
       <View style={[LNPStyles.container]}>
         <View style={{flex:1,flexDirection:"row", alignItems:"center"}}>
           <ExternalPushLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: (this.props.loginUser.info ? 'recommend_apply' : 'recommend') }}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend_all' }}
             title="贷款推荐"
             toKey="RecLoanScene"
             style={LNPStyles.navItem}>
@@ -72,13 +72,13 @@ class LoanNavPanel extends Component {
             <Text style={LNPStyles.navTxt}>极速贷款</Text>
           </MajorTabLink>
           <TrackingPoint
-            tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_report'}}
+            tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_loan'}}
             style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
             <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/mid_icon_3.gif', width : 50, height: 50}}></Image>
             <Text style={LNPStyles.navTxt}>信用贷</Text>
           </TrackingPoint>
           <ExternalPushLink
-            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
+            tracking={{key: 'homepage', topic: 'btn_sec', entity: 'low_interest_loan' }}
             title="低息贷"
             toKey="LoanScene"
             componentProps = {{onBack : true}}

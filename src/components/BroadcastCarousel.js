@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 
 import CarouselGenerator from 'high-order/CarouselGenerator';
+import TrackingPoint  from 'components/shared/TrackingPoint';
 
 import { fontSize } from 'styles';
 import Dimensions from 'Dimensions';
@@ -29,11 +30,11 @@ class BroadcastCarousel extends Component {
       this.msgItems = [];
       messageList.map((message, idx) => {
         this.msgItems.push(
-          <TouchableWithoutFeedback key={idx}>
+          <TrackingPoint key={idx} tracking={{ key: 'homepage', topic: 'brocast', entity: "" }}>
             <View style={[{flexDirection: "row", alignItems: "center", width:screenWidth, height:configs.height, padding:0}]}>
               <Text style={{width:screenWidth, fontSize: fontSize.xsmall}}>{message}</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TrackingPoint>
           );
       });
     }

@@ -239,6 +239,8 @@ export default class LoanDetailScene extends Component {
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
           text="去贷款"
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+                     title: detail.title, amount: this.state.amount, period: this.state.value}}
           />
       );
       // prePress={ () => this.props.setLoanType() }  AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())
@@ -247,7 +249,7 @@ export default class LoanDetailScene extends Component {
     if(this.props.loginUser.valid) {
       return (
         <ExternalPushLink
-          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply', id: detail.id,
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
@@ -270,6 +272,8 @@ export default class LoanDetailScene extends Component {
         toKey="FillUserInfo"
         title="完善个人信息"
         componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
+        tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+                   title: detail.title, amount: this.state.amount, period: this.state.value}}
         />
     );
   }

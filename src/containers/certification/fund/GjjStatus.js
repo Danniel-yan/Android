@@ -58,6 +58,7 @@ class GjjStatus extends Component {
     let button = '';
     let statusText = (<Text style={styles.text}>正在导入...</Text>);
     let popKey = "CreditLoan", pushKey = null;
+    let tracking = { key: 'PAF_report', topic: 'fail', entity: "try_again", event: 'clk' };
 
     if(loanType == 0) popKey = "CreditLoan";
     // if(loanType == 9999) popKey = "ZoneScene";
@@ -70,6 +71,7 @@ class GjjStatus extends Component {
         button = '立即查看';
         pushKey = "GjjReport";
       }
+      tracking = { key: 'PAF_report', topic: 'success', entity: "complete", event: 'clk' };
     } else if(this.state.checked && status == 'failure') {
       image = failureImage;
       button = '重新导入';
@@ -92,13 +94,16 @@ class GjjStatus extends Component {
               title={"公积金报告"}
               toKey={pushKey}
               backRoute={{key: "CreditLoan", title: "信用贷"}}
+              tracking={tracking}
               />
           ) : (
             <ExternalPopLink
               style={[onlineStyles.btn, centering, styles.btn]}
               textStyle={onlineStyles.btnText}
               text={button}
-              toKey={popKey} />
+              toKey={popKey}
+              tracking={tracking}
+              />
           ))
         }
       </ScrollView>

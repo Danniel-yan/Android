@@ -23,9 +23,18 @@ import ErrorInfo from '../ErrorInfo';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
+
 const needSecondLogin = 1;
 
 class CreditCardForm extends Component {
+  tracking = {
+    key: "bill",
+    entity: '',
+    topic: 'bank_login'
+  }
+
   constructor(props) {
     super(props);
 
@@ -68,11 +77,10 @@ class CreditCardForm extends Component {
             <ExternalPushLink
               processing={this.state.submitting}
               title="导入账单"
-              toKey="OnlineCreditCardStatus"
+              toKey={"OnlineCreditCardStatus"}
               prePress={this._submit.bind(this)}
               disabled={disabled}
-              backButton={false}
-              backRoute={{key: 'CertificationHome'}}
+              backRoute={{key: this.props.loanType != 0 ? 'CertificationHome' : "CreditLoan"}}
               style={[onlineStyles.btn, disabled && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="开通网银导入"/>
@@ -94,15 +102,18 @@ class CreditCardForm extends Component {
       login_target: curTab.login_target
     };
 
+    tracker.trackAction({ key: 'bill', topic: 'bank_login', entity: "submit", event: 'clk', exten_info: JSON.stringify(this.state.form)});
+
     var loanType = this.props.loanType || 0;
     body.loan_type = loanType;
+
     return post('/bill/bank-login', body).then(response => {
      if(this.unmount) { return }
 
      this.setState({submitting: false});
 
      if(response.res == responseStatus.success) {
-       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', componentProps: {...response.data, bank_id: this.props.bank_id}};
+       if(response.data.second_login == needSecondLogin) return {key: 'OnlineCreditCardVerify', title: '输入验证码', backRoute:{key: 'OnlineCreditCardForm'}, componentProps: {...response.data, bank_id: this.props.bank_id}};
        // return {componentProps: {...response.data}};
        return {componentProps: {...response.data, bank_id: this.props.bank_id}};
      }
@@ -247,4 +258,4 @@ function mapDispatchToProps(dispatch) {
 }
 
   export default connect(mapStateToProps, mapDispatchToProps)(
-    AsynCpGenerator(Loading, CreditCardForm));
+    AsynCpGenerator(Loading, trackingScene(CreditCardForm)));

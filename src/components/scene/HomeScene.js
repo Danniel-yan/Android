@@ -18,6 +18,7 @@ import iconNext from 'assets/index-icons/icon_next.png';
 import { colors, headerHeight, statusBarHeight } from 'styles/varibles'
 import { ExternalPushLink, MajorTabLink } from 'containers/shared/Link';
 import SecretGardenModal from 'components/modal/SecretGarden';
+import TrackingPoint  from 'components/shared/TrackingPoint';
 
 import panelStyles from './home/panelStyles';
 
@@ -61,7 +62,9 @@ export default class HomeScene extends Component {
   }
 
   _renderBroadcast() {
-    return !this.props.iosFetched || this.props.isIOSVerifying ? null : <Broadcast />;
+    return !this.props.iosFetched || this.props.isIOSVerifying ? null : (
+        <Broadcast />
+    );
   }
 
   _renderHeader() {
