@@ -69,7 +69,7 @@ class CreditCardStatus extends Component {
       statusText = loanType == 0 ? (
         <View style={{flexDirection: "row", marginVertical: 30, alignItems: "center"}}>
           <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>导入完成，请至</Text>
-          <ExternalPushLink toKey={"BillList"} title={"我的账单"}><View><Text style={{fontSize: fontSize.normal, color: colors.primary}}>我的账单</Text></View></ExternalPushLink>
+          <ExternalPushLink toKey={"BillList"} title={"我的账单"}><View><Text style={{fontSize: fontSize.large, color: colors.primary}}>我的账单</Text></View></ExternalPushLink>
           <Text style={{fontSize: fontSize.normal, color: colors.grayDark}}>查看！</Text>
         </View>
       ) : (<Text style={styles.text}>导入完成，请返回首页查看！.</Text>);

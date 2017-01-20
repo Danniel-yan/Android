@@ -184,7 +184,7 @@ class FastLoanScene extends Component {
         </Button>
 
         <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2, height: !this.state.toggleSort ? 0 : null  }}>
-          <VerticalRadios options={[{label: "利率低", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
+          <VerticalRadios options={[{label: "默认", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
         </View>
       </View>
     );
