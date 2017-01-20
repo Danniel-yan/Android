@@ -136,8 +136,6 @@ export default class LocationPicker extends PureComponent {
       this.setState({shown: true,result:[]})
     }else{
 
-      console.log(this.state.sections);
-
       this.setState({result: this.state.sections[value] })
     }
   }

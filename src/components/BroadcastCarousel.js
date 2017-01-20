@@ -31,7 +31,7 @@ class BroadcastCarousel extends Component {
         this.msgItems.push(
           <TouchableWithoutFeedback key={idx}>
             <View style={[{flexDirection: "row", alignItems: "center", width:screenWidth, height:configs.height, padding:0}]}>
-              <Text style={{width:screenWidth, fontSize: fontSize.small}}>{message}</Text>
+              <Text style={{width:screenWidth, fontSize: fontSize.xsmall}}>{message}</Text>
             </View>
           </TouchableWithoutFeedback>
           );

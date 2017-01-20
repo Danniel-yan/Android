@@ -2,7 +2,7 @@ import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
 import submitCreditCard from './submitCreditCard';
-import userInfo from './userInfo';
+import userInfo, { creditScore } from './userInfo';
 import pickers from './pickers';
 import bankResult, { bankBillList } from './bankResult';
 import yysResult, { yysBillList } from './yysResult';
@@ -15,6 +15,7 @@ import loanDetail from './loanDetail';
 import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
+import { initial, getStatus } from './pboc';
 
 export default {
   loanDetail,
@@ -27,6 +28,7 @@ export default {
   bankDetail,
   submitCreditCard,
   userInfo,
+  creditScore,
   pickers,
   bankResult,
   bankBillList,
@@ -38,5 +40,6 @@ export default {
     return { type: "SetLoanType", value: loanType };
   },
   gjjLoginElements,
-  gjjDetail
+  gjjDetail,
+  pboc: { initial, getStatus }
 }

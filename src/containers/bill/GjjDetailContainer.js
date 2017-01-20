@@ -187,7 +187,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    beforeRender: () => dispatch({type: "requestGjjDetail"}),
     fetching: () => dispatch(onlineActions.gjjDetail())
   }
 }

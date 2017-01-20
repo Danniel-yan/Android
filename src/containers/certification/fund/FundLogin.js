@@ -96,7 +96,7 @@ class FundLoginScene extends Component{
 
         <ErrorInfo msg={this.state.error}/>
 
-        <View style={{justifyContent: 'center',alignItems: 'center',}}>
+        <View style={{justifyContent: 'center',alignItems: 'center'}}>
           <ProcessingButton
             processing={this.state.submitting}
             onPress={this._submit.bind(this)}
@@ -104,6 +104,13 @@ class FundLoginScene extends Component{
             textStyle={styles.submitBtnText}
             disabled={this._buttonDisabled()}
             text="提交"/>
+        </View>
+        <View style={{justifyContent: 'center',alignItems: 'center'}}>
+          <ExternalPushLink
+            style={[styles.submitBtn, { marginTop: 5, backgroundColor: "#d3d3d3" }]}
+            textStyle={{color: "#fff"}}
+            toKey={"GjjReport"} text={"查看已有报告"}>
+          </ExternalPushLink>
         </View>
 
         <FundSecondLogin
@@ -193,9 +200,11 @@ class FundLoginScene extends Component{
           }else {
             this.setState({submitting: false, error: response.msg });
           }
+          this.submitting = false;
         })
         .catch(err => {
           this.setState({submitting: false});
+          this.submitting = false;
         })
 
     })
@@ -203,6 +212,10 @@ class FundLoginScene extends Component{
 
   _onSecondVerifySuccess() {
     this.props.externalPush({ key: "GjjStatus", title: "公积金认证" });
+  }
+
+  componentWillUnmount() {
+    this.props.updateCreditScore && this.props.updateCreditScore();
   }
 
 }
@@ -259,7 +272,8 @@ function mapDispatchToProps(dispatch) {
   return {
     gjjLoginElements: () => dispatch(onlineActions.gjjLoginElements()),
     fetching: () => dispatch(onlineActions.gjjLoginElements()),
-    externalPush: route => dispatch(externalPush(route))
+    externalPush: route => dispatch(externalPush(route)),
+    updateCreditScore: () => dispatch(onlineActions.creditScore())
   }
 }
 

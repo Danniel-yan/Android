@@ -12,7 +12,7 @@ const configs = {
   pagingEnabled: true,
   intervalTime: 4000,
   height: 32,
-  itemHeight: 16,
+  itemHeight: 32,
   scrollEnabled: false
 }
 
@@ -30,7 +30,7 @@ export default class CreditBroadcast extends Component {
       this.msgItems.push(
         <TouchableWithoutFeedback key={idx}>
           <View style={[{flexDirection: "row", alignItems: "center", height:configs.itemHeight, padding:0}]}>
-            <Text style={{fontSize: fontSize.small}}>{message}</Text>
+            <Text style={{fontSize: 11}}>{message}</Text>
           </View>
         </TouchableWithoutFeedback>
         );

@@ -15,7 +15,7 @@ export default function(body) {
 
     if(loanType == 0 || loanType == 9999) return dispatch(bankBillList(body));
 
-    return getBankBillStatus(Object.assign({}, body, { loan_type: loanType })).then(billData => {
+    return getBankBillStatus(Object.assign({}, { loan_type: loanType }, body)).then(billData => {
       if(!billData) return null;
 
       dispatch({ type: "receiveOnlineBankBilllList", billList: billData.list });
@@ -62,7 +62,7 @@ export function bankBillList(body) {
     if(!state.online.banks.fetched) dispatch(banks());
     dispatch({type: "bankBillFetchStart"});
 
-    return getBankBillStatus(Object.assign({}, body, { loan_type: loanType })).then(billData => {
+    return getBankBillStatus(Object.assign({}, { loan_type: loanType }, body)).then(billData => {
       if(!billData) return null;
 
       dispatch({ type: "receiveOnlineBankBilllList", billList: billData.list });

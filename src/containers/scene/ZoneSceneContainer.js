@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeModules, View, ScrollView, Image, AsyncStorage } from 'react-native';
+import { NativeModules, View, ScrollView, Image, AsyncStorage, TouchableOpacity, TouchableWithoutFeedback, Clipboard } from 'react-native';
 import { connect } from 'react-redux';
 
 import Text from 'components/shared/Text';
@@ -14,10 +14,21 @@ import TrackingPoint  from 'components/shared/TrackingPoint';
 import { externalPush, majorTab } from 'actions/navigation';
 import onlineActions from 'actions/online';
 
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
+import OverlayModal from 'components/modal/OverlayModal';
 
 class ZoneScene extends Component {
 
   tracking = 'my_account';
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalVisible: false
+    }
+  }
 
   render() {
     let logined = this.props.loginUser.info;
@@ -60,6 +71,14 @@ class ZoneScene extends Component {
                toKey: "ContactScene", title:"联系我们"
              })
            }
+           <TouchableOpacity onPress={() => this.clipWeiXing()}>
+             <View style={zoneStyles.item}>
+               <Image style={zoneStyles.icon} source={require('assets/zone/weixingonggonghao.png')}/>
+               <Text style={{color: '#333', fontSize: 17}}>微信公共号</Text>
+               <Text style={[zoneStyles.txt, {textAlign: "right", color: "#A4A4A4", fontSize: 12}]}>在微信搜索「钞市」</Text>
+               <NextIcon/>
+             </View>
+           </TouchableOpacity>
            {
              this._renderNavItem(require('assets/zone/setting.png'), "设置", {
                tracking: {key: 'my_account', topic: 'btn_sec', entity: 'icon_set'},
@@ -75,7 +94,20 @@ class ZoneScene extends Component {
             </View>
           </Button>
         </ScrollView>
-
+        <OverlayModal
+          visible={this.state.modalVisible}
+          onHide={() => this.setState({modalVisible: false})}
+          style={{alignItems: "center", justifyContent: "center"}}
+          overlayStyle={{backgroundColor: 'rgba(0,0,0,.2)'}}>
+          <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false})}>
+          <View style={{alignItems: "center", justifyContent: "center", flex: 1}}>
+            <View style={{paddingHorizontal: 30, paddingVertical: 25, backgroundColor: "#323334", borderRadius: 6}}>
+              <View style={{}}><Text style={{textAlign: "center", fontSize: 14, color: "#EAEBEB"}}>已复制「钞市」到你的剪切板，</Text></View>
+              <View style={{marginTop: 10}}><Text style={{textAlign: "center", fontSize: 14, color: "#EAEBEB"}}>请打开微信粘贴关注！</Text></View>
+            </View>
+          </View>
+          </TouchableWithoutFeedback>
+        </OverlayModal>
       </View>
     );
   }
@@ -131,11 +163,13 @@ class ZoneScene extends Component {
 
     return loginUser.info ? (
       <View>
-        {this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} })}
+        { this.props.bankBillList && this.props.bankBillList.length > 0 ?
+          this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} }) : null
+        }
         {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "GjjReport", title:"公积金报告", prePress: ()=>{
           return this.props.gjjPreNavigate();
         } })}
-        {this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {})}
+        {false ? this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {}) : null}
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
           title="征信报告"
@@ -146,8 +180,8 @@ class ZoneScene extends Component {
             <NextIcon/>
           </View>
         </TrackingPoint>
-        {this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {})}
-        {this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {})}
+        {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
+        {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
         {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {})}
       </View>
     ) : null;
@@ -165,14 +199,28 @@ class ZoneScene extends Component {
       </ExternalPushLink>
     )
   }
+
+  clipWeiXing() {
+    Clipboard.setString('钞市');
+
+    this.setState({ modalVisible: true });
+  }
 }
 
 function mapStateToProps(state) {
-  return { loginUser: state.loginUser }
+  return {
+    loginUser: state.loginUser,
+    isFetching: state.online.bankBillFetching,
+    bankBillList: state.online.bankResult.billList
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetching: () => {
+      dispatch(onlineActions.setLoanType(9999));
+      dispatch(onlineActions.bankBillList());
+    },
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
     setLoanType: () => dispatch(onlineActions.setLoanType(9999)),
@@ -183,4 +231,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(ZoneScene))
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(ZoneScene)))
