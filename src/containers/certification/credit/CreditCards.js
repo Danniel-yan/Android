@@ -16,10 +16,13 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import NextIcon from 'components/shared/NextIcon';
 import MenuItem from 'components/shared/MenuItem';
 import { border, fontSize, rowContainer, container, colors, centering } from 'styles';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 import actions from 'actions/online';
 
 export class CreditCards extends Component {
+  tracking = 'bill';
+
   render() {
 
     let banks = this.props.banks.map((bank, index) => {
@@ -29,6 +32,7 @@ export class CreditCards extends Component {
           title="信用卡认证"
           toKey="OnlineCreditCardForm"
           componentProps={{fetchingParams: bank.id, bank_id: bank.id}}
+          tracking={{ key: 'bill', topic: 'bank_list', entity: '', exten_info: bank.name }}
           >
           <MenuItem
             iconStyle={styles.icon}
@@ -57,7 +61,7 @@ function mapDispatch(dispatch) {
   };
 }
 
-export default connect(mapState, mapDispatch)(AsynCpGenerator(Loading, CreditCards));
+export default connect(mapState, mapDispatch)(AsynCpGenerator(Loading, trackingScene(CreditCards)));
 
 const styles = StyleSheet.create({
   title: {

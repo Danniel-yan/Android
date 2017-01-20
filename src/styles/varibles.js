@@ -25,6 +25,16 @@ export const fontSize = {
   xsmall: 12,
 }
 
+// export const fontSize = {
+//   seventeen : 17 -1,
+//   thirteen : 13 -1,
+//   xlarge: 17 -1,
+//   large: 16 -1,
+//   normal: 14 -1,
+//   small: 13 -1 ,
+//   xsmall: 12 -1,
+// }
+
 export const statusBarHeight = Platform.OS === 'ios' ? 20 : 0;
 export const headerHeight = Platform.OS == 'ios' ? 57 : 40;
 

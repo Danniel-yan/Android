@@ -67,7 +67,7 @@ const shareConfig = {
 };
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);
-SceneComponent = externalScene(SceneComponent, () => <ShareButton config={shareConfig}/>);
+SceneComponent = externalScene(SceneComponent, () => <ShareButton tracking={{key: 'loan', topic: 'product_detail'}} config={shareConfig}/>);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;
 export default SceneComponent;
