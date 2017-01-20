@@ -23,9 +23,18 @@ import ErrorInfo from '../ErrorInfo';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
+
 const needSecondLogin = 1;
 
 class CreditCardForm extends Component {
+  tracking = {
+    key: "bill",
+    entity: '',
+    topic: 'bank_login'
+  }
+
   constructor(props) {
     super(props);
 
@@ -93,6 +102,8 @@ class CreditCardForm extends Component {
       login_type: curTab.login_type,
       login_target: curTab.login_target
     };
+
+    tracker.trackAction({ key: 'bill', topic: 'bank_login', entity: "submit", event: 'clk', exten_info: JSON.stringify(this.state.form)});
 
     var loanType = this.props.loanType || 0;
     body.loan_type = loanType;
@@ -247,4 +258,4 @@ function mapDispatchToProps(dispatch) {
 }
 
   export default connect(mapStateToProps, mapDispatchToProps)(
-    AsynCpGenerator(Loading, CreditCardForm));
+    AsynCpGenerator(Loading, trackingScene(CreditCardForm)));

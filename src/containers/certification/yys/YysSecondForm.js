@@ -15,6 +15,8 @@ import ProcessingButton from 'components/shared/ProcessingButton';
 import OverlayModal from 'components/modal/OverlayModal';
 import { post, responseStatus } from 'utils/fetch';
 
+import tracker from 'utils/tracker.js';
+
 import { window, border, fontSize, container, centering, colors, responsive } from 'styles';
 
 const AnimatedView = Animated.View;
@@ -109,6 +111,8 @@ export default class YysSecondForm extends Component {
       ticket_id: this.props.ticket_id,
       val_code: this.state.val_code
     };
+
+    tracker.trackAction({ key: 'telecom', topic: 'msg_code', entity: "submit" });
 
     this.setState({ submitting: true }, () => {
 

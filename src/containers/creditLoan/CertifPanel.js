@@ -10,6 +10,8 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush, majorTab } from 'actions/navigation';
 import { colors, centering } from 'styles';
 
+import tracker from 'utils/tracker.js';
+
 const {height, width} = Dimensions.get('window');
 
 function Item({icon, title, confirm, tips, navProps = {}, textStyle}) {
@@ -91,7 +93,8 @@ class CertifPanel extends Component {
         // console.log(pbocUrl + "&token=" + token);
         return externalPush && externalPush({web: pbocUrl + "&token=" + token, title: "央行征信"});
         //return { web: pbocUrl + "&token=" + token, title: "央行征信" }
-    })
+    });
+    tracker.trackAction({ key: 'credit_loan', topic: 'verification', entity: "credit_report", event: 'clk', exten_info: this.props.pbocStatus});
     this.closeModal();
     // return false;
   }
@@ -147,14 +150,20 @@ class CertifPanel extends Component {
           confirm={statusDir[bankResult.status]}
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; }}}/>
+          navProps={{
+            title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; },
+            tracking: {key: 'credit_loan', topic: 'verification', entity: 'bill', exten_info: bankResult.status }
+          }}/>
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
           confirm={statusDir[gjjResult.status]}
           tips="最高可提高到10万额度"
           textStyle={gjjSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); }}}/>
+          navProps={{
+            toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); },
+            tracking: {key: 'credit_loan', topic: 'verification', entity: 'PAF', exten_info: gjjResult.status }
+          }}/>
         {false ? <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"
@@ -166,7 +175,10 @@ class CertifPanel extends Component {
           confirm={statusDir[yysResult.status]}
           tips="认证完毕，可获1000-3000额度"
           textStyle={yysSuccess ? {color: colors.success} : {color: colors.error}}
-          navProps={{title:"运营商认证", toKey:"OnlineYysForm", prePress: () => { this.closeModal(); }}}/>
+          navProps={{
+            title:"运营商认证", toKey:"OnlineYysForm", prePress: () => { this.closeModal(); },
+            tracking: {key: 'credit_loan', topic: 'verification', entity: 'telecom', exten_info: yysResult.status }
+          }}/>
       </View>
     );
   }

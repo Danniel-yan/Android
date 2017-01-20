@@ -28,9 +28,14 @@ import { externalPush} from 'actions/navigation';
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
 
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
+
 const needSecondLogin = 1;
 
 class YysForm extends Component {
+  tracking = "telecom"
+
   constructor(props) {
     super(props);
 
@@ -128,6 +133,8 @@ class YysForm extends Component {
         login_target: this.props.login_target
       };
 
+      tracker.trackAction({ key: 'telecom', topic: 'submit', entity: "", event: 'clk', exten_info: JSON.stringify(this.state.form)});
+
         var loanType = this.props.loanType || 0;
         body.loan_type = loanType;
         post('/bill/yys-login', body).then(response => {
@@ -137,6 +144,7 @@ class YysForm extends Component {
 
           if(response.res == responseStatus.success && response.data.second_login == needSecondLogin) {
             this.setState({submitting: false, visibleVerify: true, submitResult: response.data});
+            tracker.trackAction({ key: 'telecom', topic: 'msg_code', entity: "", event: 'pop' });
           } else if(response.res == responseStatus.success) {
             this.setState({submitting: false });
             this.props.loginSuccess();
@@ -243,4 +251,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, YysForm, true));
+  AsynCpGenerator(Loading, trackingScene(YysForm), true));

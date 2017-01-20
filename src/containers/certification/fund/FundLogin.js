@@ -15,6 +15,8 @@ import FundSecondLogin from './FundSecondLogin';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import ErrorInfo from 'containers/online/ErrorInfo';
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
 
 import onlineActions from 'actions/online'
 
@@ -27,6 +29,8 @@ import NextIcon from 'components/shared/NextIcon';
 const GjjLocationPicker = connect(state => { return { gjjLoginElements: state.online.gjjLoginElements.elements } })(LocationPicker);
 
 class FundLoginScene extends Component{
+
+  tracking = { key: "PAF_report", topic: "basic_info" }
 
   constructor(props){
     super(props);
@@ -110,7 +114,8 @@ class FundLoginScene extends Component{
             style={[styles.submitBtn, { marginTop: 5, backgroundColor: "#d3d3d3" }]}
             textStyle={{color: "#fff"}}
             title={"公积金报告"}
-            toKey={"GjjReport"} text={"查看已有报告"}>
+            toKey={"GjjReport"} text={"查看已有报告"}
+            tracking={{key: 'PAF_report', topic: 'basic_info', entity: "review", event: 'clk'}}>
           </ExternalPushLink>
         </View>
 
@@ -181,6 +186,8 @@ class FundLoginScene extends Component{
       description.map(obj => {
         body[obj.name] = this.state[obj.name];
       })
+
+      tracker.trackAction({ key: 'PAF_report', topic: 'basic_info', entity: "submit", event: 'clk', exten_info: JSON.stringify(body) });
 
       // this.setState({submitting: false, visibleSecondVerify: true, submitResult: {
       //   "ticket_id": "ea8029b2-c81c-11e6-b5e3-00163e00ed7a_1482393720.03", //ticket_id 供二次登录时使用
@@ -278,4 +285,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, FundLoginScene));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(FundLoginScene)));
