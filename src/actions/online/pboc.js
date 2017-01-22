@@ -56,7 +56,7 @@ export function getStatus() {
     get("/credit/report-status").then(response=> {
       var status = "none";
       if(response.res == responseStatus.success) {
-        var statusKey = response.data.satus;
+        var statusKey = response.data.status;
         status = statusKey == 1 ? "success" : "none";
       }
       dispatch({type: "ReceivePBOCStatus", status});

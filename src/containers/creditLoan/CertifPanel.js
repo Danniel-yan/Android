@@ -136,7 +136,7 @@ class CertifPanel extends Component {
                     style={[centering, {marginRight: 6, height: 14}]}
                     color={"#333"}
                     size="small"
-                  />):(<Text style = {[styles.topR]}>{statusDir[pStatus]}</Text>)}
+                  />):(<Text style = {[styles.topR, pStatus == "success" ? {color: colors.success} : {color: colors.error}]}>{statusDir[pStatus]}</Text>)}
                       <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
                   </View>
               </View>
