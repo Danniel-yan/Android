@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import CreditLoanHomeScene from 'components/scene/CreditLoanHomeScene';
 import onlineActions from 'actions/online';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 // module.exports = CreditLoanHomeScene
 
@@ -14,4 +15,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreditLoanHomeScene)
+export default connect(null, mapDispatchToProps)(trackingScene(CreditLoanHomeScene));

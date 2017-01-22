@@ -102,7 +102,7 @@ export default class BillDetail extends Component {
                       <Text style={{color: "#666",marginTop: 4}}>{bill.bill_month.split("-")[0]}年</Text>
                     </View>
                     <View style={{}}>
-                      <Text style={{fontSize: 18, color: "#333"}}>¥{rmbBill.due_amount}</Text>
+                      <Text style={{fontSize: 18, color: "#333"}}>{rmbBill && rmbBill.due_amount ? "¥" + rmbBill.due_amount : ""}</Text>
                     </View>
                     { !detailOpen ?
                       <Image source={require("assets/icons/triangle-down.png")} style={{marginLeft: 10}} /> :
@@ -171,11 +171,11 @@ function BillHeader({ bankLogo, bankName, userName, userCardNo, billAmount }) {
   return (
     <View style={{flexDirection: "row", alignItems: "center", padding: 10, backgroundColor: "white"}}>
       <Image source={{uri: bankLogo}} style={{width: 40, height: 40, marginRight: 10, borderRadius: 20}}></Image>
-      <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
+      <View style={{ flexDirection: "column", justifyContent: "center" }}>
         <View><Text style={{fontSize: 20, color: "#333"}}>{bankName} {userName}</Text></View>
         <View style={{flexDirection: "row", alignItems: "center", marginTop: 10}}><Text style={{color: "#666"}}>尾号{userCardNo}</Text></View>
       </View>
-      <View style={{ justifyContent: "center" }}>
+      <View style={{ justifyContent: "center", flex: 1, alignItems: "flex-end" }}>
         <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontSize: 14}}>¥</Text><Text style={{fontSize: 20, color: "#333", textAlign: "right"}}>{billAmount ? billAmount : ""}</Text></View>
         <View style={{flexDirection: "row", marginTop: 10, flex: 1}}><Text style={{textAlign: "right", flex: 1, color: "#666"}}>本期账单</Text></View>
       </View>

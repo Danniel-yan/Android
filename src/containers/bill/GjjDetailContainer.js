@@ -4,11 +4,15 @@ import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import onlineActions from 'actions/online';
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
 
 const payStatus = { "NONE": "未缴纳", "NORMAL": "正常", "SUSPENSE": "停缴", "CLOSED" : "注销" };
 const cardTypes = { "ID_CARD": "身份证", "PASSPORT": "护照" };
 
 class GjjDetailReport extends Component{
+  tracking = { key: "PAF_report", topic: "result" }
+
   constructor(props) {
     super(props);
   }
@@ -192,4 +196,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, GjjDetailReport, true));
+  AsynCpGenerator(Loading, trackingScene(GjjDetailReport), true));

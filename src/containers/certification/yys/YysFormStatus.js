@@ -55,6 +55,7 @@ class YysFormStatus extends Component {
     let button = '';
     let statusText = '正在导入...';
     let popKey = "CertificationHome";
+    let tracking = { key: 'telecom', topic: 'fail', entity: "try_again", event: 'clk' };
 
     if(loanType == 0) popKey = "CreditLoan";
     if(loanType == 9999) popKey = "ZoneScene";
@@ -63,6 +64,7 @@ class YysFormStatus extends Component {
       image = successImage;
       button = '完成'
       statusText = '导入成功！';
+      tracking = { key: 'telecom', topic: 'success', entity: "complete", event: 'clk' }
     } else if(this.state.checked && status == 'failure') {
       image = failureImage;
       button = '重新导入';
@@ -81,7 +83,8 @@ class YysFormStatus extends Component {
           style={[onlineStyles.btn, centering, styles.btn]}
           textStyle={onlineStyles.btnText}
           text={button}
-          toKey={popKey}/>
+          toKey={popKey}
+          tracking={tracking}/>
         }
       </ScrollView>
     );

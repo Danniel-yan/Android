@@ -18,6 +18,8 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import OverlayModal from 'components/modal/OverlayModal';
 
+import tracker from 'utils/tracker.js';
+
 class ZoneScene extends Component {
 
   tracking = 'my_account';
@@ -27,7 +29,8 @@ class ZoneScene extends Component {
 
     this.state = {
       modalVisible: false
-    }
+    };
+    this.reportFetched = false;
   }
 
   render() {
@@ -161,14 +164,23 @@ class ZoneScene extends Component {
   _reportInfo() {
     let loginUser = this.props.loginUser;
 
-    return loginUser.info ? (
+    return loginUser.info && !this.props.isFetching ? (
       <View>
         { this.props.bankBillList && this.props.bankBillList.length > 0 ?
-          this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", { toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()} }) : null
+          this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {
+            toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()},
+            tracking: { key: 'my_account', topic: 'btn_sec', entity: 'bill' }
+          }) : null
         }
-        {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {toKey: "GjjReport", title:"公积金报告", prePress: ()=>{
-          return this.props.gjjPreNavigate();
-        } })}
+        {
+          this.props.gjjBillList && this.props.gjjBillList.length > 0 ?
+          this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {
+            toKey: "GjjReport", title:"公积金报告", prePress: ()=>{
+              return this.props.gjjPreNavigate();
+            },
+            tracking: { key: 'my_account', topic: 'btn_sec', entity: 'PAF_report' }
+          }) : null
+        }
         {false ? this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {}) : null}
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
@@ -182,7 +194,10 @@ class ZoneScene extends Component {
         </TrackingPoint>
         {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
         {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
-        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {title:"办卡进度", toKey:"CardProgressList"})}
+        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {
+          title:"办卡进度", toKey:"CardProgressList",
+          tracking: { key: 'my_account', topic: 'btn_sec', entity: 'card_progress'}
+        })}
       </View>
     ) : null;
   }
@@ -203,15 +218,31 @@ class ZoneScene extends Component {
   clipWeiXing() {
     Clipboard.setString('钞市');
 
+    tracker.trackAction({ key: 'my_account', topic: 'btn_sec', entity: "wechat", event: 'clk' });
     this.setState({ modalVisible: true });
+  }
+
+  componentWillReceiveProps(newProps) {
+    var loginUserFetched = newProps.loginUser.fetched && newProps.loginUser.info;
+
+    !this.reportFetched && loginUserFetched && this.props.fetching && this.props.fetching();
+    this.reportFetched = true;
+  }
+
+  componentDidMount() {
+    if(!this.props.loginUser.info) return;
+
+    !this.reportFetched && this.props.fetching && this.props.fetching();
+    this.reportFetched = true;
   }
 }
 
 function mapStateToProps(state) {
   return {
     loginUser: state.loginUser,
-    isFetching: state.online.bankBillFetching,
-    bankBillList: state.online.bankResult.billList
+    isFetching: state.online.bankResult.bankBillFetching || state.online.gjjResult.isFetching,
+    bankBillList: state.online.bankResult.billList,
+    gjjBillList: state.online.gjjResult.billList
   }
 }
 
@@ -220,6 +251,7 @@ function mapDispatchToProps(dispatch) {
     fetching: () => {
       dispatch(onlineActions.setLoanType(9999));
       dispatch(onlineActions.bankBillList());
+      dispatch(onlineActions.gjjResult());
     },
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
@@ -231,4 +263,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(ZoneScene)))
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(ZoneScene))

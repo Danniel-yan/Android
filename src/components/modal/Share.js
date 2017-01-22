@@ -15,6 +15,8 @@ import Text from 'components/shared/Text';
 import OverlayModal from './OverlayModal'
 import { rowContainer, border, colors, fontSize, container, centering } from 'styles';
 
+import tracker from 'utils/tracker.js';
+
 export default class ShareModal extends Component {
   render() {
 
@@ -26,21 +28,25 @@ export default class ShareModal extends Component {
 
           <View style={[rowContainer, styles.content]}>
             <WeixinItem
-              onBackApp={this.props.onHide} 
+              onBackApp={this.props.onHide}
               config={this.props.config}
-              style={container}/>
+              style={container}
+              tracking={this.props.tracking}/>
             <PengyouquanItem
-              onBackApp={this.props.onHide} 
+              onBackApp={this.props.onHide}
               config={this.props.config}
-              style={container}/>
+              style={container}
+              tracking={this.props.tracking}/>
             <SinaItem
-              onBackApp={this.props.onHide} 
+              onBackApp={this.props.onHide}
               config={this.props.config}
-              style={container}/>
+              style={container}
+              tracking={this.props.tracking}/>
             <QzoneItem
-              onBackApp={this.props.onHide} 
+              onBackApp={this.props.onHide}
               config={this.props.config}
-              style={container}/>
+              style={container}
+              tracking={this.props.tracking}/>
           </View>
 
           <Button onPress={this.props.onHide} style={styles.cancel} textStyle={styles.canceltext} text="取消"/>
@@ -130,6 +136,7 @@ class ShareItem extends Component {
       res.cancel && onCancel && onCancel(res);
       res.failure && onError && onError(res);
     });
+    tracker.trackAction(Object.assign({entity: "share_type", exten_info: this.props.text}, this.props.tracking))
   }
 }
 
