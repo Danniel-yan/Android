@@ -56,9 +56,9 @@ class BillList extends Component{
       <View style={{padding: 10}}>
       {
         billList.map((bill, idx) => {
-          return (
+          return bill.status == 8 ? (
             <BillItem key={idx} billId={bill.id} bankName={bill.name} bankLogo={bill.logo.px80} userName={bill.name_on_card} userCardNo={bill.card_no} />
-          )
+          ) : null
         })
       }
       </View>
