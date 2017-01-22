@@ -121,7 +121,7 @@ export default class LocationPicker extends PureComponent {
   }
 
   _renderSearch(){
-    return (
+    return true ? null : (
       <TextInput
         placeholder='搜索城市'
         style={{height:30,backgroundColor:'#fff',fontSize:12,color:'#A5A5A5',paddingLeft:10,borderWidth:1,borderColor:'#e6e6e6'}}
