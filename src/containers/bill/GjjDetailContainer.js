@@ -27,9 +27,6 @@ class GjjDetailReport extends Component{
     let { real_name, gender, card_type, pay_status, id_card, card_no, begin_date,
       corporation_number, corporation_name, corporation_ratio, customer_ratio, base_number, fund_balance, last_pay_date } = userInfo;
 
-      console.log("detail")
-    console.log(detail)
-
     id_card = id_card || card_no;
 
     return (

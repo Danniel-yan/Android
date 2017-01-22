@@ -85,7 +85,7 @@ export default class FundSecondLoginScene extends Component{
                   style={[container, styles.input]}
                   onChangeText={this._onFormChange.bind(this, 'val_code')}
                 />
-                { hasImg ? <Image style={{width: 70, height: 40, marginRight: 10}} source={{uri: this.props.val_code.value}}/> :null }
+                { hasImg ? <Image style={{width: 70, height: 40, marginRight: 10}} source={{uri: "data:image/png;base64," + this.props.val_code.value}}/> :null }
               </View>
 
               <Text style={styles.error}>{this.state.error}</Text>

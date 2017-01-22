@@ -57,7 +57,7 @@ class GjjStatus extends Component {
     let image = ingImage;
     let button = '';
     let statusText = (<Text style={styles.text}>正在导入...</Text>);
-    let popKey = "CreditLoan", pushKey = null;
+    let popKey = "CertificationHome", pushKey = null;
     let tracking = { key: 'PAF_report', topic: 'fail', entity: "try_again", event: 'clk' };
 
     if(loanType == 0) popKey = "CreditLoan";
@@ -76,7 +76,10 @@ class GjjStatus extends Component {
       image = failureImage;
       button = '重新导入';
       statusText = (<Text style={styles.text}>公积金认证失败，请重新认证！.</Text>);
-      popKey = 'FundLogin';
+      popKey = 'CertificationHome';
+      if(loanType == 0) {
+        popKey = "FundLogin";
+      }
     }
 
     return (

@@ -84,8 +84,6 @@ class YysForm extends Component {
   render() {
     let disabled = !this._validation() || !this.formChanged;
 
-    console.log(this.state.error);
-
     return (
       <View style={container}>
         <ScrollView>

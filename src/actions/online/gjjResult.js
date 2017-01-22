@@ -1,4 +1,4 @@
-import { post, get, responseStatus } from 'utils/fetch';
+import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
 
@@ -8,7 +8,7 @@ export default function(body) {
 
     var state = getState(), loanType = state.online.loanType ? state.online.loanType.type : null;
 
-    return getBillList(Object.assign({}, body, { loan_type: loanType, type: "gjj" })).then(response => {
+    return getBillList(Object.assign({}, body, { loan_type: loanEntryClose ? 0 : loanType, type: "gjj" })).then(response => {
       if(response.res == responseStatus.success) {
         var billList = response.data || [], lastestBill = billList[0];
 

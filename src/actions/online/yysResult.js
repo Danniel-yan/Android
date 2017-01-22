@@ -1,4 +1,4 @@
-import { post, get, responseStatus } from 'utils/fetch';
+import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
 
@@ -33,7 +33,7 @@ export function yysBillList(body) {
 
     dispatch({type: "yysBillFetchStart"});
 
-    return getYysBillStatus(Object.assign({}, body, { loan_type: loanType })).then(billData => {
+    return getYysBillStatus(Object.assign({}, body, { loan_type: loanEntryClose ? 0 : loanType })).then(billData => {
       if(!billData) return null;
 
       dispatch({ type: "receiveOnlineYysBilllList", billList: billData.list });
@@ -51,7 +51,8 @@ export default function(body) {
 
     var state = getState(), loanType = state.online.loanType ? state.online.loanType.type : null;
 
-    if(loanType == 0 || loanType == 9999) return dispatch(yysBillList(body));
+    if(loanType == 0 || loanType == 9999 || loanEntryClose) return dispatch(yysBillList(body));
+    // if(true) return dispatch(yysBillList(body));
 
     return getYysBillStatus(Object.assign({}, body, { loan_type: loanType })).then(billData => {
       if(!billData) return null;

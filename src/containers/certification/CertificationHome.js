@@ -42,15 +42,17 @@ class CertificationHome extends Component {
   }
 
   render() {
-    let bank = this.props.bankResult.status;
-    let yys = this.props.yysResult.status;
+    let bankResult = this.props.bankResult, yysResult = this.props.yysResult, gjjResult = this.props.gjjResult,
+      loanType = this.props.loanType;
 
-    let disabled = !(bank == 'success' && yys == 'success');
+    var enable = yysResult.status == 'success';
+      enable = loanType == 1 ? enable && bankResult.status == 'success' : enable && gjjResult.status == 'success';
 
-    return this.state.fetching || this.props.bankResult.isFetching || this.props.yysResult.isFetching ? <Loading /> : (
+    return this.state.fetching || this.props.isFetching ? <Loading /> : (
       <ScrollView>
 
         {this.cardItem()}
+        {this.gjjItem()}
         {this.yysItem()}
 
         <LoadingModal visible={this.state.submitting}/>
@@ -66,8 +68,8 @@ class CertificationHome extends Component {
           toKey="OnlinePreloanSuccess"
           title="预授信申请结果"
           text="下一步"
-          disabled={disabled}
-          style={[onlineStyles.btn, onlineStyles.btnOffset, disabled && onlineStyles.btnDisable]}
+          disabled={!enable}
+          style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
           textStyle={onlineStyles.btnText}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
@@ -96,6 +98,8 @@ class CertificationHome extends Component {
   }
 
   cardItem() {
+    if(!this.props.bankResult) return null;
+
     let status = this.props.bankResult.status;
 
     let item = (
@@ -115,7 +119,31 @@ class CertificationHome extends Component {
     );
   }
 
+  gjjItem() {
+    if(!this.props.gjjResult) return null;
+
+    let status = this.props.gjjResult.status;
+
+    let item = (
+      <MenuItem title="公积金认证" icon={require('assets/online/icon-gjj.png')}>
+        <Text style={[styles.status, styles[status]]}>{statusLabels[status]}</Text>
+      </MenuItem>
+    );
+
+    if(['success', 'progressing'].includes(status)) {
+      return item;
+    }
+
+    return (
+      <ExternalPushLink title="公积金认证" toKey="FundLogin">
+        {item}
+      </ExternalPushLink>
+    )
+  }
+
   yysItem() {
+    if(!this.props.yysResult) return null;
+
     let status = this.props.yysResult.status;
 
     let item = (
@@ -171,21 +199,32 @@ import Loading from 'components/shared/Loading';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
+  var loanType = state.online.loanType.type;
+
   let bank = state.online.bankResult;
   let yys = state.online.yysResult;
+  let gjj = state.online.gjjResult;
 
-  return {
+  return loanType == 1 ? {
     isFetching: bank.isFetching || yys.isFetching,
     fetched: bank.fetched && yys.fetched,
     bankResult: bank,
-    yysResult: yys
+    yysResult: yys,
+    loanType: loanType
+  } : {
+    isFetching: gjj.isFetching || yys.isFetching,
+    fetched: gjj.fetched && yys.fetched,
+    gjjResult: gjj,
+    yysResult: yys,
+    loanType: loanType
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
     fetching: () => {
+      dispatch(actions.gjjResult());
       dispatch(actions.bankResult());
       dispatch(actions.yysResult());
     },

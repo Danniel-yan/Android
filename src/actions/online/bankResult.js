@@ -1,4 +1,4 @@
-import { post, get, responseStatus } from 'utils/fetch';
+import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
 import banks from './banks';
@@ -13,7 +13,7 @@ export default function(body) {
 
     var state = getState(), loanType = state.online.loanType ? state.online.loanType.type : null;
 
-    if(loanType == 0 || loanType == 9999) return dispatch(bankBillList(body));
+    if(loanType == 0 || loanType == 9999 || loanEntryClose) return dispatch(bankBillList(body));
 
     return getBankBillStatus(Object.assign({}, { loan_type: loanType }, body)).then(billData => {
       if(!billData) return null;
@@ -62,7 +62,7 @@ export function bankBillList(body) {
     if(!state.online.banks.fetched) dispatch(banks());
     dispatch({type: "bankBillFetchStart"});
 
-    return getBankBillStatus(Object.assign({}, { loan_type: loanType }, body)).then(billData => {
+    return getBankBillStatus(Object.assign({}, { loan_type: loanEntryClose ? 0 : loanType }, body)).then(billData => {
       if(!billData) return null;
 
       dispatch({ type: "receiveOnlineBankBilllList", billList: billData.list });

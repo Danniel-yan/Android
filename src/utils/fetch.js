@@ -6,6 +6,7 @@ import alert from './alert';
 
 export const responseStatus = { failure: 0, success: 1 }
 export const defaultApiVersion = '0.3';
+export const loanEntryClose = false;
 
 let coords = null;
 let initedApiParams = false;
