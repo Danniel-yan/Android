@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-bg" translatesAutoresizingMaskIntoConstraints="NO" id="FOR-gO-d8Z">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="560"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-center" translatesAutoresizingMaskIntoConstraints="NO" id="Fzk-9D-mPo">
                             <rect key="frame" x="219" y="40" width="170" height="180"/>
@@ -28,10 +28,17 @@
                                 <constraint firstAttribute="width" constant="170" id="f9C-qI-0Ey"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-line" translatesAutoresizingMaskIntoConstraints="NO" id="H7t-ET-XNO">
-                            <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-left" translatesAutoresizingMaskIntoConstraints="NO" id="i8N-3T-Fyg">
+                            <rect key="frame" x="0.0" y="194" width="150" height="200"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="60" id="3f7-zo-fXi"/>
+                                <constraint firstAttribute="width" constant="150" id="5uG-sm-WtM"/>
+                                <constraint firstAttribute="height" constant="200" id="uD2-LK-Pz3"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-line" translatesAutoresizingMaskIntoConstraints="NO" id="H7t-ET-XNO">
+                            <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="3f7-zo-fXi"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-bottom" translatesAutoresizingMaskIntoConstraints="NO" id="qkV-j8-j9t">
@@ -39,13 +46,6 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="280" id="3V8-2j-0O3"/>
                                 <constraint firstAttribute="height" constant="386" id="X6n-VW-yuE"/>
-                            </constraints>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-left" translatesAutoresizingMaskIntoConstraints="NO" id="i8N-3T-Fyg">
-                            <rect key="frame" x="0.0" y="214" width="150" height="155"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="150" id="5uG-sm-WtM"/>
-                                <constraint firstAttribute="height" constant="155" id="uD2-LK-Pz3"/>
                             </constraints>
                         </imageView>
                     </subviews>
@@ -62,7 +62,7 @@
                         <constraint firstItem="FOR-gO-d8Z" firstAttribute="leading" secondItem="sO5-oG-m3J" secondAttribute="leading" id="hoG-do-5E9"/>
                         <constraint firstItem="i8N-3T-Fyg" firstAttribute="leading" secondItem="sO5-oG-m3J" secondAttribute="leading" id="ixN-I7-zIf"/>
                         <constraint firstItem="H7t-ET-XNO" firstAttribute="top" secondItem="FOR-gO-d8Z" secondAttribute="bottom" id="jly-wX-YAy"/>
-                        <constraint firstItem="i8N-3T-Fyg" firstAttribute="top" secondItem="qkV-j8-j9t" secondAttribute="top" id="l2q-9s-Eeg"/>
+                        <constraint firstItem="i8N-3T-Fyg" firstAttribute="top" secondItem="qkV-j8-j9t" secondAttribute="top" constant="-20" id="l2q-9s-Eeg"/>
                         <constraint firstItem="Fzk-9D-mPo" firstAttribute="top" secondItem="sO5-oG-m3J" secondAttribute="top" constant="40" id="v1u-Hk-RaV"/>
                     </constraints>
                 </view>
@@ -83,7 +83,7 @@
         <image name="launch-bg" width="375" height="628"/>
         <image name="launch-bottom" width="278" height="386"/>
         <image name="launch-center" width="171" height="188"/>
-        <image name="launch-left" width="149" height="155"/>
+        <image name="launch-left" width="149" height="198"/>
         <image name="launch-line" width="1" height="1"/>
     </resources>
 </document>
