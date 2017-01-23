@@ -121,7 +121,7 @@ export default class YysSecondForm extends Component {
 
         if(response.res == responseStatus.success) {
           this.setState({ submitting: false });
-          this.props.verifySuccess(responseData);
+          this.props.verifySuccess(response.data);
         } else {
           this.setState({ submitting: false, error: response.msg });
         }

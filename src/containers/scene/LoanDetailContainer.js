@@ -61,7 +61,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 
 const shareConfig = {
-  title: '我刚刚在「钞市」成功申请信用卡，能随时查看办卡进度，太好用啦',
+  title: '宝宝，这个App真不错，朋友刚刚借到2万元',
   content: '推荐给你～',
   url: 'http://t.cn/RIJqMla'
 };

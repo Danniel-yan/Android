@@ -43,6 +43,7 @@ class FundLoginScene extends Component{
   }
 
   render(){
+    var gjjBillList = this.props.gjjResult ? this.props.gjjResult.billList : null;
 
     return(
       <View style={styles.container}>
@@ -109,16 +110,19 @@ class FundLoginScene extends Component{
             disabled={this._buttonDisabled()}
             text="提交"/>
         </View>
-        <View style={{justifyContent: 'center',alignItems: 'center'}}>
-          <ExternalPushLink
-            style={[styles.submitBtn, { marginTop: 5, backgroundColor: "#d3d3d3" }]}
-            textStyle={{color: "#fff"}}
-            title={"公积金报告"}
-            toKey={"GjjReport"} text={"查看已有报告"}
-            tracking={{key: 'PAF_report', topic: 'basic_info', entity: "review", event: 'clk'}}>
-          </ExternalPushLink>
-        </View>
-
+        {
+          gjjBillList && gjjBillList.length > 0 && gjjBillList[0].status == 8 ? (
+            <View style={{justifyContent: 'center',alignItems: 'center'}}>
+              <ExternalPushLink
+                style={[styles.submitBtn, { marginTop: 5, backgroundColor: "#d3d3d3" }]}
+                textStyle={{color: "#fff"}}
+                title={"公积金报告"}
+                toKey={"GjjReport"} text={"查看已有报告"}
+                tracking={{key: 'PAF_report', topic: 'basic_info', entity: "review", event: 'clk'}}>
+              </ExternalPushLink>
+            </View>
+          ) : null
+        }
         <FundSecondLogin
           {...this.state.submitResult}
           onHide={() => this.setState({visibleSecondVerify: false})}
@@ -273,7 +277,8 @@ function mapStateToProps(state) {
     isFetching: state.online.gjjLoginElements.isFetching,
     fetched: state.online.gjjLoginElements.fetched,
     loginElements: state.online.gjjLoginElements.elements,
-    loanType: state.online.loanType.type
+    loanType: state.online.loanType.type,
+    gjjResult: state.online.gjjResult
   }
 }
 

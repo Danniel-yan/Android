@@ -60,7 +60,8 @@ class YysForm extends Component {
       submitting: false,
       form,
       valids,
-      errors: { }
+      errors: { },
+      error: ""
     };
 
   }
@@ -83,12 +84,14 @@ class YysForm extends Component {
   render() {
     let disabled = !this._validation() || !this.formChanged;
 
+    console.log(this.state.error);
+
     return (
       <View style={container}>
         <ScrollView>
           <YysBanner/>
           {this._form()}
-          <ErrorInfo msg={this.state.error}/>
+          <View><Text style={{textAlign: 'center', marginTop: 10, color: colors.error, fontSize: fontSize.normal}}>{this.state.error}</Text></View>
           <ProcessingButton
             processing={this.state.submitting}
             onPress={this._submit.bind(this)}
@@ -125,7 +128,8 @@ class YysForm extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true, error: ''}, () => {
+    this.state.error = "";
+    this.setState({ submitting: true, error: this.state.error }, () => {
 
       let body = {
         ...this.state.form,
