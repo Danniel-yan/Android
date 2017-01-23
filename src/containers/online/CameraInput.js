@@ -6,6 +6,8 @@ import {
   Image,
   NativeModules,
   StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import ProcessingButton from 'components/shared/ProcessingButton';
@@ -135,6 +137,84 @@ class CameraInput extends Component {
   }
 }
 
+class _FaceMegInput extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: "",
+      status: "none",
+      processing: false
+    }
+  }
+
+  render() {
+    var s = this.state, txt = "未认证", colorStyle = {};
+    if(s.status == "success") { txt = "认证成功"; colorStyle = {color: colors.success}; }
+    if(s.status == "failure") { txt = "认证失败"; colorStyle = {color: colors.error}; }
+
+    return (
+      <TouchableOpacity onPress={() => this._faceMegStart()}>
+        <View style={{flex: 1, paddingHorizontal:10, height: 80, flexDirection: "row", alignItems: "center", backgroundColor: "#fff"}}>
+          <Image source={require('assets/online/face-meg.png')}></Image>
+          <View style={{flex: 1, paddingHorizontal: 16}}>
+            <Text style={{fontSize: fontSize.large}}>人脸识别</Text>
+            <Text>进行您本人的人脸识别</Text>
+          </View>
+          {
+            s.processing ? (
+              <ActivityIndicator
+                animating={true}
+                style={[centering, {marginRight: 4, height: 14}]}
+                color={"#333"}
+                size="small"/>
+            ) : (<Text style={[{marginRight: 4}, colorStyle]}>{txt}</Text>)
+          }
+          <Text>></Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  _faceMegStart() {
+    NativeModules.FaceMegModule.megLiveVerify().then(res => {
+      console.log(res);
+      this.setState({ processing: true }, this._upload.bind(this, res));
+    }).catch(error => this.setState({ error: error }));
+  }
+
+  _upload(faceImages) {
+    let images = faceImages.images;
+    let body = {
+      img: images.join(","),
+      ext: 'png',
+      type: 5, // 活体检查
+      loan_type: parseInt(this.props.loanType)
+    };
+
+    console.log(body);
+
+    // setTimeout(() => {
+    //   this.setState({ status: 'success', processing: false })
+    //   this.props.onChange && this.props.onChange("success");
+    // }, 2000);
+
+    post('/loanctcf/add-image', body).then(response => {
+      if(response.res == responseStatus.failure) { throw response.msg }
+      this.setState({ status: 'success' })
+      this.props.onChange && this.props.onChange("success");
+    })
+    .catch(err => {
+      this.setState({ status: 'failure' })
+      this.props.onChange && this.props.onChange("failure");
+      console.log(err);
+    })
+    .finally(() => {
+      this.setState({ processing: false })
+    })
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -197,4 +277,5 @@ function mapStateToProps(state) {
   return { loanType: state.online.loanType.type };
 }
 
+export const FaceMegInput = connect(mapStateToProps, null)(_FaceMegInput);
 export default connect(mapStateToProps, null)(CameraInput);

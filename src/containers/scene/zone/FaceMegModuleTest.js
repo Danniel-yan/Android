@@ -22,7 +22,7 @@ const inputStatus = {
   failure: 3
 };
 
-export default class FacemegModuleTest extends Component {
+export default class FaceMegModuleTest extends Component {
   constructor(props) {
     super(props);
 
@@ -97,4 +97,3 @@ const styles = StyleSheet.create({
     ...border('top')
   }
 });
-

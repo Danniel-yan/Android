@@ -4,12 +4,14 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  NativeModules,
+  Image, TouchableOpacity
 } from 'react-native';
 
 import { border, container, rowContainer, colors, fontSize } from 'styles';
 import GroupTitle from 'components/GroupTitle';
-import CameraInput from './CameraInput';
+import CameraInput, { FaceMegInput } from './CameraInput';
 import { post, responseStatus } from 'utils/fetch';
 import { InputGroup } from 'components/form';
 import { ExternalPushLink } from 'containers/shared/Link';
@@ -35,17 +37,14 @@ class LoanForm extends Component {
       },
       idFront: '',
       idBack: '',
+      faceMeg: '',
       submitting: false
     }
   }
 
-  render() {
-    let { idFront, idBack, } = this.state;
-    let { credit_card_no, credit_card_mobile } = this.state.form;
-    const disabled = !(idFront && idBack && credit_card_no && credit_card_mobile);
-
+  renderIDForms() {
     return (
-      <ScrollView>
+      <View>
         <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
 
         <View style={[styles.container, {paddingBottom: 30}]}>
@@ -62,7 +61,13 @@ class LoanForm extends Component {
             label="身份证反面"
             example={require('assets/online/id-back.png')}/>
         </View>
+      </View>
+    );
+  }
 
+  renderBankCardForms() {
+    return this.props.loanType == 1 ? (
+      <View>
         <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
         <View style={styles.container}>
@@ -90,6 +95,32 @@ class LoanForm extends Component {
             valueChanged={this._onInputChange.bind(this, 'credit_card_mobile')}
           />
         </View>
+      </View>
+    ) : null;
+  }
+
+  renderFaceVerifyForms() {
+    return this.props.loanType == 2 ? (
+      <View>
+        <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
+        <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})} />
+      </View>
+    ) : null;
+  }
+
+  render() {
+    let { idFront, idBack, faceMeg } = this.state;
+    let { credit_card_no, credit_card_mobile } = this.state.form;
+
+    let enable = idFront && idBack;
+    if(this.props.loanType == 1) enable = enable && credit_card_no && credit_card_mobile;
+    if(this.props.loanType == 2) enable = enable && faceMeg;
+
+    return (
+      <ScrollView>
+        { this.renderIDForms() }
+        { this.renderBankCardForms() }
+        { this.renderFaceVerifyForms() }
 
         <ErrorInfo msg={this.state.error}/>
 
@@ -100,8 +131,8 @@ class LoanForm extends Component {
           toKey="OnlineApproveStatus"
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
-          disabled={disabled}
-          style={[onlineStyles.btn, onlineStyles.btnOffset, disabled && onlineStyles.btnDisable]}
+          disabled={!enable}
+          style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
           textStyle={onlineStyles.btnText}
           text="完成提交"
         />
