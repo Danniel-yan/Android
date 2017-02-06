@@ -240,7 +240,8 @@ class ZoneScene extends Component {
 function mapStateToProps(state) {
   return {
     loginUser: state.loginUser,
-    isFetching: state.online.bankResult.bankBillFetching || state.online.gjjResult.isFetching,
+    // isFetching: state.online.bankResult.bankBillFetching || state.online.gjjResult.isFetching,
+    isFetching: state.online.bankResult.bankBillFetching,
     bankBillList: state.online.bankResult.billList,
     gjjBillList: state.online.gjjResult.billList
   }

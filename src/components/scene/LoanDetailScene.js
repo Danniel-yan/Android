@@ -231,7 +231,7 @@ export default class LoanDetailScene extends Component {
 
     let detail = this.props.detail;
 
-    if(this.props.detail.loan_type == loanType.chaoshidai) {
+    if(this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj) {
       return (
         <ExternalPushLink
           processing={this.state.checkingGPS}
@@ -293,6 +293,8 @@ export default class LoanDetailScene extends Component {
         title: '登录'
       };
     }
+     
+    // console.log("贷款状态： " + status);
 
     // 预授信失败
     if(status == 4) {

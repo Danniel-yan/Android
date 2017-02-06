@@ -202,7 +202,7 @@ class FundLoginScene extends Component{
       //   }
       // }});
 
-      post('/bill/gjj-login', Object.assign({loan_type: 0, login_target, login_type}, body))
+      post('/bill/gjj-login', Object.assign({loan_type: this.props.loanType, login_target, login_type}, body))
       .then(response => {
           if(response.res == responseStatus.success && response.data.second_login == 1) {
             this.setState({submitting: false, visibleSecondVerify: true, submitResult: response.data});

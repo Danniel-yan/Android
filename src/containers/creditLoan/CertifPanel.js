@@ -92,7 +92,6 @@ class CertifPanel extends Component {
         pbocUrl = environment=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
         // console.log(pbocUrl + "&token=" + token);
         return externalPush && externalPush({web: pbocUrl + "&token=" + token, title: "央行征信"});
-        //return { web: pbocUrl + "&token=" + token, title: "央行征信" }
     });
     tracker.trackAction({ key: 'credit_loan', topic: 'verification', entity: "credit_report", event: 'clk', exten_info: this.props.pbocStatus});
     this.closeModal();
