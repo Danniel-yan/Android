@@ -4,6 +4,7 @@ import { get, post, responseStatus } from 'utils/fetch';
 export default function() {
   return (dispatch, getState) => {
       var state = getState(), type = state.online.loanType.type || 0;
+      dispatch({ type: "requestOnlineStatus" });
       return post('/loanctcf/status', type ? { loan_type: type } : {}).then(response => {
         // TODO remove
             //  response = {

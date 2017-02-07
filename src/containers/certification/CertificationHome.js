@@ -68,6 +68,7 @@ class CertificationHome extends Component {
           textStyle={onlineStyles.btnText}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
+          backRoute={{key: 'LoanDetailScene'}}
         />
       </ScrollView>
     );
@@ -75,6 +76,10 @@ class CertificationHome extends Component {
 
   _submit() {
     this.setState({ submitting: true });
+
+    // // Test POP Navigation
+    // this.setState({ submitting: false });
+    // return true;
 
     return this.props.submitPreloan().then(response => {
       this.setState({ submitting: false });

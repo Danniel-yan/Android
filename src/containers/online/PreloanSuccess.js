@@ -62,7 +62,7 @@ class PreloanSuccess extends Component {
           </View>
         ) : null}
 
-        <ExpireGroup style={styles.tip} date={this.props.onlineStatus.time_expire}/>
+        <ExpireGroup style={styles.tip} date={this.props.preLoanData.time_expire || this.props.onlineStatus.time_expire}/>
 
         <ExternalPushLink
           toKey="OnlineLoanForm"
@@ -137,6 +137,7 @@ import actions from 'actions/online';
 function mapStateToProps(state) {
   return {
     ...state.online.preloanStatus,
+    preLoanData: state.online.preloanStatus.data,
     onlineStatus: state.online.status,
     loanType: state.online.loanType.type
   };

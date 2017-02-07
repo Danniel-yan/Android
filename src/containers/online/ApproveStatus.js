@@ -153,7 +153,7 @@ function mapStateToProps(state) {
     ...state.online.applyResult,
     ...state.online.status,
   }, {
-    // isFetching: state.online.applyResult.isFetching,
+    isFetching: state.online.applyResult.isFetching || state.online.status.isFetching,
     // fetched: state.online.applyResult.fetched
 
   })
@@ -169,4 +169,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(ApproveStatus)));
+  AsynCpGenerator(Loading, trackingScene(ApproveStatus), true));
