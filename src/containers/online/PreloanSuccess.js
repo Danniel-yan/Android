@@ -18,9 +18,11 @@ class PreloanSuccess extends Component {
 
   constructor(props) {
     super(props);
+    this.minValue = this.props.loanType == 1 ? "15000" : "20000"
 
     this.state = {
       amount: props.data.sug_loan_amount,
+      rangeVisible: props.data.sug_loan_amount > this.minValue
     }
 
   }
@@ -45,18 +47,20 @@ class PreloanSuccess extends Component {
           <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
         </View>
 
-        <View style={styles.amountWrap}>
-          <Text style={styles.text}>申请金额：</Text>
-          <RangeInput
-            style={styles.amountSelector}
-            value={this.state.amount}
-            onChange={this._formChange.bind(this, 'amount')}
-            step={1000}
-            min={15000}
-            minLabel="1.5万"
-            maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
-            max={data.sug_loan_amount}/>
-        </View>
+        {this.state.rangeVisible ? (
+          <View style={styles.amountWrap}>
+            <Text style={styles.text}>申请金额：</Text>
+            <RangeInput
+              style={styles.amountSelector}
+              value={this.state.amount}
+              onChange={this._formChange.bind(this, 'amount')}
+              step={1000}
+              min={this.minValue}
+              minLabel={this.props.loanType == 1 ? "1.5万" : "2万"}
+              maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
+              max={data.sug_loan_amount}/>
+          </View>
+        ) : null}
 
         <ExpireGroup style={styles.tip} date={this.props.onlineStatus.time_expire}/>
 
@@ -133,7 +137,8 @@ import actions from 'actions/online';
 function mapStateToProps(state) {
   return {
     ...state.online.preloanStatus,
-    onlineStatus: state.online.status
+    onlineStatus: state.online.status,
+    loanType: state.online.loanType.type
   };
 }
 
