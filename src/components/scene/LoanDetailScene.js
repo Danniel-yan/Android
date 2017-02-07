@@ -293,7 +293,7 @@ export default class LoanDetailScene extends Component {
         title: '登录'
       };
     }
-     
+
     // console.log("贷款状态： " + status);
 
     // 预授信失败
@@ -337,7 +337,7 @@ export default class LoanDetailScene extends Component {
         this.setState({ checkingGPS: false })
         resolve('');
       }, (error) => {
-        alert(JSON.stringify(error));
+        alert("请打开定位");
         this.setState({ checkingGPS: false })
         reject('');
       });
