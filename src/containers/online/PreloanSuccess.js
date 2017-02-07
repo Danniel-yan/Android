@@ -18,7 +18,7 @@ class PreloanSuccess extends Component {
 
   constructor(props) {
     super(props);
-    this.minValue = this.props.loanType == 1 ? "15000" : "20000"
+    this.minValue = this.props.loanType == 1 ? 15000 : 20000
 
     this.state = {
       amount: props.data.sug_loan_amount,
