@@ -12,6 +12,7 @@ import * as defaultStyles from 'styles';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import { externalPush, majorTab } from 'actions/navigation';
+import pboc from 'actions/pboc';
 import onlineActions from 'actions/online';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -147,20 +148,6 @@ class ZoneScene extends Component {
     );
   }
 
-  _navToPBOC() {
-    var externalPush = this.props.externalPush, route;
-    var environment = "production";
-    AsyncStorage.getItem('environment').then(ev=>{
-      environment = ev;
-      return AsyncStorage.getItem("userToken");
-    }).then(token => {
-        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = environment=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        // console.log(pbocUrl + "&token=" + token);
-        externalPush && externalPush({web: pbocUrl + "&token=" + token});
-    })
-  }
-
   _reportInfo() {
     let loginUser = this.props.loginUser;
 
@@ -185,7 +172,7 @@ class ZoneScene extends Component {
         <TrackingPoint
           tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
           title="征信报告"
-          onPress={this._navToPBOC.bind(this)}>
+          onPress={this.props.pboc.bind(this)}>
           <View style={zoneStyles.item}>
             <Image style={[zoneStyles.icon]} source={require('assets/zone/zhengxinbaogao.png')}/>
             <Text style={zoneStyles.txt}>征信报告</Text>
@@ -254,6 +241,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(onlineActions.bankBillList());
       dispatch(onlineActions.gjjResult());
     },
+    pboc: params => dispatch(pboc(params)),
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
     setLoanType: () => dispatch(onlineActions.setLoanType(9999)),

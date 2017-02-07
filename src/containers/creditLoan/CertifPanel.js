@@ -8,8 +8,10 @@ import actions from 'actions/online';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush, majorTab } from 'actions/navigation';
+import pboc from 'actions/pboc';
 import { colors, centering } from 'styles';
 
+import TrackingPoint  from 'components/shared/TrackingPoint';
 import tracker from 'utils/tracker.js';
 
 const {height, width} = Dimensions.get('window');
@@ -82,18 +84,7 @@ class CertifPanel extends Component {
   }
 
   _navToPBOC() {
-    var externalPush = this.props.externalPush, route;
-    var environment = "production";
-    AsyncStorage.getItem('environment').then(ev=>{
-      environment = ev;
-      return AsyncStorage.getItem("userToken");
-    }).then(token => {
-        var pbocUrl = 'https://sysapp.jujinpan.cn/static/pages/pboc/index.html?app=chaoshi';
-        pbocUrl = environment=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
-        // console.log(pbocUrl + "&token=" + token);
-        return externalPush && externalPush({web: pbocUrl + "&token=" + token, title: "央行征信"});
-    });
-    tracker.trackAction({ key: 'credit_loan', topic: 'verification', entity: "credit_report", event: 'clk', exten_info: this.props.pbocStatus});
+    this.props.pboc && this.props.pboc();
     this.closeModal();
     // return false;
   }
@@ -123,7 +114,10 @@ class CertifPanel extends Component {
           title="通讯录授权"
           confirm="未授权"
           tips="认证完毕，可获500-1000额度"/> : null}
-        <TouchableOpacity onPress={() => {this._navToPBOC()}}>
+        <TrackingPoint
+          tracking={{ key: 'credit_loan', topic: 'verification', entity: 'credit_report', event: 'clk', exten_info: this.props.pbocStatus}}
+          onPress={() => {this._navToPBOC()}}
+          title="央行征信">
           <View style = {[styles.item,styles.bdTop]}>
             <Image source={require("assets/credit-icons/yanghanzhenxinbaogao.png")} style = {styles.icon}/>
             <View style = {{flex : 1}}>
@@ -142,7 +136,7 @@ class CertifPanel extends Component {
               <Text style = {{paddingLeft : 20,color: '#999',fontSize : 14}}>认证完毕，可增加30%贷款成功率</Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </TrackingPoint>
         <Item
           icon={require("assets/credit-icons/xinyongkazhangdan.png")}
           title="信用卡账单"
@@ -313,7 +307,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.gjjResult());
       dispatch(actions.pboc.getStatus());
     },
-    externalPush: (route) => dispatch(externalPush(route))
+    externalPush: (route) => dispatch(externalPush(route)),
+    pboc: params => dispatch(pboc(params))
   }
 }
 
