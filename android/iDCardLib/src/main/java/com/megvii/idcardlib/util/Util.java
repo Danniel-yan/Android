@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
@@ -30,109 +31,110 @@ import com.megvii.idcardquality.bean.IDCardAttr;
  * Created by binghezhouke on 15-8-12.
  */
 public class Util {
-	
-	public static Toast toast;
 
-	/**
-	 * 输出toast
-	 */
-	public static void showToast(Context context, String str) {
-		if (context != null) {
-			if (toast != null) {
-				toast.cancel();
-			}
-			toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
-			// 可以控制toast显示的位置
-			toast.setGravity(Gravity.TOP, 0, 30);
-			toast.show();
-		}
-	}
+    public static Toast toast;
 
-	/**
-	 * 取消弹出toast
-	 */
-	public static void cancleToast(Context context) {
-		if (context != null) {
-			if (toast != null) {
-				toast.cancel();
-			}
-		}
-	}
-	
-	public static String getUUIDString(Context mContext) {
-		String KEY_UUID = "key_uuid";
-		SharedUtil sharedUtil = new SharedUtil(mContext);
-		String uuid = sharedUtil.getStringValueByKey(KEY_UUID);
-		if (uuid != null)
-			return uuid;
+    /**
+     * 输出toast
+     */
+    public static void showToast(Context context, String str) {
+        if (context != null) {
+            if (toast != null) {
+                toast.cancel();
+            }
+            toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
+            // 可以控制toast显示的位置
+            toast.setGravity(Gravity.TOP, 0, 30);
+            toast.show();
+        }
+    }
 
-		uuid = getPhoneNumber(mContext);
-		Log.w("ceshi", "uuid====" + uuid);
-		if (uuid == null || uuid.trim().length() == 0) {
-			uuid = getMacAddress(mContext);
-			if (uuid == null || uuid.trim().length() == 0) {
-				uuid = getDeviceID(mContext);
-				if (uuid == null || uuid.trim().length() == 0) {
-					uuid = UUID.randomUUID().toString();
-					uuid = Base64.encodeToString(uuid.getBytes(), Base64.DEFAULT);
-				}
-			}
-		}
-		sharedUtil.saveStringValue(KEY_UUID, uuid);
-		return uuid;
-	}
+    /**
+     * 取消弹出toast
+     */
+    public static void cancleToast(Context context) {
+        if (context != null) {
+            if (toast != null) {
+                toast.cancel();
+            }
+        }
+    }
 
-	public static String getPhoneNumber(Context mContext) {
-		TelephonyManager phoneMgr = (TelephonyManager) mContext
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		return phoneMgr.getLine1Number();
-	}
+    public static String getUUIDString(Context mContext) {
+        String KEY_UUID = "key_uuid";
+        SharedUtil sharedUtil = new SharedUtil(mContext);
+        String uuid = sharedUtil.getStringValueByKey(KEY_UUID);
+        if (uuid != null)
+            return uuid;
 
-	public static String getDeviceID(Context mContext) {
-		TelephonyManager tm = (TelephonyManager) mContext
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		return tm.getDeviceId();
-	}
+//		uuid = getPhoneNumber(mContext);
+//		Log.w("ceshi", "uuid====" + uuid);
+//		if (uuid == null || uuid.trim().length() == 0) {
+//			uuid = getMacAddress(mContext);
+//			if (uuid == null || uuid.trim().length() == 0) {
+//				uuid = getDeviceID(mContext);
+//				if (uuid == null || uuid.trim().length() == 0) {
+//					uuid = UUID.randomUUID().toString();
+//					uuid = Base64.encodeToString(uuid.getBytes(), Base64.DEFAULT);
+//				}
+//			}
+//		}
+        uuid = SystemClock.currentThreadTimeMillis() + "";
+        sharedUtil.saveStringValue(KEY_UUID, uuid);
+        return uuid;
+    }
 
-	public static String getMacAddress(Context mContext) {
-		WifiManager wifi = (WifiManager) mContext
-				.getSystemService(Context.WIFI_SERVICE);
-		WifiInfo info = wifi.getConnectionInfo();
-		String address = info.getMacAddress();
-		if(address != null && address.length() > 0){
-			address = address.replace(":", "");
-		}
-		return address;
-	}
-	
-	public static Camera.Size getNearestRatioSize(Camera.Parameters para,
-			final int screenWidth, final int screenHeight) {
-		List<Camera.Size> supportedSize = para.getSupportedPreviewSizes();
-		for (Camera.Size tmp : supportedSize) {
-			if (tmp.width == 1280 && tmp.height == 720) {
-				return tmp;
-			}
-		}
-		Collections.sort(supportedSize, new Comparator<Camera.Size>() {
-			@Override
-			public int compare(Camera.Size lhs, Camera.Size rhs) {
-				int diff1 = (((int) ((1000 * (Math.abs(lhs.width
-						/ (float) lhs.height - screenWidth
-						/ (float) screenHeight))))) << 16)
-						- lhs.width;
-				int diff2 = (((int) (1000 * (Math.abs(rhs.width
-						/ (float) rhs.height - screenWidth
-						/ (float) screenHeight)))) << 16)
-						- rhs.width;
+    public static String getPhoneNumber(Context mContext) {
+        TelephonyManager phoneMgr = (TelephonyManager) mContext
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return phoneMgr.getLine1Number();
+    }
 
-				return diff1 - diff2;
-			}
-		});
+    public static String getDeviceID(Context mContext) {
+        TelephonyManager tm = (TelephonyManager) mContext
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
+    }
 
-		return supportedSize.get(0);
-	}
-	
-	
+    public static String getMacAddress(Context mContext) {
+        WifiManager wifi = (WifiManager) mContext
+                .getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wifi.getConnectionInfo();
+        String address = info.getMacAddress();
+        if (address != null && address.length() > 0) {
+            address = address.replace(":", "");
+        }
+        return address;
+    }
+
+    public static Camera.Size getNearestRatioSize(Camera.Parameters para,
+                                                  final int screenWidth, final int screenHeight) {
+        List<Camera.Size> supportedSize = para.getSupportedPreviewSizes();
+        for (Camera.Size tmp : supportedSize) {
+            if (tmp.width == 1280 && tmp.height == 720) {
+                return tmp;
+            }
+        }
+        Collections.sort(supportedSize, new Comparator<Camera.Size>() {
+            @Override
+            public int compare(Camera.Size lhs, Camera.Size rhs) {
+                int diff1 = (((int) ((1000 * (Math.abs(lhs.width
+                        / (float) lhs.height - screenWidth
+                        / (float) screenHeight))))) << 16)
+                        - lhs.width;
+                int diff2 = (((int) (1000 * (Math.abs(rhs.width
+                        / (float) rhs.height - screenWidth
+                        / (float) screenHeight)))) << 16)
+                        - rhs.width;
+
+                return diff1 - diff2;
+            }
+        });
+
+        return supportedSize.get(0);
+    }
+
+
 //    public static Camera.Size getNearestRatioSize(Camera.Parameters para, final int screenWidth, final int screenHeight) {
 //        List<Camera.Size> supportedSize = para.getSupportedPreviewSizes();
 //        Collections.sort(supportedSize, new Comparator<Camera.Size>() {
@@ -205,8 +207,8 @@ public class Util {
                 result = "请将身份证摆正";
                 break;
             case QUALITY_FAILED_TYPE_SHADOW:
-    			result = "有阴影";
-    			break;
+                result = "有阴影";
+                break;
             case QUALITY_FAILED_TYPE_WRONGSIDE:
                 if (side == IDCardAttr.IDCardSide.IDCARD_SIDE_BACK)
                     result = "请翻到反面";
