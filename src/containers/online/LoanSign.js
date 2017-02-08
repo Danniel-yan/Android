@@ -81,7 +81,7 @@ class LoanSign extends Component {
               web="lkjlkj"
               text="《借款咨询服务协议》"
               title="借款咨询服务协议"
-              textStyle={styles.checkboxTxt}
+              textStyle={[styles.checkboxTxt, { color: colors.secondary }]}
             />
             <Text style={styles.checkboxTxt}>相关条款</Text>
           </Button>
@@ -107,14 +107,14 @@ class LoanSign extends Component {
 
     return post('/loanctcf/create-contract', { loan_type: parseInt(this.props.loanType) || 0 }).then(response => {
 
-      if(response.res == responseStatus.failure) {
-        throw response.msg
-      }
+      // if(response.res == responseStatus.failure) {
+      //   throw response.msg
+      // }
       this.props.fetchStatus();
       return true;
-    }).catch(err => {
-      this.setState({ submitting: false, error: err });
-      throw err;
+    // }).catch(err => {
+    //   this.setState({ submitting: false, error: err });
+    //   throw err;
     })
   }
 }
@@ -162,13 +162,16 @@ function mapStateToProps(state) {
   let userInfo = state.online.userInfo;
   let applyResult = state.online.applyResult;
 
-  return {
+  return Object.assign({}, {
     ...state.online.applyResult,
     userInfo: userInfo.data,
-    isFetching: userInfo.isFetching || applyResult.isFetching,
-    fetched: userInfo.fetched && applyResult.fetched,
     loanType: state.online.loanType.type
-  };
+  }, {
+    isFetching: userInfo.isFetching || applyResult.isFetching,
+    fetched: userInfo.fetched && applyResult.fetched
+  });
+
+  return ;
 }
 
 function mapDispatchToProps(dispatch) {
@@ -182,4 +185,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(LoanSign)));
+  AsynCpGenerator(Loading, trackingScene(LoanSign), true));
