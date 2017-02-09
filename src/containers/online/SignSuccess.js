@@ -4,7 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 
 import Banner from './Banner';
@@ -25,6 +26,7 @@ export default function(props) {
           如有疑问欢迎拨打：<Text style={styles.cell}>4009160160</Text>
         </Text>
         <Text style={styles.text}>或添加“中腾信金融”公众号咨询</Text>
+        <View style={[centering, {marginTop: 8}]}><Image style={{width: 200, height: 200}} source={require('assets/online/ctcf-qrCode.jpeg')}/></View>
       </View>
     </ScrollView>
   );
