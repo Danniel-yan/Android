@@ -1,4 +1,4 @@
-import { get, responseStatus } from 'utils/fetch';
+import { get, post, responseStatus } from 'utils/fetch';
 
 export default function(dispatch) {
 
@@ -7,7 +7,7 @@ export default function(dispatch) {
 
     dispatch({ type: 'requestOnlineLoanDetail' })
 
-    get(`/loanctcf/contract-content?loan_type=${loan_type}`).then(response => {
+    post(`/loanctcf/contract-content`, {loan_type}).then(response => {
       // TODO remove
       //      response =
       //{

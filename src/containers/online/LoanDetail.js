@@ -24,7 +24,7 @@ class LoanDetail extends Component {
         <L2RItem left="合同金额" right={props.applyAmount}/>
         <L2RItem left="手续费" right={serviceAmount}/>
         <L2RItem left="借款期限" right={props.totalLoanRepaymentTerms+'期'}/>
-        <L2RItem left="月服务费率" right={props.interestRate}/>
+        <L2RItem left="月费率" right={props.interestRate}/>
 
         <GroupTitle title="还款计划表"/>
         <RefundPlan plans={plans}/>
@@ -58,7 +58,7 @@ class RightButton extends Component {
 
   componentDidMount() {
 
-    post('/loanctcf/contract-html', { loan_type: this.props.loan_type}).then(response => {
+    post('/loanctcf/contract-html', { loan_type: this.props.loan_type }).then(response => {
       if(response.res == responseStatus.success) {
         this.setState({
           html: response.data.html
