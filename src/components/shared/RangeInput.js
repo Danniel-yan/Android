@@ -1,6 +1,8 @@
 import React, { Component, PropTypes} from 'React';
-import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native';
+import { View, Text, StyleSheet, Animated, PanResponder, Platform } from 'react-native';
 import { container, centering, fontSize, colors, border } from 'styles';
+
+const barHPadding = 24;
 
 export default class RangeInput extends Component{
   static defaultProps = {
@@ -21,7 +23,7 @@ export default class RangeInput extends Component{
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder : () => true,
       onPanResponderTerminationRequest: () => false,
-      onPanResponderMove: this._onMove.bind(this), 
+      onPanResponderMove: this._onMove.bind(this),
       onPanResponderRelease: this._onRelease.bind(this),
     });
   }
@@ -68,7 +70,7 @@ export default class RangeInput extends Component{
   }
 
   _onInit(e) {
-    this.rangMaxWidth = e.nativeEvent.layout.width;
+    this.rangMaxWidth = Platform.OS == "ios" ? e.nativeEvent.layout.width : e.nativeEvent.layout.width - 2 * barHPadding;
     this._initStepsWidth();
     this._setWidthByValue(this.props.value, 800);
   }
@@ -93,7 +95,7 @@ export default class RangeInput extends Component{
     }
 
     steps.push({
-      value: this.props.max,
+      value: parseInt(this.props.max).toFixed(0),
       width: this.rangMaxWidth
     })
 
@@ -114,7 +116,10 @@ export default class RangeInput extends Component{
   }
 
   render() {
+    return Platform.OS == 'ios' ? this.renderIOS() : this.renderAndroid();
+  }
 
+  renderIOS() {
     return (
       <View style={[styles.wrap, this.props.style]}>
 
@@ -125,7 +130,7 @@ export default class RangeInput extends Component{
               style={[styles.circle]}/>
 
             <Animated.View style={[styles.valueTip, centering]}>
-              <Text style={styles.value}>{this.props.value}</Text>
+              <Text style={styles.value}>{parseInt(this.props.value)}</Text>
               <View style={styles.triangle}/>
             </Animated.View>
           </Animated.View>
@@ -139,9 +144,39 @@ export default class RangeInput extends Component{
       </View>
     );
   }
+
+  renderAndroid() {
+
+    return (
+      <View style={[styles.wrap, this.props.style]}>
+
+        <View onLayout={this._onInit.bind(this)} style={[styles.bg, {flexDirection: "row", alignItems: "flex-end"}]}>
+          <View style={this.rangMaxWidth > 0 ? [styles.backBar, {width: this.rangMaxWidth}] : {}}></View>
+          <Animated.View style={[styles.bar,{width:this.state.width}]}>
+
+          </Animated.View>
+          <Animated.View
+            {...this.panResponder.panHandlers}
+            style={[styles.circle, {backgroundColor: "red"}]}/>
+          <Animated.View style={[styles.valueTip, centering]}>
+            <View style={{backgroundColor: colors.secondary, width: 54, paddingVertical: 3, borderRadius: 5}}><Text style={styles.value}>{parseInt(this.props.value)}</Text></View>
+            <View style={styles.triangle}/>
+          </Animated.View>
+
+          <View style={{flex: 1, height: 8, backgroundColor: "transparent", borderRadius: 4}}></View>
+        </View>
+
+        <View style={styles.labels}>
+          <Text style={[styles.label, container]}>{this.props.minLabel}</Text>
+          <Text style={styles.label}>{this.props.maxLabel}</Text>
+        </View>
+
+      </View>
+    );
+  }
 }
 
-var styles = StyleSheet.create({
+var styles = Platform.OS == 'ios' ? StyleSheet.create({
   wrap: {
     paddingTop: 20,
   },
@@ -198,4 +233,61 @@ var styles = StyleSheet.create({
     fontSize: fontSize.normal,
     color: '#fff'
   },
+}) : StyleSheet.create({
+  wrap: {
+    paddingTop: 20,
+  },
+  labels: {
+    marginTop: 10,
+    flexDirection: 'row',
+  },
+  label: {
+    fontSize: fontSize.large,
+    color: colors.grayDark
+  },
+  bg: {
+    paddingVertical: 8,
+    paddingHorizontal: barHPadding,
+    borderColor: '#ddd'
+  },
+  backBar: {
+    borderRadius:4,
+    height: 8,
+    backgroundColor:'#f2f2f2',
+    position: "absolute",
+    bottom: 8
+  },
+  bar:{
+    borderRadius: 5,
+    height: 8,
+    backgroundColor: colors.secondary
+  },
+  circle: {
+    borderRadius: 9,
+    alignItems: 'center',
+    height:18,
+    backgroundColor: colors.secondary,
+    width:18,
+    marginBottom: -5,
+    marginLeft: -9
+  },
+  valueTip: {
+    marginLeft: -35,
+    marginBottom: 8,
+    width: 50,
+    borderRadius: 3,
+    alignItems: "center"
+  },
+  triangle: {
+    height: 14,
+
+    ...border('top', 4, colors.secondary),
+    ...border('right', 4, 'transparent'),
+    ...border('left', 4, 'transparent'),
+  },
+  value: {
+    textAlign: 'center',
+    fontSize: fontSize.normal,
+    color: '#fff'
+  }
 });
