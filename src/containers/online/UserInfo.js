@@ -22,6 +22,7 @@ import { get, post, responseStatus } from 'utils/fetch';
 import FormGroup from 'components/shared/FormGroup';
 import SubmitButton from './SubmitButton';
 import ErrorInfo from './ErrorInfo';
+import { ExternalPushLink } from 'containers/shared/Link';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 
@@ -51,7 +52,8 @@ class UserInfo extends Component {
 
     this.state = {
       form,
-      firstTime: !user.person_name
+      firstTime: !user.person_name,
+      checkedAgreement: true,
     }
   }
 
@@ -62,7 +64,7 @@ class UserInfo extends Component {
     const validID = validators.idNO(id_no);
 
     if(person_name.length < 2) { return '请输入有效姓名'; }
-
+    if(!this.state.checkedAgreement) { return '必须接受服务协议' ;}
     if(!validID) { return '请输入有效身份证号'; }
     if(profession == '') { return '请选择职业身份'; }
     if(education == '') { return '请选择教育程度'; }
@@ -137,6 +139,23 @@ class UserInfo extends Component {
           </View>
 
           <ErrorInfo msg={error || this.state.error}/>
+
+          <View style={styles.textRow}>
+            <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
+            <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+            <ExternalPushLink
+              web='http://mjk.chinatopcredit.com/#h5/view/apply_contract'
+              text="《申请合约》、"
+              title="《申请合约》"
+              textStyle={{ color: colors.secondary}}
+            />
+            <ExternalPushLink
+              web='http://mjk.chinatopcredit.com/#h5/view/qianhai_authorization'
+              text="《前海征信授权书》"
+              title="《前海征信授权书》"
+              textStyle={{ color: colors.secondary}}
+            />
+          </View>
 
           <SubmitButton
             processing={this.state.submitting}
@@ -243,6 +262,12 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  textRow: {
+    flexDirection: 'row',
+    height: 30,
+    alignItems: 'center',
+    marginLeft : 10
   },
 });
 
