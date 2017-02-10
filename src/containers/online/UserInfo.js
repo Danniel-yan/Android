@@ -144,13 +144,13 @@ class UserInfo extends Component {
             <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
             <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
             <ExternalPushLink
-              web='http://mjk.chinatopcredit.com/#h5/view/apply_contract'
+              web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html'
               text="《申请合约》、"
               title="《申请合约》"
               textStyle={{ color: colors.secondary}}
             />
             <ExternalPushLink
-              web='http://mjk.chinatopcredit.com/#h5/view/qianhai_authorization'
+              web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
               text="《前海征信授权书》"
               title="《前海征信授权书》"
               textStyle={{ color: colors.secondary}}
