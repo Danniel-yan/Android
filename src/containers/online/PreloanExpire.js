@@ -90,4 +90,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(PreloanExpire)));
+  AsynCpGenerator(Loading, trackingScene(PreloanExpire), true));

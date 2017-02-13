@@ -84,7 +84,7 @@ class RightButton extends Component {
   }
 }
 
-let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);
 SceneComponent = externalScene(SceneComponent, RightButton);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;
