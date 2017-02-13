@@ -56,7 +56,7 @@ class Tab extends Component {
         style={styles.tab}
         onPress={this._onPress.bind(this)}>
 
-        <Image source={{uri : props.isActive ? props.activeIcon : props.icon}} style = {props.isActive ? styles.widthActive : styles.width}/>
+        <Image source={{uri : props.isActive ? props.activeIcon : props.icon}} style = {props.isActive ? styles.width : styles.width}/>
         <Text style={[styles.tabFont, props.isActive && styles.activeTabFont]}>{this.props.text}</Text>
       </TrackingPoint>
     )
@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
     color: colors.primary
   },
   width : {
-    width : 28,
-    height: 28,
     backgroundColor : 'transparent'
+    width : 34,
+    height: 34
   },
   widthActive : {
     width : 42,

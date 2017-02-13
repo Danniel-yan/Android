@@ -3,15 +3,15 @@
 import { NavigationExperimental } from 'react-native';
 const { StateUtils: NavigationStateUtils } = NavigationExperimental;
 
-const iconHome = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_1-nor.gif';
-const iconLoan = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_2-nor.gif';
-const iconCard = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_3-nor.gif';
-const iconZone = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_4-nor.gif';
+const iconHome = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/home-nor.png';
+const iconLoan = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/daikuan-nor.png';
+const iconCard = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/credit-nor.png';
+const iconZone = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/account-nor.png';
 
-const iconHomeActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_1-light.gif';
-const iconLoanActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_2-light.gif';
-const iconCardActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_3-light.gif';
-const iconZoneActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/bottom_icon_4-light.gif';
+const iconHomeActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/home-light.png';
+const iconLoanActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/daikuan-light.png';
+const iconCardActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/credit-light.png';
+const iconZoneActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/account-light.png';
 
 const majorNavigationIndex = 0;
 
