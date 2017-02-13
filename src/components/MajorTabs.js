@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     color: colors.primary
   },
   width : {
-    backgroundColor : 'transparent'
+    backgroundColor : 'transparent',
     width : 34,
     height: 34
   },

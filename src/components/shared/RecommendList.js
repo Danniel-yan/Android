@@ -23,8 +23,7 @@ export default class RecommendList extends Component {
         style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
         enableEmptySections={true}
         dataSource={dataSource}
-        renderRow={this.renderRecommend.bind(this)}
-        />
+        renderRow={this.renderRecommend.bind(this)}/>
     )
   }
 
