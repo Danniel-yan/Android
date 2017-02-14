@@ -42,8 +42,8 @@ const initState = {
 
     CardScene: {
       index: 0,
-      routes: [{ key: 'CardScene'}],
-      text: '办卡',
+      routes: [{ key: 'FindHome'}],
+      text: '发现',
       icon: iconCard,
       activeIcon: iconCardActive
     },
@@ -67,10 +67,10 @@ const initState = {
     activeIcon: iconLoanActive,
     sceneKey: 'LoanScene'
   }, {
-    text: '办卡',
+    text: '发现',
     icon: iconCard,
     activeIcon: iconCardActive,
-    sceneKey: 'CardScene'
+    sceneKey: 'FindHome'
   }, {
     text: '我的',
     icon: iconZone,

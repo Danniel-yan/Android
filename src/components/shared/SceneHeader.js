@@ -18,10 +18,10 @@ export default class SceneHeader extends Component {
 
   render() {
     return (
-      <View style={styles.header}>
+      <View style={[styles.header,{backgroundColor : this.props.bgColor ? 'red' : '#fff'}]}>
         <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
         {this._renderBack()}
-        <View style={styles.center}><Text style={styles.title}>{this.props.title}</Text></View>
+        <View style={styles.center}><Text style={[styles.title, {color : this.props.textColor ? this.props.textColor : '#333'}]}>{this.props.title}</Text></View>
         {this._renderRight()}
       </View>
     );
