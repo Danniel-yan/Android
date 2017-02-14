@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { View, ListView, Image ,StyleSheet,Text, TextInput, AsyncStorage, Modal, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Image ,StyleSheet,Text, TextInput, Modal, TouchableOpacity, Dimensions} from 'react-native';
 
 import Button from 'components/shared/ButtonBase';
 import zoneStyles from 'containers/scene/zone/zoneStyles';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
-import Banner from 'containers/scene/home/Banner';
+//import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 
-import PayModal from 'components/modal/PayModal';
+import PayModal from './PayModal';
 
 const {width, height } = Dimensions.get('window');
 
 class blackListHome extends Component {
   constructor(props){
     super(props);
-    var bLData = props.blackListData;
     this.state = {
       name : '',
       ID : '',
@@ -23,25 +22,19 @@ class blackListHome extends Component {
       err : '',
       submitting : false,
       flags : false,
-      payModalVisible: false,
-      fetchingTicket: bLData.isFetchingTicket
+      payModalVisible: false
     }
   }
   render(){
     return(
-      <View style = {{flex : 1, position: "relative"}}>
+      <View style = {{flex : 1}}>
         <View style = {styles.top}>
-          <Text style = {[styles.color,{marginBottom : 10}]}>网贷黑名单查询</Text>
-          <View>
-            <Text style = {{lineHeight : 20}}>查询网贷信用</Text>
-            <Text style = {{lineHeight : 20}}>申请网贷被拒，可能不小心中了网贷征信的黑名单，建议关注您的网贷征信情况</Text>
-          </View>
-          <Text style = {[styles.color,{marginTop : 15}]}>我们提供付费代查网贷征信服务，查询费用3元／次</Text>
+          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >70 ? '立即查询' : '去完善'})}
+          {this._renderNavItem('已有网贷征信报告',{toKey : 'CreditReport', title : '网贷征信报告'},{status : false ? '去完善' : '立即查看'})}
         </View>
-
-        <View style = {styles.item}>
-          <Text style = {styles.itemTitle}>真实姓名</Text>
-          <View style = {styles.borderBottomStyle}>
+        <View style = {styles.bottom}>
+          <View style = {styles.item}>
+            <Text style = {styles.itemTitle}>真实姓名</Text>
             <TextInput
               placeholder = '请输入您的姓名'
               style = {styles.itemInput}
@@ -50,10 +43,8 @@ class blackListHome extends Component {
               onChangeText={name => this.setState({name})}
             />
           </View>
-        </View>
-        <View style = {styles.item}>
-          <Text style = {styles.itemTitle}>身份证号码</Text>
-          <View style = {styles.borderBottomStyle}>
+          <View style = {styles.item}>
+            <Text style = {styles.itemTitle}>身份证号码</Text>
             <TextInput
               placeholder = '请输入身份证号码'
               style = {styles.itemInput}
@@ -63,10 +54,8 @@ class blackListHome extends Component {
               maxLength = {18}
             />
           </View>
-        </View>
-        <View style = {styles.item}>
-          <Text style = {styles.itemTitle}>手机号码</Text>
-          <View style = {styles.borderBottomStyle}>
+          <View style = {styles.item}>
+            <Text style = {styles.itemTitle}>手机号码</Text>
             <TextInput
               placeholder = '请输入您的手机号码'
               style = {styles.itemInput}
@@ -76,37 +65,64 @@ class blackListHome extends Component {
               maxLength = {11}
             />
           </View>
-        </View>
+          <Text style = {{paddingLeft : 10, marginBottom : 20}}>我们提供付费代查网贷征信服务，查询费用3元／次</Text>
+          <View style = {styles.btn}>
+            <Button
+              style={styles.submitBtn}
+              onPress={() => {this._submit()}}>
+              <Text style={styles.submitBtnText}>开始查询</Text>
+            </Button>
+          </View>
+          <View style = {{paddingLeft : 10}}>
+            <Text style = {styles.footerTitle}>网贷征信查询</Text>
+            <ExternalPushLink
+              toKey="CardScene"
+              title="办卡"
+              componentProps ={{onBack : true}}>
+              <View style = {styles.footer}>
+                <Text style = {styles.footerCircle}>.</Text>
+                <Text style = {styles.footerTxt}>权威数据，查询网贷信用</Text>
+              </View>
+            </ExternalPushLink>
+            <ExternalPushLink
+              toKey="CardScene"
+              title="办卡"
+              componentProps ={{onBack : true}}>
+              <View style = {styles.footer}>
+                <Text style = {styles.footerCircle}>.</Text>
+                <Text style = {styles.footerTxt}>申请网贷被拒，可能中了网贷征信黑名单，建议关注</Text>
+              </View>
+            </ExternalPushLink>
+            <ExternalPushLink
+              toKey="AddBankCard"
+              title="添加银行卡"
+              componentProps ={{onBack : true}}>
+              <View style = {styles.footer}>
+                <Text style = {styles.footerCircle}>.</Text>
+                <Text style = {styles.footerTxt}>您的网贷信用情况</Text>
+              </View>
+            </ExternalPushLink>
 
-        <View style = {styles.btn}>
-        <Button
-          style={styles.submitBtn}
-          onPress={() => {this._submit()}}>
-          <Text style={styles.submitBtnText}>开始查询</Text>
-        </Button>
-        </View>
-        {this._renderNavItem(require('assets/zone/contact.png'),'您可以通过完善你的信用资料，免费查询一次',{toKey : 'CreditLoan', title : '信用贷'})}
-        {this._renderNavItem(require('assets/zone/contact.png'),'已有网贷征信报告',)}
-        <View style = {{flex : 1, justifyContent : 'flex-end'}}>
-            <Banner tracking={{key: 'credit_loan', topic: 'carousel_bottom'}} />
+          </View>
         </View>
 
         <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0,height: this.state.payModalVisible ? null : 0, overflow: "hidden"}}>
           <PayModal close={() => this.setState({payModalVisible: false})} />
         </View>
-
       </View>
     )
   }
 
-  _renderNavItem(icon, txt, navProps) {
+  _renderNavItem( txt, navProps, status) {
     return (
       <ExternalPushLink
         {...navProps}>
         <View style={zoneStyles.item}>
-          <Image style={zoneStyles.icon} source={icon}/>
-          <Text style={[zoneStyles.txt,{fontSize:12,color:'blue'}]}>{txt}</Text>
-          <NextIcon/>
+          <Text style={[zoneStyles.txt,{fontSize:14}]}>{txt}</Text>
+          <View style = {{flexDirection : 'row'}}>
+            <Text style = {{color : 'orange'}}>{status.status}</Text>
+            <NextIcon/>
+          </View>
         </View>
       </ExternalPushLink>
     )
@@ -149,11 +165,11 @@ class blackListHome extends Component {
   }
 
   _submit() {
-    if(!this._validation()) {
-      console.log('yanzheng');
-      console.log(this.state.mobile)
-      return null;
-    }
+    // if(!this._validation()) {
+    //   console.log('yanzheng');
+    //   console.log(this.state.mobile)
+    //   return null;
+    // }
 
     var createTicket = this.props.createTicket;
 
@@ -191,35 +207,42 @@ const styles = StyleSheet.create({
     paddingVertical : 10
   },
   btn : {
-    paddingHorizontal : 10,
-    borderBottomWidth : 1,
-    borderBottomColor : '#cecece',
-    paddingBottom : 5
+    paddingHorizontal : 20,
+    paddingBottom : 5,
+    marginBottom : 80
   },
   color : {
     color : 'blue'
   },
   top : {
+    marginBottom : 20
+  },
+  bottom : {
+    backgroundColor : '#fff',
+    flex : 1,
     paddingHorizontal : 10,
-    paddingVertical : 20
+    paddingTop : 10
   },
   item : {
     paddingLeft : 10,
     marginBottom : 10,
-
+    flexDirection : 'row',
+    paddingVertical : 10,
+    borderBottomWidth : 1,
+    borderBottomColor : '#cecece',
+    height : 50,
+    alignItems : 'center'
   },
   itemTitle : {
     marginBottom : 10,
+    width : 100
   },
   itemInput : {
-    fontSize : 12,
-    height : 20,
-
-  },
-  borderBottomStyle : {
-    borderBottomWidth : 1,
-    borderBottomColor : '#cecece',
-    height : 21
+    fontSize : 16,
+    height : 25,
+    flex : 1,
+    textAlign : 'right',
+    paddingRight : 20
   },
   submitBtn: {
     marginTop: 10,
@@ -233,6 +256,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff'
   },
+  footer : {
+    flexDirection : 'row',
+    height : 20,
+    alignItems : 'center'
+  },
+  footerTitle : {
+    color : 'orange',
+    marginBottom : 10,
+
+  },
+  footerCircle : {
+    fontSize : 30,
+    lineHeight : 18,
+    color : 'orange',
+    backgroundColor : 'transparent',
+    marginRight : 3
+  },
+  footerTxt : {
+    flex : 1
+  }
 });
 
 import { connect } from 'react-redux';
@@ -248,4 +291,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(blackListHome)
+export default connect(mapStateToProps, mapDispatchToProps)(blackListHome);

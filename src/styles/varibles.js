@@ -18,6 +18,8 @@ export const colors = {
 export const fontSize = {
   seventeen : 17,
   thirteen : 13,
+  xxxlarge: 19,
+  xxlarge: 18,
   xlarge: 17,
   large: 16,
   normal: 14,
