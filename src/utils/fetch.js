@@ -29,7 +29,7 @@ export function mock(url, body) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(mockData[url])
-    })
+    }, 2000)
   });
 }
 

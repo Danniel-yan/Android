@@ -1,24 +1,28 @@
 import { get, post, mock } from 'utils/fetch';
 
 export function RequestCardList() {
-  return { type: "RequestBankList" };
+  return { type: "RequestCardList" };
 }
 
 export function ReceiveCardList(list) {
   return {
-    type: "ReceiveBankList",
+    type: "ReceiveCardList",
     list
   };
 }
 
 export function CardList() {
   return dispatch => {
-    dispatch(RequestBankList())
+    dispatch(RequestCardList())
     mock("/payctcf/cardlist").then(response => {
       console.log(response);
-      dispatch(ReceiveBankList(response.data));
+      dispatch(ReceiveCardList(response.data));
     })
   }
+}
+
+export function AddCard(card) {
+  return { type: "AddCard", card };
 }
 
 

@@ -6,6 +6,7 @@ import {
 import ResponsiveImage from 'components/shared/ResponsiveImage';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Password from 'components/shared/Password';
+import Loading from 'components/shared/Loading';
 
 import { centering, fontSize } from 'styles';
 
@@ -19,10 +20,10 @@ class PayModal extends Component {
 
     this.state = {
       // title: "查询支付",
-      free: false,
-      bankList: [{logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png", name: "招商银行"},
-        {logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/7.png", name: "邮政储蓄"}], // 从接口配置
-      selectedBank: {logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png", name: "招商银行"}, // 从接口配置
+      // free: false,
+      // bankList: this.props.cardList, // 从接口配置
+      // selectedBank: this.props.cardList && this.props.cardList.length > 0 ? this.props.cardList[0] : null, // 从接口配置
+      selectedBank: null,
       navToBankList: false
     }
   }
@@ -32,17 +33,22 @@ class PayModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("nextProps")
-    // console.log(nextProps)
-    // this.setState({visible: nextProps.visible});
+    !this.state.selectedBank && (this.state.selectedBank = nextProps.cardList && nextProps.cardList.length > 0 ? nextProps.cardList[0] : null);
+  }
+
+  componentDidMount() {
+    this.props.fetchCardList && this.props.fetchCardList();
   }
 
   render() {
-    var visible = this.props.visible;
     return (
       <View style={[styles.overlay, centering, {backgroundColor: 'rgba(0,0,0,.3)'}]}>
         <TouchableOpacity style={[styles.overlay, {}]} activeOpacity={1} onPress={() => { this.closeModal() }} />
-        {this.renderContent()}
+        <View style={[styles.dialog]}>
+          {this.renderTitle()}
+          {this.renderContent()}
+        </View>
+
       </View>
     );
   }
@@ -61,12 +67,14 @@ class PayModal extends Component {
   }
 
   renderContent() {
-    var payState = this.switchPayState()
+  //   return this.renderLoading();
+    if(this.props.isFetchingCardList) return this.renderLoading();
+    var payState = this.switchPayState();
+
     switch(payState) {
       case "READY_FOR_PAYING":
         return (
-          <View style={[styles.dialog]}>
-            {this.renderTitle()}
+          <View>
             {this.renderPrice()}
             {this.renderSelectedBank()}
             {this.renderPaymentPassword()}
@@ -74,16 +82,14 @@ class PayModal extends Component {
         );
       case "WITHOUT_BANK_BIND":
         return (
-          <View style={[styles.dialog]}>
-            {this.renderTitle()}
+          <View>
             {this.renderPrice()}
             {this.renderAddBankNavBtn()}
           </View>
         );
       case "SELECT_EXIST_BANK":
         return (
-          <View style={[styles.dialog]}>
-            {this.renderTitle()}
+          <View>
             {this.renderBankList()}
             {this.renderAddBankNavBtn()}
           </View>
@@ -135,7 +141,7 @@ class PayModal extends Component {
     return (
       <View style={[styles.price, styles.bBorder, centering]}>
         <Text style={{fontSize: fontSize.xlarge, color: "#333"}}>金额：</Text>
-        <Text style={{fontSize: 30}}>{this.state.free ? "¥0" : "¥3"}</Text>
+        <Text style={{fontSize: 30}}>{this.props.free ? "¥0" : "¥3"}</Text>
       </View>
     );
   }
@@ -145,13 +151,13 @@ class PayModal extends Component {
   }
 
   renderBankList() {
-    var list = this.state.bankList;
-    if(!list || list.length < 1) return null;
+    var list = this.props.cardList;
+    //if(!list || list.length < 1) return null;
 
     return (
       <View style={{flexDirection: "column"}}>
       {
-        list.map((bank, idx) => {
+        list && list.length > 0 && list.map((bank, idx) => {
           return this.renderBank(bank, () => this.__selectBank__(bank))
         })
       }
@@ -161,10 +167,10 @@ class PayModal extends Component {
 
   renderBank(bank, onPressFunc) {
     return (
-      <TouchableOpacity key={bank.name} onPress={onPressFunc}>
+      <TouchableOpacity key={bank.bankname + bank.name} onPress={onPressFunc}>
         <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
-          <ResponsiveImage uri={bank.logo} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></ResponsiveImage>
-          <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{bank.name}</Text>
+          <ResponsiveImage uri={bank.logo.px80} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></ResponsiveImage>
+          <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{bank.bankname + "  " + bank.name + "  (" + bank.bankAccount + ")"}</Text>
           <Image source={require("assets/icons/arrow-left.png")} style={{width: 6, height: 10, marginLeft: 10}}></Image>
         </View>
       </TouchableOpacity>
@@ -197,6 +203,12 @@ class PayModal extends Component {
     );
   }
 
+  renderLoading() {
+    return (
+      <View style={{height: 40, paddingBottom: 10}}><Loading /></View>
+    );
+  }
+
   __navToBankList__() {
     this.setState({navToBankList: true});
   }
@@ -222,7 +234,8 @@ const styles = StyleSheet.create({
   dialog: {
     flex: 1,
     backgroundColor: "white",
-    borderRadius: 10
+    borderRadius: 10,
+    paddingBottom: 10
   },
   title: {
     padding: 14,
@@ -251,15 +264,31 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CardList } from 'actions/blackList';
+import { CardList, AddCard } from 'actions/blackList';
 
 function mapStateToProps(state) {
+  // console.log(state.blackListData)
   return state.blackListData;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    cardList: () => dispatch(CardList)
+    fetchCardList: () => dispatch(CardList()),
+    // addBankCard: () => dispatch(AddCard({
+    //
+    //         "id": 3, //bindcard_id,/payctcf/create接口中需要
+    //         "name": "李尧" + Math.random(), //姓名
+    //         "bankAccount": "1681", //卡号后4位
+    //         "bank_id": 6,
+    //         "bankname": "招商银行", //银行名称
+    //         "logo": {
+    //             "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
+    //             "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
+    //             "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
+    //             "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
+    //         }
+    //
+    // }))
   }
 }
 
