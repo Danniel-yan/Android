@@ -5,7 +5,8 @@ import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { fontSize, colors } from "styles/varibles";
 import Banner from 'containers/scene/find/banner';
-import Artical from 'components/find/artical'
+//import Artical from 'components/find/artical';
+import Artical from 'containers/scene/find/artical';
 import LoanProduct from 'containers/scene/find/loanProduct'
 
 const { width, height } = Dimensions.get('window');
@@ -33,10 +34,10 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title="黑名单查询"
-            toKey= {logined ? 'BlackListhome' : 'FindLogin'}
+            toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}>
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
-            <Text>查黑名单</Text>
+            <Text>黑名单</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="信用贷"
