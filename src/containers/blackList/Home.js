@@ -8,6 +8,8 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 
+import PayModal from 'components/modal/PayModal';
+
 const {width, height } = Dimensions.get('window');
 
 export default class blackListHome extends Component {
@@ -19,12 +21,13 @@ export default class blackListHome extends Component {
       mobile : '',
       err : '',
       submitting : false,
-      flags : false
+      flags : false,
+      payModalVisible: false
     }
   }
   render(){
     return(
-      <View style = {{flex : 1}}>
+      <View style = {{flex : 1, position: "relative"}}>
         <View style = {styles.top}>
           <Text style = {[styles.color,{marginBottom : 10}]}>网贷黑名单查询</Text>
           <View>
@@ -85,27 +88,11 @@ export default class blackListHome extends Component {
         <View style = {{flex : 1, justifyContent : 'flex-end'}}>
             <Banner tracking={{key: 'credit_loan', topic: 'carousel_bottom'}} />
         </View>
-        <Modal
-           animationType={"slide"}
-           transparent={true}
-           visible = {this.state.flags}
-           onRequestClose={() => {}}>
-           <View style = {styles.modalContainer}>
-              <View style = {styles.modalSubContainer}>
-                <Text style= {styles.modalTitle}>查询支付</Text>
-                <Text>金额： 3.00 元</Text>
-                <Text style = {{marginBottom : 5}}>编号： 000001</Text>
-                <View style = {styles.modalBottom}>
-                  <TouchableOpacity onPress = {() => {this.setState({flags : false})}} style = {{borderRightWidth : 1, borderRightColor : '#cecece', width : 79, height : 20}}>
-                    <Text style = {{textAlign : 'center', lineHeight : 20}}>取消</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress = {() => {this.setState({flags : false})}} style = {{ width : 79, height : 20}}>
-                    <Text style = {{textAlign : 'center', lineHeight : 20, color : 'blue'}}>去支付</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-        </Modal>
+
+        <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0,height: this.state.payModalVisible ? null : 0, overflow: "hidden"}}>
+          <PayModal close={() => this.setState({payModalVisible: false})} />
+        </View>
+
       </View>
     )
   }
@@ -166,9 +153,7 @@ export default class blackListHome extends Component {
       return null;
     }
 
-    this.setState({
-      flags : !this.state.flags
-    });
+    this.setState({ payModalVisible : true });
   }
 
 

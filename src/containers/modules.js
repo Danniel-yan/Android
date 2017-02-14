@@ -47,7 +47,7 @@ import BillDetail from 'containers/bill/BillDetailContainer';
 import GjjReport from 'containers/bill/GjjDetailContainer';
 import GjjStatus from 'containers/certification/fund/GjjStatus';
 import FindHome from 'containers/scene/find/findHome'
-import BlackListhome from 'containers/scene/find/blackListHome';
+import BlackListhome from 'containers/blackList/Home';
 import FindLogin from 'containers/scene/find/findLogin'
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
