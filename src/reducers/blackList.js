@@ -1,7 +1,7 @@
 const initState = {
   isFetchingCardList: true,
   cardList: [],
-
+  selectedCard: null
 
 }
 
@@ -15,6 +15,10 @@ export default function(state = initState, action) {
       var cardList = state.cardList || [], newState = Object.assign({}, state);
       cardList = [action.card].concat(cardList);
       newState.cardList = cardList;
+      return newState;
+    case "SelectCard":
+      var newState = Object.assign({}, state);
+      newState.selectedCard = action.selectedCard;
       return newState;
     default:
       return state;

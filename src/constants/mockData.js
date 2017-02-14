@@ -9,32 +9,32 @@ export const mockData = {
   "/payctcf/cardlist": {
     "res": 1,
     "data": [
-        // {
-        //     "id": 1, //bindcard_id,/payctcf/create接口中需要
-        //     "name": "徐飞", //姓名
-        //     "bankAccount": "1681", //卡号后4位
-        //     "bank_id": 6,
-        //     "bankname": "招商银行", //银行名称
-        //     "logo": {
-        //         "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
-        //         "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
-        //         "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
-        //         "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
-        //     }
-        // },
-        // {
-        //     "id": 2, //bindcard_id,/payctcf/create接口中需要
-        //     "name": "王睆", //姓名
-        //     "bankAccount": "1681", //卡号后4位
-        //     "bank_id": 6,
-        //     "bankname": "招商银行", //银行名称
-        //     "logo": {
-        //         "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
-        //         "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
-        //         "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
-        //         "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
-        //     }
-        // }
+        {
+            "id": 1, //bindcard_id,/payctcf/create接口中需要
+            "name": "徐飞", //姓名
+            "bankAccount": "1681", //卡号后4位
+            "bank_id": 6,
+            "bankname": "招商银行", //银行名称
+            "logo": {
+                "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
+                "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
+                "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
+                "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
+            }
+        },
+        {
+            "id": 2, //bindcard_id,/payctcf/create接口中需要
+            "name": "王睆", //姓名
+            "bankAccount": "1681", //卡号后4位
+            "bank_id": 6,
+            "bankname": "招商银行", //银行名称
+            "logo": {
+                "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
+                "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
+                "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
+                "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
+            }
+        }
     ]
   }
 }

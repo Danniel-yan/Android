@@ -23,8 +23,8 @@ class PayModal extends Component {
       // free: false,
       // bankList: this.props.cardList, // 从接口配置
       // selectedBank: this.props.cardList && this.props.cardList.length > 0 ? this.props.cardList[0] : null, // 从接口配置
-      selectedBank: null,
-      navToBankList: false
+      // selectedBank: null,
+      navToCardList: false
     }
   }
 
@@ -32,9 +32,9 @@ class PayModal extends Component {
     this.props.close && this.props.close();
   }
 
-  componentWillReceiveProps(nextProps) {
-    !this.state.selectedBank && (this.state.selectedBank = nextProps.cardList && nextProps.cardList.length > 0 ? nextProps.cardList[0] : null);
-  }
+  //componentWillReceiveProps(nextProps) {
+    //!this.state.selectedBank && (this.state.selectedBank = nextProps.cardList && nextProps.cardList.length > 0 ? nextProps.cardList[0] : null);
+  //}
 
   componentDidMount() {
     this.props.fetchCardList && this.props.fetchCardList();
@@ -56,11 +56,11 @@ class PayModal extends Component {
   switchPayState() {
     var state = this.state;
 
-    if(state.navToBankList) {
-      return "SELECT_EXIST_BANK";
+    if(state.navToCardList) {
+      return "SELECT_EXIST_CARD";
     }
-    if(!state.selectedBank) {
-      return "WITHOUT_BANK_BIND";
+    if(!this.props.selectedCard) {
+      return "WITHOUT_CARD_BIND";
     } else {
       return "READY_FOR_PAYING";
     }
@@ -80,18 +80,18 @@ class PayModal extends Component {
             {this.renderPaymentPassword()}
           </View>
         );
-      case "WITHOUT_BANK_BIND":
+      case "WITHOUT_CARD_BIND":
         return (
           <View>
             {this.renderPrice()}
-            {this.renderAddBankNavBtn()}
+            {this.renderAddCardNavBtn()}
           </View>
         );
-      case "SELECT_EXIST_BANK":
+      case "SELECT_EXIST_CARD":
         return (
           <View>
-            {this.renderBankList()}
-            {this.renderAddBankNavBtn()}
+            {this.renderCardList()}
+            {this.renderAddCardNavBtn()}
           </View>
         );
     }
@@ -112,9 +112,9 @@ class PayModal extends Component {
   //         <View style={[styles.dialog]}>
   //           {this.renderTitle()}
   //           {this.renderPrice()}
-  //           {this.renderBankList([{logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png", name: "招商银行"},
+  //           {this.renderCardList([{logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png", name: "招商银行"},
   //             {logo: "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/7.png", name: "邮政储蓄"}])}
-  //           {this.renderAddBankNavBtn()}
+  //           {this.renderAddCardNavBtn()}
   //         </View>
   //       </View>
   //     </Modal>
@@ -124,12 +124,12 @@ class PayModal extends Component {
   renderTitle() {
     return (
       <View style={[styles.title, styles.bBorder]}>
-        <Text style={{flex: 1, fontWeight: "700", textAlign: "center", fontSize: fontSize.xxxlarge}}>{this.state.navToBankList ? "选择支付方式" : "查询支付"}</Text>
+        <Text style={{flex: 1, fontWeight: "700", textAlign: "center", fontSize: fontSize.xxxlarge}}>{this.state.navToCardList ? "选择支付方式" : "查询支付"}</Text>
         <TouchableOpacity style={{position: "absolute", top: 0, right: 0, padding: 14}} onPress={() => { this.closeModal() }}>
           <Image style={{height: 20, width: 20}} source={require("assets/online/close.png")}></Image>
         </TouchableOpacity>
-        {this.state.navToBankList ? (
-          <TouchableOpacity style={{position: "absolute", top: 0, left: 0, padding: 19}} onPress={() => { this.setState({navToBankList: false}); }}>
+        {this.state.navToCardList ? (
+          <TouchableOpacity style={{position: "absolute", top: 0, left: 0, padding: 19}} onPress={() => { this.setState({navToCardList: false}); }}>
             <Image style={{width: 8, height: 12}} source={require("assets/icons/back.png")}></Image>
           </TouchableOpacity>
         ) : null}
@@ -147,30 +147,30 @@ class PayModal extends Component {
   }
 
   renderSelectedBank() {
-    return this.state.selectedBank ? this.renderBank(this.state.selectedBank, () => this.setState({navToBankList: true})) : null;
+    return this.props.selectedCard ? this.renderCard(this.props.selectedCard, () => this.setState({navToCardList: true})) : null;
   }
 
-  renderBankList() {
+  renderCardList() {
     var list = this.props.cardList;
     //if(!list || list.length < 1) return null;
 
     return (
       <View style={{flexDirection: "column"}}>
       {
-        list && list.length > 0 && list.map((bank, idx) => {
-          return this.renderBank(bank, () => this.__selectBank__(bank))
+        list && list.length > 0 && list.map((card, idx) => {
+          return this.renderCard(card, () => this.__selectCard__(card))
         })
       }
       </View>
     );
   }
 
-  renderBank(bank, onPressFunc) {
+  renderCard(card, onPressFunc) {
     return (
-      <TouchableOpacity key={bank.bankname + bank.name} onPress={onPressFunc}>
+      <TouchableOpacity key={card.bankname + card.name} onPress={onPressFunc}>
         <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
-          <ResponsiveImage uri={bank.logo.px80} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></ResponsiveImage>
-          <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{bank.bankname + "  " + bank.name + "  (" + bank.bankAccount + ")"}</Text>
+          <ResponsiveImage uri={card.logo.px80} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></ResponsiveImage>
+          <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{card.bankname + "  " + card.name + "  (" + card.bankAccount + ")"}</Text>
           <Image source={require("assets/icons/arrow-left.png")} style={{width: 6, height: 10, marginLeft: 10}}></Image>
         </View>
       </TouchableOpacity>
@@ -189,15 +189,15 @@ class PayModal extends Component {
     );
   }
 
-  renderAddBankNavBtn() {
+  renderAddCardNavBtn() {
     return (
       <View style={{padding: 14, paddingBottom: 20}}>
         <ExternalPushLink
           title="添加银行卡"
           toKey="RecLoanScene"
           text="添加银行卡"
-          style={styles.addBankBtn}
-          textStyle={styles.addBankTxt}>
+          style={styles.addCardBtn}
+          textStyle={styles.addCardTxt}>
         </ExternalPushLink>
       </View>
     );
@@ -209,15 +209,16 @@ class PayModal extends Component {
     );
   }
 
-  __navToBankList__() {
-    this.setState({navToBankList: true});
+  __navToCardList__() {
+    this.setState({navToCardList: true});
   }
 
-  __selectBank__(bank) {
+  __selectCard__(card) {
     this.setState({
-      navToBankList: false,
-      selectedBank: bank
-    })
+      navToCardList: false,
+      // selectedBank: bank
+    });
+    this.props.selectPaymentCard && this.props.selectPaymentCard(card)
   }
 }
 
@@ -251,20 +252,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#f2f2f2"
   },
-  addBankBtn: {
+  addCardBtn: {
     borderRadius: 5,
     backgroundColor: "#FD6E2C",
     padding: 10,
     height: 40,
   },
-  addBankTxt: {
+  addCardTxt: {
     color: "white",
     textAlign: "center"
   }
 });
 
 import { connect } from 'react-redux';
-import { CardList, AddCard } from 'actions/blackList';
+import { CardList, AddCard, SelectCard } from 'actions/blackList';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -289,6 +290,7 @@ function mapDispatchToProps(dispatch) {
     //         }
     //
     // }))
+    selectPaymentCard: card => dispatch(SelectCard(card))
   }
 }
 
