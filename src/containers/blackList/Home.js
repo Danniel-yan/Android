@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image ,StyleSheet,Text, TextInput, Modal, TouchableOpacity} from 'react-native';
+import { View, Image ,StyleSheet,Text, TextInput, Modal, TouchableOpacity, Dimensions} from 'react-native';
 
 import Button from 'components/shared/ButtonBase';
 import zoneStyles from 'containers/scene/zone/zoneStyles';
@@ -8,6 +8,9 @@ import { ExternalPushLink } from 'containers/shared/Link';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 
+import PayModal from 'components/modal/PayModal';
+
+const {width, height } = Dimensions.get('window');
 
 export default class blackListHome extends Component {
   constructor(props){
@@ -18,12 +21,13 @@ export default class blackListHome extends Component {
       mobile : '',
       err : '',
       submitting : false,
-      flags : false
+      flags : false,
+      payModalVisible: false
     }
   }
   render(){
     return(
-      <View style = {{flex : 1}}>
+      <View style = {{flex : 1, position: "relative"}}>
         <View style = {styles.top}>
           {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >70 ? '立即查询' : '去完善'})}
           {this._renderNavItem('已有网贷征信报告',{toKey : 'CreditReport', title : '网贷征信报告'},{status : false ? '去完善' : '立即查看'})}
@@ -102,27 +106,9 @@ export default class blackListHome extends Component {
           </View>
         </View>
 
-        <Modal
-           animationType={"slide"}
-           transparent={true}
-           visible = {this.state.flags}
-           onRequestClose={() => {}}>
-           <View style = {styles.modalContainer}>
-              <View style = {styles.modalSubContainer}>
-                <Text style= {styles.modalTitle}>查询支付</Text>
-                <Text>金额： 3.00 元</Text>
-                <Text style = {{marginBottom : 5}}>编号： 000001</Text>
-                <View style = {styles.modalBottom}>
-                  <TouchableOpacity onPress = {() => {this.setState({flags : false})}} style = {{borderRightWidth : 1, borderRightColor : '#cecece', width : 79, height : 20}}>
-                    <Text style = {{textAlign : 'center', lineHeight : 20}}>取消</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress = {() => {this.setState({flags : false})}} style = {{ width : 79, height : 20}}>
-                    <Text style = {{textAlign : 'center', lineHeight : 20, color : 'blue'}}>去支付</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-        </Modal>
+        <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0,height: this.state.payModalVisible ? null : 0, overflow: "hidden"}}>
+          <PayModal close={() => this.setState({payModalVisible: false})} />
+        </View>
       </View>
     )
   }
@@ -185,9 +171,7 @@ export default class blackListHome extends Component {
       return null;
     }
 
-    this.setState({
-      flags : !this.state.flags
-    });
+    this.setState({ payModalVisible : true });
   }
 
 
