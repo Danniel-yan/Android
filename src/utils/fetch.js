@@ -24,6 +24,15 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
+import {mockData} from 'constants';
+export function mock(url, body) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(mockData[url])
+    })
+  });
+}
+
 export function get(url, body, responseType = 'json') {
   return Promise.resolve(setupParams())
     .then(setupUserToken)

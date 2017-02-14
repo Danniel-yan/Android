@@ -12,9 +12,10 @@ import PayModal from 'components/modal/PayModal';
 
 const {width, height } = Dimensions.get('window');
 
-export default class blackListHome extends Component {
+class blackListHome extends Component {
   constructor(props){
     super(props);
+    var bLData = props.blackListData;
     this.state = {
       name : '',
       ID : '',
@@ -22,7 +23,8 @@ export default class blackListHome extends Component {
       err : '',
       submitting : false,
       flags : false,
-      payModalVisible: false
+      payModalVisible: false,
+      fetchingTicket: bLData.isFetchingTicket
     }
   }
   render(){
@@ -153,6 +155,10 @@ export default class blackListHome extends Component {
       return null;
     }
 
+    var createTicket = this.props.createTicket;
+
+    // createTicket && createTicket()
+
     this.setState({ payModalVisible : true });
   }
 
@@ -227,4 +233,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff'
   },
-})
+});
+
+import { connect } from 'react-redux';
+import { CreateBlackListTicket } from 'actions/blackList';
+
+function mapStateToProps(state) {
+  return state.blackListData
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createTicket: body => dispatch(CreateBlackListTicket(body))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(blackListHome)

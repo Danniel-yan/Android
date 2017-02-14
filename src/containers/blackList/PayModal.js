@@ -11,7 +11,7 @@ import { centering, fontSize } from 'styles';
 
 const PayStatuses = ["", "", "", ""]
 
-export default class PayModal extends Component {
+class PayModal extends Component {
   static defaultProps = {};
 
   constructor(props) {
@@ -249,3 +249,18 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+import { connect } from 'react-redux';
+import { CardList } from 'actions/blackList';
+
+function mapStateToProps(state) {
+  return state.blackListData;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    cardList: () => dispatch(CardList)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PayModal)

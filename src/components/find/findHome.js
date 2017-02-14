@@ -33,7 +33,7 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title="黑名单查询"
-            toKey= {logined ? 'BlackListhome' : 'FindLogin'}
+            toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}>
             <Image source={require('assets/icons/tuijiandaikuan.png')}></Image>
             <Text>查黑名单</Text>
@@ -112,5 +112,3 @@ const styles = StyleSheet.create({
     textAlign : 'center'
   }
 });
-
-
