@@ -112,9 +112,6 @@ function ApproveExpire(props) {
         text={"抱歉，您的借款已过期。\n如需要，请重新申请。"}
       />
 
-      <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
-      <LoanDetailPanel {...data}/>
-
       <SubmitButton
         title="信息认证"
         offset={true}
