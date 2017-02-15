@@ -194,7 +194,7 @@ class PayModal extends Component {
       <View style={{padding: 14, paddingBottom: 20}}>
         <ExternalPushLink
           title="添加银行卡"
-          toKey="RecLoanScene"
+          toKey="AddBankCard"
           text="添加银行卡"
           style={styles.addBankBtn}
           textStyle={styles.addBankTxt}>
