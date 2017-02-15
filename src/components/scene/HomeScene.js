@@ -68,14 +68,15 @@ export default class HomeScene extends Component {
   }
 
   _renderHeader() {
+    // <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width, height: headerHeight}}>
     return (
-      <Image source = {require('../../assets/icons/NavigatorHeader.png')} style = {{width : width, height: headerHeight}}>
+      <View style = {{width : width, height: headerHeight}}>
       <View style={styles.header}>
         <GeoCity style={styles.left}/>
         <View style={styles.center}><Text onPress={this._memoryPress.bind(this)} style={styles.titleTxt}>钞市</Text></View>
         <View style={styles.right}></View>
       </View>
-      </Image>
+      </View>
     )
   }
 
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: headerHeight,
     paddingTop: statusBarHeight,
-    backgroundColor: 'transparent',
+    backgroundColor: colors.primary,
     alignItems: 'center'
   },
 

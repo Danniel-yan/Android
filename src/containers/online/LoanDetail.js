@@ -24,7 +24,7 @@ class LoanDetail extends Component {
         <L2RItem left="合同金额" right={props.applyAmount}/>
         <L2RItem left="手续费" right={serviceAmount}/>
         <L2RItem left="借款期限" right={props.totalLoanRepaymentTerms+'期'}/>
-        <L2RItem left="月费率" right={props.interestRate}/>
+        <L2RItem left="月费率" right={props.monthFee || props.interestRate}/>
 
         <GroupTitle title="还款计划表"/>
         <RefundPlan plans={plans}/>
@@ -84,7 +84,7 @@ class RightButton extends Component {
   }
 }
 
-let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail));
+let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);
 SceneComponent = externalScene(SceneComponent, RightButton);
 SceneComponent = connect(mapStateToProps, mapDispatchToProps)(SceneComponent);
 SceneComponent.external = true;
