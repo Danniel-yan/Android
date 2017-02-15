@@ -197,8 +197,9 @@ class UserInfo extends Component {
           console.log(err);
           this.setState({ submitting: false, error: err})
         });
-
-
+      }, err => {
+        console.log(err);
+        this.setState({ submitting: false, error: "请打开定位"})
       });
     });
   }
