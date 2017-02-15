@@ -22,7 +22,9 @@ export default class findHome extends Component {
           bgColor='red'
           textColor='#fff'
         />
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator = {false}
+        >
         <View style = {{flexDirection : 'row', justifyContent : 'space-around', paddingVertical : 15, backgroundColor : '#fff'}}>
           <ExternalPushLink
             toKey="CardScene"
