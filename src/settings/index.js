@@ -15,6 +15,11 @@ export const environments = {
     id: 'test',
     text: '内部用测试环境',
     api: 'https://shiyishou-test.jujinpan.cn/'
+  },
+  uat: {
+    id: 'uat',
+    text: 'UAT',
+    api: 'https://shiyishou-uat.jujinpan.cn/'
   }
 };
 

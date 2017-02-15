@@ -77,7 +77,7 @@ class UserInfo extends Component {
     let error = this.formChanged && this._validation();
     let disabled = !this.formChanged || !!error;
     // 第二次进入默认不禁用
-    if(!this.state.firstTime && !this.formChanged) {
+    if(!this.state.firstTime && !this.formChanged && this.state.checkedAgreement) {
       disabled = false;
     }
 
