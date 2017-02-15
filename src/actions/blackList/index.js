@@ -1,5 +1,9 @@
 import { get, post, mock } from 'utils/fetch';
 
+export function InitalBlackListTarget(target) {
+  return { type: "InitalBlackListTarget", target }
+}
+
 export function RequestCardList() {
   return { type: "RequestCardList" };
 }
@@ -31,24 +35,78 @@ export function SelectCard(card) {
   return { type: "SelectCard", selectedCard: card }
 }
 
-export function RequestCreate() {
-  return { type: "RequestCreateBlackList" };
+function RequestBlackListTicket() {
+  return { type: "RequestBlackListTicket" };
 }
 
-export function ReceiveBlackListTicket(ticket) {
+function ReceiveBlackListTicket(ticket) {
   return {
     type: "ReceiveBlackListTicket",
     ticket
   };
 }
 
-export function CreateBlackListTicket(body) {
-  return dispatch => {
-    dispatch(RequestCreate());
+function CreateBlackListTicket(body) {
+  return (dispatch, getState) => {
+    dispatch(RequestBlackListTicket());
+    var state = getState(),
+      body = state && state.blackListData ? state.blackListData.target : null;
 
-    mock("/blaclist/create", body).then(response => {
-      dispatch(ReceiveBlackListTicket());
+    if(!body) return null;
+    console.log("CreateTicket");
+    console.log(body);
+    return mock("/blaclist/create", body).then(response => {
+      dispatch(ReceiveBlackListTicket(response.data.ticket_id));
       console.log(response);
     })
+  }
+}
+
+function PaymentStart() {
+  return { type: "PaymentStart" };
+}
+
+function PaymentSended() {
+  return { type: "PaymentSended" };
+}
+
+function CreatePayment() {
+  return (dispatch, getState) => {
+    var state = getState(), bLData = state.blackListData, body;
+    var { ticket, selectedCard } = bLData;
+    if(!ticket || !selectedCard) return null;
+    body = selectedCard.id ? {
+      bindcard_id: selectedCard.id
+    } : {
+      realname: selectedCard.name,
+      idnum: selectedCard.idnum,
+      mobile: selectedCard.mobile,
+      cardnum: selectedCard.cardnum
+    };
+    body.ticket_id = ticket;
+
+    dispatch(PaymentStart());
+    console.log("CreatePayment");
+    console.log(body);
+    return mock("/payctcf/create", body).then(response => {
+      dispatch(PaymentSended());
+    })
+
+  }
+}
+
+export function SubmitPayment() {
+  return (dispatch) => {
+    dispatch(CreateBlackListTicket()).then(() => {
+      dispatch(CreatePayment())
+    })
+  }
+}
+
+export function ClearPaymentInfo() {
+  return (dispatch, getState) => {
+    var state = getState();
+    if(state.paymentStart) return null;
+    return dispatch({type: "ClearPaymentInfo"})
   }
 }

@@ -171,7 +171,14 @@ class blackListHome extends Component {
     //   return null;
     // }
 
-    var createTicket = this.props.createTicket;
+    this.props.initialTarget && this.props.initialTarget({
+      // realname: this.state.name,
+      // idnum: this.state.ID,
+      // mobile: this.state.mobile
+      realname: '王睆',
+      idnum: '320682199010086139',
+      mobile: '18221309578'
+    });
 
     // createTicket && createTicket()
 
@@ -279,7 +286,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CreateBlackListTicket } from 'actions/blackList';
+import { CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
 
 function mapStateToProps(state) {
   return state.blackListData
@@ -287,7 +294,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createTicket: body => dispatch(CreateBlackListTicket(body))
+    createTicket: body => dispatch(CreateBlackListTicket(body)),
+    initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))
   }
 }
 

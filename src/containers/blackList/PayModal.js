@@ -24,7 +24,9 @@ class PayModal extends Component {
       // bankList: this.props.cardList, // 从接口配置
       // selectedBank: this.props.cardList && this.props.cardList.length > 0 ? this.props.cardList[0] : null, // 从接口配置
       // selectedBank: null,
-      navToCardList: false
+      navToCardList: false,
+      isPaying: false,
+      codeSended: false
     }
   }
 
@@ -43,7 +45,7 @@ class PayModal extends Component {
   render() {
     return (
       <View style={[styles.overlay, centering, {backgroundColor: 'rgba(0,0,0,.3)'}]}>
-        <TouchableOpacity style={[styles.overlay, {}]} activeOpacity={1} onPress={() => { this.closeModal() }} />
+        <TouchableOpacity style={[styles.overlay, {}]} activeOpacity={1} onPress={() => { }} />
         <View style={[styles.dialog]}>
           {this.renderTitle()}
           {this.renderContent()}
@@ -77,7 +79,7 @@ class PayModal extends Component {
           <View>
             {this.renderPrice()}
             {this.renderSelectedBank()}
-            {this.renderPaymentPassword()}
+            {this.renderPayment()}
           </View>
         );
       case "WITHOUT_CARD_BIND":
@@ -181,10 +183,17 @@ class PayModal extends Component {
     return null;
   }
 
-  renderPaymentPassword() {
-    return (
-      <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
+  renderPayment() {
+    return this.props.paymentSended ? (
+      <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
+        <Text style={{fontSize: fontSize.xsmall, marginBottom: 4}}>请输入验证码</Text>
         <Password num={6}></Password>
+      </View>
+    ) : (
+      <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
+        <TouchableOpacity onPress={() => this.__submitPayment__()}>
+          <View style={[styles.addCardBtn, centering]}><Text style={styles.addCardTxt}>{this.props.paymentStart ? this.props.stateMsg : "确认支付"}</Text></View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -219,6 +228,11 @@ class PayModal extends Component {
       // selectedBank: bank
     });
     this.props.selectPaymentCard && this.props.selectPaymentCard(card)
+  }
+
+  __submitPayment__() {
+    // this.setState({isPaying: true})
+    this.props.submitPayment && this.props.submitPayment();
   }
 }
 
@@ -265,7 +279,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CardList, AddCard, SelectCard } from 'actions/blackList';
+import { CardList, AddCard, SelectCard, SubmitPayment } from 'actions/blackList';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -290,7 +304,8 @@ function mapDispatchToProps(dispatch) {
     //         }
     //
     // }))
-    selectPaymentCard: card => dispatch(SelectCard(card))
+    selectPaymentCard: card => dispatch(SelectCard(card)),
+    submitPayment: () => dispatch(SubmitPayment())
   }
 }
 

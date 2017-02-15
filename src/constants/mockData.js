@@ -36,5 +36,9 @@ export const mockData = {
             }
         }
     ]
+  },
+  "/payctcf/create": {
+    "res": 1,
+    "data": [] 
   }
 }
