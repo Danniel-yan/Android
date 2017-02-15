@@ -6,7 +6,6 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
-  console.log(state.articalList);
   return state.articalList;
 
 }

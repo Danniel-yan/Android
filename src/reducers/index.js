@@ -26,6 +26,8 @@ import findOperating from './find/operating';
 //import findLoanProduct from './find/loanProduct';
 import articalList from './find/artical';
 
+import blackListData from './blackList';
+
 export default combineReducers({
   loginUser,
   cardConfig,
@@ -49,6 +51,6 @@ export default combineReducers({
   online,
   iosConfig,
   findOperating,
-  articalList,
-  //findLoanProduct,
+  blackListData,
+  articalList
 });

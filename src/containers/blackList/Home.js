@@ -8,11 +8,11 @@ import { ExternalPushLink } from 'containers/shared/Link';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 
-import PayModal from 'components/modal/PayModal';
+import PayModal from './PayModal';
 
 const {width, height } = Dimensions.get('window');
 
-export default class blackListHome extends Component {
+class blackListHome extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ export default class blackListHome extends Component {
   }
   render(){
     return(
-      <View style = {{flex : 1, position: "relative"}}>
+      <View style = {{flex : 1}}>
         <View style = {styles.top}>
           {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >70 ? '立即查询' : '去完善'})}
           {this._renderNavItem('已有网贷征信报告',{toKey : 'CreditReport', title : '网贷征信报告'},{status : false ? '去完善' : '立即查看'})}
@@ -165,11 +165,15 @@ export default class blackListHome extends Component {
   }
 
   _submit() {
-    if(!this._validation()) {
-      console.log('yanzheng');
-      console.log(this.state.mobile)
-      return null;
-    }
+    // if(!this._validation()) {
+    //   console.log('yanzheng');
+    //   console.log(this.state.mobile)
+    //   return null;
+    // }
+
+    var createTicket = this.props.createTicket;
+
+    // createTicket && createTicket()
 
     this.setState({ payModalVisible : true });
   }
@@ -271,6 +275,20 @@ const styles = StyleSheet.create({
   },
   footerTxt : {
     flex : 1
-  },
+  }
+});
 
-})
+import { connect } from 'react-redux';
+import { CreateBlackListTicket } from 'actions/blackList';
+
+function mapStateToProps(state) {
+  return state.blackListData
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createTicket: body => dispatch(CreateBlackListTicket(body))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(blackListHome);
