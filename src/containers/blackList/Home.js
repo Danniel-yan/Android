@@ -27,82 +27,66 @@ class blackListHome extends Component {
   }
   render(){
     return(
-      <View style = {{flex : 1}}>
-        <View style = {styles.top}>
+      <View style={{flex : 1}}>
+        <View style={styles.top}>
           {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >70 ? '立即查询' : '去完善'})}
           {this._renderNavItem('已有网贷征信报告',{toKey : 'CreditReport', title : '网贷征信报告'},{status : false ? '去完善' : '立即查看'})}
         </View>
-        <View style = {styles.bottom}>
-          <View style = {styles.item}>
-            <Text style = {styles.itemTitle}>真实姓名</Text>
+        <View style={styles.bottom}>
+          <View style={styles.item}>
+            <Text style={styles.itemTitle}>真实姓名</Text>
             <TextInput
-              placeholder = '请输入您的姓名'
-              style = {styles.itemInput}
+              placeholder='请输入您的姓名'
+              style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
               onChangeText={name => this.setState({name})}
             />
           </View>
-          <View style = {styles.item}>
-            <Text style = {styles.itemTitle}>身份证号码</Text>
+          <View style={styles.item}>
+            <Text style={styles.itemTitle}>身份证号码</Text>
             <TextInput
-              placeholder = '请输入身份证号码'
-              style = {styles.itemInput}
+              placeholder='请输入身份证号码'
+              style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
               onChangeText={ID => this.setState({ID})}
-              maxLength = {18}
+              maxLength={18}
             />
           </View>
-          <View style = {styles.item}>
-            <Text style = {styles.itemTitle}>手机号码</Text>
+          <View style={styles.item}>
+            <Text style={styles.itemTitle}>手机号码</Text>
             <TextInput
-              placeholder = '请输入您的手机号码'
-              style = {styles.itemInput}
+              placeholder='请输入您的手机号码'
+              style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
               onChangeText={mobile => this.setState({mobile})}
-              maxLength = {11}
+              maxLength={11}
             />
           </View>
-          <Text style = {{paddingLeft : 10, marginBottom : 20}}>我们提供付费代查网贷征信服务，查询费用3元／次</Text>
-          <View style = {styles.btn}>
+          <Text style={{paddingLeft : 10, marginBottom : 20}}>我们提供付费代查网贷征信服务，查询费用3元／次</Text>
+          <View style={styles.btn}>
             <Button
               style={styles.submitBtn}
               onPress={() => {this._submit()}}>
               <Text style={styles.submitBtnText}>开始查询</Text>
             </Button>
           </View>
-          <View style = {{paddingLeft : 10}}>
-            <Text style = {styles.footerTitle}>网贷征信查询</Text>
-            <ExternalPushLink
-              toKey="CardScene"
-              title="办卡"
-              componentProps ={{onBack : true}}>
-              <View style = {styles.footer}>
-                <Text style = {styles.footerCircle}>.</Text>
-                <Text style = {styles.footerTxt}>权威数据，查询网贷信用</Text>
+          <View style={{paddingLeft : 10}}>
+            <Text style={styles.footerTitle}>网贷征信查询</Text>
+              <View style={styles.footer}>
+                <Text style={styles.footerCircle}>.</Text>
+                <Text style={styles.footerTxt}>权威数据，查询网贷信用</Text>
               </View>
-            </ExternalPushLink>
-            <ExternalPushLink
-              toKey="CardScene"
-              title="办卡"
-              componentProps ={{onBack : true}}>
-              <View style = {styles.footer}>
-                <Text style = {styles.footerCircle}>.</Text>
-                <Text style = {styles.footerTxt}>申请网贷被拒，可能中了网贷征信黑名单，建议关注</Text>
+              <View style={styles.footer}>
+                <Text style={styles.footerCircle}>.</Text>
+                <Text style={styles.footerTxt}>申请网贷被拒，可能中了网贷征信黑名单，建议关注</Text>
               </View>
-            </ExternalPushLink>
-            <ExternalPushLink
-              toKey="AddBankCard"
-              title="添加银行卡"
-              componentProps ={{onBack : true}}>
-              <View style = {styles.footer}>
-                <Text style = {styles.footerCircle}>.</Text>
-                <Text style = {styles.footerTxt}>您的网贷信用情况</Text>
+              <View style={styles.footer}>
+                <Text style={styles.footerCircle}>.</Text>
+                <Text style={styles.footerTxt}>您的网贷信用情况</Text>
               </View>
-            </ExternalPushLink>
-
           </View>
         </View>
 
@@ -119,8 +103,8 @@ class blackListHome extends Component {
         {...navProps}>
         <View style={zoneStyles.item}>
           <Text style={[zoneStyles.txt,{fontSize:14}]}>{txt}</Text>
-          <View style = {{flexDirection : 'row'}}>
-            <Text style = {{color : 'orange'}}>{status.status}</Text>
+          <View style={{flexDirection : 'row'}}>
+            <Text style={{color : 'orange'}}>{status.status}</Text>
             <NextIcon/>
           </View>
         </View>
@@ -130,16 +114,16 @@ class blackListHome extends Component {
 
   renderItem(title,placeholder,value,maxLength){
     return (
-      <View style = {styles.item}>
-        <Text style = {styles.itemTitle}>{title}</Text>
-        <View style = {styles.borderBottomStyle}>
+      <View style={styles.item}>
+        <Text style={styles.itemTitle}>{title}</Text>
+        <View style={styles.borderBottomStyle}>
           <TextInput
-            placeholder = {placeholder}
-            style = {styles.itemInput}
+            placeholder={placeholder}
+            style={styles.itemInput}
             underlineColorAndroid="transparent"
             clearButtonMode="while-editing"
             onChangeText={value => this.setState({value})}
-            maxLength = {maxLength}
+            maxLength={maxLength}
           />
         </View>
       </View>
@@ -147,16 +131,18 @@ class blackListHome extends Component {
   }
 
   _validation() {
-    let mobileValid = validators.mobile(this.state.mobile);
-    let nameValid = this.state.name.length > 0;
-    let IDValid = this.state.ID.length > 0;
-    if(!nameValid) {
+    if(!this.state.name) {
       this.setState({err: '请输入姓名'});
       return false;
     }
 
-    if(!IDValid) {
+    if(!this.state.ID) {
       this.setState({err: '请输入身份证号码'});
+      return false;
+    }
+
+    if(!validators.mobile(this.state.mobile)) {
+      this.setState({err: '请输入有效手机号码'});
       return false;
     }
 
@@ -165,22 +151,18 @@ class blackListHome extends Component {
   }
 
   _submit() {
-    // if(!this._validation()) {
-    //   console.log('yanzheng');
-    //   console.log(this.state.mobile)
-    //   return null;
-    // }
+    if(!this._validation()) {
+      return null;
+    }
 
     this.props.initialTarget && this.props.initialTarget({
-      // realname: this.state.name,
-      // idnum: this.state.ID,
-      // mobile: this.state.mobile
-      realname: '王睆',
-      idnum: '320682199010086139',
-      mobile: '18221309578'
+      realname: this.state.name,
+      idnum: this.state.ID,
+      mobile: this.state.mobile
+      // realname: '王睆',
+      // idnum: '320682199010086139',
+      // mobile: '18221309578'
     });
-
-    // createTicket && createTicket()
 
     this.setState({ payModalVisible : true });
   }

@@ -39,6 +39,21 @@ export const mockData = {
   },
   "/payctcf/create": {
     "res": 1,
-    "data": [] 
+    "data": []
+  },
+  "/payctcf/check-card": {
+    "res": 1,
+    "data": {
+        "bankname": "光大银行", //银行名称
+        "cardtype": "DEBIT", //DEBIT:储蓄卡，CREDIT：信用卡，
+        "cardnum": "3037751111231231", //卡号
+        "logo": {
+            "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/9.png",
+            "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/9.png",
+            "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/9.png",
+            "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/9.png"
+        },
+        "key": 9
+    }
   }
 }
