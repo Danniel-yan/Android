@@ -190,6 +190,9 @@ class UserInfo extends Component {
             this.setState({ submitting: false})
             this.props.fetchStatus();
             this.props.goHome();
+          } else if(response.code == 300) {
+            this.setState({ submitting: false})
+            this.props.goApproveFailed && this.props.goApproveFailed();
           } else {
             throw response.msg;
           }
@@ -302,7 +305,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
-    goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' }))
+    goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' })),
+    goApproveFailed: () => dispatch(externalPush({ key: 'OnlineApproveStatus', title: '审批失败' }))
   }
 }
 

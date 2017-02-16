@@ -26,7 +26,7 @@ function ApproveStatus(props) {
     return (<ApproveExpire {...props}/>);
   } else if(props.status == 10) {
     return (<ApproveSuccess {...props}/>);
-  } else if(props.status == 9) {
+  } else if(props.status == 9 || props.status == 1) {
     return (<ApproveFailure {...props}/>);
   } else {
     return (<Approving {...props}/>);
@@ -116,7 +116,8 @@ function ApproveExpire(props) {
         title="信息认证"
         offset={true}
         toKey="OnlineUserInfo"
-        text="重新申请"/>
+        text="重新申请"
+        backRoute={{key: "LoanDetailScene"}}/>
     </ScrollView>
   );
 
