@@ -54,7 +54,10 @@ export function getAppSettings() {
 
 
 function setupChannel() {
-  if(Platform.OS == 'ios') { return }
+  if(Platform.OS == 'ios') {
+    staticSettings.channel = "appstore";
+    return;
+  }
 
   return NativeModules.ChannelModule.getChannel().then(channel => {
     staticSettings.channel = channel;
