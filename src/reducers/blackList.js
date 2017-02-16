@@ -1,4 +1,7 @@
 const initState = {
+  isFetchingFree: true,
+  free: false,
+
   isFetchingCardList: true,
   cardList: [],
   selectedCard: null,
@@ -11,11 +14,19 @@ const initState = {
   paymentEnd: false,
 
   error: null,
-  stateMsg: ""
+  stateMsg: "",
+
+  isFetchingReports: true,
+  reports: null,
 }
 
 export default function(state = initState, action) {
   switch(action.type) {
+    case "RequestFreeStatus":
+      return Object.assign({}, state, { isFetchingFree: true });
+    case "ReceiveFreeStatus":
+      return Object.assign({}, state, { isFetchingFree: false, free: action.free })
+
     case "InitalBlackListTarget":
       return Object.assign({}, state, { target: action.target });
 
