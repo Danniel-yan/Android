@@ -268,17 +268,23 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
+import { FreeStatus, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
+
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
-  return state.blackListData
+  return Object.assign({}, state.blackListData, {
+    isFetching: state.blackListData.isFetcingFree
+  });
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetching: () => dispatch(FreeStatus()),
     createTicket: body => dispatch(CreateBlackListTicket(body)),
     initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(blackListHome);
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, blackListHome));
