@@ -62,7 +62,7 @@ export const mockData = {
     ]
   },
   "/payctcf/create": {
-    "res": 1,
+    "res": 1, // 1: "SUCCESS", 0: "FAILED"
     "data": []
   },
   "/payctcf/check-card": {
@@ -78,6 +78,17 @@ export const mockData = {
             "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/9.png"
         },
         "key": 9
+    }
+  },
+  "/payctcf/confirm": {
+    "res": 0, // 1: "SUCCESS", 0: "FAILED"
+    "data": []
+  },
+  "/payorder/check-status": {
+    "res": 1,
+    "data": {
+        "status": 2, //支付结果，1=支付中，2=支付成功，3=支付失败
+        "blacklist_result": 1 //status=2时，并且订单是黑名单查询订单时，有此字段，0=待查询，1=命中黑名单，2=未命中黑名单
     }
   }
 }

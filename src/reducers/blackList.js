@@ -41,12 +41,14 @@ export default function(state = initState, action) {
       newState.ticket = null;
       return newState;
     case "ReceiveBlackListTicket":
-      return Object.assign({}, state, { ticket: action.ticket, isFetchingTicket: false, stateMsg: "账单已创建" });
+      return Object.assign({}, state, { ticket: action.ticket, isFetchingTicket: false });
 
     case "PaymentStart":
-      return Object.assign({}, state, { paymentStart: true, paymentSended: false, paymentEnd: false, stateMsg: "正在发送验证码", paymentSuccess: false });
+      return Object.assign({}, state, { paymentStart: true, paymentSended: false, paymentEnd: false, stateMsg: "正在发送验证码", paymentSuccess: false, error: null });
     case "PaymentSended":
-      return Object.assign({}, state, { paymentStart: false, paymentSended: true, paymentEnd: false, stateMsg: "验证码已发送" });
+      return action.success ?
+        Object.assign({}, state, { paymentStart: false, paymentSended: true, paymentEnd: false, stateMsg: "验证码已发送" }) :
+        Object.assign({}, state, { paymentStart: false, paymentSended: false, paymentEnd: false, error: "账单创建失败，请重新提交支付" });
     case "PaymentEnd":
       return Object.assign({}, state, { paymentStart: false, paymentSended: true, paymentEnd: true, stateMsg: action.success ? "支付完成" : "支付失败", paymentSuccess: action.success });
 

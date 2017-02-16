@@ -7,6 +7,7 @@ import ResponsiveImage from 'components/shared/ResponsiveImage';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Password from 'components/shared/Password';
 import Loading from 'components/shared/Loading';
+import ProcessingButton from 'components/shared/ProcessingButton';
 
 import { centering, fontSize } from 'styles';
 
@@ -202,13 +203,25 @@ class PayModal extends Component {
     return this.props.paymentSended ? (
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
         <Password num={6} onComplete={code => this.__submitPayCode__(code)}></Password>
-        <Text style={{fontSize: fontSize.xsmall, marginBottom: 4, textAlign: "center", color: "red"}}>{this.props.paymentEnd && !this.props.paymentSuccess ? "验证码错误，请重新输入" : ""}</Text>
+        {this.props.paymentEnd && !this.props.paymentSuccess ?
+          (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>验证码错误，请重新输入</Text>) : null}
       </View>
     ) : (
       <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
-        <TouchableOpacity onPress={() => this.__submitPayment__()}>
-          <View style={[styles.addCardBtn, centering]}><Text style={styles.addCardTxt}>{this.props.paymentStart ? this.props.stateMsg : "确认支付"}</Text></View>
-        </TouchableOpacity>
+        {true ? null : (
+          <TouchableOpacity onPress={() => this.__submitPayment__()}>
+            <View style={[styles.addCardBtn, centering]}><Text style={styles.addCardTxt}>{this.props.paymentStart ? this.props.stateMsg : "确认支付"}</Text></View>
+          </TouchableOpacity>
+        )}
+
+        <ProcessingButton
+          style={[styles.addCardBtn, centering]}
+          textStyle={styles.addCardTxt}
+          processing={this.props.paymentStart}
+          onPress={() => this.__submitPayment__()}
+          text={"确认支付"}>
+        </ProcessingButton>
+        {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>{this.props.error}</Text>) : null}
       </View>
     );
   }

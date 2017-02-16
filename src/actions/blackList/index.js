@@ -92,8 +92,8 @@ function PaymentStart() {
   return { type: "PaymentStart" };
 }
 
-function PaymentSended() {
-  return { type: "PaymentSended" };
+function PaymentSended(success) {
+  return { type: "PaymentSended", success };
 }
 
 function CreatePayment() {
@@ -111,14 +111,18 @@ function CreatePayment() {
     };
     body.ticket_id = ticket;
     return mock("/payctcf/create", body).then(response => {
-      dispatch(PaymentSended());
+      if(response.res == responseStatus.success) return dispatch(PaymentSended(true));
+      dispatch(PaymentSended(false));
     })
 
   }
 }
 
 export function SubmitPayment() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    var state = getState(), bLData = state.blackListData;
+    if(bLData.paymentStart) return null; // 原则上一个账单创建过程中不要开始另一个, View上也会有防守。
+
     dispatch(PaymentStart());
     dispatch(CreateBlackListTicket()).then(() => {
       dispatch(CreatePayment())
@@ -142,8 +146,8 @@ export function SubmitPayCode(code) {
 
 export function ClearPaymentInfo() {
   return (dispatch, getState) => {
-    var state = getState();
-    if(state.paymentStart) return null;
+    var state = getState(), bLData = state.blackListData;
+    if(bLData.paymentStart) return null;
     return dispatch({type: "ClearPaymentInfo"});
   }
 }
