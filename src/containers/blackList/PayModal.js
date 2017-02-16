@@ -58,22 +58,31 @@ class PayModal extends Component {
   switchPayState() {
     var state = this.state;
 
-    if(state.navToCardList) {
-      return "SELECT_EXIST_CARD";
-    }
-    if(!this.props.selectedCard) {
-      return "WITHOUT_CARD_BIND";
+    if(this.props.isFetchingCardList) {
+      return "FETCHING_BANKLIST"; // 正在获取银行卡列表
     } else {
-      return "READY_FOR_PAYING";
+      if(this.props.paymentSuccess) {
+        return "PAYMENT_SUCCESS"; // 支付成功
+      } else {
+        if(state.navToCardList) {
+          return "SELECT_EXIST_CARD"; // 选择银行卡
+        }
+        if(!this.props.selectedCard) {
+          return "WITHOUT_CARD_BIND"; // 没有绑定卡片
+        } else {
+          return "READY_FOR_PAYING"; // 已绑定卡片
+        }
+      }
     }
   }
 
   renderContent() {
   //   return this.renderLoading();
-    if(this.props.isFetchingCardList) return this.renderLoading();
     var payState = this.switchPayState();
 
     switch(payState) {
+      case "FETCHING_BANKLIST":
+        return this.renderLoading();
       case "READY_FOR_PAYING":
         return (
           <View>
@@ -94,6 +103,12 @@ class PayModal extends Component {
           <View>
             {this.renderCardList()}
             {this.renderAddCardNavBtn()}
+          </View>
+        );
+      case "PAYMENT_SUCCESS":
+        return (
+          <View>
+            <Text>SUCCESS</Text>
           </View>
         );
     }
@@ -124,7 +139,7 @@ class PayModal extends Component {
   // }
 
   renderTitle() {
-    return (
+    return this.props.paymentSuccess ? null : (
       <View style={[styles.title, styles.bBorder]}>
         <Text style={{flex: 1, fontWeight: "700", textAlign: "center", fontSize: fontSize.xxxlarge}}>{this.state.navToCardList ? "选择支付方式" : "查询支付"}</Text>
         <TouchableOpacity style={{position: "absolute", top: 0, right: 0, padding: 14}} onPress={() => { this.closeModal() }}>
@@ -186,8 +201,8 @@ class PayModal extends Component {
   renderPayment() {
     return this.props.paymentSended ? (
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
-        <Text style={{fontSize: fontSize.xsmall, marginBottom: 4}}>请输入验证码</Text>
-        <Password num={6}></Password>
+        <Password num={6} onComplete={code => this.__submitPayCode__(code)}></Password>
+        <Text style={{fontSize: fontSize.xsmall, marginBottom: 4, textAlign: "center", color: "red"}}>{this.props.paymentEnd && !this.props.paymentSuccess ? "验证码错误，请重新输入" : ""}</Text>
       </View>
     ) : (
       <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
@@ -234,6 +249,10 @@ class PayModal extends Component {
     // this.setState({isPaying: true})
     this.props.submitPayment && this.props.submitPayment();
   }
+
+  __submitPayCode__(code) {
+    this.props.submitPayCode && this.props.submitPayCode(code);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -279,7 +298,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CardList, AddCard, SelectCard, SubmitPayment } from 'actions/blackList';
+import { CardList, AddCard, SelectCard, SubmitPayment, SubmitPayCode } from 'actions/blackList';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -305,7 +324,8 @@ function mapDispatchToProps(dispatch) {
     //
     // }))
     selectPaymentCard: card => dispatch(SelectCard(card)),
-    submitPayment: () => dispatch(SubmitPayment())
+    submitPayment: () => dispatch(SubmitPayment()),
+    submitPayCode: code => dispatch(SubmitPayCode(code))
   }
 }
 

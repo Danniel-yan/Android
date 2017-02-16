@@ -15,6 +15,11 @@ export const environments = {
     id: 'test',
     text: '内部用测试环境',
     api: 'https://shiyishou-test.jujinpan.cn/'
+  },
+  uat: {
+    id: 'uat',
+    text: 'UAT',
+    api: 'https://shiyishou-uat.jujinpan.cn/'
   }
 };
 
@@ -49,7 +54,10 @@ export function getAppSettings() {
 
 
 function setupChannel() {
-  if(Platform.OS == 'ios') { return }
+  if(Platform.OS == 'ios') {
+    staticSettings.channel = "appstore";
+    return;
+  }
 
   return NativeModules.ChannelModule.getChannel().then(channel => {
     staticSettings.channel = channel;

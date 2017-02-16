@@ -77,7 +77,7 @@ class UserInfo extends Component {
     let error = this.formChanged && this._validation();
     let disabled = !this.formChanged || !!error;
     // 第二次进入默认不禁用
-    if(!this.state.firstTime && !this.formChanged) {
+    if(!this.state.firstTime && !this.formChanged && this.state.checkedAgreement) {
       disabled = false;
     }
 
@@ -190,6 +190,9 @@ class UserInfo extends Component {
             this.setState({ submitting: false})
             this.props.fetchStatus();
             this.props.goHome();
+          } else if(response.code == 300) {
+            this.setState({ submitting: false})
+            this.props.goApproveFailed && this.props.goApproveFailed();
           } else {
             throw response.msg;
           }
@@ -197,8 +200,9 @@ class UserInfo extends Component {
           console.log(err);
           this.setState({ submitting: false, error: err})
         });
-
-
+      }, err => {
+        console.log(err);
+        this.setState({ submitting: false, error: "请打开定位"})
       });
     });
   }
@@ -301,7 +305,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
-    goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' }))
+    goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' })),
+    goApproveFailed: () => dispatch(externalPush({ key: 'OnlineApproveStatus', title: '审批失败' }))
   }
 }
 
