@@ -77,7 +77,7 @@ class UserInfo extends Component {
     let error = this.formChanged && this._validation();
     let disabled = !this.formChanged || !!error;
     // 第二次进入默认不禁用
-    if(!this.state.firstTime && !this.formChanged) {
+    if(!this.state.firstTime && !this.formChanged && this.state.checkedAgreement) {
       disabled = false;
     }
 
@@ -197,8 +197,9 @@ class UserInfo extends Component {
           console.log(err);
           this.setState({ submitting: false, error: err})
         });
-
-
+      }, err => {
+        console.log(err);
+        this.setState({ submitting: false, error: "请打开定位"})
       });
     });
   }

@@ -296,8 +296,8 @@ export default class LoanDetailScene extends Component {
 
     // console.log("贷款状态： " + status);
 
-    // 预授信失败
-    if(status == 4) {
+    // 预授信失败 // 失败
+    if(status == 4 || status == 7) {
       return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
     }
 
@@ -310,7 +310,7 @@ export default class LoanDetailScene extends Component {
     }
 
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-    if([6, 7, 8, 9, 10].includes(status)) {
+    if([6, 8, 9, 10].includes(status)) {
       return this.mergeProps({toKey: 'OnlineApproveStatus', title: '审批状态'});
     }
 

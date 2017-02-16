@@ -152,6 +152,7 @@ class _FaceMegInput extends Component {
     var s = this.state, txt = "未认证", colorStyle = {};
     if(s.status == "success") { txt = "认证成功"; colorStyle = {color: colors.success}; }
     if(s.status == "failure") { txt = "认证失败"; colorStyle = {color: colors.error}; }
+    // if(s.status == "failure") { txt = s.error; colorStyle = {color: colors.error}; }
 
     return (
       <TouchableOpacity onPress={() => this._faceMegStart()}>
@@ -189,7 +190,8 @@ class _FaceMegInput extends Component {
       img: images.join(","),
       ext: 'png',
       type: 5, // 活体检查
-      loan_type: parseInt(this.props.loanType)
+      loan_type: parseInt(this.props.loanType),
+      // score: faceImages.score
     };
 
     console.log(body);
@@ -205,8 +207,9 @@ class _FaceMegInput extends Component {
       this.props.onChange && this.props.onChange("success");
     })
     .catch(err => {
-      this.setState({ status: 'failure' })
+      this.setState({ status: 'failure', error: JSON.stringify(err) })
       this.props.onChange && this.props.onChange("failure");
+      console.log("*********FaceMeg Err*********");
       console.log(err);
     })
     .finally(() => {
