@@ -34,7 +34,7 @@ export default class Password extends Component {
         {this.renderIpts()}
       </View>
       </TouchableWithoutFeedback>
-      <TextInput ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
+      <TextInput style={{width: 0, height: 0}} ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
       </View>
     );
   }
@@ -43,11 +43,15 @@ export default class Password extends Component {
     this.setState({password: text}, () => {
       var len = this.state.password.length;
 
+      this.__passwordChanged__();
       if(len != 6) return;
-
       console.log("SUBMIT");
       this.__passwordComplete__();
     });
+  }
+
+  __passwordChanged__() {
+    this.props.onChanged && this.props.onChanged(this.state.password);
   }
 
   __passwordComplete__() {

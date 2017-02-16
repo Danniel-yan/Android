@@ -203,8 +203,7 @@ class PayModal extends Component {
     return this.props.paymentSended ? (
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
         <Password num={6} onComplete={code => this.__submitPayCode__(code)}></Password>
-        {this.props.paymentEnd && !this.props.paymentSuccess ?
-          (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>验证码错误，请重新输入</Text>) : null}
+        {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>{this.props.error}</Text>) : null}
       </View>
     ) : (
       <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
