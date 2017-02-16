@@ -19,7 +19,7 @@ export default class Password extends Component {
     for(var i = 0; i<num; i++) {
       ipts.push(
         <View key={i} style={[styles.ipt, i == num - 1 ? {borderRightWidth:0}:null]}>
-          <TextInput ref={"ipt" + i} editable={false} style={{flex: 1, textAlign: "center"}} maxLength={1} value={this.state.password[i] ? this.state.password[i] : ""}></TextInput>
+          <TextInput ref={"ipt" + i} editable={false} style={{flex: 1, textAlign: "center", color: this.props.disabled ? "lightgray": "#333" }} maxLength={1} value={this.state.password[i] ? this.state.password[i] : ""}></TextInput>
         </View>
       );
     }
@@ -29,24 +29,24 @@ export default class Password extends Component {
   render() {
     return (
       <View>
-      <TouchableWithoutFeedback onPress={() => this.refs["hiddenIpt"].focus()}>
-      <View style={[styles.container, centering]}>
-        {this.renderIpts()}
-      </View>
-      </TouchableWithoutFeedback>
-      <TextInput style={{width: 0, height: 0}} ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
+        <TouchableWithoutFeedback onPress={() => this.refs["hiddenIpt"].focus()}>
+        <View style={[styles.container, centering]}>
+          {this.renderIpts()}
+        </View>
+        </TouchableWithoutFeedback>
+        <TextInput editable={!this.props.disabled} style={{width: 0, height: 0}} ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
       </View>
     );
   }
 
   __hiddenTextChanged__(text) {
+    clearTimeout(this.timeFlag);
     this.setState({password: text}, () => {
       var len = this.state.password.length;
 
       this.__passwordChanged__();
       if(len != 6) return;
-      console.log("SUBMIT");
-      this.__passwordComplete__();
+      this.timeFlag = setTimeout(() => this.__passwordComplete__(), 400);
     });
   }
 

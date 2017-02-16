@@ -9,7 +9,7 @@ import Password from 'components/shared/Password';
 import Loading from 'components/shared/Loading';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
-import { centering, fontSize } from 'styles';
+import { centering, fontSize, colors } from 'styles';
 
 const PayStatuses = ["", "", "", ""]
 
@@ -28,7 +28,9 @@ class PayModal extends Component {
       navToCardList: false,
       isPaying: false,
       codeSended: false
-    }
+    };
+
+    this.payState = null;
   }
 
   closeModal() {
@@ -43,21 +45,29 @@ class PayModal extends Component {
     this.props.fetchCardList && this.props.fetchCardList();
   }
 
+  // <View style={[{width: 100, height: 100, backgroundColor: "#fff"}, centering]}>
+  //   <Image source={require("assets/icons/zhifuchenggong.png")}></Image>
+  // </View>
+
   render() {
+    this.payState = this.switchPayState();
+    console.log(this.payState)
+
     return (
       <View style={[styles.overlay, centering, {backgroundColor: 'rgba(0,0,0,.3)'}]}>
         <TouchableOpacity style={[styles.overlay, {}]} activeOpacity={1} onPress={() => { }} />
+
         <View style={[styles.dialog]}>
           {this.renderTitle()}
           {this.renderContent()}
         </View>
-
       </View>
     );
   }
 
   switchPayState() {
     var state = this.state;
+
 
     if(this.props.isFetchingCardList) {
       return "FETCHING_BANKLIST"; // 正在获取银行卡列表
@@ -79,7 +89,7 @@ class PayModal extends Component {
 
   renderContent() {
   //   return this.renderLoading();
-    var payState = this.switchPayState();
+    var payState = this.payState;
 
     switch(payState) {
       case "FETCHING_BANKLIST":
@@ -107,11 +117,7 @@ class PayModal extends Component {
           </View>
         );
       case "PAYMENT_SUCCESS":
-        return (
-          <View>
-            <Text>SUCCESS</Text>
-          </View>
-        );
+        return this.renderSuccess();
     }
   }
 
@@ -201,9 +207,11 @@ class PayModal extends Component {
 
   renderPayment() {
     return this.props.paymentSended ? (
-      <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
-        <Password num={6} onComplete={code => this.__submitPayCode__(code)}></Password>
-        {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>{this.props.error}</Text>) : null}
+      <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
+        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={this.props.paymentCodeSubmiting}></Password>
+        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: this.props.paymentCodeSubmiting ? colors.success : colors.error}}>
+          {this.props.paymentCodeSubmiting ? "正在支付..." : (this.props.error || " ")}
+        </Text>
       </View>
     ) : (
       <View style={{paddingHorizontal: 10, paddingVertical: 14}}>
@@ -220,7 +228,7 @@ class PayModal extends Component {
           onPress={() => this.__submitPayment__()}
           text={"确认支付"}>
         </ProcessingButton>
-        {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 4, textAlign: "center", color: "red"}}>{this.props.error}</Text>) : null}
+        {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: colors.error}}>{this.props.error}</Text>) : null}
       </View>
     );
   }
@@ -242,6 +250,15 @@ class PayModal extends Component {
   renderLoading() {
     return (
       <View style={{height: 40, paddingBottom: 10}}><Loading /></View>
+    );
+  }
+
+  renderSuccess() {
+    return (
+      <View style={[{paddingTop: 20}, centering]}>
+        <Image style={{width: 100, height: 100}} source={require("assets/icons/zhifuchenggong.png")}></Image>
+        <Text style={{textAlign: "center"}}>支付成功</Text>
+      </View>
     );
   }
 

@@ -81,7 +81,7 @@ export const mockData = {
     }
   },
   "/payctcf/confirm": {
-    "res": 0, // 1: "SUCCESS", 0: "FAILED"
+    "res": 1, // 1: "SUCCESS", 0: "FAILED"
     "data": []
   },
   "/payorder/check-status": {
