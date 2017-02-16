@@ -38,6 +38,8 @@ export default class RecommendList extends Component {
       title: data.title
     }, this.props.itemTracking);
 
+    console.log(this.props.isIOSVerifying);
+
     return(
       <ExternalPushLink
         tracking={tracking}
@@ -49,11 +51,17 @@ export default class RecommendList extends Component {
           <View style={styles.rightContainer}>
             <Text style={styles.rightContainerTitle}>{data.title}</Text>
             <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
-            <View style={[styles.rightContainerFooter]}>
-              <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
-              <Text style={styles.unit}>{data.interest}</Text>
-              <Text style={styles.defaultFont}> / {data.interest_period}</Text>
-            </View>
+
+            {
+              this.props.isIOSVerifying ? null : (
+                <View style={[styles.rightContainerFooter]}>
+                  <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
+                  <Text style={styles.unit}>{data.interest}</Text>
+                  <Text style={styles.defaultFont}> / {data.interest_period}</Text>
+                </View>
+              )
+            }
+
           </View>
 
           <NextIcon/>

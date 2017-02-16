@@ -4,7 +4,10 @@ import { fetchHomeRecommends } from 'actions/scene/home/recommendList';
 import RecommendListPanel from 'components/scene/home/RecommendListPanel'
 
 function mapStateToProps(state) {
-  return state.homeRecommendList;
+  return {
+    ...state.homeRecommendList,
+    isIOSVerifying: state.iosConfig.isIOSVerifying
+  };
 }
 
 function mapDispatchToProps(dispatch) {
