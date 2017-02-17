@@ -199,18 +199,30 @@ class PayModal extends Component {
     );
   }
 
-  renderSendCodeBtn() {
-    return null;
+  renderSendCode() {
+    return (
+      <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
+        <Image source={require("assets/discovery/shoujihao.png")} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></Image>
+        <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>189****1589</Text>
+        <View style={[{height: 24, width: 70, borderWidth:0.5, borderColor: "#ff6d17", borderRadius: 4}, centering]}>
+          <Text style={{color: "#ff6d17", fontSize: fontSize.xsmall}}>获取验证码</Text>
+        </View>
+      </View>
+    );
   }
 
   renderPayment() {
     var isPaymentSubmiting = this.props.paymentCodeSubmiting && !this.props.error;
-    return this.props.paymentSended ? (
-      <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
-        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting}></Password>
-        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: isPaymentSubmiting ? colors.success : colors.error}}>
-          {isPaymentSubmiting ? "正在支付..." : (this.props.error || " ")}
-        </Text>
+    // return this.props.paymentSended ? (
+    return true ? (
+      <View>
+        {this.renderSendCode()}
+        <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
+          <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting}></Password>
+          <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: isPaymentSubmiting ? colors.success : colors.error}}>
+            {isPaymentSubmiting ? "正在支付..." : (this.props.error || " ")}
+          </Text>
+        </View>
       </View>
     ) : (
       <View style={{paddingHorizontal: 10, paddingVertical: 14}}>

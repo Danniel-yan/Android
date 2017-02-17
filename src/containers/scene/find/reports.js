@@ -30,11 +30,7 @@ class reports extends Component {
   }
 
   _renderItem(){
-    const dataList = [
-      {realName : 'Bruce', time : '2017-2-17', ID_num : '453234133122324541'},
-      {realName : 'Bruce', time : '2017-2-17', ID_num : '453234133122324541'},
-      {realName : 'Bruce', time : '2017-2-17', ID_num : '453234133122324541'},
-    ];
+    const dataList = this.props.reports || [];
     return(
       dataList.map((data,index) => {
         return (
@@ -47,10 +43,10 @@ class reports extends Component {
             <View style = {styles.item}>
               <View style = {styles.left}>
                 <View style = {styles.top}>
-                  <View ><Text style = {styles.realName}>{data.realName}</Text></View>
-                  <View ><Text style = {styles.time}>{data.time}</Text></View>
+                  <View ><Text style = {styles.realName}>{data.realname}</Text></View>
+                  <View ><Text style = {styles.time}>{data.time_update}</Text></View>
                 </View>
-                <View style = {{height : 33, justifyContent : 'center'}}><Text style = {styles.ID_num}>{data.ID_num}</Text></View>
+                <View style = {{height : 33, justifyContent : 'center'}}><Text style = {styles.ID_num}>{data.id_num}</Text></View>
               </View>
               <NextIcon />
             </View>
@@ -117,6 +113,10 @@ const styles = StyleSheet.create({
    },
 })
 
+function mapStateToProps(state) {
+  return { reports: state.blackListData.reports };
+}
+
 
 function mapDispatchToProps(dispatch){
   return {
@@ -124,25 +124,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(null,mapDispatchToProps)(reports)
-
-
-
-//<ExternalPushLink
-//  toKey = 'CreditReport'
-//  title = '网贷征信报告'
-//  componentProps = {{}}>
-//    <View style = {styles.item}>
-//      <View style = {styles.left}>
-//
-//        <View style = {styles.top}>
-//          <Text style = {styles.realName}>张五环</Text>
-//          <Text style = {styles.time}>2017-2-17</Text>
-//        </View>
-//
-//        <View style = {{height : 22}}><Text style = {styles.ID_num}>453234133122324541</Text></View>
-//
-//      </View>
-//      <NextIcon />
-//    </View>
-//</ExternalPushLink>
+export default connect(mapStateToProps,mapDispatchToProps)(reports);

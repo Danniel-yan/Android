@@ -31,7 +31,7 @@ class blackListHome extends Component {
       <View style={{flex : 1}}>
         <View style={styles.top}>
           {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
-          {this._renderNavItem('已有网贷征信报告',{toKey : 'Reports', title : '已有报告'},{status : false ? '去完善' : '立即查看'})}
+          {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告'},{status: '立即查看'}) : null}
         </View>
         <View style={styles.bottom}>
           <View style={styles.item}>
