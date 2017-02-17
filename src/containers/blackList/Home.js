@@ -17,12 +17,9 @@ class blackListHome extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name : 'Wwww',
-      ID : '333333333333333333',
-      mobile : '18111111111',
-      // name : '',
-      // ID : '',
-      // mobile : '',
+      name : '',
+      ID : '',
+      mobile : '',
       err : '',
       submitting : false,
       flags : false,
@@ -83,8 +80,8 @@ class blackListHome extends Component {
               我们提供付费代查网贷征信服务，查询费用
               <Text style={{color: '#FF6D17', fontSize: fontSize.xsmall}}>3元／次</Text>
             </Text>
-
           </View>
+          <View style={{height: 14}}><Text style={{textAlign: "center", color : '#FF003C', fontSize : fontSize.small}}>{this.state.err ? this.state.err : " "}</Text></View>
           <View style={styles.btn}>
             <Button
               style={styles.submitBtn}
@@ -142,6 +139,11 @@ class blackListHome extends Component {
       return false;
     }
 
+    if(this.state.ID.length != 15 && this.state.ID.length != 18) {
+      this.setState({err: '请输入有效身份证号码'});
+      return false;
+    }
+
     if(!validators.mobile(this.state.mobile)) {
       this.setState({err: '请输入有效手机号码'});
       return false;
@@ -160,15 +162,9 @@ class blackListHome extends Component {
       realname: this.state.name,
       idnum: this.state.ID,
       mobile: this.state.mobile
-      // realname: '王睆',
-      // idnum: '320682199010086139',
-      // mobile: '18221309578'
     });
-    // this.props.checkFree && this.props.checkFree();
     this.setState({ payModalVisible : true });
   }
-
-
 }
 
 const styles = StyleSheet.create({

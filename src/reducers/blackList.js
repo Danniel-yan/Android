@@ -19,6 +19,9 @@ const initState = {
   paymentEnd: false,
   paymentSuccess: false,
 
+  isFetchingResult: false,
+  result: null,
+
   error: null,
   stateMsg: ""
 }
@@ -64,7 +67,16 @@ export default function(state = initState, action) {
       return Object.assign({}, state, {
         ticket: null,
         paymentStart: false, paymentSended: false, paymentEnd: false, paymentSuccess: false, stateMsg: null, error: null
-      })
+      });
+
+    case "RequestReportResult":
+      var newState = Object.assign({}, state, { isFetchingResult: true });
+      newState.result = null;
+      return newState;
+    case "ReceiveReportResult":
+      var newState = Object.assign({}, state, { isFetchingResult: false });
+      newState.result = action.result;
+      return newState;
 
     case "RequestCardList":
       return Object.assign({}, state, { isFetchingCardList: true, cardListFetched: false });

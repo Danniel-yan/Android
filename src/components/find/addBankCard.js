@@ -51,6 +51,7 @@ export default class addBankCard extends Component {
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
                 onChangeText={idnum => this.setState({idnum: idnum})}
+                maxLength={18}
               />
             </View>
           </View>
@@ -81,6 +82,7 @@ export default class addBankCard extends Component {
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
                 onChangeText={mobile => this.setState({mobile: mobile})}
+                maxLength={11}
               />
             </View>
           </View>

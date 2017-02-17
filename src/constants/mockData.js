@@ -2,13 +2,13 @@ const applyFree = false;
 const withoutCardBind = true;
 
 export const mockData = {
-  '/blaclist/check-free': {
+  '/blacklist/check-free': {
     "res": 1,
     "data": {
         "result": applyFree ? 0 : 1 //1=免费查询过，0=未免费查询过
     }
   },
-  '/blaclist/check-list': {
+  '/blacklist/check-list': {
     "res": 1,
     "data": [
         {
@@ -26,7 +26,7 @@ export const mockData = {
     ]
   },
 
-  '/blaclist/create': {
+  '/blacklist/create': {
     "res": 1,
     "data": {
         "ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
@@ -88,6 +88,27 @@ export const mockData = {
     "data": []
   },
   "/payorder/check-status": {
+    "res": 1,
+    "data": {
+        "status": 1, //支付结果，1=支付中，2=支付成功，3=支付失败
+        "blacklist_result": 0 //status=2时，并且订单是黑名单查询订单时，有此字段，0=待查询，1=命中黑名单，2=未命中黑名单
+    }
+  },
+  "/payorder/check-status1": {
+    "res": 1,
+    "data": {
+        "status": 2, //支付结果，1=支付中，2=支付成功，3=支付失败
+        "blacklist_result": 0 //status=2时，并且订单是黑名单查询订单时，有此字段，0=待查询，1=命中黑名单，2=未命中黑名单
+    }
+  },
+  "/payorder/check-status2": {
+    "res": 1,
+    "data": {
+        "status": 2, //支付结果，1=支付中，2=支付成功，3=支付失败
+        "blacklist_result": 0 //status=2时，并且订单是黑名单查询订单时，有此字段，0=待查询，1=命中黑名单，2=未命中黑名单
+    }
+  },
+  "/payorder/check-status3": {
     "res": 1,
     "data": {
         "status": 2, //支付结果，1=支付中，2=支付成功，3=支付失败
