@@ -43,13 +43,18 @@ export function ReceiveCardList(list) {
 }
 
 export function CardList() {
-  return dispatch => {
+  return (dispatch, getState) => {
+
     dispatch(RequestCardList())
     mock("/payctcf/cardlist").then(response => {
-      console.log(response);
+
       var cardList = response.data || [];
+      var state = getState(),
+        bLData = state.blackListData, selectedCard = bLData.selectedCard;
       dispatch(ReceiveCardList(cardList));
-      cardList.length > 0 && dispatch(SelectCard(cardList[0]))
+      if(!selectedCard || !selectedCard.id) {
+        cardList.length > 0 && dispatch(SelectCard(cardList[0]));
+      }
     })
   }
 }
@@ -84,6 +89,7 @@ function CreateBlackListTicket(body) {
     return mock("/blaclist/create", body).then(response => {
       dispatch(ReceiveBlackListTicket(response.data.ticket_id));
       console.log(response);
+      return response;
     })
   }
 }
@@ -111,8 +117,9 @@ function CreatePayment() {
     };
     body.ticket_id = ticket;
     return mock("/payctcf/create", body).then(response => {
-      if(response.res == responseStatus.success) return dispatch(PaymentSended(true));
-      dispatch(PaymentSended(false));
+      if(response.res !== responseStatus.success) return dispatch(PaymentSended(false));
+      dispatch(PaymentSended(true));
+      // dispatch(CardList());
     })
 
   }
@@ -124,9 +131,12 @@ export function SubmitPayment() {
     if(bLData.paymentStart) return null; // 原则上一个账单创建过程中不要开始另一个, View上也会有防守。
 
     dispatch(PaymentStart());
-    dispatch(CreateBlackListTicket()).then(() => {
+    dispatch(CreateBlackListTicket()).then((ticketResponse) => {
+      console.log("ticketResponse");
+      console.log(ticketResponse);
+      if(ticketResponse && ticketResponse.data.result) return dispatch({type: "PaymentEnd", success: true}); // 免费情况下直接跳转 支付成功
       dispatch(CreatePayment())
-    })
+    }).then()
   }
 }
 

@@ -2,7 +2,7 @@ export const mockData = {
   '/blaclist/check-free': {
     "res": 1,
     "data": {
-        "result": 0 //1=免费查询过，0=未免费查询过
+        "result": 1 //1=免费查询过，0=未免费查询过
     }
   },
   '/blaclist/check-list': {
@@ -27,7 +27,7 @@ export const mockData = {
     "res": 1,
     "data": {
         "ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
-        "result": {}, // 201支付情况下存在，结构未定
+        "result": null // { resultData: "data" }, // 201支付情况下存在，结构未定
     }
   },
   "/payctcf/cardlist": {

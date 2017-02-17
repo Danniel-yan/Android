@@ -9,7 +9,7 @@ import Password from 'components/shared/Password';
 import Loading from 'components/shared/Loading';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
-import { centering, fontSize, colors } from 'styles';
+import { centering, fontSize, colors, headerHeight } from 'styles';
 
 const PayStatuses = ["", "", "", ""]
 
@@ -33,17 +33,17 @@ class PayModal extends Component {
     this.payState = null;
   }
 
-  closeModal() {
-    this.props.close && this.props.close();
-  }
+  // closeModal() {
+  //   this.props.close && this.props.close();
+  // }
 
   //componentWillReceiveProps(nextProps) {
     //!this.state.selectedBank && (this.state.selectedBank = nextProps.cardList && nextProps.cardList.length > 0 ? nextProps.cardList[0] : null);
   //}
 
-  componentDidMount() {
-    this.props.fetchCardList && this.props.fetchCardList();
-  }
+  // componentDidMount() {
+  //   this.props.fetchCardList && this.props.fetchCardList();
+  // }
 
   // <View style={[{width: 100, height: 100, backgroundColor: "#fff"}, centering]}>
   //   <Image source={require("assets/icons/zhifuchenggong.png")}></Image>
@@ -51,16 +51,21 @@ class PayModal extends Component {
 
   render() {
     this.payState = this.switchPayState();
-    console.log(this.payState)
 
     return (
       <View style={[styles.overlay, centering, {backgroundColor: 'rgba(0,0,0,.3)'}]}>
         <TouchableOpacity style={[styles.overlay, {}]} activeOpacity={1} onPress={() => { }} />
 
-        <View style={[styles.dialog]}>
-          {this.renderTitle()}
-          {this.renderContent()}
-        </View>
+        {false ? (
+          <View style={[{width: 200, backgroundColor: "white"}, centering]}>
+            {this.renderSuccess()}
+          </View>
+        ) : (
+          <View style={[styles.dialog]}>
+            {this.payState == "PAYMENT_SUCCESS" ? null : this.renderTitle()}
+            {this.renderContent()}
+          </View>
+        )}
       </View>
     );
   }
@@ -68,6 +73,7 @@ class PayModal extends Component {
   switchPayState() {
     var state = this.state;
 
+    // return "PAYMENT_SUCCESS"; // 支付成功
 
     if(this.props.isFetchingCardList) {
       return "FETCHING_BANKLIST"; // 正在获取银行卡列表
@@ -149,7 +155,7 @@ class PayModal extends Component {
     return this.props.paymentSuccess ? null : (
       <View style={[styles.title, styles.bBorder]}>
         <Text style={{flex: 1, fontWeight: "700", textAlign: "center", fontSize: fontSize.xxxlarge}}>{this.state.navToCardList ? "选择支付方式" : "查询支付"}</Text>
-        <TouchableOpacity style={{position: "absolute", top: 0, right: 0, padding: 14}} onPress={() => { this.closeModal() }}>
+        <TouchableOpacity style={{position: "absolute", top: 0, right: 0, padding: 14}} onPress={() => { this.__closePayModal__() }}>
           <Image style={{height: 20, width: 20}} source={require("assets/online/close.png")}></Image>
         </TouchableOpacity>
         {this.state.navToCardList ? (
@@ -257,7 +263,7 @@ class PayModal extends Component {
     return (
       <View style={[{paddingTop: 20}, centering]}>
         <Image style={{width: 100, height: 100}} source={require("assets/icons/zhifuchenggong.png")}></Image>
-        <Text style={{textAlign: "center"}}>支付成功</Text>
+        <Text style={{textAlign: "center", paddingTop: 6, fontSize: fontSize.normal}}>支付成功</Text>
       </View>
     );
   }
@@ -282,6 +288,13 @@ class PayModal extends Component {
   __submitPayCode__(code) {
     this.props.submitPayCode && this.props.submitPayCode(code);
   }
+
+  __closePayModal__() {
+    if(this.props.paymentStart) return; // 当前支付中途原则上不该退出。
+
+    this.props.close && this.props.close();
+    this.props.clearPaymentInfo && this.props.clearPaymentInfo();
+  }
 }
 
 const styles = StyleSheet.create({
@@ -298,7 +311,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     borderRadius: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
+    marginBottom: headerHeight
   },
   title: {
     padding: 14,
@@ -327,7 +341,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { CardList, AddCard, SelectCard, SubmitPayment, SubmitPayCode } from 'actions/blackList';
+import { AddCard, SelectCard, SubmitPayment, SubmitPayCode, ClearPaymentInfo } from 'actions/blackList';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -336,7 +350,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCardList: () => dispatch(CardList()),
+    // fetchCardList: () => dispatch(CardList()),
     // addBankCard: () => dispatch(AddCard({
     //
     //         "id": 3, //bindcard_id,/payctcf/create接口中需要
@@ -354,7 +368,8 @@ function mapDispatchToProps(dispatch) {
     // }))
     selectPaymentCard: card => dispatch(SelectCard(card)),
     submitPayment: () => dispatch(SubmitPayment()),
-    submitPayCode: code => dispatch(SubmitPayCode(code))
+    submitPayCode: code => dispatch(SubmitPayCode(code)),
+    clearPaymentInfo: () => dispatch(ClearPaymentInfo())
   }
 }
 

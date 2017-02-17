@@ -16,9 +16,12 @@ class blackListHome extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name : '',
-      ID : '',
-      mobile : '',
+      name : 'Wwww',
+      ID : '333333333333333333',
+      mobile : '18111111111',
+      // name : '',
+      // ID : '',
+      // mobile : '',
       err : '',
       submitting : false,
       flags : false,
@@ -40,6 +43,7 @@ class blackListHome extends Component {
               style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
+              value={this.state.name}
               onChangeText={name => this.setState({name})}
             />
           </View>
@@ -50,6 +54,7 @@ class blackListHome extends Component {
               style={styles.itemInput}
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
+              value={this.state.ID}
               onChangeText={ID => this.setState({ID})}
               maxLength={18}
             />
@@ -62,6 +67,7 @@ class blackListHome extends Component {
               underlineColorAndroid="transparent"
               clearButtonMode="while-editing"
               onChangeText={mobile => this.setState({mobile})}
+              value={this.state.mobile}
               maxLength={11}
             />
           </View>
@@ -258,7 +264,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { FreeStatus, BlackListReports, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
+import { FreeStatus, BlackListReports, CardList, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
@@ -274,7 +280,9 @@ function mapDispatchToProps(dispatch) {
     fetching: () => {
       dispatch(FreeStatus());
       dispatch(BlackListReports());
+      dispatch(CardList());
     },
+    // fetchCardList: () => dispatch(CardList()),
     createTicket: body => dispatch(CreateBlackListTicket(body)),
     initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))
   }

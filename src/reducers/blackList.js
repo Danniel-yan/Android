@@ -6,6 +6,7 @@ const initState = {
   reports: null,
 
   isFetchingCardList: true,
+  cardListFetched: false,
   cardList: [],
   selectedCard: null,
 
@@ -59,11 +60,16 @@ export default function(state = initState, action) {
         error: action.success ? null : "验证码错误，请重新输入",
         paymentSuccess: action.success
       });
+    case "ClearPaymentInfo":
+      return Object.assign({}, state, {
+        ticket: null,
+        paymentStart: false, paymentSended: false, paymentEnd: false, paymentSuccess: false, stateMsg: null, error: null
+      })
 
     case "RequestCardList":
-      return Object.assign({}, state, { isFetchingCardList: true });
+      return Object.assign({}, state, { isFetchingCardList: true, cardListFetched: false });
     case "ReceiveCardList":
-      return Object.assign({}, state, { isFetchingCardList: false, cardList: action.list });
+      return Object.assign({}, state, { isFetchingCardList: false, cardListFetched: true, cardList: action.list });
     case "AddCard":
       var cardList = state.cardList || [], newState = Object.assign({}, state);
       cardList = [action.card].concat(cardList);

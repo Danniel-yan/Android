@@ -38,8 +38,6 @@ export default class RecommendList extends Component {
       title: data.title
     }, this.props.itemTracking);
 
-    console.log(this.props.isIOSVerifying);
-
     return(
       <ExternalPushLink
         tracking={tracking}
