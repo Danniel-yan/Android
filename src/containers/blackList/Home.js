@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     paddingVertical : 10
   },
   btn : {
-    paddingHorizontal : 15,
+    paddingHorizontal : 25,
     paddingBottom : 5,
     marginBottom : 80
   },
