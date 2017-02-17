@@ -51,6 +51,7 @@ export default class addBankCard extends Component {
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
                 onChangeText={idnum => this.setState({idnum: idnum})}
+                maxLength={18}
               />
             </View>
           </View>
@@ -81,6 +82,7 @@ export default class addBankCard extends Component {
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
                 onChangeText={mobile => this.setState({mobile: mobile})}
+                maxLength={11}
               />
             </View>
           </View>
@@ -151,14 +153,15 @@ export default class addBankCard extends Component {
     if(!this._validation()) return;
 
     this.setState({submitting: true})
-    mock("/payctcf/check-card", {cardnum: this.state.cardnum}).then(response => {
+    post("/payctcf/check-card", {cardnum: this.state.cardnum}).then(response => {
       if(response.res != responseStatus.success) {
-        this.setState({submitting: false, error: response.msg});
+        this.setState({submitting: false, err: response.msg});
         return;
       }
-      var cardData = response.data;
+      var cardData = response.data, cardnum = this.state.cardnum;
       this.props.addBankCard && this.props.addBankCard(Object.assign({}, this.state, cardData, {
-        name: this.state.realname
+        name: this.state.realname,
+        bankAccount: cardnum.substr(cardnum.length - 4, cardnum.length)
       }));
       this.props.externalPop && this.props.externalPop();
     });

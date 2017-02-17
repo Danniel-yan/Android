@@ -5,12 +5,13 @@ import NextIcon from 'components/shared/NextIcon';
 
 export default class creditReport extends Component {
   render(){
+    var props = this.props || {};
     return (
-      <View style = {{flex : 1}}>
-        <Text style = {{marginVertical : 15, paddingLeft : 10, fontSize : 14, color : '#FF6D17'}}>主要报告内容</Text>
-        <View style = {{backgroundColor : '#fff'}}>
-          {this._renderNavItem( '多机构申请风险等级', '中级')}
-          {this._renderNavItem( '是否命中网贷黑名单', '未命中')}
+      <View style={{flex : 1}}>
+        <Text style={{marginVertical : 15, paddingLeft : 10, fontSize : 14, color : '#FF6D17'}}>主要报告内容</Text>
+        <View style={{backgroundColor : '#fff'}}>
+          {false ? this._renderNavItem( '多机构申请风险等级', '中级') : null}
+          {this._renderNavItem( '是否命中网贷黑名单', props.result == 1 ? '命中' : '未命中')}
         </View>
       </View>
     )
@@ -22,7 +23,6 @@ export default class creditReport extends Component {
           <Text style={[zoneStyles.txt,{fontSize : 14}]}>{txt}</Text>
           <View style = {{flexDirection : 'row'}}>
             <Text style = {styles.status}>{status}</Text>
-            <NextIcon/>
           </View>
         </View>
     )

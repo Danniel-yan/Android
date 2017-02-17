@@ -25,12 +25,13 @@ const headers = {
 };
 
 import {mockData} from 'constants';
-export function mock(url, body) {
+export function mock(url, body, times) {
   console.debug("M-Request: "+url);
   console.log("M-Request-Body: " + ( body ? JSON.stringify(body) : "" ));
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(mockData[url])
+      var timesUrl = times > 0 ? (url + times) : url;
+      resolve(mockData[timesUrl])
     }, 2000)
   }).then(response => {
     console.debug("M-Response: "+url);

@@ -20,11 +20,6 @@ class PayModal extends Component {
     super(props);
 
     this.state = {
-      // title: "查询支付",
-      // free: false,
-      // bankList: this.props.cardList, // 从接口配置
-      // selectedBank: this.props.cardList && this.props.cardList.length > 0 ? this.props.cardList[0] : null, // 从接口配置
-      // selectedBank: null,
       navToCardList: false,
       isPaying: false,
       codeSended: false
@@ -32,22 +27,6 @@ class PayModal extends Component {
 
     this.payState = null;
   }
-
-  // closeModal() {
-  //   this.props.close && this.props.close();
-  // }
-
-  //componentWillReceiveProps(nextProps) {
-    //!this.state.selectedBank && (this.state.selectedBank = nextProps.cardList && nextProps.cardList.length > 0 ? nextProps.cardList[0] : null);
-  //}
-
-  // componentDidMount() {
-  //   this.props.fetchCardList && this.props.fetchCardList();
-  // }
-
-  // <View style={[{width: 100, height: 100, backgroundColor: "#fff"}, centering]}>
-  //   <Image source={require("assets/icons/zhifuchenggong.png")}></Image>
-  // </View>
 
   render() {
     this.payState = this.switchPayState();
@@ -225,11 +204,12 @@ class PayModal extends Component {
   }
 
   renderPayment() {
+    var isPaymentSubmiting = this.props.paymentCodeSubmiting && !this.props.error;
     return this.props.paymentSended ? (
       <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
-        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={this.props.paymentCodeSubmiting}></Password>
-        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: this.props.paymentCodeSubmiting ? colors.success : colors.error}}>
-          {this.props.paymentCodeSubmiting ? "正在支付..." : (this.props.error || " ")}
+        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting}></Password>
+        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: isPaymentSubmiting ? colors.success : colors.error}}>
+          {isPaymentSubmiting ? "正在支付..." : (this.props.error || " ")}
         </Text>
       </View>
     ) : (
@@ -276,7 +256,11 @@ class PayModal extends Component {
     return (
       <View style={[{paddingTop: 20}, centering]}>
         <Image style={{width: 100, height: 100}} source={require("assets/icons/zhifuchenggong.png")}></Image>
-        <Text style={{textAlign: "center", paddingTop: 6, fontSize: fontSize.normal}}>支付成功</Text>
+        <Text style={{textAlign: "center", paddingTop: 6, fontSize: fontSize.normal}}>
+          支付成功
+          {this.props.isFetchingResult ? <Text>, 正在生成结果...</Text> : null}
+          {this.props.paymentSuccess && !this.props.isFetchingResult && this.props.result !== null ? <Text>, 正在跳转...</Text> : null}
+        </Text>
       </View>
     );
   }
@@ -308,6 +292,30 @@ class PayModal extends Component {
     this.props.close && this.props.close();
     this.props.clearPaymentInfo && this.props.clearPaymentInfo();
     this.props.freeStatus && this.props.freeStatus(); // 每次关闭窗口重新检查一下免费状态
+  }
+
+  __externalToReport__() {
+    this.__closePayModal__();
+    this.props.externalPush && this.props.externalPush({
+      key: "CreditReport", title: "网贷征信报告",
+      componentProps: { result: this.props.result }
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    clearTimeout(this.navTimeFlag);
+
+    if(newProps.paymentSuccess && !newProps.isFetchingResult && newProps.result !== null) {
+      this.navTimeFlag = setTimeout(() => {
+        console.log("M-NavToResult");
+        this.__externalToReport__()
+      }, 1000);
+    }
+  }
+
+  componentWillUnmount() {
+    this.__closePayModal__();
+    clearTimeout(this.navTimeFlag);
   }
 }
 
@@ -356,6 +364,7 @@ const styles = StyleSheet.create({
 
 import { connect } from 'react-redux';
 import { FreeStatus, AddCard, SelectCard, SubmitPayment, SubmitPayCode, ClearPaymentInfo } from 'actions/blackList';
+import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -384,7 +393,9 @@ function mapDispatchToProps(dispatch) {
     submitPayment: () => dispatch(SubmitPayment()),
     submitPayCode: code => dispatch(SubmitPayCode(code)),
     clearPaymentInfo: () => dispatch(ClearPaymentInfo()),
-    freeStatus: () => dispatch(FreeStatus())
+    freeStatus: () => dispatch(FreeStatus()),
+
+    externalPush: route => dispatch(externalPush(route))
   }
 }
 
