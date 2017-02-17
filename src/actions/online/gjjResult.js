@@ -13,7 +13,7 @@ export default function(body) {
         var billList = response.data || [], lastestBill = billList[0];
 
         //账单状态：1=已提交登陆信息，2=登陆失败，3=登陆成功，4=登陆成功，等待二次登陆，5=已提交二次登陆信息，6=二次登陆失败，7=二次登陆成功，等待数据，8=数据获取成功，9=数据获取失败
-        if(!lastestBill || [1, 3, 4, 5].includes(+lastestBill.status)) {
+        if(!lastestBill || [1].includes(+lastestBill.status)) {
           // return { list: billList, billStatus: none() };
           return dispatch(receiveBillResult(billList, 'none'))
         }

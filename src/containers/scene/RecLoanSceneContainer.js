@@ -34,7 +34,7 @@ function mapDispatchToProps(dispatch) {
     setLoanInfo: (loanInfo) => { dispatch(setLoanInfo(loanInfo)); },
     goLoan: body => {
       dispatch(submitUserInfo(body, () => {
-        dispatch(externalPush({key:"LoanScene", title:"推荐贷款"}));
+        dispatch(externalPush({key:"LoanScene", title:"推荐贷款",onBack : true}));
       }))
     }
   }

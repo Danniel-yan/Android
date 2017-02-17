@@ -296,9 +296,14 @@ export default class LoanDetailScene extends Component {
 
     // console.log("贷款状态： " + status);
 
+     // 贷款失败
+    if(status == 7) {
+      return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
+    }
+
     // 预授信失败
     if(status == 4) {
-      return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
+      return this.mergeProps({ toKey: 'OnlinePreloanFailure', title: '预授信申请结果' });
     }
 
     if(status == 5 && time_expire_status == 1) {
@@ -310,7 +315,7 @@ export default class LoanDetailScene extends Component {
     }
 
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-    if([6, 7, 8, 9, 10].includes(status)) {
+    if([6, 8, 9, 10].includes(status)) {
       return this.mergeProps({toKey: 'OnlineApproveStatus', title: '审批状态'});
     }
 

@@ -26,7 +26,7 @@ function ApproveStatus(props) {
     return (<ApproveExpire {...props}/>);
   } else if(props.status == 10) {
     return (<ApproveSuccess {...props}/>);
-  } else if(props.status == 9 || props.status == 7) {
+  } else if(props.status == 9 || props.status == 1) {
     return (<ApproveFailure {...props}/>);
   } else {
     return (<Approving {...props}/>);
@@ -112,14 +112,12 @@ function ApproveExpire(props) {
         text={"抱歉，您的借款已过期。\n如需要，请重新申请。"}
       />
 
-      <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
-      <LoanDetailPanel {...data}/>
-
       <SubmitButton
         title="信息认证"
         offset={true}
-        toKey="CertificationHome"
-        text="重新申请"/>
+        toKey="OnlineUserInfo"
+        text="重新申请"
+        backRoute={{key: "LoanDetailScene"}}/>
     </ScrollView>
   );
 

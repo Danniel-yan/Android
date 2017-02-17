@@ -5,7 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   Animated,
-  Text
+  Text,
+  Platform
 } from 'react-native';
 
 import { ExternalPushLink } from 'containers/shared/Link';
@@ -33,7 +34,7 @@ class PreloanSuccess extends Component {
     return (
       <ScrollView>
         <View style={styles.banner}>
-          <Text style={styles.title}>预受额度：</Text>
+          <Text style={styles.title}>预授额度：</Text>
           <Text style={styles.amount}>{data.sug_loan_amount}元</Text>
         </View>
 
@@ -43,7 +44,7 @@ class PreloanSuccess extends Component {
         </View>
 
         <View style={styles.descItem}>
-          <Text style={[styles.text, container]}>预受额度：</Text>
+          <Text style={[styles.text, container]}>月费率：</Text>
           <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
         </View>
 
@@ -58,7 +59,7 @@ class PreloanSuccess extends Component {
               min={this.minValue}
               minLabel={this.props.loanType == 1 ? "1.5万" : "2万"}
               maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
-              max={data.sug_loan_amount}/>
+              max={parseInt(data.sug_loan_amount)}/>
           </View>
         ) : null}
 
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
+    zIndex: -6
   },
   title: {
     fontSize: fontSize.xlarge,
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
   },
   amountSelector: {
     marginTop: 20,
-    marginHorizontal: 10
+    marginHorizontal: Platform.OS == 'ios' ? 10 : 0
   },
   descItem: {
     alignItems: 'center',
@@ -156,4 +158,4 @@ function mapDispatchToProps(dispatch) {
 // function
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(PreloanSuccess)));
+  AsynCpGenerator(Loading, trackingScene(PreloanSuccess), true));

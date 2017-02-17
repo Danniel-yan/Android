@@ -27,7 +27,7 @@ function PreloanExpire(props) {
       <Text style={styles.header}>预授信详情</Text>
 
       <View style={styles.item}>
-        <Text style={[styles.text, container]}>预受额度：</Text>
+        <Text style={[styles.text, container]}>预授额度：</Text>
         <Text style={styles.text}>{data.sug_loan_amount}</Text>
       </View>
 
@@ -90,4 +90,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(PreloanExpire)));
+  AsynCpGenerator(Loading, trackingScene(PreloanExpire), true));

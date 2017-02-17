@@ -32,13 +32,42 @@ class CertificationHome extends Component {
 
     this.state = {
       submitting: false,
-      fetching: true
+      initFetching: true
     }
+    this.timeFlag = null;
   }
 
   componentDidMount() {
     this.props.fetching && this.props.fetching();
-    this.setState({fetching: false});
+    this.setState({initFetching: false});
+  }
+
+  componentWillReceiveProps(newProps) {
+    var bankResult = newProps.bankResult, yysResult = newProps.yysResult, gjjResult = newProps.gjjResult,
+      needHb = false;
+
+    bankResult && ( needHb = (needHb || bankResult.status == "progressing") )
+    yysResult && ( needHb = (needHb || yysResult.status == "progressing") )
+    gjjResult && ( needHb = (needHb || gjjResult.status == "progressing") )
+
+    if(!needHb) {
+      clearTimeout(this.timeFlag);
+      this.timeFlag = null;
+      return
+    }
+    if(this.timeFlag) return;
+    this.timeFlag = setTimeout(() => {
+      // clearTimeout(this.timeFlag);
+      this.timeFlag = null;
+      bankResult && bankResult.status == "progressing" && this.props.fetchingBank();
+      yysResult && yysResult.status == "progressing" && this.props.fetchingYys();
+      gjjResult && gjjResult.status == "progressing" && this.props.fetchingGjj();
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeFlag);
+    this.timeFlag = null;
   }
 
   render() {
@@ -48,7 +77,7 @@ class CertificationHome extends Component {
     var enable = yysResult.status == 'success';
       enable = loanType == 1 ? enable && bankResult.status == 'success' : enable && gjjResult.status == 'success';
 
-    return this.state.fetching || this.props.isFetching ? <Loading /> : (
+    return this.state.initFetching && !this.props.fetched ? <Loading /> : (
       <ScrollView>
 
         {this.cardItem()}
@@ -169,7 +198,7 @@ class CertificationHome extends Component {
         <Text style={[styles.alertText, {marginBottom: 5}]}>注：</Text>
         <Text style={styles.alertText}>1.请使用连续缴纳6个月的公积金帐号进行认证；</Text>
         <Text style={styles.alertText}>2.请使用超过6个月的手机号进行认证；</Text>
-        <Text style={styles.alertText}>3.如果认证失败，可以更换其他帐号或手机号再次认证；</Text>
+        <Text style={styles.alertText}>3.如果认证失败，可以更换其他本人卡号或手机号再次认证；</Text>
       </View>
     ) : (
       <View style={styles.alert}>
@@ -246,6 +275,9 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(actions.bankResult());
       dispatch(actions.yysResult());
     },
+    fetchingGjj: () => {dispatch(actions.gjjResult())},
+    fetchingBank: () => {dispatch(actions.bankResult())},
+    fetchingYys: () => {dispatch(actions.yysResult())},
   }
 }
 

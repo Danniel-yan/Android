@@ -37,9 +37,9 @@ class LoanSign extends Component {
           <L2RItem left="姓名" right={userInfo.person_name} />
           <L2RItem left="身份证号" right={userInfo.id_no} />
 
-          <L2RItem style={styles.amount} left="合同金额" right={loan.approve_amount} >
+          <L2RItem style={styles.amount} left="合同金额" right={loan.contractAmount} >
             <Text style={styles.amountTip}>
-              本次借款手续费为{service.repayAmount}元，到手金额为{(loan.approve_amount - service.repayAmount).toFixed(2)}元
+              本次借款手续费为{service.repayAmount}元，到手金额为{(loan.contractAmount - service.repayAmount).toFixed(2)}元
             </Text>
           </L2RItem>
 
