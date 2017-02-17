@@ -8,7 +8,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     height: 52,
     alignItems: 'center',
-    ...border('bottom')
+    ...border('bottom', 0.5, "#e6e6e6")
   },
   txt: {
     flex: 1,

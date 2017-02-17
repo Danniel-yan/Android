@@ -1,8 +1,11 @@
+const applyFree = false;
+const withoutCardBind = true;
+
 export const mockData = {
   '/blaclist/check-free': {
     "res": 1,
     "data": {
-        "result": 1 //1=免费查询过，0=未免费查询过
+        "result": applyFree ? 0 : 1 //1=免费查询过，0=未免费查询过
     }
   },
   '/blaclist/check-list': {
@@ -27,12 +30,12 @@ export const mockData = {
     "res": 1,
     "data": {
         "ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
-        "result": null // { resultData: "data" }, // 201支付情况下存在，结构未定
+        "result": !applyFree ? null : { resultData: "data" }, // 201支付情况下存在，结构未定
     }
   },
   "/payctcf/cardlist": {
     "res": 1,
-    "data": [
+    "data": withoutCardBind ? [] : [
         {
             "id": 1, //bindcard_id,/payctcf/create接口中需要
             "name": "徐飞", //姓名
