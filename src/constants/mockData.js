@@ -66,7 +66,12 @@ export const mockData = {
   },
   "/payctcf/create": {
     "res": 1, // 1: "SUCCESS", 0: "FAILED"
-    "data": []
+    "data": {  //错误信息和错误代码在data字段中也保留一份
+        "msg": "信息错误",
+        "code": 10000
+    },
+    "msg": "信息错误",
+    "code": 10000,
   },
   "/payctcf/check-card": {
     "res": 1,

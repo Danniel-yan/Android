@@ -204,11 +204,12 @@ class PayModal extends Component {
   }
 
   renderPayment() {
+    var isPaymentSubmiting = this.props.paymentCodeSubmiting && !this.props.error;
     return this.props.paymentSended ? (
       <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
-        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={this.props.paymentCodeSubmiting}></Password>
-        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: this.props.paymentCodeSubmiting ? colors.success : colors.error}}>
-          {this.props.paymentCodeSubmiting ? "正在支付..." : (this.props.error || " ")}
+        <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting}></Password>
+        <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: isPaymentSubmiting ? colors.success : colors.error}}>
+          {isPaymentSubmiting ? "正在支付..." : (this.props.error || " ")}
         </Text>
       </View>
     ) : (

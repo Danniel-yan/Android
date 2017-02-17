@@ -86,7 +86,7 @@ function CreateBlackListTicket(body) {
 
     if(!body) return null;
     body.pay_type = bLData.free ? "201" : "101";
-    return mock("/blacklist/create", body).then(response => {
+    return post("/blacklist/create", body).then(response => {
       dispatch(ReceiveBlackListTicket(response.data.ticket_id));
       console.log(response);
       return response;
@@ -98,8 +98,8 @@ function PaymentStart() {
   return { type: "PaymentStart" };
 }
 
-function PaymentSended(success) {
-  return { type: "PaymentSended", success };
+function PaymentSended(success, error) {
+  return { type: "PaymentSended", success, error };
 }
 
 function CreatePayment() {
@@ -116,8 +116,8 @@ function CreatePayment() {
       cardnum: selectedCard.cardnum
     };
     body.ticket_id = ticket;
-    return mock("/payctcf/create", body).then(response => {
-      if(response.res !== responseStatus.success) return dispatch(PaymentSended(false));
+    return post("/payctcf/create", body).then(response => {
+      if(response.res !== responseStatus.success) return dispatch(PaymentSended(false, response.msg || response.data.msg));
       dispatch(PaymentSended(true));
     })
 
@@ -131,8 +131,6 @@ export function SubmitPayment() {
 
     dispatch(PaymentStart());
     dispatch(CreateBlackListTicket()).then((ticketResponse) => {
-      console.log("ticketResponse");
-      console.log(ticketResponse);
       if(ticketResponse && ticketResponse.data.result) return dispatch({type: "PaymentEnd", success: true}); // 免费情况下直接跳转 支付成功
       dispatch(CreatePayment())
     }).then()
@@ -147,9 +145,10 @@ export function SubmitPayCode(code) {
     if(!ticket_id || !code) return;
 
     dispatch({ type: "PaymentConfirmStart" });
-    return mock("/payctcf/confirm", {ticket_id: ticket_id, msgcode: code}).then(response => {
+    return post("/payctcf/confirm", {ticket_id: ticket_id, msgcode: code}).then(response => {
       var success = response.res == responseStatus.success;
-      dispatch(PaymentAndReportStatus());
+      if(success) return dispatch(PaymentAndReportStatus());
+      dispatch({ type: "PaymentBroken", error: response.msg });
       // dispatch({ type: "PaymentEnd", success }).then(dispatch(PaymentStatus()));
     }).catch(() => dispatch({ type: "PaymentEnd", success: false }));
   };
@@ -160,7 +159,7 @@ function PaymentAndReportStatus() {
     var state = getState(), blData = state.blackListData;
 
     var hBTimeFlag = null, times=0, getPayStatus = () => {
-      mock("/payorder/check-status", {ticket_id: blData.ticket}, times++).then(response => {
+      post("/payorder/check-status", {ticket_id: blData.ticket}).then(response => {
         if(response.res !== responseStatus.success) return;
         var state = getState(), blData = state.blackListData;
         var data = response.data;

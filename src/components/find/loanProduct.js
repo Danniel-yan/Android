@@ -58,8 +58,7 @@ export default class loanProduct extends Component {
               {data.title}
             </Text>
             <View style = {{flexDirection : 'row'}}>
-             <Text style = {{color : '#FF6D17',fontSize : 12}}>{data.interest}／{data.interest_period}</Text>
-             <Text style = {{color : '#333', fontSize : 12}}>费率</Text>
+             <Text style = {{color : '#FF6D17',fontSize : 12}}>{data.interest}／{data.interest_period}<Text style = {{color : '#333', fontSize : 12}}>费率</Text></Text>
             </View>
           </View>
         </View>

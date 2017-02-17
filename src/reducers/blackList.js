@@ -53,16 +53,18 @@ export default function(state = initState, action) {
     case "PaymentSended":
       return action.success ?
         Object.assign({}, state, { paymentStart: false, paymentSended: true, paymentEnd: false, stateMsg: "验证码已发送" }) :
-        Object.assign({}, state, { paymentStart: false, paymentSended: false, paymentEnd: false, error: "账单创建失败，请重新提交支付" });
+        Object.assign({}, state, { paymentStart: false, paymentSended: false, paymentEnd: false, error: action.error || "账单创建失败，请重新提交支付" });
     case "PaymentConfirmStart":
-      return Object.assign({}, state, { paymentCodeSubmiting: true });
+      return Object.assign({}, state, { paymentCodeSubmiting: true, error: null });
     case "PaymentEnd":
       return Object.assign({}, state, {
         paymentStart: false, paymentCodeSubmiting: false, paymentEnd: true,
         stateMsg: action.success ? "支付完成" : "支付失败",
-        error: action.success ? null : "验证码错误，请重新输入",
+        error: action.success ? null : (action.error || "验证码错误，请重新输入"),
         paymentSuccess: action.success
       });
+    case "PaymentBroken":
+      return Object.assign({}, state, { error: (action.error || "支付异常") });
     case "ClearPaymentInfo":
       return Object.assign({}, state, {
         ticket: null,
