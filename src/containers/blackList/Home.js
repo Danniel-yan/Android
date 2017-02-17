@@ -7,6 +7,7 @@ import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
+import { fontSize } from 'styles';
 
 import PayModal from './PayModal';
 
@@ -38,42 +39,51 @@ class blackListHome extends Component {
         <View style={styles.bottom}>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>真实姓名</Text>
-            <TextInput
-              placeholder='请输入您的真实姓名'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              value={this.state.name}
-              onChangeText={name => this.setState({name})}
-            />
+            <View style={{flex: 1, height: 30}}>
+              <TextInput
+                placeholder='请输入您的真实姓名'
+                style={[styles.itemInput]}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                value={this.state.name}
+                onChangeText={name => this.setState({name})}
+              />
+            </View>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>身份证号码</Text>
-            <TextInput
-              placeholder='请输入身份证号码'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              value={this.state.ID}
-              onChangeText={ID => this.setState({ID})}
-              maxLength={18}
-            />
+            <View style={{flex: 1, height: 30}}>
+              <TextInput
+                placeholder='请输入身份证号码'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                value={this.state.ID}
+                onChangeText={ID => this.setState({ID})}
+                maxLength={18}
+              />
+            </View>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>手机号码</Text>
-            <TextInput
-              placeholder='请输入您的手机号码'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              onChangeText={mobile => this.setState({mobile})}
-              value={this.state.mobile}
-              maxLength={11}
-            />
+            <View style={{flex: 1, height: 30}}>
+              <TextInput
+                placeholder='请输入您的手机号码'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                onChangeText={mobile => this.setState({mobile})}
+                value={this.state.mobile}
+                maxLength={11}
+              />
+            </View>
           </View>
-          <View style = {{flexDirection : 'row', marginBottom : 20,}}>
-            <Text style={{paddingLeft : 10,  fontSize : 12, color : '#666'}}>我们提供付费代查网贷征信服务，查询费用</Text>
-            <Text style = {{color : '#FF6D17', fontSize : 12}}>3元／次</Text>
+          <View style={{flexDirection: 'row', alignItems:"center", marginVertical: 10}}>
+            <Text style={{paddingLeft: 10, fontSize: fontSize.xsmall, color: '#666'}}>
+              我们提供付费代查网贷征信服务，查询费用
+              <Text style={{color: '#FF6D17', fontSize: fontSize.xsmall}}>3元／次</Text>
+            </Text>
+
           </View>
           <View style={styles.btn}>
             <Button
@@ -154,7 +164,7 @@ class blackListHome extends Component {
       // idnum: '320682199010086139',
       // mobile: '18221309578'
     });
-
+    // this.props.checkFree && this.props.checkFree();
     this.setState({ payModalVisible : true });
   }
 
@@ -200,23 +210,19 @@ const styles = StyleSheet.create({
   bottom : {
     backgroundColor : '#fff',
     flex : 1,
-    paddingHorizontal : 10,
-    paddingTop : 10
+    // paddingHorizontal : 10,
+    // paddingTop : 10
   },
   item : {
-    paddingLeft : 10,
-    marginBottom : 10,
+    paddingHorizontal : 10,
     flexDirection : 'row',
-    paddingVertical : 10,
-    borderBottomWidth : 1,
-    borderBottomColor : '#cecece',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e6e6e6',
     height : 50,
     alignItems : 'center',
     justifyContent : 'center',
   },
   itemTitle : {
-   // marginBottom : 10,
-    width : 100,
     fontSize : 16,
     color : '#333'
   },
@@ -225,9 +231,7 @@ const styles = StyleSheet.create({
     height : 25,
     flex : 1,
     textAlign : 'right',
-    paddingRight : 20,
-    color : '#666',
-    marginTop : 5
+    color : '#666'
   },
   submitBtn: {
     marginTop: 10,
@@ -271,7 +275,7 @@ import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
   return Object.assign({}, state.blackListData, {
-    isFetching: state.blackListData.isFetchingFree || state.blackListData.isFetchingReports
+    isFetching: state.blackListData.isFetchingReports
   });
 }
 
@@ -282,6 +286,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(BlackListReports());
       dispatch(CardList());
     },
+    checkFree: () => dispatch(FreeStatus()),
     // fetchCardList: () => dispatch(CardList()),
     createTicket: body => dispatch(CreateBlackListTicket(body)),
     initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))

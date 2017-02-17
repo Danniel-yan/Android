@@ -75,22 +75,28 @@ class PayModal extends Component {
 
     // return "PAYMENT_SUCCESS"; // 支付成功
 
-    if(this.props.isFetchingCardList) {
-      return "FETCHING_BANKLIST"; // 正在获取银行卡列表
+    if(this.props.paymentSuccess) {
+      return "PAYMENT_SUCCESS";
     } else {
-      if(this.props.paymentSuccess) {
-        return "PAYMENT_SUCCESS"; // 支付成功
+      if(this.props.isFetchingCardList || this.props.isFetchingFree) {
+        return "FETCHING"; // 正在获取银行卡列表 以及 是否免费
       } else {
         if(state.navToCardList) {
           return "SELECT_EXIST_CARD"; // 选择银行卡
         }
-        if(!this.props.selectedCard) {
-          return "WITHOUT_CARD_BIND"; // 没有绑定卡片
+        if(this.props.free) {
+          return "APPLY_FREE";
         } else {
-          return "READY_FOR_PAYING"; // 已绑定卡片
+          if(!this.props.selectedCard) {
+            return "WITHOUT_CARD_BIND"; // 没有绑定卡片
+          } else {
+            return "READY_FOR_PAYING"; // 已绑定卡片
+          }
         }
       }
     }
+
+
   }
 
   renderContent() {
@@ -98,8 +104,15 @@ class PayModal extends Component {
     var payState = this.payState;
 
     switch(payState) {
-      case "FETCHING_BANKLIST":
+      case "FETCHING":
         return this.renderLoading();
+      case "APPLY_FREE":
+        return (
+          <View>
+            {this.renderPrice()}
+            {this.renderPayment()}
+          </View>
+        );
       case "READY_FOR_PAYING":
         return (
           <View>
@@ -294,6 +307,7 @@ class PayModal extends Component {
 
     this.props.close && this.props.close();
     this.props.clearPaymentInfo && this.props.clearPaymentInfo();
+    this.props.freeStatus && this.props.freeStatus(); // 每次关闭窗口重新检查一下免费状态
   }
 }
 
@@ -341,7 +355,7 @@ const styles = StyleSheet.create({
 });
 
 import { connect } from 'react-redux';
-import { AddCard, SelectCard, SubmitPayment, SubmitPayCode, ClearPaymentInfo } from 'actions/blackList';
+import { FreeStatus, AddCard, SelectCard, SubmitPayment, SubmitPayCode, ClearPaymentInfo } from 'actions/blackList';
 
 function mapStateToProps(state) {
   // console.log(state.blackListData)
@@ -369,7 +383,8 @@ function mapDispatchToProps(dispatch) {
     selectPaymentCard: card => dispatch(SelectCard(card)),
     submitPayment: () => dispatch(SubmitPayment()),
     submitPayCode: code => dispatch(SubmitPayCode(code)),
-    clearPaymentInfo: () => dispatch(ClearPaymentInfo())
+    clearPaymentInfo: () => dispatch(ClearPaymentInfo()),
+    freeStatus: () => dispatch(FreeStatus())
   }
 }
 
