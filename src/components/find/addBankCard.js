@@ -190,8 +190,8 @@ const styles = StyleSheet.create({
     color : '#333'
   },
   btn : {
-    paddingHorizontal : 20,
     // paddingBottom : 5,
+    paddingHorizontal : 25,
     marginBottom : 80,
     marginTop : 30
   },
