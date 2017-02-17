@@ -30,9 +30,10 @@ export default class articalList extends Component {
   renderRecommend(data, sID, rowID) {
     return(
        <ExternalPushLink
-        title = '信用贷'
+        title = {data.title}
         style = {articalStyles.containers}
         key = {data.id}
+        web = {{}}
         componentProps={{fetchingParams: data.id, ...data }}
        >
         <View style = {articalStyles.box}>
