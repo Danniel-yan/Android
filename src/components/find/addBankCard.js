@@ -5,6 +5,7 @@ import Button from 'components/shared/ButtonBase';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
 import { post, mock, responseStatus } from "utils/fetch";
+import { fontSize, centering } from 'styles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -29,53 +30,61 @@ export default class addBankCard extends Component {
         <View style={{marginTop : 10, flex : 1}}>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>真实姓名</Text>
-            <TextInput
-              placeholder='请输入您的真实姓名'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              editable={!this.state.submitting}
-              onChangeText={realname => this.setState({realname: realname})}
-            />
+            <View style={{flex: 1, height: 20, justifyContent: "center"}}>
+              <TextInput
+                placeholder='请输入您的真实姓名'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                editable={!this.state.submitting}
+                onChangeText={realname => this.setState({realname: realname})}
+              />
+            </View>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>身份证号</Text>
-            <TextInput
-              placeholder='请填写您的身份证号'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              editable={!this.state.submitting}
-              onChangeText={idnum => this.setState({idnum: idnum})}
-            />
+            <View style={{flex: 1, height: 20, justifyContent: "center"}}>
+              <TextInput
+                placeholder='请填写您的身份证号'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                editable={!this.state.submitting}
+                onChangeText={idnum => this.setState({idnum: idnum})}
+              />
+            </View>
           </View>
           <View style={styles.item}>
-            <Text style ={styles.itemTitle}>银行卡号</Text>
-            <View style = {{flex : 1}}>
-            <TextInput
-              placeholder='请填写本人银行卡号'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              editable={!this.state.submitting}
-              onChangeText={cardnum => this.setState({cardnum: cardnum})}
-            />
-            {true ? <Text style = {{fontSize : 12, color : '#666'}}>（招商银行）</Text> : null}
+            <Text style={styles.itemTitle}>银行卡号</Text>
+            <View style={{flex : 1, height: 40, flexDirection: "row", alignItems: "center"}}>
+              <View style={{flex: 1, height: 20, justifyContent: "center"}}>
+              <TextInput
+                placeholder='请填写本人银行卡号'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                editable={!this.state.submitting}
+                onChangeText={cardnum => this.setState({cardnum: cardnum})}
+              />
+              </View>
+            {false ? <Text style = {{fontSize : 12, color : '#666'}}>（招商银行）</Text> : null}
             </View>
             {true ? <Image source = {require('assets/discovery/icon_camera.png')} style = {{width :15, height : 14, marginRight : 20}}/> : null}
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>手机号码</Text>
-            <TextInput
-              placeholder='请填写银行预留手机号码'
-              style={styles.itemInput}
-              underlineColorAndroid="transparent"
-              clearButtonMode="while-editing"
-              editable={!this.state.submitting}
-              onChangeText={mobile => this.setState({mobile: mobile})}
-            />
+            <View style={{flex: 1, height: 20, justifyContent: "center"}}>
+              <TextInput
+                placeholder='请填写银行预留手机号码'
+                style={styles.itemInput}
+                underlineColorAndroid="transparent"
+                clearButtonMode="while-editing"
+                editable={!this.state.submitting}
+                onChangeText={mobile => this.setState({mobile: mobile})}
+              />
+            </View>
           </View>
-          {this.state.err ? (<View><Text style = {styles.err}>{this.state.err}</Text></View>) : null}
+          <View style={{height: 14}}><Text style={styles.err}>{this.state.err ? this.state.err : " "}</Text></View>
           <View style={styles.btn}>
             <ProcessingButton
               style={styles.submitBtn}
@@ -162,35 +171,29 @@ const styles = StyleSheet.create({
     backgroundColor : '#e6e6e6'
   },
   item : {
-    paddingLeft : 20,
-    marginBottom : 10,
+    paddingHorizontal : 20,
+    marginTop : 10,
     flexDirection : 'row',
-    paddingVertical : 10,
-    backgroundColor : '#FFf',
-    height : 60,
-    alignItems : 'center',
-    justifyContent : 'center'
+    backgroundColor : '#fff',
+    height : 50,
+    alignItems : 'center'
   },
   itemTitle : {
-    //marginBottom : 10,
-    width : 80,
-    fontSize : 16,
+    width: 80,
+    fontSize : fontSize.large,
     color : '#333'
   },
   itemInput : {
-    fontSize : 16,
-    height : 25,
+    fontSize : fontSize.large,
     flex : 1,
     textAlign : 'left',
-    paddingRight : 20,
-    color : '#333',
-    marginTop : 9
+    color : '#333'
   },
   btn : {
-    paddingHorizontal : 10,
-    paddingBottom : 5,
+    paddingHorizontal : 20,
+    // paddingBottom : 5,
     marginBottom : 80,
-    marginTop : 40
+    marginTop : 30
   },
   submitBtn: {
     marginTop: 10,
@@ -219,9 +222,10 @@ const styles = StyleSheet.create({
     color : '#333'
   },
   err : {
-    paddingLeft : 20,
+    marginVertical : 5,
+    textAlign: "center",
     color : '#FF003C',
-    fontSize : 12
+    fontSize : fontSize.small
   }
 
 })
