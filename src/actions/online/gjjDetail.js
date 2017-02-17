@@ -7,7 +7,8 @@ export default function() {
     var state = getState(), gjjResult = state.online.gjjResult,
       status = gjjResult.status, gjjBill = gjjResult.billList;
 
-    if(status != 'success' || gjjBill.length < 1) {
+    // if(status != 'success' || gjjBill.length < 1) {
+    if(gjjBill.length < 1 || gjjBill[0].status != 8) {
       return dispatch({ type: 'receiveGjjDetail', detail: null, error: "报告未出 或 报告认证失败， 请重新认证" }); // 报告未出 或 报告认证失败
     }
 
