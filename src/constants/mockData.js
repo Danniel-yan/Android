@@ -1,4 +1,4 @@
-const applyFree = false;
+const applyFree = true;
 const withoutCardBind = true;
 
 export const mockData = {
@@ -30,7 +30,7 @@ export const mockData = {
     "res": 1,
     "data": {
         "ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
-        "result": !applyFree ? null : { resultData: "data" }, // 201支付情况下存在，结构未定
+        "blacklist_result": !applyFree ? null : 1, // 201支付情况下存在，结构未定
     }
   },
   "/payctcf/cardlist": {

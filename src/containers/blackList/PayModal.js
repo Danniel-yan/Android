@@ -81,6 +81,7 @@ class PayModal extends Component {
   renderContent() {
   //   return this.renderLoading();
     var payState = this.payState;
+    console.log("PM-Status: " + payState);
 
     switch(payState) {
       case "FETCHING":
@@ -180,7 +181,11 @@ class PayModal extends Component {
       <View style={{flexDirection: "column"}}>
       {
         list && list.length > 0 && list.map((card, idx) => {
-          return this.renderCard(card, () => this.__selectCard__(card))
+          return (
+            <View key={idx}>
+              { this.renderCard(card, () => this.__selectCard__(card)) }
+            </View>
+          );
         })
       }
       </View>
@@ -189,7 +194,7 @@ class PayModal extends Component {
 
   renderCard(card, onPressFunc) {
     return (
-      <TouchableOpacity key={card.bankname + card.name} onPress={onPressFunc}>
+      <TouchableOpacity key={card.bankname + card.bankAccount} onPress={onPressFunc}>
         <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
           <ResponsiveImage uri={card.logo.px80} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></ResponsiveImage>
           <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{card.bankname + "  " + card.name + "  (" + card.bankAccount + ")"}</Text>
@@ -279,10 +284,6 @@ class PayModal extends Component {
     );
   }
 
-  __navToCardList__() {
-    this.setState({navToCardList: true});
-  }
-
   __selectCard__(card) {
     this.setState({
       navToCardList: false,
@@ -311,13 +312,13 @@ class PayModal extends Component {
   __externalToReport__() {
     this.__closePayModal__();
     this.props.externalPush && this.props.externalPush({
-      key: "CreditReport", title: "网贷征信报告",
+      key: "CreditReport", title: "网贷信用查询",
       componentProps: { result: this.props.result }
     });
   }
 
   __reSendPayCode__() {
-    
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -385,28 +386,11 @@ import { FreeStatus, AddCard, SelectCard, SubmitPayment, SubmitPayCode, ClearPay
 import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
-  // console.log(state.blackListData)
   return state.blackListData;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    // fetchCardList: () => dispatch(CardList()),
-    // addBankCard: () => dispatch(AddCard({
-    //
-    //         "id": 3, //bindcard_id,/payctcf/create接口中需要
-    //         "name": "李尧" + Math.random(), //姓名
-    //         "bankAccount": "1681", //卡号后4位
-    //         "bank_id": 6,
-    //         "bankname": "招商银行", //银行名称
-    //         "logo": {
-    //             "small": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/small/6.png",
-    //             "index": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/index/6.png",
-    //             "white": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/white/6.png",
-    //             "px80": "http://sys-php.img-cn-shanghai.aliyuncs.com/bank_icon/px80/6.png"
-    //         }
-    //
-    // }))
     selectPaymentCard: card => dispatch(SelectCard(card)),
     submitPayment: () => dispatch(SubmitPayment()),
     submitPayCode: code => dispatch(SubmitPayCode(code)),

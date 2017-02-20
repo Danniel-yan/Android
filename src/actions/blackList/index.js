@@ -71,24 +71,34 @@ function RequestBlackListTicket() {
   return { type: "RequestBlackListTicket" };
 }
 
-function ReceiveBlackListTicket(ticket) {
+function ReceiveBlackListTicket(ticket, error) {
   return {
     type: "ReceiveBlackListTicket",
-    ticket
+    ticket,
+    error
   };
 }
 
-function CreateBlackListTicket(body) {
+export function CreateBlackListTicket() {
   return (dispatch, getState) => {
-    dispatch(RequestBlackListTicket());
-    var state = getState(), bLData = state.blackListData,
-      body = bLData ? bLData.target : null;
-
+    var state = getState(), bLData = state.blackListData, body = bLData.target;
     if(!body) return null;
     body.pay_type = bLData.free ? "201" : "101";
+
+    dispatch(RequestBlackListTicket());
     return post("/blacklist/create", body).then(response => {
+      if(response.res !== responseStatus.success) {
+        dispatch(ReceiveBlackListTicket(null, response.msg));
+        return response;
+      }
       dispatch(ReceiveBlackListTicket(response.data.ticket_id));
-      console.log(response);
+
+      // 免费情况下， 创建ticket成功的同时， 查询已完成。
+      if(bLData.free && response.data.blacklist_result) {
+        dispatch({ type: "PaymentEnd", success: true });
+        dispatch({ type: "ReceiveReportResult", result: response.data.blacklist_result });
+      }
+
       return response;
     })
   }
@@ -130,10 +140,10 @@ export function SubmitPayment() {
     if(bLData.paymentStart) return null; // 原则上一个账单创建过程中不要开始另一个, View上也会有防守。
 
     dispatch(PaymentStart());
-    dispatch(CreateBlackListTicket()).then((ticketResponse) => {
-      if(ticketResponse && ticketResponse.data.result) return dispatch({type: "PaymentEnd", success: true}); // 免费情况下直接跳转 支付成功
-      dispatch(CreatePayment())
-    }).then()
+    //dispatch(CreateBlackListTicket()).then((ticketResponse) => {
+      //if(ticketResponse && ticketResponse.data.result) return dispatch({type: "PaymentEnd", success: true}); // 免费情况下直接跳转 支付成功
+    dispatch(CreatePayment());
+    //}).then()
   }
 }
 
@@ -149,7 +159,6 @@ export function SubmitPayCode(code) {
       var success = response.res == responseStatus.success;
       if(success) return dispatch(PaymentAndReportStatus());
       dispatch({ type: "PaymentBroken", error: response.msg });
-      // dispatch({ type: "PaymentEnd", success }).then(dispatch(PaymentStatus()));
     }).catch(() => dispatch({ type: "PaymentEnd", success: false }));
   };
 }

@@ -13,6 +13,8 @@ const initState = {
   target: null,
   isFetchingTicket: false,
   ticket: null,
+  ticketError: null,
+
   paymentStart: false,
   paymentSended: false,
   paymentCodeSubmiting: false,
@@ -44,10 +46,15 @@ export default function(state = initState, action) {
     case "RequestBlackListTicket":
       var newState = Object.assign({}, state, { isFetchingTicket: true, stateMsg: "正在创建账单" });
       newState.ticket = null;
+      newState.ticketError = null;
+      newState.result = null;
       return newState;
     case "ReceiveBlackListTicket":
-      return Object.assign({}, state, { ticket: action.ticket, isFetchingTicket: false });
-
+      return Object.assign({}, state, {
+        isFetchingTicket: false,
+        ticket: action.ticket,
+        ticketError: action.error
+      });
     case "PaymentStart":
       return Object.assign({}, state, { paymentStart: true, paymentSended: false, paymentEnd: false, stateMsg: "正在发送验证码", paymentSuccess: false, error: null });
     case "PaymentSended":
@@ -66,8 +73,11 @@ export default function(state = initState, action) {
     case "PaymentBroken":
       return Object.assign({}, state, { error: (action.error || "支付异常") });
     case "ClearPaymentInfo":
+      console.log("ClearPaymentInfo")
       return Object.assign({}, state, {
+        free: false,
         ticket: null,
+        result: null,
         paymentStart: false, paymentSended: false, paymentEnd: false, paymentSuccess: false, stateMsg: null, error: null
       });
 

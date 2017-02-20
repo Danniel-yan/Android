@@ -5,6 +5,7 @@ import Button from 'components/shared/ButtonBase';
 import zoneStyles from 'containers/scene/zone/zoneStyles';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
+import ProcessingButton from 'components/shared/ProcessingButton';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 import { fontSize } from 'styles';
@@ -26,7 +27,9 @@ class blackListHome extends Component {
       payModalVisible: false
     }
   }
+
   render(){
+    var err = this.state.err;// || this.props.ticketError;
     return(
       <View style={{flex : 1}}>
         <View style={styles.top}>
@@ -43,7 +46,7 @@ class blackListHome extends Component {
                 underlineColorAndroid="transparent"
                 clearButtonMode="while-editing"
                 value={this.state.name}
-                onChangeText={name => this.setState({name})}
+                onChangeText={name => this.setState({name, err: null})}
               />
             </View>
           </View>
@@ -56,7 +59,7 @@ class blackListHome extends Component {
                 underlineColorAndroid="transparent"
                 clearButtonMode="while-editing"
                 value={this.state.ID}
-                onChangeText={ID => this.setState({ID})}
+                onChangeText={ID => this.setState({ID, err: null})}
                 maxLength={18}
               />
             </View>
@@ -69,7 +72,7 @@ class blackListHome extends Component {
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
                 clearButtonMode="while-editing"
-                onChangeText={mobile => this.setState({mobile})}
+                onChangeText={mobile => this.setState({mobile, err: null})}
                 value={this.state.mobile}
                 maxLength={11}
               />
@@ -81,13 +84,15 @@ class blackListHome extends Component {
               <Text style={{color: '#FF6D17', fontSize: fontSize.xsmall}}>3元／次</Text>
             </Text>
           </View>
-          <View style={{height: 14}}><Text style={{textAlign: "center", color : '#FF003C', fontSize : fontSize.small}}>{this.state.err ? this.state.err : " "}</Text></View>
+          <View style={{height: 14}}><Text style={{textAlign: "center", color : '#FF003C', fontSize : fontSize.small}}>{err ? err : " "}</Text></View>
           <View style={styles.btn}>
-            <Button
+            <ProcessingButton
               style={styles.submitBtn}
-              onPress={() => {this._submit()}}>
-              <Text style={styles.submitBtnText}>开始查询</Text>
-            </Button>
+              textStyle={styles.submitBtnText}
+              processing={this.props.isFetchingTicket}
+              onPress={() => {this._submit()}}
+              text={"开始查询"}>
+            </ProcessingButton>
           </View>
           <View style={{paddingLeft : 10}}>
             <Text style={styles.footerTitle}>网贷征信查询</Text>
@@ -106,9 +111,15 @@ class blackListHome extends Component {
           </View>
         </View>
 
-        <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0,height: this.state.payModalVisible ? null : 0, overflow: "hidden"}}>
-          <PayModal close={() => this.setState({payModalVisible: false})} />
-        </View>
+        {
+          this.props.ticket && !this.props.isFetchingTicket ? (
+            <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0}}>
+              <PayModal close={() => this.setState({payModalVisible: false})} />
+            </View>
+          ) : null
+        }
+
+
       </View>
     )
   }
@@ -158,12 +169,18 @@ class blackListHome extends Component {
       return null;
     }
 
-    this.props.initialTarget && this.props.initialTarget({
+    var body = {
       realname: this.state.name,
       idnum: this.state.ID,
       mobile: this.state.mobile
-    });
-    this.setState({ payModalVisible : true });
+    };
+    this.props.submit && this.props.submit(body);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.ticketError) {
+      this.setState({err: newProps.ticketError});
+    }
   }
 }
 
@@ -284,8 +301,10 @@ function mapDispatchToProps(dispatch) {
     },
     checkFree: () => dispatch(FreeStatus()),
     // fetchCardList: () => dispatch(CardList()),
-    createTicket: body => dispatch(CreateBlackListTicket(body)),
-    initialTarget: targetInfo => dispatch(InitalBlackListTarget(targetInfo))
+    submit: body => {
+      dispatch(InitalBlackListTarget(body));
+      dispatch(CreateBlackListTicket());
+    }
   }
 }
 

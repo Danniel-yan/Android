@@ -32,11 +32,11 @@ export default class findHome extends Component {
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
           <ExternalPushLink
-            title="黑名单查询"
+            title="网贷信用查询"
             toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}>
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
-            <Text style = {styles.navTxt}>黑名单</Text>
+            <Text style = {styles.navTxt}>网贷信用</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="信用贷"
