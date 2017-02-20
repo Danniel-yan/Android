@@ -99,22 +99,22 @@ export default class addBankCard extends Component {
         </View>
         <View style = {styles.bottom}>
           <Text style = {styles.bottomTitle}>支持银行</Text>
-          <View style = {{flexDirection : 'row', marginBottom : 5}}>
-            <Text style = {styles.bottomItem}> 工商银行 |</Text>
+          <View style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center',marginBottom : 5}}>
+            <Text style = {styles.bottomItem}>工商银行 |</Text>
             <Text style = {styles.bottomItem}> 中国银行 |</Text>
             <Text style = {styles.bottomItem}> 建设银行 |</Text>
             <Text style = {styles.bottomItem}> 邮政储蓄 |</Text>
             <Text style = {styles.bottomItem}> 中信银行</Text>
           </View>
-          <View style = {{flexDirection : 'row', marginBottom : 5}}>
-            <Text style = {styles.bottomItem}> 光大银行 |</Text>
+          <View style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center', marginBottom : 5}}>
+            <Text style = {styles.bottomItem}>光大银行 |</Text>
             <Text style = {styles.bottomItem}> 华夏银行 |</Text>
             <Text style = {styles.bottomItem}> 招商银行 |</Text>
             <Text style = {styles.bottomItem}> 兴业储蓄 |</Text>
             <Text style = {styles.bottomItem}> 浦发银行</Text>
           </View>
-          <View style = {{flexDirection : 'row',marginBottom : 20}}>
-           <Text style = {styles.bottomItem}> 平安银行 |</Text>
+          <View style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center',marginBottom : 20}}>
+           <Text style = {styles.bottomItem}>平安银行 |</Text>
            <Text style = {styles.bottomItem}> 广发银行 |</Text>
            <Text style = {styles.bottomItem}> 民生银行 |</Text>
            <Text style = {styles.bottomItem}> 农业储蓄 |</Text>
@@ -193,7 +193,6 @@ const styles = StyleSheet.create({
     color : '#333'
   },
   btn : {
-    // paddingBottom : 5,
     paddingHorizontal : 25,
     marginBottom : 80,
     marginTop : 30
@@ -211,15 +210,14 @@ const styles = StyleSheet.create({
   bottom : {
     height : 120,
     paddingBottom : 20,
-    paddingHorizontal : 13,
   },
   bottomTitle : {
     fontSize : 17,
     color : '#FF6D17',
     marginBottom : 20,
+    paddingLeft : 20,
   },
   bottomItem : {
-    width : (width-25)/5,
     textAlign : 'center',
     fontSize : 14,
     color : '#333'
