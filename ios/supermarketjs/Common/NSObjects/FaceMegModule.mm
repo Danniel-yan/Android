@@ -65,6 +65,7 @@ RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 {
   UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
   MyViewController *myVC = [[MyViewController alloc] initWithDefauleSetting];
+  [self.imagesArry removeAllObjects];
   self.myViewController = myVC;
   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:myVC];
   __unsafe_unretained FaceMegModule *weakSelf = self;

@@ -19,7 +19,7 @@ class PreloanSuccess extends Component {
 
   constructor(props) {
     super(props);
-    this.minValue = this.props.loanType == 1 ? 15000 : 20000
+    this.minValue = this.props.loanType == 1 ? 10000 : 10000
 
     this.state = {
       amount: props.data.sug_loan_amount,
@@ -34,7 +34,7 @@ class PreloanSuccess extends Component {
     return (
       <ScrollView>
         <View style={styles.banner}>
-          <Text style={styles.title}>预受额度：</Text>
+          <Text style={styles.title}>预授额度：</Text>
           <Text style={styles.amount}>{data.sug_loan_amount}元</Text>
         </View>
 
@@ -44,7 +44,7 @@ class PreloanSuccess extends Component {
         </View>
 
         <View style={styles.descItem}>
-          <Text style={[styles.text, container]}>预受额度：</Text>
+          <Text style={[styles.text, container]}>月费率：</Text>
           <Text style={styles.text}>{data.interest_down}-{data.interest_up}</Text>
         </View>
 
@@ -57,7 +57,7 @@ class PreloanSuccess extends Component {
               onChange={this._formChange.bind(this, 'amount')}
               step={1000}
               min={this.minValue}
-              minLabel={this.props.loanType == 1 ? "1.5万" : "2万"}
+              minLabel={this.props.loanType == 1 ? "1万" : "1万"}
               maxLabel={(data.sug_loan_amount / 10000).toFixed(1) + '万'}
               max={parseInt(data.sug_loan_amount)}/>
           </View>
