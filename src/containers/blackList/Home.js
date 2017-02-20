@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Image ,StyleSheet,Text, TextInput, Modal, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Image ,StyleSheet,Text, TextInput, Modal, TouchableOpacity, Dimensions } from 'react-native';
 
 import Button from 'components/shared/ButtonBase';
 import zoneStyles from 'containers/scene/zone/zoneStyles';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import ProcessingButton from 'components/shared/ProcessingButton';
+import Input from 'components/shared/Input';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 import { fontSize } from 'styles';
@@ -18,6 +19,9 @@ class blackListHome extends Component {
   constructor(props){
     super(props);
     this.state = {
+      // name : '王睆',
+      // ID : '320682199010086139',
+      // mobile : '18221309578',
       name : '',
       ID : '',
       mobile : '',
@@ -40,7 +44,7 @@ class blackListHome extends Component {
           <View style={styles.item}>
             <Text style={styles.itemTitle}>真实姓名</Text>
             <View style={{flex: 1, height: 30}}>
-              <TextInput
+              <Input
                 placeholder='请输入您的真实姓名'
                 style={[styles.itemInput]}
                 underlineColorAndroid="transparent"
@@ -53,7 +57,7 @@ class blackListHome extends Component {
           <View style={styles.item}>
             <Text style={styles.itemTitle}>身份证号码</Text>
             <View style={{flex: 1, height: 30}}>
-              <TextInput
+              <Input
                 placeholder='请输入身份证号码'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
@@ -67,7 +71,8 @@ class blackListHome extends Component {
           <View style={styles.item}>
             <Text style={styles.itemTitle}>手机号码</Text>
             <View style={{flex: 1, height: 30}}>
-              <TextInput
+              <Input
+                type='number'
                 placeholder='请输入您的手机号码'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"

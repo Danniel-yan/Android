@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, Text, TextInput, Modal, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Image, StyleSheet, Text, TextInput, Modal, TouchableOpacity, Dimensions, NativeModules } from 'react-native';
 
 import Button from 'components/shared/ButtonBase';
+import Input from 'components/shared/Input';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
 import { post, mock, responseStatus } from "utils/fetch";
@@ -27,11 +28,11 @@ export default class addBankCard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{marginTop : 10, flex : 1}}>
+        <View style={{marginTop : 10}}>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>真实姓名</Text>
             <View style={{flex: 1, height: 20, justifyContent: "center"}}>
-              <TextInput
+              <Input
                 placeholder='请输入您的真实姓名'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
@@ -44,7 +45,7 @@ export default class addBankCard extends Component {
           <View style={styles.item}>
             <Text style={styles.itemTitle}>身份证号</Text>
             <View style={{flex: 1, height: 20, justifyContent: "center"}}>
-              <TextInput
+              <Input
                 placeholder='请填写您的身份证号'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
@@ -59,23 +60,26 @@ export default class addBankCard extends Component {
             <Text style={styles.itemTitle}>银行卡号</Text>
             <View style={{flex : 1, height: 40, flexDirection: "row", alignItems: "center"}}>
               <View style={{flex: 1, height: 20, justifyContent: "center"}}>
-              <TextInput
+              <Input
+                type="number"
                 placeholder='请填写本人银行卡号'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
+                value={this.state.cardnum}
                 onChangeText={cardnum => this.setState({cardnum: cardnum})}
               />
               </View>
             {false ? <Text style = {{fontSize : 12, color : '#666'}}>（招商银行）</Text> : null}
             </View>
-            {true ? <Image source = {require('assets/discovery/icon_camera.png')} style = {{width :15, height : 14, marginRight : 20}}/> : null}
+            {true ? <TouchableOpacity onPress={() => this.__openCamera__()}><Image source = {require('assets/discovery/icon_camera.png')} style = {{width :15, height : 14, marginRight : 20}}/></TouchableOpacity> : null}
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>手机号码</Text>
             <View style={{flex: 1, height: 20, justifyContent: "center"}}>
-              <TextInput
+              <Input
+                type="number"
                 placeholder='请填写银行预留手机号码'
                 style={styles.itemInput}
                 underlineColorAndroid="transparent"
@@ -97,7 +101,7 @@ export default class addBankCard extends Component {
             </ProcessingButton>
           </View>
         </View>
-        <View style = {styles.bottom}>
+        <View style = {[styles.bottom, {flex : 1}]}>
           <Text style = {styles.bottomTitle}>支持银行</Text>
           <View style = {{flexDirection : 'row', justifyContent : 'center', alignItems : 'center',marginBottom : 5}}>
             <Text style = {styles.bottomItem}>工商银行 |</Text>
@@ -166,6 +170,14 @@ export default class addBankCard extends Component {
       this.props.externalPop && this.props.externalPop();
     });
   }
+
+  __openCamera__() {
+    var bankCardVerify = NativeModules.FaceMegModule['bankCardVerify'];
+    bankCardVerify && bankCardVerify().then(res => {
+      var cardnum = (res.value && res.value.replace(/\s/g, '')) || "";
+      cardnum && this.setState({cardnum: cardnum});
+    });
+  }
 }
 
 const styles = StyleSheet.create({
@@ -209,7 +221,7 @@ const styles = StyleSheet.create({
   },
   bottom : {
     height : 120,
-    paddingBottom : 20,
+    marginBottom : 20,
   },
   bottomTitle : {
     fontSize : 17,
