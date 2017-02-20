@@ -204,9 +204,11 @@ class PayModal extends Component {
       <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
         <Image source={require("assets/discovery/shoujihao.png")} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></Image>
         <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>189****1589</Text>
+        <TouchableOpacity onPress={() => this.__reSendPayCode__()}>
         <View style={[{height: 24, width: 70, borderWidth:0.5, borderColor: "#ff6d17", borderRadius: 4}, centering]}>
           <Text style={{color: "#ff6d17", fontSize: fontSize.xsmall}}>获取验证码</Text>
         </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -312,6 +314,10 @@ class PayModal extends Component {
       key: "CreditReport", title: "网贷征信报告",
       componentProps: { result: this.props.result }
     });
+  }
+
+  __reSendPayCode__() {
+    
   }
 
   componentWillReceiveProps(newProps) {
