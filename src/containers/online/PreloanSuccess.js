@@ -35,7 +35,7 @@ class PreloanSuccess extends Component {
       <ScrollView>
         <View style={styles.banner}>
           <Text style={styles.title}>预授额度：</Text>
-          <Text style={styles.amount}>{data.sug_loan_amount}元</Text>
+          <Text style={styles.amount}>{parseInt(data.sug_loan_amount)}元</Text>
         </View>
 
         <View style={styles.descItem}>
