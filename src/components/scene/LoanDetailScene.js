@@ -303,15 +303,15 @@ export default class LoanDetailScene extends Component {
 
     // 预授信失败
     if(status == 4) {
-      return this.mergeProps({ toKey: 'OnlinePreloanFailure', title: '预受信申请结果' });
+      return this.mergeProps({ toKey: 'OnlinePreloanFailure', title: '预授信申请结果' });
     }
 
     if(status == 5 && time_expire_status == 1) {
-      return this.mergeProps({toKey: 'OnlinePreloanExpire', title: '预受信申请结果'});
+      return this.mergeProps({toKey: 'OnlinePreloanExpire', title: '预授信申请结果'});
     }
 
     if(status == 5) {
-      return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预受信申请结果'});
+      return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'});
     }
 
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
