@@ -27,7 +27,6 @@
 		88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88326F281E03918E0093C055 /* libRCTCameraRoll.a */; };
 		886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886006501DF01C8F00971978 /* libRCTAnimation.a */; };
 		924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */; };
-		A6137D761E5BD92400FCE4A8 /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */; };
 		A61A5D121E14B72A00F0556A /* MyBottomView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */; };
 		A61A5D131E14B72A00F0556A /* MyFinishViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */; };
 		A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */; };
@@ -63,6 +62,7 @@
 		A639C5801E10F03C0036819E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A639C57F1E10F03C0036819E /* CoreMotion.framework */; };
 		A639C5831E10F2A40036819E /* FeedbackModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A639C5821E10F2A40036819E /* FeedbackModule.m */; };
 		A686D9971E1624190048717E /* FaceMegModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A686D9961E1624190048717E /* FaceMegModule.mm */; };
+		A68CC4781E5C25E500FA5FA2 /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68CC4771E5C25E500FA5FA2 /* MGIDCard.framework */; };
 		A68EC45F1E2F02D400EBC82A /* MGBankCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68EC45D1E2F02D400EBC82A /* MGBankCard.framework */; };
 		A68EC4601E2F02D400EBC82A /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A68EC45E1E2F02D400EBC82A /* MGBankCardResource.bundle */; };
 		B81A62151DE56AEA001365BD /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81A62141DE56AEA001365BD /* UMMobClick.framework */; };
@@ -321,7 +321,6 @@
 		88326ECF1E037D4D0093C055 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		88326F231E03918E0093C055 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		886006481DF01C8F00971978 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
 		A61A5CF91E14B72A00F0556A /* MyBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBottomView.h; sourceTree = "<group>"; };
 		A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyBottomView.mm; sourceTree = "<group>"; };
 		A61A5CFB1E14B72A00F0556A /* MyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFinishViewController.h; sourceTree = "<group>"; };
@@ -366,6 +365,7 @@
 		A639C5821E10F2A40036819E /* FeedbackModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackModule.m; sourceTree = "<group>"; };
 		A686D9951E1624190048717E /* FaceMegModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceMegModule.h; sourceTree = "<group>"; };
 		A686D9961E1624190048717E /* FaceMegModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceMegModule.mm; sourceTree = "<group>"; };
+		A68CC4771E5C25E500FA5FA2 /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
 		A68EC45D1E2F02D400EBC82A /* MGBankCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGBankCard.framework; sourceTree = "<group>"; };
 		A68EC45E1E2F02D400EBC82A /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
 		B81A62141DE56AEA001365BD /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
@@ -533,7 +533,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				B8FF6C541E03DF5E00FB2709 /* SinaWeiboConnector.framework in Frameworks */,
-				A6137D761E5BD92400FCE4A8 /* MGIDCard.framework in Frameworks */,
+				A68CC4781E5C25E500FA5FA2 /* MGIDCard.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				B8FF6C5D1E03DF5E00FB2709 /* MOBFoundation.framework in Frameworks */,
@@ -788,7 +788,7 @@
 		A61A5D031E14B72A00F0556A /* MegIDCardQuality */ = {
 			isa = PBXGroup;
 			children = (
-				A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */,
+				A68CC4771E5C25E500FA5FA2 /* MGIDCard.framework */,
 				A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */,
 			);
 			path = MegIDCardQuality;
