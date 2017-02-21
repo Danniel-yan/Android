@@ -27,11 +27,11 @@
 		88326F291E03921D0093C055 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88326F281E03918E0093C055 /* libRCTCameraRoll.a */; };
 		886006651DF01CA400971978 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886006501DF01C8F00971978 /* libRCTAnimation.a */; };
 		924D8E3F9B9C46DD882567FE /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867C1E6ECBCA4FE8AB70AD92 /* libCodePush.a */; };
+		A6137D761E5BD92400FCE4A8 /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */; };
 		A61A5D121E14B72A00F0556A /* MyBottomView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */; };
 		A61A5D131E14B72A00F0556A /* MyFinishViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFC1E14B72A00F0556A /* MyFinishViewController.mm */; };
 		A61A5D141E14B72A00F0556A /* MyFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */; };
 		A61A5D151E14B72A00F0556A /* MyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A61A5CFF1E14B72A00F0556A /* MyViewController.mm */; };
-		A61A5D181E14B72A00F0556A /* MGIDCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D041E14B72A00F0556A /* MGIDCard.framework */; };
 		A61A5D191E14B72A00F0556A /* MGIDCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */; };
 		A61A5D1A1E14B72A00F0556A /* MGLivenessDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A5D0A1E14B72A00F0556A /* MGLivenessDetection.framework */; };
 		A61A5D1B1E14B72A00F0556A /* MGLiveResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A61A5D0B1E14B72A00F0556A /* MGLiveResource.bundle */; };
@@ -321,6 +321,7 @@
 		88326ECF1E037D4D0093C055 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		88326F231E03918E0093C055 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		886006481DF01C8F00971978 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
 		A61A5CF91E14B72A00F0556A /* MyBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBottomView.h; sourceTree = "<group>"; };
 		A61A5CFA1E14B72A00F0556A /* MyBottomView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyBottomView.mm; sourceTree = "<group>"; };
 		A61A5CFB1E14B72A00F0556A /* MyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFinishViewController.h; sourceTree = "<group>"; };
@@ -328,7 +329,6 @@
 		A61A5CFD1E14B72A00F0556A /* MyFinishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFinishViewController.xib; sourceTree = "<group>"; };
 		A61A5CFE1E14B72A00F0556A /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		A61A5CFF1E14B72A00F0556A /* MyViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyViewController.mm; sourceTree = "<group>"; };
-		A61A5D041E14B72A00F0556A /* MGIDCard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MGIDCard.framework; sourceTree = "<group>"; };
 		A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGIDCardResource.bundle; sourceTree = "<group>"; };
 		A61A5D071E14B72A00F0556A /* LivenessDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessDetector.h; sourceTree = "<group>"; };
 		A61A5D081E14B72A00F0556A /* LivenessEnumType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessEnumType.h; sourceTree = "<group>"; };
@@ -533,10 +533,10 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				B8FF6C541E03DF5E00FB2709 /* SinaWeiboConnector.framework in Frameworks */,
+				A6137D761E5BD92400FCE4A8 /* MGIDCard.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				B8FF6C5D1E03DF5E00FB2709 /* MOBFoundation.framework in Frameworks */,
-				A61A5D181E14B72A00F0556A /* MGIDCard.framework in Frameworks */,
 				A639C5511E10EAFA0036819E /* UTDID.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
@@ -788,7 +788,7 @@
 		A61A5D031E14B72A00F0556A /* MegIDCardQuality */ = {
 			isa = PBXGroup;
 			children = (
-				A61A5D041E14B72A00F0556A /* MGIDCard.framework */,
+				A6137D751E5BD92400FCE4A8 /* MGIDCard.framework */,
 				A61A5D051E14B72A00F0556A /* MGIDCardResource.bundle */,
 			);
 			path = MegIDCardQuality;
