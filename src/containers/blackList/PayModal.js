@@ -205,10 +205,15 @@ class PayModal extends Component {
   }
 
   renderSendCode() {
+    console.log('已选中的卡的电话号码' + this.props.selectedCard.mobileNo);
+    var mobileNo = this.props.selectedCard.mobileNo;
+      mobileNo = mobileNo.split('');
+      mobileNo.splice(3,4,'****');
+      mobileNo = mobileNo.join('');
     return (
       <View style={[{flexDirection: "row", padding: 10, paddingVertical: 12}, styles.bBorder, centering]}>
         <Image source={require("assets/discovery/shoujihao.png")} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></Image>
-        <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>189****1589</Text>
+        <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{mobileNo}</Text>
         <TouchableOpacity onPress={() => this.__reSendPayCode__()}>
         <View style={[{height: 24, width: 70, borderWidth:0.5, borderColor: "#ff6d17", borderRadius: 4}, centering]}>
           <Text style={{color: "#ff6d17", fontSize: fontSize.xsmall}}>获取验证码</Text>
