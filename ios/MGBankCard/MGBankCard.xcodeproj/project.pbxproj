@@ -1,0 +1,477 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1419C4431CEDA6EB008708AA /* MGBankCardRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1419C43E1CEDA6EB008708AA /* MGBankCardRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1419C4441CEDA6EB008708AA /* MGBankCardResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 1419C43F1CEDA6EB008708AA /* MGBankCardResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1419C4451CEDA6EB008708AA /* MGBankCardResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1419C4411CEDA6EB008708AA /* MGBankCardResource.bundle */; };
+		141C6FC41D49A857002DE881 /* MGCardBoxLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 141C6FC21D49A857002DE881 /* MGCardBoxLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		141C6FC51D49A857002DE881 /* MGCardBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 141C6FC31D49A857002DE881 /* MGCardBoxLayer.m */; };
+		142B03D81D59AA7C007507B2 /* MGBankDetectBaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 142B03D61D59AA7C007507B2 /* MGBankDetectBaseViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		142B03D91D59AA7C007507B2 /* MGBankDetectBaseViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 142B03D71D59AA7C007507B2 /* MGBankDetectBaseViewController.mm */; };
+		142C80991C770A49008DC7B9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142C80981C770A49008DC7B9 /* CoreText.framework */; };
+		1438F1A01D659305000AD7AD /* MGBankCardDetectDefaultVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F19E1D659305000AD7AD /* MGBankCardDetectDefaultVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1A11D659305000AD7AD /* MGBankCardDetectDefaultVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1438F19F1D659305000AD7AD /* MGBankCardDetectDefaultVC.mm */; };
+		143A308D1C7C5AAB00F36DFF /* MGBankNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A308B1C7C5AAB00F36DFF /* MGBankNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		143A308E1C7C5AAB00F36DFF /* MGBankNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A308C1C7C5AAB00F36DFF /* MGBankNavigationController.m */; };
+		143A30A81C7F047F00F36DFF /* MGBankCardModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A30A61C7F047F00F36DFF /* MGBankCardModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		143A30A91C7F047F00F36DFF /* MGBankCardModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 143A30A71C7F047F00F36DFF /* MGBankCardModel.mm */; };
+		1483CDB01C59E495000120F4 /* MGBaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1483CD991C59CA3D000120F4 /* MGBaseKit.framework */; };
+		14B4080D1C19652100249DC9 /* MGBankCardCheckVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408011C19652100249DC9 /* MGBankCardCheckVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B4080E1C19652100249DC9 /* MGBankCardCheckVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14B408021C19652100249DC9 /* MGBankCardCheckVC.mm */; };
+		14B408101C19652100249DC9 /* MGBankCardDetectVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408041C19652100249DC9 /* MGBankCardDetectVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B408111C19652100249DC9 /* MGBankCardDetectVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14B408051C19652100249DC9 /* MGBankCardDetectVC.mm */; };
+		14B408121C19652100249DC9 /* MGBankCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408061C19652100249DC9 /* MGBankCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B408131C19652100249DC9 /* MGBankCardDetectManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408071C19652100249DC9 /* MGBankCardDetectManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B408141C19652100249DC9 /* MGBankCardDetectManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14B408081C19652100249DC9 /* MGBankCardDetectManager.mm */; };
+		14B408151C19652100249DC9 /* MGBankCardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408091C19652100249DC9 /* MGBankCardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B408161C19652100249DC9 /* MGBankCardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14B4080A1C19652100249DC9 /* MGBankCardManager.mm */; };
+		14B408651C1AC99100249DC9 /* MGBankCardBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B408631C1AC99100249DC9 /* MGBankCardBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14B408661C1AC99100249DC9 /* MGBankCardBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B408641C1AC99100249DC9 /* MGBankCardBundle.m */; };
+		14B47F4F1C1BFC9B004BBB96 /* MGBankCardConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B47F4E1C1BF90E004BBB96 /* MGBankCardConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6137CD41E57092D00FCE4A8 /* libMegBankCard_v1.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6137CD31E57092D00FCE4A8 /* libMegBankCard_v1.0.1.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1419C43E1CEDA6EB008708AA /* MGBankCardRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardRecognizer.h; sourceTree = "<group>"; };
+		1419C43F1CEDA6EB008708AA /* MGBankCardResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardResult.h; sourceTree = "<group>"; };
+		1419C4411CEDA6EB008708AA /* MGBankCardResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGBankCardResource.bundle; sourceTree = "<group>"; };
+		141C6FC21D49A857002DE881 /* MGCardBoxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCardBoxLayer.h; sourceTree = "<group>"; };
+		141C6FC31D49A857002DE881 /* MGCardBoxLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCardBoxLayer.m; sourceTree = "<group>"; };
+		142B03D61D59AA7C007507B2 /* MGBankDetectBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankDetectBaseViewController.h; sourceTree = "<group>"; };
+		142B03D71D59AA7C007507B2 /* MGBankDetectBaseViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankDetectBaseViewController.mm; sourceTree = "<group>"; };
+		142C80981C770A49008DC7B9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1438F19E1D659305000AD7AD /* MGBankCardDetectDefaultVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardDetectDefaultVC.h; sourceTree = "<group>"; };
+		1438F19F1D659305000AD7AD /* MGBankCardDetectDefaultVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardDetectDefaultVC.mm; sourceTree = "<group>"; };
+		143A308B1C7C5AAB00F36DFF /* MGBankNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankNavigationController.h; sourceTree = "<group>"; };
+		143A308C1C7C5AAB00F36DFF /* MGBankNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBankNavigationController.m; sourceTree = "<group>"; };
+		143A30A61C7F047F00F36DFF /* MGBankCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardModel.h; sourceTree = "<group>"; };
+		143A30A71C7F047F00F36DFF /* MGBankCardModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardModel.mm; sourceTree = "<group>"; };
+		1483CD991C59CA3D000120F4 /* MGBaseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MGBaseKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/FaceID-gjofkgdgnziqynfpptqczguifxpq/Build/Products/Debug-iphoneos/MGBaseKit.framework"; sourceTree = "<group>"; };
+		14B408011C19652100249DC9 /* MGBankCardCheckVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardCheckVC.h; sourceTree = "<group>"; };
+		14B408021C19652100249DC9 /* MGBankCardCheckVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardCheckVC.mm; sourceTree = "<group>"; };
+		14B408041C19652100249DC9 /* MGBankCardDetectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardDetectVC.h; sourceTree = "<group>"; };
+		14B408051C19652100249DC9 /* MGBankCardDetectVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardDetectVC.mm; sourceTree = "<group>"; };
+		14B408061C19652100249DC9 /* MGBankCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCard.h; sourceTree = "<group>"; };
+		14B408071C19652100249DC9 /* MGBankCardDetectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardDetectManager.h; sourceTree = "<group>"; };
+		14B408081C19652100249DC9 /* MGBankCardDetectManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardDetectManager.mm; sourceTree = "<group>"; };
+		14B408091C19652100249DC9 /* MGBankCardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardManager.h; sourceTree = "<group>"; };
+		14B4080A1C19652100249DC9 /* MGBankCardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBankCardManager.mm; sourceTree = "<group>"; };
+		14B4085B1C1AC17500249DC9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14B408631C1AC99100249DC9 /* MGBankCardBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBankCardBundle.h; sourceTree = "<group>"; };
+		14B408641C1AC99100249DC9 /* MGBankCardBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBankCardBundle.m; sourceTree = "<group>"; };
+		14B47F4E1C1BF90E004BBB96 /* MGBankCardConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGBankCardConfig.h; sourceTree = "<group>"; };
+		14C9B79D1C181DAB0058C7C3 /* MGBankCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MGBankCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6137CD31E57092D00FCE4A8 /* libMegBankCard_v1.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMegBankCard_v1.0.1.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14C9B7991C181DAB0058C7C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				142C80991C770A49008DC7B9 /* CoreText.framework in Frameworks */,
+				1483CDB01C59E495000120F4 /* MGBaseKit.framework in Frameworks */,
+				A6137CD41E57092D00FCE4A8 /* libMegBankCard_v1.0.1.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1419C43C1CEDA6EB008708AA /* BankCardSDK */ = {
+			isa = PBXGroup;
+			children = (
+				A6137CD31E57092D00FCE4A8 /* libMegBankCard_v1.0.1.a */,
+				1419C43E1CEDA6EB008708AA /* MGBankCardRecognizer.h */,
+				1419C43F1CEDA6EB008708AA /* MGBankCardResult.h */,
+			);
+			path = BankCardSDK;
+			sourceTree = "<group>";
+		};
+		1419C4401CEDA6EB008708AA /* Resouce */ = {
+			isa = PBXGroup;
+			children = (
+				1419C4411CEDA6EB008708AA /* MGBankCardResource.bundle */,
+			);
+			path = Resouce;
+			sourceTree = "<group>";
+		};
+		1438F1A21D659315000AD7AD /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				142B03D61D59AA7C007507B2 /* MGBankDetectBaseViewController.h */,
+				142B03D71D59AA7C007507B2 /* MGBankDetectBaseViewController.mm */,
+				14B408041C19652100249DC9 /* MGBankCardDetectVC.h */,
+				14B408051C19652100249DC9 /* MGBankCardDetectVC.mm */,
+				1438F19E1D659305000AD7AD /* MGBankCardDetectDefaultVC.h */,
+				1438F19F1D659305000AD7AD /* MGBankCardDetectDefaultVC.mm */,
+				14B408011C19652100249DC9 /* MGBankCardCheckVC.h */,
+				14B408021C19652100249DC9 /* MGBankCardCheckVC.mm */,
+				143A308B1C7C5AAB00F36DFF /* MGBankNavigationController.h */,
+				143A308C1C7C5AAB00F36DFF /* MGBankNavigationController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		1438F1A31D659328000AD7AD /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				14B47F4E1C1BF90E004BBB96 /* MGBankCardConfig.h */,
+				14B408091C19652100249DC9 /* MGBankCardManager.h */,
+				14B4080A1C19652100249DC9 /* MGBankCardManager.mm */,
+				14B408071C19652100249DC9 /* MGBankCardDetectManager.h */,
+				14B408081C19652100249DC9 /* MGBankCardDetectManager.mm */,
+				14B408631C1AC99100249DC9 /* MGBankCardBundle.h */,
+				14B408641C1AC99100249DC9 /* MGBankCardBundle.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		1438F1A41D659337000AD7AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				141C6FC21D49A857002DE881 /* MGCardBoxLayer.h */,
+				141C6FC31D49A857002DE881 /* MGCardBoxLayer.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1438F1A51D659346000AD7AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				143A30A61C7F047F00F36DFF /* MGBankCardModel.h */,
+				143A30A71C7F047F00F36DFF /* MGBankCardModel.mm */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		14B408001C19652100249DC9 /* MegviiClass */ = {
+			isa = PBXGroup;
+			children = (
+				14B408061C19652100249DC9 /* MGBankCard.h */,
+				1438F1A51D659346000AD7AD /* Model */,
+				1438F1A41D659337000AD7AD /* View */,
+				1438F1A31D659328000AD7AD /* Manager */,
+				1438F1A21D659315000AD7AD /* ViewController */,
+			);
+			path = MegviiClass;
+			sourceTree = "<group>";
+		};
+		14B4085A1C1AC17500249DC9 /* BankCard */ = {
+			isa = PBXGroup;
+			children = (
+				14B4085B1C1AC17500249DC9 /* Info.plist */,
+			);
+			path = BankCard;
+			sourceTree = "<group>";
+		};
+		14C9B7931C181DAB0058C7C3 = {
+			isa = PBXGroup;
+			children = (
+				1419C43C1CEDA6EB008708AA /* BankCardSDK */,
+				1419C4401CEDA6EB008708AA /* Resouce */,
+				14B4085A1C1AC17500249DC9 /* BankCard */,
+				14C9B7C51C181FB60058C7C3 /* Frameworks */,
+				14B408001C19652100249DC9 /* MegviiClass */,
+				14C9B79E1C181DAB0058C7C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14C9B79E1C181DAB0058C7C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14C9B79D1C181DAB0058C7C3 /* MGBankCard.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14C9B7C51C181FB60058C7C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				142C80981C770A49008DC7B9 /* CoreText.framework */,
+				1483CD991C59CA3D000120F4 /* MGBaseKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		14C9B79A1C181DAB0058C7C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14B408121C19652100249DC9 /* MGBankCard.h in Headers */,
+				14B47F4F1C1BFC9B004BBB96 /* MGBankCardConfig.h in Headers */,
+				14B408151C19652100249DC9 /* MGBankCardManager.h in Headers */,
+				14B408131C19652100249DC9 /* MGBankCardDetectManager.h in Headers */,
+				1419C4431CEDA6EB008708AA /* MGBankCardRecognizer.h in Headers */,
+				14B408651C1AC99100249DC9 /* MGBankCardBundle.h in Headers */,
+				143A30A81C7F047F00F36DFF /* MGBankCardModel.h in Headers */,
+				1419C4441CEDA6EB008708AA /* MGBankCardResult.h in Headers */,
+				143A308D1C7C5AAB00F36DFF /* MGBankNavigationController.h in Headers */,
+				142B03D81D59AA7C007507B2 /* MGBankDetectBaseViewController.h in Headers */,
+				14B408101C19652100249DC9 /* MGBankCardDetectVC.h in Headers */,
+				1438F1A01D659305000AD7AD /* MGBankCardDetectDefaultVC.h in Headers */,
+				14B4080D1C19652100249DC9 /* MGBankCardCheckVC.h in Headers */,
+				141C6FC41D49A857002DE881 /* MGCardBoxLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		14C9B79C1C181DAB0058C7C3 /* MGBankCard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14C9B7A51C181DAB0058C7C3 /* Build configuration list for PBXNativeTarget "MGBankCard" */;
+			buildPhases = (
+				14C9B7981C181DAB0058C7C3 /* Sources */,
+				14C9B7991C181DAB0058C7C3 /* Frameworks */,
+				14C9B79B1C181DAB0058C7C3 /* Resources */,
+				14C9B79A1C181DAB0058C7C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MGBankCard;
+			productName = BankCard;
+			productReference = 14C9B79D1C181DAB0058C7C3 /* MGBankCard.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14C9B7941C181DAB0058C7C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = megvii;
+				TargetAttributes = {
+					14C9B79C1C181DAB0058C7C3 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 14C9B7971C181DAB0058C7C3 /* Build configuration list for PBXProject "MGBankCard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14C9B7931C181DAB0058C7C3;
+			productRefGroup = 14C9B79E1C181DAB0058C7C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14C9B79C1C181DAB0058C7C3 /* MGBankCard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		14C9B79B1C181DAB0058C7C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1419C4451CEDA6EB008708AA /* MGBankCardResource.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14C9B7981C181DAB0058C7C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14B408661C1AC99100249DC9 /* MGBankCardBundle.m in Sources */,
+				14B4080E1C19652100249DC9 /* MGBankCardCheckVC.mm in Sources */,
+				143A308E1C7C5AAB00F36DFF /* MGBankNavigationController.m in Sources */,
+				141C6FC51D49A857002DE881 /* MGCardBoxLayer.m in Sources */,
+				14B408141C19652100249DC9 /* MGBankCardDetectManager.mm in Sources */,
+				14B408161C19652100249DC9 /* MGBankCardManager.mm in Sources */,
+				142B03D91D59AA7C007507B2 /* MGBankDetectBaseViewController.mm in Sources */,
+				1438F1A11D659305000AD7AD /* MGBankCardDetectDefaultVC.mm in Sources */,
+				14B408111C19652100249DC9 /* MGBankCardDetectVC.mm in Sources */,
+				143A30A91C7F047F00F36DFF /* MGBankCardModel.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		14C9B7A31C181DAB0058C7C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		14C9B7A41C181DAB0058C7C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		14C9B7A61C181DAB0058C7C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BankCard/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/bankCardSDK",
+					"$(PROJECT_DIR)/BankCardSDK",
+				);
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
+				PRODUCT_NAME = MGBankCard;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		14C9B7A71C181DAB0058C7C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BankCard/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/bankCardSDK",
+					"$(PROJECT_DIR)/BankCardSDK",
+				);
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shudu.chaoshi;
+				PRODUCT_NAME = MGBankCard;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14C9B7971C181DAB0058C7C3 /* Build configuration list for PBXProject "MGBankCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14C9B7A31C181DAB0058C7C3 /* Debug */,
+				14C9B7A41C181DAB0058C7C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14C9B7A51C181DAB0058C7C3 /* Build configuration list for PBXNativeTarget "MGBankCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14C9B7A61C181DAB0058C7C3 /* Debug */,
+				14C9B7A71C181DAB0058C7C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14C9B7941C181DAB0058C7C3 /* Project object */;
+}

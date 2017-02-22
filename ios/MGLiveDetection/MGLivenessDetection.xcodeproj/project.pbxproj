@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1408A6DB1D4F2958000197E1 /* libliveness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1408A6DA1D4F2958000197E1 /* libliveness.a */; };
+		1408F9601D548BEF00808E00 /* MGLiveBaseDetectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1408F95E1D548BEF00808E00 /* MGLiveBaseDetectViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1408F9611D548BEF00808E00 /* MGLiveBaseDetectViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1408F95F1D548BEF00808E00 /* MGLiveBaseDetectViewController.mm */; };
+		140C47461C29429D00D9F9ED /* MGLiveManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 140C47441C29429D00D9F9ED /* MGLiveManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		140C47471C29429D00D9F9ED /* MGLiveManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 140C47451C29429D00D9F9ED /* MGLiveManager.mm */; };
+		140C47571C2A39A400D9F9ED /* MGLiveBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 140C47551C2A39A400D9F9ED /* MGLiveBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		140C47581C2A39A400D9F9ED /* MGLiveBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C47561C2A39A400D9F9ED /* MGLiveBundle.m */; };
+		140C478F1C2A7A3800D9F9ED /* MGLiveErrorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 140C478D1C2A7A3800D9F9ED /* MGLiveErrorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		140C47901C2A7A3800D9F9ED /* MGLiveErrorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 140C478E1C2A7A3800D9F9ED /* MGLiveErrorManager.mm */; };
+		140C47991C2B9CAD00D9F9ED /* MGLiveActionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 140C47971C2B9CAD00D9F9ED /* MGLiveActionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		140C479A1C2B9CAD00D9F9ED /* MGLiveActionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 140C47981C2B9CAD00D9F9ED /* MGLiveActionManager.mm */; };
+		141D81D81D00324800D4A88B /* MGLiveResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 141D81D71D00324800D4A88B /* MGLiveResource.bundle */; };
+		1438F1921D6413E7000AD7AD /* MGLiveDefaultDetectVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1901D6413E7000AD7AD /* MGLiveDefaultDetectVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1931D6413E7000AD7AD /* MGLiveDefaultDetectVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1911D6413E7000AD7AD /* MGLiveDefaultDetectVC.mm */; };
+		1438F1AA1D659565000AD7AD /* MGPlayAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1A81D659565000AD7AD /* MGPlayAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1AB1D659565000AD7AD /* MGPlayAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1A91D659565000AD7AD /* MGPlayAudio.m */; };
+		1438F1B91D659572000AD7AD /* MGBaseBottomManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1AD1D659572000AD7AD /* MGBaseBottomManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1BA1D659572000AD7AD /* MGBaseBottomManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1AE1D659572000AD7AD /* MGBaseBottomManager.mm */; };
+		1438F1BB1D659572000AD7AD /* MGBaseCountdownView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1AF1D659572000AD7AD /* MGBaseCountdownView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1BC1D659572000AD7AD /* MGBaseCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1B01D659572000AD7AD /* MGBaseCountdownView.m */; };
+		1438F1BD1D659572000AD7AD /* MGBaseCountZeroView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1B11D659572000AD7AD /* MGBaseCountZeroView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1BE1D659572000AD7AD /* MGBaseCountZeroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1B21D659572000AD7AD /* MGBaseCountZeroView.m */; };
+		1438F1BF1D659572000AD7AD /* MGCountDownRingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1B31D659572000AD7AD /* MGCountDownRingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1C01D659572000AD7AD /* MGCountDownRingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1B41D659572000AD7AD /* MGCountDownRingView.m */; };
+		1438F1C11D659572000AD7AD /* MGCountDownTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1B51D659572000AD7AD /* MGCountDownTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1C21D659572000AD7AD /* MGCountDownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1B61D659572000AD7AD /* MGCountDownTextView.m */; };
+		1438F1C31D659572000AD7AD /* MGDefaultBottomManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1438F1B71D659572000AD7AD /* MGDefaultBottomManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1438F1C41D659573000AD7AD /* MGDefaultBottomManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1438F1B81D659572000AD7AD /* MGDefaultBottomManager.mm */; };
+		146E13651C292A790066616F /* MGLiveDetectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 146E13571C292A790066616F /* MGLiveDetectViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		146E13661C292A790066616F /* MGLiveDetectViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 146E13581C292A790066616F /* MGLiveDetectViewController.mm */; };
+		146E137C1C292B310066616F /* UIImageView+MGReadImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 146E136E1C292B310066616F /* UIImageView+MGReadImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		146E137D1C292B310066616F /* UIImageView+MGReadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 146E136F1C292B310066616F /* UIImageView+MGReadImage.m */; };
+		146E137E1C292B310066616F /* UIView+MGDrawLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 146E13701C292B310066616F /* UIView+MGDrawLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		146E137F1C292B310066616F /* UIView+MGDrawLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 146E13711C292B310066616F /* UIView+MGDrawLine.m */; };
+		14767E401CB39644009FEAF2 /* MGLivenessDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = 14767E3F1CB39644009FEAF2 /* MGLivenessDetection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1483CDAF1C59E48D000120F4 /* MGBaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1483CDAE1C59E48D000120F4 /* MGBaseKit.framework */; };
+		148735E71CA938A100A212B0 /* MGLiveConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 148735E61CA938A100A212B0 /* MGLiveConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		148735EA1CAA29DE00A212B0 /* MGLiveDetectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 148735E81CAA29DE00A212B0 /* MGLiveDetectionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		148735EB1CAA29DE00A212B0 /* MGLiveDetectionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 148735E91CAA29DE00A212B0 /* MGLiveDetectionManager.mm */; };
+		14EDF2BD1CDB264000885EEE /* LivenessDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 14EDF2B51CDB264000885EEE /* LivenessDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14EDF2BE1CDB264000885EEE /* LivenessEnumType.h in Headers */ = {isa = PBXBuildFile; fileRef = 14EDF2B61CDB264000885EEE /* LivenessEnumType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14EDF2BF1CDB264000885EEE /* MGFaceQualityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 14EDF2B71CDB264000885EEE /* MGFaceQualityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14EDF2C11CDB264000885EEE /* UIImage+FixOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14EDF2BA1CDB264000885EEE /* UIImage+FixOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14EDF2C21CDB264000885EEE /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EDF2BB1CDB264000885EEE /* UIImage+FixOrientation.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1408A6DA1D4F2958000197E1 /* libliveness.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libliveness.a; sourceTree = "<group>"; };
+		1408F95E1D548BEF00808E00 /* MGLiveBaseDetectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveBaseDetectViewController.h; sourceTree = "<group>"; };
+		1408F95F1D548BEF00808E00 /* MGLiveBaseDetectViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveBaseDetectViewController.mm; sourceTree = "<group>"; };
+		140C47441C29429D00D9F9ED /* MGLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveManager.h; sourceTree = "<group>"; };
+		140C47451C29429D00D9F9ED /* MGLiveManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveManager.mm; sourceTree = "<group>"; };
+		140C47551C2A39A400D9F9ED /* MGLiveBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveBundle.h; sourceTree = "<group>"; };
+		140C47561C2A39A400D9F9ED /* MGLiveBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLiveBundle.m; sourceTree = "<group>"; };
+		140C478D1C2A7A3800D9F9ED /* MGLiveErrorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveErrorManager.h; sourceTree = "<group>"; };
+		140C478E1C2A7A3800D9F9ED /* MGLiveErrorManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveErrorManager.mm; sourceTree = "<group>"; };
+		140C47971C2B9CAD00D9F9ED /* MGLiveActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveActionManager.h; sourceTree = "<group>"; };
+		140C47981C2B9CAD00D9F9ED /* MGLiveActionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveActionManager.mm; sourceTree = "<group>"; };
+		141D81D71D00324800D4A88B /* MGLiveResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MGLiveResource.bundle; sourceTree = "<group>"; };
+		1438F1901D6413E7000AD7AD /* MGLiveDefaultDetectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveDefaultDetectVC.h; sourceTree = "<group>"; };
+		1438F1911D6413E7000AD7AD /* MGLiveDefaultDetectVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveDefaultDetectVC.mm; sourceTree = "<group>"; };
+		1438F1A81D659565000AD7AD /* MGPlayAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGPlayAudio.h; sourceTree = "<group>"; };
+		1438F1A91D659565000AD7AD /* MGPlayAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGPlayAudio.m; sourceTree = "<group>"; };
+		1438F1AD1D659572000AD7AD /* MGBaseBottomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBaseBottomManager.h; sourceTree = "<group>"; };
+		1438F1AE1D659572000AD7AD /* MGBaseBottomManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGBaseBottomManager.mm; sourceTree = "<group>"; };
+		1438F1AF1D659572000AD7AD /* MGBaseCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBaseCountdownView.h; sourceTree = "<group>"; };
+		1438F1B01D659572000AD7AD /* MGBaseCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBaseCountdownView.m; sourceTree = "<group>"; };
+		1438F1B11D659572000AD7AD /* MGBaseCountZeroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBaseCountZeroView.h; sourceTree = "<group>"; };
+		1438F1B21D659572000AD7AD /* MGBaseCountZeroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBaseCountZeroView.m; sourceTree = "<group>"; };
+		1438F1B31D659572000AD7AD /* MGCountDownRingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCountDownRingView.h; sourceTree = "<group>"; };
+		1438F1B41D659572000AD7AD /* MGCountDownRingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCountDownRingView.m; sourceTree = "<group>"; };
+		1438F1B51D659572000AD7AD /* MGCountDownTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCountDownTextView.h; sourceTree = "<group>"; };
+		1438F1B61D659572000AD7AD /* MGCountDownTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCountDownTextView.m; sourceTree = "<group>"; };
+		1438F1B71D659572000AD7AD /* MGDefaultBottomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGDefaultBottomManager.h; sourceTree = "<group>"; };
+		1438F1B81D659572000AD7AD /* MGDefaultBottomManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGDefaultBottomManager.mm; sourceTree = "<group>"; };
+		146E131C1C291D320066616F /* MGLivenessDetection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MGLivenessDetection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		146E13211C291D320066616F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		146E13571C292A790066616F /* MGLiveDetectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveDetectViewController.h; sourceTree = "<group>"; };
+		146E13581C292A790066616F /* MGLiveDetectViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveDetectViewController.mm; sourceTree = "<group>"; };
+		146E136E1C292B310066616F /* UIImageView+MGReadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MGReadImage.h"; sourceTree = "<group>"; };
+		146E136F1C292B310066616F /* UIImageView+MGReadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MGReadImage.m"; sourceTree = "<group>"; };
+		146E13701C292B310066616F /* UIView+MGDrawLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGDrawLine.h"; sourceTree = "<group>"; };
+		146E13711C292B310066616F /* UIView+MGDrawLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MGDrawLine.m"; sourceTree = "<group>"; };
+		14767E3F1CB39644009FEAF2 /* MGLivenessDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLivenessDetection.h; sourceTree = "<group>"; };
+		1483CDAE1C59E48D000120F4 /* MGBaseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MGBaseKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/FaceID-gjofkgdgnziqynfpptqczguifxpq/Build/Products/Debug-iphoneos/MGBaseKit.framework"; sourceTree = "<group>"; };
+		148735E61CA938A100A212B0 /* MGLiveConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveConfig.h; sourceTree = "<group>"; };
+		148735E81CAA29DE00A212B0 /* MGLiveDetectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLiveDetectionManager.h; sourceTree = "<group>"; };
+		148735E91CAA29DE00A212B0 /* MGLiveDetectionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLiveDetectionManager.mm; sourceTree = "<group>"; };
+		14EDF2B51CDB264000885EEE /* LivenessDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessDetector.h; sourceTree = "<group>"; };
+		14EDF2B61CDB264000885EEE /* LivenessEnumType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessEnumType.h; sourceTree = "<group>"; };
+		14EDF2B71CDB264000885EEE /* MGFaceQualityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGFaceQualityManager.h; sourceTree = "<group>"; };
+		14EDF2BA1CDB264000885EEE /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		14EDF2BB1CDB264000885EEE /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		146E13181C291D320066616F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1408A6DB1D4F2958000197E1 /* libliveness.a in Frameworks */,
+				1483CDAF1C59E48D000120F4 /* MGBaseKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		141D81D61D00324800D4A88B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				141D81D71D00324800D4A88B /* MGLiveResource.bundle */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		1438F1A61D65943E000AD7AD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1408F95E1D548BEF00808E00 /* MGLiveBaseDetectViewController.h */,
+				1408F95F1D548BEF00808E00 /* MGLiveBaseDetectViewController.mm */,
+				146E13571C292A790066616F /* MGLiveDetectViewController.h */,
+				146E13581C292A790066616F /* MGLiveDetectViewController.mm */,
+				1438F1901D6413E7000AD7AD /* MGLiveDefaultDetectVC.h */,
+				1438F1911D6413E7000AD7AD /* MGLiveDefaultDetectVC.mm */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1438F1A71D659455000AD7AD /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1438F1A81D659565000AD7AD /* MGPlayAudio.h */,
+				1438F1A91D659565000AD7AD /* MGPlayAudio.m */,
+				148735E61CA938A100A212B0 /* MGLiveConfig.h */,
+				140C47441C29429D00D9F9ED /* MGLiveManager.h */,
+				140C47451C29429D00D9F9ED /* MGLiveManager.mm */,
+				140C47551C2A39A400D9F9ED /* MGLiveBundle.h */,
+				140C47561C2A39A400D9F9ED /* MGLiveBundle.m */,
+				140C478D1C2A7A3800D9F9ED /* MGLiveErrorManager.h */,
+				140C478E1C2A7A3800D9F9ED /* MGLiveErrorManager.mm */,
+				140C47971C2B9CAD00D9F9ED /* MGLiveActionManager.h */,
+				140C47981C2B9CAD00D9F9ED /* MGLiveActionManager.mm */,
+				148735E81CAA29DE00A212B0 /* MGLiveDetectionManager.h */,
+				148735E91CAA29DE00A212B0 /* MGLiveDetectionManager.mm */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		1438F1AC1D659572000AD7AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1438F1AD1D659572000AD7AD /* MGBaseBottomManager.h */,
+				1438F1AE1D659572000AD7AD /* MGBaseBottomManager.mm */,
+				1438F1AF1D659572000AD7AD /* MGBaseCountdownView.h */,
+				1438F1B01D659572000AD7AD /* MGBaseCountdownView.m */,
+				1438F1B11D659572000AD7AD /* MGBaseCountZeroView.h */,
+				1438F1B21D659572000AD7AD /* MGBaseCountZeroView.m */,
+				1438F1B31D659572000AD7AD /* MGCountDownRingView.h */,
+				1438F1B41D659572000AD7AD /* MGCountDownRingView.m */,
+				1438F1B51D659572000AD7AD /* MGCountDownTextView.h */,
+				1438F1B61D659572000AD7AD /* MGCountDownTextView.m */,
+				1438F1B71D659572000AD7AD /* MGDefaultBottomManager.h */,
+				1438F1B81D659572000AD7AD /* MGDefaultBottomManager.mm */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		146E13121C291D320066616F = {
+			isa = PBXGroup;
+			children = (
+				146E13411C29255E0066616F /* FaceSdk */,
+				141D81D61D00324800D4A88B /* Resource */,
+				146E132A1C291DD10066616F /* MGFaceDetection */,
+				146E13271C291D3A0066616F /* Frameworks */,
+				146E131E1C291D320066616F /* MGFaceDetection */,
+				146E131D1C291D320066616F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		146E131D1C291D320066616F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				146E131C1C291D320066616F /* MGLivenessDetection.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		146E131E1C291D320066616F /* MGFaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				146E13211C291D320066616F /* Info.plist */,
+			);
+			path = MGFaceDetection;
+			sourceTree = "<group>";
+		};
+		146E13271C291D3A0066616F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1483CDAE1C59E48D000120F4 /* MGBaseKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		146E132A1C291DD10066616F /* MGFaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				14767E3F1CB39644009FEAF2 /* MGLivenessDetection.h */,
+				1438F1A61D65943E000AD7AD /* ViewControllers */,
+				1438F1AC1D659572000AD7AD /* Views */,
+				1438F1A71D659455000AD7AD /* Manager */,
+				146E136B1C292B310066616F /* Category */,
+			);
+			path = MGFaceDetection;
+			sourceTree = "<group>";
+		};
+		146E13411C29255E0066616F /* FaceSdk */ = {
+			isa = PBXGroup;
+			children = (
+				1408A6DA1D4F2958000197E1 /* libliveness.a */,
+				14EDF2B51CDB264000885EEE /* LivenessDetector.h */,
+				14EDF2B61CDB264000885EEE /* LivenessEnumType.h */,
+				14EDF2B71CDB264000885EEE /* MGFaceQualityManager.h */,
+				14EDF2BA1CDB264000885EEE /* UIImage+FixOrientation.h */,
+				14EDF2BB1CDB264000885EEE /* UIImage+FixOrientation.m */,
+			);
+			path = FaceSdk;
+			sourceTree = "<group>";
+		};
+		146E136B1C292B310066616F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				146E136E1C292B310066616F /* UIImageView+MGReadImage.h */,
+				146E136F1C292B310066616F /* UIImageView+MGReadImage.m */,
+				146E13701C292B310066616F /* UIView+MGDrawLine.h */,
+				146E13711C292B310066616F /* UIView+MGDrawLine.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		146E13191C291D320066616F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14767E401CB39644009FEAF2 /* MGLivenessDetection.h in Headers */,
+				148735E71CA938A100A212B0 /* MGLiveConfig.h in Headers */,
+				14EDF2BE1CDB264000885EEE /* LivenessEnumType.h in Headers */,
+				14EDF2BD1CDB264000885EEE /* LivenessDetector.h in Headers */,
+				140C47461C29429D00D9F9ED /* MGLiveManager.h in Headers */,
+				140C478F1C2A7A3800D9F9ED /* MGLiveErrorManager.h in Headers */,
+				140C47991C2B9CAD00D9F9ED /* MGLiveActionManager.h in Headers */,
+				148735EA1CAA29DE00A212B0 /* MGLiveDetectionManager.h in Headers */,
+				14EDF2BF1CDB264000885EEE /* MGFaceQualityManager.h in Headers */,
+				140C47571C2A39A400D9F9ED /* MGLiveBundle.h in Headers */,
+				1438F1AA1D659565000AD7AD /* MGPlayAudio.h in Headers */,
+				1408F9601D548BEF00808E00 /* MGLiveBaseDetectViewController.h in Headers */,
+				146E13651C292A790066616F /* MGLiveDetectViewController.h in Headers */,
+				1438F1C11D659572000AD7AD /* MGCountDownTextView.h in Headers */,
+				1438F1BF1D659572000AD7AD /* MGCountDownRingView.h in Headers */,
+				1438F1BD1D659572000AD7AD /* MGBaseCountZeroView.h in Headers */,
+				1438F1B91D659572000AD7AD /* MGBaseBottomManager.h in Headers */,
+				1438F1BB1D659572000AD7AD /* MGBaseCountdownView.h in Headers */,
+				1438F1C31D659572000AD7AD /* MGDefaultBottomManager.h in Headers */,
+				1438F1921D6413E7000AD7AD /* MGLiveDefaultDetectVC.h in Headers */,
+				14EDF2C11CDB264000885EEE /* UIImage+FixOrientation.h in Headers */,
+				146E137E1C292B310066616F /* UIView+MGDrawLine.h in Headers */,
+				146E137C1C292B310066616F /* UIImageView+MGReadImage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		146E131B1C291D320066616F /* MGLivenessDetection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 146E13241C291D320066616F /* Build configuration list for PBXNativeTarget "MGLivenessDetection" */;
+			buildPhases = (
+				146E13171C291D320066616F /* Sources */,
+				146E13181C291D320066616F /* Frameworks */,
+				146E131A1C291D320066616F /* Resources */,
+				146E13191C291D320066616F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MGLivenessDetection;
+			productName = MGFaceDetection;
+			productReference = 146E131C1C291D320066616F /* MGLivenessDetection.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		146E13131C291D320066616F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = megvii;
+				TargetAttributes = {
+					146E131B1C291D320066616F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 146E13161C291D320066616F /* Build configuration list for PBXProject "MGLivenessDetection" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 146E13121C291D320066616F;
+			productRefGroup = 146E131D1C291D320066616F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				146E131B1C291D320066616F /* MGLivenessDetection */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		146E131A1C291D320066616F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				141D81D81D00324800D4A88B /* MGLiveResource.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		146E13171C291D320066616F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1438F1C41D659573000AD7AD /* MGDefaultBottomManager.mm in Sources */,
+				1438F1C01D659572000AD7AD /* MGCountDownRingView.m in Sources */,
+				1438F1BE1D659572000AD7AD /* MGBaseCountZeroView.m in Sources */,
+				140C47471C29429D00D9F9ED /* MGLiveManager.mm in Sources */,
+				146E137F1C292B310066616F /* UIView+MGDrawLine.m in Sources */,
+				14EDF2C21CDB264000885EEE /* UIImage+FixOrientation.m in Sources */,
+				1438F1BA1D659572000AD7AD /* MGBaseBottomManager.mm in Sources */,
+				148735EB1CAA29DE00A212B0 /* MGLiveDetectionManager.mm in Sources */,
+				1438F1C21D659572000AD7AD /* MGCountDownTextView.m in Sources */,
+				1438F1BC1D659572000AD7AD /* MGBaseCountdownView.m in Sources */,
+				1408F9611D548BEF00808E00 /* MGLiveBaseDetectViewController.mm in Sources */,
+				146E137D1C292B310066616F /* UIImageView+MGReadImage.m in Sources */,
+				140C479A1C2B9CAD00D9F9ED /* MGLiveActionManager.mm in Sources */,
+				1438F1931D6413E7000AD7AD /* MGLiveDefaultDetectVC.mm in Sources */,
+				140C47581C2A39A400D9F9ED /* MGLiveBundle.m in Sources */,
+				146E13661C292A790066616F /* MGLiveDetectViewController.mm in Sources */,
+				140C47901C2A7A3800D9F9ED /* MGLiveErrorManager.mm in Sources */,
+				1438F1AB1D659565000AD7AD /* MGPlayAudio.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		146E13221C291D320066616F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		146E13231C291D320066616F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		146E13251C291D320066616F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MGFaceDetection/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FaceSdk",
+					"$(PROJECT_DIR)/FaceSdk/sdk_v2.3.8",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.megvii.MGFaceDetection;
+				PRODUCT_NAME = MGLivenessDetection;
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		146E13261C291D320066616F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MGFaceDetection/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FaceSdk",
+					"$(PROJECT_DIR)/FaceSdk/sdk_v2.3.8",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.megvii.MGFaceDetection;
+				PRODUCT_NAME = MGLivenessDetection;
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		146E13161C291D320066616F /* Build configuration list for PBXProject "MGLivenessDetection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				146E13221C291D320066616F /* Debug */,
+				146E13231C291D320066616F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		146E13241C291D320066616F /* Build configuration list for PBXNativeTarget "MGLivenessDetection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				146E13251C291D320066616F /* Debug */,
+				146E13261C291D320066616F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 146E13131C291D320066616F /* Project object */;
+}

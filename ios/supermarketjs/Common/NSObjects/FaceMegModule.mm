@@ -41,22 +41,34 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(idCardVerifyFromFront:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self idCardVerifyFromTheFront:resolve WithReject:reject];
+  __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf idCardVerifyFromTheFront:resolve WithReject:reject];
+  });
 }
 
 RCT_EXPORT_METHOD(idCardVerifyFromBack:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self idCardVerifyFromTheBack:resolve WithReject:reject];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf idCardVerifyFromTheBack:resolve WithReject:reject];
+  });
 }
 
 RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self bankCardTheVerify:resolve WithReject:reject];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf bankCardTheVerify:resolve WithReject:reject];
+  });
 }
 
 RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  [self megLiveTest:resolve WithReject:reject];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf megLiveTest:resolve WithReject:reject];
+  });
 }
 
 
@@ -94,7 +106,6 @@ RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     [[[UIAlertView alloc] initWithTitle:@"提示" message:@"SDK授权失败，请检查" delegate:self cancelButtonTitle:@"完成" otherButtonTitles:nil, nil] show];
     return;
   }
- ;
   UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
   MGIDCardManager *cardManager = [[MGIDCardManager alloc] init];
     [cardManager IDCardStartDetection:rootVC IdCardSide:IDCARD_SIDE_FRONT
@@ -119,8 +130,10 @@ RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     [[[UIAlertView alloc] initWithTitle:@"提示" message:@"SDK授权失败，请检查" delegate:self cancelButtonTitle:@"完成" otherButtonTitles:nil, nil] show];
     return;
   }
-  ;
+  
+ 
   UIViewController*rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+//  UIViewController *vc = [[UIViewController alloc] init];
   MGIDCardManager *cardManager = [[MGIDCardManager alloc] init];
   [cardManager IDCardStartDetection:rootVC IdCardSide:IDCARD_SIDE_BACK
                              finish:^(MGIDCardModel *model) {
