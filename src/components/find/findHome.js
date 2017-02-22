@@ -63,7 +63,7 @@ export default class findHome extends Component {
           </ExternalPushLink>
         </View>
         <TouchableHighlight onPress = {this._pushToFastLoan()}>
-          <View style = {{flexDirection :'row',marginTop : 2, backgroundColor: '#fff', height: 40, alignItems: "center"}}>
+          <View style = {{flexDirection :'row',marginTop : 2, backgroundColor: '#fff', paddingVertical : 10, alignItems: "center"}}>
             <Text style = {{marginLeft : 10, marginRight : 15, fontSize : 16, color : '#333'}}>极速贷款</Text>
             <Text style = {{fontSize : 16, color : "#999"}}>流程简单，半小时到账</Text>
           </View>

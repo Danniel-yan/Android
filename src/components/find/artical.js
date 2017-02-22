@@ -30,7 +30,6 @@ export default class articalList extends Component {
   renderRecommend(data, sID, rowID) {
     return(
        <ExternalPushLink
-        title = {data.title}
         style = {articalStyles.containers}
         key = {data.id}
         web = {{}}
@@ -80,11 +79,10 @@ const articalStyles = StyleSheet.create({
   main : {
     borderBottomWidth : 1,
     borderBottomColor : '#e6e6e6',
-    height : 40
+    paddingVertical : 10,
   },
   mainTxt : {
     paddingLeft : 10,
-    lineHeight : 35,
     fontSize : 16,
     color : '#333'
   }
