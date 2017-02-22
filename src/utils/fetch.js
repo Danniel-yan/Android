@@ -30,6 +30,10 @@ export function get(url, body, responseType = 'json') {
     .then(() => _get(url, body, responseType));
 }
 
+export function exportUrl(url, body) {
+  return absoluteUrl(url);
+}
+
 export function post(url, body, responseType = 'json') {
   return Promise.resolve(setupParams())
     .then(setupUserToken)
@@ -93,6 +97,7 @@ function setupParams() {
     .then(setApiParams)
     .then(setupCity)
 }
+
 
 function setApiParams() {
 
