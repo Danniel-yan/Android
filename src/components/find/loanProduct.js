@@ -72,8 +72,8 @@ const boxStyles = StyleSheet.create({
     box : {
       width : 115,
       height : 122,
-      borderRightWidth : 1,
-      borderRightColor : '#E6E6E6',
+      // borderRightWidth : 1,
+      // borderRightColor : '#E6E6E6',
       justifyContent: 'center',
       alignItems:'center',
       marginRight : 1,
