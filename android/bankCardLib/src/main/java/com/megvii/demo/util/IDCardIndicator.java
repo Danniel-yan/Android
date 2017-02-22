@@ -74,15 +74,15 @@ public class IDCardIndicator extends View {
 		mDrawRect.bottom = centerY + content_height / 2;
 
 		//切得银行卡号高度
+		mBankCardDrawRect.left = centerX - content_width / 2;
+		mBankCardDrawRect.right = centerX + content_width / 2;
 		int height_1 = (int) ((mBankCardDrawRect.right - mBankCardDrawRect.left) / 3.78f);
 		//显示得银行卡号高度
 		float numHeight = IDCARD_NUMRATIO * height_1;
 
 		float height_value = (height_1 - numHeight) / 2;
 
-		mBankCardDrawRect.left = centerX - content_width / 2;
 		mBankCardDrawRect.top = centerY - height_1 / 4;
-		mBankCardDrawRect.right = centerX + content_width / 2;
 		mBankCardDrawRect.bottom = centerY + height_1 - height_1 / 4;
 
 		Log.w("ceshi", "numHeight===" + numHeight + ", content_height===" + content_height);
