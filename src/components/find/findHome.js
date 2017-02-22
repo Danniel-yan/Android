@@ -34,9 +34,11 @@ export default class findHome extends Component {
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
           <ExternalPushLink
-            title="网贷信用查询"
+            title={logined ?"网贷信用查询" : '登录'}
             toKey= {logined ? 'BlackListhome' : 'Login'}
-            style={styles.navItem}>
+            style={styles.navItem}
+            componentProps = {{TOKEY : 'BlackListhome'}}
+          >
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>
           </ExternalPushLink>
@@ -63,16 +65,16 @@ export default class findHome extends Component {
           </ExternalPushLink>
         </View>
         <TouchableHighlight onPress = {this._pushToFastLoan()}>
-          <View style = {{flexDirection :'row',marginTop : 2, backgroundColor: '#fff', height: 30, alignItems: "center"}}>
-            <Text style = {{marginLeft : 10, marginRight : 15, fontSize : 14, color : '#333'}}>极速贷款</Text>
-            <Text style = {{fontSize : 14, color : "#999"}}>流程简单，半小时到账</Text>
+          <View style = {{flexDirection :'row',marginTop : 2, backgroundColor: '#fff', paddingVertical : 10, alignItems: "center"}}>
+            <Text style = {{marginLeft : 10, marginRight : 15, fontSize : 16, color : '#333'}}>极速贷款</Text>
+            <Text style = {{fontSize : 16, color : "#999"}}>流程简单，半小时到账</Text>
           </View>
         </TouchableHighlight>
         <Banner />
         <View style = {{backgroundColor : '#fff', marginBottom : 5}}>
           <LoanProduct />
         </View>
-        <View style = {{backgroundColor : '#fff', paddingTop : 10}}><Artical /></View>
+        <View style = {{backgroundColor : '#fff'}}><Artical /></View>
         </ScrollView>
       </View>
     )

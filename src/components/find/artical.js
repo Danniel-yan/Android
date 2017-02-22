@@ -16,7 +16,7 @@ export default class articalList extends Component {
     const dataSource = ds.cloneWithRows(this.props.recommends)
     return (
       <View>
-        <View style = {{borderBottomWidth : 1, borderBottomColor : '#e6e6e6'}}><Text style = {{paddingLeft : 10, marginBottom : 1, height : 30, fontSize : 14, color : '#333'}}>精选</Text></View>
+        <View style = {articalStyles.main}><Text style = {articalStyles.mainTxt}>精选</Text></View>
         <ListView
           style={[styles.listView, styles.flexColumn,styles.bgColorWhite]}
           enableEmptySections={true}
@@ -30,7 +30,6 @@ export default class articalList extends Component {
   renderRecommend(data, sID, rowID) {
     return(
        <ExternalPushLink
-        title = {data.title}
         style = {articalStyles.containers}
         key = {data.id}
         web = {{}}
@@ -76,5 +75,15 @@ const articalStyles = StyleSheet.create({
     position : 'absolute',
     left : 0,
     bottom : 18,
+  },
+  main : {
+    borderBottomWidth : 1,
+    borderBottomColor : '#e6e6e6',
+    paddingVertical : 10,
+  },
+  mainTxt : {
+    paddingLeft : 10,
+    fontSize : 16,
+    color : '#333'
   }
 })

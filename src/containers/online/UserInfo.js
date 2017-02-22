@@ -68,7 +68,7 @@ class UserInfo extends Component {
     if(!validID) { return '请输入有效身份证号'; }
     if(profession == '') { return '请选择职业身份'; }
     if(education == '') { return '请选择教育程度'; }
-    if(company.length == 0) { return '请输入单位名称'; }
+    if(company.length < 2) { return '请输入单位名称'; }
   }
 
   render() {
@@ -107,7 +107,7 @@ class UserInfo extends Component {
 
           <View style={styles.optional}>
 
-            <FormGroup label="职业身份">
+            <FormGroup label="职业类别">
               <Picker
                 style={styles.pickerGroup}
                 value={profession}
@@ -128,7 +128,7 @@ class UserInfo extends Component {
             <FormGroup label="单位名称">
               <TextInput style={styles.formControl}
                 clearButtonMode="while-editing"
-                maxLength={20}
+                maxLength={30}
                 value={company}
                 underlineColorAndroid="transparent"
                 onChangeText={this._inputChange.bind(this, 'company')}

@@ -196,9 +196,8 @@ class CertificationHome extends Component {
     return this.props.gjjResult ? (
       <View style={styles.alert}>
         <Text style={[styles.alertText, {marginBottom: 5}]}>注：</Text>
-        <Text style={styles.alertText}>1.请使用连续缴纳6个月的公积金帐号进行认证；</Text>
-        <Text style={styles.alertText}>2.请使用超过6个月的手机号进行认证；</Text>
-        <Text style={styles.alertText}>3.如果认证失败，可以更换其他本人卡号或手机号再次认证；</Text>
+        <Text style={styles.alertText}>1.请使用在所在城市连续缴纳6个月的公积金帐号进行认证；</Text>
+        <Text style={styles.alertText}>2.请使用本人超过6个月的手机号进行认证；如果认证失败，可以更换本人手机号码再次认证；</Text>
       </View>
     ) : (
       <View style={styles.alert}>

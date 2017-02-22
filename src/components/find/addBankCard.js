@@ -165,7 +165,8 @@ export default class addBankCard extends Component {
       var cardData = response.data, cardnum = this.state.cardnum;
       this.props.addBankCard && this.props.addBankCard(Object.assign({}, this.state, cardData, {
         name: this.state.realname,
-        bankAccount: cardnum.substr(cardnum.length - 4, cardnum.length)
+        bankAccount: cardnum.substr(cardnum.length - 4, cardnum.length),
+        mobileNo: this.state.mobile,
       }));
       this.props.externalPop && this.props.externalPop();
     });
