@@ -57,10 +57,13 @@ RCT_EXPORT_METHOD(idCardVerifyFromBack:(RCTPromiseResolveBlock)resolve rejecter:
 
 RCT_EXPORT_METHOD(bankCardVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_main_queue(), ^{
     [weakSelf bankCardTheVerify:resolve WithReject:reject];
   });
+
+
 }
 
 RCT_EXPORT_METHOD(megLiveVerify:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
