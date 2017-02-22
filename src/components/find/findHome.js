@@ -12,6 +12,7 @@ import LoanProduct from 'containers/scene/find/loanProduct'
 const { width, height } = Dimensions.get('window');
 
 export default class findHome extends Component {
+  tracking = 'card';
 
   render (){
     const logined = this.props.loginUser.info;
@@ -27,7 +28,8 @@ export default class findHome extends Component {
             toKey="CardScene"
             title="办卡"
             componentProps ={{onBack : true}}
-            style={styles.navItem}>
+            style={styles.navItem}
+            tracking={{ key: '', topic: '', entity: '' }}>
             <Image source={require('assets/discovery/icon_banka.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import findHome from 'components/find/findHome';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -8,4 +9,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,null)(findHome);
+export default connect(mapStateToProps,null)(trackingScene(findHome));

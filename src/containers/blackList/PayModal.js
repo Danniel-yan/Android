@@ -221,7 +221,7 @@ class PayModal extends Component {
   renderPayment() {
     var isPaymentSubmiting = this.props.paymentCodeSubmiting && !this.props.error;
     // return this.props.paymentSended ? (
-    return this.props.paymentSended  ? (
+    return this.props.paymentSended ? (
       <View>
         {this.renderSendCode()}
         <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>

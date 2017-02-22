@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
+import Input from 'components/shared/Input';
 import { centering } from 'styles';
 
 export default class Password extends Component {
@@ -14,12 +15,20 @@ export default class Password extends Component {
     // onComplete
   }
 
+  // <Input type="number" ref={"ipt" + i} editable={false} style={{flex: 1, height: 48, textAlign: "center", color: this.props.disabled ? "lightgray": "#333" }} maxLength={1} value={this.state.password[i] ? this.state.password[i] : ""}></Input>
+  // <Text ref={"ipt" + i} style={{flex: 1, textAlign: "center", color: this.props.disabled ? "lightgray" : "#333", fontSize: 16}}>{this.state.password[i] ? this.state.password[i] : ""}</Text>
+
   renderIpts() {
     var ipts = [], num = this.state.passNum;
     for(var i = 0; i<num; i++) {
       ipts.push(
-        <View key={i} style={[styles.ipt, i == num - 1 ? {borderRightWidth:0}:null]}>
-          <TextInput ref={"ipt" + i} editable={false} style={{flex: 1, textAlign: "center", color: this.props.disabled ? "lightgray": "#333" }} maxLength={1} value={this.state.password[i] ? this.state.password[i] : ""}></TextInput>
+        <View key={i} style={[styles.ipt, i == num - 1 ? {borderRightWidth:0}:null, centering]}>
+          <Input
+            type="number" ref={"ipt" + i} editable={!this.props.disabled}
+            style={{flex: 1, height: 48, textAlign: "center", color: this.props.disabled ? "lightgray": "#333" }}
+            maxLength={1} value={this.state.password[i] ? this.state.password[i] : ""}
+            onFocus={() => this.refs["hiddenIpt"].focus()}>
+          </Input>
         </View>
       );
     }
@@ -29,12 +38,12 @@ export default class Password extends Component {
   render() {
     return (
       <View>
-        <TouchableWithoutFeedback onPress={() => this.refs["hiddenIpt"].focus()}>
+        <TouchableWithoutFeedback>
         <View style={[styles.container, centering]}>
           {this.renderIpts()}
         </View>
         </TouchableWithoutFeedback>
-        <TextInput editable={!this.props.disabled} style={{width: 0, height: 0}} ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
+        <TextInput type="numeric" editable={!this.props.disabled} style={{width: 0, height: 0}} ref="hiddenIpt" autoCapitalize="none" autoCorrect={false} maxLength={this.state.passNum} onChangeText={text=>this.__hiddenTextChanged__(text)}></TextInput>
       </View>
     );
   }
@@ -72,6 +81,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: "#f2f2f2",
     // backgroundColor: "red",
-    height: 48
+    height: 48,
+    flexDirection: "row"
   }
 });
