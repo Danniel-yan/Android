@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FastLoanScene from 'components/scene/FastLoanScene';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
-import trackingPoint from 'high-order/trackingPointGenerator';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 import { fetchingApplyResList, fetchingFastFilterList, reFetchingFastFilterList, setLoanInfo } from 'actions/scene/fast/filterList';
 
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingPoint(FastLoanScene));
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(FastLoanScene));

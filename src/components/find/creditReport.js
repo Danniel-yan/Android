@@ -7,6 +7,9 @@ import SuccessLoanList from 'containers/scene/find/success_loanList';
 import FailLoanList from 'containers/scene/find/fail_loanList'
 
 export default class creditReport extends Component {
+  tracking = function() {
+    return { key: "blacklist", topic: "report", event: "landing", result: this.props && this.props.result == 1 ? '命中' : '未命中' }
+  }
   render(){
     var props = this.props || {};
     return (

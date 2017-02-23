@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import creditReport from 'components/find/creditReport'
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 
 function mapStateToProps(state) {
@@ -10,4 +11,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,null)(creditReport)
+export default connect(mapStateToProps,null)(trackingScene(creditReport))

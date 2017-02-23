@@ -173,4 +173,3 @@ export default (ComponentClass) => {
 function mapState(store) {
   return { navigation: store.navigation };
 }
-

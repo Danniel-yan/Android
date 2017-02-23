@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import addBankCard from 'components/find/addBankCard';
 import { AddCard, SelectCard } from 'actions/blackList';
 import { externalPop } from 'actions/navigation';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 // function mapStateToProps(state) {
 //
@@ -16,4 +17,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(null, mapDispatchToProps)(addBankCard);
+export default connect(null, mapDispatchToProps)(trackingScene(addBankCard));

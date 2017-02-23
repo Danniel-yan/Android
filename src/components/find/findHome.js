@@ -12,7 +12,7 @@ import LoanProduct from 'containers/scene/find/loanProduct'
 const { width, height } = Dimensions.get('window');
 
 export default class findHome extends Component {
-  tracking = 'card';
+  tracking = 'discover';
 
   render (){
     const logined = this.props.loginUser.info;
@@ -29,7 +29,7 @@ export default class findHome extends Component {
             title="办卡"
             componentProps ={{onBack : true}}
             style={styles.navItem}
-            tracking={{ key: '', topic: '', entity: '' }}>
+            tracking={{ key: 'discover', topic: 'service', entity: 'card' }}>
             <Image source={require('assets/discovery/icon_banka.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
@@ -38,28 +38,31 @@ export default class findHome extends Component {
             toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}
             componentProps = {{TOKEY : 'BlackListhome'}}
-          >
+            tracking={{ key: 'discover', topic: 'service', entity: 'blacklist' }}>
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="信用贷"
             toKey="CreditLoan"
-            style={styles.navItem}>
+            style={styles.navItem}
+            tracking={{ key: 'discover', topic: 'service', entity: 'credit_report' }}>
             <Image source={require('assets/discovery/icon_chazhengxin.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>查征信</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="我的账单"
             toKey="BillList"
-            style={styles.navItem}>
+            style={styles.navItem}
+            tracking={{ key: 'discover', topic: 'service', entity: 'bill' }}>
             <Image source={require('assets/discovery/icon_chazhangdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>查账单</Text>
           </ExternalPushLink>
           <ExternalPushLink
             title="公积金查询"
             toKey="FundLogin"
-            style={styles.navItem}>
+            style={styles.navItem}
+            tracking={{ key: 'discover', topic: 'service', entity: 'PAF' }}>
             <Image source={require('assets/discovery/icon_chagongjijin.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>查公积金</Text>
           </ExternalPushLink>
@@ -70,7 +73,7 @@ export default class findHome extends Component {
             <Text style = {{fontSize : 16, color : "#999"}}>流程简单，半小时到账</Text>
           </View>
         </TouchableHighlight>
-        <Banner />
+        <Banner tracking={{ key: 'discover', topic: 'fastloan', entity: "banner" }}/>
         <View style = {{backgroundColor : '#fff', marginBottom : 5}}>
           <LoanProduct />
         </View>

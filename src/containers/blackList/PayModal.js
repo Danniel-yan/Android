@@ -8,12 +8,15 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import Password from 'components/shared/Password';
 import Loading from 'components/shared/Loading';
 import ProcessingButton from 'components/shared/ProcessingButton';
+import { trackingScene } from 'high-order/trackingPointGenerator';
+import tracker from 'utils/tracker.js';
 
 import { centering, fontSize, colors, headerHeight } from 'styles';
 
 const PayStatuses = ["", "", "", ""]
 
 class PayModal extends Component {
+  tracking = { key: 'blacklist', topic: 'charge', event: 'pop' }
   static defaultProps = {};
 
   constructor(props) {
@@ -170,7 +173,10 @@ class PayModal extends Component {
   }
 
   renderSelectedBank() {
-    return this.props.selectedCard ? this.renderCard(this.props.selectedCard, () => this.setState({navToCardList: true})) : null;
+    return this.props.selectedCard ? this.renderCard(this.props.selectedCard, () => {
+      this.setState({navToCardList: true});
+      tracker.trackAction({key: "blacklist", topic: "select_card", event: "pop"})
+    }) : null;
   }
 
   renderCardList() {
@@ -230,7 +236,7 @@ class PayModal extends Component {
       <View>
         {this.renderSendCode()}
         <View style={{paddingHorizontal: 10, paddingTop: 10, paddingBottom: 2}}>
-          <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting}></Password>
+          <Password num={6} onComplete={code => this.__submitPayCode__(code)} disabled={isPaymentSubmiting} tracking={{key: "blacklist", topic: "vef", event: "pop"}}></Password>
           <Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: isPaymentSubmiting ? colors.success : colors.error}}>
             {isPaymentSubmiting ? "正在支付..." : (this.props.error || " ")}
           </Text>
@@ -249,7 +255,8 @@ class PayModal extends Component {
           textStyle={styles.addCardTxt}
           processing={this.props.paymentStart}
           onPress={() => this.__submitPayment__()}
-          text={"确认支付"}>
+          text={"确认支付"}
+          tracking={{key: "blacklist", topic: "charge", entity: "confirm", event: "clk"}}>
         </ProcessingButton>
         {this.props.error ? (<Text style={{fontSize: fontSize.xsmall, marginTop: 6, textAlign: "center", color: colors.error}}>{this.props.error}</Text>) : null}
       </View>
@@ -264,7 +271,8 @@ class PayModal extends Component {
           toKey="AddBankCard"
           text="添加银行卡"
           style={styles.addCardBtn}
-          textStyle={styles.addCardTxt}>
+          textStyle={styles.addCardTxt}
+          tracking={{key: "blacklist", topic: this.props.selectedCard ? "select_card" : "charge", entity: "add", event: "clk"}}>
         </ExternalPushLink>
       </View>
     );
@@ -330,6 +338,7 @@ class PayModal extends Component {
     clearTimeout(this.navTimeFlag);
 
     if(newProps.paymentSuccess && !newProps.isFetchingResult && newProps.result !== null) {
+      tracker.trackAction({key: "blacklist", topic: "payment", entity: "success", event: "pop"});
       this.navTimeFlag = setTimeout(() => {
         console.log("M-NavToResult");
         this.__externalToReport__()
@@ -338,7 +347,7 @@ class PayModal extends Component {
   }
 
   componentWillUnmount() {
-    this.__closePayModal__();
+    // this.__closePayModal__();
     clearTimeout(this.navTimeFlag);
   }
 }
@@ -406,4 +415,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PayModal)
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(PayModal))
