@@ -5,7 +5,8 @@ import creditReport from 'components/find/creditReport'
 
 function mapStateToProps(state) {
   return {
-    creditScore: state.online.userInfo.creditScore
+    creditScore: state.online.userInfo.creditScore,
+    percenter : state.recLoan.operating.percent,
   }
 }
 

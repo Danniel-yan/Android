@@ -7,9 +7,10 @@ import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import Input from 'components/shared/Input';
-//import Banner from 'containers/scene/home/Banner';
+import Checkbox from 'components/shared/Checkbox'
+
 import validators from 'utils/validators';
-import { fontSize } from 'styles';
+import { fontSize ,colors} from 'styles';
 
 import PayModal from './PayModal';
 
@@ -28,7 +29,8 @@ class blackListHome extends Component {
       err : '',
       submitting : false,
       flags : false,
-      payModalVisible: false
+      payModalVisible: false,
+      checkedAgreement:true,
     }
   }
 
@@ -37,7 +39,7 @@ class blackListHome extends Component {
     return(
       <View style={{flex : 1}}>
         <View style={styles.top}>
-          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
+          {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
           {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告'},{status: '立即查看'}) : null}
         </View>
         <View style={styles.bottom}>
@@ -99,19 +101,29 @@ class blackListHome extends Component {
               text={"开始查询"}>
             </ProcessingButton>
           </View>
+          <View style={styles.textRow}>
+            <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
+            <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style = {{fontSize : 12, color: '#666'}}>阅读并接受</Text>
+            <ExternalPushLink
+                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html'
+                text="《个人信用信息查询授权书》"
+                title="《个人信用信息查询授权书》"
+                textStyle={{ color: colors.secondary, fontSize: 12}}
+            />
+          </View>
           <View style={{paddingLeft : 10}}>
             <Text style={styles.footerTitle}>网贷征信查询</Text>
               <View style={styles.footer}>
                 <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>权威数据，查询网贷信用</Text>
+                <Text style={styles.footerTxt}>权威数据，一次了解你的网贷信用</Text>
               </View>
               <View style={styles.footer}>
                 <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>申请网贷被拒，可能中了网贷征信黑名单，建议关注</Text>
+                <Text style={styles.footerTxt}>根据信用数据智能推荐贷款产品，助你申请成功率更高</Text>
               </View>
               <View style={styles.footer}>
                 <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>您的网贷信用情况</Text>
+                <Text style={styles.footerTxt}>数据实时更新，准确性高</Text>
               </View>
           </View>
         </View>
@@ -165,6 +177,10 @@ class blackListHome extends Component {
       return false;
     }
 
+    if(!this.state.checkedAgreement){
+      this.setState({err : '请阅读并同意授权书'});
+        return false;
+    }
     this.setState({err: ''});
     return true;
   }
@@ -217,7 +233,7 @@ const styles = StyleSheet.create({
   btn : {
     paddingHorizontal : 25,
     paddingBottom : 5,
-    marginBottom : 80
+    //marginBottom : 80
   },
   color : {
     color : 'blue'
@@ -282,7 +298,15 @@ const styles = StyleSheet.create({
   footerTxt : {
     flex : 1,
     color : '#333'
-  }
+  },
+  textRow: {
+      flexDirection: 'row',
+      height: 30,
+      alignItems: 'center',
+      marginLeft : 10,
+      justifyContent : 'center',
+      marginBottom : 60,
+  },
 });
 
 import { connect } from 'react-redux';

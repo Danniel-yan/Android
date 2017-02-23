@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions} from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 
 import NextIcon from 'components/shared/NextIcon';
@@ -15,7 +15,7 @@ class reports extends Component {
   render(){
     return(
       <View style = {{flex : 1}}>
-
+      <ScrollView>
         {this._renderItem()}
 
         <View style={styles.btn}>
@@ -25,6 +25,7 @@ class reports extends Component {
             <Text style={styles.submitBtnText}>再查一次</Text>
           </Button>
         </View>
+      </ScrollView>
       </View>
     )
   }
