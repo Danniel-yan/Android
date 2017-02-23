@@ -221,9 +221,9 @@ class PayModal extends Component {
         <Image source={require("assets/discovery/shoujihao.png")} style={{width: 24, height: 24, marginRight: 12, borderRadius: 12}}></Image>
         <Text style={{flex: 1, color: "#333", fontSize: fontSize.normal}}>{mobileNo}</Text>
         <TouchableOpacity onPress={() => this.__reSendPayCode__()}>
-        <View style={[{height: 24, width: 70, borderWidth:0.5, borderColor: "#ff6d17", borderRadius: 4}, centering]}>
-          <Text style={{color: "#ff6d17", fontSize: fontSize.xsmall}}>获取验证码</Text>
-        </View>
+          <View style={[{height: 24, width: 70, borderWidth:0.5, borderColor: "#ff6d17", borderRadius: 4}, centering]}>
+            <Text style={{color: "#ff6d17", fontSize: fontSize.xsmall}}>获取验证码</Text>
+          </View>
         </TouchableOpacity>
       </View>
     );

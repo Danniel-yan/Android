@@ -41,12 +41,9 @@ class blackListHome extends Component {
     return(
       <View style={{flex : 1}}>
         <View style={styles.top}>
-
-          {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
-          {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告'},{status: '立即查看'}) : null}
-          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
+          {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
             key: 'blacklist', topic: 'deposit', entity: 'clk'
-          }}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
+          }}, {status: '去完善'})}
           {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告', tracking: {
             key: 'blacklist', topic: 'review', entity: 'clk'
           }},{status: '立即查看'}) : null}
