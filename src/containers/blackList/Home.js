@@ -43,7 +43,7 @@ class blackListHome extends Component {
         <View style={styles.top}>
           {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
             key: 'blacklist', topic: 'deposit', entity: 'clk'
-          }}, {status : this.props.creditScore >= 20 ? '立即查询' : '去完善'})}
+          }}, {status: '去完善'})}
           {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告', tracking: {
             key: 'blacklist', topic: 'review', entity: 'clk'
           }},{status: '立即查看'}) : null}
@@ -328,7 +328,7 @@ import Loading from 'components/shared/Loading';
 function mapStateToProps(state) {
   return Object.assign({}, state.blackListData, {
     isFetching: state.blackListData.isFetchingReports
-  },{creditScore : state.online.userInfo.creditScore});
+  })
 }
 
 function mapDispatchToProps(dispatch) {

@@ -3,8 +3,7 @@ import { View ,StyleSheet,Text, ScrollView, Image} from 'react-native';
 import zoneStyles from 'containers/scene/zone/zoneStyles';
 // import NextIcon from 'components/shared/NextIcon';
 import { fontSize ,colors} from 'styles';
-import SuccessLoanList from 'containers/scene/find/success_loanList';
-import FailLoanList from 'containers/scene/find/fail_loanList'
+import RecommendList from 'components/shared/RecommendList';
 
 export default class creditReport extends Component {
   tracking = function() {
@@ -45,7 +44,7 @@ export default class creditReport extends Component {
                 </View>
             </View>
             {
-                props.result == 1 ? <FailLoanList /> : <SuccessLoanList />
+                props.result == 1 ? <RecommendList recommends={this.props.fail_loanlist} /> : <RecommendList recommends={this.props.success_loanlist} />
             }
 
 
@@ -113,4 +112,3 @@ const styles = StyleSheet.create({
         paddingHorizontal:10
     }
 })
-
