@@ -7,6 +7,7 @@ import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import Input from 'components/shared/Input';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 //import Banner from 'containers/scene/home/Banner';
 import validators from 'utils/validators';
 import { fontSize } from 'styles';
@@ -16,6 +17,7 @@ import PayModal from './PayModal';
 const {width, height } = Dimensions.get('window');
 
 class blackListHome extends Component {
+  tracking = "blacklist";
   constructor(props){
     super(props);
     this.state = {
@@ -37,8 +39,12 @@ class blackListHome extends Component {
     return(
       <View style={{flex : 1}}>
         <View style={styles.top}>
-          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷'}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
-          {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告'},{status: '立即查看'}) : null}
+          {this._renderNavItem('当信息完整度超过70%，可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
+            key: 'blacklist', topic: 'deposit', entity: 'clk'
+          }}, {status : this.props.creditScore >= 70 ? '立即查询' : '去完善'})}
+          {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告', tracking: {
+            key: 'blacklist', topic: 'review', entity: 'clk'
+          }},{status: '立即查看'}) : null}
         </View>
         <View style={styles.bottom}>
           <View style={styles.item}>
@@ -51,6 +57,7 @@ class blackListHome extends Component {
                 clearButtonMode="while-editing"
                 value={this.state.name}
                 onChangeText={name => this.setState({name, err: null})}
+                tracking={{key: 'blacklist', topic: 'name', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -65,6 +72,7 @@ class blackListHome extends Component {
                 value={this.state.ID}
                 onChangeText={ID => this.setState({ID, err: null})}
                 maxLength={18}
+                tracking={{key: 'blacklist', topic: 'ID', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -80,6 +88,7 @@ class blackListHome extends Component {
                 onChangeText={mobile => this.setState({mobile, err: null})}
                 value={this.state.mobile}
                 maxLength={11}
+                tracking={{key: 'blacklist', topic: 'cell', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -96,7 +105,8 @@ class blackListHome extends Component {
               textStyle={styles.submitBtnText}
               processing={this.props.isFetchingTicket}
               onPress={() => {this._submit()}}
-              text={"开始查询"}>
+              text={"开始查询"}
+              tracking={{key: 'blacklist', topic: 'submit', event: 'clk'}}>
             </ProcessingButton>
           </View>
           <View style={{paddingLeft : 10}}>
@@ -313,4 +323,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, blackListHome));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(blackListHome)));

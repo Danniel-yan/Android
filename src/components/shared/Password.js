@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableWithoutFeedback, StyleSheet } from 'rea
 
 import Input from 'components/shared/Input';
 import { centering } from 'styles';
+import tracker from 'utils/tracker.js';
 
 export default class Password extends Component {
   constructor(props) {
@@ -12,6 +13,8 @@ export default class Password extends Component {
       passNum: props.num,
       password: ""
     };
+
+    tracker.trackAction(Object.assign({}, props.tracking));
     // onComplete
   }
 

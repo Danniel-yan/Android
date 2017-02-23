@@ -4,6 +4,8 @@ import { View, Image, StyleSheet, Text, TextInput, Modal, TouchableOpacity, Dime
 import Button from 'components/shared/ButtonBase';
 import Input from 'components/shared/Input';
 import ProcessingButton from 'components/shared/ProcessingButton';
+import TrackingPoint  from 'components/shared/TrackingPoint';
+
 import validators from 'utils/validators';
 import { post, mock, responseStatus } from "utils/fetch";
 import { fontSize, centering } from 'styles';
@@ -11,6 +13,7 @@ import { fontSize, centering } from 'styles';
 const {width, height} = Dimensions.get('window');
 
 export default class addBankCard extends Component {
+  tracking = "add_card";
   constructor(props) {
     super(props);
 
@@ -39,6 +42,7 @@ export default class addBankCard extends Component {
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
                 onChangeText={realname => this.setState({realname: realname})}
+                tracking={{key: 'add_card', topic: 'name', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -53,6 +57,7 @@ export default class addBankCard extends Component {
                 editable={!this.state.submitting}
                 onChangeText={idnum => this.setState({idnum: idnum})}
                 maxLength={18}
+                tracking={{key: 'add_card', topic: 'ID', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -69,11 +74,18 @@ export default class addBankCard extends Component {
                 editable={!this.state.submitting}
                 value={this.state.cardnum}
                 onChangeText={cardnum => this.setState({cardnum: cardnum})}
+                tracking={{key: 'add_card', topic: 'card_num', entity: 'blur', event: 'blur'}}
               />
               </View>
             {false ? <Text style = {{fontSize : 12, color : '#666'}}>（招商银行）</Text> : null}
             </View>
-            {true ? <TouchableOpacity onPress={() => this.__openCamera__()}><Image source = {require('assets/discovery/icon_camera.png')} style = {{width :15, height : 14, marginRight : 20}}/></TouchableOpacity> : null}
+            {true ? (
+              <TrackingPoint
+                tracking={{ key: 'add_card', topic: 'card_num', entity: 'clk', event: 'clk' }}
+                onPress={() => this.__openCamera__()}>
+                <Image source = {require('assets/discovery/icon_camera.png')} style = {{width :15, height : 14, marginRight : 20}}/>
+              </TrackingPoint>
+            ) : null}
           </View>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>手机号码</Text>
@@ -87,6 +99,7 @@ export default class addBankCard extends Component {
                 editable={!this.state.submitting}
                 onChangeText={mobile => this.setState({mobile: mobile})}
                 maxLength={11}
+                tracking={{key: 'add_card', topic: 'cell', entity: 'blur', event: 'blur'}}
               />
             </View>
           </View>
@@ -97,7 +110,8 @@ export default class addBankCard extends Component {
               textStyle={styles.submitBtnText}
               processing={this.state.submitting}
               onPress={this.__submit__.bind(this)}
-              text="确定">
+              text="确定"
+              tracking={{key: 'add_card', topic: 'submit', event: 'clk'}}>
             </ProcessingButton>
           </View>
         </View>

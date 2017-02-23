@@ -80,7 +80,12 @@ export default function(state = initState, action) {
         result: null,
         paymentStart: false, paymentSended: false, paymentEnd: false, paymentSuccess: false, stateMsg: null, error: null
       });
-
+    // case "ClearCardInfo":
+    //   console.log("ClearCardInfo")
+    //   return Object.assign({}, state, {
+    //     selectedCard: null,
+    //     isFetchingCardList: true, cardListFetched: false, cardList: []
+    //   });
     case "RequestReportResult":
       var newState = Object.assign({}, state, { isFetchingResult: true });
       newState.result = null;

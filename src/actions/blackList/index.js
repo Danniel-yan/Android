@@ -52,8 +52,11 @@ export function CardList() {
       var state = getState(),
         bLData = state.blackListData, selectedCard = bLData.selectedCard;
       dispatch(ReceiveCardList(cardList));
+      if(!cardList ||!cardList.length) return;
       if(!selectedCard || !selectedCard.id) {
         cardList.length > 0 && dispatch(SelectCard(cardList[0]));
+      } else if(selectedCard && selectedCard.id) {
+
       }
     })
   }

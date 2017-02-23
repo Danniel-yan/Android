@@ -4,6 +4,9 @@ import zoneStyles from 'containers/scene/zone/zoneStyles';
 import NextIcon from 'components/shared/NextIcon';
 
 export default class creditReport extends Component {
+  tracking = function() {
+    return { key: "blacklist", topic: "report", event: "landing", result: this.props && this.props.result == 1 ? '命中' : '未命中' }
+  }
   render(){
     var props = this.props || {};
     return (
