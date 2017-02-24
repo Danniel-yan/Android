@@ -4,6 +4,7 @@ import zoneStyles from 'containers/scene/zone/zoneStyles';
 // import NextIcon from 'components/shared/NextIcon';
 import { fontSize ,colors} from 'styles';
 import RecommendList from 'components/shared/RecommendList';
+import PercentageCircle from './percentage';
 
 export default class creditReport extends Component {
   tracking = function() {
@@ -20,17 +21,29 @@ export default class creditReport extends Component {
             </View>
             <View style={styles.sucessStatus}>
                 <View style = {{flexDirection:'row', justifyContent:'center',marginBottom:10}}>
-                    { props.result == 1 ? (
-                        <Image source = {require('assets/icons/warnning.png')}/>
-                        ) : (
-                        <Image source = {require('assets/icons/percenter.png')}>
-                            <View style={{paddingTop:30}}>
-                                <Text style={styles.percenter}>{this.props.percenter}%</Text>
-                                <Text style={styles.percenterTxt}>用户被你击败</Text>
-                            </View>
-                        </Image>
-                    )}
-
+                {
+                    props.result == 1 ?
+                    (<View style={{position:'relative'}}>
+                        <PercentageCircle
+                        radius={55}
+                        percent={15}
+                        color={"red"}
+                        borderWidth={6}
+                        textStyle={{fontSize: 34, color: 'red'}}
+                        />
+                        <Text style={styles.percenterTxtFail}>用户被你击败</Text>
+                    </View>) :
+                    (<View style={{position:'relative'}}>
+                        <PercentageCircle
+                        radius={55}
+                        percent={props.percenter}
+                        color={"green"}
+                        borderWidth={6}
+                        textStyle={{fontSize: 34, color: '#222'}}
+                        />
+                        <Text style={styles.percenterTxtSuccess}>用户被你击败</Text>
+                    </View>)
+                }
                 </View>
                 {
                     props.result == 1 ?
@@ -92,11 +105,27 @@ const styles = StyleSheet.create({
     fontSize:36,color:'#333',
     marginBottom:6
   },
-    percenterTxt : {
+    percenterTxtFail : {
         textAlign:'center',
         backgroundColor : 'transparent',
         fontSize:10,
-        color:'#333'
+        color:'red',
+        position:'absolute',
+        top:70,
+        left:0,
+        right:0,
+
+    },
+    percenterTxtSuccess : {
+        textAlign:'center',
+        backgroundColor : 'transparent',
+        fontSize:10,
+        color:'#333',
+        position:'absolute',
+        top:70,
+        left:0,
+        right:0,
+
     },
     successInfo : {
         textAlign:'center',
