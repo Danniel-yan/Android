@@ -22,7 +22,7 @@ export default class addBankCard extends Component {
       idnum: "",
       mobile: "",
       cardnum: "",
-
+      CARDNUM:'',
       submitting: false,
       err: ""
     }
@@ -72,8 +72,8 @@ export default class addBankCard extends Component {
                 underlineColorAndroid="transparent"
                 clearButtonMode="while-editing"
                 editable={!this.state.submitting}
-                value={this.state.cardnum}
-                onChangeText={cardnum => this.setState({cardnum: cardnum})}
+                value={this.state.CARDNUM}
+                onChangeText={cardnum => {var CARDNUM = cardnum.length%5 == 4? (cardnum + ' ') : cardnum;this.setState({cardnum: cardnum,CARDNUM:CARDNUM})}}
                 tracking={{key: 'add_card', topic: 'card_num', entity: 'blur', event: 'blur'}}
               />
               </View>
