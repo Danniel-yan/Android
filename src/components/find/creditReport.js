@@ -7,7 +7,7 @@ import RecommendList from 'components/shared/RecommendList';
 
 export default class creditReport extends Component {
   tracking = function() {
-    return { key: "blacklist", topic: "report", event: "landing", result: this.props && this.props.result == 1 ? '命中' : '未命中' }
+    return { key: "loan_crd_rpt", event: "landing", exten_info: JSON.stringify({status: this.props && this.props.result == 1 ? '低' : '高'}) }
   }
   render(){
     var props = this.props || {};
@@ -44,7 +44,7 @@ export default class creditReport extends Component {
                 </View>
             </View>
             {
-                props.result == 1 ? <RecommendList recommends={this.props.fail_loanlist} /> : <RecommendList recommends={this.props.success_loanlist} />
+                props.result == 1 ? <RecommendList recommends={this.props.fail_loanlist} itemTracking={{key: "loan_crd_rpt"}} /> : <RecommendList recommends={this.props.success_loanlist} itemTracking={{key: "loan_crd_rpt", topic: "rec_loan_list"}} />
             }
 
 

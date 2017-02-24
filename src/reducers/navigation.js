@@ -40,9 +40,9 @@ const initState = {
       activeIcon: iconLoanActive
     },
 
-    CardScene: {
+    DiscoverScene: {
       index: 0,
-      routes: [{ key: 'FindHome'}],
+      routes: [{ key: 'FindScene'}],
       text: '发现',
       icon: iconCard,
       activeIcon: iconCardActive
@@ -70,7 +70,7 @@ const initState = {
     text: '发现',
     icon: iconCard,
     activeIcon: iconCardActive,
-    sceneKey: 'FindHome'
+    sceneKey: 'FindScene'
   }, {
     text: '我的',
     icon: iconZone,

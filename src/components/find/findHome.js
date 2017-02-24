@@ -75,7 +75,7 @@ export default class findHome extends Component {
         </TouchableHighlight>
         <Banner tracking={{ key: 'discover', topic: 'fastloan', entity: "banner" }}/>
         <View style = {{backgroundColor : '#fff', marginBottom : 5}}>
-          <LoanProduct />
+          <LoanProduct itemTracking={{key: "discover", topic: "feature" }} />
         </View>
         <View style = {{backgroundColor : '#fff'}}><Artical /></View>
         </ScrollView>

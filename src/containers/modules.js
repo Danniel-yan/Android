@@ -98,7 +98,7 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'BillDetail', module: BillDetail },
   { key: 'GjjReport', module: GjjReport },
   { key: 'GjjStatus', module: GjjStatus },
-  { key: 'FindHome', module:  FindHome},
+  { key: 'FindScene', module:  FindHome},
   { key: 'BlackListhome', module: BlackListhome},
   { key: 'AddBankCard', module: AddBankCard},
   { key: 'CreditReport', module: CreditReport},

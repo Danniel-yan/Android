@@ -32,7 +32,8 @@ export default class articalList extends Component {
        <ExternalPushLink
         style = {articalStyles.containers}
         key = {data.id}
-        web = {{}}
+        web = {data.url}
+        tracking={{key: "discover", topic: "feature", title: data.title, entity: rowID}}
         componentProps={{fetchingParams: data.id, ...data }}
        >
         <View style = {articalStyles.box}>

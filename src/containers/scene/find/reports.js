@@ -6,12 +6,15 @@ import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { fontSize } from 'styles';
 import { externalPop } from 'actions/navigation';
+import { trackingScene } from "high-order/trackingPointGenerator"
 
 import Button from 'components/shared/ButtonBase';
 
 
 const { width, height } = Dimensions.get('window');
 class reports extends Component {
+  tracking={key: "blacklist", topic: "report_list", event: "landing"}
+
   render(){
     return(
       <View style = {{flex : 1}}>
@@ -39,6 +42,7 @@ class reports extends Component {
               toKey = 'CreditReport'
               title = '网贷征信报告'
               key = {index}
+              tracking={{key: "blacklist", topic: "report_list", entity: index, event: "clk"}}
               componentProps = {{}}
             >
             <View style = {styles.item}>
@@ -125,4 +129,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(reports);
+export default connect(mapStateToProps,mapDispatchToProps)(trackingScene(reports));

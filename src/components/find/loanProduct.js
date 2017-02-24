@@ -39,19 +39,21 @@ export default class loanProduct extends Component {
 
   renderCard(data, sID, rowID){
     let tracking = Object.assign({}, this.props.itemTracking, {
-      key: "discover",
-      topic: "fastloan_list",
       entity: rowID,
       event: 'clk',
       id: data.id,
-      name: data.name
+      name: data.name,
+      title: data.title
     });
+
+    console.log("tracking")
+    console.log(tracking)
 
     return(
       <ExternalPushLink
-        tracking={tracking}
         title={data.title}
         toKey="LoanDetailScene"
+        tracking={tracking}
         componentProps={{fetchingParams: data.id, ...data }}>
         <View style={[boxStyles.box]}>
           <Image source={{uri: data.logo_list}} style={boxStyles.boxPic} />

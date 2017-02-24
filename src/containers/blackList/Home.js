@@ -42,7 +42,7 @@ class blackListHome extends Component {
       <View style={{flex : 1}}>
         <View style={styles.top}>
           {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
-            key: 'blacklist', topic: 'deposit', entity: 'clk'
+            key: 'blacklist', topic: 'cmpl_one', entity: 'clk'
           }}, {status: '去完善'})}
           {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告', tracking: {
             key: 'blacklist', topic: 'review', entity: 'clk'
@@ -115,9 +115,8 @@ class blackListHome extends Component {
             <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
             <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style = {{fontSize : 12, color: '#666'}}>阅读并接受</Text>
             <ExternalPushLink
-                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html'
+                web='http://sys-php.oss-cn-shanghai.aliyuncs.com/static/pages/chaoshi/blacklistAgreement.html'
                 text="《个人信用信息查询授权书》"
-                title="《个人信用信息查询授权书》"
                 textStyle={{ color: colors.secondary, fontSize: 12}}
             />
           </View>
