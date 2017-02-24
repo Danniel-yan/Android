@@ -6,11 +6,13 @@ const { StateUtils: NavigationStateUtils } = NavigationExperimental;
 const iconHome = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/home-nor.png';
 const iconLoan = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/daikuan-nor.png';
 const iconCard = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/credit-nor.png';
+const iconFind = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/find-nor.png';
 const iconZone = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/account-nor.png';
 
 const iconHomeActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/home-light.png';
 const iconLoanActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/daikuan-light.png';
 const iconCardActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/credit-light.png';
+const iconFindActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/find-light.png';
 const iconZoneActive = 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/account-light.png';
 
 const majorNavigationIndex = 0;
@@ -44,8 +46,8 @@ const initState = {
       index: 0,
       routes: [{ key: 'FindScene'}],
       text: '发现',
-      icon: iconCard,
-      activeIcon: iconCardActive
+      icon: iconFind,
+      activeIcon: iconFindActive
     },
 
     ZoneScene: {
