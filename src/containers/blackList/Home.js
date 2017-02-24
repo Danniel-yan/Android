@@ -327,7 +327,7 @@ import Loading from 'components/shared/Loading';
 function mapStateToProps(state) {
   return Object.assign({}, state.blackListData, {
     isFetching: state.blackListData.isFetchingReports
-  });
+  })
 }
 
 function mapDispatchToProps(dispatch) {
