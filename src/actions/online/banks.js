@@ -20,7 +20,7 @@ export default function fetchBanks(){
 
     dispatch(request())
 
-    var state = getState(), loan_type = state.online.loanType ? state.online.loanType.type : 0;
+    var state = getState(), loan_type = state.online.loanType.type ? state.online.loanType.type : 0;
     return get(`/bill/bank-list?loan_type=${loan_type}`)
       .then(res => dispatch(receive(res.data)))
       .catch(err => {

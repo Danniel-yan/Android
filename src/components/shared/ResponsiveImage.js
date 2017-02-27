@@ -28,11 +28,11 @@ export default class ResponsiveImage extends Component {
   }
 
   render() {
-    let { uri, height, style, width, ...props } = this.props;
+    let { uri, height, style, width, ...props } = this.props, dimension = this.state.dimension;
 
     if(!this.state.dimension && !height && !style) { return null; }
 
-    height = responsive.height(height || this.state.dimension.height)
+    height = responsive.height(height || (dimension ? dimension.height : null))
 
     return (
       <Image {...props} style={[{height}, style]} source={{uri: uri}}/>

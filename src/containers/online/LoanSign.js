@@ -78,7 +78,7 @@ class LoanSign extends Component {
             />
             <Text style={styles.checkboxTxt}>我已阅读并同意</Text>
             <ExternalPushLink
-              web="lkjlkj"
+              web="https://sys-python.oss-cn-shanghai.aliyuncs.com/pt_ctcf_loan_contract/contrace_template.html"
               text="《借款咨询服务协议》"
               title="借款咨询服务协议"
               textStyle={[styles.checkboxTxt, { color: colors.secondary }]}
