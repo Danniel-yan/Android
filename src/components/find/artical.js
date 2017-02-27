@@ -32,7 +32,9 @@ export default class articalList extends Component {
        <ExternalPushLink
         style = {articalStyles.containers}
         key = {data.id}
-        web = {data.url}
+        toKey="FindArticleDetail"
+        title="精选"
+        prePress={() => this.__toDetail__(data.id)}
         tracking={{key: "discover", topic: "feature", title: data.title, entity: rowID}}
         componentProps={{fetchingParams: data.id, ...data }}
        >
@@ -43,6 +45,10 @@ export default class articalList extends Component {
         <Image source = {{uri : data.pic}} style = {{width : 130,height : 80}}/>
         </ExternalPushLink>
     )
+  }
+
+  __toDetail__(id) {
+    this.props.fetchArticalDetail && this.props.fetchArticalDetail(id);
   }
 
 }

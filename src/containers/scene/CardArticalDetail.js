@@ -28,7 +28,7 @@ import Banner from 'components/Banner';
 import externalScene from 'high-order/externalScene';
 
 
-class CardArtical extends Component {
+export class CardArtical extends Component {
   render() {
     let props = this.props.detail
 
@@ -40,12 +40,12 @@ class CardArtical extends Component {
       <ScrollView style={container}>
         <View style={[container, styles.container]}>
           <Text style={styles.title}>{props.title}</Text>
-  
+
           <View style={styles.p}>
             <Text style={styles.author}>{props.author}</Text>
             <Text style={styles.tip}>{props.time_create}     {props.show_num} 阅读</Text>
           </View>
-  
+
           {this._renderContent()}
           {this._renderBanner()}
         </View>
@@ -54,8 +54,8 @@ class CardArtical extends Component {
   }
 
   _renderBanner() {
-    let cardConfig = this.props.cardConfig.config;
-    let banner = cardConfig.info_detail_banner;
+    let cardConfig = this.props.cardConfig ? this.props.cardConfig.config : null;
+    let banner = cardConfig ? cardConfig.info_detail_banner : null;
 
     return (
       <View style={styles.p}>
@@ -90,7 +90,7 @@ class CardArtical extends Component {
     });
 
     let contents = textAndImgs.map((content, index) => {
-      return /^\[img:/.test(content) ? 
+      return /^\[img:/.test(content) ?
         (<Img key={"img"+index} uri={content.replace(/\[img:(.*)]/, '$1')}/>) :
         (<Paragraph key={"p"+index} content={content}/>)
     });

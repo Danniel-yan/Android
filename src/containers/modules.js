@@ -47,6 +47,7 @@ import BillDetail from 'containers/bill/BillDetailContainer';
 import GjjReport from 'containers/bill/GjjDetailContainer';
 import GjjStatus from 'containers/certification/fund/GjjStatus';
 import FindHome from 'containers/scene/find/findHome';
+import FindArticleDetail from 'containers/scene/find/articalDetail';
 import AddBankCard from 'containers/scene/find/addBankCard';
 import CreditReport from 'containers/scene/find/creditReport';
 import BlackListhome from 'containers/blackList/Home';
@@ -99,6 +100,7 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'GjjReport', module: GjjReport },
   { key: 'GjjStatus', module: GjjStatus },
   { key: 'FindScene', module:  FindHome},
+  { key: 'FindArticleDetail', module: FindArticleDetail },
   { key: 'BlackListhome', module: BlackListhome},
   { key: 'AddBankCard', module: AddBankCard},
   { key: 'CreditReport', module: CreditReport},

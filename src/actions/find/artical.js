@@ -1,4 +1,4 @@
-import { get} from 'utils/fetch';
+import { get, responseStatus} from 'utils/fetch';
 
 export function requestArticalList() {
   return {
@@ -23,5 +23,15 @@ export function fetchArticalList(offset = 0, num = 10) {
     return get(`/discover/info-list?offset=${offset}&num=${num}`)
       .then(response => dispatch(receiveArticalList(response)))
       .catch(err => console.log(err))
+  }
+}
+
+export function fetchArticalDetail(id) {
+  return dispatch => {
+    dispatch({type: "RequestArticalDetail"});
+
+    return get(`/discover/info-detail?id=${id}`).then(response => {
+      if(response.res == responseStatus.success) dispatch({type: "ReceiveArticalDetail", detail: response.data})
+    });
   }
 }
