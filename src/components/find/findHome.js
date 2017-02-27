@@ -33,7 +33,7 @@ export default class findHome extends Component {
             <Image source={require('assets/discovery/icon_banka.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
-          <ExternalPushLink
+          {false ? <ExternalPushLink
             title={logined ?"网贷信用查询" : '登录'}
             toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}
@@ -41,7 +41,7 @@ export default class findHome extends Component {
             tracking={{ key: 'discover', topic: 'service', entity: 'blacklist' }}>
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>
-          </ExternalPushLink>
+          </ExternalPushLink> : null}
           <ExternalPushLink
             title="信用贷"
             toKey="CreditLoan"
