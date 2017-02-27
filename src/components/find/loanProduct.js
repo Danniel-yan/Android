@@ -62,7 +62,7 @@ export default class loanProduct extends Component {
               {data.title}
             </Text>
             <View style = {{flexDirection : 'row'}}>
-             <Text style = {{color : '#FF6D17',fontSize : 12}}>{data.interest}／{data.interest_period}<Text style = {{color : '#333', fontSize : 12}}>费率</Text></Text>
+             <Text style = {{color : '#FF6D17',fontSize : 12}}><Text style = {{color : '#333', fontSize : 12}}>{data.interest_period}费率：</Text>{data.interest}</Text>
             </View>
           </View>
         </View>
@@ -89,7 +89,7 @@ const boxStyles = StyleSheet.create({
       marginBottom : 10
     },
     title : {
-      fontSize : 15,
+      fontSize : 14,
       color : '#333',
       textAlign : 'center',
       marginBottom : 5
