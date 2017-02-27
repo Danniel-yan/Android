@@ -13,6 +13,7 @@ export default class VerifyButton extends Component {
       textStyle,
       mobile,
       disabled,
+      text,
       ...props
     } = this.props;
 
@@ -25,7 +26,7 @@ export default class VerifyButton extends Component {
       onPress={this._sendVerify.bind(this, mobile)}
       style={style || styles.verifyBtn}
       textStyle={textStyle || styles.verifyBtnTxt}
-      defaultText="获取验证码"
+      defaultText={text || "获取验证码"}
       countdownText="${time}秒后可获取"/>
   }
 

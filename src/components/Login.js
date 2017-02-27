@@ -17,7 +17,7 @@ import ProcessingButton from 'components/shared/ProcessingButton'
 import VerifyButton from 'components/shared/VerifyButton'
 import * as defaultStyles from 'styles';
 import { colors } from 'styles/varibles'
-import { externalPop } from 'actions/navigation';
+import { externalPop, externalPush} from 'actions/navigation';
 import { ExternalPushLink } from 'containers/shared/Link';
 import Checkbox from 'components/shared/Checkbox';
 
@@ -163,7 +163,7 @@ class Login extends Component {
     if(this.props.loginSuccess) {
       this.props.loginSuccess();
     } else {
-      this.props.dispatch(externalPop());
+      this.props.TOKEY ? this.props.externalPush({key : this.props.TOKEY, title:'网贷信用查询' }) : this.props.dispatch(externalPop());
     }
   }
 }
@@ -217,4 +217,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default trackingScene(Login);
+function mapDispatchToProps(dispatch) {
+    return {
+        externalPush: route => dispatch(externalPush(route)),
+    }
+}
+
+export default connect(null,mapDispatchToProps)(trackingScene(Login));

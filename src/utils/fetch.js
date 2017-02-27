@@ -24,6 +24,22 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
+import {mockData} from 'constants';
+export function mock(url, body, times) {
+  console.debug("M-Request: "+url);
+  console.log("M-Request-Body: " + ( body ? JSON.stringify(body) : "" ));
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      var timesUrl = times > 0 ? (url + times) : url;
+      resolve(mockData[timesUrl])
+    }, 2000)
+  }).then(response => {
+    console.debug("M-Response: "+url);
+    console.log("M-Response-Data:" + JSON.stringify(response));
+    return response;
+  });
+}
+
 export function get(url, body, responseType = 'json') {
   return Promise.resolve(setupParams())
     .then(setupUserToken)

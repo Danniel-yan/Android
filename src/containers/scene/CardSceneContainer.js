@@ -41,7 +41,7 @@ class CardScene extends Component {
     if(this.props.geoError) {
       return (
         <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-          <SceneHeader title="办卡"/>
+          { !this.props.onBack ? <SceneHeader title="办卡"/> : null}
           <ScrollView>
             {this._children()}
           </ScrollView>
@@ -52,7 +52,7 @@ class CardScene extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-        <SceneHeader title="办卡"/>
+        { !this.props.onBack ? <SceneHeader title="办卡"/> : null}
         <ScrollPagination
           isPaging={isPaging}
           paginationParams={paginationParams}

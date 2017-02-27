@@ -46,6 +46,11 @@ import BillList from 'containers/bill/BillListContainer';
 import BillDetail from 'containers/bill/BillDetailContainer';
 import GjjReport from 'containers/bill/GjjDetailContainer';
 import GjjStatus from 'containers/certification/fund/GjjStatus';
+import FindHome from 'containers/scene/find/findHome';
+import AddBankCard from 'containers/scene/find/addBankCard';
+import CreditReport from 'containers/scene/find/creditReport';
+import BlackListhome from 'containers/blackList/Home';
+import BlackListReports from 'containers/scene/find/reports'
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -92,7 +97,12 @@ import GjjStatus from 'containers/certification/fund/GjjStatus';
   { key: 'BillList', module: BillList },
   { key: 'BillDetail', module: BillDetail },
   { key: 'GjjReport', module: GjjReport },
-  { key: 'GjjStatus', module: GjjStatus }
+  { key: 'GjjStatus', module: GjjStatus },
+  { key: 'FindScene', module:  FindHome},
+  { key: 'BlackListhome', module: BlackListhome},
+  { key: 'AddBankCard', module: AddBankCard},
+  { key: 'CreditReport', module: CreditReport},
+  { key: 'BlackListReports', module: BlackListReports}
 ].forEach(item => {
   modules[item.key] = item.module;
 });
