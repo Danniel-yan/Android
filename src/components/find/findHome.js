@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, Image ,StyleSheet,  TouchableHighlight ,Text, ScrollView, Platform, Dimensions} from 'react-native';
+import { View, ListView, Image ,StyleSheet,  TouchableHighlight ,Text, ScrollView, Platform, Dimensions, AsyncStorage } from 'react-native';
 
 import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPushLink } from 'containers/shared/Link';
@@ -53,7 +53,9 @@ export default class findHome extends Component {
           <ExternalPushLink
             title="查账单"
             toKey={logined ? "OnlineCreditCards" : 'Login'}
-            componentProps={{TOKEY : 'OnlineCreditCards'}}
+            componentProps={{
+              loginSuccess: () => { this.props.externalPush && this.props.externalPush({key: "OnlineCreditCards", backRoute: { key: "MajorNavigation" }}) }
+            }}
             style={styles.navItem}
             tracking={{ key: 'discover', topic: 'service', entity: 'bill' }}>
             <Image source={require('assets/discovery/icon_chazhangdan.png')} style = {styles.navImg}></Image>
@@ -61,7 +63,10 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title="公积金查询"
-            toKey="FundLogin"
+            toKey={logined ? "FundLogin" : "Login"}
+            componentProps={{
+              loginSuccess: () => { this.props.externalPush && this.props.externalPush({key: "FundLogin", backRoute: { key: "MajorNavigation" }}) }
+            }}
             style={styles.navItem}
             tracking={{ key: 'discover', topic: 'service', entity: 'PAF' }}>
             <Image source={require('assets/discovery/icon_chagongjijin.png')} style = {styles.navImg}></Image>
@@ -88,8 +93,17 @@ export default class findHome extends Component {
   }
 
    _navToPBOC() {
-      console.log('积极了')
-      this.props.pboc && this.props.pboc();
+      AsyncStorage.getItem("userToken").then(token => {
+        if(token) {
+          this.props.pboc && this.props.pboc();
+        } else {
+          this.props.externalPush && this.props.externalPush({
+            key: "Login",
+            componentProps: { loginSuccess: () => { this.props.pboc && this.props.pboc({backRoute: { key: "MajorNavigation" }}); } },
+          });
+        }
+      })
+
    }
 }
 

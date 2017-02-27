@@ -12,7 +12,7 @@ export default function navToPBOC(params) {
       webUrl = env=="production" ? pbocUrl + "&debug=0" : pbocUrl + "&debug=1";
       webUrl = webUrl + "&token=" + token;
 
-      dispatch(externalPush({web: webUrl, title: "央行征信"}));
+      dispatch(externalPush({web: webUrl, title: "央行征信", backRoute: params ? params.backRoute : null}));
     });
   };
 
