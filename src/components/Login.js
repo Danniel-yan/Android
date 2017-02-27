@@ -163,7 +163,11 @@ class Login extends Component {
     if(this.props.loginSuccess) {
       this.props.loginSuccess();
     } else {
-      this.props.TOKEY ? this.props.externalPush({key : this.props.TOKEY, title:'网贷信用查询' }) : this.props.dispatch(externalPop());
+      if(this.props.TOKEY){
+        this.props.TOKEY == 'OnlineCreditCards' ? this.props.externalPush({key : this.props.TOKEY, title:'查账单' }) : this.props.externalPush({key : this.props.TOKEY, title:'网贷信用查询' })
+      } else{
+        this.props.dispatch(externalPop())
+      }
     }
   }
 }
