@@ -52,7 +52,7 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title="查账单"
-            toKey="OnlineCreditCards"
+            toKey={logined ? "OnlineCreditCards" : 'Login'}
             style={styles.navItem}
             tracking={{ key: 'discover', topic: 'service', entity: 'bill' }}>
             <Image source={require('assets/discovery/icon_chazhangdan.png')} style = {styles.navImg}></Image>
