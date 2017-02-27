@@ -61,7 +61,8 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title="公积金查询"
-            toKey="FundLogin"
+            toKey={logined ? "FundLogin" : 'Login'}
+            componentProps={{TOKEY : 'FundLogin'}}
             style={styles.navItem}
             tracking={{ key: 'discover', topic: 'service', entity: 'PAF' }}>
             <Image source={require('assets/discovery/icon_chagongjijin.png')} style = {styles.navImg}></Image>
