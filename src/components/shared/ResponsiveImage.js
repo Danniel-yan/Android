@@ -14,7 +14,7 @@ export default class ResponsiveImage extends Component {
     super(props);
 
     this.state = {
-      dimension: dimensions[props.uri] || {}
+      dimension: dimensions[props.uri] || null
     }
   }
 
