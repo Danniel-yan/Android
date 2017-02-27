@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import findHome from 'components/find/findHome';
 import { trackingScene } from 'high-order/trackingPointGenerator';
+import pboc from 'actions/pboc';
+
 
 function mapStateToProps(state) {
   return {
@@ -9,4 +11,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,null)(trackingScene(findHome));
+function mapDispatchToProps(dispatch) {
+  return {
+    pboc: params => dispatch(pboc(params))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(trackingScene(findHome));

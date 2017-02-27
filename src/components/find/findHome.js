@@ -5,7 +5,7 @@ import SceneHeader from 'components/shared/SceneHeader';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { fontSize, colors } from "styles/varibles";
 import Banner from 'containers/scene/find/banner';
-//import Artical from 'components/find/artical';
+import TrackingPoint  from 'components/shared/TrackingPoint';
 import Artical from 'containers/scene/find/artical';
 import LoanProduct from 'containers/scene/find/loanProduct'
 
@@ -42,14 +42,14 @@ export default class findHome extends Component {
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>
           </ExternalPushLink> : null}
-          <ExternalPushLink
-            title="信用贷"
-            toKey="CreditLoan"
-            style={styles.navItem}
-            tracking={{ key: 'discover', topic: 'service', entity: 'credit_report' }}>
-            <Image source={require('assets/discovery/icon_chazhengxin.png')} style = {styles.navImg}></Image>
-            <Text style = {styles.navTxt}>查征信</Text>
-          </ExternalPushLink>
+          <TrackingPoint
+            tracking={{ key: 'discover', topic: 'service', entity: 'credit_report' }}
+            onPress={() => {this._navToPBOC()}}
+            title="央行征信"
+            style = {styles.navItem}>
+              <Image source={require("assets/discovery/icon_chazhengxin.png")} />
+              <Text style = {styles.navTxt}>查征信</Text>
+          </TrackingPoint>
           <ExternalPushLink
             title="查账单"
             toKey={logined ? "OnlineCreditCards" : 'Login'}
@@ -87,7 +87,10 @@ export default class findHome extends Component {
 
   }
 
-
+   _navToPBOC() {
+      console.log('积极了')
+      this.props.pboc && this.props.pboc();
+   }
 }
 
 
