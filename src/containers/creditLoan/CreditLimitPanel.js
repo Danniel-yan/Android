@@ -8,6 +8,7 @@ import Loading from 'components/shared/Loading';
 import onlineActions from 'actions/online';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import tracker from 'utils/tracker.js';
+import { externalPop, externalPush} from 'actions/navigation';
 
 import { connect } from 'react-redux';
 
@@ -22,8 +23,13 @@ class CreditLimitPanel extends Component {
   }
 
   _openCreditPanel() {
-    this.setState({openModal : true});
-    tracker.trackAction({key: 'credit_loan', topic: 'verification', entity: '', event: 'pop'});
+    const logined = this.props.loginUser.info;
+    if(logined){
+      this.setState({openModal : true});
+      tracker.trackAction({key: 'credit_loan', topic: 'verification', entity: '', event: 'pop'});
+    } else {
+      this.props.externalPush({key:'Login',title:'登录'})
+    }
   }
   _closeCreditPanel (){
     this.setState({openModal : false})
@@ -84,8 +90,15 @@ const CLPStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    creditScore: state.online.userInfo.creditScore
+    creditScore: state.online.userInfo.creditScore,
+    loginUser: state.loginUser,
+
+  }
+}
+function mapDispatchToProps(dispatch){
+  return {
+      externalPush: route => dispatch(externalPush(route)),
   }
 }
 
-export default connect(mapStateToProps, null)(CreditLimitPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(CreditLimitPanel)
