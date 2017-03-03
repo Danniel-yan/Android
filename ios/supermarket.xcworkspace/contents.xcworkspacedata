@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MGLiveDetection/MGLivenessDetection.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MGIDCard/MGIDCard.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MGBaseKit/MGBaseKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MGBankCard/MGBankCard.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:supermarket.xcodeproj">
+   </FileRef>
+</Workspace>
