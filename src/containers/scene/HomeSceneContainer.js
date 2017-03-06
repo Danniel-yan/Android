@@ -8,6 +8,7 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 function mapStateToProps(state) {
   return {
     isIOSVerifying: state.iosConfig.isIOSVerifying,
+    isIOS: state.iosConfig.isIOS,
     iosFetched: state.iosConfig.fetched
   }
 }

@@ -5,7 +5,8 @@ import {
   ScrollView,
   Image,
   AsyncStorage,
-  Modal,TextInput
+  Modal,TextInput,
+  NativeModules
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -247,7 +248,16 @@ export default class LoanDetailScene extends Component {
     }
 
     if(this.props.loginUser.valid) {
-      return (
+      return this.props.isIOS ? (
+        <Button
+          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+                     title: detail.title, amount: this.state.amount, period: this.state.value}}
+          style={styles.loanButton}
+          textStyle={styles.loanButtonText}
+          text="去贷款"
+          onPress={() => {this.__skipToSafari__(detail.url)}}
+          />
+      ) : (
         <ExternalPushLink
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
@@ -347,5 +357,11 @@ export default class LoanDetailScene extends Component {
         reject('');
       });
     })
+  }
+
+  __skipToSafari__(url) {
+    var skipFunc = NativeModules.SkipSafari ? NativeModules.SkipSafari.skipSafariForUrlStr : null;
+
+    skipFunc && typeof skipFunc == "function" && skipFunc(url);
   }
 }

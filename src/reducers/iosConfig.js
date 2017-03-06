@@ -1,6 +1,8 @@
+import { Platform } from 'react-native';
 const initState = {
   isFetching: true,
   fetched: false,
+  isIOS: !(Platform.OS == "android")
 }
 
 export default function iosConfig(state = initState, action) {

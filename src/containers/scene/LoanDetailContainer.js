@@ -32,6 +32,7 @@ function mapStateToProps(state, ownProps) {
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
     isIOSVerifying: state.iosConfig && state.iosConfig.isIOSVerifying
+    isIOS: state.iosConfig && state.iosConfig.isIOS
   };
 }
 
