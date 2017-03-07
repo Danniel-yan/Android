@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, Image, Platform  } from 'react-native';
+import { View, ListView, Image, Platform, StyleSheet  } from 'react-native';
 import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
@@ -22,10 +22,7 @@ export default class LoanList extends Component {
       </View>
     )
   }
-  componentDidMount(){
-    console.log('数据。。。。')
-    console.log(this.props.loans+ '数据源')
-  }
+
   renderLoan(data, sID, rowID){
     return(
       <ExternalPushLink
@@ -52,7 +49,7 @@ export default class LoanList extends Component {
               <Text style={styles.flexContainerColumnDes}>
                 <Text style={styles.flexContainerColumnPrimary}>{data.ios_shouyi}</Text>平均收益
               </Text>
-              <Text style={styles.flexContainerColumnDes}>
+              <Text style={[styles.flexContainerColumnDes,loanList.ios_bg]}>
                 <Text style={styles.flexContainerColumnPrimary}>{data.ios_bg}</Text>背景
               </Text>
             </View>}
@@ -63,3 +60,9 @@ export default class LoanList extends Component {
   }
 
 }
+
+const loanList = StyleSheet.create({
+  ios_bg : {
+    textAlign:'center',
+  }
+});
