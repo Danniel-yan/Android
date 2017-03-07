@@ -10,12 +10,12 @@ function mapStateToProps(state) {
   return {
     isFetching: state.homeOperating.isFetching,
     fetched: state.homeOperating.fetched,
-    msgList: state.homeOperating.operating.index_loan_adinfo 
+    msgList: state.homeOperating.operating.index_loan_adinfo
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  if(Platform.OS == 'ios') return {fetching: () => dispatch(fetchHomeOperating())}
+  return {fetching: () => {}}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, BroadcastCarousel));
