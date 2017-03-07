@@ -6,7 +6,8 @@ import RecommendListPanel from 'components/scene/home/RecommendListPanel'
 function mapStateToProps(state) {
   return {
     ...state.homeRecommendList,
-    isIOSVerifying: state.iosConfig.isIOSVerifying
+    isIOSVerifying: state.iosConfig.isIOSVerifying,
+    isIOS: state.iosConfig.isIOS,
   };
 }
 

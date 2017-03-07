@@ -125,7 +125,7 @@ class ZoneScene extends Component {
 
     if(loginUser.info) {
       return (
-        <ExternalPushLink title="个人信息" toKey="UserInfo">
+        <ExternalPushLink title="个人信息" toKey={this.props.isIOS ? '' : "UserInfo"}>
           <View style={[zoneStyles.item, zoneStyles.loginWrap]}>
             <Image style={zoneStyles.icon} source={require('assets/zone/user-blank.png')}/>
             <Text style={zoneStyles.txt}>{loginUser.info.username}</Text>
@@ -158,11 +158,11 @@ class ZoneScene extends Component {
 
     return loginUser.info && !this.props.isFetching ? (
       <View>
-        { bankBillList && bankBillList.length > 0 ?
+        { !this.props.isIOS ? (bankBillList && bankBillList.length > 0 ?
           this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {
             toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()},
             tracking: { key: 'my_account', topic: 'btn_sec', entity: 'bill' }
-          }) : null
+          }) : null) : null
         }
         {
           gjjBillList && gjjBillList.length > 0 ?
@@ -186,7 +186,7 @@ class ZoneScene extends Component {
         </TrackingPoint>
         {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
         {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
-        {this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {
+        {this.props.isIOS ? null : this._renderNavItem(require('assets/zone/process.png'), "办卡进度查询", {
           title:"办卡进度", toKey:"CardProgressList",
           tracking: { key: 'my_account', topic: 'btn_sec', entity: 'card_progress'}
         })}
@@ -235,7 +235,8 @@ function mapStateToProps(state) {
     // isFetching: state.online.bankResult.bankBillFetching || state.online.gjjResult.isFetching,
     isFetching: state.online.bankResult.bankBillFetching,
     bankBillList: state.online.bankResult.billList,
-    gjjBillList: state.online.gjjResult.billList
+    gjjBillList: state.online.gjjResult.billList,
+      isIOS: state.iosConfig.isIOS,
   }
 }
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-
+import { Platform } from 'react-native';
 import fetchHomeOperating from 'actions/scene/home/operating'
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
@@ -15,9 +15,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    fetching: () => {}
-  }
+  if(Platform.OS == 'ios') return {fetching: () => dispatch(fetchHomeOperating())}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, BroadcastCarousel));

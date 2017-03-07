@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, Image  } from 'react-native';
+import { View, ListView, Image, Platform  } from 'react-native';
 import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
@@ -22,7 +22,10 @@ export default class LoanList extends Component {
       </View>
     )
   }
-
+  componentDidMount(){
+    console.log('数据。。。。')
+    console.log(this.props.loans+ '数据源')
+  }
   renderLoan(data, sID, rowID){
     return(
       <ExternalPushLink
@@ -36,12 +39,23 @@ export default class LoanList extends Component {
               {data.title}
             </Text>
             <Image source={{uri: data.logo_list}} style={{width:50,height:50, marginBottom: 8}} />
-            <Text style={styles.flexContainerColumnDes}>
-              <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>{data.interest_period}费率
-            </Text>
-            <Text style={styles.flexContainerColumnDes}>
-              <Text style={styles.flexContainerColumnPrimary}>{data.amount_showinfo}</Text>贷款
-            </Text>
+            {!Platform.OS == 'ios'?
+            <View>
+              <Text style={styles.flexContainerColumnDes}>
+                <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>{data.interest_period}费率
+              </Text>
+              <Text style={styles.flexContainerColumnDes}>
+                <Text style={styles.flexContainerColumnPrimary}>{data.amount_showinfo}</Text>贷款
+              </Text>
+            </View> :
+            <View>
+              <Text style={styles.flexContainerColumnDes}>
+                <Text style={styles.flexContainerColumnPrimary}>{data.ios_shouyi}</Text>平均收益
+              </Text>
+              <Text style={styles.flexContainerColumnDes}>
+                <Text style={styles.flexContainerColumnPrimary}>{data.ios_bg}</Text>背景
+              </Text>
+            </View>}
           </View>
         </View>
       </ExternalPushLink>

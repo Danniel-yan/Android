@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, Image  } from 'react-native';
+import { View, ListView, Image, StyleSheet  } from 'react-native';
 
 import Text from 'components/shared/Text';
 import RemoteImage from 'components/shared/RemoteImage';
@@ -46,26 +46,82 @@ export default class RecommendList extends Component {
         componentProps={{fetchingParams: data.id, ...data }} >
         <View style={styles.flexContainerRow}>
           <RemoteImage uri={data.logo_list} style={styles.thumbnail} />
-          <View style={styles.rightContainer}>
-            <Text style={styles.rightContainerTitle}>{data.title}</Text>
-            <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
-
-            {
-              this.props.isIOSVerifying ? null : (
-                <View style={[styles.rightContainerFooter]}>
-                  <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
-                  <Text style={styles.unit}>{data.interest}</Text>
-                  <Text style={styles.defaultFont}> / {data.interest_period}</Text>
+          {!this.props.isIOS ?
+            <View style={styles.rightContainer}>
+              <Text style={styles.rightContainerTitle}>{data.title}</Text>
+              <Text style={styles.rightContainerSubTitle}>{data.info}</Text>
+              <View style={[styles.rightContainerFooter]}>
+                <Text style={[styles.defaultFont, defaultStyle.container]}>{data.usercount}人申请  </Text>
+                <Text style={styles.unit}>{data.interest}</Text>
+                <Text style={styles.defaultFont}> / {data.interest_period}</Text>
+              </View>
+            </View> :
+              <View style={styles.rightContainer}>
+                <View style={loanItem.top}>
+                  <Text style={styles.rightContainerTitle}>{data.title}</Text>
+                  <View style={loanItem.top}>
+                    <Text style={loanItem.bgTitle}>{data.ios_bg}</Text>
+                    <Text style={loanItem.txt}>背景</Text>
+                  </View>
                 </View>
-              )
-            }
+                <View style={loanItem.bottom}>
+                  <View style={loanItem.left}>
+                    <Text style={loanItem.colorTxt}>{data.ios_shouyi}</Text>
+                    <Text style={loanItem.txt}>平均收益</Text>
+                  </View>
+                  <View style={loanItem.right}>
+                    <Text style={loanItem.txt}>网友评价</Text>
+                    <Text style={loanItem.colorTxt}>{data.ios_haoping}</Text>
+                  </View>
+                </View>
+              </View>
+          }
 
-          </View>
-
-          <NextIcon/>
+            {this.props.isIOS ? null : <NextIcon/>}
         </View>
       </ExternalPushLink>
     )
   }
 
 }
+
+
+const loanItem = StyleSheet.create({
+  top:{
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  bg:{
+    flexDirection:'row',
+  },
+
+    bgTitle:{
+      color:'#FF003C',
+      fontSize:12,
+      marginRight:3,
+      marginLeft:10,
+    },
+    txt:{
+      color:'#333',
+      fontSize:12,
+    },
+    bottom:{
+      flexDirection:'row',
+        alignItems:'center',
+        marginTop:15,
+    },
+    left:{
+      flexDirection:'row',
+        alignItems:'center',
+        width:120,
+    },
+    right:{
+      flexDirection:'row',
+        alignItems:'center',
+        flex:1,
+    },
+    colorTxt:{
+        color:'#FF003C',
+        fontSize:12,
+    }
+});

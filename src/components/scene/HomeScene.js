@@ -47,8 +47,8 @@ export default class HomeScene extends Component {
         <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
-          <Banner />
-          <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>
+          {this.props.isIOS ? null : <Banner />}
+          {this.props.isIOS ? null : <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>}
           <LoanNavPanel />
           { this._renderBroadcast() }
           <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}}/>
