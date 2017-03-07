@@ -85,7 +85,7 @@ class LoanNavPanel extends Component {
                 title="送红包"
                 web={this.props.topBanner.url}
                 style={LNPStyles.navItem}>
-              <Image source={{uri : this.props.topBanner.pic, width : 50, height: 50}}></Image>
+              <Image source={{uri : this.props.topBanner.pic, width : 50, height: 50}} style={{borderRadius:25}}></Image>
               <Text style={LNPStyles.navTxt}>送红包</Text>
             </ExternalPushLink>) : null}
           </View>
