@@ -147,7 +147,18 @@ class ZoneScene extends Component {
       </View>
     );
   }
-
+    _navToPBOC() {
+      AsyncStorage.getItem("userToken").then(token => {
+        if(token) {
+            this.props.pboc && this.props.pboc();
+        } else {
+            this.props.externalPush && this.props.externalPush({
+                key: "Login",title:'登录',
+                componentProps: { loginSuccess: () => { this.props.pboc && this.props.pboc({backRoute: { key: "MajorNavigation" }}); } },
+            });
+        }
+      })
+    }
   _reportInfo() {
     let loginUser = this.props.loginUser,
       bankBillList = this.props.bankBillList || [],
@@ -156,13 +167,35 @@ class ZoneScene extends Component {
     bankBillList = bankBillList.filter(bill => bill.status == 8);
     gjjBillList = gjjBillList.filter(bill => bill.status == 8);
 
-    return loginUser.info && !this.props.isFetching ? (
+    return !this.props.isIOS ? (
       <View>
-        { !this.props.isIOS ? (bankBillList && bankBillList.length > 0 ?
+          {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {
+              toKey: loginUser.info ? "GjjReport" : 'Login',componentProps:{loginSuccess :() => this.props.externalPush({key:'GjjReport',title:'公积金报告',backRoute: { key: "MajorNavigation" }})}, title: loginUser.info ? "公积金报告" : '登录', prePress: () => {
+                  return this.props.gjjPreNavigate();
+              },
+              tracking: {key: 'my_account', topic: 'btn_sec', entity: 'PAF_report'}
+          })}
+          {false ? this._renderNavItem(require('assets/zone/shebaobaogao.png'), "社保报告", {}) : null}
+        <TrackingPoint
+            tracking={{ key: 'my_account', topic: 'btn_sec', entity: 'credit_report'}}
+            title="征信报告"
+            onPress={() => this._navToPBOC()}>
+          <View style={zoneStyles.item}>
+            <Image style={[zoneStyles.icon]} source={require('assets/zone/zhengxinbaogao.png')}/>
+            <Text style={zoneStyles.txt}>征信报告</Text>
+            <NextIcon/>
+          </View>
+        </TrackingPoint>
+          {false ? this._renderNavItem(require('assets/zone/chaoshixinyongfen.png'), "钞市信用分", {}) : null}
+          {false ? this._renderNavItem(require('assets/zone/footprint.png'), "我的贷款足迹", {}) : null}
+      </View>
+    ) : (loginUser.info && !this.props.isFetching ? (
+      <View>
+        { bankBillList && bankBillList.length > 0 ?
           this._renderNavItem(require('assets/zone/wodezhangdan.png'), "我的账单", {
             toKey: "BillList", title: "我的账单", prePress: ()=>{this.props.setLoanType&&this.props.setLoanType()},
             tracking: { key: 'my_account', topic: 'btn_sec', entity: 'bill' }
-          }) : null) : null
+          }) : null
         }
         {
           gjjBillList && gjjBillList.length > 0 ?
@@ -191,7 +224,7 @@ class ZoneScene extends Component {
           tracking: { key: 'my_account', topic: 'btn_sec', entity: 'card_progress'}
         })}
       </View>
-    ) : null;
+    ) : null);
   }
 
   _renderNavItem(icon, txt, navProps) {
