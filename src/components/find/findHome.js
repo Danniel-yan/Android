@@ -37,7 +37,9 @@ export default class findHome extends Component {
             title={logined ?"网贷信用查询" : '登录'}
             toKey= {logined ? 'BlackListhome' : 'Login'}
             style={styles.navItem}
-            componentProps = {{TOKEY : 'BlackListhome'}}
+            componentProps={{
+                loginSuccess: () => { this.props.externalPush && this.props.externalPush({key: "BlackListhome", backRoute: { key: "MajorNavigation" }}) }
+            }}
             tracking={{ key: 'discover', topic: 'service', entity: 'blacklist' }}>
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>

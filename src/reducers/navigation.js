@@ -1,5 +1,5 @@
 
-
+import { Platform } from 'react-native';
 import { NavigationExperimental } from 'react-native';
 const { StateUtils: NavigationStateUtils } = NavigationExperimental;
 
@@ -36,7 +36,7 @@ const initState = {
     LoanScene: {
       index: 0,
       routes: [{ key: 'LoanScene'}],
-      text: '贷款',
+      text: !Platform.OS == 'ios' ?'贷款' : '推荐',
       isLarge : true,
       icon: iconLoan,
       activeIcon: iconLoanActive
@@ -64,7 +64,7 @@ const initState = {
     activeIcon: iconHomeActive,
     sceneKey: 'HomeScene'
   }, {
-    text: '贷款',
+    text: !Platform.OS == 'ios' ?'贷款' : '推荐',
     icon: iconLoan,
     activeIcon: iconLoanActive,
     sceneKey: 'LoanScene'
