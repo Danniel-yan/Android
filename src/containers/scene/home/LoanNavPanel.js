@@ -12,7 +12,8 @@ function mapStateToProps(state) {
     loginUser: state.loginUser,
     token: state.fillUserInfo.token,
     isIOSVerifying: state.iosConfig.isIOSVerifying,
-    iosFetched: state.iosConfig.fetched
+    iosFetched: state.iosConfig.fetched,
+    isIOS:state.iosConfig.isIOS
   }
 }
 

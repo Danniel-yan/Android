@@ -239,7 +239,7 @@ export default class LoanDetailScene extends Component {
           {...this._chaoshidaiRouteProps()}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text="去贷款"
+          text={this.props.isIOS?'立即查看' : "去贷款"}
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           />
@@ -254,7 +254,7 @@ export default class LoanDetailScene extends Component {
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text="去贷款"
+          text={this.props.isIOS?'立即查看' : "去贷款"}
           onPress={() => {this.__skipToSafari__(detail.url)}}
           />
       ) : (
@@ -263,7 +263,7 @@ export default class LoanDetailScene extends Component {
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text="去贷款"
+          text={this.props.isIOS?'立即查看' : "去贷款"}
           web={detail.url}
           title={detail.title}
           componentProps={{tracking:
@@ -278,7 +278,7 @@ export default class LoanDetailScene extends Component {
       <ExternalPushLink
         style={styles.loanButton}
         textStyle={styles.loanButtonText}
-        text="去贷款"
+        text={this.props.isIOS?'立即查看' : "去贷款"}
         toKey="FillUserInfo"
         title="完善个人信息"
         componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
