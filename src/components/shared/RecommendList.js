@@ -102,7 +102,7 @@ const loanItem = StyleSheet.create({
       marginLeft:10,
     },
     txt:{
-      color:'#333',
+      color:'#999',
       fontSize:12,
     },
     bottom:{
