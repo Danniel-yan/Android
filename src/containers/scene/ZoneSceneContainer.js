@@ -167,7 +167,7 @@ class ZoneScene extends Component {
     bankBillList = bankBillList.filter(bill => bill.status == 8);
     gjjBillList = gjjBillList.filter(bill => bill.status == 8);
 
-    return !this.props.isIOS ? (
+    return this.props.isIOS ? (
       <View>
           {this._renderNavItem(require('assets/zone/gongjijinbaogao.png'), "公积金报告", {
               toKey: loginUser.info ? "GjjReport" : 'Login',componentProps:{loginSuccess :() => this.props.externalPush({key:'GjjReport',title:'公积金报告',backRoute: { key: "MajorNavigation" }})}, title: loginUser.info ? "公积金报告" : '登录', prePress: () => {
