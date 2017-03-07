@@ -53,7 +53,7 @@ export default class HomeScene extends Component {
           { this._renderBroadcast() }
           <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}}/>
           {this._renderLoan()}
-          { this.props.isIOS ? null : this._renderCard()}
+          {this._renderCard()}
         </ScrollView>
 
         <SecretGardenModal onCancel={() => this.setState({showSecret: false})} visible={this.state.showSecret}/>
