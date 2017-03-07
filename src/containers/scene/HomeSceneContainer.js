@@ -5,6 +5,8 @@ import { setAmount } from 'actions/scene/fast/filterList';
 import HomeScene from 'components/scene/HomeScene';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 
+import fetchHomeOperating from 'actions/scene/home/operating'
+
 function mapStateToProps(state) {
   return {
     isIOSVerifying: state.iosConfig.isIOSVerifying,
@@ -21,6 +23,7 @@ function mapDispatchToProps(dispatch) {
     majorPop: route => dispatch(majorPop(route)),
     externalPush: route => dispatch(externalPush(route)),
     externalPop: () => dispatch(externalPop()),
+    fetchingIndexConfig: () => dispatch(fetchHomeOperating())
   }
 }
 

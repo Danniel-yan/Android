@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetching: () => dispatch(fetchHomeOperating())
+    fetching: () => {}
   }
 }
 
