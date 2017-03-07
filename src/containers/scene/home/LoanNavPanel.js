@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import LoanNavPanel from 'components/LoanNavPanel';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
 import { externalPush, majorTab } from 'actions/navigation';
 import { setAmount } from 'actions/scene/fast/filterList';
@@ -13,7 +15,11 @@ function mapStateToProps(state) {
     token: state.fillUserInfo.token,
     isIOSVerifying: state.iosConfig.isIOSVerifying,
     iosFetched: state.iosConfig.fetched,
-    isIOS:state.iosConfig.isIOS
+    isIOS:state.iosConfig.isIOS,
+
+    isFetching: state.homeOperating.isFetching,
+    fetched: state.homeOperating.fetched,
+    topBanner: state.homeOperating.operating.index_top_banner || {}
   }
 }
 
@@ -22,8 +28,9 @@ function mapDispatchToProps(dispatch) {
     externalPush: route => dispatch(externalPush(route)),
     majorTab: route => dispatch(majorTab(route)),
     setLoanType: () => dispatch(onlineActions.setLoanType(0)),
-    pbocInitial: () => dispatch(onlineActions.pboc.initial())
+    pbocInitial: () => dispatch(onlineActions.pboc.initial()),
+    fetching: () => {}
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoanNavPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, LoanNavPanel));

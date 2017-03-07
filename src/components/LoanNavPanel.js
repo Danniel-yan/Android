@@ -80,14 +80,14 @@ class LoanNavPanel extends Component {
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/kanpingji.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>看评级</Text>
             </ExternalPushLink>
-            <ExternalPushLink
-                tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend_all' }}
+            {this.props.topBanner && this.props.topBanner.pic ? (<ExternalPushLink
+                tracking={{key: 'homepage', topic: 'btn_sec', entity: '' }}
                 title="送红包"
-                toKey="RecLoanScene"
+                web={this.props.topBanner.url}
                 style={LNPStyles.navItem}>
-              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/songhongbao.gif', width : 50, height: 50}}></Image>
+              <Image source={{uri : this.props.topBanner.pic, width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>送红包</Text>
-            </ExternalPushLink>
+            </ExternalPushLink>) : null}
           </View>
           ) :
           (<View style={{flex:1,flexDirection:"row", alignItems:"center"}}>

@@ -22,10 +22,7 @@ export default class LoanList extends Component {
       </View>
     )
   }
-  componentDidMount(){
-    console.log('数据。。。。')
-    console.log(this.props.loans+ '数据源')
-  }
+
   renderLoan(data, sID, rowID){
     return(
       <ExternalPushLink

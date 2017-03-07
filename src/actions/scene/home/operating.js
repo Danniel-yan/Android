@@ -21,10 +21,11 @@ export function fetchingError(err) {
 }
 
 export default function homeOperating() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(fetchingOperating());
+    var state = getState(), isIOS = state.iosConfig && state.iosConfig.isIOS;
 
-    get('/app/index-config')
+    get(isIOS ? '/app/ios-index-config' : '/app/index-config')
       .then(response => dispatch(receiveOperating(response.data)))
       .catch(err => {
         dispatch(fetchingError('网络错误'));
