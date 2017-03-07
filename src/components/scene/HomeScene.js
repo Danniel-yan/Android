@@ -47,6 +47,7 @@ export default class HomeScene extends Component {
         <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
         <ScrollView>
+          <Banner />
           <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>
           <LoanNavPanel />
           { this._renderBroadcast() }
