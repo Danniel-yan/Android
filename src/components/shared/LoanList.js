@@ -36,7 +36,7 @@ export default class LoanList extends Component {
               {data.title}
             </Text>
             <Image source={{uri: data.logo_list}} style={{width:50,height:50, marginBottom: 8}} />
-            {!Platform.OS == 'ios'?
+            {!(Platform.OS == 'ios')?
             <View>
               <Text style={styles.flexContainerColumnDes}>
                 <Text style={styles.flexContainerColumnPrimary}>{data.interest}</Text>{data.interest_period}费率
