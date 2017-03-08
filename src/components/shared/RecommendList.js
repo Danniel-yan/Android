@@ -44,7 +44,7 @@ export default class RecommendList extends Component {
         title={data.title}
         toKey="LoanDetailScene"
         componentProps={{fetchingParams: data.id, ...data }} >
-        <View style={styles.flexContainerRow}>
+        <View style={[styles.flexContainerRow,{paddingVertical:this.props.isIOS? 15 : 10}]}>
           <RemoteImage uri={data.logo_list} style={styles.thumbnail} />
           {!this.props.isIOS ?
             <View style={styles.rightContainer}>
