@@ -36,7 +36,7 @@ const initState = {
     LoanScene: {
       index: 0,
       routes: [{ key: 'LoanScene'}],
-      text: !Platform.OS == 'ios' ?'贷款' : '推荐',
+      text: !(Platform.OS == 'ios') ?'贷款' : '推荐',
       isLarge : true,
       icon: iconLoan,
       activeIcon: iconLoanActive
