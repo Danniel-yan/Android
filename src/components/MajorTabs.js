@@ -17,6 +17,7 @@ class MajorTabs extends Component {
 
   render() {
     var iconCardSceneForHide = this.props.isIOSVerifying ? "CardScene" : null,
+      sceneTxtForChange = this.props.isIOSVerifying ? "LoanScene" : null
       nav = this.props.nav, tabs =  [];
 
     for(var key in nav) {
@@ -31,6 +32,9 @@ class MajorTabs extends Component {
             tabs.map((tab, index) => {
               if(tab.sceneKey === iconCardSceneForHide)
                 return null;
+              if(tab.sceneKey === sceneTxtForChange ) {
+                tab = Object.assign({}, tab, { text: "推荐" });
+              }
               return <Tab isActive={this.props.curTab == tab.sceneKey } key={`majorTab${index}`} onPress={this.props.onMajorTabChange} {...tab}/>;
             })
           }

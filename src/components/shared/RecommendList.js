@@ -67,7 +67,7 @@ export default class RecommendList extends Component {
                 <View style={loanItem.bottom}>
                   <View style={loanItem.left}>
                     <Text style={loanItem.colorTxt}>{data.ios_shouyi}</Text>
-                    <Text style={loanItem.txt}>平均收益</Text>
+                    <Text style={loanItem.txt}>费率</Text>
                   </View>
                   <View style={loanItem.right}>
                     <Text style={loanItem.txt}>网友评价</Text>

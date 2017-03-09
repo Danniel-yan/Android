@@ -1,7 +1,7 @@
 import { AsyncStorage, Platform, NativeModules } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import tracker from 'utils/tracker.js';
-import codePush from "react-native-code-push";
+// import codePush from "react-native-code-push";
 import alert from 'utils/alert';
 
 export const environments = {
@@ -107,7 +107,8 @@ export function switchEnvironment(environment) {
   return AsyncStorage.removeItem('userToken').then(() => {
     AsyncStorage.setItem('environment', environment)
     .then(() => {
-      codePush.restartApp();
+      // codePush.restartApp();
+      alert("请重新启动App");
     })
   });
 }

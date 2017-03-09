@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import reducers from 'reducers';
 
-import codePush from "react-native-code-push";
+// import codePush from "react-native-code-push";
 import Main from 'containers/Main';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
