@@ -4,7 +4,7 @@ import findHome from 'components/find/findHome';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import pboc from 'actions/pboc';
 import { externalPush } from 'actions/navigation';
-
+import CertificationEntry from 'high-order/CertificationEntry';
 
 function mapStateToProps(state) {
   return {
@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(trackingScene(findHome));
+export default CertificationEntry(connect(mapStateToProps,mapDispatchToProps)(trackingScene(findHome)));
