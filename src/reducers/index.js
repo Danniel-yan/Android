@@ -28,6 +28,8 @@ import articalList from './find/artical';
 
 import blackListData from './blackList';
 
+import certificationEntry from './certification/entryKey';
+
 export default combineReducers({
   loginUser,
   cardConfig,
@@ -53,5 +55,7 @@ export default combineReducers({
   findOperating,
   blackListData,
   articalList,
-  recLoan
+  recLoan,
+
+  certificationEntry
 });
