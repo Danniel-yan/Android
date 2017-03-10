@@ -70,7 +70,7 @@ class LoanNavPanel extends Component {
                 toKey="LoanScene"
                 style={LNPStyles.navItem}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/jisudaikuan.png', width : 50, height: 50}}></Image>
-              <Text style={LNPStyles.navTxt}>推荐</Text>
+              <Text style={LNPStyles.navTxt}>{this.props.isIOSVerifying ? "推荐":"贷款"}</Text>
             </MajorTabLink>
             <ExternalPushLink
                 tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend_all' }}

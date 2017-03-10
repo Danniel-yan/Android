@@ -230,7 +230,7 @@ export default class LoanDetailScene extends Component {
 
     if(this.props.isIOSVerifying) { return null; }
 
-    let detail = this.props.detail;
+    let detail = this.props.detail, btnTxt = this.props.isIOS? '立即申请' : "去贷款";
 
     if(this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj) {
       return (
@@ -239,7 +239,7 @@ export default class LoanDetailScene extends Component {
           {...this._chaoshidaiRouteProps()}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text={this.props.isIOS?'立即查看' : "去贷款"}
+          text={btnTxt}
           tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           />
@@ -254,7 +254,7 @@ export default class LoanDetailScene extends Component {
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text={this.props.isIOS?'立即查看' : "去贷款"}
+          text={btnTxt}
           onPress={() => {this.__skipToSafari__(detail.url)}}
           />
       ) : (
@@ -263,7 +263,7 @@ export default class LoanDetailScene extends Component {
                      title: detail.title, amount: this.state.amount, period: this.state.value}}
           style={styles.loanButton}
           textStyle={styles.loanButtonText}
-          text={this.props.isIOS?'立即查看' : "去贷款"}
+          text={btnTxt}
           web={detail.url}
           title={detail.title}
           componentProps={{tracking:
