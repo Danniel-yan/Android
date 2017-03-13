@@ -57,7 +57,7 @@ class GjjStatus extends Component {
     let image = ingImage;
     let button = '';
     let statusText = (<Text style={styles.text}>正在导入...</Text>);
-    let popKey = "CertificationHome", pushKey = null;
+    let popKey = "CertificationHome", pushKey = null, backRoute = null;
     let tracking = { key: 'PAF_report', topic: 'fail', entity: "try_again", event: 'clk' };
 
     if(loanType == 0) popKey = "CreditLoan";
@@ -70,6 +70,7 @@ class GjjStatus extends Component {
       if(loanType == 0) {
         button = '立即查看';
         pushKey = "GjjReport";
+        backRoute = this.props.certificationEntryKey ? { key: this.props.certificationEntryKey } : {key: "CreditLoan", title: "信用贷"}
       }
       tracking = { key: 'PAF_report', topic: 'success', entity: "complete", event: 'clk' };
     } else if(this.state.checked && status == 'failure') {
@@ -96,7 +97,7 @@ class GjjStatus extends Component {
               text={button}
               title={"公积金报告"}
               toKey={pushKey}
-              backRoute={{key: "CreditLoan", title: "信用贷"}}
+              backRoute={backRoute}
               tracking={tracking}
               />
           ) : (
@@ -155,4 +156,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(GjjStatus));
+import { CertificationOutput } from 'high-order/Certification';
+
+export default CertificationOutput(connect(mapStateToProps, mapDispatchToProps)(trackingScene(GjjStatus)));

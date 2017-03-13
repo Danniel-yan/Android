@@ -134,6 +134,14 @@ export default function navigation(state = initState, action) {
       return majorPop(state);
     case 'majorTab':
       return majorTab(state, action.tabName);
+
+    case 'setCurrentBackRoute':
+      routes = state.routes;
+      // const lastestRoute = routes[routes.length - 1];
+      // const backRoute = lastestRoute.backRoute;
+      routes[routes.length - 1] && (routes[routes.length - 1].backRoute = action.backRoute);
+      return state;
+
     default:
       return state;
   }

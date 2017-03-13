@@ -4,7 +4,7 @@ import findHome from 'components/find/findHome';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import pboc from 'actions/pboc';
 import { externalPush } from 'actions/navigation';
-import CertificationEntry from 'high-order/CertificationEntry';
+import { CertificationEntry } from 'high-order/Certification';
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +15,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     pboc: params => dispatch(pboc(params)),
-    externalPush: route => dispatch(externalPush(route))
+    externalPush: route => dispatch(externalPush(route)),
+    setLoanType: () => dispatch({ type: "SetLoanType", value: 0 })
   }
 }
 

@@ -135,4 +135,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(YysFormStatus));
+import { CertificationOutput } from 'high-order/Certification';
+
+export default CertificationOutput(connect(mapStateToProps, mapDispatchToProps)(trackingScene(YysFormStatus)));

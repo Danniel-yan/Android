@@ -280,6 +280,8 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+import { CertificationEntry } from 'high-order/Certification'
+
+export default CertificationEntry(connect(mapStateToProps, mapDispatchToProps)(
   trackingScene(CertificationHome)
-);
+));

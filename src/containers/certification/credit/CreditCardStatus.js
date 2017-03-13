@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
 
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import actions from 'actions/online';
+import { CertificationOutput } from 'high-order/Certification';
 
 function mapStateToProps(state, ownProps) {
   // return { loanType: 0 }
@@ -139,4 +140,4 @@ function mapDispatch(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus));
+export default CertificationOutput(connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus)));

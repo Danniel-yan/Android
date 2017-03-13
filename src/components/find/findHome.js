@@ -14,6 +14,10 @@ const { width, height } = Dimensions.get('window');
 export default class findHome extends Component {
   tracking = 'discover';
 
+  componentDidMount() {
+    this.props.setLoanType && this.props.setLoanType();
+  }
+
   render (){
     const logined = this.props.loginUser.info;
     return(
