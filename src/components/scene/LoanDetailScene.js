@@ -355,7 +355,7 @@ export default class LoanDetailScene extends Component {
         alert("请打开定位");
         this.setState({ checkingGPS: false })
         reject('');
-      });
+      }, {timeout: 5000});
     })
   }
 

@@ -197,6 +197,7 @@ class YysForm extends Component {
             label={field.show_name}
             style={{wrap: styles.formWrap,input: styles.formField }}
             value={this.state.form[field.name]}
+            editable={!(field.show_name == '姓名' || field.show_name == '身份证号')}
             placeholder={'请输入'+field.show_name}
             secureTextEntry={ispwd}
             maxLength={30}
