@@ -27,23 +27,24 @@ class LoanDetail extends Component {
   render() {
     let bankInfo = this.props.bankInfo;
     let repayAmount = this.props.repayAmount;
-    let props = this.props.loanDetail;
-    const serviceAmount = props.repayPlanResults[0].repayAmount;
-    const plans = props.repayPlanResults.slice(1);
+    let loanDetail = this.props.loanDetail;
+    let repayDetail = this.props.repayDetail;
+    const serviceAmount = loanDetail.repayPlanResults[0].repayAmount;
+    const plans = loanDetail.repayPlanResults.slice(1);
     let url=exportUrl('/loanctcf/contract-html');
-    url =url+"&loan_type="+props.loan_type+"&show_html=1";
+    url =url+"&loan_type="+this.props.loan_type+"&show_html=1";
 
     return (
       <ScrollView>
-        <L2RItem left="合同金额" right={props.contractAmount + '元'}/>
+        <L2RItem left="合同金额" right={loanDetail.contractAmount + '元'}/>
         <L2RItem left="手续费" right={serviceAmount + '元'}/>
-        <L2RItem left="借款期限" right={props.totalLoanRepaymentTerms+'期'}/>
-        <L2RItem left="月费率" right={(props.monthFee || props.interestRate) + "%"}/>
+        <L2RItem left="借款期限" right={loanDetail.totalLoanRepaymentTerms+'期'}/>
+        <L2RItem left="月费率" right={(loanDetail.monthFee || loanDetail.interestRate) + "%"}/>
         {
           this._renderWebItem("合同", url)
         }
         {
-          this._renderViewType(plans, bankInfo, repayAmount)
+          this._renderViewType(plans, bankInfo, repayAmount, repayDetail)
         }
 
       </ScrollView>
@@ -51,47 +52,42 @@ class LoanDetail extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true})
-    if(this.submitting) { return; }
-    this.submitting = true;
+
   }
 
-  _renderViewType(plans, bankInfo, repayAmount) {
-    {
-      if (this.props.loan_type == loanType.huankuan) {
-        let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
-        return(
-          <View>
-            {
-              this._renderNavItem("还款计划表",{
-                tracking: {key: 'todo', topic: 'todo', entity: 'todo'},
-                toKey: "OnlineTrialRefundPlan",
-                title: "还款计划",
-                componentProps: {plans: plans}
-              })
-            }
-            <L2RItem left="当前待还" right={repayAmount.amount}/>
-            <L2RItem left="还款银行卡" right={bankname}/>
+  _renderViewType(plans, bankInfo, repayAmount, repayDetail) {
+    if (this.props.loan_type == loanType.huankuan) {
+      let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
+      return(
+        <View>
+          {
+            this._renderNavItem("还款计划表",{
+              tracking: {key: 'todo', topic: 'todo', entity: 'todo'},
+              toKey: "OnlineTrialRefundPlan",
+              title: "还款计划",
+              componentProps: {plans: repayDetail.periodStatusVos, repayment: true}
+            })
+          }
+          <L2RItem left="当前待还" right={repayAmount.amount + '元'}/>
+          <L2RItem left="还款银行卡" right={bankname}/>
 
-            <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
-              <ProcessingButton
-                processing={this.state.submitting}
-                onPress={this._submit.bind(this)}
-                style={styles.submitBtn}
-                textStyle={styles.submitBtnText}
-                disabled={this.props.applyAmount <= 0}
-                text="一键还款"/>
-            </View>
+          <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
+            <ProcessingButton
+              onPress={this._submit.bind(this)}
+              style={styles.submitBtn}
+              textStyle={styles.submitBtnText}
+              disabled={repayAmount.amount <= 0}
+              text="一键还款"/>
           </View>
-        )
-      }else{
-        return(
-          <View>
-            <GroupTitle title="还款计划表"/>
-            <RefundPlan plans={plans}/>
-          </View>
-        )
-      }
+        </View>
+      )
+    }else{
+      return(
+        <View>
+          <GroupTitle title="还款计划表"/>
+          <RefundPlan plans={plans}/>
+        </View>
+      )
     }
   }
 
@@ -160,29 +156,20 @@ import actions from 'actions/online';
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching,
+    isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching || state.online.repayAmount.isFetching || state.online.repayDetail.isFetching,
     loanDetail: state.online.loanDetail,
     bankInfo: state.online.bankInfo,
-    repayAmount: state.online.repayAmount
+    repayAmount: state.online.repayAmount,
+    repayDetail: state.online.repayDetail
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  // if (this.props.loan_type == loanType.huankuan) {
     return {
       fetching: () => {
-        dispatch(actions.loanDetail()),
-        dispatch(actions.bankInfo()),
-        dispatch(actions.repayAmount())
+        dispatch(actions.loanDetail())
       }
     }
-  // }else {
-  //   return {
-  //     fetching: () => {
-  //       dispatch(actions.loanDetail())
-  //     }
-  //   }
-  // }
 }
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);

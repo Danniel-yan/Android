@@ -2,6 +2,7 @@ import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
 import bankInfo from './bankInfo';
+import repayDetail from './repayDetail';
 import submitCreditCard from './submitCreditCard';
 import userInfo, { creditScore } from './userInfo';
 import pickers from './pickers';
@@ -23,6 +24,7 @@ export default {
   loanDetail,
   bankInfo,
   repayAmount,
+  repayDetail,
   contractBanks,
   applyResult,
   status,

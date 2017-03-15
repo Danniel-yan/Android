@@ -1,9 +1,17 @@
 import { get, post, responseStatus } from 'utils/fetch';
+import actions from 'actions/online';
+import { loanType } from 'constants';
 
 export default function(dispatch) {
 
   return (dispatch, getState) => {
     var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
+
+    if (loan_type == loanType.huankuan) {
+      dispatch(actions.bankInfo())
+      dispatch(actions.repayAmount())
+      dispatch(actions.repayDetail())
+    }
 
     dispatch({ type: 'requestOnlineLoanDetail' })
 
