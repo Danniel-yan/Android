@@ -26,9 +26,8 @@ class LoanDetail extends Component {
 
   render() {
     let bankInfo = this.props.bankInfo;
+    let repayAmount = this.props.repayAmount;
     let props = this.props.loanDetail;
-    console.log("bankinfo");
-    console.log(bankInfo);
     const serviceAmount = props.repayPlanResults[0].repayAmount;
     const plans = props.repayPlanResults.slice(1);
     let url=exportUrl('/loanctcf/contract-html');
@@ -44,7 +43,7 @@ class LoanDetail extends Component {
           this._renderWebItem("合同", url)
         }
         {
-          this._renderViewType(plans, bankInfo)
+          this._renderViewType(plans, bankInfo, repayAmount)
         }
 
       </ScrollView>
@@ -57,7 +56,7 @@ class LoanDetail extends Component {
     this.submitting = true;
   }
 
-  _renderViewType(plans, bankInfo) {
+  _renderViewType(plans, bankInfo, repayAmount) {
     {
       if (this.props.loan_type == loanType.huankuan) {
         let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
@@ -71,7 +70,7 @@ class LoanDetail extends Component {
                 componentProps: {plans: plans}
               })
             }
-            <L2RItem left="当前待还" right="todo"/>
+            <L2RItem left="当前待还" right={repayAmount.amount}/>
             <L2RItem left="还款银行卡" right={bankname}/>
 
             <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
@@ -163,17 +162,27 @@ function mapStateToProps(state) {
   return {
     isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching,
     loanDetail: state.online.loanDetail,
-    bankInfo: state.online.bankInfo
+    bankInfo: state.online.bankInfo,
+    repayAmount: state.online.repayAmount
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    fetching: () => {
-      dispatch(actions.loanDetail()),
-      dispatch(actions.bankInfo())
-    },
-  }
+  // if (this.props.loan_type == loanType.huankuan) {
+    return {
+      fetching: () => {
+        dispatch(actions.loanDetail()),
+        dispatch(actions.bankInfo()),
+        dispatch(actions.repayAmount())
+      }
+    }
+  // }else {
+  //   return {
+  //     fetching: () => {
+  //       dispatch(actions.loanDetail())
+  //     }
+  //   }
+  // }
 }
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);

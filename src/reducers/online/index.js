@@ -3,6 +3,7 @@ import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
 import bankInfo from './bankInfo';
+import repayAmount from './repayAmount';
 import submitCreditCard from './submitCreditCard';
 import userInfo from './userInfo';
 import pickers from './pickers';
@@ -30,6 +31,7 @@ export default combineReducers({
   banks,
   bankDetail,
   bankInfo,
+  repayAmount,
   submitCreditCard,
   userInfo,
   pickers,

@@ -13,6 +13,7 @@ import preloan from './preloan';
 import applyResult from './applyResult';
 import contractBanks from './contractBanks';
 import loanDetail from './loanDetail';
+import repayAmount from './repayAmount';
 import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
@@ -21,6 +22,7 @@ import { initial, getStatus } from './pboc';
 export default {
   loanDetail,
   bankInfo,
+  repayAmount,
   contractBanks,
   applyResult,
   status,
