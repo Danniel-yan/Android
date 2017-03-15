@@ -4,6 +4,8 @@ import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
+import MyTestScene from './scene/MyTestSceneContainer'
+import RepaymentResult from './scene/RepaymentResultContainer'
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'containers/scene/ZoneSceneContainer';
 import Login from 'components/Login';
@@ -82,6 +84,8 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'MessagesScene', module: MessagesScene},
   { key: 'LoanScene', module: FastLoanScene },
   { key: 'RecLoanScene', module: RecLoanScene },
+  { key: 'MyTestScene', module: MyTestScene },
+  { key: 'RepaymentResult', module: RepaymentResult },
   { key: 'CardScene', module: CardScene },
   { key: 'ZoneScene', module: ZoneScene },
   { key: 'LoanDetailScene', module: LoanDetailScene },

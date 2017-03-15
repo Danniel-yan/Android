@@ -129,7 +129,7 @@ class LoanNavPanel extends Component {
 
   propTypes: {
     pressNumberBtn: propTypes.func.isRequired, // 点击input右边Button
-    pressIconBtn: propTypes.func.isRequired, // 点击Icon, 传参Number-> 0: "推荐贷款", 1: "极速贷款", 2:"查信用"
+    pressIconBtn: propTypes.func.isRequired // 点击Icon, 传参Number-> 0: "推荐贷款", 1: "极速贷款", 2:"查信用"
   }
 }
 
