@@ -10,7 +10,7 @@ export default function(dispatch) {
     post(`/loanctcf/contract-content`, {loan_type}).then(response => {
       // TODO remove
       //      response =
-      //{
+      // {
       //    "res": 1,
       //    "data": {
       //        "applyAmount": 10000, //贷款金额
@@ -34,7 +34,7 @@ export default function(dispatch) {
       //            }
       //        ]
       //    }
-      //}
+      // }
 
       if(response.res == responseStatus.success) {
         dispatch({ type: 'receiveOnlineLoanDetail', detail: response.data })

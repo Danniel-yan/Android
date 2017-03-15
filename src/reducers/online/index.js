@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
+import bankInfo from './bankInfo';
 import submitCreditCard from './submitCreditCard';
 import userInfo from './userInfo';
 import pickers from './pickers';
@@ -28,6 +29,7 @@ export default combineReducers({
   preloan,
   banks,
   bankDetail,
+  bankInfo,
   submitCreditCard,
   userInfo,
   pickers,

@@ -1,6 +1,7 @@
 import status from './status';
 import banks from './banks';
 import bankDetail from './bankDetail';
+import bankInfo from './bankInfo';
 import submitCreditCard from './submitCreditCard';
 import userInfo, { creditScore } from './userInfo';
 import pickers from './pickers';
@@ -19,6 +20,7 @@ import { initial, getStatus } from './pboc';
 
 export default {
   loanDetail,
+  bankInfo,
   contractBanks,
   applyResult,
   status,

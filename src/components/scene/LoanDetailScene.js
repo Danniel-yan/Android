@@ -232,7 +232,7 @@ export default class LoanDetailScene extends Component {
 
     let detail = this.props.detail, btnTxt = this.props.isIOS? '立即申请' : "去贷款";
 
-    if(this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj) {
+    if(this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj || this.props.detail.loan_type == loanType.huankuan) {
       return (
         <ExternalPushLink
           processing={this.state.checkingGPS}
