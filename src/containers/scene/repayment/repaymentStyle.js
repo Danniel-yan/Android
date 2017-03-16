@@ -28,22 +28,37 @@ export default StyleSheet.create({
         paddingRight: 10,
     },
     textinput: {
-        width: 100,
+        width: 160,
         textAlign: 'right',
-        padding:0
+        padding: 0
     },
     icon_bank: {
         width: 30,
         height: 30,
         marginLeft: 10
     },
-    text_bottom: {
-        height: 110,
+    text_bottom_view: {
+        height: 140,
         padding: 10,
         backgroundColor: '#ffffff',
         flexDirection: 'column',
-        marginTop: 5
+        marginTop: 5,
+        justifyContent:'center'
     },
+    text_bottom: {
+        fontSize: 12,
+        color: '#666666'
+    },
+    text_bottom_item: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    text_bottom_icon: {
+        width: 4,
+        height: 4,
+        marginRight:5,
+    },
+
     btnText: {
         fontSize: 18,
         color: colors.white,

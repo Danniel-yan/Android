@@ -52,6 +52,11 @@ class LoanDetail extends Component {
   }
 
   _submit() {
+    this.setState({ submitting: true})
+    if(this.submitting) { return; }
+    this.submitting = true;
+    this.props.externalPush({key : 'MyTestScene',title:'借款详情'})
+    //this.props.externalPush({key : 'RepaymentResult',title:'借款详情'})
 
   }
 
@@ -153,6 +158,7 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
+import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
   return {
@@ -165,11 +171,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-      fetching: () => {
-        dispatch(actions.loanDetail())
-      }
-    }
+  return {
+    fetching: () => {
+      dispatch(actions.loanDetail())
+    },
+   externalPush : route => dispatch(externalPush(route))
+  }
 }
 
 let SceneComponent = AsynCpGenerator(Loading, trackingScene(LoanDetail), true);

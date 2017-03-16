@@ -18,7 +18,7 @@ export default class VerifyButton extends Component {
     } = this.props;
 
     let mobileValid = validators.mobile(mobile);
-    
+
     return <CountdownButton
       ref="btn"
       {...props}

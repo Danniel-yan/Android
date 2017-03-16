@@ -13,8 +13,14 @@ import {
     Text,
     TextInput,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
+
+import repaymentInfo from '.././MyTestSceneContainer';
+import { post, responseStatus } from 'utils/fetch';
+//import { loanType } from 'constants';
+//import { connect } from 'react-redux';
 
 //确定事件函数confirmAction
 //发送验证码事件hintAction
@@ -31,17 +37,73 @@ class repaymentVerifyCode extends Component {
             text: '',
             time: '获取验证码',
             sendHint: false,
+            ticket_id: '',
+            errorinfo: ''
+            //mobile: this.props.bankInfo.mobile,
+            //idnum: this.props.bankInfo.id_no,
+            //realname: this.props.bankInfo.name,
+            //bank_card_no: this.props.bankInfo.bank_card_no,
+            //repay_amount: this.props.repayAmount.amount.toString(),
+            //bank_name: this.props.bankInfo.bank_name,
+            //loan_type: this.props.loanType,
+
         };
     }
 
     open = ()=> {
+        //let mobile = this.state.mobile
+        //let realname = this.state.realname
+        //let idnum = this.state.idnum
+        //let cardnum = this.state.bank_card_no
+        //let loan_type = this.state.loan_type
+        //let repay_amount = this.state.repay_amount
+        //console.log('弹窗中收到的信息')
+        //console.log(mobile)
+        //console.log(loan_type)
+        //post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
+        //    .then(res => {
+        //        console.log(res)
+        //        console.log('/payctcfloan/create')
+        //        if (res.res == responseStatus.failure) {
+        //            //this.refs.btn.reset();
+        //        }
+        //    })
+        //    .catch(console.log)
+        AsyncStorage.getItem('ticket_id').then(ticket_id => {
+            console.log(ticket_id)
+            this.state.ticket_id = ticket_id
+        })
+
+        this.authCodeAction()
         this.setState({
             show: true,
         })
     }
 
     hintAction() {
-        return <Text style={styles.hint}>查询密码错误,请重新输入</Text>;
+        return <Text style={styles.hint}>{this.state.errorinfo}</Text>;
+    }
+
+    // 第一次点击按钮手动获取验证码
+    clickToGetVerifyCode() {
+        this.authCodeAction()
+        let ticket_id = this.state.ticket_id
+        if (this.state.sendHint == false) {
+            post('/payctcfloan/send-verify-code', {ticket_id})
+                .then(res => {
+                    console.log(res)
+                    console.log('/payctcfloan/send-verify-code')
+                    if (res.res == responseStatus.failure) {
+                        //this.refs.btn.reset();
+                        console.log('手动点击获取验证码失败')
+                        this.state.errorinfo = res.msg
+                    } else {
+                        console.log('手动点击获取验证码成功')
+                    }
+                })
+                .catch(console.log)
+        }
+
     }
 
 //验证码事件
@@ -82,16 +144,43 @@ class repaymentVerifyCode extends Component {
 
     //确定的事件
     confirmAction() {
-        var value = this.state.text;
-        if (typeof this.props.confirmAction == 'function') {
-            this.props.confirmAction(value);
-        }
+        let msgcode = this.state.text
+        let ticket_id = this.state.ticket_id
+        //if (typeof this.props.confirmAction == 'function') {
+        //    this.props.confirmAction(value);
+        //}
         this.state.time = "获取验证码";
         this.state.sendHint = false;
+        //this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})
+        post('/payctcfloan/confirm', {ticket_id, msgcode})
+            .then(res => {
+                console.log(res)
+                console.log('/payctcfloan/send-verify-code')
+                if (res.res == responseStatus.failure) {
+                    //this.refs.btn.reset();
+                    console.log('确认支付返回失败')
+                    this.state.errorinfo = res.msg
+                } else {
+                    console.log('确认支付返回成功')
+
+                }
+            })
+            .catch(console.log)
 
     }
 
+    componentDidMount() {
+        //这里获取从FirstPageComponent传递过来的参数: id
+        this.setState({
+            user: this.props.user,
+            pwd: this.props.pwd
+        });
+    }
+
     render() {
+        console.log("this.state.ticket_id")
+        console.log(this.state.ticket_id)
+        console.log('弹窗的界面render()')
         return (
             <Modal animationType={"none"}
                    transparent={true}
@@ -105,12 +194,12 @@ class repaymentVerifyCode extends Component {
                                        underlineColorAndroid="transparent" onChangeText={(text)=>{
                       this.state.text=text;
                       }}/>
-                            <TouchableOpacity style={styles.authCode} onPress={this.authCodeAction.bind(this)}>
+                            <TouchableOpacity style={styles.authCode} onPress={this.clickToGetVerifyCode.bind(this)}>
                                 <Text style={{color:'#FFFFFF'}}>{this.state.time}</Text>
                             </TouchableOpacity>
                         </View>
 
-                        {/* {this.hintAction()}*/}
+                        {this.hintAction()}
                         <View style={styles.slecteView}>
                             <TouchableOpacity style={[styles.selectBut,styles.lineVertical]}
                                               onPress={this.cancelAction.bind(this)}>
@@ -175,6 +264,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         marginLeft: 10,
         padding: 0,
+        paddingLeft: 5
 
     },
     authCode: {
@@ -186,7 +276,7 @@ const styles = StyleSheet.create({
         margin: 5,
         width: _width * 0.25,
         paddingLeft: 5,
-        paddingRight: 5
+        paddingRight: 5,
     },
     hint: {
         width: _width,
@@ -226,4 +316,16 @@ const styles = StyleSheet.create({
     }
 
 })
+
 export default repaymentVerifyCode;
+
+//function mapStateToProps(state) {
+//    return {
+//        isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching,
+//        bankInfo: state.online.bankInfo,
+//        repayAmount: state.online.repayAmount,
+//        loanType: state.online.loanType.type,
+//    }
+//}
+//
+//export default connect(mapStateToProps)(repaymentVerifyCode)

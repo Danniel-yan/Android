@@ -10,9 +10,29 @@ import repaymentStyle from './repayment/repaymentStyle';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 class RepaymentResultContainer extends Component {
+
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            ticket_id: ''
+        };
+    }
+
+    componentWillMount() {
+        console.log('还款结果界面进来了11')
+        AsyncStorage.getItem('ticket_id').then(ticket_id => {
+            console.log('还款结果界面进来了2222')
+            console.log(ticket_id)
+            this.state.ticket_id = ticket_id
+        })
+    }
+
     _continue_repay:{
 
         }
+
     render() {
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,styles.wrap_content]}>
@@ -32,7 +52,7 @@ class RepaymentResultContainer extends Component {
                             style={[repaymentStyle.btn, defaultStyles.centering]}/>
                 </View>
                 <View style={styles.bottom}>
-                    <Text style={{fontSize: 14}}>如果有疑问请拨打客服热线：021-888888</Text>
+                    <Text style={{fontSize: 14}}>如果有疑问请拨打客服热线：4009 160160</Text>
                 </View>
             </View>
 
