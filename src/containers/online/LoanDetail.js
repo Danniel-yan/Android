@@ -52,12 +52,7 @@ class LoanDetail extends Component {
   }
 
   _submit() {
-    this.setState({ submitting: true})
-    if(this.submitting) { return; }
-    this.submitting = true;
     this.props.externalPush({key : 'MyTestScene',title:'借款详情'})
-    //this.props.externalPush({key : 'RepaymentResult',title:'借款详情'})
-
   }
 
   _renderViewType(plans, bankInfo, repayAmount, repayDetail) {

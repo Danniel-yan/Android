@@ -17,6 +17,7 @@ import { InputGroup } from 'components/form';
 import { ExternalPushLink } from 'containers/shared/Link';
 import onlineStyles from './styles';
 import ErrorInfo from './ErrorInfo';
+import { loanType } from 'constants';
 
 const inputStatus = {
   checking: 1,
@@ -66,7 +67,7 @@ class LoanForm extends Component {
   }
 
   renderBankCardForms() {
-    return this.props.loanType == 1 ? (
+    return this.props.loanType == loanType.chaoshidai ? (
       <View>
         <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
@@ -100,7 +101,7 @@ class LoanForm extends Component {
   }
 
   renderFaceVerifyForms() {
-    return this.props.loanType == 2 ? (
+    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.huankuan)? (
       <View>
         <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
         <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})} />
