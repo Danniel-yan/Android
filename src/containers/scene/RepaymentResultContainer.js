@@ -10,6 +10,7 @@ import * as defaultStyles from 'styles';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush } from 'actions/navigation';
 import { post, responseStatus } from 'utils/fetch';
+import { receiveRepaymentAmount } from 'actions/online/repayAmount';
 
 var repaymenting_loading = require('assets/icons/repaymenting_loading.gif')
 var repayment_exception = require('assets/icons/repayment_exception.png')
@@ -112,6 +113,9 @@ class RepaymentResultContainer extends Component {
                                                 });
 
                                                 this.timer && clearTimeout(this.timer);
+                                                if (this.state.is_show_repayamount) {
+                                                  this.props.repaymentAmount(this.state.rest_repayamout)
+                                                }
                                                 break;
                                             case 5:
                                                 console.log('支付成功,还款失败跳转异常显示界面')
@@ -283,4 +287,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RepaymentResultContainer
+function mapDispatchToProps(dispatch) {
+    return {
+        repaymentAmount: amount => dispatch(receiveRepaymentAmount(amount))
+    }
+}
+
+export default connect(null,mapDispatchToProps)(RepaymentResultContainer)

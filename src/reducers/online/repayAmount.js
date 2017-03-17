@@ -9,6 +9,8 @@ export default function(state = initState, action) {
       return Object.assign({}, state, { isFetching: true, fetched: false});
     case 'receiveOnlineRepayAmount':
       return Object.assign({}, state, { isFetching: false, fetched: true, ...action.detail });
+      case 'receiveOnlineRepaymentAmount':
+        return Object.assign({}, state, { isFetching: false, fetched: true, ...action.detail });
     default:
       return state;
   }

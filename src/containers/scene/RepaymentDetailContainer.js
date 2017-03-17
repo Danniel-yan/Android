@@ -27,10 +27,10 @@ class RepaymentDetailContainer extends Component {
             logo: this.props.bankInfo.logo.px80,
             realname: this.props.bankInfo.name,
             bank_card_no: this.props.bankInfo.bank_card_no,
-            repay_amount: this.props.repayAmount.amount.toString(),
             bank_name: this.props.bankInfo.bank_name,
             loan_type: this.props.loanType,
-            arr_tips: this.props.repayAmount.tips,
+            repayAmount: this.props.repayAmount,
+            arr_tips: this.props.repayAmount.tips
         };
     }
 
@@ -40,7 +40,7 @@ class RepaymentDetailContainer extends Component {
         let idnum = this.state.idnum
         let cardnum = this.state.bank_card_no
         let loan_type = this.state.loan_type
-        let repay_amount = this.state.repay_amount
+        let repay_amount = this.state.repayAmount.amount
 
         post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
             .then(res => {
@@ -134,18 +134,19 @@ class RepaymentDetailContainer extends Component {
     }
 
     showTextInput() {
-        if (this.state.repay_amount > 500) {
+      let amount = this.state.repayAmount.amount.toString();
+        if (this.state.repayAmount.amount > 500) {
             return (
                 <TextInput
                     style={[repaymentStyle.textinput,repaymentStyle.textColor]}
                     underlineColorAndroid="transparent"
                     onChangeText={(repay_amount) => this.setState({repay_amount})}
-                    value={this.state.repay_amount}
+                    value={amount}
                 />
             )
         } else {
             return (
-                <Text style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {this.state.repay_amount}</Text>
+                <Text style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {this.state.repayAmount.amount}</Text>
             )
         }
     }
