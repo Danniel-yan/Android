@@ -125,9 +125,10 @@ class RepaymentResultContainer extends Component {
                                         }
                                         break;
                                     case 3:
-                                        console.log('还款失败,显示还款失败界面')
+                                        console.log('支付失败还款失败,显示还款失败界面')
                                         this.setState({
                                             showSubmitView: true,
+                                            is_show_repayamountfailed:true,
                                             status_icon: repayment_failed,
                                             status_text: '还款失败!',
                                             submit_text: '重新还款'
