@@ -35,7 +35,8 @@ class RepaymentResultContainer extends Component {
             is_show_repayamountfailed: false,
             status_text: '还款中...',
             status_icon: repaymenting_loading,
-            submit_text: ''
+            submit_text: '',
+            tips: []
         };
     }
 
@@ -107,6 +108,7 @@ class RepaymentResultContainer extends Component {
                                                     shoud_repayamout: res.data.repay_info.total_amount,
                                                     repayamout_done: res.data.repay_info.repay_amount,
                                                     rest_repayamout: res.data.repay_info.curr_amount,
+                                                    tips: res.data.repay_info.tips,
                                                     status_icon: repayment_success,
                                                     status_text: '还款成功!',
                                                     submit_text: '继续还款'
@@ -114,7 +116,7 @@ class RepaymentResultContainer extends Component {
 
                                                 this.timer && clearTimeout(this.timer);
                                                 if (this.state.is_show_repayamount) {
-                                                  this.props.repaymentAmount(this.state.rest_repayamout)
+                                                  this.props.repaymentAmount(this.state.rest_repayamout, this.state.tips)
                                                 }
                                                 break;
                                             case 5:
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
     return {
-        repaymentAmount: amount => dispatch(receiveRepaymentAmount(amount))
+        repaymentAmount: (amount,tips) => dispatch(receiveRepaymentAmount(amount,tips))
     }
 }
 

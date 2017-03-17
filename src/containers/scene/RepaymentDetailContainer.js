@@ -29,8 +29,7 @@ class RepaymentDetailContainer extends Component {
             bank_card_no: this.props.bankInfo.bank_card_no,
             bank_name: this.props.bankInfo.bank_name,
             loan_type: this.props.loanType,
-            repayAmount: this.props.repayAmount,
-            arr_tips: this.props.repayAmount.tips
+            repayAmount: this.props.repayAmount
         };
     }
 
@@ -104,19 +103,19 @@ class RepaymentDetailContainer extends Component {
                             <Image style={repaymentStyle.text_bottom_icon}
                                    source={require('assets/icons/repayment_bottom_text.png')}
                             />
-                            <Text>{this.state.arr_tips[0]}</Text>
+                            <Text>{this.state.repayAmount.tips[0]}</Text>
                         </View>
                         <View style={repaymentStyle.text_bottom_item}>
                             <Image style={repaymentStyle.text_bottom_icon}
                                    source={require('assets/icons/repayment_bottom_text.png')}
                             />
-                            <Text>{this.state.arr_tips[1]}</Text>
+                            <Text>{this.state.repayAmount.tips[1]}</Text>
                         </View>
                         <View style={repaymentStyle.text_bottom_item}>
                             <Image style={repaymentStyle.text_bottom_icon}
                                    source={require('assets/icons/repayment_bottom_text.png')}
                             />
-                            <Text>{this.state.arr_tips[2]}</Text>
+                            <Text>{this.state.repayAmount.tips[2]}</Text>
                         </View>
 
                     </View>

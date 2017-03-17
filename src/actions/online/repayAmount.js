@@ -17,10 +17,11 @@ export default function(dispatch) {
 
 }
 
-export function receiveRepaymentAmount(amount) {
+export function receiveRepaymentAmount(amount, tips) {
   return (dispatch, getState) => {
     var state = getState(), repayAmount = state.online.repayAmount;
     repayAmount.amount = amount;
+    repayAmount.tips = tips;
     dispatch({type: 'receiveOnlineRepaymentAmount',detail: repayAmount});
   }
 }
