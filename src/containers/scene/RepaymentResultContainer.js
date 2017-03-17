@@ -73,7 +73,7 @@ class RepaymentResultContainer extends Component {
                                             this.setState({
                                                 showSubmitView: true,
                                                 status_icon: repayment_exception,
-                                                status_text: '还款结果已提交银行对账中，请稍后再来查看',
+                                                status_text: '还款结果已提交银行对账中，\n请稍后再来查看',
                                                 submit_text: '确定'
                                             });
                                             this.timer && clearTimeout(this.timer);
@@ -92,7 +92,7 @@ class RepaymentResultContainer extends Component {
                                                     this.setState({
                                                         showSubmitView: true,
                                                         status_icon: repayment_exception,
-                                                        status_text: '还款结果已提交银行对账中，请稍后再来查看',
+                                                        status_text: '还款结果已提交银行对账中，\n请稍后再来查看',
                                                         submit_text: '确定'
                                                     });
                                                     this.timer && clearTimeout(this.timer);
