@@ -4,7 +4,7 @@ import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
-import MyTestScene from './scene/MyTestSceneContainer'
+import MyTestScene from './scene/RepaymentDetailContainer'
 import RepaymentResult from './scene/RepaymentResultContainer'
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'containers/scene/ZoneSceneContainer';
