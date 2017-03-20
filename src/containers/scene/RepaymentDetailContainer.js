@@ -54,14 +54,12 @@ class RepaymentDetailContainer extends Component {
         post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
             .then(res => {
 
-                console.log('/payctcfloan/create')
                 if (res.res == responseStatus.failure) {
-                    console.log('请求失败')
+                    console.log('创建支付请求失败')
                     alert(res.msg)
                     return
                 } else {
-                    console.log('请求成功')
-                    console.log(res.data.ticket_id)
+                    console.log('创建支付请求成功')
                     AsyncStorage.setItem('ticket_id', res.data.ticket_id)
                     this.refs.confirm.open();
                 }
@@ -86,9 +84,6 @@ class RepaymentDetailContainer extends Component {
     }
 
     render() {
-        console.log(this.props.bankInfo)
-        console.log(this.props.repayAmount)
-
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'

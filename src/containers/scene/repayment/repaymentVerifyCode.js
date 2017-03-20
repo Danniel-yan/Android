@@ -45,7 +45,6 @@ class repaymentVerifyCode extends Component {
 
     open = ()=> {
         AsyncStorage.getItem('ticket_id').then(ticket_id => {
-            console.log(ticket_id)
             this.state.ticket_id = ticket_id
         })
 
@@ -63,16 +62,12 @@ class repaymentVerifyCode extends Component {
     clickToGetVerifyCode() {
         this.state.errorinfo = ''
         this.authCodeAction()
-        console.log(this.state.sendHint)
         let ticket_id = this.state.ticket_id
         if (this.state.sendHint == false) {
             post('/payctcfloan/send-verify-code', {ticket_id})
                 .then(res => {
-                    console.log(res)
-                    console.log('/payctcfloan/send-verify-code')
                     if (res.res == responseStatus.failure) {
                         //this.refs.btn.reset();
-                        console.log('手动点击获取验证码失败')
                         this.state.errorinfo = res.msg
                     } else {
                         console.log('手动点击获取验证码成功')
@@ -139,12 +134,8 @@ class repaymentVerifyCode extends Component {
         //this.setState({
         //    isconfirm: true
         //})
-        console.log('确定按钮点击了')
         post('/payctcfloan/confirm', {ticket_id, msgcode})
             .then(res => {
-                console.log('确定按钮点击了,post执行了')
-                console.log(res)
-                console.log('/payctcfloan/send-verify-code')
                 if (res.res == responseStatus.failure) {
                     //this.refs.btn.reset();
                     console.log('确认支付返回失败')
@@ -159,26 +150,11 @@ class repaymentVerifyCode extends Component {
             .catch(console.log)
             .finally(()=> {
                 this.state.isconfirm = false;
-                //this.setState({isconfirm: false})
             })
-
-        //console.log('确认点击了')
-        //this.cancelAction()
-        ////console.log(this.props.mobile)
-        //this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})
 
     }
 
-    //componentDidMount() {
-    //    //这里获取从FirstPageComponent传递过来的参数: id
-    //    this.setState({
-    //        user: this.props.user,
-    //        pwd: this.props.pwd
-    //    });
-    //}
-
     render() {
-        console.log('repaymentVerifyCode弹窗的界面render()')
         return (
             <Modal animationType={"none"}
                    transparent={true}

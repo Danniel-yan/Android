@@ -41,28 +41,19 @@ class RepaymentResultContainer extends Component {
     }
 
     componentWillMount() {
-        console.log('还款结果界面componentWillMount进来了11')
         AsyncStorage.getItem('ticket_id').then(ticket_id => {
-            console.log('还款结果界面componentWillMount进来了2222')
-            console.log(ticket_id)
             let index = 0
             this.timer = setInterval(
                 () => {
                     index++
-                    console.log('index')
-                    console.log(index)
-                    console.log(this.state.requestPeriod)
                     post('/payorder/check-status', {ticket_id})
                         .then(res => {
                             if (res.res == responseStatus.failure) {
-                                console.log('状态请求失败')
+                                console.log('轮询状态请求失败')
                                 alert(res.msg)
                                 //return
                             } else {
-                                console.log('状态请求成功')
-                                console.log(res)
-                                console.log(res.data.status)
-                                console.log(res.data.repay_result)
+                                console.log('轮询状态请求成功')
                                 switch (res.data.status) {
                                     case 1:
                                         console.log('支付中,等待一分钟后跳转异常显示界面')
@@ -169,7 +160,6 @@ class RepaymentResultContainer extends Component {
     }
 
     render() {
-        console.log("render方法绘制了")
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,styles.wrap_content]}>
                 <View>
@@ -193,8 +183,6 @@ class RepaymentResultContainer extends Component {
     }
 
     _submitView() {
-        console.log('this.state.showSubmitView')
-        console.log(this.state.showSubmitView)
         return (this.state.showSubmitView == true ?
                 <Button onPress={() => this._continue_submit()}
                         text={this.state.submit_text}
@@ -206,8 +194,6 @@ class RepaymentResultContainer extends Component {
     }
 
     _showRepaymentInfo() {
-        console.log('this.state._showRepaymentInfo')
-        console.log(this.state._showRepaymentInfo)
         return (
             this.state.is_show_repayamount == true ? <View style={{marginTop:5}}>
                 <View style={styles.item}>
