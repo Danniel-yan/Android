@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import * as defaultStyles from 'styles';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush } from 'actions/navigation';
-import { post, responseStatus } from 'utils/fetch';
+import { post, responseStatus} from 'utils/fetch';
 import { receiveRepaymentAmount } from 'actions/online/repayAmount';
 
 var repaymenting_loading = require('assets/icons/repaymenting_loading.gif')
@@ -116,7 +116,7 @@ class RepaymentResultContainer extends Component {
 
                                                 this.timer && clearTimeout(this.timer);
                                                 if (this.state.is_show_repayamount) {
-                                                  this.props.repaymentAmount(this.state.rest_repayamout, this.state.tips)
+                                                    this.props.repaymentAmount(this.state.rest_repayamout, this.state.tips)
                                                 }
                                                 break;
                                             case 5:
@@ -134,7 +134,7 @@ class RepaymentResultContainer extends Component {
                                         console.log('支付失败还款失败,显示还款失败界面')
                                         this.setState({
                                             showSubmitView: true,
-                                            is_show_repayamountfailed:true,
+                                            is_show_repayamountfailed: true,
                                             status_icon: repayment_failed,
                                             status_text: '还款失败!',
                                             submit_text: '重新还款'
@@ -157,9 +157,14 @@ class RepaymentResultContainer extends Component {
         this.timer && clearTimeout(this.timer);
     }
 
-    _continue_repay:{
-
+    _continue_submit() {
+        if ('继续还款' == this.state.submit_text) {
+            this.props.externalPush({key: 'OnlineLoanDetail', title: '借款详情'})
         }
+        if ('确定' == this.state.submit_text) {
+            this.props.externalPush({key: 'MyTestScene', title: '借款详情'})
+        }
+    }
 
     render() {
         console.log("render方法绘制了")
@@ -189,7 +194,7 @@ class RepaymentResultContainer extends Component {
         console.log('this.state.showSubmitView')
         console.log(this.state.showSubmitView)
         return (this.state.showSubmitView == true ?
-                <Button onPress={() => this._continue_repay()}
+                <Button onPress={() => this._continue_submit()}
                         text={this.state.submit_text}
                         type="line"
                         textStyle={repaymentStyle.btnText}
@@ -291,8 +296,9 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
     return {
-        repaymentAmount: (amount,tips) => dispatch(receiveRepaymentAmount(amount,tips))
+        repaymentAmount: (amount, tips) => dispatch(receiveRepaymentAmount(amount, tips)),
+        externalPush: route => dispatch(externalPush(route))
     }
 }
 
-export default connect(null,mapDispatchToProps)(RepaymentResultContainer)
+export default connect(null, mapDispatchToProps)(RepaymentResultContainer)
