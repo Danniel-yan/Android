@@ -62,14 +62,15 @@ class RepaymentDetailContainer extends Component {
                 } else {
                     console.log('请求成功')
                     console.log(res.data.ticket_id)
-                    this.submitting = false;
-                    this.setState({submitting: false})
                     AsyncStorage.setItem('ticket_id', res.data.ticket_id)
                     this.refs.confirm.open();
                 }
             })
-            .catch(console.log)
-
+            .catch(()=>console.log)
+            .finally(()=> {
+                this.submitting = false;
+                this.setState({submitting: false})
+            })
 
         //callback();
 
