@@ -52,7 +52,7 @@ class RepaymentResultContainer extends Component {
                     console.log('index')
                     console.log(index)
                     console.log(this.state.requestPeriod)
-                    post('/payorder/check-this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})', {ticket_id})
+                    post('/payorder/check-status', {ticket_id})
                         .then(res => {
                             if (res.res == responseStatus.failure) {
                                 console.log('状态请求失败')
