@@ -21,13 +21,25 @@ import Button from 'components/shared/Button';
 
 
 export default class SecretGardenModal extends Component {
+  // 构造
+    constructor(props) {
+      super(props);
+      // 初始状态
+      this.mounted = true;
+    }
 
   state = { environment: null };
 
   componentDidMount() {
     AsyncStorage.getItem('environment').then(environment => {
-      this.setState({ environment });
+      if(this.mounted){
+        this.setState({ environment });
+      }
     });
+  }
+
+  componentWillUnmount(){
+    this.mounted = false
   }
 
   render() {

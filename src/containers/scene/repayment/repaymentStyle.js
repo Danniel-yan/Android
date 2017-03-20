@@ -70,7 +70,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.secondary,
         backgroundColor: '#FF003C',
-        bottom: 50
+        bottom: 50,
+        marginTop:5
     },
 
 });
