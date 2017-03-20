@@ -4,7 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import RefundPlan from './RefundPlan';
@@ -28,7 +29,6 @@ class LoanDetail extends Component {
     let bankInfo = this.props.bankInfo;
     let repayAmount = this.props.repayAmount;
     let loanDetail = this.props.loanDetail;
-    let repayDetail = this.props.repayDetail;
     const serviceAmount = loanDetail.repayPlanResults[0].repayAmount;
     const plans = loanDetail.repayPlanResults.slice(1);
     let url=exportUrl('/loanctcf/contract-html');
@@ -44,7 +44,7 @@ class LoanDetail extends Component {
           this._renderWebItem("合同", url)
         }
         {
-          this._renderViewType(plans, bankInfo, repayAmount, repayDetail)
+          this._renderViewType(plans, bankInfo, repayAmount)
         }
 
       </ScrollView>
@@ -52,31 +52,52 @@ class LoanDetail extends Component {
   }
 
   _submit() {
-    this.props.externalPush({key : 'RepaymentScene',title:'借款详情'})
+    if(this.submitting) { return; }
+
+    let loan_type = this.props.loan_type;
+    this.submitting = true;
+    this.setState({
+        submitting: true
+    })
+    post('/payctcfloan/pay-result', {loan_type})
+        .then(res => {
+          this.submitting = false;
+          this.setState({submitting: false})
+          if (res.res == responseStatus.failure || (res.data.status != 3 && res.data.status != 6)) {
+              this.props.externalPush({key : 'RepaymentScene',title:'借款详情'})
+          } else {
+              AsyncStorage.setItem('ticket_id', res.data.ticket_id)
+              this.props.externalPush({key : 'RepaymentResult',title:'还款结果'})
+          }
+        })
+        .catch(err => { console.log(err); })
+        .finally(() => {
+          this.submitting = false;
+          this.setState({submitting: false})
+        })
   }
 
-  _renderViewType(plans, bankInfo, repayAmount, repayDetail) {
+  _renderViewType(plans, bankInfo, repayAmount) {
     if (this.props.loan_type == loanType.huankuan) {
       let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
       return(
         <View>
           {
             this._renderNavItem("还款计划表",{
-              tracking: {key: 'todo', topic: 'todo', entity: 'todo'},
-              toKey: "OnlineTrialRefundPlan",
-              title: "还款计划",
-              componentProps: {plans: repayDetail.periodStatusVos, repayment: true}
+              toKey: "OnlineTrialRepaymentPlan",
+              title: "还款计划"
             })
           }
-          <L2RItem left="当前待还" right={repayAmount.amount + '元'}/>
+          <L2RItem left="当前待还" right={ repayAmount.status == 0 ? repayAmount.amount + '元' : '计算中...'}/>
           <L2RItem left="还款银行卡" right={bankname}/>
 
           <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
             <ProcessingButton
+              processing={this.state.submitting}
               onPress={this._submit.bind(this)}
               style={styles.submitBtn}
               textStyle={styles.submitBtnText}
-              disabled={repayAmount.amount <= 0}
+              disabled={repayAmount.status == 1 || repayAmount.amount <= 0}
               text="一键还款"/>
           </View>
         </View>
@@ -157,11 +178,10 @@ import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching || state.online.repayAmount.isFetching || state.online.repayDetail.isFetching,
+    isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching || state.online.repayAmount.isFetching,
     loanDetail: state.online.loanDetail,
     bankInfo: state.online.bankInfo,
-    repayAmount: state.online.repayAmount,
-    repayDetail: state.online.repayDetail
+    repayAmount: state.online.repayAmount
   }
 }
 

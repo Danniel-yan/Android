@@ -41,6 +41,7 @@ import OnlineReceiptCard from 'containers/online/ReceiptCard';
 import OnlineSignSuccess from 'containers/online/SignSuccess';
 import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
+import OnlineTrialRepaymentPlan from 'containers/online/TrialRepaymentPlan';
 
 import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
 import FundLogin from 'containers/certification/fund/FundLogin';
@@ -60,6 +61,7 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'OnlineYysForm', module: OnlineYysForm },
   { key: 'OnlineLoanDetail', module: OnlineLoanDetail },
   { key: 'OnlineTrialRefundPlan', module: OnlineTrialRefundPlan },
+  { key: 'OnlineTrialRepaymentPlan', module: OnlineTrialRepaymentPlan },
   { key: 'OnlineSignSuccess', module: OnlineSignSuccess },
   { key: 'OnlineReceiptCard', module: OnlineReceiptCard },
   { key: 'OnlineLoanSign', module: OnlineLoanSign },

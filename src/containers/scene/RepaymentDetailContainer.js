@@ -59,7 +59,6 @@ class RepaymentDetailContainer extends Component {
                     alert(res.msg)
                     return
                 } else {
-                    console.log('创建支付请求成功')
                     AsyncStorage.setItem('ticket_id', res.data.ticket_id)
                     this.refs.confirm.open();
                 }
