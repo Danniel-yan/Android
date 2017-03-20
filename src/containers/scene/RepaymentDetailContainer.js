@@ -15,6 +15,7 @@ import { post, responseStatus } from 'utils/fetch';
 import { alert } from 'utils/alert';
 import { loanType } from 'constants';
 import { externalPush } from 'actions/navigation';
+import ProcessingButton from 'components/shared/ProcessingButton'
 class RepaymentDetailContainer extends Component {
 
     // 构造
@@ -29,7 +30,8 @@ class RepaymentDetailContainer extends Component {
             bank_card_no: this.props.bankInfo.bank_card_no,
             bank_name: this.props.bankInfo.bank_name,
             loan_type: this.props.loanType,
-            repayAmount: this.props.repayAmount
+            repayAmount: this.props.repayAmount,
+            submitting: false
         };
     }
 
@@ -40,6 +42,12 @@ class RepaymentDetailContainer extends Component {
         let cardnum = this.state.bank_card_no
         let loan_type = this.state.loan_type
         let repay_amount = this.state.repayAmount.amount
+        if(this.submitting) { return; }
+
+        this.submitting = true;
+        this.setState({
+            submitting: true
+        })
 
         post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
             .then(res => {
@@ -52,12 +60,18 @@ class RepaymentDetailContainer extends Component {
                 }else{
                     console.log('请求成功')
                     console.log(res.data.ticket_id)
+                    this.submitting = false;
+                    this.setState({submitting: false})
                     AsyncStorage.setItem('ticket_id', res.data.ticket_id)
                     this.refs.confirm.open();
                 }
             })
             .catch(console.log)
 
+
+        this.submitting = false;
+        this.setState({submitting: false})
+        this.refs.confirm.open();
 
         //callback();
 
@@ -78,7 +92,8 @@ class RepaymentDetailContainer extends Component {
 
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
-                <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455' externalPush={() => this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})}></PopView>
+                <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
+                         externalPush={() => this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})}></PopView>
                 <View>
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
@@ -121,11 +136,12 @@ class RepaymentDetailContainer extends Component {
                     </View>
                 </View>
                 <View>
-                    <Button onPress={() => this._payctcFloanCreate()}
-                            text="确认还款"
-                            type="line"
-                            textStyle={repaymentStyle.btnText}
-                            style={[repaymentStyle.btn, defaultStyles.centering]}/>
+                    <ProcessingButton
+                        processing={this.state.submitting} onPress={() => this._payctcFloanCreate()}
+                        text="确认还款"
+                        type="line"
+                        textStyle={repaymentStyle.btnText}
+                        style={[repaymentStyle.btn, defaultStyles.centering]}/>
                 </View>
             </View>
 
@@ -133,7 +149,7 @@ class RepaymentDetailContainer extends Component {
     }
 
     showTextInput() {
-      let amount = this.state.repayAmount.amount.toString();
+        let amount = this.state.repayAmount.amount.toString();
         if (this.state.repayAmount.amount > 500) {
             return (
                 <TextInput
@@ -145,7 +161,8 @@ class RepaymentDetailContainer extends Component {
             )
         } else {
             return (
-                <Text style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {this.state.repayAmount.amount}</Text>
+                <Text
+                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {this.state.repayAmount.amount}</Text>
             )
         }
     }
@@ -173,4 +190,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(RepaymentDetailContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RepaymentDetailContainer)

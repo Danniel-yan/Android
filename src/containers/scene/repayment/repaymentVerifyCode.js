@@ -38,7 +38,8 @@ class repaymentVerifyCode extends Component {
             time: '获取验证码',
             sendHint: false,
             ticket_id: '',
-            errorinfo: ''
+            errorinfo: '',
+            isconfirm: false
         };
     }
 
@@ -115,7 +116,7 @@ class repaymentVerifyCode extends Component {
         this.setState({
             show: false,
             errorinfo: '',
-            sendHint:false
+            sendHint: false
         });
         if (showTime != undefined) clearInterval(showTime);
         this.state.time = "获取验证码";
@@ -131,8 +132,17 @@ class repaymentVerifyCode extends Component {
         //}
         this.state.time = "获取验证码";
         this.state.sendHint = false;
+        if (this.state.isconfirm)
+            return;
+
+        this.state.isconfirm = true
+        //this.setState({
+        //    isconfirm: true
+        //})
+        console.log('确定按钮点击了')
         post('/payctcfloan/confirm', {ticket_id, msgcode})
             .then(res => {
+                console.log('确定按钮点击了,post执行了')
                 console.log(res)
                 console.log('/payctcfloan/send-verify-code')
                 if (res.res == responseStatus.failure) {
@@ -147,6 +157,10 @@ class repaymentVerifyCode extends Component {
                 }
             })
             .catch(console.log)
+            .finally(()=> {
+                this.state.isconfirm = false;
+                //this.setState({isconfirm: false})
+            })
 
         //console.log('确认点击了')
         //this.cancelAction()
@@ -174,7 +188,7 @@ class repaymentVerifyCode extends Component {
                     <View style={styles.contentView}>
                         <Text style={styles.title}>请输入手机验证码:</Text>
                         <View style={styles.InputView}>
-                            <TextInput ref="input" style={styles.textInput} placeholder="请输入手机验证码"
+                            <TextInput ref="input" style={styles.textInput} maxLength={6} placeholder="请输入手机验证码"
                                        underlineColorAndroid="transparent" onChangeText={(text)=>{
                       this.state.text=text;
                       }}/>
