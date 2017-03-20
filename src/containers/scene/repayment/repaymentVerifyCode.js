@@ -92,7 +92,7 @@ class repaymentVerifyCode extends Component {
         showTime = setInterval(function () {
             if (totalTime == '0') {
                 that.setState({
-                    time: '获取验证码',
+                    time: '重发',
                     sendHint: false
                 });
                 clearInterval(showTime);

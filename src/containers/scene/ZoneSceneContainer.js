@@ -73,7 +73,7 @@ class ZoneScene extends Component {
                         this._renderNavItem(require('assets/zone/contact.png'), "联系我们", {
                             tracking: {key: 'my_account', topic: 'btn_sec', entity: 'icon_contact'},
                             toKey: "ContactScene", title:"联系我们"
-                            //toKey: "MyTestScene", title: "借款详情"
+                            //toKey: "RepaymentScene", title: "借款详情"
                         })
                     }
                     <TouchableOpacity onPress={() => this.clipWeiXing()}>

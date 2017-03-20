@@ -52,7 +52,7 @@ class RepaymentResultContainer extends Component {
                     console.log('index')
                     console.log(index)
                     console.log(this.state.requestPeriod)
-                    post('/payorder/check-status', {ticket_id})
+                    post('/payorder/check-this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})', {ticket_id})
                         .then(res => {
                             if (res.res == responseStatus.failure) {
                                 console.log('状态请求失败')
@@ -111,7 +111,7 @@ class RepaymentResultContainer extends Component {
                                                     tips: res.data.repay_info.tips,
                                                     status_icon: repayment_success,
                                                     status_text: '还款成功!',
-                                                    submit_text: '继续还款'
+                                                    submit_text: (res.data.repay_info.curr_amount) > 0 ? '继续还款' : '确定'
                                                 });
 
                                                 this.timer && clearTimeout(this.timer);
@@ -158,12 +158,14 @@ class RepaymentResultContainer extends Component {
     }
 
     _continue_submit() {
-        if ('继续还款' == this.state.submit_text) {
+        if ('继续还款' == this.state.submit_text && this.state.rest_repayamout > 0) {
+            this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
+        } else if ('确定' == this.state.submit_text) {
             this.props.externalPush({key: 'OnlineLoanDetail', title: '借款详情'})
+        } else if ('重新还款' == this.state.submit_text) {
+            this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
         }
-        if ('确定' == this.state.submit_text) {
-            this.props.externalPush({key: 'MyTestScene', title: '借款详情'})
-        }
+
     }
 
     render() {
@@ -183,7 +185,7 @@ class RepaymentResultContainer extends Component {
                     {this._submitView()}
                 </View>
                 <View style={styles.bottom}>
-                    <Text style={{fontSize: 14}}>如果有疑问请拨打客服热线：4009 160160</Text>
+                    <Text style={{fontSize: 14}}>如果有疑问请拨打客服热线：4009 160 160</Text>
                 </View>
             </View>
 
