@@ -42,7 +42,9 @@ class RepaymentDetailContainer extends Component {
         let cardnum = this.state.bank_card_no
         let loan_type = this.state.loan_type
         let repay_amount = this.state.repayAmount.amount
-        if(this.submitting) { return; }
+        if (this.submitting) {
+            return;
+        }
 
         this.submitting = true;
         this.setState({
@@ -57,7 +59,7 @@ class RepaymentDetailContainer extends Component {
                     console.log('请求失败')
                     alert(res.msg)
                     return
-                }else{
+                } else {
                     console.log('请求成功')
                     console.log(res.data.ticket_id)
                     this.submitting = false;
@@ -68,10 +70,6 @@ class RepaymentDetailContainer extends Component {
             })
             .catch(console.log)
 
-
-        this.submitting = false;
-        this.setState({submitting: false})
-        this.refs.confirm.open();
 
         //callback();
 
@@ -93,7 +91,7 @@ class RepaymentDetailContainer extends Component {
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
-                         externalPush={() => this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})}></PopView>
+                         externalPush={() => this.props.externalPush({key: 'RepaymentResult', title: '还款结果',backRoute:{key:'OnlineLoanDetail'}})}></PopView>
                 <View>
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
@@ -186,6 +184,7 @@ function mapDispatchToProps(dispatch) {
         //        dispatch(actions.bankInfo())
         //},
         externalPush: route => dispatch(externalPush(route))
+
     }
 }
 
