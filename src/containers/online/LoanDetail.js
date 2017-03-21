@@ -80,6 +80,7 @@ class LoanDetail extends Component {
   _renderViewType(plans, bankInfo, repayAmount) {
     if (this.props.loan_type == loanType.huankuan) {
       let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
+      let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
       return(
         <View>
           {
@@ -95,9 +96,9 @@ class LoanDetail extends Component {
             <ProcessingButton
               processing={this.state.submitting}
               onPress={this._submit.bind(this)}
-              style={styles.submitBtn}
+              style={dis ? styles.submitBtn_dis : styles.submitBtn}
               textStyle={styles.submitBtnText}
-              disabled={repayAmount.status == 1 || repayAmount.amount <= 0}
+              disabled={dis}
               text="一键还款"/>
           </View>
         </View>
@@ -157,6 +158,15 @@ const styles = StyleSheet.create({
     marginTop: 50,
     height: 40,
     backgroundColor: '#FF003C',
+    borderRadius: 4,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  submitBtn_dis: {
+    flex: 1,
+    marginTop: 50,
+    height: 40,
+    backgroundColor: '#c8c8c8',
     borderRadius: 4,
     marginLeft: 10,
     marginRight: 10

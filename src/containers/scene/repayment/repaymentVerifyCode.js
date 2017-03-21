@@ -168,7 +168,7 @@ class repaymentVerifyCode extends Component {
                                        underlineColorAndroid="transparent" onChangeText={(text)=>{
                       this.state.text=text;
                       }}/>
-                            <TouchableOpacity style={styles.authCode} onPress={this.clickToGetVerifyCode.bind(this)}>
+                            <TouchableOpacity style={this.state.sendHint ? styles.authCode_dis : styles.authCode} onPress={this.clickToGetVerifyCode.bind(this)}>
                                 <Text style={{color:'#FFFFFF'}}>{this.state.time}</Text>
                             </TouchableOpacity>
                         </View>
@@ -247,6 +247,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFAF32',
+        margin: 5,
+        width: _width * 0.25,
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
+    authCode_dis: {
+        height: 50,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#c8c8c8',
         margin: 5,
         width: _width * 0.25,
         paddingLeft: 5,

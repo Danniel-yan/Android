@@ -73,5 +73,13 @@ export default StyleSheet.create({
         bottom: 50,
         marginTop:5
     },
+    btn_dis: {
+        height: 50,
+        marginHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: '#c8c8c8',
+        bottom: 50,
+        marginTop:5
+    }
 
 });
