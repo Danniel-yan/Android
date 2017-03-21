@@ -10,7 +10,7 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import actions from 'actions/online';
 
-import RePaymentPlan from './RepaymentPlan';
+import RePaymentPlan from './RePaymentPlan';
 
 class TrialRepaymentPlan extends Component {
   render (){
