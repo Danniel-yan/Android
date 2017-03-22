@@ -242,7 +242,10 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {} };
+  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {},
+    isFetching: state.online.yysForms.isFetching || state.online.userInfo.isFetching,
+    fetched: state.online.yysForms.fetched || state.online.userInfo.fetched
+  };
 }
 
 function mapDispatchToProps(dispatch) {
