@@ -59,7 +59,6 @@ class RepaymentDetailContainer extends Component {
                     alert(res.msg)
                     return
                 } else {
-                    console.log('创建支付请求成功')
                     AsyncStorage.setItem('ticket_id', res.data.ticket_id)
                     this.refs.confirm.open();
                 }
@@ -84,6 +83,7 @@ class RepaymentDetailContainer extends Component {
     }
 
     render() {
+        let amount_int = this.state.repayAmount.amount;
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
@@ -92,7 +92,7 @@ class RepaymentDetailContainer extends Component {
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
 
-                        {this.showTextInput()}
+                        {this.showTextInput(amount_int)}
 
                     </View>
                     <View style={repaymentStyle.item}>
@@ -135,16 +135,17 @@ class RepaymentDetailContainer extends Component {
                         text="确认还款"
                         type="line"
                         textStyle={repaymentStyle.btnText}
-                        style={[repaymentStyle.btn, defaultStyles.centering]}/>
+                        disabled={amount_int <= 0}
+                        style={[amount_int > 0 ? repaymentStyle.btn : repaymentStyle.btn_dis, defaultStyles.centering]}/>
                 </View>
             </View>
 
         );
     }
 
-    showTextInput() {
-        let amount = this.state.repayAmount.amount.toString();
-        if (this.state.repayAmount.amount > 500) {
+    showTextInput(amount_int) {
+        let amount = amount_int.toString();
+        if (amount_int > 500) {
             return (
                 <TextInput
                     style={[repaymentStyle.textinput,repaymentStyle.textColor]}
@@ -156,7 +157,7 @@ class RepaymentDetailContainer extends Component {
         } else {
             return (
                 <Text
-                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {this.state.repayAmount.amount}</Text>
+                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {amount}</Text>
             )
         }
     }

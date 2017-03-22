@@ -10,7 +10,6 @@ export default function(dispatch) {
     if (loan_type == loanType.huankuan) {
       dispatch(actions.bankInfo())
       dispatch(actions.repayAmount())
-      dispatch(actions.repayDetail())
     }
 
     dispatch({ type: 'requestOnlineLoanDetail' })
