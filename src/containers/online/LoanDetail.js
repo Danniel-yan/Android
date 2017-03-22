@@ -26,7 +26,7 @@ class LoanDetail extends Component {
   }
 
   render() {
-    let bankInfo = this.props.bankInfo;
+    // let bankInfo = this.props.bankInfo;
     let repayAmount = this.props.repayAmount;
     let loanDetail = this.props.loanDetail;
     const serviceAmount = loanDetail.repayPlanResults[0].repayAmount;
@@ -44,7 +44,7 @@ class LoanDetail extends Component {
           this._renderWebItem("合同", url)
         }
         {
-          this._renderViewType(plans, bankInfo, repayAmount)
+          this._renderViewType(plans, repayAmount)
         }
 
       </ScrollView>
@@ -77,9 +77,9 @@ class LoanDetail extends Component {
         })
   }
 
-  _renderViewType(plans, bankInfo, repayAmount) {
+  _renderViewType(plans, repayAmount) {
     if (this.props.loan_type == loanType.huankuan) {
-      let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
+      // let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
       let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
       return(
         <View>
@@ -187,10 +187,14 @@ import actions from 'actions/online';
 import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
+  let fetching = state.online.loanDetail.isFetching;
+  if (state.online.loanType.type == loanType.huankuan) {
+    fetching = fetching || state.online.repayAmount.isFetching;
+  }
   return {
-    isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching || state.online.repayAmount.isFetching,
+    isFetching: fetching,
     loanDetail: state.online.loanDetail,
-    bankInfo: state.online.bankInfo,
+    // bankInfo: state.online.bankInfo,
     repayAmount: state.online.repayAmount
   }
 }
