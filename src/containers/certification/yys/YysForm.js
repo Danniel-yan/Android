@@ -197,7 +197,7 @@ class YysForm extends Component {
             label={field.show_name}
             style={{wrap: styles.formWrap,input: styles.formField }}
             value={this.state.form[field.name]}
-            editable={!(field.show_name == '姓名' || field.show_name == '身份证号')}
+            editable={this.props.loanType == 0 || !(field.show_name == '姓名' || field.show_name == '身份证号')}
             placeholder={'请输入'+field.show_name}
             secureTextEntry={ispwd}
             maxLength={30}
@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, ownProps) {
   return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {},
-    isFetching: state.online.yysForms.isFetching || state.online.userInfo.isFetching,
-    fetched: state.online.yysForms.fetched || state.online.userInfo.fetched
+    isFetching: state.online.yysForms.isFetching || (state.online.loanType.type != 0 && state.online.userInfo.isFetching),
+    fetched: state.online.loanType.type != 0 ? state.online.yysForms.fetched : state.online.yysForms.fetched && state.online.userInfo.fetched
   };
 }
 
