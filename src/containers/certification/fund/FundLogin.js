@@ -159,7 +159,7 @@ class FundLoginScene extends Component{
   _onChange(location) {
     var loginEle = this.props.loginElements.find(ele => ele.area_name == location),
       configList = loginEle ? loginEle.login_config : null,
-      defaultConfig = configList && configList.length == 1 ? configList[0] : {};
+      defaultConfig = configList && configList.length > 0 ? configList[0] : {};
 
     this.setState({
       location,
