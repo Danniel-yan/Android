@@ -16,6 +16,8 @@ export default class findHome extends Component {
 
   render (){
     const logined = this.props.loginUser.info;
+    let free = this.props.free, hasChance = this.props.hasChance, hasReport = this.props.reports && this.props.reports.length > 0;
+    let blackListRoute = !free && hasReport ? "BlackListReports" : "BlackListhome";
     return(
       <View style = {{flex : 1, backgroundColor : '#e6e6e6'}}>
         <SceneHeader
@@ -35,7 +37,7 @@ export default class findHome extends Component {
           </ExternalPushLink>
           <ExternalPushLink
             title={logined ?"网贷信用查询" : '登录'}
-            toKey= {logined ? 'BlackListhome' : 'Login'}
+            toKey= {logined ? blackListRoute : 'Login'}
             style={styles.navItem}
             componentProps = {{TOKEY : 'BlackListhome'}}
             tracking={{ key: 'discover', topic: 'service', entity: 'blacklist' }}>

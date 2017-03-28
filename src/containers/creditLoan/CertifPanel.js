@@ -100,6 +100,8 @@ class CertifPanel extends Component {
       yysResult = this.props.yysResult, yysSuccess = yysResult && yysResult.status == "success";
       gjjResult = this.props.gjjResult, gjjSuccess = gjjResult && gjjResult.status == "success";
 
+      console.log(bankResult);
+
     var pIF = this.props.pbocIsFetching, pStatus = this.props.pbocStatus;
 
     return (
@@ -140,7 +142,7 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/xinyongkazhangdan.png")}
           title="信用卡账单"
-          confirm={statusDir[bankResult.status]}
+          confirm={this.statusTxt(bankResult.status)}
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{
@@ -215,6 +217,11 @@ class CertifPanel extends Component {
           </View>
         </ExternalPushLink>
       );
+  }
+
+  componentWillUnmount() {
+    console.log("RECOVER");
+    this.props.recoverLoanType && this.props.recoverLoanType();
   }
 }
 
@@ -302,13 +309,15 @@ function mapDispatchToProps(dispatch) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
     fetching: () => {
+      dispatch(actions.setLoanType(9999));
       dispatch(actions.bankBillList());
       dispatch(actions.yysBillList());
       dispatch(actions.gjjResult());
       dispatch(actions.pboc.getStatus());
     },
     externalPush: (route) => dispatch(externalPush(route)),
-    pboc: params => dispatch(pboc(params))
+    pboc: params => dispatch(pboc(params)),
+    recoverLoanType: () => dispatch(actions.setLoanType(0))
   }
 }
 

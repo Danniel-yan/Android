@@ -1,6 +1,7 @@
 const initState = {
   isFetchingFree: true,
   free: false,
+  hasChance: false,
 
   isFetchingReports: true,
   reports: null,
@@ -33,7 +34,7 @@ export default function(state = initState, action) {
     case "RequestFreeStatus":
       return Object.assign({}, state, { isFetchingFree: true });
     case "ReceiveFreeStatus":
-      return Object.assign({}, state, { isFetchingFree: false, free: action.free })
+      return Object.assign({}, state, { isFetchingFree: false, free: action.free, hasChance: action.hasChance })
 
     case "RequestBlackListReports":
       return Object.assign({}, state, { isFetchingReports: true });

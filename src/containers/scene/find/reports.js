@@ -21,13 +21,13 @@ class reports extends Component {
       <ScrollView>
         {this._renderItem()}
 
-        <View style={styles.btn}>
+        {false ? <View style={styles.btn}>
           <Button
             style={styles.submitBtn}
             onPress={() => {this.props.externalPopTo()}}>
             <Text style={styles.submitBtnText}>再查一次</Text>
           </Button>
-        </View>
+        </View> : null}
       </ScrollView>
       </View>
     )
@@ -43,7 +43,7 @@ class reports extends Component {
               title = '网贷征信报告'
               key = {index}
               tracking={{key: "blacklist", topic: "report_list", entity: index, event: "clk"}}
-              componentProps = {{}}
+              componentProps = {{result: data.result}}
             >
             <View style = {styles.item}>
               <View style = {styles.left}>

@@ -9,9 +9,11 @@ export function FreeStatus() {
     dispatch(creditScore()).then(() => {
       var state = getState(), score = state.online.userInfo ? state.online.userInfo.creditScore : 0;
 
-      if(score < 20) { return dispatch({type: "ReceiveFreeStatus", free: false}) }
+      // if(score < 20) { return dispatch({type: "ReceiveFreeStatus", free: false}) }
+
+
       return get("/blacklist/check-free").then(response => {
-        dispatch({type: "ReceiveFreeStatus", free: response.data && response.data.result == 0});
+        dispatch({type: "ReceiveFreeStatus", free: response.data && response.data.free == 1, hasChance: response.data && response.data.checkmore == 1});
       })
     });
   }

@@ -328,6 +328,16 @@ class PayModal extends Component {
       key: "CreditReport", title: "网贷信用查询",
       componentProps: { result: this.props.result }
     });
+
+    // BlackListReports
+  }
+
+  __externalToReportList__() {
+    this.__closePayModal__();
+    this.props.externalPush && this.props.externalPush({
+      key: "BlackListReports", title: "已有报告",
+      backRoute: {key: 'MajorNavigation'}
+    });
   }
 
   __reSendPayCode__() {
@@ -341,7 +351,7 @@ class PayModal extends Component {
       tracker.trackAction({key: "blacklist", topic: "payment", entity: "success", event: "pop"});
       this.navTimeFlag = setTimeout(() => {
         console.log("M-NavToResult");
-        this.__externalToReport__()
+        this.__externalToReportList__()
       }, 1000);
     }
   }

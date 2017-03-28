@@ -40,10 +40,76 @@ class blackListHome extends Component {
     var err = this.state.err;// || this.props.ticketError;
     return(
       <View style={{flex : 1}}>
+        { this.renderBody() }
+
+        <View style={{paddingLeft : 10, backgroundColor: "#fff", paddingBottom: 40}}>
+          <Text style={styles.footerTitle}>网贷征信查询</Text>
+            <View style={styles.footer}>
+              <Text style={styles.footerCircle}>.</Text>
+              <Text style={styles.footerTxt}>权威数据，一次了解你的网贷信用</Text>
+            </View>
+            <View style={styles.footer}>
+              <Text style={styles.footerCircle}>.</Text>
+              <Text style={styles.footerTxt}>根据信用数据智能推荐贷款产品，助你申请成功率更高</Text>
+            </View>
+            <View style={styles.footer}>
+              <Text style={styles.footerCircle}>.</Text>
+              <Text style={styles.footerTxt}>数据实时更新，准确性高</Text>
+            </View>
+        </View>
+
+        {
+          this.props.ticket && !this.props.isFetchingTicket ? (
+            <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0}}>
+              <PayModal close={() => this.setState({payModalVisible: false})} />
+            </View>
+          ) : null
+        }
+
+
+      </View>
+    )
+  }
+
+  renderBody() {
+    var free = this.props.free, hasChance = this.props.hasChance, hasReport = this.props.reports && this.props.reports.length > 0;
+    if(free) return this.renderBlackListForm();
+    if(!free && hasChance) return this.renderCreditLoanNavigation();
+    // if(!free && hasReport) return this.renderReportResult();
+  }
+
+  renderCreditLoanNavigation() {
+    return (
+      <View style={{flex: 1, backgroundColor: "#fff"}}>
+        <View style={{alignItems: "center", backgroundColor: "#fff", paddingTop: 22, height: 200}}>
+          <Image source={ require('assets/icons/not-free.png') } style={{width:138, height:138}}></Image>
+        </View>
+        <View style={{alignItems: "center", paddingBottom: 32}}>
+          <View>
+            <View><Text style={{color: "#333"}}>您暂时没有查询资格， 可完善一项信用材料，</Text></View>
+            <View><Text style={{textAlign: "left", color: "#333"}}>进行免费查询</Text></View>
+          </View>
+        </View>
+        <View style={styles.btn}>
+          <ExternalPushLink
+            style={styles.submitBtn}
+            textStyle={styles.submitBtnText}
+            prePress={() => this.props.setLoanType()}
+            toKey={"CreditLoan"}
+            text={"完善信用材料"}
+            title={"信用贷"}
+            tracking={{key: 'blacklist', topic: 'creditLoan', event: 'clk'}}>
+          </ExternalPushLink>
+        </View>
+      </View>
+    );
+  }
+
+  renderBlackListForm() {
+    var err = this.state.err;// || this.props.ticketError;
+    return (
+      <View style={{flex : 1}}>
         <View style={styles.top}>
-          {this._renderNavItem('完善任意一项信用材料，均可免费查询一次',{toKey : 'CreditLoan', title : '信用贷', tracking: {
-            key: 'blacklist', topic: 'cmpl_one', entity: 'clk'
-          }}, {status: '去完善'})}
           {this.props.reports && this.props.reports.length > 0 ? this._renderNavItem('已有网贷征信报告',{toKey : 'BlackListReports', title : '已有报告', tracking: {
             key: 'blacklist', topic: 'review', entity: 'clk'
           }},{status: '立即查看'}) : null}
@@ -94,14 +160,14 @@ class blackListHome extends Component {
               />
             </View>
           </View>
-          <View style={{flexDirection: 'row', alignItems:"center", marginVertical: 10}}>
+          {false ? (<View style={{flexDirection: 'row', alignItems:"center", marginVertical: 10}}>
             <Text style={{paddingLeft: 10, fontSize: fontSize.xsmall, color: '#666'}}>
               我们提供付费代查网贷征信服务，查询费用
               <Text style={{color: '#FF6D17', fontSize: fontSize.xsmall}}>3元／次</Text>
             </Text>
-          </View>
-          <View style={{height: 14}}><Text style={{textAlign: "center", color : '#FF003C', fontSize : fontSize.small}}>{err ? err : " "}</Text></View>
-          <View style={styles.btn}>
+          </View>) : null}
+          <View style={{height: 14, paddingTop: 4}}><Text style={{textAlign: "center", color : '#FF003C', fontSize : fontSize.small}}>{err ? err : " "}</Text></View>
+          <View style={[styles.btn]}>
             <ProcessingButton
               style={styles.submitBtn}
               textStyle={styles.submitBtnText}
@@ -120,34 +186,9 @@ class blackListHome extends Component {
                 textStyle={{ color: colors.secondary, fontSize: 12}}
             />
           </View>
-          <View style={{paddingLeft : 10}}>
-            <Text style={styles.footerTitle}>网贷征信查询</Text>
-              <View style={styles.footer}>
-                <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>权威数据，一次了解你的网贷信用</Text>
-              </View>
-              <View style={styles.footer}>
-                <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>根据信用数据智能推荐贷款产品，助你申请成功率更高</Text>
-              </View>
-              <View style={styles.footer}>
-                <Text style={styles.footerCircle}>.</Text>
-                <Text style={styles.footerTxt}>数据实时更新，准确性高</Text>
-              </View>
-          </View>
         </View>
-
-        {
-          this.props.ticket && !this.props.isFetchingTicket ? (
-            <View style={{position: 'absolute',top: 0,left: 0,bottom: 0,right: 0}}>
-              <PayModal close={() => this.setState({payModalVisible: false})} />
-            </View>
-          ) : null
-        }
-
-
-      </View>
-    )
+        </View>
+    );
   }
 
   _renderNavItem( txt, navProps, status) {
@@ -278,7 +319,7 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginTop: 10,
-    height: 46,
+    height: 40,
     borderRadius: 8,
     backgroundColor: '#FE271E',
   },
@@ -306,7 +347,8 @@ const styles = StyleSheet.create({
   },
   footerTxt : {
     flex : 1,
-    color : '#333'
+    color : '#333',
+    fontSize: 12
   },
   textRow: {
       flexDirection: 'row',
@@ -320,21 +362,22 @@ const styles = StyleSheet.create({
 
 import { connect } from 'react-redux';
 import { FreeStatus, BlackListReports, CardList, CreateBlackListTicket, InitalBlackListTarget } from 'actions/blackList';
+import onlineActions from 'actions/online'
 
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 function mapStateToProps(state) {
   return Object.assign({}, state.blackListData, {
-    isFetching: state.blackListData.isFetchingReports
+    isFetching: state.blackListData.isFetchingReports || state.blackListData.isFetchingFree
   })
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetching: () => {
-      dispatch(FreeStatus());
-      dispatch(BlackListReports());
+      // dispatch(FreeStatus());
+      // dispatch(BlackListReports());
       dispatch(CardList());
     },
     checkFree: () => dispatch(FreeStatus()),
@@ -342,7 +385,8 @@ function mapDispatchToProps(dispatch) {
     submit: body => {
       dispatch(InitalBlackListTarget(body));
       dispatch(CreateBlackListTicket());
-    }
+    },
+    setLoanType: () => dispatch(onlineActions.setLoanType(0)),
   }
 }
 
