@@ -1,8 +1,10 @@
 const initState = {
   isFetchingFree: true,
   free: false,
+  hasChance: false,
 
   isFetchingReports: true,
+  reportFetched: false,
   reports: null,
 
   isFetchingCardList: true,
@@ -31,14 +33,14 @@ const initState = {
 export default function(state = initState, action) {
   switch(action.type) {
     case "RequestFreeStatus":
-      return Object.assign({}, state, { isFetchingFree: true });
+      return Object.assign({}, state, { isFetchingFree: true, freeFetched: false });
     case "ReceiveFreeStatus":
-      return Object.assign({}, state, { isFetchingFree: false, free: action.free })
+      return Object.assign({}, state, { isFetchingFree: false, freeFetched: true, free: action.free, hasChance: action.hasChance })
 
     case "RequestBlackListReports":
-      return Object.assign({}, state, { isFetchingReports: true });
+      return Object.assign({}, state, { isFetchingReports: true, reportFetched: false });
     case "ReceiveBlackListReports":
-      return Object.assign({}, state, { isFetchingReports: false, reports: action.reports });
+      return Object.assign({}, state, { isFetchingReports: false, reportFetched: true, reports: action.reports });
 
     case "InitalBlackListTarget":
       return Object.assign({}, state, { target: action.target });

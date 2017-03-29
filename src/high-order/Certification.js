@@ -10,7 +10,6 @@ export function CertificationEntry(ElementComponent) {
     }
 
     componentDidMount() {
-      console.log(this.props);
       var navigation = this.props.navigation,
         idx = navigation.index, routes = navigation.routes;
       var key = routes && routes[idx] && routes[idx].key ? routes[idx].key : null;

@@ -49,14 +49,6 @@ class CreditLimitPanel extends Component {
           tracking={{ key: 'credit_loan', topic: 'LOC_percentage', entity: '', event: 'clk'}}>
           <Text style={CLPStyles.valueTxt}>{this.props.creditScore || 0}</Text><Text style={[CLPStyles.valueTxt,{fontSize:40,marginTop : 25}]}>%</Text>
         </TrackingPoint>
-        <View>
-          <Button
-            style={CLPStyles.btn}
-            tracking={{key: 'credit_loan', topic: 'improve_now', entity: '', event: 'clk'}}
-            onPress={this._openCreditPanel.bind(this)}
-          ><Text style={CLPStyles.btnTxt}>立即提升</Text></Button>
-        </View>
-        <ModalDialog flags={flags} closeModal={() => this._closeCreditPanel()}/>
       </View>
     );
   }

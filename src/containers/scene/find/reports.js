@@ -20,14 +20,15 @@ class reports extends Component {
       <View style = {{flex : 1}}>
       <ScrollView>
         {this._renderItem()}
+        <View style={{padding: 10}}><Text style={{fontSize: 12, color: "#333"}}>关注个人信用记录，建议每3个月查询更新！</Text></View>
 
-        <View style={styles.btn}>
+        {false ? <View style={styles.btn}>
           <Button
             style={styles.submitBtn}
             onPress={() => {this.props.externalPopTo()}}>
             <Text style={styles.submitBtnText}>再查一次</Text>
           </Button>
-        </View>
+        </View> : null}
       </ScrollView>
       </View>
     )
@@ -40,10 +41,10 @@ class reports extends Component {
         return (
             <ExternalPushLink
               toKey = 'CreditReport'
-              title = '网贷征信报告'
+              title = '网贷信用查询'
               key = {index}
               tracking={{key: "blacklist", topic: "report_list", entity: index, event: "clk"}}
-              componentProps = {{}}
+              componentProps = {{result: data.result}}
             >
             <View style = {styles.item}>
               <View style = {styles.left}>
@@ -118,15 +119,25 @@ const styles = StyleSheet.create({
    },
 })
 
-function mapStateToProps(state) {
-  return { reports: state.blackListData.reports };
-}
+import { FreeStatus, BlackListReports } from 'actions/blackList';
+import AsynCpGenerator from 'high-order/AsynCpGenerator';
+import Loading from 'components/shared/Loading';
 
+function mapStateToProps(state) {
+  return {
+    isFetching: state.blackListData.isFetchingReports,
+    reports: state.blackListData.reports
+  };
+}
 
 function mapDispatchToProps(dispatch){
   return {
-    externalPopTo :() => dispatch (externalPop())
+    fetching: () => {
+      dispatch(BlackListReports())
+    },
+    externalPopTo: () => dispatch(externalPop()),
+    ReCheckFreeStatus: () => dispatch(FreeStatus())
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(trackingScene(reports));
+export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(reports)));

@@ -211,7 +211,7 @@ class PayModal extends Component {
   }
 
   renderSendCode() {
-    console.log('已选中的卡的电话号码' + this.props.selectedCard.mobileNo);
+    // console.log('已选中的卡的电话号码' + this.props.selectedCard.mobileNo);
     var mobileNo = this.props.selectedCard.mobileNo;
       mobileNo = mobileNo.split('');
       mobileNo.splice(3,4,'****');
@@ -289,7 +289,7 @@ class PayModal extends Component {
       <View style={[{paddingTop: 20}, centering]}>
         <Image style={{width: 100, height: 100}} source={require("assets/icons/zhifuchenggong.png")}></Image>
         <Text style={{textAlign: "center", paddingTop: 6, fontSize: fontSize.normal}}>
-          支付成功
+          {this.props.free ? "查询成功" : "支付成功"}
           {this.props.isFetchingResult ? <Text>, 正在生成结果...</Text> : null}
           {this.props.paymentSuccess && !this.props.isFetchingResult && this.props.result !== null ? <Text>, 正在跳转...</Text> : null}
         </Text>
@@ -328,6 +328,16 @@ class PayModal extends Component {
       key: "CreditReport", title: "网贷信用查询",
       componentProps: { result: this.props.result }
     });
+
+    // BlackListReports
+  }
+
+  __externalToReportList__() {
+    this.__closePayModal__();
+    this.props.externalPush && this.props.externalPush({
+      key: "BlackListReports", title: "已有报告",
+      backRoute: {key: 'MajorNavigation'}
+    });
   }
 
   __reSendPayCode__() {
@@ -336,12 +346,11 @@ class PayModal extends Component {
 
   componentWillReceiveProps(newProps) {
     clearTimeout(this.navTimeFlag);
-
     if(newProps.paymentSuccess && !newProps.isFetchingResult && newProps.result !== null) {
       tracker.trackAction({key: "blacklist", topic: "payment", entity: "success", event: "pop"});
       this.navTimeFlag = setTimeout(() => {
         console.log("M-NavToResult");
-        this.__externalToReport__()
+        this.__externalToReportList__()
       }, 1000);
     }
   }

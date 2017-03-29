@@ -8,11 +8,22 @@ import Banner from 'containers/scene/find/banner';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import Artical from 'containers/scene/find/artical';
 import LoanProduct from 'containers/scene/find/loanProduct'
+import Loading from 'components/shared/Loading';
 
 const { width, height } = Dimensions.get('window');
 
+
+
 export default class findHome extends Component {
   tracking = 'discover';
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFetchingBL: false
+    };
+    this.navToBlackListClicked = false;
+  }
 
   componentDidMount() {
     this.props.setLoanType && this.props.setLoanType();
@@ -20,7 +31,8 @@ export default class findHome extends Component {
 
   render (){
     const logined = this.props.loginUser.info;
-    return(
+
+    return this.state.isFetchingBL ? <Loading /> : (
       <View style = {{flex : 1, backgroundColor : '#e6e6e6'}}>
         <SceneHeader
           title="发现"/>
@@ -37,17 +49,13 @@ export default class findHome extends Component {
             <Image source={require('assets/discovery/icon_banka.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>办卡</Text>
           </ExternalPushLink>
-          {false ? <ExternalPushLink
-            title={logined ?"网贷信用查询" : '登录'}
-            toKey= {logined ? 'BlackListhome' : 'Login'}
+          {true ? <TrackingPoint
             style={styles.navItem}
-            componentProps={{
-                loginSuccess: () => { this.props.externalPush && this.props.externalPush({key: "BlackListhome", backRoute: { key: "MajorNavigation" }}) }
-            }}
+            onPress={() => {this.__navToBlackListClicked__()}}
             tracking={{ key: 'discover', topic: 'service', entity: 'blacklist' }}>
             <Image source={require('assets/discovery/icon_heimingdan.png')} style = {styles.navImg}></Image>
             <Text style = {styles.navTxt}>网贷信用</Text>
-          </ExternalPushLink> : null}
+          </TrackingPoint> : null}
           <TrackingPoint
             tracking={{ key: 'discover', topic: 'service', entity: 'credit_report' }}
             onPress={() => {this._navToPBOC()}}
@@ -96,6 +104,10 @@ export default class findHome extends Component {
   }
   _pushToFastLoan(){
 
+  }
+
+  __navToBlackListClicked__() {
+    this.props.navToBackList && this.props.navToBackList();
   }
 
    _navToPBOC() {

@@ -5,7 +5,9 @@ export const mockData = {
   '/blacklist/check-free': {
     "res": 1,
     "data": {
-        "result": applyFree ? 0 : 1 //1=免费查询过，0=未免费查询过
+        "result": applyFree ? 0 : 1, //1=免费查询过，0=未免费查询过
+        "checkmore": 1,
+        "free": !applyFree ? 0 : 1,
     }
   },
   '/blacklist/check-list': {
@@ -15,13 +17,8 @@ export const mockData = {
             "realname": "李冬二", //姓名
             "id_num": "320681199001167011", //身份证号码
             "mobile": "13890029233",  //手机号码
+            "result": 2,  //1=命中黑名单，2=未命中
             "time_update": "2017-02-15 11:13:13" //查询时间
-        },
-        {
-            "realname": "李冬三",
-            "id_num": "320681199001167011",
-            "mobile": "13890029233",
-            "time_update": "2017-02-15 10:27:37"
         }
     ]
   },
@@ -29,8 +26,8 @@ export const mockData = {
   '/blacklist/create': {
     "res": 1,
     "data": {
-        "ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
-        "blacklist_result": !applyFree ? null : 1, // 201支付情况下存在，结构未定
+        //"ticket_id": "abcded-dfsdf", // 101支付情况下存在,支付id，供后续支付流程使用
+        "blacklist_result": 2//!applyFree ? null : 1, // 201支付情况下存在，结构未定
     }
   },
   "/payctcf/cardlist": {

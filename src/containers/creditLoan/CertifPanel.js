@@ -9,21 +9,21 @@ import actions from 'actions/online';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { externalPush, majorTab } from 'actions/navigation';
 import pboc from 'actions/pboc';
-import { colors, centering } from 'styles';
+import { colors, centering, fontSize } from 'styles';
 
 import TrackingPoint  from 'components/shared/TrackingPoint';
 import tracker from 'utils/tracker.js';
 
 const {height, width} = Dimensions.get('window');
 
-function Item({icon, title, confirm, tips, navProps = {}, textStyle}) {
+function Item({icon, title, confirm, tips, navProps = {}, textStyle, externalTxt}) {
  return (
    <ExternalPushLink {...navProps}>
      <View style = {[styles.item,styles.bdTop]}>
        <Image source={icon} style = {styles.icon}/>
        <View style = {{flex : 1}}>
          <View style = {styles.top}>
-             <Text style = {styles.topL}>{title}</Text>
+             <Text style = {styles.topL}>{title} <Text style={{fontSize: fontSize.small, color: "#87C14D"}}>{ externalTxt || "+30%"}</Text></Text>
              <View style = {{flex : 1,flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
                  <Text style = {[styles.topR, textStyle]}>{confirm}</Text>
                  <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
@@ -54,6 +54,7 @@ class CertifPanel extends Component {
   closeModal() {
     var closeFunc = this.props.closeModal ? this.props.closeModal : null;
     closeFunc && closeFunc();
+    this.props.recoverLoanType && this.props.recoverLoanType();
   }
 
   render() {
@@ -63,7 +64,7 @@ class CertifPanel extends Component {
           <View style = {{backgroundColor : 'white'}}>
           {
             <View style = {styles.title}>
-              <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>信用提升资料</Text>
+              <Text style= {[styles.titleL,this.state.shouXinFlag ? {} : {color : '#999'}]} onPress = {this.toggleSceneTiE.bind(this)}>认证以下材料可提升信用完整度</Text>
               { false ?  <Text style={[styles.titleR,this.state.shouXinFlag ? {} : {color:'#333'}]} onPress = {this.toggleSceneShouXin.bind(this)}>授信资料</Text> : null}
             </View>
           }
@@ -122,7 +123,7 @@ class CertifPanel extends Component {
             <Image source={require("assets/credit-icons/yanghanzhenxinbaogao.png")} style = {styles.icon}/>
             <View style = {{flex : 1}}>
               <View style = {styles.top}>
-                  <Text style = {styles.topL}>央行征信报告</Text>
+                  <Text style = {styles.topL}>央行征信报告 <Text style={{fontSize: fontSize.small, color: "#87C14D"}}>+30%</Text></Text>
                   <View style = {{flex : 1, flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
                   {pIF ? (<ActivityIndicator
                     animating={true}
@@ -140,13 +141,14 @@ class CertifPanel extends Component {
         <Item
           icon={require("assets/credit-icons/xinyongkazhangdan.png")}
           title="信用卡账单"
-          confirm={statusDir[bankResult.status]}
+          confirm={this.statusTxt(bankResult.status)}
           tips="最高可提升到10万额度"
           textStyle={bankSuccess ? {color: colors.success} : {color: colors.error}}
           navProps={{
             title:"信用卡认证", toKey:"OnlineCreditCards", prePress: () => { this.closeModal(); return false; },
             tracking: {key: 'credit_loan', topic: 'verification', entity: 'bill', exten_info: bankResult.status }
-          }}/>
+          }}
+          externalTxt={"+30%"}/>
         <Item
           icon={require("assets/credit-icons/gongjijinbaogao.png")}
           title="公积金报告"
@@ -156,7 +158,8 @@ class CertifPanel extends Component {
           navProps={{
             toKey: "FundLogin", title:"公积金查询", prePress: () => { this.closeModal(); },
             tracking: {key: 'credit_loan', topic: 'verification', entity: 'PAF', exten_info: gjjResult.status }
-          }}/>
+          }}
+          externalTxt={"+20%"}/>
         {false ? <Item
           icon={require("assets/credit-icons/shebaobaogao.png")}
           title="社保报告"
@@ -171,7 +174,8 @@ class CertifPanel extends Component {
           navProps={{
             title:"运营商认证", toKey:"OnlineYysForm", prePress: () => { this.closeModal(); },
             tracking: {key: 'credit_loan', topic: 'verification', entity: 'telecom', exten_info: yysResult.status }
-          }}/>
+          }}
+          externalTxt={"+20%"}/>
       </View>
     );
   }
@@ -216,6 +220,10 @@ class CertifPanel extends Component {
         </ExternalPushLink>
       );
   }
+
+  componentWillUnmount() {
+    this.props.recoverLoanType && this.props.recoverLoanType();
+  }
 }
 
 const styles = StyleSheet.create({
@@ -233,14 +241,14 @@ const styles = StyleSheet.create({
     },
     titleL : {
         color:'#333',
-        fontSize:16,
+        fontSize:14,
         flex : 1,
-        paddingLeft:20,
+        paddingLeft:10,
     },
     titleR :{
         textAlign:'right',
         paddingRight:40,
-        fontSize:16,
+        fontSize:14,
         flex:1,
         color:'#999'
     },
@@ -269,7 +277,8 @@ const styles = StyleSheet.create({
         flex : 1,
         paddingLeft : 20,
         color : '#333',
-        fontSize : 16
+        fontSize : 16,
+        justifyContent: "center"
     },
     topR : {
         width : 60,
@@ -302,13 +311,15 @@ function mapDispatchToProps(dispatch) {
   return {
     submitPreloan: () => dispatch(actions.preloan()),
     fetching: () => {
+      dispatch(actions.setLoanType(9999));
       dispatch(actions.bankBillList());
       dispatch(actions.yysBillList());
       dispatch(actions.gjjResult());
       dispatch(actions.pboc.getStatus());
     },
     externalPush: (route) => dispatch(externalPush(route)),
-    pboc: params => dispatch(pboc(params))
+    pboc: params => dispatch(pboc(params)),
+    recoverLoanType: () => dispatch(actions.setLoanType(0))
   }
 }
 

@@ -161,7 +161,7 @@ class Login extends Component {
     this.props.dispatch(fetchingUser());
 
     if(this.props.loginSuccess) {
-      this.props.loginSuccess();
+      return this.props.loginSuccess();
     } else{
         this.props.dispatch(externalPop())
     }

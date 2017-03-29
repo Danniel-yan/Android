@@ -23,7 +23,7 @@ import cardArtical from './cardArtical';
 
 import online from './online';
 import findOperating from './find/operating';
-import recLoan from './find/recLoan';
+import blackListDetail from './find/detail';
 import articalList from './find/artical';
 
 import blackListData from './blackList';
@@ -55,7 +55,6 @@ export default combineReducers({
   findOperating,
   blackListData,
   articalList,
-  recLoan,
-
-  certificationEntry
+  certificationEntry,
+  blackListDetail
 });
