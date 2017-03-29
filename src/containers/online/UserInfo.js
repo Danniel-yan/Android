@@ -33,7 +33,7 @@ const hasCreditStatus = {
 
 class UserInfo extends Component {
   tracking() {
-    return { key: 'onlineUserInfo' }
+    return { key: 'inhouse_loan', topic: "online_user_info", exten_info: JSON.stringify({title: this.props.title}) }
   }
 
   constructor(props) {
@@ -162,7 +162,8 @@ class UserInfo extends Component {
             textStyle={styles.btnText}
             disabled={disabled}
             text="去贷款"
-            onPress={this._submit.bind(this)}/>
+            onPress={this._submit.bind(this)}
+            tracking={{key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})}}/>
 
         </ScrollView>
 
@@ -290,6 +291,9 @@ import actions from 'actions/online';
 function mapStateToProps(state) {
   let user = state.online.userInfo;
   let pickers = state.online.pickers;
+  let loanDetail = state.loanDetail.detail || {};
+
+  // console.log(state);
 
   return {
     isFetching: user.isFetching || pickers.isFetching,
@@ -298,7 +302,8 @@ function mapStateToProps(state) {
     user,
     mobile: state.loginUser.info.username,
     pickers,
-    loanType: state.online.loanType.type
+    loanType: state.online.loanType.type,
+    title: loanDetail.title
   }
 }
 

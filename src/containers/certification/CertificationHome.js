@@ -26,6 +26,9 @@ const statusLabels = {
 }
 
 class CertificationHome extends Component {
+  tracking = function() {
+    return { key: "inhouse_loan", topic: "certification", exten_info: JSON.stringify({title: this.props.title}) }
+  }
 
   constructor(props) {
     super(props);
@@ -142,7 +145,9 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
+      <ExternalPushLink
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "bill", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}
+        title="信用卡认证" toKey="OnlineCreditCards">
         {item}
       </ExternalPushLink>
     );
@@ -186,7 +191,9 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
+      <ExternalPushLink
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "telecom", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}
+        title="运营商认证" toKey="OnlineYysForm">
         {item}
       </ExternalPushLink>
     )
@@ -246,6 +253,7 @@ import actions from 'actions/online';
 
 function mapStateToProps(state) {
   var loanType = state.online.loanType.type;
+  var loanDetail = state.loanDetail.detail;
 
   let bank = state.online.bankResult;
   let yys = state.online.yysResult;
@@ -256,13 +264,15 @@ function mapStateToProps(state) {
     fetched: bank.fetched && yys.fetched,
     bankResult: bank,
     yysResult: yys,
-    loanType: loanType
+    loanType: loanType,
+    title: loanDetail.title
   } : {
     isFetching: gjj.isFetching || yys.isFetching,
     fetched: gjj.fetched && yys.fetched,
     gjjResult: gjj,
     yysResult: yys,
-    loanType: loanType
+    loanType: loanType,
+    title: loanDetail.title
   }
 }
 

@@ -22,6 +22,7 @@ import failureImage from 'assets/online/import-failure.png';
 import ingImage from 'assets/online/importing.gif';
 
 class CreditCardStatus extends Component {
+  tracking = { key: "bill", topic: "progress" }
 
   constructor(props) {
     super(props);
