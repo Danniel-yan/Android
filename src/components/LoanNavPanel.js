@@ -73,7 +73,7 @@ class LoanNavPanel extends Component {
               <Text style={LNPStyles.navTxt}>{this.props.isIOSVerifying ? "推荐":"贷款"}</Text>
             </MajorTabLink>
             <ExternalPushLink
-                tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend_all' }}
+                tracking={{key: 'homepage', topic: 'btn_sec', entity: 'level' }}
                 title="看评级"
                 toKey="RecLoanScene"
                 style={LNPStyles.navItem}>

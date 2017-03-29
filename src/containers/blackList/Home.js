@@ -19,7 +19,14 @@ import PayModal from './PayModal';
 const {width, height } = Dimensions.get('window');
 
 class blackListHome extends Component {
-  tracking = "blacklist";
+  // tracking = "blacklist";
+  tracking = function() {
+    var props = this.props || {},
+      free = props.free, hasChance = props.hasChance;
+
+    if(!free && hasChance) return { key: "blacklist", topic: "info_incomplete" };
+    return { key: "blacklist", topic: "info_completed" };
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -103,7 +110,7 @@ class blackListHome extends Component {
             toKey={"CreditLoan"}
             text={"完善信用材料"}
             title={"信用贷"}
-            tracking={{key: 'blacklist', topic: 'creditLoan', event: 'clk'}}>
+            tracking={{key: 'blacklist', topic: "info_incomplete", entity: 'fill_info', event: 'clk'}}>
           </ExternalPushLink>
         </View>
       </View>
@@ -130,7 +137,7 @@ class blackListHome extends Component {
                 clearButtonMode="while-editing"
                 value={this.state.name}
                 onChangeText={name => this.setState({name, err: null})}
-                tracking={{key: 'blacklist', topic: 'name', entity: 'blur', event: 'blur'}}
+                tracking={{key: 'blacklist', topic: 'info_completed', entity: 'name', event: 'blur'}}
               />
             </View>
           </View>
@@ -145,7 +152,7 @@ class blackListHome extends Component {
                 value={this.state.ID}
                 onChangeText={ID => this.setState({ID, err: null})}
                 maxLength={18}
-                tracking={{key: 'blacklist', topic: 'ID', entity: 'blur', event: 'blur'}}
+                tracking={{key: 'blacklist', topic: 'info_completed', entity: 'ID', event: 'blur'}}
               />
             </View>
           </View>
@@ -161,7 +168,7 @@ class blackListHome extends Component {
                 onChangeText={mobile => this.setState({mobile, err: null})}
                 value={this.state.mobile}
                 maxLength={11}
-                tracking={{key: 'blacklist', topic: 'cell', entity: 'blur', event: 'blur'}}
+                tracking={{key: 'blacklist', topic: 'info_completed', entity: 'cell', event: 'blur'}}
               />
             </View>
           </View>
@@ -179,7 +186,7 @@ class blackListHome extends Component {
               processing={this.props.isFetchingTicket}
               onPress={() => {this._submit()}}
               text={"开始查询"}
-              tracking={{key: 'blacklist', topic: 'submit', event: 'clk'}}>
+              tracking={{key: 'blacklist', topic: 'info_completed', entity: "submit", event: 'clk'}}>
             </ProcessingButton>
           </View>
           <View style={styles.textRow}>
