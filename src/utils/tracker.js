@@ -29,7 +29,7 @@ function setupChannel() {
   getAppSettings().then(appSettings => {
     if(!/channel/.test(BASE_INFO.PARAM)) {
       channel = true;
-      BASE_INFO.PARAM += `&channel=` + appSettings.channel 
+      BASE_INFO.PARAM += `&channel=` + appSettings.channel
     }
   });
 }

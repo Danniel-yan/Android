@@ -10,8 +10,10 @@ import {
 
 import Banner from './Banner';
 import { border, centering, colors, fontSize } from 'styles';
+import { loanType } from 'constants';
 
 export default function(props) {
+  let loan_type = props.loan_type;
   return (
     <ScrollView>
 
@@ -25,8 +27,23 @@ export default function(props) {
         <Text style={styles.text}>
           如有疑问欢迎拨打：<Text style={styles.cell}>4009160160</Text>
         </Text>
-        <Text style={styles.text}>或添加“中腾信金融”公众号咨询</Text>
-        <View style={[centering, {marginTop: 8}]}><Image style={{width: 200, height: 200}} source={require('assets/online/ctcf-qrCode.jpeg')}/></View>
+        {
+          loan_type == loanType.chaohaodai ?
+            (
+              <View>
+                <Text style={styles.text}>或添加“钞市”公众号咨询</Text>
+                <View style={[centering, {marginTop: 8}]}><Image style={{width: 200, height: 200}} source={require('assets/online/chaoshi-qrCode.jpeg')}/></View>
+              </View>
+            )
+            :
+            (
+              <View>
+                <Text style={styles.text}>或添加“中腾信金融”公众号咨询</Text>
+                <View style={[centering, {marginTop: 8}]}><Image style={{width: 200, height: 200}} source={require('assets/online/ctcf-qrCode.jpeg')}/></View>
+              </View>
+            )
+        }
+
       </View>
     </ScrollView>
   );
