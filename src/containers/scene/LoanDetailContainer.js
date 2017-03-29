@@ -40,7 +40,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {
-      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.huankuan) {
+      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai) {
         dispatch(onlineActions.setLoanType(ownProps.loan_type))
         dispatch(onlineActions.status());
       }

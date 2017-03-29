@@ -96,6 +96,7 @@ class LoanSign extends Component {
           disabled={!(this.state.card && this.state.checkedAgreement)}
           prePress={this._submit.bind(this)}
           toKey="OnlineSignSuccess"
+          componentProps={{loan_type: this.state.online.loanType.type}}
           backRoute={{key: 'LoanDetailScene'}}
           title="签约"
           text="提交"/>

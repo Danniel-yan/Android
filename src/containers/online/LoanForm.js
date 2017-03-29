@@ -101,7 +101,7 @@ class LoanForm extends Component {
   }
 
   renderFaceVerifyForms() {
-    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.huankuan)? (
+    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.chaohaodai)? (
       <View>
         <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
         <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})} />

@@ -78,7 +78,7 @@ class LoanDetail extends Component {
   }
 
   _renderViewType(plans, repayAmount) {
-    if (this.props.loan_type == loanType.huankuan) {
+    if (this.props.loan_type == loanType.chaohaodai) {
       // let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
       let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
       return(
@@ -188,7 +188,7 @@ import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state) {
   let fetching = state.online.loanDetail.isFetching;
-  if (state.online.loanType.type == loanType.huankuan) {
+  if (state.online.loanType.type == loanType.chaohaodai) {
     fetching = fetching || state.online.repayAmount.isFetching;
   }
   return {
