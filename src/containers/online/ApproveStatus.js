@@ -71,7 +71,6 @@ function ApproveFailure(props) {
 function ApproveSuccess(props) {
 
   let data = props.resultdata;
-  // console.log(data)
 
   return (
     <ScrollView>
