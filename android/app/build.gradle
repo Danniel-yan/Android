@@ -148,6 +148,11 @@ android {
             }
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['librarys']
+        }
+    }
     
 }
 
