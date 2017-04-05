@@ -31,13 +31,16 @@ class LoanSign extends Component {
     let service = loan.repayPlanResults[0];
     let plan = loan.repayPlanResults.slice(1);
 
+    //console.log("this.props")
+    //console.log(this.props)
+
     return (
       <ScrollView>
         <View style={styles.content}>
           <L2RItem left="姓名" right={userInfo.person_name} />
           <L2RItem left="身份证号" right={userInfo.id_no} />
 
-          <L2RItem style={styles.amount} left="合同金额" right={loan.contractAmount} >
+          <L2RItem style={styles.amount} left="合同金额" right={this.props.tempAmount || loan.contractAmount } >
             <Text style={styles.amountTip}>
               本次借款手续费为{service.repayAmount}元，到手金额为{(loan.contractAmount - service.repayAmount).toFixed(2)}元
             </Text>
@@ -164,6 +167,9 @@ function mapStateToProps(state) {
   let userInfo = state.online.userInfo;
   let applyResult = state.online.applyResult;
 
+  //console.log("applyResult")
+  //console.log(applyResult)
+
   return Object.assign({}, {
     ...state.online.applyResult,
     userInfo: userInfo.data,
@@ -172,8 +178,6 @@ function mapStateToProps(state) {
     isFetching: userInfo.isFetching || applyResult.isFetching,
     fetched: userInfo.fetched && applyResult.fetched
   });
-
-  return ;
 }
 
 function mapDispatchToProps(dispatch) {
