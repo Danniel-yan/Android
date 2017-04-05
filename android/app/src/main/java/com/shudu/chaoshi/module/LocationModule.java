@@ -9,6 +9,7 @@ import com.baidu.location.LocationClientOption;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableNativeMap;
 
 /**
@@ -32,8 +33,8 @@ public class LocationModule extends ReactContextBaseJavaModule {
         return MODULE_NAME;
     }
 
-
-    private void getLocation(Promise promise) {
+    @ReactMethod
+    public void getLocation(Promise promise) {
         this.promise = promise;
         mLocationClient = new LocationClient(mContext);
         mLocationClient.registerLocationListener(new MyLocationListener());
@@ -53,8 +54,8 @@ public class LocationModule extends ReactContextBaseJavaModule {
             }
             if (location != null) {
                 WritableNativeMap writableNativeMap = new WritableNativeMap();
-                writableNativeMap.putDouble("Latitude", location.getLatitude());
-                writableNativeMap.putDouble("Longitude", location.getLongitude());
+                writableNativeMap.putString("Latitude", location.getLatitude() + "");
+                writableNativeMap.putString("Longitude", location.getLongitude() + "");
                 promise.resolve(writableNativeMap);
             }
         }
