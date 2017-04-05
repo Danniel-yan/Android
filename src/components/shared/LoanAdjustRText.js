@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { trackingScene } from 'high-order/trackingPointGenerator';
-//import { receiveRepaymentAmount } from 'actions/online/repayAmount';
-import { receiveAdjustApproveAmount } from 'actions/online/adjustApproveAmount';
 import {
     AppRegistry,
     View,
