@@ -30,6 +30,8 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 
 import Picker from 'components/shared/Picker';
 
+import GetGeoLocation from 'utils/geoLocation.js'
+
 export default class LoanDetailScene extends Component {
 
   tracking() {
@@ -347,16 +349,30 @@ export default class LoanDetailScene extends Component {
 
   checkGPS() {
     this.setState({ checkingGPS: true })
+
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState({ checkingGPS: false })
+      GetGeoLocation({timeout: 5000}).then(position => {
+        console.log("position");
+        console.log(position);
+        this.setState({ checkingGPS: false });
         resolve('');
-      }, (error) => {
+      }).catch(error => {
         alert("请打开定位");
-        this.setState({ checkingGPS: false })
+        this.setState({ checkingGPS: false });
         reject('');
-      }, {timeout: 5000});
+      });
     })
+
+    // return new Promise((resolve, reject) => {
+    //   navigator.geolocation.getCurrentPosition(position => {
+    //     this.setState({ checkingGPS: false })
+    //     resolve('');
+    //   }, (error) => {
+    //     alert("请打开定位");
+    //     this.setState({ checkingGPS: false })
+    //     reject('');
+    //   }, {timeout: 5000});
+    // })
   }
 
   __skipToSafari__(url) {
