@@ -48,11 +48,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(fetchLoanDetail(id))
     },
     fetchOnlineStatus: () => dispatch(onlineActions.status()),
-    goLoan: (detail) => {
+    goLoan: (detail, tracking) => {
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
-        backRoute: { key: 'LoanDetailScene' }
+        backRoute: { key: 'LoanDetailScene' },
+        componentProps: { tracking: tracking }
       }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams)),

@@ -275,6 +275,8 @@ export default class LoanDetailScene extends Component {
       );
     }
 
+    let loanTracking = {key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+               title: detail.title, amount: this.state.amount, period: this.state.value};
 
     return (
       <ExternalPushLink
@@ -283,9 +285,8 @@ export default class LoanDetailScene extends Component {
         text={this.props.isIOS?'立即查看' : "去贷款"}
         toKey="FillUserInfo"
         title="完善个人信息"
-        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
-        tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
-                   title: detail.title, amount: this.state.amount, period: this.state.value}}
+        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail, loanTracking)}}
+        tracking={loanTracking}
         />
     );
   }
