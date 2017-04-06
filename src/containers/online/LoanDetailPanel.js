@@ -29,7 +29,7 @@ export default function (props) {
             </View>
             <View style={styles.line}></View>
             <View style={[styles.container, resultData.style]}>
-                {adjustAmount(resultData.approve_amount, applyData.apply_amount)}
+                {adjustAmount(resultData.approve_amount, (resultData.approve_amount > applyData.apply_amount) ? applyData.apply_amount : resultData.approve_amount)}
             </View>
             {contractAmountInfo(resultData.approve_amount, applyData.apply_amount)}
         </View>

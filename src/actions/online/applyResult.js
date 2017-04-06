@@ -51,6 +51,7 @@ export default function () {
             //}
 
             if (response.res == responseStatus.success) {
+                //console.log(response.data)
                 dispatch({type: 'receiveOnlineApproveResult', result: response.data})
             } else {
                 dispatch({type: 'receiveOnlineApproveResult', result: null, error: response.msg})

@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
     return {
-        //repaymentAmount: (amount, tips) => dispatch(receiveRepaymentAmount(amount, tips)),
         adjustApproveAmount: (contractAmount) => dispatch({
             type: 'receiveOnlineAdjustApproveAmount',
             tempAmount: contractAmount
