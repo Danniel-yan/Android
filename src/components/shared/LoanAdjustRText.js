@@ -25,31 +25,36 @@ export class LoanAdjustRText extends Component {
             left: "借款金额：",
             approve_amount: parseInt(this.props.approve_amount), // 申请时提交的金额
             contractAmount: parseInt(this.props.contractAmount), // 审批通过后通过的最高额度
-            initAmount: parseInt(this.props.approve_amount), // 临时变量申请时提交的金额
+            initMinAmount: parseInt(this.props.approve_amount),
+            initMaxAmount: parseInt(this.props.contractAmount),
+            loan_adjust_down: loan_adjust_down,
             loan_adjust_downdisable: loan_adjust_downdisable,
-            //loan_adjust_down: loan_adjust_down,
             loan_adjust_up: loan_adjust_up,
-            //loan_adjust_updisable: loan_adjust_updisable,
+            loan_adjust_updisable: loan_adjust_updisable,
+
         };
     }
 
     componentWillMount() {
-        this.props.adjustApproveAmount(this.state.approve_amount)
+        this.props.adjustApproveAmount(this.state.contractAmount)
     }
 
     render() {
+
         return (
             <View style={[styles.item1]}>
                 <Text style={[container, styles.left]}>{this.state.left}</Text>
                 <View style={styles.adjustAmount}>
                     <TouchableOpacity
                         onPress={()=>loanAdjustDown.call(this, this.state.approve_amount,this.state.contractAmount)}>
-                        <Image style={styles.image} source={this.state.loan_adjust_downdisable}/>
+                        <Image style={styles.image}
+                               source={(this.state.contractAmount == this.state.initMinAmount)?this.state.loan_adjust_downdisable:this.state.loan_adjust_down}/>
                     </TouchableOpacity>
-                    <Text style={[styles.right]}>{this.state.approve_amount}</Text>
+                    <Text style={[styles.right]}>{this.state.contractAmount}</Text>
                     <TouchableOpacity
-                        onPress={()=>loanAdjustUp.call(this, this.state.approve_amount,this.state.contractAmount)}>
-                        <Image style={styles.image} source={this.state.loan_adjust_up}/>
+                        onPress={()=>loanAdjustUp.call(this, this.state.contractAmount)}>
+                        <Image style={styles.image}
+                               source={(this.state.contractAmount == this.state.initMaxAmount)?this.state.loan_adjust_updisable:this.state.loan_adjust_up}/>
                     </TouchableOpacity>
                 </View>
 
@@ -57,81 +62,42 @@ export class LoanAdjustRText extends Component {
         )
     }
 
-    receiveAdjustDownApproveAmount() {
-        this.props.adjustApproveAmount(this.state.approve_amount)
-    }
-
-
 }
 
+function loanAdjustUp(contractAmount) {
 
-//export default function LoanRText({style, left, right, leftStyle, rightStyle, ...props}) {
-//
-//    return (
-//        <View style={[styles.item1, style]}>
-//            <Text style={[container, styles.left, leftStyle]}>{left}</Text>
-//            <View style={styles.adjustAmount}>
-//                <TouchableOpacity onPress={()=>loanAdjustDown()}>
-//                    <Image style={styles.image} source={require('assets/icons/loan_adjust_down@2x.png')}/>
-//                </TouchableOpacity>
-//                <Text style={[styles.right, rightStyle]}>{right}</Text>
-//                <TouchableOpacity onPress={()=>loanAdjustUp()}>
-//                    <Image style={styles.image} source={require('assets/icons/loan_adjust_up@2x.png')}/>
-//                </TouchableOpacity>
-//            </View>
-//
-//            {props.children}
-//        </View>
-//    );
-//}
+    if (contractAmount == this.state.initMaxAmount) {
+        this.setState(() => {
+            this.props.adjustApproveAmount(this.state.contractAmount)
+        })
+        return
+    } else if (contractAmount < this.state.initMaxAmount) {
+        this.setState({
+            contractAmount: parseInt(contractAmount) + 1000,
+        }, () => {
+            this.props.adjustApproveAmount(this.state.contractAmount)
+        })
 
+        return
+    }
+}
 function loanAdjustDown(approve_amount, contractAmount) {
-    if (approve_amount == this.state.initAmount) {
-        this.setState({
-            loan_adjust_downdisable: loan_adjust_downdisable,
-            loan_adjust_up: loan_adjust_up,
-        }, () => {
-            this.props.adjustApproveAmount(this.state.approve_amount)
-        })
-        return
-    } else if (approve_amount < contractAmount) {
-        this.setState({
-            loan_adjust_downdisable: loan_adjust_down,
-            loan_adjust_up: loan_adjust_up,
-            approve_amount: parseInt(approve_amount) - 1000,
-        }, () => {
-            this.props.adjustApproveAmount(this.state.approve_amount)
-        })
-        return
-    }
-}
-function loanAdjustUp(approve_amount, contractAmount) {
-    if (approve_amount == contractAmount) {
-        this.setState({
-            loan_adjust_up: loan_adjust_updisable,
-            loan_adjust_downdisable: loan_adjust_down
-        }), () => {
-            this.props.adjustApproveAmount(this.state.approve_amount)
+    if (contractAmount == this.state.initMinAmount) {
+        this.setState(), () => {
+            this.props.adjustApproveAmount(this.state.contractAmount)
         }
         return
-    } else if (approve_amount < contractAmount) {
-        console.log(contractAmount)
-        console.log(approve_amount)
-        if (contractAmount - this.state.approve_amount < 1000) {
-            this.setState({
-                loan_adjust_up: loan_adjust_updisable,
-                loan_adjust_downdisable: loan_adjust_down
-            }, () => {
-                this.props.adjustApproveAmount(this.state.approve_amount)
+    } else if (this.state.initMinAmount < contractAmount) {
+        if (contractAmount - this.state.initMinAmount < 1000) {
+            this.setState(() => {
+                this.props.adjustApproveAmount(this.state.contractAmount)
             })
             return
         } else {
             this.setState({
-                loan_adjust_up: loan_adjust_up,
-                loan_adjust_downdisable: loan_adjust_down,
-                approve_amount: parseInt(approve_amount) + 1000,
+                contractAmount: parseInt(contractAmount) - 1000,
             }, () => {
-                this.props.adjustApproveAmount(this.state.approve_amount)
+                this.props.adjustApproveAmount(this.state.contractAmount)
             })
             return
         }
@@ -173,9 +139,9 @@ const styles = StyleSheet.create({
 function mapDispatchToProps(dispatch) {
     return {
         //repaymentAmount: (amount, tips) => dispatch(receiveRepaymentAmount(amount, tips)),
-        adjustApproveAmount: (approve_amount) => dispatch({
+        adjustApproveAmount: (contractAmount) => dispatch({
             type: 'receiveOnlineAdjustApproveAmount',
-            tempAmount: approve_amount
+            tempAmount: contractAmount
         }),
         //externalPush: route => dispatch(externalPush(route))
     }

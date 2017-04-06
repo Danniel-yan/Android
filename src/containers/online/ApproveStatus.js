@@ -73,8 +73,6 @@ function ApproveSuccess(props) {
 
     let data = props.resultdata;
 
-    //console.log(data)
-
     return data ? (
         <ScrollView>
             <Banner
@@ -83,8 +81,8 @@ function ApproveSuccess(props) {
             />
 
             <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
-            <LoanDetailPanel {...data}/>
-            {isShowLoanDialog(data)}
+            <LoanDetailPanel {...props}/>
+            {isShowLoanDialog(props)}
 
             <ExpireGroup style={styles.time} date={props.time_expire}/>
 
@@ -98,16 +96,14 @@ function ApproveSuccess(props) {
 
 }
 
-function isShowLoanDialog(data) {
+function isShowLoanDialog(props) {
 
+    let applyAmount = props.applydata.apply_amount // 申请金额
+    let approveAmount = props.resultdata.approve_amount // 审批金额
 
-    let approve_amount = data.approve_amount
-    let contractAmount = data.contractAmount
-    console.log(approve_amount)
-    console.log(contractAmount)
-    if (contractAmount > approve_amount) {
+    if (parseInt(approveAmount) > parseInt(applyAmount)) {
         return (
-            <LoanDialog modalVisible={true} contractAmount={contractAmount}></LoanDialog>
+            <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
         )
     } else {
         return

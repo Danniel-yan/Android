@@ -16,41 +16,44 @@ import LoanAdjustRText from 'components/shared/LoanAdjustRText';
 import BankListContainer from 'containers/scene/card/BankListContainer';
 
 export default function (props) {
+
+    let resultData = props.resultdata
+    let applyData = props.applydata
     return (
         <View>
-            <View style={[styles.container, props.style]}>
+            <View style={[styles.container, resultData.style]}>
                 {/*<L2RText left="借款额度：" right={props.approve_amount}/>*/}
-                <L2RText left="批核额度：" right={props.contractAmount}/>
-                <L2RText left="借款期限：" right={`${props.sug_term}期`}/>
-                <L2RText left="月费率：" right={`${props.month_fee}%`}/>
+                <L2RText left="批核额度：" right={resultData.approve_amount}/>
+                <L2RText left="借款期限：" right={`${resultData.sug_term}期`}/>
+                <L2RText left="月费率：" right={`${resultData.month_fee}%`}/>
             </View>
             <View style={styles.line}></View>
-            <View style={[styles.container, props.style]}>
-                {adjustAmount(props.contractAmount, props.approve_amount)}
+            <View style={[styles.container, resultData.style]}>
+                {adjustAmount(resultData.approve_amount, applyData.apply_amount)}
             </View>
-            {contractAmountInfo(props.contractAmount, props.approve_amount)}
+            {contractAmountInfo(resultData.approve_amount, applyData.apply_amount)}
         </View>
     );
-
 }
 function contractAmountInfo(contractAmount, approve_amount) {
-    if (contractAmount > approve_amount) {
+    if (parseInt(contractAmount) > parseInt(approve_amount)) {
         return (
             <Text
-                style={styles.text}>{`恭喜! 本次借款为您批核了${contractAmount}元的额度，您可以根据需要向上调整您的借款金额,最大不超过批核额度,请尽快在有效期内确认借款，有效期过后视为放弃借款哦.`}</Text>
+                style={styles.text}>{`您本次借款批核额度为${contractAmount}元，请根据实际资金需求调整借款金额。有效期内未确认将被视为放弃借款，钞票就在眼前，快来确认借款吧`}</Text>
 
         )
     } else {
-        return (<Text style={styles.text}>{`本次借款为您批核了${contractAmount}元的额度，请尽快在有效期内确认借款，有效期过后视为放弃借款哦.`}</Text>)
+        return (<Text style={styles.text}>{`本次借款为您批核了${contractAmount}元的额度，请尽快在有效期内确认借款，有效期过后视为放弃借款`}</Text>)
     }
 }
 
 function adjustAmount(contractAmount, approve_amount) {
-    if (contractAmount > approve_amount) {
+
+    if (parseInt(contractAmount) > parseInt(approve_amount)) {
         return (
             <LoanAdjustRText textLeft="借款金额：" approve_amount={approve_amount} contractAmount={contractAmount}/>   )
     } else {
-        <L2RText left="借款金额：" right={approve_amount}/>
+        return (<L2RText left="借款金额：" right={approve_amount}/>)
     }
 }
 const styles = StyleSheet.create({
