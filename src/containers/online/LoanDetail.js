@@ -26,7 +26,7 @@ class LoanDetail extends Component {
   }
 
   render() {
-    // let bankInfo = this.props.bankInfo;
+    let bankInfo = this.props.bankInfo;
     let repayAmount = this.props.repayAmount;
     let loanDetail = this.props.loanDetail;
     const serviceAmount = loanDetail.repayPlanResults[0].repayAmount;
@@ -44,7 +44,7 @@ class LoanDetail extends Component {
           this._renderWebItem("合同", url)
         }
         {
-          this._renderViewType(plans, repayAmount)
+          this._renderViewType(plans, repayAmount, bankInfo)
         }
 
       </ScrollView>
@@ -77,9 +77,9 @@ class LoanDetail extends Component {
         })
   }
 
-  _renderViewType(plans, repayAmount) {
+  _renderViewType(plans, repayAmount, bankInfo) {
     if (this.props.loan_type == loanType.chaohaodai) {
-      // let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
+      let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
       let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
       return(
         <View>
@@ -89,19 +89,20 @@ class LoanDetail extends Component {
               title: "还款计划"
             })
           }
+          <L2RItem left="当前待还" right={ repayAmount.status == 0 ? repayAmount.amount + '元' : '计算中...'}/>
+          <L2RItem left="还款银行卡" right={bankname}/>
+
+          <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
+            <ProcessingButton
+              processing={this.state.submitting}
+              onPress={this._submit.bind(this)}
+              style={dis ? styles.submitBtn_dis : styles.submitBtn}
+              textStyle={styles.submitBtnText}
+              disabled={dis}
+              text="一键还款"/>
+          </View>
         </View>
-          // <L2RItem left="当前待还" right={ repayAmount.status == 0 ? repayAmount.amount + '元' : '计算中...'}/>
-          // <L2RItem left="还款银行卡" right={bankname}/>
-          //
-          // <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
-          //   <ProcessingButton
-          //     processing={this.state.submitting}
-          //     onPress={this._submit.bind(this)}
-          //     style={dis ? styles.submitBtn_dis : styles.submitBtn}
-          //     textStyle={styles.submitBtnText}
-          //     disabled={dis}
-          //     text="一键还款"/>
-          // </View>
+
       )
     }else{
       return(
@@ -189,12 +190,12 @@ import { externalPush } from 'actions/navigation';
 function mapStateToProps(state) {
   let fetching = state.online.loanDetail.isFetching;
   if (state.online.loanType.type == loanType.chaohaodai) {
-    fetching = fetching || state.online.repayAmount.isFetching;
+    fetching = fetching || state.online.repayAmount.isFetching || state.online.bankInfo.isFetching;
   }
   return {
     isFetching: fetching,
     loanDetail: state.online.loanDetail,
-    // bankInfo: state.online.bankInfo,
+    bankInfo: state.online.bankInfo,
     repayAmount: state.online.repayAmount
   }
 }
