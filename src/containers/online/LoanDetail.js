@@ -64,7 +64,9 @@ class LoanDetail extends Component {
           this.submitting = false;
           this.setState({submitting: false})
           if (res.res == responseStatus.failure || (res.data.status != 3 && res.data.status != 6)) {
-              this.props.externalPush({key : 'RepaymentScene',title:'借款详情'})
+              // this.props.externalPush({key : 'RepaymentScene',title:'借款详情'})
+              // this.props.externalPush({key : 'BankDepositoryLoad',title:'正在前往银行'})
+            this.props.externalPush({key : 'BankDepositoryActivate',title:'激活'})
           } else {
               AsyncStorage.setItem('ticket_id', res.data.ticket_id)
               this.props.externalPush({key : 'RepaymentResult',title:'还款结果'})
@@ -80,7 +82,9 @@ class LoanDetail extends Component {
   _renderViewType(plans, repayAmount, bankInfo) {
     if (this.props.loan_type == loanType.chaohaodai) {
       let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
-      let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
+      // todo del !
+      // let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
+      let dis = !(repayAmount.status == 1 || repayAmount.amount <= 0);
       return(
         <View>
           {
