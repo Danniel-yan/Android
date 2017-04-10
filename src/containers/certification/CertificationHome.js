@@ -169,7 +169,8 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="公积金认证" toKey="FundLogin">
+      <ExternalPushLink title="公积金认证" toKey="FundLogin"
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "PAF", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}>
         {item}
       </ExternalPushLink>
     )
