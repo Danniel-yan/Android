@@ -15,7 +15,7 @@ import { post, responseStatus } from 'utils/fetch';
 import { ExternalPushLink } from 'containers/shared/Link';
 import { flexRow, container, colors, fontSize, border } from 'styles'
 import { l2rStyles } from './styles';
-import LoanDialog from 'utils/loanDialog.js';
+import ChangeCardDialog from 'utils/changeCardDialog.js';
 
 
 import SubmitButton from './SubmitButton';
@@ -68,8 +68,7 @@ class LoanSign extends Component {
                     </ExternalPushLink>
                 </View>
 
-                <LoanDialog modalVisible={true} title={'提示'} textExplain={'目前不支持在线更换放款卡，如有换卡需要，请联系4009160160'}
-                            btnSubmitText={'我知道啦'} isShowImage={false}></LoanDialog>
+                <ChangeCardDialog modalVisible={true}></ChangeCardDialog>
 
                 <View style={styles.textRow}>
                     <Button

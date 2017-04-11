@@ -14,7 +14,7 @@ import { InputGroup, PickerGroup } from 'components/form';
 import { post, responseStatus } from 'utils/fetch';
 import { colors, responsive, fontSize, border } from 'styles';
 import ErrorInfo from './ErrorInfo';
-import LoanDialog from 'utils/loanDialog'
+import ActiveCardDialog from 'utils/activeCardDialog'
 
 class ReceiptCard extends Component {
     constructor(props) {
@@ -85,9 +85,7 @@ class ReceiptCard extends Component {
                     textStyle={styles.input}
                 />
 
-                <LoanDialog modalVisible={true} title={'激活厦门银行存管账户'}
-                            textExplain={'由于募资方(麻袋理财)对接银行存管系统，钞市客户需开通银行存管账户后，才可顺利进行借款。钞市用户银行存管账户由麻袋理财代为办理开通。'}
-                            btnSubmitText={'立即激活'} isShowImage={true}></LoanDialog>
+                <ActiveCardDialog modalVisible={true} ></ActiveCardDialog>
 
                 <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
 
