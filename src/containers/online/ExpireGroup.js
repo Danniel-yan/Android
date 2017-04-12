@@ -19,7 +19,7 @@ export default function(props) {
   let text = `有效期至${date.getMonth()+1}月${date.getDate()}日，还剩${disDay}天`;
 
   return (
-    <View style={[styles.container, centering, props.style]}>
+    <View style={[styles.container, centering]}>
       <Text style={styles.text}>{text}</Text>
     </View>
   );
