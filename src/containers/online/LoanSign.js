@@ -33,7 +33,7 @@ class LoanSign extends Component {
         let loan_type = this.props.loanType
         let amount = this.props.tempAmount
         console.log('LoanSign componentWillMount 初始化---------------->')
-        console.log('LoanSign componentWillMount amount---------------->' +amount)
+        console.log('amount---------------->' +amount)
 
         if (amount && (parseInt(amount) != parseInt(this.state.resultData.approve_amount))) {
             post('/loanctcf/contract-trail', {loan_type, amount})
@@ -131,7 +131,7 @@ class LoanSign extends Component {
                     prePress={this._submit.bind(this)}
                     toKey="OnlineSignSuccess"
                     componentProps={{loan_type: this.props.loanType}}
-                    backRoute={{key: 'LoanDetailScene'}}
+                    backRoute={{key: (this.props.loanType == 1 || this.props.loanType == 2) ? "SuiXinJieList" : "LoanDetailScene"}}
                     title="签约"
                     text="提交"/>
             </ScrollView>
@@ -201,9 +201,6 @@ function mapStateToProps(state) {
     let userInfo = state.online.userInfo;
     let applyResult = state.online.applyResult;
 
-    //console.log("applyResult")
-    //console.log(applyResult)
-
     return Object.assign({}, {
         ...state.online.applyResult,
         userInfo: userInfo.data,
@@ -218,7 +215,7 @@ function mapDispatchToProps(dispatch) {
     return {
         fetchStatus: () => dispatch(actions.status()),
         fetching: () => {
-            dispatch(actions.applyResult())
+            // dispatch(actions.applyResult())
             dispatch(actions.userInfo())
         },
     }

@@ -42,9 +42,12 @@ class ApproveStatus extends Component {
 
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
     componentWillMount() {
-        console.log('ApproveStatus  componentWillMount------------------->')
-        this.props.clearApproveAmount()
+        // this.props.clearApproveAmount()
 
+    }
+
+    componentWillUnmount() {
+      // this.props.clearApproveAmount()
     }
 
     render() {
@@ -99,9 +102,7 @@ class ApproveSuccess extends Component{
       constructor(props) {
         super(props);
         // 初始状态
-        var showDialog = true; // parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount);
-        console.log("****************this.props")
-        console.log(showDialog)
+        var showDialog = parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount);
         var routes = this.props.routes, currentRoute = routes[routes.length - 1];
         this.state = {
             showDialog: showDialog && (currentRoute.key === "OnlineApproveStatus")
@@ -113,9 +114,6 @@ class ApproveSuccess extends Component{
         let data = props.resultdata;
         let applyAmount = props.applydata.apply_amount // 申请金额
         let approveAmount = props.resultdata.approve_amount // 审批金额
-        console.log('approveStatus approveSuccess------------------->')
-        console.log(data)
-        console.log(props.applydata)
         return data ? (
             <ScrollView>
                 <Banner
@@ -153,8 +151,6 @@ function isShowLoanDialog(props) {
 
     let applyAmount = props.applydata.apply_amount // 申请金额
     let approveAmount = props.resultdata.approve_amount // 审批金额
-    console.log('applyAmount1111--------------->' + applyAmount)
-    console.log('approveAmount2222------------->' + approveAmount)
 
     if (parseInt(approveAmount) > parseInt(applyAmount)) {
         return (
@@ -190,7 +186,7 @@ function ApproveExpire(props) {
                 offset={true}
                 toKey="OnlineUserInfo"
                 text="重新申请"
-                backRoute={{key: "LoanDetailScene"}}/>
+                backRoute={{key: (props.loanType == 1 || props.loanType == 2) ? "SuiXinJieList" : "LoanDetailScene"}}/>
         </ScrollView>
     );
 
@@ -218,11 +214,11 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
-  console.log(state)
     return Object.assign({}, {
         ...state.online.applyResult,
         ...state.online.status,
-        routes: state.navigation.routes
+        routes: state.navigation.routes,
+        loanType: state.online.loanType.type
     }, {
         isFetching: state.online.applyResult.isFetching || state.online.status.isFetching,
         // fetched: state.online.applyResult.fetched

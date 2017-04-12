@@ -80,6 +80,9 @@ class CertificationHome extends Component {
     var enable = yysResult.status == 'success';
       enable = loanType == 1 ? enable && bankResult.status == 'success' : enable && gjjResult.status == 'success';
 
+    var backRoute = "LoanDetailScene";
+    if(loanType == 1 || loanType == 2) { backRoute = "SuiXinJieList" }
+
     return this.state.initFetching && !this.props.fetched ? <Loading /> : (
       <ScrollView>
 
@@ -100,7 +103,7 @@ class CertificationHome extends Component {
           textStyle={onlineStyles.btnText}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
-          backRoute={{key: 'LoanDetailScene'}}
+          backRoute={{key: backRoute}}
         />
       </ScrollView>
     );

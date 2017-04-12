@@ -37,11 +37,10 @@ export class LoanAdjustRText extends Component {
 
     componentWillMount() {
 
-        this.props.adjustApproveAmount(this.state.contractAmount)
+        // this.props.adjustApproveAmount(this.state.contractAmount)
     }
 
     componentWillReceiveProps(nextProps) {
-
         this.setState({
             //contractAmount: parseInt(this.props.contractAmount)
             contractAmount: parseInt(nextProps.contractAmount)

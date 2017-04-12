@@ -49,10 +49,10 @@ function contractAmountInfo(contractAmount, approve_amount) {
 
 function adjustAmount(contractAmount, approve_amount) {
 
-    console.log('LoanDetailPanel function adjustAmount---------------->')
-    console.log('approve_amount---------------->' + approve_amount)
-    console.log('contractAmount---------------->' + contractAmount)
-    
+    // console.log('LoanDetailPanel function adjustAmount---------------->')
+    // console.log('approve_amount---------------->' + approve_amount)
+    // console.log('contractAmount---------------->' + contractAmount)
+
     if (parseInt(contractAmount) > parseInt(approve_amount)) {
         return (
             <LoanAdjustRText textLeft="借款金额：" approve_amount={approve_amount} contractAmount={contractAmount}/>   )
