@@ -112,10 +112,12 @@ class LoanForm extends Component {
   render() {
     let { idFront, idBack, faceMeg } = this.state;
     let { credit_card_no, credit_card_mobile } = this.state.form;
+    let backKey = "LoanDetailScene";
 
     let enable = idFront && idBack;
     if(this.props.loanType == 1) enable = enable && credit_card_no && credit_card_mobile;
     if(this.props.loanType == 2) enable = enable && faceMeg;
+    if(this.props.loanType == 1 || this.props.loanType == 2 ) backKey = "SuiXinJieList";
 
     return (
       <ScrollView>
@@ -127,8 +129,8 @@ class LoanForm extends Component {
 
         <ExternalPushLink
           title="审批状态"
-          backKey="LoanDetailScene"
-          backRoute={{ key: 'LoanDetailScene' }}
+          backKey={backKey}
+          backRoute={{ key: backKey }}
           toKey="OnlineApproveStatus"
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
