@@ -18,6 +18,7 @@ import ExpireGroup from './ExpireGroup';
 import SubmitButton from './SubmitButton';
 import Banner from './Banner';
 import LoanDialog from 'utils/loanDialog.js';
+import alert from 'utils/alert.js'
 
 
 //function ApproveStatus(props) {
@@ -51,6 +52,9 @@ class ApproveStatus extends Component {
     }
 
     render() {
+        if (this.props.error){
+            alert(this.props.error)
+        }
         if (this.props.status == 10 && this.props.time_expire_status == 1) {
             return (<ApproveExpire {...this.props}/>);
         }
@@ -102,7 +106,7 @@ class ApproveSuccess extends Component{
       constructor(props) {
         super(props);
         // 初始状态
-        var showDialog = parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount);
+        var showDialog = props.resultdata && (parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount));
         var routes = this.props.routes, currentRoute = routes[routes.length - 1];
         this.state = {
             showDialog: showDialog && (currentRoute.key === "OnlineApproveStatus")
@@ -112,8 +116,8 @@ class ApproveSuccess extends Component{
     render() {
         let props = this.props;
         let data = props.resultdata;
-        let applyAmount = props.applydata.apply_amount // 申请金额
-        let approveAmount = props.resultdata.approve_amount // 审批金额
+        let applyAmount = props.applydata && props.applydata.apply_amount // 申请金额
+        let approveAmount = props.resultdata && props.resultdata.approve_amount // 审批金额
         return data ? (
             <ScrollView>
                 <Banner
