@@ -33,6 +33,7 @@ class LoanSign extends Component {
         let loan_type = this.props.loanType
         let amount = this.props.tempAmount
         console.log('LoanSign componentWillMount 初始化---------------->')
+        console.log('LoanSign componentWillMount amount---------------->' +amount)
 
         if (amount && (parseInt(amount) != parseInt(this.state.resultData.approve_amount))) {
             post('/loanctcf/contract-trail', {loan_type, amount})

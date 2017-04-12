@@ -35,9 +35,16 @@ import LoanDialog from 'utils/loanDialog.js';
 //}
 
 class ApproveStatus extends Component {
+
+      constructor(props) {
+        super(props);
+      }
+
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
     componentWillMount() {
+        console.log('ApproveStatus  componentWillMount------------------->')
         this.props.clearApproveAmount()
+
     }
 
     render() {
@@ -87,44 +94,70 @@ function ApproveFailure(props) {
 
 }
 
+class ApproveSuccess extends Component{
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            showDialog: parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount)
+        };
+      }
 
-function ApproveSuccess(props) {
+    render() {
+        let props = this.props;
+        let data = props.resultdata;
+        let applyAmount = props.applydata.apply_amount // 申请金额
+        let approveAmount = props.resultdata.approve_amount // 审批金额
+        console.log('approveStatus approveSuccess------------------->')
+        console.log(data)
+        console.log(props.applydata)
+        return data ? (
+            <ScrollView>
+                <Banner
+                    icon={require('assets/online/approve-success.png')}
+                    text="您的借款申请已经通过"
+                />
 
-    //console.log(this.props)
-    let data = props.resultdata;
-    return data ? (
-        <ScrollView>
-            <Banner
-                icon={require('assets/online/approve-success.png')}
-                text="您的借款申请已经通过"
-            />
+                <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
+                <LoanDetailPanel {...props}/>
+                {this.state.showDialog ? (
+                    <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
+                ) : null}
 
-            <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="审批详情"/>
-            <LoanDetailPanel {...props}/>
-            {isShowLoanDialog(props)}
+                <ExpireGroup style={styles.time} date={props.time_expire}/>
 
-            <ExpireGroup style={styles.time} date={props.time_expire}/>
+                <SubmitButton
+                    title="签约"
+                    offset={true}
+                    toKey="OnlineLoanSign"
+                    text="确认借款"/>
+            </ScrollView>
+        ) : null;
 
-            <SubmitButton
-                title="签约"
-                offset={true}
-                toKey="OnlineLoanSign"
-                text="确认借款"/>
-        </ScrollView>
-    ) : null;
-
+    }
 }
+
+
+//function ApproveSuccess(props) {
+//
+//    //console.log(this.props)
+//
+//}
 
 function isShowLoanDialog(props) {
 
     let applyAmount = props.applydata.apply_amount // 申请金额
     let approveAmount = props.resultdata.approve_amount // 审批金额
+    console.log('applyAmount1111--------------->' + applyAmount)
+    console.log('approveAmount2222------------->' + approveAmount)
 
     if (parseInt(approveAmount) > parseInt(applyAmount)) {
         return (
             <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
         )
     } else {
+
         return
     }
 
