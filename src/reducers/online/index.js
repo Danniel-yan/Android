@@ -21,6 +21,7 @@ import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 import pboc from './pboc';
+import suixinjie from './suixinjie';
 
 export default combineReducers({
   loanDetail,
@@ -44,5 +45,6 @@ export default combineReducers({
   gjjResult,
   gjjLoginElements,
   gjjDetail,
-  pboc
+  pboc,
+  suixinjie
 })
