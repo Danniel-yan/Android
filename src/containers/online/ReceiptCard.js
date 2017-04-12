@@ -15,17 +15,16 @@ import { post, responseStatus } from 'utils/fetch';
 import { colors, responsive, fontSize, border } from 'styles';
 import ErrorInfo from './ErrorInfo';
 import ActiveCardDialog from 'utils/activeCardDialog'
+import { externalPush } from 'actions/navigation';
 
 class ReceiptCard extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            submitting: false,
             mobile: props.userInfo.mobile,
             bank_card_no: '',
             bank_name: '',
-            error: ''
         };
     }
 
@@ -92,7 +91,6 @@ class ReceiptCard extends Component {
                 <ErrorInfo msg={this.state.error}/>
 
                 <SubmitButton
-                    processing={this.state.submitting}
                     backRoute={{ backCount: 1}}
                     disabled={!!formError || !this.changed}
                     onPress={this.submit.bind(this)}
@@ -113,26 +111,28 @@ class ReceiptCard extends Component {
     }
 
     submit() {
-        this.setState({submitting: true, error: ''});
+        // this.refs.dialog._setModalVisible(true)
 
-        let { mobile, bank_card_no, bank_name } = this.state;
+        this.props.externalPush({key : 'BankDepositoryLoad',title:'正在前往银行',componentProps: { info: this.state }})
 
-        var loan_type = parseInt(this.props.loanType) || 0;
-
-        post('/loanctcf/contract-bind-bank', {
-            mobile, bank_card_no, bank_name, loan_type
-        }).then(response => {
-
-                if (response.res == responseStatus.success) {
-                    this.setState({submitting: false});
-                    this.props.onSuccess(bank_card_no);
-                    return;
-                }
-                this.setState({error: response.msg, submitting: false});
-            })
-            .catch(err => {
-                this.setState({error: '网络出错', submitting: false});
-            })
+        // let { mobile, bank_card_no, bank_name } = this.state;
+        //
+        // var loan_type = parseInt(this.props.loanType) || 0;
+        //
+        // post('/loanctcf/contract-bind-bank', {
+        //     mobile, bank_card_no, bank_name, loan_type
+        // }).then(response => {
+        //
+        //         if (response.res == responseStatus.success) {
+        //             this.setState({submitting: false});
+        //             this.props.onSuccess(bank_card_no);
+        //             return;
+        //         }
+        //         this.setState({error: response.msg, submitting: false});
+        //     })
+        //     .catch(err => {
+        //         this.setState({error: '网络出错', submitting: false});
+        //     })
     }
 }
 
@@ -182,7 +182,8 @@ function mapDispatchToProps(dispatch, ownProps) {
         onSuccess: (value) => {
             ownProps.onSuccess(value);
             dispatch(externalPop());
-        }
+        },
+        externalPush : route => dispatch(externalPush(route))
     }
 }
 

@@ -7,11 +7,39 @@ import {
     StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
+import actions from 'actions/online';
+import { externalPush } from 'actions/navigation';
 
 class BankDepositoryLoad extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            depositoryInfo: props.info
+        }
     }
+
+    componentDidMount() {
+        this.props.fetching(this.state.depositoryInfo.mobile, this.state.depositoryInfo.bank_card_no);
+    }
+
+    // {/*componentWillReceiveProps(nextProps) {*/}
+    //     {/*if (!nextProps.isFetching) {*/}
+    // //         console.log(nextProps.depositoryCreate);
+    // //         let head = nextProps.depositoryCreate.gatewayRequestHead;
+    // //         var uri = "", method = "POST", body = "";
+    // //         console.log(head);
+    // //         for (var key in head) {
+    // //             if (key == 'gatewayUrl') {
+    // //                 uri = head[key];
+    // //             } else {
+    // //                 body = body + key + "=" + head[key] + "&";
+    // //             }
+    // //         }
+    // //         console.log(uri);
+    // //         console.log(body);
+    // //         this.props.externalPush({web: {uri: uri, method: method, body: body}, title: "激活", backRoute: null})
+    // //     }
+    // // }
 
     render() {
         return (
@@ -70,4 +98,19 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null, null)(BankDepositoryLoad)
+function mapStateToProps(state) {
+    return {
+        isFetching: state.online.depositoryCreate.isFetching,
+        depositoryCreate: state.online.depositoryCreate
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        fetching: (moblie, bank_card_no) => {
+            dispatch(actions.depositoryCreate(dispatch, moblie, bank_card_no))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankDepositoryLoad)
