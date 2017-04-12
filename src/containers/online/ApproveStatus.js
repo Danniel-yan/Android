@@ -99,8 +99,12 @@ class ApproveSuccess extends Component{
       constructor(props) {
         super(props);
         // 初始状态
+        var showDialog = true; // parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount);
+        console.log("****************this.props")
+        console.log(showDialog)
+        var routes = this.props.routes, currentRoute = routes[routes.length - 1];
         this.state = {
-            showDialog: parseInt(props.resultdata.approve_amount) > parseInt(props.applydata.apply_amount)
+            showDialog: showDialog && (currentRoute.key === "OnlineApproveStatus")
         };
       }
 
@@ -214,9 +218,11 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 
 function mapStateToProps(state) {
+  console.log(state)
     return Object.assign({}, {
         ...state.online.applyResult,
         ...state.online.status,
+        routes: state.navigation.routes
     }, {
         isFetching: state.online.applyResult.isFetching || state.online.status.isFetching,
         // fetched: state.online.applyResult.fetched
