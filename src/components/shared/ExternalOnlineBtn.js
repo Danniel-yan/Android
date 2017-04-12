@@ -35,6 +35,7 @@ function ExternalOnlineTransfer(ExternalComponent) {
     }
 
     _chaoshidaiRouteProps() {
+      let detail = this.props.detail;
       let logined = this.props.loginUser.info;
       let { onlineStatus } = this.props;
       let { status, time_expire_status } = onlineStatus;

@@ -25,6 +25,7 @@ import ErrorInfo from './ErrorInfo';
 import { ExternalPushLink } from 'containers/shared/Link';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
+import tracker from 'utils/tracker.js';
 
 const hasCreditStatus = {
   yes: 1,
@@ -33,7 +34,7 @@ const hasCreditStatus = {
 
 class UserInfo extends Component {
   tracking() {
-    return { key: 'inhouse_loan', topic: "online_user_info", exten_info: JSON.stringify({title: this.props.title}) }
+    return { key: 'inhouse_loan', topic: "online_user_info", exten_info: JSON.stringify({title: this.props.title, id: this.props.id}) }
   }
 
   constructor(props) {
@@ -92,6 +93,7 @@ class UserInfo extends Component {
               value={person_name}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'person_name')}
+              onBlur={this._trackingInfo.bind(this, 'person_name', 'name')}
             />
           </FormGroup>
 
@@ -102,6 +104,7 @@ class UserInfo extends Component {
               value={id_no}
               underlineColorAndroid="transparent"
               onChangeText={this._inputChange.bind(this, 'id_no')}
+              onBlur={this._trackingInfo.bind(this, 'id_no', 'ID')}
             />
           </FormGroup>
 
@@ -132,6 +135,7 @@ class UserInfo extends Component {
                 value={company}
                 underlineColorAndroid="transparent"
                 onChangeText={this._inputChange.bind(this, 'company')}
+                onBlur={this._trackingInfo.bind(this, 'company', 'company')}
               />
             </FormGroup>
 
@@ -214,6 +218,24 @@ class UserInfo extends Component {
     value = typeof value == 'string' ? value.trim() : value;
     let form = {...this.state.form, [field]: value };
     this.setState({ form });
+
+    if(field == "profession") {
+      tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: "profession", event: "clk", exten_info: JSON.stringify({
+        title: this.props.title, profession: value
+      })})
+    }
+    if(field == "education") {
+      tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: "education", event: "clk", exten_info: JSON.stringify({
+        title: this.props.title, education: value
+      })})
+    }
+  }
+
+  _trackingInfo(field, entity) {
+    tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: entity, event: "blur", exten_info: JSON.stringify({
+      title: this.props.title,
+      [entity]: this.state.form[field]
+    })})
   }
 }
 
@@ -288,7 +310,7 @@ import Loading from 'components/shared/Loading';
 
 import actions from 'actions/online';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   let user = state.online.userInfo;
   let pickers = state.online.pickers;
   let loanDetail = state.loanDetail.detail || {};
@@ -303,7 +325,8 @@ function mapStateToProps(state) {
     mobile: state.loginUser.info.username,
     pickers,
     loanType: state.online.loanType.type,
-    title: loanDetail.title
+    title: loanDetail.title,
+    id: loanDetail.id
   }
 }
 
@@ -317,5 +340,21 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(UserInfo), true));
+let AsyncUserInfo = AsynCpGenerator(Loading, UserInfo, true);
+
+class AsyncUserInfoComponent extends Component {
+  tracking() {
+    return { key: 'inhouse_loan', topic: "online_user_info", exten_info: JSON.stringify({title: this.props.title, id: this.props.id}) }
+  }
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <AsyncUserInfo {...this.props} />
+    );
+  }
+}
+
+export default (connect(mapStateToProps, mapDispatchToProps)(trackingScene(AsyncUserInfoComponent)));

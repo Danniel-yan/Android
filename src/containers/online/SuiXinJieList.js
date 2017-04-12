@@ -6,6 +6,7 @@ import { SuiXinJieExternalOnline } from 'components/shared/ExternalOnlineBtn';
 import MenuItem from 'components/shared/MenuItem';
 
 class SuiXinJieList extends Component {
+  tracking = { key: "inhouse_loan", topic: "sui_xin_dai" }
   constructor(props) {
     super(props)
   }
@@ -18,7 +19,11 @@ class SuiXinJieList extends Component {
           return (
             <SuiXinJieExternalOnline key={idx} {...this.props}
               detail={loan} onlineStatus={loan.status}
-              prePress={() => this.props.setLoanType(loan.loan_type)}
+              prePress={() => {
+                this.props.setLoanDetail(loan);
+                this.props.setLoanType(loan.loan_type)
+              }}
+              tracking={{key: "inhouse_loan", topic: "sui_xin_dai", entity: "loan_list", exten_info: JSON.stringify({ title: loan.title, id: loan.id, pos: idx })}}
               >
             </SuiXinJieExternalOnline>
           );
@@ -35,6 +40,7 @@ import { connect } from 'react-redux';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import onlineAction from 'actions/online';
+import { trackingScene } from 'high-order/trackingPointGenerator';
 
 function mapStateToProps(state) {
   return {
@@ -47,8 +53,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetching: () => { dispatch(onlineAction.suixinjie("1000")) },
-    setLoanType: (type) => { dispatch(onlineAction.setLoanType(type)) }
+    setLoanType: (type) => { dispatch(onlineAction.setLoanType(type)) },
+    setLoanDetail: loan => { dispatch({type: "receiveLoanDetail", detail: loan}) }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, SuiXinJieList));
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, trackingScene(SuiXinJieList)));
