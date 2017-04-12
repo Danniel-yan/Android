@@ -36,6 +36,7 @@ export class LoanAdjustRText extends Component {
     }
 
     componentWillMount() {
+
         this.props.adjustApproveAmount(this.state.contractAmount)
     }
 
@@ -143,6 +144,7 @@ function mapDispatchToProps(dispatch) {
             tempAmount: contractAmount
         }),
         //externalPush: route => dispatch(externalPush(route))
+
     }
 }
 

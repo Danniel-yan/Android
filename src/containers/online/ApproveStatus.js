@@ -20,21 +20,40 @@ import Banner from './Banner';
 import LoanDialog from 'utils/loanDialog.js';
 
 
-function ApproveStatus(props) {
+//function ApproveStatus(props) {
+//
+//    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
+//    if (props.status == 10 && props.time_expire_status == 1) {
+//        return (<ApproveExpire {...props}/>);
+//    } else if (props.status == 10) {
+//        return (<ApproveSuccess {...props}/>);
+//    } else if (props.status == 9 || props.status == 1) {
+//        return (<ApproveFailure {...props}/>);
+//    } else {
+//        return (<Approving {...props}/>);
+//    }
+//}
 
+class ApproveStatus extends Component {
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-    if (props.status == 10 && props.time_expire_status == 1) {
-        return (<ApproveExpire {...props}/>);
-    } else if (props.status == 10) {
-        return (<ApproveSuccess {...props}/>);
-    } else if (props.status == 9 || props.status == 1) {
-        return (<ApproveFailure {...props}/>);
-    } else {
-        return (<Approving {...props}/>);
+    componentWillMount() {
+        this.props.clearApproveAmount()
     }
+
+    render() {
+        if (this.props.status == 10 && this.props.time_expire_status == 1) {
+            return (<ApproveExpire {...this.props}/>);
+        }
+        else if (this.props.status == 10) {
+            return (<ApproveSuccess {...this.props}/>);
+        } else if (this.props.status == 9 || this.props.status == 1) {
+            return (<ApproveFailure {...this.props}/>);
+        } else {
+            return (<Approving {...this.props}/>);
+        }
+    }
+
 }
-
-
 function Approving(props) {
     return (
         <ScrollView>
@@ -71,8 +90,8 @@ function ApproveFailure(props) {
 
 function ApproveSuccess(props) {
 
+    //console.log(this.props)
     let data = props.resultdata;
-
     return data ? (
         <ScrollView>
             <Banner
@@ -177,7 +196,10 @@ function mapDispatchToProps(dispatch) {
         fetching: () => {
             dispatch(actions.status());
             dispatch(actions.applyResult());
-        }
+        },
+        clearApproveAmount: ()=> dispatch({
+            type: 'clearReceiveOnlineAdjustApproveAmount',
+        }),
     }
 }
 
