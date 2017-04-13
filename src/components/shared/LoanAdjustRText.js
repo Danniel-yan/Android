@@ -92,9 +92,9 @@ function loanAdjustUp(contractAmount) {
 }
 function loanAdjustDown(approve_amount, contractAmount) {
     if (contractAmount == this.state.initMinAmount) {
-        this.setState(), () => {
+        this.setState(() => {
             this.props.adjustApproveAmount(this.state.contractAmount)
-        }
+        })
         return
     } else if (this.state.initMinAmount < contractAmount) {
         if (contractAmount - this.state.initMinAmount < 1000) {
