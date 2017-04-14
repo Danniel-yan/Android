@@ -31,7 +31,7 @@ export default function (config) {
 
     _renderAndroid() {
       return (
-        <AndroidWebView startInLoadingState={true} style={defaultStyles.container} source={source}></AndroidWebView>
+        <AndroidWebView startInLoadingState={true} style={defaultStyles.container} source={source} onMessage={this.props.onMessage}></AndroidWebView>
       );
     }
 

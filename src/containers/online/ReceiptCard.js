@@ -1,4 +1,4 @@
-import React, { Component } from 'React';
+import React, {Component} from 'React';
 
 import {
     View,
@@ -10,12 +10,12 @@ import {
 import L2RText from 'components/shared/L2RText';
 import GroupTitle from 'components/GroupTitle';
 import SubmitButton from './SubmitButton';
-import { InputGroup, PickerGroup } from 'components/form';
-import { post, responseStatus } from 'utils/fetch';
-import { colors, responsive, fontSize, border } from 'styles';
+import {InputGroup, PickerGroup} from 'components/form';
+import {post, responseStatus} from 'utils/fetch';
+import {colors, responsive, fontSize, border} from 'styles';
 import ErrorInfo from './ErrorInfo';
 import ActiveCardDialog from 'utils/activeCardDialog'
-import { externalPush } from 'actions/navigation';
+import {externalPush} from 'actions/navigation';
 
 class ReceiptCard extends Component {
     constructor(props) {
@@ -33,7 +33,7 @@ class ReceiptCard extends Component {
             return '';
         }
 
-        let { mobile, bank_card_no, bank_name } = this.state;
+        let {mobile, bank_card_no, bank_name} = this.state;
 
         if (mobile.length != 11) {
             return '请输入11位手机号码';
@@ -49,6 +49,7 @@ class ReceiptCard extends Component {
 
         return '';
     }
+
 
     render() {
         let banksText = this.props.banks.join('、');
@@ -84,14 +85,22 @@ class ReceiptCard extends Component {
                     textStyle={styles.input}
                 />
 
-                <ActiveCardDialog modalVisible={true} ></ActiveCardDialog>
+                <ActiveCardDialog ref='dialog' modalVisible={false} componentProps={{
+                    push: () => {
+                        this.props.externalPush({
+                            key: 'BankDepositoryLoad',
+                            title: '正在前往银行',
+                            componentProps: {info: this.state}
+                        })
+                    }
+                }}></ActiveCardDialog>
 
                 <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
 
                 <ErrorInfo msg={this.state.error}/>
 
                 <SubmitButton
-                    backRoute={{ backCount: 1}}
+                    backRoute={{backCount: 1}}
                     disabled={!!formError || !this.changed}
                     onPress={this.submit.bind(this)}
                     text="提交"
@@ -111,28 +120,7 @@ class ReceiptCard extends Component {
     }
 
     submit() {
-        // this.refs.dialog._setModalVisible(true)
-
-        this.props.externalPush({key : 'BankDepositoryLoad',title:'正在前往银行',componentProps: { info: this.state }})
-
-        // let { mobile, bank_card_no, bank_name } = this.state;
-        //
-        // var loan_type = parseInt(this.props.loanType) || 0;
-        //
-        // post('/loanctcf/contract-bind-bank', {
-        //     mobile, bank_card_no, bank_name, loan_type
-        // }).then(response => {
-        //
-        //         if (response.res == responseStatus.success) {
-        //             this.setState({submitting: false});
-        //             this.props.onSuccess(bank_card_no);
-        //             return;
-        //         }
-        //         this.setState({error: response.msg, submitting: false});
-        //     })
-        //     .catch(err => {
-        //         this.setState({error: '网络出错', submitting: false});
-        //     })
+        this.refs.dialog._setModalVisible(true)
     }
 }
 
@@ -161,12 +149,11 @@ const styles = StyleSheet.create({
 });
 
 
-import { connect } from 'react-redux';
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {connect} from 'react-redux';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
-import { externalPop } from 'actions/navigation';
 
 function mapStateToProps(state) {
     return {
@@ -179,11 +166,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
     return {
         fetching: () => dispatch(actions.contractBanks()),
-        onSuccess: (value) => {
-            ownProps.onSuccess(value);
-            dispatch(externalPop());
-        },
-        externalPush : route => dispatch(externalPush(route))
+        externalPush: route => dispatch(externalPush(route))
     }
 }
 

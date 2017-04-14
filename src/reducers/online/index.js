@@ -21,6 +21,7 @@ import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 import depositoryCreate from './depositoryCreate';
+import depositoryResult from './depositoryResult';
 import pboc from './pboc';
 
 export default combineReducers({
@@ -46,5 +47,6 @@ export default combineReducers({
   gjjLoginElements,
   gjjDetail,
   depositoryCreate,
+  depositoryResult,
   pboc
 })

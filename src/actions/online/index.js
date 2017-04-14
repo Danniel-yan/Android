@@ -19,6 +19,7 @@ import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 import depositoryCreate from './depositoryCreate';
+import depositoryResult from './depositoryResult';
 import { initial, getStatus } from './pboc';
 
 export default {
@@ -44,6 +45,7 @@ export default {
   yysForms,
   gjjResult,
   depositoryCreate,
+  depositoryResult,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };
   },
