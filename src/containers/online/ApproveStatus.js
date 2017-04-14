@@ -151,22 +151,22 @@ class ApproveSuccess extends Component{
 //
 //}
 
-function isShowLoanDialog(props) {
-
-    let applyAmount = props.applydata.apply_amount // 申请金额
-    let approveAmount = props.resultdata.approve_amount // 审批金额
-
-    if (parseInt(approveAmount) > parseInt(applyAmount)) {
-        return (
-            <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
-        )
-    } else {
-
-        return
-    }
-
-
-}
+//function isShowLoanDialog(props) {
+//
+//    let applyAmount = props.applydata.apply_amount // 申请金额
+//    let approveAmount = props.resultdata.approve_amount // 审批金额
+//
+//    if (parseInt(approveAmount) > parseInt(applyAmount)) {
+//        return (
+//            <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
+//        )
+//    } else {
+//
+//        return
+//    }
+//
+//
+//}
 
 function ApproveExpire(props) {
 
