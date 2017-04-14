@@ -1,6 +1,7 @@
 package com.shudu.chaoshi.module;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -53,10 +54,14 @@ public class LocationModule extends ReactContextBaseJavaModule {
                 mLocationClient.stop();
             }
             if (location != null) {
-                WritableNativeMap writableNativeMap = new WritableNativeMap();
-                writableNativeMap.putString("Latitude", location.getLatitude() + "");
-                writableNativeMap.putString("Longitude", location.getLongitude() + "");
-                promise.resolve(writableNativeMap);
+                if ((location.getLatitude() + "").contains("e")) {
+                    Toast.makeText(mContext, "请打开定位", Toast.LENGTH_LONG).show();
+                } else {
+                    WritableNativeMap writableNativeMap = new WritableNativeMap();
+                    writableNativeMap.putString("Latitude", location.getLatitude() + "");
+                    writableNativeMap.putString("Longitude", location.getLongitude() + "");
+                    promise.resolve(writableNativeMap);
+                }
             }
         }
 
