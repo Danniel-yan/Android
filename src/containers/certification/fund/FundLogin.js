@@ -41,7 +41,7 @@ class FundLoginScene extends Component {
             visibleSecondVerify: false, submitting: false,
             showPicker: false, showDialog: false,
             location: '请选择您所在的城市',
-            typeName:'请选择您的登陆类型'
+            typeName:'请选择您的登录类型'
         };
 
     }
@@ -76,7 +76,7 @@ class FundLoginScene extends Component {
                         <TouchableOpacity
                             onPress={() => { this.state.configList && this.state.configList.length > 1 && this.setState({showDialog: true})} }
                             style={styles.inputGroup}>
-                            <Text style={styles.text}>登陆类型</Text>
+                            <Text style={styles.text}>登录类型</Text>
                             {/* <TextInput value={this.state.typeName}
                                        style={styles.input}
                                        placeholder='请选择你的登陆类型'
