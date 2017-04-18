@@ -22,7 +22,7 @@ export default class CreditLoanHomeScene extends Component {
         <View style={[_styles.itemBg]}>
           <CreditLimitPanel />
         </View>
-        <View style={[_styles.itemBg]}>
+        <View style={[_styles.itemBg, {marginTop: 8}]}>
           <CertifPanel closeModal={() => {}}/>
         </View>
       </View>
