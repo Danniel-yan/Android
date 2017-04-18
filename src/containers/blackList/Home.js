@@ -52,20 +52,20 @@ class blackListHome extends Component {
 
         <View style={{paddingLeft : 10, backgroundColor: "#fff", paddingBottom: 40}}>
           <Text style={styles.footerTitle}>网贷征信查询</Text>
-            <View style={[styles.footer, {marginBottom:0}]}>
-              <Text style={styles.footerCircle}>.</Text>
+            <View style={[styles.footer, {height: 30}]}>
+              <View style={styles.footerCircle}></View>
+              <View style={{flex: 1}}>
               <Text style={styles.footerTxt}>贷款申请为什么总是不成功？权威第三方征信数据，一</Text>
-            </View>
-            <View style={[styles.footer, {height: 14}]}>
-              <Text style={[styles.footerCircle, {color: "#fff"}]}>.</Text>
               <Text style={styles.footerTxt}>次了解你的网贷信用</Text>
+              </View>
             </View>
+
             <View style={styles.footer}>
-              <Text style={styles.footerCircle}>.</Text>
+              <View style={styles.footerCircle}></View>
               <Text style={styles.footerTxt}>根据信用数据智能推荐贷款产品，助你申请成功率更高</Text>
             </View>
             <View style={styles.footer}>
-              <Text style={styles.footerCircle}>.</Text>
+              <View style={styles.footerCircle}></View>
               <Text style={styles.footerTxt}>数据实时更新，准确性高</Text>
             </View>
         </View>
@@ -364,11 +364,12 @@ const styles = StyleSheet.create({
 
   },
   footerCircle : {
-    fontSize : 30,
-    lineHeight : 18,
-    color : '#FF6D17',
-    backgroundColor : 'transparent',
-    marginRight : 3
+    // fontSize : 30,
+    // lineHeight : 30,
+    // color : '#FF6D17',
+    backgroundColor : '#FF6D17',
+    marginRight : 3,
+    width: 4, height: 4, borderRadius: 3
   },
   footerTxt : {
     flex : 1,
