@@ -18,9 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
@@ -453,7 +451,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
 
     @ReactProp(name = "scalesPageToFit")
     public void setScalesPageToFit(WebView view, boolean enabled) {
-        view.getSettings().setUseWideViewPort(!enabled);
+        view.getSettings().setUseWideViewPort(enabled);
     }
 
     @ReactProp(name = "domStorageEnabled")
