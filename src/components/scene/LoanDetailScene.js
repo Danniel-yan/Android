@@ -203,7 +203,7 @@ export default class LoanDetailScene extends Component {
           onChange={value => {
             this.setState({value}, () => {
               this._fetchRepay();
-              tracker.trackAction({key: "loan", topic: "product_detail", entity: "period", event: "blur", exten_info: JSON.stringify({ period: this.state.value, title: this.props.detail.title }) })
+              tracker.trackAction({key: "loan", topic: "product_detail", entity: "period", event: "clk", exten_info: JSON.stringify({ period: this.state.value, title: this.props.detail.title }) })
             })
           }}
           items={ periodList }
