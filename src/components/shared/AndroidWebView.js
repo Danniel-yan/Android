@@ -216,7 +216,7 @@ class WebView extends React.Component {
                 injectedJavaScript={this.props.injectedJavaScript}
                 userAgent={this.props.userAgent}
                 javaScriptEnabled={this.props.javaScriptEnabled}
-                domStorageEnabled={this.props.domStorageEnabled}
+                domStorageEnabled={!(this.props.domStorageEnabled === false)}
                 messagingEnabled={typeof this.props.onMessage === 'function'}
                 onMessage={this.onMessage}
                 contentInset={this.props.contentInset}
