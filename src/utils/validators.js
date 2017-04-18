@@ -9,7 +9,7 @@ function idNO(value) {
 function maxNumFormater(maxNum) {
     return function (str) {
         var numStr = str.replace(/[^\d]/g, '');
-        num = Math.min(parseInt(numStr), maxNum) || 0;
+        var num = Math.min(parseInt(numStr), maxNum) || 0;
         return num.toString();
     };
 }
