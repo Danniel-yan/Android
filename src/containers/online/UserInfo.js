@@ -177,7 +177,6 @@ class UserInfo extends Component {
 
 
   _submit() {
-
     this.setState({ submitting: true, error: '' }, () => {
       let form = this.state.form;
       navigator.geolocation.getCurrentPosition(position => {
@@ -198,7 +197,7 @@ class UserInfo extends Component {
             this.props.goHome();
           } else if(response.code == 300) {
             this.setState({ submitting: false})
-            this.props.goApproveFailed && this.props.goApproveFailed();
+            this.props.goApproveFailed && this.props.goApproveFailed({ title: this.props.title });
           } else {
             throw response.msg;
           }
@@ -335,7 +334,7 @@ function mapDispatchToProps(dispatch) {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
     goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' })),
-    goApproveFailed: () => dispatch(externalPush({ key: 'OnlineApproveStatus', title: '审批失败' })),
+    goApproveFailed: (componentProps) => dispatch(externalPush({ key: 'OnlineApproveStatus', title: '审批失败', componentProps: componentProps })),
     requestUser: () => dispatch(actions.userInfo())
   }
 }

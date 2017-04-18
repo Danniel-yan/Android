@@ -67,6 +67,13 @@ class ApproveStatus extends Component {
         }
     }
 
+    tracking() {
+      if (this.props.status == 9 || this.props.status == 1) {
+          return { key: "inhouse_loan", topic: "unquarlify", exten_info: JSON.stringify({title: this.props.title}) };
+      }
+      return null;
+    }
+
 }
 function Approving(props) {
     return (
@@ -94,7 +101,7 @@ function ApproveFailure(props) {
             />
 
             <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="您可以选择其他贷款"/>
-            <RecommendListPanel/>
+            <RecommendListPanel itemTracking={{ key: 'inhouse_loan', topic: 'rec_loan_list', entity: "unquarlify", exten_info: JSON.stringify({title: props.title})}}/>
 
         </ScrollView>
     );
@@ -244,3 +251,4 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     AsynCpGenerator(Loading, trackingScene(ApproveStatus), true));
+    // export default trackingScene(ApproveStatus);

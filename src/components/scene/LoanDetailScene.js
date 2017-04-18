@@ -30,6 +30,7 @@ import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
 
 import Picker from 'components/shared/Picker';
+import tracker from 'utils/tracker.js';
 
 export default class LoanDetailScene extends Component {
 
@@ -108,7 +109,10 @@ export default class LoanDetailScene extends Component {
                       style={[styles.selectBox, styles.pickerTxt]}
                       keyboardType={'numeric'}
                       onChangeText={this._formChange.bind(this, 'amount')}
-                      onBlur={this._fetchRepay.bind(this)}
+                      onBlur={() => {
+                        this._fetchRepay();
+                        tracker.trackAction({key: "loan", topic: "product_detail", entity: "amount", event: "blur", exten_info: JSON.stringify({ amount: this.state.amount, title: detail.title }) });
+                      }}
                       value={this.state.amount}/>
                     <Text>元</Text>
                   </View>
@@ -197,7 +201,10 @@ export default class LoanDetailScene extends Component {
           textStyle={styles.pickerTxt}
           value={ this.state.value }
           onChange={value => {
-            this.setState({value}, this._fetchRepay.bind(this))
+            this.setState({value}, () => {
+              this._fetchRepay();
+              tracker.trackAction({key: "loan", topic: "product_detail", entity: "period", event: "blur", exten_info: JSON.stringify({ period: this.state.value, title: this.props.detail.title }) })
+            })
           }}
           items={ periodList }
           />
