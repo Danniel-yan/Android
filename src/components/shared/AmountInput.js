@@ -5,6 +5,9 @@ import Input from 'components/shared/Input';
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 import Button from 'components/shared/ButtonBase';
 import { colors, iptFontSize } from "styles/varibles";
+import validators from 'utils/validators';
+
+let formater100000 = validators.maxNumFormater(100000);
 
 export default class AmountInput extends Component {
     constructor(props) {
@@ -15,7 +18,7 @@ export default class AmountInput extends Component {
 
     onPressNumberBtn() {
         var amount = parseInt(this.state.text) || null;
-        amount && this.props.setAmount && this.props.setAmount(amount);
+        amount && this.props.setAmount && this.props.setAmount(Math.min(amount, 100000));
         this.props.majorTab && this.props.majorTab("LoanScene");
     }
 
@@ -26,8 +29,8 @@ export default class AmountInput extends Component {
                     <Input
                         tracking={{key: 'homepage', topic: 'btn_sec', entity: 'amount'}}
                         type={"number"} style={AIStyle.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
-        this.setState({text: text.replace(/[^\d]/g,'')})
-      }} value={this.state.text}
+                          this.setState({text: formater100000(text)})
+                        }} value={this.state.text}
                         ref={component => this._textInput = component}
                         onSubmitEditing={this._onSubmitEditing.bind(this)}
                         onEndEditing={this._onPressSearch.bind(this)}

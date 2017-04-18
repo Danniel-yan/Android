@@ -25,6 +25,9 @@ const jobItems = [
 ];
 
 var screenWidth = Dimensions.get('window').width;
+import validators from 'utils/validators';
+
+let formater100000 = validators.maxNumFormater(100000);
 
 class FastLoanScene extends Component {
   tracking = 'loan'
@@ -125,7 +128,9 @@ class FastLoanScene extends Component {
               tracking={{key: 'loan', topic: 'top', entity: 'amount', event: 'blur',amount: this.state.fetchRecParams.amount }}
               value={this.state.fetchRecParams.amount + ''}
               style={[container, styles.formField]}
-              onChangeText={this.formValueChanged.bind(this, 'amount')}></Input>
+              onChangeText={(text) => {
+                this.formValueChanged("amount", formater100000(text));
+              }}></Input>
             <Text style={styles.formFieldText}>元</Text>
           </View>
         </View>
