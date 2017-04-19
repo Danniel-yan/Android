@@ -47,15 +47,6 @@ export default function (mobile, bank_card_no) {
                 }))
             } else {
                 alert(response.msg)
-                // AsyncStorage.getItem("userToken").then(token => {
-                //     dispatch(externalPush({
-                //         web: 'http://sys-php.oss-cn-shanghai.aliyuncs.com/chaoshi/res/201704/paycg_create_success.html?token=' + token,
-                //         title: "激活",
-                //         componentProps: {onMessage: onMessage},
-                //         backRoute: {key: 'OnlineReceiptCard'}
-                //     }))
-                // })
-
             }
         })
 
