@@ -24,12 +24,13 @@ const BASE_INFO = {
 };
 
 function setupChannel() {
-  if(channel) return;
+  if(channel) return Promise.resolve(true);
 
-  getAppSettings().then(appSettings => {
+  return getAppSettings().then(appSettings => {
     if(!/channel/.test(BASE_INFO.PARAM)) {
       channel = true;
-      BASE_INFO.PARAM += `&channel=` + appSettings.channel
+
+      BASE_INFO.PARAM += `&channel=` + appSettings.channel + "&env="+ appSettings.env
     }
   });
 }
@@ -47,8 +48,10 @@ class Tracker {
     }
 
     triggerTracking(config) {
-        setupChannel();
+      setupChannel().then(() => { this.TrackingFunc(config) });
+    }
 
+    TrackingFunc(config) {
         var urlPrefix = this.composeBasicParams(config.key);
         var url = urlPrefix+"&user="+this.user_id;
 
@@ -56,7 +59,7 @@ class Tracker {
           url += `&${key}=${encodeURIComponent(config[key])}`
         }
 
-        log(config);
+        log(config, url);
         fetch(url).then(response => {
             return;
         });
@@ -64,7 +67,7 @@ class Tracker {
         let { key, topic, entity, event} = config;
 	      // add in umeng tracker
       	this.brgUmeng.onEvent(key+"_"+topic+"_"+entity+"_"+event);
-	return;
+	      return;
     }
 
     trackAction(config) {
@@ -84,12 +87,14 @@ class Tracker {
 var tracker =  new Tracker();
 export default tracker;
 
-function log({ key, entity, topic, event, ...extend }) {
+function log({ key, entity, topic, event, ...extend }, url) {
   let str = `tracking: key: "${key}", entity: "${entity}", topic: "${topic}", event: "${event}"`;
 
   for(let ekey in extend) {
     str += `, ${ekey}: "${extend[ekey]}"`;
   }
+
+  if(url) str += ", url: " + url;
 
   console.debug(str);
 }
