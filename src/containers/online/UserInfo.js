@@ -26,6 +26,9 @@ import { ExternalPushLink } from 'containers/shared/Link';
 
 import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import tracker from 'utils/tracker.js';
+import { window } from 'styles';
+
+const noWrap = (window.width > 340);
 
 const hasCreditStatus = {
   yes: 1,
@@ -144,7 +147,7 @@ class UserInfo extends Component {
 
           <ErrorInfo msg={error || this.state.error}/>
 
-          <View style={styles.textRow}>
+          <View style={[styles.textRow]}>
             <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
             <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
             <ExternalPushLink
@@ -153,13 +156,26 @@ class UserInfo extends Component {
               title="《申请合约》"
               textStyle={{ color: colors.secondary}}
             />
-            <ExternalPushLink
-              web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
-              text="《前海征信授权书》"
-              title="《前海征信授权书》"
-              textStyle={{ color: colors.secondary}}
-            />
+            { noWrap ? (
+              <ExternalPushLink
+                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
+                text="《前海征信授权书》"
+                title="《前海征信授权书》"
+                textStyle={{ color: colors.secondary}}
+              />
+            ) : null }
           </View>
+          {
+            noWrap ? null : (
+              <View style={[styles.textRow, {paddingLeft: 25, height: 20}]}>
+              <ExternalPushLink
+                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
+                text="《前海征信授权书》"
+                title="《前海征信授权书》"
+                textStyle={{ color: colors.secondary}}
+              /></View>
+            )
+          }
 
           <SubmitButton
             processing={this.state.submitting}
