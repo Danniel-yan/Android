@@ -24,7 +24,7 @@ function Item({icon, title, confirm, tips, navProps = {}, textStyle, externalTxt
        <View style = {{flex : 1}}>
          <View style = {styles.top}>
              <Text style = {styles.topL}>{title} <Text style={{fontSize: fontSize.small, color: "#87C14D"}}>{ externalTxt || "+30%"}</Text></Text>
-             <View style = {{flex : 1,flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
+             <View style = {{flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
                  <Text style = {[styles.topR, textStyle]}>{confirm}</Text>
                  <Text style = {{color : '#999',width : 20}}>{'>'}</Text>
              </View>
@@ -124,7 +124,7 @@ class CertifPanel extends Component {
             <View style = {{flex : 1}}>
               <View style = {styles.top}>
                   <Text style = {styles.topL}>央行征信报告 <Text style={{fontSize: fontSize.small, color: "#87C14D"}}>+30%</Text></Text>
-                  <View style = {{flex : 1, flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
+                  <View style = {{flexDirection : 'row', alignItems: "center", justifyContent: "flex-end"}}>
                   {pIF ? (<ActivityIndicator
                     animating={true}
                     style={[centering, {marginRight: 6, height: 14}]}
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
         width : 60,
         color :'#FE271E',
         fontSize : 14,
-        flex : 1,
+        // flex : 1,
         textAlign: 'right',
         paddingRight:5
     }
