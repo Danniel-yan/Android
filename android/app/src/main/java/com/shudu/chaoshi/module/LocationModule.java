@@ -1,6 +1,7 @@
 package com.shudu.chaoshi.module;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -53,16 +54,24 @@ public class LocationModule extends ReactContextBaseJavaModule {
                 mLocationClient.stop();
             }
             if (location != null) {
-                WritableNativeMap writableNativeMap = new WritableNativeMap();
-                String latitude = location.getLatitude() + "";
-                String longitude = location.getLongitude() + "";
-                if (latitude.contains("e") || latitude.contains("E") || longitude.contains("e") || longitude.contains("E")) {
-                    writableNativeMap.putString("error", "请打开定位");
+//                WritableNativeMap writableNativeMap = new WritableNativeMap();
+//                String latitude = location.getLatitude() + "";
+//                String longitude = location.getLongitude() + "";
+//                if (latitude.contains("e") || latitude.contains("E") || longitude.contains("e") || longitude.contains("E")) {
+//                    writableNativeMap.putString("error", "请打开定位");
+//                } else {
+//                    writableNativeMap.putString("Latitude", latitude);
+//                    writableNativeMap.putString("Longitude", longitude);
+//                }
+//                promise.resolve(writableNativeMap);
+                if ((location.getLatitude() + "").contains("e")) {
+                    Toast.makeText(mContext, "请打开定位", Toast.LENGTH_LONG).show();
                 } else {
-                    writableNativeMap.putString("Latitude", latitude);
-                    writableNativeMap.putString("Longitude", longitude);
+                    WritableNativeMap writableNativeMap = new WritableNativeMap();
+                    writableNativeMap.putString("Latitude", location.getLatitude() + "");
+                    writableNativeMap.putString("Longitude", location.getLongitude() + "");
+                    promise.resolve(writableNativeMap);
                 }
-                promise.resolve(writableNativeMap);
             }
         }
 
