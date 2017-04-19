@@ -58,7 +58,7 @@ const AIStyle = StyleSheet.create({
     iptWrap: {
         backgroundColor: "#F3F3F3",
         height: 32,
-        flex: 3,
+        flex: 5,
         borderTopLeftRadius: 14,
         borderBottomLeftRadius: 14
     },
@@ -70,7 +70,7 @@ const AIStyle = StyleSheet.create({
         flex: 1
     },
     btnWrap: {
-        flex: 1,
+        flex: 2,
         height: 32,
         paddingRight: 5,
         backgroundColor: colors.secondary,

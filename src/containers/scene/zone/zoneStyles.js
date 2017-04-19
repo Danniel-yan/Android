@@ -84,7 +84,7 @@ export default StyleSheet.create({
     marginBottom: 5
   },
   loginBtn: {
-    width: 90,
+    paddingHorizontal: 10,
     height: 33,
     borderColor: colors.secondary,
     borderWidth: 1,

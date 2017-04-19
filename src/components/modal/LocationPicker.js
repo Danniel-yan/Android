@@ -254,8 +254,6 @@ export default class LocationPicker extends PureComponent {
     console.log("START")
     this.startedIdx = this.state.selectedSecIdx;
     this._scrollTo(toSec, idx)
-
-    console.log();
     // return true;
   }
 
@@ -298,7 +296,6 @@ export default class LocationPicker extends PureComponent {
     }
 
     if(this.state.selectedSecIdx != targetIdx) {
-      console.log(targetIdx);
       this.setState({selectedSecIdx: targetIdx});
     }
     // contentOffset && console.log("contentOffsetYYY: " + contentOffset["y"]);
@@ -316,7 +313,7 @@ export default class LocationPicker extends PureComponent {
   __moveSideBar__(ev, sideStatus) {
     // console.log(sideStatus.dy);
     var targetIdx = Math.floor((ev.nativeEvent.pageY - this.sideYoffset) / navItemHeight);
-    console.log(ev.nativeEvent.pageY);
+
     // if()
     // var targetIdx = this.startedIdx + idxDistance;
     if(targetIdx == this.state.selectedSecIdx || targetIdx < 0 || targetIdx > this.state.secIDs.length - 1) return;
@@ -358,9 +355,13 @@ const styles = StyleSheet.create({
 
   nav: {
     color: '#278BD2',
+    width: 30,
+    textAlign: "center"
   },
   selectedNav: {
     color: '#278BD2',
+    width: 30,
+    textAlign: "center"
   },
   loading: {
     backgroundColor: '#fff'
