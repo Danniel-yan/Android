@@ -102,7 +102,7 @@ class GjjDetailReport extends Component{
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.text}>单位缴存</Text>
+          <Text style={styles.text}>单位缴存比例</Text>
           <TextInput value={corporation_ratio ? corporation_ratio.toString() : ""}
                      style={styles.input}
                      placeholder=''
@@ -112,7 +112,7 @@ class GjjDetailReport extends Component{
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.text}>个人缴存</Text>
+          <Text style={styles.text}>个人缴存比例</Text>
           <TextInput value={customer_ratio ? customer_ratio.toString() : ""}
                      style={styles.input}
                      placeholder=''

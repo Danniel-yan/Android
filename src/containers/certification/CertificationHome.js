@@ -80,6 +80,9 @@ class CertificationHome extends Component {
     var enable = yysResult.status == 'success';
       enable = loanType == 1 ? enable && bankResult.status == 'success' : enable && gjjResult.status == 'success';
 
+    var backRoute = "LoanDetailScene";
+    if(loanType == 1 || loanType == 2) { backRoute = "SuiXinJieList" }
+
     return this.state.initFetching && !this.props.fetched ? <Loading /> : (
       <ScrollView>
 
@@ -100,7 +103,7 @@ class CertificationHome extends Component {
           textStyle={onlineStyles.btnText}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
-          backRoute={{key: 'LoanDetailScene'}}
+          backRoute={{key: backRoute}}
         />
       </ScrollView>
     );
@@ -169,7 +172,8 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="公积金认证" toKey="FundLogin">
+      <ExternalPushLink title="公积金认证" toKey="FundLogin"
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "PAF", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}>
         {item}
       </ExternalPushLink>
     )

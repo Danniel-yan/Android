@@ -18,6 +18,7 @@ import { externalPop } from 'actions/navigation';
 import iconSqlc from 'assets/icons/shenqingliucheng.png'
 import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
+import { ExternalOnlineBtn } from 'components/shared/ExternalOnlineBtn';
 import * as defaultStyles from 'styles';
 import {
   loanType,
@@ -29,6 +30,7 @@ import Button from 'components/shared/Button'
 import AbstractScene from 'components/scene/AbstractScene.js';
 
 import Picker from 'components/shared/Picker';
+import tracker from 'utils/tracker.js';
 
 export default class LoanDetailScene extends Component {
 
@@ -43,7 +45,6 @@ export default class LoanDetailScene extends Component {
     var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
     this.state = {
-      checkingGPS: false,
       amount: repayParams ? repayParams.amount.toString() : String(props.detail.amount_min),
       value: repayParams ? repayParams.period : props.detail.period_list[0],
       id: repayParams ? repayParams.id : props.detail.id
@@ -108,7 +109,10 @@ export default class LoanDetailScene extends Component {
                       style={[styles.selectBox, styles.pickerTxt]}
                       keyboardType={'numeric'}
                       onChangeText={this._formChange.bind(this, 'amount')}
-                      onBlur={this._fetchRepay.bind(this)}
+                      onBlur={() => {
+                        this._fetchRepay();
+                        tracker.trackAction({key: "loan", topic: "product_detail", entity: "amount", event: "blur", exten_info: JSON.stringify({ amount: this.state.amount, title: detail.title }) });
+                      }}
                       value={this.state.amount}/>
                     <Text>元</Text>
                   </View>
@@ -197,7 +201,10 @@ export default class LoanDetailScene extends Component {
           textStyle={styles.pickerTxt}
           value={ this.state.value }
           onChange={value => {
-            this.setState({value}, this._fetchRepay.bind(this))
+            this.setState({value}, () => {
+              this._fetchRepay();
+              tracker.trackAction({key: "loan", topic: "product_detail", entity: "period", event: "clk", exten_info: JSON.stringify({ period: this.state.value, title: this.props.detail.title }) })
+            })
           }}
           items={ periodList }
           />
@@ -233,17 +240,14 @@ export default class LoanDetailScene extends Component {
     let detail = this.props.detail, btnTxt = this.props.isIOS? '立即申请' : "去贷款";
 
     if(this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj || this.props.detail.loan_type == loanType.chaohaodai) {
-      return (
-        <ExternalPushLink
-          processing={this.state.checkingGPS}
-          {...this._chaoshidaiRouteProps()}
-          style={styles.loanButton}
-          textStyle={styles.loanButtonText}
-          text={btnTxt}
-          tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
-                     title: detail.title, amount: this.state.amount, period: this.state.value}}
-          />
-      );
+      return <ExternalOnlineBtn
+        loginUser={this.props.loginUser} onlineStatus={this.props.onlineStatus}
+        fetchOnlineStatus={this.props.fetchOnlineStatus}
+        externalPop={() => this.props.dispatch(externalPop())}
+        detail={this.props.detail}
+        style={styles.loanButton} textStyle={styles.loanButtonText}
+        tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+        title: detail.title, amount: this.state.amount, period: this.state.value}} />
       // prePress={ () => this.props.setLoanType() }  AsyncStorage.setItem('loan_type', this.props.detail.loan_type.toString())
     }
 
@@ -273,6 +277,8 @@ export default class LoanDetailScene extends Component {
       );
     }
 
+    let loanTracking = {key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
+               title: detail.title, amount: this.state.amount, period: this.state.value};
 
     return (
       <ExternalPushLink
@@ -281,82 +287,10 @@ export default class LoanDetailScene extends Component {
         text={this.props.isIOS?'立即查看' : "去贷款"}
         toKey="FillUserInfo"
         title="完善个人信息"
-        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail)}}
-        tracking={{key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
-                   title: detail.title, amount: this.state.amount, period: this.state.value}}
+        componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail, loanTracking)}}
+        tracking={loanTracking}
         />
     );
-  }
-
-  _chaoshidaiRouteProps() {
-    let logined = this.props.loginUser.info;
-    let { onlineStatus } = this.props;
-    let { status, time_expire_status } = onlineStatus;
-
-    if(!logined) {
-      return {
-        loginSuccess: () => {
-          this.props.fetchOnlineStatus();
-          this.props.dispatch(externalPop());
-        },
-        toKey: 'Login',
-        title: '登录'
-      };
-    }
-
-    // console.log("贷款状态： " + status);
-
-     // 贷款失败
-    if(status == 7) {
-      return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
-    }
-
-    // 预授信失败
-    if(status == 4) {
-      return this.mergeProps({ toKey: 'OnlinePreloanFailure', title: '预授信申请结果' });
-    }
-
-    if(status == 5 && time_expire_status == 1) {
-      return this.mergeProps({toKey: 'OnlinePreloanExpire', title: '预授信申请结果'});
-    }
-
-    if(status == 5) {
-      return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'});
-    }
-
-    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-    if([6, 8, 9, 10].includes(status)) {
-      return this.mergeProps({toKey: 'OnlineApproveStatus', title: '审批状态'});
-    }
-
-    if([11, 12, 13, 14].includes(status)) {
-      return this.mergeProps({toKey: 'OnlineSignSuccess', title: '签约'});
-    }
-
-    if([15].includes(status)) {
-      return this.mergeProps({toKey: 'OnlineLoanDetail', title: '借款详情'});
-    }
-
-    // 1,2
-    return this.mergeProps({ toKey: 'OnlineUserInfo', title: '完善个人信息', prePress: this.checkGPS.bind(this)});
-  }
-
-  mergeProps(props) {
-    return Object.assign({ componentProps: { loan_type: this.props.detail.loan_type}}, props);
-  }
-
-  checkGPS() {
-    this.setState({ checkingGPS: true })
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState({ checkingGPS: false })
-        resolve('');
-      }, (error) => {
-        alert("请打开定位");
-        this.setState({ checkingGPS: false })
-        reject('');
-      }, {timeout: 5000});
-    })
   }
 
   __skipToSafari__(url) {
