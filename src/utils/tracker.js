@@ -29,7 +29,6 @@ function setupChannel() {
   return getAppSettings().then(appSettings => {
     if(!/channel/.test(BASE_INFO.PARAM)) {
       channel = true;
-      console.log("AddChannel")
 
       BASE_INFO.PARAM += `&channel=` + appSettings.channel + "&env="+ appSettings.env
     }
