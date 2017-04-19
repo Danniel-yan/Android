@@ -26,6 +26,7 @@ export const environments = {
 const staticSettings = {
   channel: '',
   uuid: '',
+  env: environments.defaultEnvironment
 };
 
 let environmentSettings;
@@ -99,6 +100,7 @@ function setupEnvironment() {
       let envName = environment || environments.defaultEnvironment;
 
       environmentSettings = environments[envName];
+      staticSettings.env = envName;
       return AsyncStorage.setItem('environment', envName);
     })
 }
@@ -107,6 +109,7 @@ export function switchEnvironment(environment) {
   return AsyncStorage.removeItem('userToken').then(() => {
     AsyncStorage.setItem('environment', environment)
     .then(() => {
+      staticSettings.env = environment;
       // codePush.restartApp();
       alert("请重新启动App");
     })
