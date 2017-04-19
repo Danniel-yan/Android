@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView , TextInput, StyleSheet, Image, TouchableOpacity , AsyncStorage} from 'react-native';
 
 import * as defaultStyles from 'styles';
+import { fontSize } from 'styles';
 
 import ProcessingButton from 'components/shared/ProcessingButton'
 import { colors } from 'styles/varibles'
@@ -108,6 +109,7 @@ class FundLoginScene extends Component {
                             <View key={'key' + idx } style={styles.inputGroup}>
                                 <Text style={styles.text}>{config.show_name}</Text>
                                 <TextInput
+                                    underlineColorAndroid="transparent"
                                     style={styles.input}
                                     placeholder={'请输入'+ config.show_name}
                                     secureTextEntry={config.name == 'password'}
@@ -284,14 +286,14 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 18,
         marginRight: 10,
-        fontSize: 12,
+        fontSize: fontSize.normal,
         color: '#A5A5A5',
         backgroundColor: '#fff'
     },
     text: {
-        fontSize: 12,
+        fontSize: fontSize.normal,
         color: '#727272',
-        width: 70,
+        width: 90,
     },
     submitBtn: {
         marginTop: 50,
