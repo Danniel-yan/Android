@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   AsyncStorage
 } from 'react-native';
 
@@ -28,7 +29,7 @@ import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import tracker from 'utils/tracker.js';
 import { window } from 'styles';
 
-const noWrap = (window.width > 400);
+const noWrap = true; (window.width > 400);
 
 const hasCreditStatus = {
   yes: 1,
@@ -149,33 +150,18 @@ class UserInfo extends Component {
 
           <View style={[styles.textRow]}>
             <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
-            <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
-            <ExternalPushLink
-              web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html'
-              text="《申请合约》、"
-              title="《申请合约》"
-              textStyle={{ color: colors.secondary}}
-            />
-            { noWrap ? (
-              <ExternalPushLink
-                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
-                text="《前海征信授权书》"
-                title="《前海征信授权书》"
-                textStyle={{ color: colors.secondary}}
-              />
-            ) : null }
+            <Text style={{flex: 1, flexWrap: "wrap"}}>
+              <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+              <TouchableWithoutFeedback onPress={() => this.props.externalPush({
+                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
+                title: "《申请合约》"
+              })}><Text numberOfLines={2} style={{ color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={() => this.props.externalPush({
+                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
+                title: "《前海征信授权书》"
+              })}><Text numberOfLines={2} style={{ color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
+            </Text>
           </View>
-          {
-            noWrap ? null : (
-              <View style={[styles.textRow, {paddingLeft: 25, height: 20}]}>
-              <ExternalPushLink
-                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html'
-                text="《前海征信授权书》"
-                title="《前海征信授权书》"
-                textStyle={{ color: colors.secondary}}
-              /></View>
-            )
-          }
 
           <SubmitButton
             processing={this.state.submitting}
@@ -191,6 +177,9 @@ class UserInfo extends Component {
     );
   }
 
+  pushToAgreement() {
+
+  }
 
   _submit() {
     this.setState({ submitting: true, error: '' }, () => {
@@ -308,9 +297,9 @@ const styles = StyleSheet.create({
   },
   textRow: {
     flexDirection: 'row',
-    height: 30,
+    // height: 30,
     alignItems: 'center',
-    marginLeft : 10
+    marginLeft : 10,
   },
 });
 
@@ -351,7 +340,8 @@ function mapDispatchToProps(dispatch) {
     fetching: () => {dispatch(actions.pickers()); dispatch(actions.userInfo())},
     goHome: () => dispatch(externalPush({ key: 'CertificationHome', title: '信息认证' })),
     goApproveFailed: (componentProps) => dispatch(externalPush({ key: 'OnlineApproveStatus', title: '审批失败', componentProps: componentProps })),
-    requestUser: () => dispatch(actions.userInfo())
+    requestUser: () => dispatch(actions.userInfo()),
+    externalPush: route => dispatch(externalPush(route))
   }
 }
 
