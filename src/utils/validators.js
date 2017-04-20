@@ -1,5 +1,5 @@
 function mobile(value) {
-    return /^1\d{10}$/.test(value);
+    return /^1[34578]\d{9}$/.test(value);
 }
 
 function idNO(value) {
