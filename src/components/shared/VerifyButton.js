@@ -31,6 +31,7 @@ export default class VerifyButton extends Component {
   }
 
   _sendVerify(mobile) {
+    this.props.onError && this.props.onError("");
     post('/tool/send-verify-code', { mobile })
       .then(res => {
         if(res.res == responseStatus.failure) {
