@@ -148,7 +148,7 @@ class UserInfo extends Component {
 
           <ErrorInfo msg={error || this.state.error}/>
 
-          <View style={[styles.textRow]}>
+          <View style={[styles.textRow, {marginTop: 4}]}>
             <Checkbox checked={this.state.checkedAgreement} onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})} style={{marginRight: 5}}/>
             <Text style={{flex: 1, flexWrap: "wrap"}}>
               <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
