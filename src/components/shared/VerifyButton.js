@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   verifyBtn: {
     backgroundColor: colors.secondary,
     borderRadius: 5,
-    width: 80,
-    height: 24,
+    paddingHorizontal: 10,
+    paddingVertical: 6
   },
 
   verifyBtnTxt: {
