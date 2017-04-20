@@ -35,9 +35,13 @@ export default class VerifyButton extends Component {
       .then(res => {
         if(res.res == responseStatus.failure) {
           this.refs.btn.reset();
+          this.props.onError && this.props.onError(res.msg);
         }
       })
-      .catch(console.log)
+      .catch(response => {
+        console.log(response);
+        this.props.onError && this.props.onError(response.msg)
+      })
   }
 }
 

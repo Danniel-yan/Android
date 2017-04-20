@@ -61,7 +61,9 @@ class Login extends Component {
           />
           <VerifyButton
             tracking={{key: 'user', topic: 'login', entity: 'mob_code_button'}}
-            mobile={this.state.mobile}/>
+            mobile={this.state.mobile}
+            onError={(err) => { this.setState({err: err}) }}
+            />
         </View>
 
         <View style={styles.inputGroup}>
@@ -109,7 +111,7 @@ class Login extends Component {
     const disabled = !this.state.checkedAgreement || !mobileValid;
 
     if(!mobileValid) {
-      this.setState({err: '请输入11位手机号'});
+      this.setState({err: '手机号码格式不正确'});
       return false;
     }
 
@@ -145,6 +147,7 @@ class Login extends Component {
           if(response.res == responseStatus.success) {
             return AsyncStorage.setItem('userToken', response.data.token)
           } else {
+            this.setState({err: response.msg})
             throw response.msg;
           }
         })
