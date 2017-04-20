@@ -28,7 +28,7 @@ import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import tracker from 'utils/tracker.js';
 import { window } from 'styles';
 
-const noWrap = (window.width > 340);
+const noWrap = (window.width > 400);
 
 const hasCreditStatus = {
   yes: 1,
