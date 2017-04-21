@@ -17,7 +17,7 @@ import { loanType } from 'constants';
 import { externalPush } from 'actions/navigation';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
-let formater500 = validators.minNumFormater(500);
+
 class RepaymentDetailContainer extends Component {
 
     // 构造
@@ -88,6 +88,7 @@ class RepaymentDetailContainer extends Component {
     render() {
         {/**let amount_int = this.state.repayAmount.amount;**/
         }
+
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
@@ -149,6 +150,7 @@ class RepaymentDetailContainer extends Component {
 
     showTextInput(amount_int) {
         //let amount = amount_int.toString();
+        let formaterAdjust = validators.adjustNumFormater(this.state.amount_int);
         if (amount_int >= 500) {
             return (
                 <TextInput
@@ -156,7 +158,7 @@ class RepaymentDetailContainer extends Component {
                     underlineColorAndroid="transparent"
                     //onChangeText={(amount) => this.setState({amount_int:amount})}
 
-                    onChangeText={(amount_int)=> { this.setState({amount_int: formater500(amount_int)}) }}
+                    onChangeText={(amount_int)=> { this.setState({amount_int:formaterAdjust(amount_int)}) }}
                     value={amount_int.toString()}
 
                 />
