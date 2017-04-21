@@ -31,7 +31,8 @@ class RepaymentDetailContainer extends Component {
             bank_name: this.props.bankInfo.bank_name,
             loan_type: this.props.loanType,
             repayAmount: this.props.repayAmount,
-            submitting: false
+            submitting: false,
+            amount_int: this.props.repayAmount.amount
         };
     }
 
@@ -83,7 +84,8 @@ class RepaymentDetailContainer extends Component {
     }
 
     render() {
-        let amount_int = this.state.repayAmount.amount;
+        {/**let amount_int = this.state.repayAmount.amount;**/
+        }
         return (
             <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
@@ -92,7 +94,7 @@ class RepaymentDetailContainer extends Component {
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
 
-                        {this.showTextInput(amount_int)}
+                        {this.showTextInput(this.state.amount_int)}
 
                     </View>
                     <View style={repaymentStyle.item}>
@@ -135,8 +137,8 @@ class RepaymentDetailContainer extends Component {
                         text="确认还款"
                         type="line"
                         textStyle={repaymentStyle.btnText}
-                        disabled={amount_int <= 0}
-                        style={[amount_int > 0 ? repaymentStyle.btn : repaymentStyle.btn_dis, defaultStyles.centering]}/>
+                        disabled={this.state.amount_int <= 0}
+                        style={[this.state.amount_int > 0 ? repaymentStyle.btn : repaymentStyle.btn_dis, defaultStyles.centering]}/>
                 </View>
             </View>
 
@@ -150,7 +152,7 @@ class RepaymentDetailContainer extends Component {
                 <TextInput
                     style={[repaymentStyle.textinput,repaymentStyle.textColor]}
                     underlineColorAndroid="transparent"
-                    onChangeText={(repay_amount) => this.setState({repay_amount})}
+                    onChangeText={(amount) => this.setState({amount_int:amount})}
                     value={amount}
                 />
             )
