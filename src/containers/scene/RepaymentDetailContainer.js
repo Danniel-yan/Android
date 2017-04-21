@@ -15,7 +15,9 @@ import { post, responseStatus } from 'utils/fetch';
 import { alert } from 'utils/alert';
 import { loanType } from 'constants';
 import { externalPush } from 'actions/navigation';
-import ProcessingButton from 'components/shared/ProcessingButton'
+import ProcessingButton from 'components/shared/ProcessingButton';
+import validators from 'utils/validators';
+let formater500 = validators.minNumFormater(500);
 class RepaymentDetailContainer extends Component {
 
     // 构造
@@ -146,20 +148,23 @@ class RepaymentDetailContainer extends Component {
     }
 
     showTextInput(amount_int) {
-        let amount = amount_int.toString();
-        if (amount_int > 500) {
+        //let amount = amount_int.toString();
+        if (amount_int >= 500) {
             return (
                 <TextInput
                     style={[repaymentStyle.textinput,repaymentStyle.textColor]}
                     underlineColorAndroid="transparent"
-                    onChangeText={(amount) => this.setState({amount_int:amount})}
-                    value={amount}
+                    //onChangeText={(amount) => this.setState({amount_int:amount})}
+
+                    onChangeText={(amount_int)=> { this.setState({amount_int: formater500(amount_int)}) }}
+                    value={amount_int.toString()}
+
                 />
             )
         } else {
             return (
                 <Text
-                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {amount}</Text>
+                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {amount_int}</Text>
             )
         }
     }
