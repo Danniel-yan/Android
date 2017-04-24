@@ -20,6 +20,7 @@ import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 import depositoryCreate from './depositoryCreate';
 import depositoryResult from './depositoryResult';
+import repayRecharge from './repayRecharge';
 import { initial, getStatus } from './pboc';
 
 export default {
@@ -46,6 +47,7 @@ export default {
   gjjResult,
   depositoryCreate,
   depositoryResult,
+  repayRecharge,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };
   },

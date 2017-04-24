@@ -1,22 +1,23 @@
 /**
  * Created by yshr on 17/3/13.
  */
-import React, { Component} from 'react';
-import { View, Text, Image,TextInput,AsyncStorage} from 'react-native';
+import React, {Component} from 'react';
+import {View, Text, Image, TextInput, AsyncStorage} from 'react-native';
 import Button from 'components/shared/ButtonBase';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as defaultStyles from 'styles';
 import repaymentStyle from './repayment/repaymentStyle';
-import { ExternalPushLink } from 'containers/shared/Link';
+import {ExternalPushLink} from 'containers/shared/Link';
 import PopView from './repayment/repaymentVerifyCode';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
-import { post, responseStatus } from 'utils/fetch';
-import { alert } from 'utils/alert';
-import { loanType } from 'constants';
-import { externalPush } from 'actions/navigation';
+import {post, responseStatus} from 'utils/fetch';
+import {alert} from 'utils/alert';
+import {loanType} from 'constants';
+import {externalPush} from 'actions/navigation';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
+import actions from 'actions/online';
 
 class RepaymentDetailContainer extends Component {
 
@@ -44,7 +45,7 @@ class RepaymentDetailContainer extends Component {
         let idnum = this.state.idnum
         let cardnum = this.state.bank_card_no
         let loan_type = this.state.loan_type
-        let repay_amount = this.state.repayAmount.amount
+        let amount = this.state.repayAmount.amount
         if (this.submitting) {
             return;
         }
@@ -54,23 +55,41 @@ class RepaymentDetailContainer extends Component {
             submitting: true
         })
 
-        post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
-            .then(res => {
-
-                if (res.res == responseStatus.failure) {
-                    console.log('创建支付请求失败')
-                    alert(res.msg)
-                    return
-                } else {
-                    AsyncStorage.setItem('ticket_id', res.data.ticket_id)
-                    this.refs.confirm.open();
-                }
-            })
-            .catch(()=>console.log)
-            .finally(()=> {
-                this.submitting = false;
-                this.setState({submitting: false})
-            })
+        this.props.recharge(amount);
+        // post('/payctcfcg/quick-recharge', {loan_type, amount})
+        //     .then(res => {
+        //
+        //         if (res.res == responseStatus.failure) {
+        //             console.log('创建支付请求失败')
+        //             alert(res.msg)
+        //             return
+        //         } else {
+        //             AsyncStorage.setItem('ticket_id', res.data.ticket_id)
+        //             this.refs.confirm.open();
+        //         }
+        //     })
+        //     .catch(()=>console.log)
+        //     .finally(()=> {
+        //         this.submitting = false;
+        //         this.setState({submitting: false})
+        //     })
+        // post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
+        //     .then(res => {
+        //
+        //         if (res.res == responseStatus.failure) {
+        //             console.log('创建支付请求失败')
+        //             alert(res.msg)
+        //             return
+        //         } else {
+        //             AsyncStorage.setItem('ticket_id', res.data.ticket_id)
+        //             this.refs.confirm.open();
+        //         }
+        //     })
+        //     .catch(()=>console.log)
+        //     .finally(()=> {
+        //         this.submitting = false;
+        //         this.setState({submitting: false})
+        //     })
 
         //callback();
 
@@ -86,13 +105,14 @@ class RepaymentDetailContainer extends Component {
     }
 
     render() {
-        {/**let amount_int = this.state.repayAmount.amount;**/
-        }
-
         return (
-            <View style={[defaultStyles.container, defaultStyles.bg,repaymentStyle.wrap_content]}>
+            <View style={[defaultStyles.container, defaultStyles.bg, repaymentStyle.wrap_content]}>
                 <PopView ref='confirm' confirmAction={this.confirmAction} hintAction={this.hintAction} mobile='123455'
-                         externalPush={() => this.props.externalPush({key: 'RepaymentResult', title: '还款结果',backRoute:{key:'OnlineLoanDetail'}})}></PopView>
+                         externalPush={() => this.props.externalPush({
+                             key: 'RepaymentResult',
+                             title: '还款结果',
+                             backRoute: {key: 'OnlineLoanDetail'}
+                         })}></PopView>
                 <View>
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
@@ -103,7 +123,7 @@ class RepaymentDetailContainer extends Component {
                     <View style={repaymentStyle.item}>
                         <Image
                             style={repaymentStyle.icon_bank}
-                            source={{uri:this.state.logo}}/>
+                            source={{uri: this.state.logo}}/>
                         <Text
                             style={repaymentStyle.textColor}>{this.state.bank_name + "(****" + this.state.bank_card_no.slice(-4) + ")" }</Text>
                     </View>
@@ -154,19 +174,16 @@ class RepaymentDetailContainer extends Component {
         if (amount_int >= 500) {
             return (
                 <TextInput
-                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}
+                    style={[repaymentStyle.textinput, repaymentStyle.textColor]}
                     underlineColorAndroid="transparent"
-                    //onChangeText={(amount) => this.setState({amount_int:amount})}
-
                     onChangeText={(amount_int)=> { this.setState({amount_int:formaterAdjust(amount_int)}) }}
                     value={amount_int.toString()}
-
                 />
             )
         } else {
             return (
                 <Text
-                    style={[repaymentStyle.textinput,repaymentStyle.textColor]}> {amount_int}</Text>
+                    style={[repaymentStyle.textinput, repaymentStyle.textColor]}> {amount_int}</Text>
             )
         }
     }
@@ -185,10 +202,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        //fetching: () => {
-        //    dispatch(actions.loanDetail()),
-        //        dispatch(actions.bankInfo())
-        //},
+        recharge: amount => dispatch(actions.repayRecharge(amount)),
         externalPush: route => dispatch(externalPush(route))
 
     }

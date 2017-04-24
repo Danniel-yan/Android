@@ -3,16 +3,16 @@ import {externalPush} from 'actions/navigation';
 import alert from 'utils/alert'
 import {AsyncStorage} from 'react-native';
 
-export default function (mobile, bank_card_no) {
+export default function (amount) {
 
     return (dispatch, getState) => {
         var state = getState(),
             loan_type = parseInt(state.online.loanType.type) || 0;
 
-        dispatch({type: 'requestOnlineDepositoryCreate'})
+        dispatch({type: 'requestOnlineRepayRecharge'})
 
-        post(`/payctcfcg/create`, {loan_type, mobile, bank_card_no}).then(response => {
-            dispatch({type: 'receiveOnlineDepositoryCreate', detail: response.data})
+        post(`/payctcfcg/quick-recharge`, {loan_type, amount}).then(response => {
+            dispatch({type: 'receiveOnlineRepayRecharge', detail: response.data})
             if (response.res == responseStatus.success) {
                 let head = response.data.gatewayRequestHead;
                 var uri = "", method = "POST", body = "";
@@ -41,10 +41,8 @@ export default function (mobile, bank_card_no) {
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
-                    title: "激活",
-                    componentProps: {onMessage: onMessage},
-                    // backRoute: {key: 'OnlineReceiptCard'}
-                    backRoute: {backCount: 2}
+                    title: "充值",
+                    componentProps: {onMessage: onMessage}
                 }))
             } else {
                 alert(response.msg)
