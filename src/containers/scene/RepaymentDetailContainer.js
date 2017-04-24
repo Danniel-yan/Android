@@ -35,7 +35,8 @@ class RepaymentDetailContainer extends Component {
             loan_type: this.props.loanType,
             repayAmount: this.props.repayAmount,
             submitting: false,
-            amount_int: this.props.repayAmount.amount
+            amount_int: this.props.repayAmount.amount,
+            amount_max:this.props.repayAmount.amount // 临时最大值 保持不变用于判断
         };
     }
 
@@ -170,7 +171,8 @@ class RepaymentDetailContainer extends Component {
 
     showTextInput(amount_int) {
         //let amount = amount_int.toString();
-        let formaterAdjust = validators.adjustNumFormater(this.state.amount_int);
+        let formaterAdjust = validators.adjustNumFormater(this.state.amount_max);
+        //amount_int = 3000
         if (amount_int >= 500) {
             return (
                 <TextInput
