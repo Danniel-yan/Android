@@ -83,9 +83,9 @@ export default class FundSecondLoginScene extends Component{
               <View style={[styles.inputWrap, { flexDirection: "row" }]}>
                 <Input
                   style={[container, styles.input]}
-                  onChangeText={this._onFormChange.bind(this, 'val_code')}
+                  onChangeText={this._onFormChange.bind(this, 'value')}
                 />
-                { hasImg ? <Image style={{width: 70, height: 40, marginRight: 10}} source={{uri: "data:image/png;base64," + this.props.val_code.value}}/> :null }
+                { hasImg ? <Image style={{flex: 1}} source={{uri: "data:image/png;base64," + this.props.val_code.value}}/> :null }
               </View>
 
               <Text style={styles.error}>{this.state.error}</Text>
@@ -109,9 +109,9 @@ export default class FundSecondLoginScene extends Component{
 
     let body = {
       ticket_id: this.props.ticket_id,
-      value: this.state.value
+      val_code: this.state.value
     };
-    if(!body.value) return;
+    if(!body.val_code) return;
     this.setState({ submitting: true }, () => {
 
       post('/bill/gjj-second-login', body).then(response => {
