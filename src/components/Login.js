@@ -57,11 +57,13 @@ class Login extends Component {
             placeholder="请输入手机号"
             maxLength={11}
             underlineColorAndroid="transparent"
-            onChangeText={mobile => this.setState({mobile})}
+            onChangeText={mobile => this.setState({mobile, err: ""})}
           />
           <VerifyButton
             tracking={{key: 'user', topic: 'login', entity: 'mob_code_button'}}
-            mobile={this.state.mobile}/>
+            mobile={this.state.mobile}
+            onError={(err) => { this.setState({err: err}) }}
+            />
         </View>
 
         <View style={styles.inputGroup}>
@@ -74,7 +76,7 @@ class Login extends Component {
             maxLength={6}
             value={this.state.verifyCode}
             underlineColorAndroid="transparent"
-            onChangeText={verifyCode => this.setState({verifyCode})}
+            onChangeText={verifyCode => this.setState({verifyCode, err: ""})}
           />
         </View>
 
@@ -89,7 +91,7 @@ class Login extends Component {
           />
         </View>
 
-        <View style={styles.txtRow}>
+        <View style={[styles.txtRow, { justifyContent: "center" }]}>
           {this.state.err ? <Text style={styles.err}>{this.state.err}</Text> : null}
         </View>
 
@@ -109,7 +111,7 @@ class Login extends Component {
     const disabled = !this.state.checkedAgreement || !mobileValid;
 
     if(!mobileValid) {
-      this.setState({err: '请输入11位手机号'});
+      this.setState({err: '手机号码格式不正确'});
       return false;
     }
 
@@ -145,11 +147,15 @@ class Login extends Component {
           if(response.res == responseStatus.success) {
             return AsyncStorage.setItem('userToken', response.data.token)
           } else {
+            this.setState({err: response.msg})
             throw response.msg;
           }
         })
         .then(this.loginSuccess.bind(this))
-        .catch(err => { console.log(err); })
+        .catch(err => {
+          console.log(err);
+          this.setState({err: err})
+        })
         .finally(() => {
           this.submitting = false;
           this.setState({submitting: false})
@@ -213,7 +219,8 @@ const styles = StyleSheet.create({
   },
   err: {
     marginTop: 20,
-    color: colors.error
+    color: colors.error,
+    textAlign: "center"
   }
 });
 

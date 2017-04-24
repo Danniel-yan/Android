@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   rightContainerSubTitle:{
     fontSize:14,
-    marginBottom:5 
+    marginBottom:5
   },
   unit:{
     color:'#ff6d17',
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius:2
   },
   number:{
-    ...textVerticalCenter(23),
+    // ...textVerticalCenter(23),
     marginBottom: 6,
     fontSize:20,
     color:'#ff6d17'

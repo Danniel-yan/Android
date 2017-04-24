@@ -138,7 +138,7 @@ class SuiXinJieExternalOnlineComponent extends Component {
     // var statusTxt =
     return (
       <ExternalPushLink {...this.props} style={Object.assign({height: 70}, this.props.style)}>
-        <MenuItem iconStyle={{width: 40, height: 40}} title={this.props.detail.title} icon={this.props.detail.loan_type == 1 ? require('assets/discovery/icon_banka.png') : require('assets/online/icon-gjj.png')}>
+        <MenuItem iconStyle={{width: 40, height: 40}} title={this.props.detail.title} icon={this.props.detail.logo_list}>
           <Text></Text>
         </MenuItem>
       </ExternalPushLink>
