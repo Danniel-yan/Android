@@ -58,6 +58,10 @@
             android:name=".activity.ImportBillActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ImportBillChooseActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.megvii.livenesslib.FaceLivenessResultActivity"

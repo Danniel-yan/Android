@@ -92,7 +92,7 @@ public class ImportBillActivity extends Activity {
         mxParam.setUserId(mUserId);
         mxParam.setApiKey(Constants.MOXIE_APIKEY);
         mxParam.setAgreementUrl(mAgreementUrl); // SDK里显示的用户使用协议
-        mxParam.setFunction(MxParam.PARAM_FUNCTION_JINGDONG); // 功能名
+        mxParam.setFunction(getIntent().getStringExtra("name")); // 功能名
         mxParam.setQuitOnFail(MxParam.PARAM_COMMON_YES); // 爬取失败时是否退出SDK(登录阶段之后)
 
         Bundle bundle = new Bundle();
