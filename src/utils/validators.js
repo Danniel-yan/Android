@@ -16,11 +16,11 @@ function idNO(value) {
 
 function adjustNumFormater(adjustNum) {
     return function (str) {
-        var numStr = str.replace(/[^\d]/g, '');
+        var numStr = str.replace(/[^\d\.]/g, '');
         let num = ''
-        if(numStr < 500){
+        if (numStr < 500) {
             num = Math.max(parseInt(numStr), 500) || 0;
-        }else{
+        } else {
             num = Math.min(parseInt(numStr), adjustNum) || 0;
         }
 
