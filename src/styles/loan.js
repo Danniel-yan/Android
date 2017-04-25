@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
     ...border('bottom'),
     alignItems: 'center'
   },
+  flexContainer:{
+    flexDirection: 'row',
+    padding:10,
+    alignItems: 'center'
+  },
   rightContainer : {
     flex: 1,
     paddingLeft: 15,
@@ -128,20 +133,20 @@ const styles = StyleSheet.create({
   },
   rightContainerDesText:{
     borderWidth:1,
-    borderColor:'#1ab4fe',
-    color:'#1ab4fe',
-    fontSize:12,
+    borderColor:'#ff7429',
+    color:'#ff7429',
+    fontSize:10,
+    marginLeft:8,
     paddingHorizontal:5,
-    paddingVertical:2,
+    paddingVertical:1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius:2
   },
   number:{
     // ...textVerticalCenter(23),
-    marginBottom: 6,
-    fontSize:20,
-    color:'#ff6d17'
+    marginLeft:10,
+    color:'#ff7429'
   },
   flexPanel:{
     flexDirection: 'column',
@@ -171,7 +176,41 @@ const styles = StyleSheet.create({
     fontSize:18,
     color:'#333',
     paddingRight:5
-  }
+  },
+  editText:{
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems:'center'
+  },
+  moneyTxt:{
+    fontSize: 16,
+    color: colors.fontColorSecondary
+  },
+  moneyInput:{
+    flex: 1,
+    textAlign: 'right',
+    color: '#666',
+    fontSize:16,
+    padding:0
+  },
+  lineMargin:{
+    height: 1,
+    backgroundColor: '#e6e6e6',
+    margin: 10
+  },
+  lineMargin2:{
+    height: 1,
+    backgroundColor: '#e6e6e6',
+    marginLeft: 10,
+    marginRight:10
+  },
+  line:{
+    height: 1,
+    backgroundColor: '#e6e6e6',
+    marginTop: 10,
+    marginBottom: 10
+  },
 });
 
 module.exports = styles;
