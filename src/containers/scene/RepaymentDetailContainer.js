@@ -25,19 +25,24 @@ class RepaymentDetailContainer extends Component {
     constructor(props) {
         super(props);
         // 初始状态
+        let bankInfo = this.props.bankInfo
+        if (this.props.depositoryResult.status == 1){
+            bankInfo = this.props.depositoryResult
+        }
         this.state = {
-            mobile: this.props.bankInfo.mobile,
-            idnum: this.props.bankInfo.id_no,
-            logo: this.props.bankInfo.logo.px80,
-            realname: this.props.bankInfo.name,
-            bank_card_no: this.props.bankInfo.bank_card_no,
-            bank_name: this.props.bankInfo.bank_name,
+            mobile: bankInfo.mobile,
+            idnum: bankInfo.id_no,
+            logo: bankInfo.logo.px80,
+            realname: bankInfo.realname,
+            bank_card_no: bankInfo.bank_card_no,
+            bank_name: bankInfo.bank_name,
             loan_type: this.props.loanType,
             repayAmount: this.props.repayAmount,
             submitting: false,
             amount_int: this.props.repayAmount.amount,
-            amount_max:this.props.repayAmount.amount // 临时最大值 保持不变用于判断
+            amount_max: this.props.repayAmount.amount // 临时最大值 保持不变用于判断
         };
+
     }
 
     _payctcFloanCreate = (callback) => {
@@ -56,7 +61,9 @@ class RepaymentDetailContainer extends Component {
             submitting: true
         })
 
-        this.props.recharge(amount);
+        this.props.recharge(amount).then(response => {
+            this.setState({submitting: false});
+        })
         // post('/payctcfcg/quick-recharge', {loan_type, amount})
         //     .then(res => {
         //
@@ -178,7 +185,9 @@ class RepaymentDetailContainer extends Component {
                 <TextInput
                     style={[repaymentStyle.textinput, repaymentStyle.textColor]}
                     underlineColorAndroid="transparent"
-                    onChangeText={(amount_int)=> { this.setState({amount_int:formaterAdjust(amount_int)}) }}
+                    onChangeText={(amount_int)=> {
+                        this.setState({amount_int: formaterAdjust(amount_int)})
+                    }}
                     value={amount_int.toString()}
                 />
             )
@@ -195,10 +204,10 @@ class RepaymentDetailContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        isFetching: state.online.loanDetail.isFetching || state.online.bankInfo.isFetching,
         bankInfo: state.online.bankInfo,
+        depositoryResult: state.online.depositoryResult,
         repayAmount: state.online.repayAmount,
-        loanType: state.online.loanType.type,
+        loanType: state.online.loanType.type
     }
 }
 

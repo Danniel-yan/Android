@@ -21,17 +21,19 @@ import ActiveCardDialog from 'utils/activeCardDialog'
 import ChangeCardDialog from 'utils/changeCardDialog.js';
 
 class LoanDetail extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            submitting: false
-        }
+            submitting: false,
+            depositoryResult: this.props.depositoryResult
+    }
     }
 
     render() {
         let bankInfo = this.props.bankInfo;
         let repayAmount = this.props.repayAmount;
         let loanDetail = this.props.loanDetail;
+        let depositoryResult = this.props.depositoryResult;
         const serviceAmount = loanDetail.repayPlanResults[0].repayAmount;
         const plans = loanDetail.repayPlanResults.slice(1);
         let url = exportUrl('/loanctcf/contract-html');
@@ -47,7 +49,7 @@ class LoanDetail extends Component {
                     this._renderWebItem("合同", url)
                 }
                 {
-                    this._renderViewType(plans, repayAmount, bankInfo)
+                    this._renderViewType(plans, repayAmount, bankInfo, depositoryResult)
                 }
 
             </ScrollView>
@@ -55,7 +57,9 @@ class LoanDetail extends Component {
     }
 
     _submit() {
-        if (false) {
+        console.log("result")
+        console.log(this.state.depositoryResult)
+        if (this.state.depositoryResult.status == 2) {
             this.refs.dialog._setModalVisible(true)
         } else {
             if (this.submitting) {
@@ -92,9 +96,8 @@ class LoanDetail extends Component {
         this.refs.carddialog._setModalVisible(true)
     }
 
-    _renderViewType(plans, repayAmount, bankInfo) {
+    _renderViewType(plans, repayAmount, bankInfo, depositoryResult) {
         if (this.props.loan_type == loanType.chaohaodai) {
-            let bankname = bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")";
             let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
             return (
                 <View>
@@ -106,7 +109,8 @@ class LoanDetail extends Component {
                     }
                     <L2RItem left="当前待还" right={ repayAmount.status == 0 ? repayAmount.amount + '元' : '计算中...'}/>
                     <TouchableOpacity onPress={this.bindCard.bind(this)}>
-                        <L2RItem left="还款银行卡" right={bankname}>
+                        <L2RItem left="还款银行卡"
+                                 right={depositoryResult.status == 1 ? depositoryResult.content.bank_name + "(****" + depositoryResult.content.bank_card_no.slice(-4) + ")" : bankInfo.bank_name + "(****" + bankInfo.bank_card_no.slice(-4) + ")"}>
                             <NextIcon/>
                         </L2RItem>
                     </TouchableOpacity>
@@ -221,13 +225,14 @@ import {externalPush} from 'actions/navigation';
 function mapStateToProps(state) {
     let fetching = state.online.loanDetail.isFetching;
     if (state.online.loanType.type == loanType.chaohaodai) {
-        fetching = fetching || state.online.repayAmount.isFetching || state.online.bankInfo.isFetching;
+        fetching = fetching || state.online.repayAmount.isFetching || state.online.depositoryResult.isFetching;
     }
     return {
         isFetching: fetching,
         loanDetail: state.online.loanDetail,
         bankInfo: state.online.bankInfo,
-        repayAmount: state.online.repayAmount
+        repayAmount: state.online.repayAmount,
+        depositoryResult: state.online.depositoryResult
     }
 }
 

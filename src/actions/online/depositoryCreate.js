@@ -10,8 +10,11 @@ export default function (mobile, bank_card_no) {
             loan_type = parseInt(state.online.loanType.type) || 0;
 
         dispatch({type: 'requestOnlineDepositoryCreate'})
-
-        post(`/payctcfcg/create`, {loan_type, mobile, bank_card_no}).then(response => {
+        let params = {loan_type}
+        if (mobile != null || bank_card_no != null) {
+            params = {loan_type, mobile, bank_card_no}
+        }
+        post(`/payctcfcg/create`, params).then(response => {
             dispatch({type: 'receiveOnlineDepositoryCreate', detail: response.data})
             if (response.res == responseStatus.success) {
                 let head = response.data.gatewayRequestHead;
@@ -25,6 +28,7 @@ export default function (mobile, bank_card_no) {
                     }
                 }
                 body = body.substring(0, body.length - 1);
+                //todo onmessage跳转路径传进来
                 onMessage = e => {
                     var data = e.nativeEvent.data;
                     if (data == 'success') {
@@ -34,8 +38,8 @@ export default function (mobile, bank_card_no) {
                         }))
                     } else if (data == 'fail') {
                         dispatch(externalPush({
-                            key: "OnlineReceiptCard",
-                            title: "添加银行卡"
+                            key: 'OnlineReceiptCard',
+                            title: '添加银行卡'
                         }))
                     }
                 };

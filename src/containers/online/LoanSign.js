@@ -61,7 +61,7 @@ class LoanSign extends Component {
 
                     <TouchableOpacity onPress={this.bindCard.bind(this)}>
                         <L2RItem left="收款银行卡"
-                                 right={depositoryResult.status == 1 ? depositoryResult.content.bank_card_no : ''}>
+                                 right={depositoryResult.status == 1 ? depositoryResult.content.bank_name + "(****" + depositoryResult.content.bank_card_no.slice(-4) + ")" : ''}>
                             <NextIcon/>
                         </L2RItem>
                     </TouchableOpacity>

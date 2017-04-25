@@ -11,7 +11,7 @@ export default function (amount) {
 
         dispatch({type: 'requestOnlineRepayRecharge'})
 
-        post(`/payctcfcg/quick-recharge`, {loan_type, amount}).then(response => {
+        return post(`/payctcfcg/quick-recharge`, {loan_type, amount}).then(response => {
             dispatch({type: 'receiveOnlineRepayRecharge', detail: response.data})
             if (response.res == responseStatus.success) {
                 let head = response.data.gatewayRequestHead;
@@ -27,22 +27,23 @@ export default function (amount) {
                 body = body.substring(0, body.length - 1);
                 onMessage = e => {
                     var data = e.nativeEvent.data;
-                    if (data == 'success') {
+                    if (data == 'recharge_success') {
                         dispatch(externalPush({
-                            key: 'OnlineLoanSign',
-                            title: "签约"
+                            Key: 'OnlineLoanDetail',
+                            title: '借款详情'
                         }))
-                    } else if (data == 'fail') {
+                    } else if (data == 'recharge_fail') {
                         dispatch(externalPush({
-                            key: "OnlineReceiptCard",
-                            title: "添加银行卡"
+                            key: 'RepaymentScene',
+                            title: "借款详情"
                         }))
                     }
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
                     title: "充值",
-                    componentProps: {onMessage: onMessage}
+                    componentProps: {onMessage: onMessage},
+                    backRoute: {key: 'OnlineLoanDetail'}
                 }))
             } else {
                 alert(response.msg)
