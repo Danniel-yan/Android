@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage,Image } from 'react-native';
 
 import { post } from 'utils/fetch';
 import { FormGroup, IptWrap } from "components/FormGroup";
