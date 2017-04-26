@@ -10,6 +10,7 @@ import { StyleSheet, Text } from 'react-native';
 import Input from 'components/shared/Input';
 import Picker from 'components/shared/Picker';
 import Checkbox from 'components/shared/Checkbox';
+import CheckboxRecommenLoan from 'components/shared/CheckboxRecommenLoan';
 import Button from 'components/shared/ButtonBase';
 import { container, rowContainer, flexRow, centering } from 'styles';
 import LocationPicker from 'components/modal/LocationPicker';
@@ -38,7 +39,13 @@ function PickerField({valueChanged, style, textStyle, ...props}) {
 
 function CheckboxField({value, style, valueChanged, ...props}) {
   return (
-    <Checkbox
+    //<Checkbox
+    //  {...props}
+    //  checked={!!value}
+    //  style={[styles.touchable, style]}
+    //  onChange={valueChanged}
+    ///>
+    <CheckboxRecommenLoan
       {...props}
       checked={!!value}
       style={[styles.touchable, style]}
@@ -99,7 +106,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-start'
   },
   touchableText: {
     color: '#333',

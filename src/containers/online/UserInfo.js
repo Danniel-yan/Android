@@ -149,6 +149,7 @@ class UserInfo extends Component {
                             <Picker
                                 style={styles.pickerGroup}
                                 value={profession}
+                                textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'profession')}
                                 items={this.props.pickers.profession}
                             />
@@ -162,6 +163,7 @@ class UserInfo extends Component {
                             <Picker
                                 style={styles.pickerGroup}
                                 value={education}
+                                textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'education')}
                                 items={this.props.pickers.education}
                             />
