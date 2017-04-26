@@ -5,7 +5,8 @@ import {
     StyleSheet,
     TextInput,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 
 import { border, colors } from 'styles';
@@ -57,6 +58,10 @@ class FillUserInfo extends Component {
 
     }
 
+    alertError(msg) {
+        Platform.OS == "ios" ? this.setState({error: msg}) : alert(msg);
+    }
+
     _validation() {
         if (!this.formChanged) {
             return false;
@@ -72,32 +77,32 @@ class FillUserInfo extends Component {
 
         if (!validName) {
             //this.setState({error: '请输入有效的名字'});
-            alert('请输入有效的名字')
+            this.alertError('请输入有效的名字')
             return false;
         }
 
         if (!validID) {
             //this.setState({error: '请输入有效的身份证号'});
-            alert('请输入有效的身份证号')
+            this.alertError('请输入有效的身份证号')
             return false;
         }
 
         if (!validMobile) {
             //this.setState({error: '请输入正确的手机号'});
-            alert('请输入正确的手机号')
+            this.alertError('请输入正确的手机号')
             return false;
         }
 
         if (!validVerifyCode) {
             //this.setState({error: '请输入验证码'});
-            alert('请输入验证码')
+            this.alertError('请输入验证码')
             return false;
 
         }
 
         if (!validAgreement) {
             //this.setState({error: '请接受钞市服务协议'});
-            alert('请接受钞市服务协议')
+            this.alertError('请接受钞市服务协议')
             return false;
         }
 
