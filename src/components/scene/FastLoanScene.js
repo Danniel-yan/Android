@@ -94,22 +94,15 @@ class FastLoanScene extends Component {
       <View style={[bg, {flex:1}]}>
         {!this.props.onBack ? <SceneHeader title="极速贷款"/> : null}
 
-        {this._renderLoanGroup()}
-
-        <HorizontalRadios
-          eachLineCount={4}
-          needEmpty={true}
-          options={jobItems}
-          selectedChanged={opt=> {
-            this.formValueChanged("job", opt ? opt.value : 0)
-            opt && tracker.trackAction({key: 'loan', topic: 'btn_sec', entity: opt.label, event: 'clk'});
-          }}>
-        </HorizontalRadios>
-        {this._renderDropDownFilters()}
-        <View style={{zIndex:-5, borderTopColor: colors.line, borderTopWidth: 1, flex: 1}}>
-          <ScrollView>
-            <RecList itemTracking={{key: 'loan', topic: 'rec_loan_list'}}/>
-          </ScrollView>
+        <View style={{position: "relative", flexDirection:"row" }}>
+            <View style={{zIndex:-5, borderTopColor: colors.line, flex: 1}}>
+              <ScrollView>
+                <RecList itemTracking={{key: 'loan', topic: 'rec_loan_list'}}/>
+              </ScrollView>
+            </View>
+            <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2, height: !this.state.toggleSort ? 0 : null  }}>
+                <VerticalRadios options={[{label: "默认", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
+            </View>
         </View>
 
       </View>
@@ -188,9 +181,9 @@ class FastLoanScene extends Component {
           <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch" style={styles.dropIcon} source={require('assets/icons/arrow-down.png')}/>
         </Button>
 
-        <View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2, height: !this.state.toggleSort ? 0 : null  }}>
-          <VerticalRadios options={[{label: "默认", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>
-        </View>
+        {/*<View style={{position: "absolute", overflow: "hidden", left: screenWidth/2, top: 41, zIndex: 3, width: screenWidth/2, height: !this.state.toggleSort ? 0 : null  }}>*/}
+          {/*<VerticalRadios options={[{label: "默认", value: 1}, {label: "放款速度快", value: 2}]} selectedChanged={idx=>{ this.orderSelected(idx); }}></VerticalRadios>*/}
+        {/*</View>*/}
       </View>
     );
   }
@@ -207,6 +200,11 @@ class FastLoanScene extends Component {
     this.props.reFetchingList && this.props.reFetchingList(this.state.fetchRecParams);
   }
 }
+
+function ImageComponent(){
+    return <Image url='http://pic30.photophoto.cn/20140227/0005018366178107_b.jpg'/>
+}
+
 const styles = StyleSheet.create({
   formGroup: {
     paddingVertical: 10,

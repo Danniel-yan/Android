@@ -32,7 +32,7 @@ class BroadcastCarousel extends Component {
         this.msgItems.push(
           <TrackingPoint key={idx} tracking={{ key: 'homepage', topic: 'brocast', entity: "" }}>
             <View style={[{flexDirection: "row", alignItems: "center", width:screenWidth, height:configs.height, padding:0}]}>
-              <Text style={{width:screenWidth, fontSize: fontSize.xsmall, color:'#666666' }}>{message}</Text>
+              <Text style={{width:screenWidth, fontSize: fontSize.xsmall, color: '#666666'}}>{message}</Text>
             </View>
           </TrackingPoint>
           );
