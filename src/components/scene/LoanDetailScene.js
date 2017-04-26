@@ -32,6 +32,8 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 import Picker from 'components/shared/Picker';
 import tracker from 'utils/tracker.js';
 
+var screenWidth = Dimensions.get('window').width;
+
 export default class LoanDetailScene extends Component {
 
     tracking() {
@@ -99,8 +101,10 @@ export default class LoanDetailScene extends Component {
                             <View style={styles.rightContainer}>
                                 <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}><Text
                                     style={[styles.rightContainerTitle, {marginBottom: 0}]}>{detail.title}</Text><View
-                                    style={styles.rightContainerDes}><Text
-                                    style={styles.rightContainerDesText}>{detail.tips}</Text></View></View>
+                                    style={styles.rightContainerDes}>
+                                    <Text
+                                        style={styles.rightContainerDesText}>{detail.tips}</Text></View>
+                                </View>
                                 <Text style={[styles.rightContainerSubTitle, {
                                     marginBottom: 10,
                                     color: '#353535'
@@ -289,15 +293,26 @@ export default class LoanDetailScene extends Component {
                         key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                         title: detail.title, amount: this.state.amount, period: this.state.value
                     }}
-                    style={styles.loanButton}
                     textStyle={styles.loanButtonText}
                     text={btnTxt}
                     web={detail.url}
                     title={detail.title}
                     componentProps={{
                         tracking: {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title}
-                    }}
-                />
+                    }}>
+                    <View style={{position: "relative", flexDirection: "row"}}>
+                        <Image
+                            style={{position: 'absolute',width: screenWidth - 30, height: 60, margin: 15, resizeMode: 'stretch', zIndex: -1}}
+                            source={require('assets/icons/button-lijishenqing.png')}/>
+                        <View style={{flex: 1,flexDirection:'row', height: 90, alignItems: 'center', justifyContent: 'center', zIndex: 1}}>
+                            <Text
+                                style={[styles.loanButtonText, {
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    flex: 1
+                                }]}>{btnTxt}</Text></View>
+                    </View>
+                </ExternalPushLink>
             );
         }
 

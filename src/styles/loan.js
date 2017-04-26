@@ -139,8 +139,6 @@ const styles = StyleSheet.create({
     marginLeft:8,
     paddingHorizontal:5,
     paddingVertical:1,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius:2
   },
   number:{
