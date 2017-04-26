@@ -101,7 +101,10 @@ export default class LoanDetailScene extends Component {
                                     style={[styles.rightContainerTitle, {marginBottom: 0}]}>{detail.title}</Text><View
                                     style={styles.rightContainerDes}><Text
                                     style={styles.rightContainerDesText}>{detail.tips}</Text></View></View>
-                                <Text style={[styles.rightContainerSubTitle, {marginBottom: 10, color: '#353535'}]}>{detail.info}</Text>
+                                <Text style={[styles.rightContainerSubTitle, {
+                                    marginBottom: 10,
+                                    color: '#353535'
+                                }]}>{detail.info}</Text>
                                 <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
                                     <Text style={{color: '#666666'}}>{detail.web_fangkuan}</Text>
                                     <Text style={styles.number}>{repayCalc.interest}</Text>
@@ -144,12 +147,12 @@ export default class LoanDetailScene extends Component {
                         </View>
                         <View style={styles.line}/>
                         <View style={[styles.editText, {marginBottom: 10}]}>
-                            <Text style={{
-                                flex: 1,
-                                color: '#333'
-                            }}>{repayCalc.repay_period}: {repayCalc.repay}</Text>
-                            <Text
-                                style={{color: '#333'}}>{repayCalc.interest_period}利率: {repayCalc.interest}</Text>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={{color: '#333'}}>{repayCalc.repay_period}:</Text>
+                                <Text style={{color: '#333', marginLeft: 10}}>{repayCalc.repay}</Text>
+                            </View>
+                            <Text style={{color: '#333'}}>{repayCalc.interest_period}利率:</Text>
+                            <Text style={{color: '#333', marginLeft: 10}}>{repayCalc.interest}</Text>
                         </View>
                     </View>
 
@@ -242,25 +245,6 @@ export default class LoanDetailScene extends Component {
 
         }
 
-    }
-
-
-    _renderRepayCalc() {
-
-        const repayCalc = this.props.repayCalc.repayCalc
-
-        return (
-            <View style={styles.flexRow}>
-                <View style={styles.flexPanel}>
-                    <Text style={styles.number}>{repayCalc.repay}</Text>
-                    <Text>{repayCalc.repay_period}</Text>
-                </View>
-                <View style={[styles.flexPanel, {borderRightWidth: 0}]}>
-                    <Text style={styles.number}>{repayCalc.interest}</Text>
-                    <Text>{repayCalc.interest_period}利率</Text>
-                </View>
-            </View>
-        )
     }
 
     _renderButton() {
