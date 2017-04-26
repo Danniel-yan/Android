@@ -189,6 +189,7 @@ class FillUserInfo extends Component {
                             <Picker
                                 style={styles.pickerGroupJob}
                                 value={job}
+                                textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'job')}
                                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
                             <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
