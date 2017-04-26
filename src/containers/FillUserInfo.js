@@ -111,7 +111,7 @@ class FillUserInfo extends Component {
     return (
       <View style={defaultStyles.container}>
 
-        <ScrollView style={[defaultStyles.container, styles.container]}>
+        <View style={styles.inputGroup}>
           <FormGroup label="姓名">
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
@@ -121,7 +121,8 @@ class FillUserInfo extends Component {
               onChangeText={this._inputChange.bind(this, 'realname')}
             />
           </FormGroup>
-
+        </View>
+        <View style={styles.inputGroup}>
           <FormGroup label="身份证号">
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
@@ -131,7 +132,9 @@ class FillUserInfo extends Component {
               onChangeText={this._inputChange.bind(this, 'id_no')}
             />
           </FormGroup>
+          </View>
 
+          <View style={styles.inputGroup}>
           <FormGroup label="注册手机号">
             <TextInput style={styles.formControl}
               clearButtonMode="while-editing"
@@ -143,8 +146,10 @@ class FillUserInfo extends Component {
               onChangeText={this._inputChange.bind(this, 'mobile')}
             />
           </FormGroup>
+          </View>
 
           { editableMobile && (
+              <View style={styles.inputGroup}>
           <FormGroup label="输入验证码">
             <View style={[defaultStyles.rowContainer, defaultStyles.centering]}>
 
@@ -165,11 +170,12 @@ class FillUserInfo extends Component {
               </View>
             </View>
           </FormGroup>
+          </View>
           )}
 
           <View style={styles.optional}>
             <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
-
+            <View style={styles.inputGroup}>
             <FormGroup label="职业身份">
               <Picker
                 style={styles.pickerGroup}
@@ -177,7 +183,9 @@ class FillUserInfo extends Component {
                 onChange={this._inputChange.bind(this, 'job')}
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
             </FormGroup>
+            </View>
 
+            <View style={styles.inputGroup}>
             <FormGroup label="有信用卡资质">
 
               <Checkbox
@@ -187,6 +195,7 @@ class FillUserInfo extends Component {
                 />
 
             </FormGroup>
+            </View>
 
 
             { editableMobile  && (
@@ -204,8 +213,6 @@ class FillUserInfo extends Component {
               <Text style={styles.error}>{this.state.error}</Text>
             </View>
           </View>
-
-        </ScrollView>
 
         <View style={styles.footer}>
 
@@ -256,6 +263,12 @@ const styles = StyleSheet.create({
   },
   error: {
     color: colors.error
+  },
+
+  inputGroup: {
+    height: 49,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E6E6E6',
   },
 
   formControl: {
