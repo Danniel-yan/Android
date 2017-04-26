@@ -170,7 +170,7 @@ export default class RecLoanScene extends Component {
                     value={this.state.job}
                     items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}
                     valueChanged={this.loanValueChanged.bind(this, 'job')}
-                    textStyle={{paddingLeft:7}}
+                    textStyle={{paddingLeft:8}}
                     style={{label:{width:150}}}
                 />
 
@@ -190,7 +190,7 @@ export default class RecLoanScene extends Component {
                     value={this.state.mobile_time}
                     items={[{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}]}
                     valueChanged={this.loanValueChanged.bind(this, 'mobile_time')}
-                    textStyle={{paddingLeft:7}}
+                    textStyle={{paddingLeft:8}}
                     style={{label:{width:150}}}
                 />
 
@@ -211,7 +211,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/dizhi.png')}
                     value={this.state.location}
                     valueChanged={this.formValueChanged.bind(this, 'location')}
-                    textStyle={{paddingLeft:7,color:'#333333'}}
+                    textStyle={{paddingLeft:8,color:'#333333'}}
                     style={{label:{width:150}}}
                 />
             </View>
