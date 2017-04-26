@@ -5,7 +5,7 @@ import formGroup from './formGroup';
 
 export { formGroup } ;
 
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Image } from 'react-native';
 
 import Input from 'components/shared/Input';
 import Picker from 'components/shared/Picker';
@@ -27,12 +27,13 @@ function InputField({value, style, valueChanged, ...props}) {
 }
 
 
-function PickerField({valueChanged, style, textStyle, ...props}) {
+function PickerField({valueChanged,withArrow, style, textStyle, ...props}) {
   return (
     <Picker
       {...props}
       style={[styles.touchable, style]}
       textStyle={[styles.touchableText, textStyle]}
+      withArrow={withArrow}
       onChange={valueChanged} />
   );
 }
@@ -71,7 +72,8 @@ class LocationField extends Component {
         onPress={this._onPress.bind(this)}
         >
 
-        <Text style={this.props.textStyle}>{value}</Text>
+        <Text style={[this.props.textStyle,{flex: 1}]}>{value}</Text>
+        <Image style={{marginRight: 5}} source={require('assets/icons/arrow-down@2x.png')}/>
 
         <LocationPicker mark='city' visible={this.state.showPicker} onChange={this._onChange.bind(this)} onHide={() => this.setState({showPicker: false})}/>
       </Button>

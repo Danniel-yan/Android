@@ -9,7 +9,7 @@ import VerifyButton from 'components/shared/VerifyButton';
 import ProcessingButton from 'components/shared/ProcessingButton';
 
 import { DeviceSwitchComponent, IOSComponentSwitcher } from 'high-order/ComponentSwitcher';
-import LoanButton from "containers/shared/LoanButton";
+import tracker from 'utils/tracker.js';
 
 import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
@@ -18,6 +18,7 @@ import Dimensions from 'Dimensions';
 import { InputGroup, PickerGroup, CheckboxGroup, LocationGroup } from 'components/form';
 import Picker from 'components/shared/Picker';
 
+var screenWidth = Dimensions.get('window').width;
 var screenHeight = Dimensions.get('window').height;
 
 export default class RecLoanScene extends Component {
@@ -85,13 +86,38 @@ export default class RecLoanScene extends Component {
                     <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
                     { this._renderLoginGroup() }
                 </View>
-                <View style={{marginTop: 20}}>
-                    <LoanButton
-                        tracking={Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking())}
-                        processing={this.props.submitting}
-                        style={styles.loanButton}
-                        textStyle={styles.loanButtonText}
-                        onPress={() => { this._goLoan() }}/>
+                <View>
+                        <TouchableOpacity onPress={()=>{
+                            this._goLoan();
+                            tracker.trackAction(Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking()))
+                        }}>
+                        <View style={{position: "relative", flexDirection: "row"}}>
+                            <Image
+                                style={{
+                                    position: 'absolute',
+                                    width: screenWidth - 30,
+                                    height: 60,
+                                    margin: 15,
+                                    resizeMode: 'stretch',
+                                    zIndex: -1
+                                }}
+                                source={require('assets/icons/button-lijishenqing.png')}/>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                height: 90,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 1
+                            }}>
+                                <Text
+                                    style={[styles.loanButtonText, {
+                                        alignItems: 'center',
+                                        textAlign: 'center',
+                                        flex: 1
+                                    }]}>立即申请</Text></View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         );
@@ -114,7 +140,7 @@ export default class RecLoanScene extends Component {
                             value={this.state.amount.toString()}
                             onChangeText={(amount)=> {
                            this.setState({amount: amount})
-                        }} value={this.state.amount.toString()}/>
+                        }}/>
                         <Text style={{flex:1}}>元</Text>
                     </View>
                     <View style={recStyles.topViewRight}>
@@ -172,6 +198,8 @@ export default class RecLoanScene extends Component {
                     valueChanged={this.loanValueChanged.bind(this, 'job')}
                     textStyle={{paddingLeft:8}}
                     style={{label:{width:150}}}
+                    withArrow={true}
+                    arrow={require('assets/icons/arrow-down@2x.png')}
                 />
 
                 {!this.state.hasLogin ? null : <InputGroup
@@ -190,8 +218,10 @@ export default class RecLoanScene extends Component {
                     value={this.state.mobile_time}
                     items={[{value: '1', label:"1个月"},{value: '2', label:"2个月"},{value: '3', label:"3个月"},{value: '4', label:"4个月"},{value: '5', label:"5个月"},{value: '6', label:"6个月及以上"}]}
                     valueChanged={this.loanValueChanged.bind(this, 'mobile_time')}
+                    withArrow={true}
                     textStyle={{paddingLeft:8}}
                     style={{label:{width:150}}}
+
                 />
 
                 <CheckboxGroup
@@ -202,6 +232,7 @@ export default class RecLoanScene extends Component {
                     //style={{flexDirection:'row',justifyContent:'flex-end'}}
                     //textStyle={{paddingLeft:7}}
                     style={{label:{width:150}}}
+                    arrow={require('assets/icons/arrow-down@2x.png')}
 
                     //<Image style={{marginRight: 10, position:'absolute',right: 0,}} source={require('assets/icons/arrow-down@2x.png')}/>
                 />
@@ -213,6 +244,7 @@ export default class RecLoanScene extends Component {
                     valueChanged={this.formValueChanged.bind(this, 'location')}
                     textStyle={{paddingLeft:8,color:'#333333'}}
                     style={{label:{width:150}}}
+                    arrow={require('assets/icons/arrow-down@2x.png')}
                 />
             </View>
         );
