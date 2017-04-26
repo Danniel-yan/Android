@@ -18,6 +18,7 @@ import zoneStyles from './zoneStyles';
 import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
 import FormGroup from 'components/shared/FormGroup';
+import { border } from 'styles';
 
 const hasCreditStatus = {
   yes: 1,
@@ -63,7 +64,7 @@ class UserInfo extends AbstractScene {
 
         <ScrollView style={defaultStyles.container}>
           <FormGroup label="姓名">
-            <TextInput style={zoneStyles.formControl}
+            <TextInput style={styles.formControl}
                        clearButtonMode="while-editing"
                        maxLength={20}
                        value={realname}
@@ -73,7 +74,7 @@ class UserInfo extends AbstractScene {
           </FormGroup>
 
           <FormGroup label="身份证号">
-            <TextInput style={zoneStyles.formControl}
+            <TextInput style={styles.formControl}
                        clearButtonMode="while-editing"
                        maxLength={18}
                        value={idNO}
@@ -83,7 +84,7 @@ class UserInfo extends AbstractScene {
           </FormGroup>
 
           <FormGroup label="注册手机号">
-            <TextInput style={zoneStyles.formControl}
+            <TextInput style={styles.formControl}
                        clearButtonMode="while-editing"
                        keyboardType="numeric"
                        maxLength={11}
@@ -97,14 +98,16 @@ class UserInfo extends AbstractScene {
           <View style={zoneStyles.optional}>
             <View style={zoneStyles.optionalHeader}><Text style={zoneStyles.optionalTxt}>选填</Text></View>
 
-            <FormGroup label="职业身份">
+            <View style={[defaultStyles.container, styles.formGroup]}>
+              <View style={styles.controlLabel}><Text style={styles.label}>职业身份</Text></View>
               <Picker
-                style={zoneStyles.pickerGroup}
-                textStyle={zoneStyles.pickerTxt}
+                style={zoneStyles.pickerGroupJob}
                 value={job}
                 onChange={this._inputChange.bind(this, 'job')}
                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
-            </FormGroup>
+              <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
+
+            </View>
 
             <FormGroup label="有无信用卡资质">
               <Checkbox
@@ -155,5 +158,43 @@ function mapDispatch(dispatch) {
     }
   };
 }
+
+const styles = StyleSheet.create({
+  container: {},
+  error: {
+    color: colors.error
+  },
+
+  formControl: {
+    flex: 1,
+    textAlign: 'left',
+    fontSize: 16,
+    color: '#333333',
+    marginTop: 5,
+    marginLeft: 130
+
+  },
+
+  formGroup: {
+    height: 55,
+    backgroundColor: '#fff',
+    ...border('bottom'),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  controlLabel: {
+    left: 10,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    width: 140
+  },
+  label: {
+    fontSize: 16,
+    color: '#666666',
+  },
+});
 
 export default connect(mapState, mapDispatch)(UserInfo);

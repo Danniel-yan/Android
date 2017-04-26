@@ -28,7 +28,7 @@ export default class AmountInput extends Component {
                 <View style={AIStyle.iptWrap}>
                     <Input
                         tracking={{key: 'homepage', topic: 'btn_sec', entity: 'amount'}}
-                        type={"number"} style={AIStyle.input} placeholder="请输入想借的金额" onChangeText={(text)=> {
+                        type={"number"} style={AIStyle.input} placeholder="请输入想借的金额" placeholderTextColor="#999999" onChangeText={(text)=> {
                           this.setState({text: formater100000(text)})
                         }} value={this.state.text}
                         ref={component => this._textInput = component}
