@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage,Image } from 'react-native';
+import { View, Text,TextInput, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage,Image } from 'react-native';
 
 import { post } from 'utils/fetch';
 import { FormGroup, IptWrap } from "components/FormGroup";
@@ -16,6 +16,7 @@ import styles from 'styles/loan';
 import { colors } from 'styles/varibles';
 import Dimensions from 'Dimensions';
 import { InputGroup, PickerGroup, CheckboxGroup, LocationGroup } from 'components/form';
+import Picker from 'components/shared/Picker';
 
 var screenHeight = Dimensions.get('window').height;
 
@@ -94,36 +95,45 @@ export default class RecLoanScene extends Component {
                 </View>
             </ScrollView>
         );
+
     };
 
-    //<InputGroup
-    //    keyboardType="numeric"
-    //    //label="元"
-    //    icon={require('assets/form-icons/daikuantuiajinpage.png')}
-    //    value={this.state.amount}
-    //    valueChanged={this.loanValueChanged.bind(this, 'amount')}
-    //    style={{icon:{width:60,height:60,marginLeft:10},input:{flex:1,textAlign:'left',height:60,width: 60}}}
-    //
-    ///>
     _renderLoanInfoGroup() {
         return (
             <View>
                 <Text style={recStyles.topText}>请输入您的贷款需求</Text>
                 <View style={recStyles.topView}>
                     <View style={recStyles.topViewLeft}>
-                 <Image source={require('assets/form-icons/daikuantuiajinpage.png')}/>
+                        <Image style={{width:60, height:60}}
+                               source={require('assets/form-icons/daikuantuiajinpage.png')}/>
+                        <TextInput
+                            style={{width:150,textAlign:'center',color:'#fe271e',fontSize:30}}
+                            keyboardType="numeric"
+                            maxLength={6}
+                            underlineColorAndroid="transparent"
+                            value={this.state.amount.toString()}
+                            onChangeText={(amount)=> {
+                           this.setState({amount: amount})
+                        }} value={this.state.amount.toString()}/>
                         <Text style={{flex:1}}>元</Text>
                     </View>
                     <View style={recStyles.topViewRight}>
-                        <Text>期限</Text>
-                        <PickerGroup
-                            //label="借多久(月)"
-                            //label="期限"
-                            //icon={require('assets/form-icons/jieduojiu.png')}
-                            value={this.state.period}
-                            items={[1, 3, 9, 12, 15, 24, 36]}
-                            valueChanged={this.loanValueChanged.bind(this, 'period')}
-                        />
+                        <View style={recStyles.qixian}>
+                            <Text
+                                style={{textAlign:'center',color:'#999999',fontSize:16,marginRight:2}}>期限</Text>
+                            <Image source={require("assets/icons/triangle-down.png")}/>
+                        </View>
+                        <View style={{flexDirection:'row'}}>
+                            <Picker
+                                value={this.state.period}
+                                items={[1, 3, 9, 12, 15, 24, 36]}
+                                onChange={this.loanValueChanged.bind(this, 'period')}
+                                textStyle={{color:'#fe271e',fontSize:16,paddingBottom:5}}
+                            />
+
+                            <Text style={{color:'#fe271e',fontSize:16}}>个月</Text>
+                        </View>
+
                     </View>
                 </View>
 
@@ -131,6 +141,7 @@ export default class RecLoanScene extends Component {
         );
 
     }
+
 
     _renderUserInfoGroup() {
         return (
@@ -262,27 +273,41 @@ const recStyles = StyleSheet.create({
         fontFamily: 'PingFangSC-Light'
     },
     topView: {
-        height: 60,
+        flex: 1,
+        height: 80,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF'
     },
     topViewLeft: {
         flex: 3,
-        height:60,
-        backgroundColor:'#FFFFFF',
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingLeft:10,
+        height: 60,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderColor: '#F3F3F3',
+        borderWidth: 1,
+        marginLeft: 10
 
     },
     topViewRight: {
         flex: 1,
-        height:60,
-        backgroundColor:'#FFFFFF',
-        flexDirection:'column',
-        justifyContent:'center',
-        alignItems:'center'
+        height: 60,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#F3F3F3',
+        borderWidth: 1,
+        marginLeft: 15,
+        marginRight: 10
+    },
+    qixian: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 5
     }
 });
