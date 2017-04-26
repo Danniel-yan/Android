@@ -121,17 +121,7 @@ class FillUserInfo extends Component {
 
         return (
             <View style={defaultStyles.container}>
-
-                <ScrollView style={[defaultStyles.container, styles.container]}>
-                    {/**  <FormGroup label="姓名">
-                     <TextInput style={styles.formControl}
-                     clearButtonMode="while-editing"
-                     maxLength={20}
-                     value={realname}
-                     underlineColorAndroid="transparent"
-                     onChangeText={this._inputChange.bind(this, 'realname')}
-                     />
-                     </FormGroup>**/}
+                <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>姓名</Text></View>
                         <TextInput style={styles.formControl}
@@ -141,9 +131,9 @@ class FillUserInfo extends Component {
                                    underlineColorAndroid="transparent"
                                    onChangeText={this._inputChange.bind(this, 'realname')}
                         />
-                    </View>
+                    </View></View>
 
-
+                    <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>身份证号</Text></View>
                         <TextInput style={styles.formControl}
@@ -153,9 +143,9 @@ class FillUserInfo extends Component {
                                    underlineColorAndroid="transparent"
                                    onChangeText={this._inputChange.bind(this, 'id_no')}
                         />
-                    </View>
+                    </View></View>
 
-
+<View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>注册手机号</Text></View>
                         <TextInput style={styles.formControl}
@@ -167,33 +157,10 @@ class FillUserInfo extends Component {
                                    underlineColorAndroid="transparent"
                                    onChangeText={this._inputChange.bind(this, 'mobile')}
                         />
-                    </View>
-
-                    {/**{ editableMobile && (
-                        <FormGroup label="输入验证码">
-                            <View style={[defaultStyles.rowContainer, defaultStyles.centering]}>
-
-                                <TextInput style={styles.formControl}
-                                           clearButtonMode="while-editing"
-                                           keyboardType="numeric"
-                                           maxLength={6}
-                                           value={verify_code}
-                                           underlineColorAndroid="transparent"
-                                           onChangeText={this._inputChange.bind(this, 'verify_code')}
-                                />
-
-                                <View style={styles.addon}>
-                                    <VerifyButton
-                                        tracking={Object.assign({ entity: 'mob_code_button'}, this.tracking()) }
-                                        mobile={this.state.mobile}
-                                    />
-                                </View>
-                            </View>
-                        </FormGroup>
-                    )}**/}
+                    </View></View>
 
                     { editableMobile && (
-
+<View style={styles.inputGroup}>
                         <View style={[defaultStyles.container, styles.formGroup]}>
                             <View style={styles.controlLabel}><Text style={styles.label}>输入验证码</Text></View>
                             <TextInput style={styles.formControl}
@@ -211,12 +178,12 @@ class FillUserInfo extends Component {
                                 />
                             </View>
                         </View>
-
+</View>
                     )}
                     <View style={styles.optional}>
                         <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
-
+<View style={styles.inputGroup}>
                         <View style={[defaultStyles.container, styles.formGroup]}>
                             <View style={styles.controlLabel}><Text style={styles.label}>职业身份</Text></View>
                             <Picker
@@ -226,9 +193,9 @@ class FillUserInfo extends Component {
                                 items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
                             <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
 
-                        </View>
+                        </View></View>
 
-
+<View style={styles.inputGroup}>
                         <FormGroup label="有信用卡资质">
 
                             <Checkbox
@@ -237,7 +204,7 @@ class FillUserInfo extends Component {
                                 onChange={this._inputChange.bind(this, 'credit_status')}
                             />
 
-                        </FormGroup>
+                        </FormGroup></View>
 
 
                         { editableMobile && (
@@ -259,8 +226,7 @@ class FillUserInfo extends Component {
                         </View>
                     </View>
 
-                </ScrollView>
-
+                    <View style={{flex: 1}}></View>
                 <View style={styles.footer}>
 
                     <LoanButton
@@ -309,6 +275,12 @@ const styles = StyleSheet.create({
     container: {},
     error: {
         color: colors.error
+    },
+
+    inputGroup: {
+        height: 49,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E6E6E6',
     },
 
     formControl: {
@@ -399,7 +371,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         color: '#666666',
-    },
+    }
 });
 
 
