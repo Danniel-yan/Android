@@ -293,8 +293,6 @@ export default class LoanDetailScene extends Component {
                         key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                         title: detail.title, amount: this.state.amount, period: this.state.value
                     }}
-                    textStyle={styles.loanButtonText}
-                    text={btnTxt}
                     web={detail.url}
                     title={detail.title}
                     componentProps={{
@@ -302,9 +300,23 @@ export default class LoanDetailScene extends Component {
                     }}>
                     <View style={{position: "relative", flexDirection: "row"}}>
                         <Image
-                            style={{position: 'absolute',width: screenWidth - 30, height: 60, margin: 15, resizeMode: 'stretch', zIndex: -1}}
+                            style={{
+                                position: 'absolute',
+                                width: screenWidth - 30,
+                                height: 60,
+                                margin: 15,
+                                resizeMode: 'stretch',
+                                zIndex: -1
+                            }}
                             source={require('assets/icons/button-lijishenqing.png')}/>
-                        <View style={{flex: 1,flexDirection:'row', height: 90, alignItems: 'center', justifyContent: 'center', zIndex: 1}}>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            height: 90,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 1
+                        }}>
                             <Text
                                 style={[styles.loanButtonText, {
                                     alignItems: 'center',
@@ -318,17 +330,48 @@ export default class LoanDetailScene extends Component {
 
         return (
             <ExternalPushLink
-                style={styles.loanButton}
-                textStyle={styles.loanButtonText}
-                text={this.props.isIOS ? '立即查看' : "立即申请"}
                 toKey="FillUserInfo"
                 title="完善个人信息"
-                componentProps={{onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail, {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title})}}
+                componentProps={{
+                    onSubmitSuccess: this.props.goLoan.bind(null, this.props.detail, {
+                        key: 'loan',
+                        topic: 'loan_application',
+                        id: detail.id,
+                        title: detail.title
+                    })
+                }}
                 tracking={{
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value
-                }}
-            />
+                }}>
+                <View style={{position: "relative", flexDirection: "row"}}>
+                    <Image
+                        style={{
+                            position: 'absolute',
+                            width: screenWidth - 30,
+                            height: 60,
+                            margin: 15,
+                            resizeMode: 'stretch',
+                            zIndex: -1
+                        }}
+                        source={require('assets/icons/button-lijishenqing.png')}/>
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        height: 90,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1
+                    }}>
+                        <Text
+                            style={[styles.loanButtonText, {
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                flex: 1
+                            }]}>{btnTxt}</Text></View>
+                </View>
+            </ExternalPushLink>
+
         );
     }
 
