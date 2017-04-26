@@ -353,7 +353,6 @@ const styles = StyleSheet.create({
     },
 
     formGroup: {
-        height: 55,
         backgroundColor: '#fff',
         ...border('bottom'),
         flexDirection: 'row',
