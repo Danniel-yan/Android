@@ -76,34 +76,35 @@ class UserInfo extends Component {
 
         if (person_name.length < 2) {
             alert('请输入有效姓名')
-            return
+            return false
             //return '请输入有效姓名';
         }
         if (!this.state.checkedAgreement) {
             alert('必须接受服务协议')
-            return
+            return false
             //return '必须接受服务协议';
         }
         if (!validID) {
             alert('请输入有效身份证号')
-            return
+            return false
             //return '请输入有效身份证号';
         }
         if (profession == '') {
             alert('请选择职业身份')
-            return
+            return false
             //return '请选择职业身份';
         }
         if (education == '') {
             alert('请选择教育程度')
-            return
+            return false
             //return '请选择教育程度';
         }
         if (company.length < 2) {
             alert('请输入单位名称')
-            return
+            return false
             //return '请输入单位名称';
         }
+        return true;
     }
 
     render() {
@@ -225,6 +226,10 @@ class UserInfo extends Component {
     }
 
     _submit() {
+        if(!this._validation()){
+            this.setState({submitting: false});
+            return
+        }
         this.setState({submitting: true, error: ''}, () => {
             let form = this.state.form;
             navigator.geolocation.getCurrentPosition(position => {
@@ -251,17 +256,21 @@ class UserInfo extends Component {
                     }
                 }).catch(err => {
                     console.log(err);
-                    this.setState({submitting: false, error: err})
+                    //this.setState({submitting: false, error: err})
+                    this.setState({submitting: false})
+                    alert(err)
                 });
             }, err => {
                 console.log(err);
-                this.setState({submitting: false, error: "请打开定位"})
+                //this.setState({submitting: false, error: "请打开定位"})
+                this.setState({submitting: false})
+                alert('请打开定位')
             });
         });
     }
 
     _inputChange(field, value) {
-        this.formChanged = true;
+        //this.formChanged = true;
         value = typeof value == 'string' ? value.trim() : value;
         let form = {...this.state.form, [field]: value};
         this.setState({form});
