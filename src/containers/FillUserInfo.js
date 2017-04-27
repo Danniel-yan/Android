@@ -50,7 +50,8 @@ class FillUserInfo extends Component {
             username: loginUser.username,
             editableMobile: !loginUser.username,
             realname: loginUser.realname || '',
-            id_no: loginUser.id_no || '',
+            //id_no: loginUser.id_no || '',
+            id_no: '',
             mobile: loginUser.username || loginUser.mobile || '',
             credit_status: loginUser.credit_status == hasCreditStatus.yes,
             job: loginUser.job || '',
@@ -82,11 +83,11 @@ class FillUserInfo extends Component {
             return false;
         }
 
-        if (!validID) {
-            //this.setState({error: '请输入有效的身份证号'});
-            this.alertError('请输入有效的身份证号')
-            return false;
-        }
+        //if (!validID) {
+        //    //this.setState({error: '请输入有效的身份证号'});
+        //    this.alertError('请输入有效的身份证号')
+        //    return false;
+        //}
 
         if (!validMobile) {
             //this.setState({error: '请输入正确的手机号'});
@@ -134,7 +135,7 @@ class FillUserInfo extends Component {
                         />
                     </View></View>
 
-                <View style={styles.inputGroup}>
+                {/** <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>身份证号</Text></View>
                         <TextInput style={styles.formControl}
@@ -144,7 +145,8 @@ class FillUserInfo extends Component {
                                    underlineColorAndroid="transparent"
                                    onChangeText={this._inputChange.bind(this, 'id_no')}
                         />
-                    </View></View>
+                    </View>
+                </View> **/}
 
                 <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
