@@ -167,7 +167,7 @@ export default class RecLoanScene extends Component {
                     valueChanged={this.formValueChanged.bind(this, 'realname')}
                     style={{
                         input: {textAlign: "left"},
-                        label: {width: 150, color: '#666666'},
+                        label: {width: 180, color: '#666666'},
                         icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
@@ -189,7 +189,7 @@ export default class RecLoanScene extends Component {
                     }, {value: '4', label: "自由职业"}]}
                     valueChanged={this.loanValueChanged.bind(this, 'job')}
                     textStyle={{paddingLeft: 8}}
-                    style={{label: {width: 150, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
+                    style={{label: {width: 180, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
                             height: 40,
@@ -208,7 +208,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/shoujihao.png')}
                     value={this.state.mobile}
                     valueChanged={this.formValueChanged.bind(this, 'mobile')}
-                    style={{input: {textAlign: "left"}, label: {width: 150, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
+                    style={{input: {textAlign: "left"}, label: {width: 180, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
                             height: 40,
@@ -229,7 +229,7 @@ export default class RecLoanScene extends Component {
                     valueChanged={this.loanValueChanged.bind(this, 'mobile_time')}
                     withArrow={true}
                     textStyle={{paddingLeft: 8}}
-                    style={{label: {width: 150, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
+                    style={{label: {width: 180, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
                             height: 40,
@@ -246,7 +246,7 @@ export default class RecLoanScene extends Component {
                     value={this.state.credit_status}
                     valueChanged={checked => this.formValueChanged('credit_status', checked ? 1 : 0)}
                     //style={{flexDirection:'row',justifyContent:'flex-end'}}
-                    style={{label: {width: 150, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
+                    style={{label: {width: 180, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
                             height: 40,
@@ -265,7 +265,7 @@ export default class RecLoanScene extends Component {
                     value={this.state.location}
                     valueChanged={this.formValueChanged.bind(this, 'location')}
                     textStyle={{paddingLeft: 8, color: '#333333', fontSize: 16}}
-                    style={{label: {width: 150, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
+                    style={{label: {width: 180, color: '#666666'},icon: {marginRight: 5, width: 16, height: 16},
                         wrap: {
                             backgroundColor: '#fff',
                             height: 40,
