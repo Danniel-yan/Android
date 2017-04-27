@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   loanButton:{
     width:Dimensions.get('window').width,
     backgroundColor: colors.primary,
-    height: 46,
     alignItems: 'center',
     justifyContent: 'center',
   },

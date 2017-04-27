@@ -209,8 +209,6 @@ class UserInfo extends Component {
                     <SubmitButton
                         processing={this.state.submitting}
                         textStyle={styles.btnText}
-                        //disabled={disabled}
-                        //text="去贷款"
                         text="立即申请"
                         onPress={this._submit.bind(this)}
                         tracking={{key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})}}/>

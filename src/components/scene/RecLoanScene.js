@@ -14,12 +14,9 @@ import tracker from 'utils/tracker.js';
 import { rowContainer, centering } from 'styles';
 import styles from 'styles/loan';
 import { colors } from 'styles/varibles';
-import Dimensions from 'Dimensions';
 import { InputGroup, PickerGroup, CheckboxGroup, LocationGroup } from 'components/form';
 import Picker from 'components/shared/Picker';
-
-var screenWidth = Dimensions.get('window').width;
-var screenHeight = Dimensions.get('window').height;
+import LoanButton from 'containers/shared/LoanButton';
 
 export default class RecLoanScene extends Component {
     static title = "推荐贷款";
@@ -91,32 +88,7 @@ export default class RecLoanScene extends Component {
                             this._goLoan();
                             tracker.trackAction(Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking()))
                         }}>
-                        <View style={{position: "relative", flexDirection: "row"}}>
-                            <Image
-                                style={{
-                                    position: 'absolute',
-                                    width: screenWidth - 30,
-                                    height: 60,
-                                    margin: 15,
-                                    resizeMode: 'stretch',
-                                    zIndex: -1
-                                }}
-                                source={require('assets/icons/button-lijishenqing.png')}/>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                height: 90,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                zIndex: 1
-                            }}>
-                                <Text
-                                    style={[styles.loanButtonText, {
-                                        alignItems: 'center',
-                                        textAlign: 'center',
-                                        flex: 1
-                                    }]}>立即申请</Text></View>
-                        </View>
+                            <LoanButton/>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

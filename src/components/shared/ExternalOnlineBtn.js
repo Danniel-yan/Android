@@ -5,6 +5,7 @@ import { ExternalPushLink } from 'containers/shared/Link';
 import MenuItem from 'components/shared/MenuItem';
 import * as defaultStyles from 'styles';
 import styles from 'styles/loan';
+import LoanButton from 'containers/shared/LoanButton';
 
 import GetGeoLocation from 'utils/geoLocation.js'
 
@@ -26,11 +27,10 @@ function ExternalOnlineTransfer(ExternalComponent) {
           {...this.props}
           processing={this.state.checkingGPS}
           {...this._chaoshidaiRouteProps()}
-          style={this.props.style}
-          textStyle={this.props.textStyle}
-          text={btnTxt}
           tracking={Object.assign({}, {key: 'loan', topic: 'product_detail', entity: 'apply_all'}, this.props.tracking)}
-          ></ExternalComponent>
+          >
+          <LoanButton/>
+        </ExternalComponent>
       );
     }
 

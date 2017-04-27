@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     ScrollView,
@@ -9,7 +9,7 @@ import {
     Platform
 } from 'react-native';
 
-import { border, colors } from 'styles';
+import {border, colors} from 'styles';
 import Text from 'components/shared/Text';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox'
@@ -19,10 +19,11 @@ import VerifyButton from 'components/shared/VerifyButton'
 import validators from 'utils/validators';
 import * as defaultStyles from 'styles';
 import alert from 'utils/alert';
-import { get, post, responseStatus } from 'utils/fetch';
-import { ExternalPushLink } from 'containers/shared/Link';
+import {get, post, responseStatus} from 'utils/fetch';
+import {ExternalPushLink} from 'containers/shared/Link';
+import tracker from 'utils/tracker.js';
 
-import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
+import {DeviceSwitchComponent} from 'high-order/ComponentSwitcher';
 import LoanButton from 'containers/shared/LoanButton';
 
 const hasCreditStatus = {
@@ -67,7 +68,7 @@ class FillUserInfo extends Component {
         //    return false;
         //}
 
-        let { editableMobile, checkedAgreement, username, verify_code, mobile, id_no, job, credit_status, realname } = this.state;
+        let {editableMobile, checkedAgreement, username, verify_code, mobile, id_no, job, credit_status, realname} = this.state;
 
         const validMobile = validators.mobile(mobile);
         const validVerifyCode = !editableMobile || editableMobile && verify_code.length > 0;
@@ -111,7 +112,7 @@ class FillUserInfo extends Component {
     }
 
     render() {
-        let { editableMobile, checkedAgreement, username, verify_code, mobile, id_no, job, credit_status, realname } = this.state;
+        let {editableMobile, checkedAgreement, username, verify_code, mobile, id_no, job, credit_status, realname} = this.state;
 
         const validMobile = validators.mobile(mobile);
         const validVerifyCode = !editableMobile || editableMobile && verify_code.length == 6;
@@ -133,7 +134,7 @@ class FillUserInfo extends Component {
                         />
                     </View></View>
 
-                    <View style={styles.inputGroup}>
+                <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>身份证号</Text></View>
                         <TextInput style={styles.formControl}
@@ -145,7 +146,7 @@ class FillUserInfo extends Component {
                         />
                     </View></View>
 
-<View style={styles.inputGroup}>
+                <View style={styles.inputGroup}>
                     <View style={[defaultStyles.container, styles.formGroup]}>
                         <View style={styles.controlLabel}><Text style={styles.label}>注册手机号</Text></View>
                         <TextInput style={styles.formControl}
@@ -159,8 +160,8 @@ class FillUserInfo extends Component {
                         />
                     </View></View>
 
-                    { editableMobile && (
-<View style={styles.inputGroup}>
+                { editableMobile && (
+                    <View style={styles.inputGroup}>
                         <View style={[defaultStyles.container, styles.formGroup]}>
                             <View style={styles.controlLabel}><Text style={styles.label}>输入验证码</Text></View>
                             <TextInput style={styles.formControl}
@@ -173,17 +174,17 @@ class FillUserInfo extends Component {
                             />
                             <View style={styles.addon}>
                                 <VerifyButton
-                                    tracking={Object.assign({ entity: 'mob_code_button'}, this.tracking()) }
+                                    tracking={Object.assign({entity: 'mob_code_button'}, this.tracking()) }
                                     mobile={this.state.mobile}
                                 />
                             </View>
                         </View>
-</View>
-                    )}
-                    <View style={styles.optional}>
-                        <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
+                    </View>
+                )}
+                <View style={styles.optional}>
+                    <View style={styles.optionalHeader}><Text style={styles.optionalTxt}>选填</Text></View>
 
-<View style={styles.inputGroup}>
+                    <View style={styles.inputGroup}>
                         <View style={[defaultStyles.container, styles.formGroup]}>
                             <View style={styles.controlLabel}><Text style={styles.label}>职业身份</Text></View>
                             <Picker
@@ -191,12 +192,15 @@ class FillUserInfo extends Component {
                                 value={job}
                                 textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'job')}
-                                items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}/>
+                                items={[{value: '1', label: "上班族"}, {value: '2', label: "学生"}, {
+                                    value: '3',
+                                    label: "企业主"
+                                }, {value: '4', label: "自由职业"}]}/>
                             <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
 
                         </View></View>
 
-<View style={styles.inputGroup}>
+                    <View style={styles.inputGroup}>
                         <FormGroup label="有信用卡资质">
 
                             <Checkbox
@@ -208,35 +212,39 @@ class FillUserInfo extends Component {
                         </FormGroup></View>
 
 
-                        { editableMobile && (
-                            <View style={styles.txtRow}>
-                                <Checkbox checked={checkedAgreement}
-                                          onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
-                                          style={{marginRight: 5}}/>
-                                <Text
-                                    onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
-                                <ExternalPushLink
-                                    web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'
-                                    text="《钞市服务协议》" title="《钞市服务协议》"
-                                />
-                            </View>
-                        )}
-
+                    { editableMobile && (
                         <View style={styles.txtRow}>
-                            {/**<Text style={styles.error}>{this.state.error}</Text>**/}
+                            <Checkbox checked={checkedAgreement}
+                                      onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
+                                      style={{marginRight: 5}}/>
+                            <Text
+                                onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
+                            <ExternalPushLink
+                                web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'
+                                text="《钞市服务协议》" title="《钞市服务协议》"
+                            />
                         </View>
+                    )}
+
+                    <View style={styles.txtRow}>
+                        {/**<Text style={styles.error}>{this.state.error}</Text>**/}
                     </View>
+                </View>
 
-                    <View style={{flex: 1}}></View>
-                <View style={styles.footer}>
-
-                    <LoanButton
-                        tracking={Object.assign({entity: 'apply', name: realname, cell: mobile, profession: job, own_credit_card: credit_status}, this.tracking()) }
-                        processing={this.state.submitting}
-                        style={styles.btn}
-                        textStyle={styles.btnText}
-                        //disabled={this.state.error !== ''}
-                        onPress={this._submit.bind(this)}/>
+                <View style={{flex: 1}}></View>
+                <View>
+                    <TouchableOpacity onPress={()=> {
+                        this._submit.bind(this);
+                        tracker.trackAction(Object.assign({
+                            entity: 'apply',
+                            name: realname,
+                            cell: mobile,
+                            profession: job,
+                            own_credit_card: credit_status
+                        }, this.tracking()))
+                    }}>
+                        <LoanButton/>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -245,11 +253,11 @@ class FillUserInfo extends Component {
 
     _submit() {
         this.setState({submitting: true});
-        if(!this._validation()){
+        if (!this._validation()) {
             this.setState({submitting: false});
             return
         }
-        let { mobile, verify_code, id_no, job, credit_status, realname } = this.state;
+        let {mobile, verify_code, id_no, job, credit_status, realname} = this.state;
 
         let body = {
             mobile,
@@ -380,9 +388,9 @@ const styles = StyleSheet.create({
 });
 
 
-import { AsyncStorage } from 'react-native';
-import { connect } from 'react-redux';
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {AsyncStorage} from 'react-native';
+import {connect} from 'react-redux';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import submitUserInfo from 'actions/fillUserInfo';
 
 

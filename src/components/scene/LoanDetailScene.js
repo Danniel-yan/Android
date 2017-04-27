@@ -20,6 +20,7 @@ import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
 import {ExternalOnlineBtn} from 'components/shared/ExternalOnlineBtn';
 import * as defaultStyles from 'styles';
+import LoanButton from 'containers/shared/LoanButton';
 import {
     loanType,
     firstFilterStatusSuccess,
@@ -298,32 +299,7 @@ export default class LoanDetailScene extends Component {
                     componentProps={{
                         tracking: {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title}
                     }}>
-                    <View style={{position: "relative", flexDirection: "row"}}>
-                        <Image
-                            style={{
-                                position: 'absolute',
-                                width: screenWidth - 30,
-                                height: 60,
-                                margin: 15,
-                                resizeMode: 'stretch',
-                                zIndex: -1
-                            }}
-                            source={require('assets/icons/button-lijishenqing.png')}/>
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            height: 90,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            zIndex: 1
-                        }}>
-                            <Text
-                                style={[styles.loanButtonText, {
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    flex: 1
-                                }]}>{btnTxt}</Text></View>
-                    </View>
+                    <LoanButton/>
                 </ExternalPushLink>
             );
         }
@@ -344,32 +320,7 @@ export default class LoanDetailScene extends Component {
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value
                 }}>
-                <View style={{position: "relative", flexDirection: "row"}}>
-                    <Image
-                        style={{
-                            position: 'absolute',
-                            width: screenWidth - 30,
-                            height: 60,
-                            margin: 15,
-                            resizeMode: 'stretch',
-                            zIndex: -1
-                        }}
-                        source={require('assets/icons/button-lijishenqing.png')}/>
-                    <View style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        height: 90,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 1
-                    }}>
-                        <Text
-                            style={[styles.loanButtonText, {
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                flex: 1
-                            }]}>{btnTxt}</Text></View>
-                </View>
+                <LoanButton/>
             </ExternalPushLink>
 
         );
