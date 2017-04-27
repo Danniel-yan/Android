@@ -114,7 +114,9 @@ class FastLoanScene extends Component {
                     <View style={{zIndex: -5, borderTopColor: colors.line, flex: 1}}>
                         <ScrollView>
                             <RecList itemTracking={{key: 'loan', topic: 'rec_loan_list'}}/>
-                        </ScrollView>
+		    	    <View style={{height: 50}}>
+			    </View>		    
+			</ScrollView>
                     </View>
                     <View style={{
                         position: "absolute",
