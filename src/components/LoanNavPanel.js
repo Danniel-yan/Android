@@ -96,7 +96,7 @@ class LoanNavPanel extends Component {
               title="贷款推荐"
               toKey="RecLoanScene"
               style={LNPStyles.navItem}>
-              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/tuijiandaikuan_133.png', width : 50, height: 50}}></Image>
+              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/tuijiandaikuan_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>贷款推荐</Text>
             </ExternalPushLink>
             <MajorTabLink
@@ -104,13 +104,13 @@ class LoanNavPanel extends Component {
               title="极速贷款"
               toKey="LoanScene"
               style={LNPStyles.navItem}>
-              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/jisudaikuan.png', width : 50, height: 50}}></Image>
+              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/jisudaikuan_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>极速贷款</Text>
             </MajorTabLink>
             <TrackingPoint
               tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_loan'}}
               style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
-              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/xinyongdai_133.png', width : 50, height: 50}}></Image>
+              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/xinyongdai_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>信用贷</Text>
             </TrackingPoint>
             <ExternalPushLink
@@ -119,7 +119,7 @@ class LoanNavPanel extends Component {
               toKey="LoanScene"
               componentProps = {{onBack : true}}
               style={LNPStyles.navItem}>
-              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/dixidai_133.png', width : 50, height: 50}}></Image>
+              <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/dixidai_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>低息贷</Text>
             </ExternalPushLink>
           </View>)}
