@@ -5,6 +5,7 @@ import CountdownButton from './CountdownButton';
 import { post, responseStatus } from 'utils/fetch';
 import { colors } from 'styles';
 import validators from 'utils/validators';
+import { Keyboard } from 'react-native';
 
 export default class VerifyButton extends Component {
   render() {
@@ -31,6 +32,7 @@ export default class VerifyButton extends Component {
   }
 
   _sendVerify(mobile) {
+    Keyboard.dismiss();  
     this.props.onError && this.props.onError("");
     post('/tool/send-verify-code', { mobile })
       .then(res => {
