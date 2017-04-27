@@ -77,35 +77,81 @@ class UserInfo extends Component {
 
         if (person_name.length < 2) {
             alert('请输入有效姓名')
+            //tracking={{key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})}}
+            this.trackingVerify('请输入有效姓名')
             return false
             //return '请输入有效姓名';
         }
         if (!this.state.checkedAgreement) {
             alert('必须接受服务协议')
+            this.trackingVerify('必须接受服务协议')
             return false
             //return '必须接受服务协议';
         }
         if (!validID) {
             alert('请输入有效身份证号')
+            this.trackingVerify('请输入有效身份证号')
             return false
             //return '请输入有效身份证号';
         }
         if (profession == '') {
             alert('请选择职业身份')
+            this.trackingVerify('请选择职业身份')
             return false
             //return '请选择职业身份';
         }
         if (education == '') {
             alert('请选择教育程度')
+            this.trackingVerify('请选择教育程度')
             return false
             //return '请选择教育程度';
         }
         if (company.length < 2) {
             alert('请输入单位名称')
+            this.trackingVerify('请输入单位名称')
             return false
             //return '请输入单位名称';
         }
+        this.trackingVerifySuccess()
         return true;
+    }
+
+    trackingVerify(error_msg) {
+        tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "online_user_info",
+            entity: "error_local",
+            event: "pop",
+            exten_info: JSON.stringify({error_msg: error_msg})
+        })
+    }
+
+    trackingVerifySuccess(){
+        tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "online_user_info",
+            entity: "success_local",
+            event: "undefined"
+        })
+    }
+
+    trackingVerifyBack(error_msg) {
+        tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "online_user_info",
+            entity: "error_backend",
+            event: "pop",
+            exten_info: JSON.stringify({error_msg: error_msg})
+        })
+    }
+
+    trackingVerifyBackSuccess() {
+        tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "online_user_info",
+            entity: "success_backend",
+            event: "undefined"
+        })
     }
 
     render() {
@@ -226,7 +272,7 @@ class UserInfo extends Component {
     }
 
     _submit() {
-        if(!this._validation()){
+        if (!this._validation()) {
             this.setState({submitting: false});
             return
         }
@@ -244,14 +290,17 @@ class UserInfo extends Component {
                 loanType && (form.loan_type = loanType);
                 return post('/loanctcf/first-filter', form).then(response => {
                     if (response.res == responseStatus.success) {
+                        this.trackingVerifyBackSuccess();
                         this.setState({submitting: false})
                         this.props.fetchStatus();
                         this.props.requestUser();
                         this.props.goHome();
                     } else if (response.code == 300) {
+                        this.trackingVerifyBack('审批失败')
                         this.setState({submitting: false})
                         this.props.goApproveFailed && this.props.goApproveFailed({title: this.props.title});
                     } else {
+                        this.trackingVerifyBack(response.msg)
                         throw response.msg;
                     }
                 }).catch(err => {
@@ -262,6 +311,7 @@ class UserInfo extends Component {
                 });
             }, err => {
                 console.log(err);
+                this.trackingVerify('定位失败')
                 //this.setState({submitting: false, error: "请打开定位"})
                 this.setState({submitting: false})
                 alert('请打开定位')

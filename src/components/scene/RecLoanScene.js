@@ -84,12 +84,12 @@ export default class RecLoanScene extends Component {
                     { this._renderLoginGroup() }
                 </View>
                 <View>
-                        <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity onPress={()=>{
                             this._goLoan();
                             tracker.trackAction(Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking()))
                         }}>
-                            <LoanButton
-                                processing={this.props.submitting}/>
+                        <LoanButton
+                            processing={this.props.submitting}/>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -118,8 +118,8 @@ export default class RecLoanScene extends Component {
                     </View>
                     <View style={recStyles.topViewRight}>
                         <View style={recStyles.qixian}>
-	                        <Text
-		                        style={{textAlign:'center',color:'#999999',fontSize:16,marginRight:2}}>期限</Text>
+                            <Text
+                                style={{textAlign:'center',color:'#999999',fontSize:16,marginRight:2}}>期限</Text>
                             <Image source={require("assets/icons/triangle-down.png")}/>
                         </View>
                         <View style={{flexDirection: 'row',height:25}}>
@@ -152,7 +152,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/xingming.png')}
                     value={this.state.realname}
                     valueChanged={this.formValueChanged.bind(this, 'realname')}
-                    style={{input: {textAlign:"left"}, label:{width:150}}}
+                    style={{input: {textAlign:"left"}, label:{width:100,color: '#666666'}}}
                 />
 
                 <InputGroup
@@ -161,7 +161,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/shenfenzheng.png')}
                     value={this.state.id_no}
                     valueChanged={this.formValueChanged.bind(this, 'id_no')}
-                    style={{input: {textAlign:"left"}, label:{width:150}}}
+                    style={{input: {textAlign:"left"}, label:{width:100,color: '#666666'}}}
                 />
 
                 <PickerGroup
@@ -171,7 +171,7 @@ export default class RecLoanScene extends Component {
                     items={[{value: '1', label:"上班族"},{value: '2', label:"学生"},{value: '3', label:"企业主"},{value: '4', label:"自由职业"}]}
                     valueChanged={this.loanValueChanged.bind(this, 'job')}
                     textStyle={{paddingLeft:8}}
-                    style={{label:{width:150}}}
+                    style={{label:{width:100,color: '#666666'}}}
                     withArrow={true}
                     arrow={require('assets/icons/arrow-down@2x.png')}
                 />
@@ -183,7 +183,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/shoujihao.png')}
                     value={this.state.mobile}
                     valueChanged={this.formValueChanged.bind(this, 'mobile')}
-                    style={{input: {textAlign:"left"}, label:{width:150}}}
+                    style={{input: {textAlign:"left"}, label:{width:100,color: '#666666'}}}
                 /> }
 
                 <PickerGroup
@@ -194,7 +194,7 @@ export default class RecLoanScene extends Component {
                     valueChanged={this.loanValueChanged.bind(this, 'mobile_time')}
                     withArrow={true}
                     textStyle={{paddingLeft:8}}
-                    style={{label:{width:150}}}
+                    style={{label:{width:150,color: '#666666'}}}
 
                 />
 
@@ -205,7 +205,7 @@ export default class RecLoanScene extends Component {
                     valueChanged={checked => this.formValueChanged('credit_status', checked ? 1 : 0)}
                     //style={{flexDirection:'row',justifyContent:'flex-end'}}
                     //textStyle={{paddingLeft:7}}
-                    style={{label:{width:150}}}
+                    style={{label:{width:100,color: '#666666'}}}
                     arrow={require('assets/icons/arrow-down@2x.png')}
 
                     //<Image style={{marginRight: 10, position:'absolute',right: 0,}} source={require('assets/icons/arrow-down@2x.png')}/>
@@ -217,7 +217,7 @@ export default class RecLoanScene extends Component {
                     value={this.state.location}
                     valueChanged={this.formValueChanged.bind(this, 'location')}
                     textStyle={{paddingLeft:8,color:'#333333'}}
-                    style={{label:{width:150}}}
+                    style={{label:{width:100,color: '#666666'}}}
                     arrow={require('assets/icons/arrow-down@2x.png')}
                 />
             </View>
