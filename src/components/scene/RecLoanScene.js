@@ -17,6 +17,8 @@ import {colors} from 'styles/varibles';
 import {InputGroup, PickerGroup, CheckboxGroup, LocationGroup} from 'components/form';
 import Picker from 'components/shared/Picker';
 import LoanButton from 'containers/shared/LoanButton';
+import validators from 'utils/validators';
+let formater500000 = validators.maxNumFormater(500000);
 
 export default class RecLoanScene extends Component {
     static title = "推荐贷款";
@@ -122,7 +124,8 @@ export default class RecLoanScene extends Component {
                             underlineColorAndroid="transparent"
                             value={this.state.amount.toString()}
                             onChangeText={(amount)=> {
-                                this.setState({amount: amount})
+                                //this.setState({amount: amount})
+                                this.setState({amount: formater500000(amount)})
                             }}/>
                         <Text style={{flex: 1}}>元</Text>
                     </View>
