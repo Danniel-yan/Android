@@ -145,19 +145,20 @@ export default class RecLoanScene extends Component {
                     </View>
                     <View style={recStyles.topViewRight}>
                         <View style={recStyles.qixian}>
-                            <Text
-                                style={{textAlign:'center',color:'#999999',fontSize:16,marginRight:2}}>期限</Text>
+	                        <Text
+		                        style={{textAlign:'center',color:'#999999',fontSize:16,marginRight:2}}>期限</Text>
                             <Image source={require("assets/icons/triangle-down.png")}/>
                         </View>
-                        <View style={{flexDirection:'row'}}>
+                        <View style={{flexDirection: 'row',height:25}}>
                             <Picker
                                 value={this.state.period}
                                 items={[1, 3, 9, 12, 15, 24, 36]}
                                 onChange={this.loanValueChanged.bind(this, 'period')}
                                 textStyle={{color:'#fe271e',fontSize:16,paddingBottom:5}}
+                                text="个月"
                             />
 
-                            <Text style={{color:'#fe271e',fontSize:16}}>个月</Text>
+                            {/*<Text style={{color:'#fe271e',fontSize:16}}>个月</Text>*/}
                         </View>
 
                     </View>
