@@ -241,15 +241,15 @@ class UserInfo extends Component {
                                   onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
                                   style={{marginRight: 5}}/>
                         <Text style={{flex: 1, flexWrap: "wrap"}}>
-                            <Text style={{fontSize: 10}} onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+                            <Text style={{fontSize: 12}} onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
                 web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
                 title: "《申请合约》"
-              })}><Text numberOfLines={2} style={{ fontSize: 10,color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
+              })}><Text numberOfLines={2} style={{ fontSize: 12,color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
                 web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
                 title: "《前海征信授权书》"
-              })}><Text numberOfLines={2} style={{ fontSize: 10,color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
+              })}><Text numberOfLines={2} style={{ fontSize: 12,color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
                         </Text>
                     </View>
 

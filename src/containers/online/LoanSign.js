@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     },
     checkboxTxt: {
         color: colors.grayLight,
-        fontSize: fontSize.small,
+        fontSize: fontSize.xsmall,
     },
     textRow: {
         padding: 10,

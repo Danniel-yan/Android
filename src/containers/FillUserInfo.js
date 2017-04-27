@@ -218,10 +218,12 @@ class FillUserInfo extends Component {
                                       onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
                                       style={{marginRight: 5}}/>
                             <Text
+                                style={{fontSize:12}}
                                 onPress={() => this._inputChange('checkedAgreement', !this.state.checkedAgreement)}>阅读并接受</Text>
                             <ExternalPushLink
                                 web='https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/agreement.html'
                                 text="《钞市服务协议》" title="《钞市服务协议》"
+                                textStyle={{fontSize:12}}
                             />
                         </View>
                     )}
