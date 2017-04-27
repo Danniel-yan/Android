@@ -62,7 +62,7 @@ class UserInfo extends AbstractScene {
     return (
       <View style={defaultStyles.container}>
 
-        <ScrollView style={defaultStyles.container}>
+        <ScrollView style={defaultStyles.container} keyboardShouldPersistTaps={true}>
           <FormGroup label="姓名">
             <TextInput style={styles.formControl}
                        clearButtonMode="while-editing"
