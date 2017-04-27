@@ -234,7 +234,7 @@ class FillUserInfo extends Component {
                 <View style={{flex: 1}}></View>
                 <View>
                     <TouchableOpacity onPress={()=> {
-                        this._submit.bind(this);
+                        this._submit();
                         tracker.trackAction(Object.assign({
                             entity: 'apply',
                             name: realname,
