@@ -77,22 +77,32 @@ export default class RecLoanScene extends Component {
         let { realname, amount, period, job, location, credit_status } = this.state;
 
         return (
-            <ScrollView style={{position: "relative"}}>
-                <View style={{}}>
-                    { this._renderLoanInfoGroup() }
-                    <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
-                    { this._renderLoginGroup() }
-                </View>
+            <View>
+                <ScrollView style={{position: "relative"}}>
+                    <View style={{}}>
+                        { this._renderLoanInfoGroup() }
+                        <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
+                        { this._renderLoginGroup() }
+                    </View>
+                </ScrollView>
                 <View>
-                    <TouchableOpacity onPress={()=>{
-                            this._goLoan();
-                            tracker.trackAction(Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking()))
-                        }}>
+                    <TouchableOpacity onPress={()=> {
+                        this._goLoan();
+                        tracker.trackAction(Object.assign({
+                            entity: 'apply',
+                            amount,
+                            period,
+                            realname,
+                            city: location,
+                            profession: job,
+                            own_credit_card: credit_status
+                        }, this.tracking()))
+                    }}>
                         <LoanButton
                             processing={this.props.submitting}/>
                     </TouchableOpacity>
                 </View>
-            </ScrollView>
+            </View>
         );
 
     };
