@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.line
     },
     icon: {
-        marginRight: 5,
-        width: 16,
-        height: 16
+        marginRight: 5
     },
     label: {
         fontSize: 17,
