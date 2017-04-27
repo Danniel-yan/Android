@@ -9,7 +9,7 @@
  * @providesModule WebView
  */
 'use strict';
-
+import {Keyboard} from 'react-native';
 var EdgeInsetsPropType = require('EdgeInsetsPropType');
 var ActivityIndicator = require('ActivityIndicator');
 var React = require('React');
@@ -167,11 +167,14 @@ class WebView extends React.Component {
     };
 
     componentWillMount() {
-        if (this.props.startInLoadingState) {
+	if (this.props.startInLoadingState) {
             this.setState({viewState: WebViewState.LOADING});
         }
     }
 
+    componentDidMount() {
+    	Keyboard.dismiss();
+    }
     render() {
         var otherView = null;
 
