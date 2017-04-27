@@ -93,9 +93,9 @@ export default class LoanDetailScene extends Component {
         })
 
         return (
-            <View style={{flex: 1, backgroundColor: '#f3f3f3'}}>
+            <View style={{flex: 1, backgroundColor: '#fff'}}>
 
-                <ScrollView style={{flex: 1}}>
+                <ScrollView >
                     <View style={[styles.flexColumn, styles.bgColorWhite]}>
                         <View style={styles.flexContainerRow}>
                             <Image source={{uri: detail.logo_detail}} style={styles.thumbnailLarge}/>
@@ -118,8 +118,8 @@ export default class LoanDetailScene extends Component {
                         </View>
 
                     </View>
-
-                    <View style={[styles.applyBox, styles.bgColorWhite]}>
+                    <View style={{height: 5, backgroundColor: '#f3f3f3'}}/>
+                    <View style={styles.bgColorWhite}>
                         <View style={[styles.editText, {marginTop: 5}]}>
                             <Text style={styles.moneyTxt}>金额</Text>
                             <Text style={{color: '#999', marginLeft: 6}}>{detail.amount_showinfo}</Text>
@@ -161,7 +161,8 @@ export default class LoanDetailScene extends Component {
                         </View>
                     </View>
 
-                    <View style={[styles.applyBox, styles.bgColorWhite]}>
+                    <View style={{height: 5, backgroundColor: '#f3f3f3'}}/>
+                    <View style={styles.bgColorWhite}>
                         <View style={styles.flexContainer}><Text style={styles.applyTitle}>申请流程</Text></View>
 
                         <View style={{flexDirection: 'row', padding: 10}}>
