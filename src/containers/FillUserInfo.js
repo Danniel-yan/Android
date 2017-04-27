@@ -53,7 +53,7 @@ class FillUserInfo extends Component {
             mobile: loginUser.username || loginUser.mobile || '',
             credit_status: loginUser.credit_status == hasCreditStatus.yes,
             job: loginUser.job || '',
-            verify_code: loginUser.verify_code || ''
+            verify_code: loginUser.verify_code || '',
         };
 
     }
@@ -63,9 +63,9 @@ class FillUserInfo extends Component {
     }
 
     _validation() {
-        if (!this.formChanged) {
-            return false;
-        }
+        //if (!this.formCha nged) {
+        //    return false;
+        //}
 
         let { editableMobile, checkedAgreement, username, verify_code, mobile, id_no, job, credit_status, realname } = this.state;
 
@@ -223,7 +223,7 @@ class FillUserInfo extends Component {
                         )}
 
                         <View style={styles.txtRow}>
-                            <Text style={styles.error}>{this.state.error}</Text>
+                            {/**<Text style={styles.error}>{this.state.error}</Text>**/}
                         </View>
                     </View>
 
@@ -235,7 +235,7 @@ class FillUserInfo extends Component {
                         processing={this.state.submitting}
                         style={styles.btn}
                         textStyle={styles.btnText}
-                        disabled={this.state.error !== ''}
+                        //disabled={this.state.error !== ''}
                         onPress={this._submit.bind(this)}/>
                 </View>
             </View>
@@ -245,6 +245,10 @@ class FillUserInfo extends Component {
 
     _submit() {
         this.setState({submitting: true});
+        if(!this._validation()){
+            this.setState({submitting: false});
+            return
+        }
         let { mobile, verify_code, id_no, job, credit_status, realname } = this.state;
 
         let body = {
@@ -267,8 +271,9 @@ class FillUserInfo extends Component {
     }
 
     _inputChange(field, value) {
-        this.formChanged = true;
-        this.setState({[field]: value}, this._validation.bind(this));
+        //this.formChanged = true;
+        //this.setState({[field]: value}, this._validation.bind(this));
+        this.setState({[field]: value})
     }
 }
 
