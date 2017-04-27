@@ -167,7 +167,7 @@ class UserInfo extends Component {
         return (
             <View style={container}>
 
-                <ScrollView style={[container, styles.container]}>
+                <ScrollView style={[container, styles.container]} keyboardShouldPersistTaps={true}>
                     <FormGroup label="姓名">
                         <TextInput style={styles.formControl}
                                    clearButtonMode="while-editing"
@@ -200,8 +200,8 @@ class UserInfo extends Component {
                                 textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'profession')}
                                 items={this.props.pickers.profession}
+                                withArrow={true}
                             />
-                            <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
 
                         </View>
 
@@ -214,8 +214,8 @@ class UserInfo extends Component {
                                 textStyle={{fontSize: 16, color: '#333333',}}
                                 onChange={this._inputChange.bind(this, 'education')}
                                 items={this.props.pickers.education}
+                                withArrow={true}
                             />
-                            <Image style={{marginRight: 10}} source={require('assets/icons/arrow-down@2x.png')}/>
 
                         </View>
 
@@ -241,19 +241,20 @@ class UserInfo extends Component {
                                   onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
                                   style={{marginRight: 5}}/>
                         <Text style={{flex: 1, flexWrap: "wrap"}}>
-                            <Text onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+                            <Text style={{fontSize: 10}} onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
                 web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
                 title: "《申请合约》"
-              })}><Text numberOfLines={2} style={{ color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
+              })}><Text numberOfLines={2} style={{ fontSize: 10,color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
                 web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
                 title: "《前海征信授权书》"
-              })}><Text numberOfLines={2} style={{ color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
+              })}><Text numberOfLines={2} style={{ fontSize: 10,color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
                         </Text>
                     </View>
 
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity style={{marginTop: 10}}
+                                      onPress={()=> {
                         this._submit();
                         tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})})
                     }}>

@@ -29,7 +29,8 @@ function ExternalOnlineTransfer(ExternalComponent) {
           tracking={Object.assign({}, {key: 'loan', topic: 'product_detail', entity: 'apply_all'}, this.props.tracking)}
           >
           <LoanButton
-              processing={this.state.checkingGPS}/>
+              processing={this.state.checkingGPS}
+              white={true}/>
         </ExternalComponent>
       );
     }

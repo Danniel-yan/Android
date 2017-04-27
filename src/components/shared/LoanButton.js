@@ -19,9 +19,9 @@ export default class LoanButton extends Component {
     render() {
         var btnText = this.props.isIOSVerifying ? "立即查看" : "立即申请";
 
-        if(this.props.processing) {
+        if (this.props.processing) {
             return this._renderProcessing();
-        }else{
+        } else {
             return this._renderView(btnText);
         }
 
@@ -30,7 +30,10 @@ export default class LoanButton extends Component {
 
     _renderView(btnText) {
         return (
-            <View style={{position: "relative", flexDirection: "row"}} onPress={Keyboard.dismiss()}>
+            <View style={[{
+                position: "relative",
+                flexDirection: "row"
+            }, this.props.white ? {backgroundColor: '#fff'} : null]} onPress={Keyboard.dismiss()}>
                 <Image
                     style={{
                         position: 'absolute',

@@ -95,7 +95,7 @@ export default class LoanDetailScene extends Component {
         return (
             <View style={{flex: 1, backgroundColor: '#f3f3f3'}}>
 
-                <ScrollView>
+                <ScrollView style={{flex: 1}}>
                     <View style={[styles.flexColumn, styles.bgColorWhite]}>
                         <View style={styles.flexContainerRow}>
                             <Image source={{uri: detail.logo_detail}} style={styles.thumbnailLarge}/>
@@ -299,7 +299,8 @@ export default class LoanDetailScene extends Component {
                     componentProps={{
                         tracking: {key: 'loan', topic: 'loan_application', id: detail.id, title: detail.title}
                     }}>
-                    <LoanButton/>
+                    <LoanButton
+                        white={true}/>
                 </ExternalPushLink>
             );
         }
@@ -320,7 +321,8 @@ export default class LoanDetailScene extends Component {
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value
                 }}>
-                <LoanButton/>
+                <LoanButton
+                    white={true}/>
             </ExternalPushLink>
 
         );
