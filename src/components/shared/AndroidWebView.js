@@ -58,7 +58,7 @@ class WebView extends React.Component {
         onNavigationStateChange: PropTypes.func,
         onMessage: PropTypes.func,
         onContentSizeChange: PropTypes.func,
-        startInLoadingState: PropTypes.bool, // force WebView to show loadingView on first load
+	//startInLoadingState: PropTypes.bool, // force WebView to show loadingView on first load
         style: View.propTypes.style,
 
         html: deprecatedPropType(
@@ -162,7 +162,8 @@ class WebView extends React.Component {
     state = {
         viewState: WebViewState.IDLE,
         lastErrorEvent: null,
-        startInLoadingState: true,
+        startInLoadingState: false,
+	//startInLoadingState: true,
     };
 
     componentWillMount() {
