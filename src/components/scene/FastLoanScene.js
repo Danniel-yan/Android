@@ -75,21 +75,6 @@ class FastLoanScene extends Component {
         });
     }
 
-    resListSelected(resList) {
-        var valueList = [];
-        resList && resList.length > 0 && resList.map(res => valueList.push(res.value));
-        this.formValueChanged("reslist", valueList);
-        this.onToggleDrp("toggleFilter");
-
-        tracker.trackAction({
-            key: 'loan',
-            entity: 'filter_complete',
-            topic: 'complete',
-            event: 'clk',
-            filter: resList.map(item => item.label).join(',')
-        });
-    }
-
     orderSelected(opt) {
         tracker.trackAction({key: 'loan', topic: 'sort', entity: opt.label, event: 'clk'});
         this.formValueChanged("order", opt.value);
@@ -104,7 +89,6 @@ class FastLoanScene extends Component {
     }
 
     render() {
-        var halfWidth = screenWidth / 2;
 
         return (
             <View style={[bg, {flex: 1}]}>
@@ -133,120 +117,6 @@ class FastLoanScene extends Component {
                     </View>
                 </View>
 
-            </View>
-        );
-    }
-
-
-    _renderLoanGroup() {
-        return (
-            <View style={styles.formGroup}>
-                <View style={[rowContainer, styles.inputGroup]}>
-                    <Text>金额</Text>
-                    <View style={[rowContainer, centering, styles.inputWrap]}>
-                        <Input
-                            keyboardType="numeric"
-                            tracking={{
-                                key: 'loan',
-                                topic: 'top',
-                                entity: 'amount',
-                                event: 'blur',
-                                amount: this.state.fetchRecParams.amount
-                            }}
-                            value={this.state.fetchRecParams.amount + ''}
-                            style={[container, styles.formField]}
-                            onChangeText={(text) => {
-                                this.formValueChanged("amount", formater100000(text));
-                            }}></Input>
-                        <Text style={styles.formFieldText}>元</Text>
-                    </View>
-                </View>
-
-                <View style={[rowContainer, styles.inputGroup]}>
-                    <Text>期数</Text>
-                    <View style={[rowContainer, centering, styles.inputWrap]}>
-                        <Picker
-                            tracking={{
-                                key: 'loan',
-                                topic: 'top',
-                                entity: 'period',
-                                event: 'blur',
-                                period: this.state.fetchRecParams.period
-                            }}
-                            style={container}
-                            value={this.state.fetchRecParams.period}
-                            textStyle={styles.formPickerText}
-                            onChange={this.formValueChanged.bind(this, 'period')}
-                            items={[{value: "1", label: "1"}, {value: "3", label: "3"}, {value: "6", label: "6"},
-                                {value: "9", label: "9"}, {value: "12", label: "12"}, {value: "15", label: "15"},
-                                {value: "24", label: "24"}, {value: "36", label: "36"}]}></Picker>
-                        <Text style={styles.formFieldText}>个月</Text>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-
-    _renderDropDownFilters() {
-        var applyResList = [];
-        this.props.apply_res_list && this.props.apply_res_list.map((item)=> {
-            item && applyResList.push({label: item.name, value: item.key});
-        });
-        return (
-            <View style={{marginTop: 5, position: "relative", flexDirection: "row"}}>
-                <Button
-                    tracking={{key: 'loan', topic: 'filter', entity: ''}}
-                    style={styles.dropButton}
-                    onPress={()=>this.onToggleDrp("toggleFilter")}>
-                    <Text style={{fontSize: 16, color: "#333"}}>筛选</Text><Image resizeMode="stretch"
-                                                                                style={styles.dropIcon}
-                                                                                source={require('assets/icons/arrow-down.png')}/>
-                </Button>
-
-                <View style={[{
-                    position: "absolute",
-                    overflow: "hidden",
-                    left: 0,
-                    top: 31,
-                    right: 0,
-                    zIndex: 3,
-                    paddingTop: 10
-                }, !this.state.toggleFilter ? {paddingTop: 0, height: 0} : {}]}>
-                    <HorizontalCheckboxes
-                        selectedIdxes={this.state.fetchRecParams.reslist}
-                        withBtns={true}
-                        options={applyResList}
-                        eachLineCount={3}
-                        onReset={() => {
-                            tracker.trackAction({key: 'loan', topic: 'filter_reset', entity: 'reset', event: 'clk'});
-                        }}
-                        selectedSubmit={(selectedIdxes) => this.resListSelected(selectedIdxes)}>
-                    </HorizontalCheckboxes>
-                </View>
-
-                <Button
-                    tracking={{key: 'loan', topic: 'sort', entity: ''}}
-                    style={styles.dropButton}
-                    onPress={()=>this.onToggleDrp("toggleSort")}>
-                    <Text style={{fontSize: 16, color: "#333"}}>排序</Text><Image resizeMode="stretch"
-                                                                                style={styles.dropIcon}
-                                                                                source={require('assets/icons/arrow-down.png')}/>
-                </Button>
-
-                <View style={{
-                    position: "absolute",
-                    overflow: "hidden",
-                    left: screenWidth / 2,
-                    top: 41,
-                    zIndex: 3,
-                    width: screenWidth / 2,
-                    height: !this.state.toggleSort ? 0 : null
-                }}>
-                    <VerticalRadios options={[{label: "默认", value: 1}, {label: "放款速度快", value: 2}]}
-                                    selectedChanged={idx=> {
-                                        this.orderSelected(idx);
-                                    }}></VerticalRadios>
-                </View>
             </View>
         );
     }

@@ -266,7 +266,7 @@ export default class LoanDetailScene extends Component {
                 fetchOnlineStatus={this.props.fetchOnlineStatus}
                 externalPop={() => this.props.dispatch(externalPop())}
                 detail={this.props.detail}
-                style={styles.loanButton} textStyle={styles.loanButtonText}
+                style={[styles.loanButton,{backgroundColor: '#f3f3f3'}]} textStyle={styles.loanButtonText}
                 tracking={{
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value

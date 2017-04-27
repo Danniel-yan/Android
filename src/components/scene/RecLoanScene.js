@@ -88,7 +88,8 @@ export default class RecLoanScene extends Component {
                             this._goLoan();
                             tracker.trackAction(Object.assign({entity: 'apply', amount, period, realname, city: location, profession: job, own_credit_card: credit_status }, this.tracking()))
                         }}>
-                            <LoanButton/>
+                            <LoanButton
+                                processing={this.props.submitting}/>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

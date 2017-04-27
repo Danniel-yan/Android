@@ -29,7 +29,7 @@ export default class LoanButton extends Component {
 
     _renderView(btnText) {
         return (
-            <View style={{position: "relative", flexDirection: "row", backgroundColor: '#fff'}}>
+            <View style={{position: "relative", flexDirection: "row"}}>
                 <Image
                     style={{
                         position: 'absolute',
@@ -60,7 +60,7 @@ export default class LoanButton extends Component {
 
     _renderProcessing() {
         return (
-            <View style={{position: "relative", flexDirection: "row", backgroundColor: '#fff'}}>
+            <View style={{position: "relative", flexDirection: "row"}}>
                 <Image
                     style={{
                         position: 'absolute',
