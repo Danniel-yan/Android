@@ -204,7 +204,6 @@ export default class RecLoanScene extends Component {
                     value={this.state.credit_status}
                     valueChanged={checked => this.formValueChanged('credit_status', checked ? 1 : 0)}
                     //style={{flexDirection:'row',justifyContent:'flex-end'}}
-                    //textStyle={{paddingLeft:7}}
                     style={{label:{width:100,color: '#666666'}}}
                     arrow={require('assets/icons/arrow-down@2x.png')}
 
@@ -216,7 +215,7 @@ export default class RecLoanScene extends Component {
                     icon={require('assets/form-icons/dizhi.png')}
                     value={this.state.location}
                     valueChanged={this.formValueChanged.bind(this, 'location')}
-                    textStyle={{paddingLeft:8,color:'#333333'}}
+                    textStyle={{paddingLeft:8,color:'#333333',fontSize:16}}
                     style={{label:{width:100,color: '#666666'}}}
                     arrow={require('assets/icons/arrow-down@2x.png')}
                 />
@@ -232,6 +231,7 @@ export default class RecLoanScene extends Component {
                     maxLength={11}
                     keyboardType="numeric"
                     placeholder="请输入您的手机号码"
+                    placeholderTextColor="#c8c8c8"
                     value={this.state.mobile}
                     style={{input: { textAlign: 'left', paddingLeft: 0}}}
                     icon={require('assets/form-icons/qingshurushoujihao.png')}
@@ -246,6 +246,7 @@ export default class RecLoanScene extends Component {
                 <InputGroup
                     maxLength={6}
                     placeholder={'请输入验证码'}
+                    placeholderTextColor="#c8c8c8"
                     value={this.state.verify_code}
                     style={{input: { textAlign: 'left', paddingLeft: 0}}}
                     icon={require('assets/form-icons/qingshuruyanzhengma.png')}

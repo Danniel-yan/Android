@@ -153,11 +153,11 @@ export default class LoanDetailScene extends Component {
                         <View style={styles.line}/>
                         <View style={[styles.editText, {marginBottom: 10}]}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
-                                <Text style={{color: '#333'}}>{repayCalc.repay_period}:</Text>
-                                <Text style={{color: '#333', marginLeft: 10}}>{repayCalc.repay}</Text>
+                                <Text style={{color: '#999'}}>{repayCalc.repay_period}:</Text>
+                                <Text style={{color: '#999', marginLeft: 10}}>{repayCalc.repay}</Text>
                             </View>
-                            <Text style={{color: '#333'}}>{repayCalc.interest_period}利率:</Text>
-                            <Text style={{color: '#333', marginLeft: 10}}>{repayCalc.interest}</Text>
+                            <Text style={{color: '#999'}}>{repayCalc.interest_period}利率:</Text>
+                            <Text style={{color: '#999', marginLeft: 10}}>{repayCalc.interest}</Text>
                         </View>
                     </View>
 

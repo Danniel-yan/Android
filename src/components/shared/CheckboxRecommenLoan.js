@@ -18,7 +18,8 @@ export default class CheckboxRecommenLoan extends Component {
                 style={this.props.style}
                 onPress={this._onPress.bind(this)}
             >
-                <Text style={{paddingLeft:7,color: '#333333', flex: 1}}> {this.props.checked ? '有' : '无'}  </Text>
+                <Text
+                    style={{paddingLeft:7,color: '#333333', flex: 1,fontSize:16}}> {this.props.checked ? '有' : '无'}  </Text>
                 <Image style={{marginRight: 5}} source={require('assets/icons/arrow-down@2x.png')}/>
             </Button>
         );
