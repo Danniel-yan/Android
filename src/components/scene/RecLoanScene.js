@@ -80,7 +80,7 @@ export default class RecLoanScene extends Component {
 
         return (
             <View style={{flex: 1}}>
-                <ScrollView style={{position: "relative"}}>
+                <ScrollView style={{position: "relative"}} keyboardShouldPersistTaps={true}>
                     <View>
                         { this._renderLoanInfoGroup() }
                         <View style={{marginTop: 5}}>{ this._renderUserInfoGroup() }</View>
