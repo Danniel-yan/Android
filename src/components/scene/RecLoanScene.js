@@ -155,7 +155,7 @@ export default class RecLoanScene extends Component {
                                 items={[1, 3, 9, 12, 15, 24, 36]}
                                 onChange={this.loanValueChanged.bind(this, 'period')}
                                 textStyle={{color:'#fe271e',fontSize:16,paddingBottom:5}}
-                                text="个月"
+                                textPeriod="个月"
                             />
 
                             {/*<Text style={{color:'#fe271e',fontSize:16}}>个月</Text>*/}

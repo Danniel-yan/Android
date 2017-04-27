@@ -54,7 +54,7 @@ export class PickerComponent extends Component {
                 onPress={() => this.setState({openModal: true})}
             >
 
-	            <Text style={[this.props.textStyle, {flex: 1}]}>{this._label()}{this.props.text ? <Text style={{color:'#fe271e',fontSize:16}}>{this.props.text}</Text> : null}</Text>
+	            <Text style={[this.props.textStyle, {flex: 1}]}>{this._label()}{this.props.textPeriod ? <Text style={{color:'#fe271e',fontSize:16}}>{this.props.textPeriod}</Text> : null}</Text>
                 {this._showArrow()}
                 <Modal
                     animationType="fade"
