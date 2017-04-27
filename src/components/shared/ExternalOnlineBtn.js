@@ -25,11 +25,11 @@ function ExternalOnlineTransfer(ExternalComponent) {
       return (
         <ExternalComponent
           {...this.props}
-          processing={this.state.checkingGPS}
           {...this._chaoshidaiRouteProps()}
           tracking={Object.assign({}, {key: 'loan', topic: 'product_detail', entity: 'apply_all'}, this.props.tracking)}
           >
-          <LoanButton/>
+          <LoanButton
+              processing={this.state.checkingGPS}/>
         </ExternalComponent>
       );
     }

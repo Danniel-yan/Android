@@ -29,6 +29,7 @@ import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
 import tracker from 'utils/tracker.js';
 import { window} from 'styles';
 import * as defaultStyles from 'styles';
+import LoanButton from 'containers/shared/LoanButton';
 
 const noWrap = true;
 (window.width > 400);
@@ -206,12 +207,13 @@ class UserInfo extends Component {
                         </Text>
                     </View>
 
-                    <SubmitButton
-                        processing={this.state.submitting}
-                        textStyle={styles.btnText}
-                        text="立即申请"
-                        onPress={this._submit.bind(this)}
-                        tracking={{key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})}}/>
+                    <TouchableOpacity onPress={()=> {
+                        this._submit();
+                        tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})})
+                    }}>
+                        <LoanButton
+                            processing={this.state.submitting}/>
+                    </TouchableOpacity>
 
                 </ScrollView>
 
