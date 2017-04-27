@@ -8,6 +8,7 @@ import {
 import Dimensions from 'Dimensions';
 import styles from 'styles/loan';
 import * as defaultStyles from 'styles';
+import {Keyboard} from 'react-native';
 var screenWidth = Dimensions.get('window').width;
 
 export default class LoanButton extends Component {
@@ -29,7 +30,7 @@ export default class LoanButton extends Component {
 
     _renderView(btnText) {
         return (
-            <View style={{position: "relative", flexDirection: "row"}}>
+            <View style={{position: "relative", flexDirection: "row"}} onPress={Keyboard.dismiss()}>
                 <Image
                     style={{
                         position: 'absolute',
@@ -60,7 +61,7 @@ export default class LoanButton extends Component {
 
     _renderProcessing() {
         return (
-            <View style={{position: "relative", flexDirection: "row"}}>
+            <View style={{position: "relative", flexDirection: "row"}} onPress={Keyboard.dismiss()}>
                 <Image
                     style={{
                         position: 'absolute',
