@@ -55,6 +55,7 @@ class Login extends Component {
             clearButtonMode="while-editing"
             keyboardType="numeric"
             placeholder="请输入手机号"
+            placeholderTextColor='#c8c8c8'
             maxLength={11}
             underlineColorAndroid="transparent"
             onChangeText={mobile => this.setState({mobile, err: ""})}
@@ -73,6 +74,7 @@ class Login extends Component {
             clearButtonMode="while-editing"
             keyboardType="numeric"
             placeholder="请输入验证码"
+            placeholderTextColor='#c8c8c8'
             maxLength={6}
             value={this.state.verifyCode}
             underlineColorAndroid="transparent"
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
     marginLeft: 18,
     marginRight: 10,
     fontSize: 16,
-    color: '#A5A5A5',
+    color: '#333',
     backgroundColor: '#fff'
   },
 
