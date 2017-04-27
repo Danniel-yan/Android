@@ -18,6 +18,7 @@ import Loading from 'components/shared/Loading';
 import ErrorInfo from 'containers/online/ErrorInfo';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import tracker from 'utils/tracker.js';
+import {Keyboard} from 'react-native'
 
 import onlineActions from 'actions/online'
 
@@ -200,7 +201,7 @@ class FundLoginScene extends Component {
     }
 
     _submit() {
-
+        Keyboard.dismiss();
         this.setState({submitting: true, error: ''}, () => {
             let { login_target, login_type, description } = this.state.config;
 

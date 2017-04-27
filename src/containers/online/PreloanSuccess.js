@@ -14,6 +14,7 @@ import RangeInput from 'components/shared/RangeInput';
 import onlineStyles from './styles';
 import ExpireGroup  from './ExpireGroup';
 import { border, fontSize, rowContainer, container, colors, centering } from 'styles';
+import LoanButton from 'containers/shared/LoanButton';
 
 class PreloanSuccess extends Component {
 
@@ -69,10 +70,9 @@ class PreloanSuccess extends Component {
           toKey="OnlineLoanForm"
           title="借款申请"
           componentProps={{ amount: this.state.amount }}
-          text="立即申请"
-          style={[onlineStyles.btn, onlineStyles.btnOffset ]}
-          textStyle={onlineStyles.btnText}
-        />
+        >
+         <LoanButton/>
+        </ExternalPushLink>
       </ScrollView>
 
     );

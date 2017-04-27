@@ -173,6 +173,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
             super.onPageFinished(webView, url);
 
             if (!mLastLoadFailed) {
+                webView.getSettings().setBlockNetworkImage(false);
                 ReactWebView reactWebView = (ReactWebView) webView;
                 reactWebView.callInjectedJavaScript();
                 reactWebView.linkBridge();
@@ -431,6 +432,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
         webView.getSettings().setDisplayZoomControls(false);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setBlockNetworkImage(true);
 
         // Fixes broken full-screen modals/galleries due to body height being 0.
         webView.setLayoutParams(
