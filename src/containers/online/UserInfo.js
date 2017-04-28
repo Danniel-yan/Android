@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     ScrollView,
@@ -16,18 +16,18 @@ import Checkbox from 'components/shared/Checkbox'
 import DeviceInfo from 'react-native-device-info';
 import Picker from 'components/shared/Picker';
 import validators from 'utils/validators';
-import { container, rowContainer, centering, fontSize, colors, border } from 'styles';
+import {container, rowContainer, centering, fontSize, colors, border} from 'styles';
 import alert from 'utils/alert';
-import { externalPush } from 'actions/navigation';
-import { get, post, responseStatus } from 'utils/fetch';
+import {externalPush} from 'actions/navigation';
+import {get, post, responseStatus} from 'utils/fetch';
 import FormGroup from 'components/shared/FormGroup';
 import SubmitButton from './SubmitButton';
 import ErrorInfo from './ErrorInfo';
-import { ExternalPushLink } from 'containers/shared/Link';
+import {ExternalPushLink} from 'containers/shared/Link';
 
-import { DeviceSwitchComponent } from 'high-order/ComponentSwitcher';
+import {DeviceSwitchComponent} from 'high-order/ComponentSwitcher';
 import tracker from 'utils/tracker.js';
-import { window} from 'styles';
+import {window} from 'styles';
 import * as defaultStyles from 'styles';
 import LoanButton from 'containers/shared/LoanButton';
 
@@ -70,7 +70,7 @@ class UserInfo extends Component {
     }
 
     _validation() {
-        let { education, company, id_no, profession, person_name } = this.state.form;
+        let {education, company, id_no, profession, person_name} = this.state.form;
 
         const validName = person_name.length >= 2;
         const validID = validators.idNO(id_no);
@@ -122,16 +122,17 @@ class UserInfo extends Component {
             topic: "online_user_info",
             entity: "error_local",
             event: "pop",
-            exten_info: JSON.stringify({error_msg: error_msg})
+            exten_info: JSON.stringify({error_msg: error_msg, title: this.props.title})
         })
     }
 
-    trackingVerifySuccess(){
+    trackingVerifySuccess() {
         tracker.trackAction({
             key: "inhouse_loan",
             topic: "online_user_info",
             entity: "success_local",
-            event: "undefined"
+            event: "undefined",
+            exten_info: JSON.stringify({title: this.props.title})
         })
     }
 
@@ -141,7 +142,7 @@ class UserInfo extends Component {
             topic: "online_user_info",
             entity: "error_backend",
             event: "pop",
-            exten_info: JSON.stringify({error_msg: error_msg})
+            exten_info: JSON.stringify({error_msg: error_msg, title: this.props.title})
         })
     }
 
@@ -150,12 +151,13 @@ class UserInfo extends Component {
             key: "inhouse_loan",
             topic: "online_user_info",
             entity: "success_backend",
-            event: "undefined"
+            event: "undefined",
+            exten_info: JSON.stringify({title: this.props.title})
         })
     }
 
     render() {
-        let { education, company, id_no, profession, person_name } = this.state.form;
+        let {education, company, id_no, profession, person_name} = this.state.form;
 
         let error = this.formChanged && this._validation();
         let disabled = !this.formChanged || !!error;
@@ -241,23 +243,33 @@ class UserInfo extends Component {
                                   onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
                                   style={{marginRight: 5}}/>
                         <Text style={{flex: 1, flexWrap: "wrap"}}>
-                            <Text style={{fontSize: 12}} onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+                            <Text style={{fontSize: 12}}
+                                  onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
-                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
-                title: "《申请合约》"
-              })}><Text numberOfLines={2} style={{ fontSize: 12,color: colors.secondary}}>《申请合约》、</Text></TouchableWithoutFeedback>
+                                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
+                                title: "《申请合约》"
+                            })}><Text numberOfLines={2} style={{
+                                fontSize: 12,
+                                color: colors.secondary
+                            }}>《申请合约》、</Text></TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={() => this.props.externalPush({
-                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
-                title: "《前海征信授权书》"
-              })}><Text numberOfLines={2} style={{ fontSize: 12,color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
+                                web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
+                                title: "《前海征信授权书》"
+                            })}><Text numberOfLines={2} style={{fontSize: 12, color: colors.secondary}}>《前海征信授权书》</Text></TouchableWithoutFeedback>
                         </Text>
                     </View>
 
                     <TouchableOpacity style={{marginTop: 10}}
                                       onPress={()=> {
-                        this._submit();
-                        tracker.trackAction({key: "inhouse_loan", topic: "online_user_info", entity: "submit", event: "clk", exten_info: JSON.stringify({title: this.props.title})})
-                    }}>
+                                          this._submit();
+                                          tracker.trackAction({
+                                              key: "inhouse_loan",
+                                              topic: "online_user_info",
+                                              entity: "submit",
+                                              event: "clk",
+                                              exten_info: JSON.stringify({title: this.props.title})
+                                          })
+                                      }}>
                         <LoanButton
                             processing={this.state.submitting}/>
                     </TouchableOpacity>
@@ -441,9 +453,9 @@ const styles = StyleSheet.create({
 });
 
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
