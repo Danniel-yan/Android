@@ -147,8 +147,7 @@ export default class LoanDetailScene extends Component {
                         <View style={styles.editText}>
                             <Text style={styles.moneyTxt}>期数</Text>
                             <Text style={{color: '#999', marginLeft: 6, flex: 1}}>{detail.period_showinfo}</Text>
-                            {this._renderPeriodList(detail.period_list)}
-                            <Text style={{color: '#666', fontSize: 16}}>{detail.period_name}</Text>
+                            {this._renderPeriodList(detail.period_list, detail.period_name)}
                         </View>
                         <View style={styles.line}/>
                         <View style={[styles.editText, {marginBottom: 10}]}>
@@ -218,7 +217,7 @@ export default class LoanDetailScene extends Component {
         );
     }
 
-    _renderPeriodList(data) {
+    _renderPeriodList(data, text) {
 
         let periodList = [];
 
@@ -246,6 +245,7 @@ export default class LoanDetailScene extends Component {
                         })
                     }}
                     items={ periodList }
+                    textPeriod={ text }
                 />
             )
 

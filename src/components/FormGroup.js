@@ -186,7 +186,7 @@ export class VerticalRadios extends HorizontalRadios {
       {
         opts.length > 0 && opts.map((opt, idx) => {
           var item = idx == this.state.selectedIdx ? [s.item, { backgroundColor: "#f0f0f0" }] : [s.item],
-            color = idx == this.state.selectedIdx ? "#fff": "#999";
+            color = idx == this.state.selectedIdx ? "#333": "#999";
           return <TouchableWithoutFeedback key={idx} onPress={this.selectedOpt.bind(this, idx)}><View style={[item]}><Text style={{color: color}}>{opt.label}</Text></View></TouchableWithoutFeedback>
         })
       }
