@@ -26,7 +26,7 @@ class LoanDetail extends Component {
         this.state = {
             submitting: false,
             depositoryResult: this.props.depositoryResult
-    }
+        }
     }
 
     render() {
@@ -57,8 +57,6 @@ class LoanDetail extends Component {
     }
 
     _submit() {
-        console.log("result")
-        console.log(this.state.depositoryResult)
         if (this.state.depositoryResult.status == 2) {
             this.refs.dialog._setModalVisible(true)
         } else {
@@ -121,7 +119,17 @@ class LoanDetail extends Component {
                             this.props.externalPush({
                                 key: 'BankDepositoryLoad',
                                 title: '正在前往银行',
-                                componentProps: {info: this.state}
+                                componentProps: {
+                                    info: this.state,
+                                    success: {
+                                        Key: 'OnlineLoanDetail',
+                                        title: '借款详情'
+                                    },
+                                    fail: {
+                                        Key: 'OnlineLoanDetail',
+                                        title: '借款详情'
+                                    }
+                                }
                             })
                         }
                     }}></ActiveCardDialog>

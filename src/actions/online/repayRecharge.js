@@ -2,6 +2,7 @@ import {get, post, responseStatus} from 'utils/fetch';
 import {externalPush} from 'actions/navigation';
 import alert from 'utils/alert'
 import {AsyncStorage} from 'react-native';
+import actions from 'actions/online';
 
 export default function (amount) {
 
@@ -27,23 +28,28 @@ export default function (amount) {
                 body = body.substring(0, body.length - 1);
                 onMessage = e => {
                     var data = e.nativeEvent.data;
-                    if (data == 'recharge_success') {
+                    if (data == 'success') {
                         dispatch(externalPush({
                             Key: 'OnlineLoanDetail',
-                            title: '借款详情'
+                                title: '借款详情'
                         }))
-                    } else if (data == 'recharge_fail') {
+                    } else if (data == 'fail') {
                         dispatch(externalPush({
                             key: 'RepaymentScene',
-                            title: "借款详情"
+                            title: '借款详情'
                         }))
                     }
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
                     title: "充值",
-                    componentProps: {onMessage: onMessage},
-                    backRoute: {key: 'OnlineLoanDetail'}
+                    componentProps: {
+                        onMessage: onMessage,
+                        reFetching: () => {
+                            dispatch(actions.loanDetail())
+                        }
+                    },
+                    backRoute: {key: 'RepaymentScene'}
                 }))
             } else {
                 alert(response.msg)

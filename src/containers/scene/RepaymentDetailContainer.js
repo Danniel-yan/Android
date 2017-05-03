@@ -26,8 +26,8 @@ class RepaymentDetailContainer extends Component {
         super(props);
         // 初始状态
         let bankInfo = this.props.bankInfo
-        if (this.props.depositoryResult.status == 1){
-            bankInfo = this.props.depositoryResult
+        if (this.props.depositoryResult.status == 1) {
+            bankInfo = this.props.depositoryResult.content
         }
         this.state = {
             mobile: bankInfo.mobile,
@@ -198,8 +198,6 @@ class RepaymentDetailContainer extends Component {
             )
         }
     }
-
-
 }
 
 function mapStateToProps(state) {
@@ -215,7 +213,6 @@ function mapDispatchToProps(dispatch) {
     return {
         recharge: amount => dispatch(actions.repayRecharge(amount)),
         externalPush: route => dispatch(externalPush(route))
-
     }
 }
 

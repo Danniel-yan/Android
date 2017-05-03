@@ -90,7 +90,17 @@ class ReceiptCard extends Component {
                         this.props.externalPush({
                             key: 'BankDepositoryLoad',
                             title: '正在前往银行',
-                            componentProps: {info: this.state}
+                            componentProps: {
+                                info: this.state,
+                                success: {
+                                    key: 'OnlineLoanSign',
+                                    title: "签约"
+                                },
+                                fail: {
+                                    key: 'OnlineReceiptCard',
+                                    title: '添加银行卡'
+                                }
+                            }
                         })
                     }
                 }}></ActiveCardDialog>

@@ -67,7 +67,7 @@ class LoanSign extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <ChangeCardDialog ref='dialog' modalVisible={false}></ChangeCardDialog>
+                <ChangeCardDialog ref='carddialog' modalVisible={false}></ChangeCardDialog>
 
                 <View style={styles.textRow}>
                     <Button
@@ -108,7 +108,7 @@ class LoanSign extends Component {
 
     bindCard() {
         if (this.props.depositoryResult.status == 1) {
-            this.refs.dialog._setModalVisible(true)
+            this.refs.carddialog._setModalVisible(true)
         } else {
             this.props.externalPush({
                 key: "OnlineReceiptCard",

@@ -40,6 +40,10 @@ export default function (config) {
         <WebView startInLoadingState={true} style={defaultStyles.container} source={source}></WebView>
       );
     }
+
+    componentWillUnmount() {
+      this.props.reFetching && this.props.reFetching()
+    }
   }
 
   return trackingScene(InnerWebView);

@@ -3,7 +3,7 @@ import {externalPush} from 'actions/navigation';
 import alert from 'utils/alert'
 import {AsyncStorage} from 'react-native';
 
-export default function (mobile, bank_card_no) {
+export default function (mobile, bank_card_no, success, fail) {
 
     return (dispatch, getState) => {
         var state = getState(),
@@ -32,22 +32,15 @@ export default function (mobile, bank_card_no) {
                 onMessage = e => {
                     var data = e.nativeEvent.data;
                     if (data == 'success') {
-                        dispatch(externalPush({
-                            key: 'OnlineLoanSign',
-                            title: "签约"
-                        }))
+                        dispatch(externalPush(success))
                     } else if (data == 'fail') {
-                        dispatch(externalPush({
-                            key: 'OnlineReceiptCard',
-                            title: '添加银行卡'
-                        }))
+                        dispatch(externalPush(fail))
                     }
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
                     title: "激活",
                     componentProps: {onMessage: onMessage},
-                    // backRoute: {key: 'OnlineReceiptCard'}
                     backRoute: {backCount: 2}
                 }))
             } else {

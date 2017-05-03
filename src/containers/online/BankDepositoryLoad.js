@@ -15,7 +15,9 @@ class BankDepositoryLoad extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            depositoryInfo: props.info
+            depositoryInfo: props.info,
+            success: props.success,
+            fail: props.fail
         }
     }
 
@@ -24,7 +26,7 @@ class BankDepositoryLoad extends Component {
     }
 
     componentDidMount() {
-        this.props.fetching(this.state.depositoryInfo.mobile, this.state.depositoryInfo.bank_card_no);
+        this.props.fetching(this.state.depositoryInfo.mobile, this.state.depositoryInfo.bank_card_no, this.state.success, this.state.fail);
     }
 }
 
@@ -37,8 +39,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetching: (mobile, bank_card) => {
-            dispatch(actions.depositoryCreate(mobile, bank_card))
+        fetching: (mobile, bank_card, success, fail) => {
+            dispatch(actions.depositoryCreate(mobile, bank_card, success, fail))
         }
     }
 }
