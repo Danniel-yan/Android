@@ -105,6 +105,10 @@ public class ImportBillActivity extends Activity {
 
     private void openWebViewResult(String str){
         Log.d("123",str);
+        Intent intent = new Intent();
+        intent.putExtra("urlStr", str);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

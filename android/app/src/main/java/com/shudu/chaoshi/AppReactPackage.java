@@ -9,6 +9,7 @@ import com.shudu.chaoshi.module.ChannelModule;
 import com.shudu.chaoshi.module.DeviceInfoModule;
 import com.shudu.chaoshi.module.FaceMegModule;
 import com.shudu.chaoshi.module.FeedbackModule;
+import com.shudu.chaoshi.module.ImportBillModule;
 import com.shudu.chaoshi.module.JpushModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
 import com.shudu.chaoshi.module.ShareUtilModule;
@@ -32,7 +33,8 @@ public class AppReactPackage implements ReactPackage {
                 new DeviceInfoModule(reactContext),
                 new ShareUtilModule(reactContext),
                 new FeedbackModule(reactContext),
-                new FaceMegModule(reactContext)
+                new FaceMegModule(reactContext),
+                new ImportBillModule(reactContext)
         });
     }
 
