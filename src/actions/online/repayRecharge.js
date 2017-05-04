@@ -28,12 +28,12 @@ export default function (amount) {
                 body = body.substring(0, body.length - 1);
                 onMessage = e => {
                     var data = e.nativeEvent.data;
-                    if (data == 'success') {
+                    if (data == 'successfinal') {
                         dispatch(externalPush({
-                            Key: 'OnlineLoanDetail',
-                                title: '借款详情'
+                            key: 'OnlineLoanDetail',
+                            title: '借款详情'
                         }))
-                    } else if (data == 'fail') {
+                    } else if (data == 'success' || data == 'fail') {
                         dispatch(externalPush({
                             key: 'RepaymentScene',
                             title: '借款详情'
@@ -42,11 +42,11 @@ export default function (amount) {
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
-                    title: "充值",
+                    title: "还款结果",
                     componentProps: {
                         onMessage: onMessage,
                         reFetching: () => {
-                            dispatch(actions.loanDetail())
+                            dispatch(actions.repayAmount())
                         }
                     },
                     backRoute: {backCount: 2}

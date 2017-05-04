@@ -7,8 +7,8 @@ export default function(dispatch) {
 
     dispatch({ type: 'requestOnlineBankInfo' })
 
-    post(`/loanctcf/contract-bank-info`, {loan_type}).then(response => {
-
+    return post(`/loanctcf/contract-bank-info`, {loan_type}).then(response => {
+      //todo remove
       response = {
         "res": 1,
         "data": {

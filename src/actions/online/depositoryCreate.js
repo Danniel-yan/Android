@@ -39,7 +39,12 @@ export default function (mobile, bank_card_no, success, fail) {
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
                     title: "激活",
-                    componentProps: {onMessage: onMessage},
+                    componentProps: {
+                        onMessage: onMessage,
+                        reFetching: () => {
+                            dispatch(actions.depositoryResult())
+                        }
+                    },
                     backRoute: {backCount: 2}
                 }))
             } else {

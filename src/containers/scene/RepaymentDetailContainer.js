@@ -46,7 +46,7 @@ class RepaymentDetailContainer extends Component {
     }
 
     _payctcFloanCreate() {
-        let amount = this.state.repayAmount.amount
+        let amount = this.state.amount_int
         if (this.state.submitting) {
             return;
         }

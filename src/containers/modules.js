@@ -56,7 +56,6 @@ import CreditReport from 'containers/scene/find/creditReport';
 import BlackListhome from 'containers/blackList/Home';
 import BlackListReports from 'containers/scene/find/reports';
 import BankDepositoryLoad from 'containers/online/BankDepositoryLoad';
-import BankDepositoryActivate from 'containers/online/BankDepositoryActivate';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -114,7 +113,6 @@ import BankDepositoryActivate from 'containers/online/BankDepositoryActivate';
   { key: 'CreditReport', module: CreditReport},
   { key: 'BlackListReports', module: BlackListReports},
   { key: 'BankDepositoryLoad', module: BankDepositoryLoad },
-  { key: 'BankDepositoryActivate', module: BankDepositoryActivate }
 ].forEach(item => {
   modules[item.key] = item.module;
 });
