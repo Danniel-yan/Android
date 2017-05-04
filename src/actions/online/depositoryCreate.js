@@ -28,7 +28,6 @@ export default function (mobile, bank_card_no, success, fail) {
                     }
                 }
                 body = body.substring(0, body.length - 1);
-                //todo onmessage跳转路径传进来
                 onMessage = e => {
                     var data = e.nativeEvent.data;
                     if (data == 'success') {

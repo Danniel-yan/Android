@@ -45,18 +45,11 @@ class RepaymentDetailContainer extends Component {
 
     }
 
-    _payctcFloanCreate = (callback) => {
-        let mobile = this.state.mobile
-        let realname = this.state.realname
-        let idnum = this.state.idnum
-        let cardnum = this.state.bank_card_no
-        let loan_type = this.state.loan_type
+    _payctcFloanCreate() {
         let amount = this.state.repayAmount.amount
-        if (this.submitting) {
+        if (this.state.submitting) {
             return;
         }
-
-        this.submitting = true;
         this.setState({
             submitting: true
         })
@@ -64,43 +57,6 @@ class RepaymentDetailContainer extends Component {
         this.props.recharge(amount).then(response => {
             this.setState({submitting: false});
         })
-        // post('/payctcfcg/quick-recharge', {loan_type, amount})
-        //     .then(res => {
-        //
-        //         if (res.res == responseStatus.failure) {
-        //             console.log('创建支付请求失败')
-        //             alert(res.msg)
-        //             return
-        //         } else {
-        //             AsyncStorage.setItem('ticket_id', res.data.ticket_id)
-        //             this.refs.confirm.open();
-        //         }
-        //     })
-        //     .catch(()=>console.log)
-        //     .finally(()=> {
-        //         this.submitting = false;
-        //         this.setState({submitting: false})
-        //     })
-        // post('/payctcfloan/create', {mobile, realname, idnum, cardnum, loan_type, repay_amount})
-        //     .then(res => {
-        //
-        //         if (res.res == responseStatus.failure) {
-        //             console.log('创建支付请求失败')
-        //             alert(res.msg)
-        //             return
-        //         } else {
-        //             AsyncStorage.setItem('ticket_id', res.data.ticket_id)
-        //             this.refs.confirm.open();
-        //         }
-        //     })
-        //     .catch(()=>console.log)
-        //     .finally(()=> {
-        //         this.submitting = false;
-        //         this.setState({submitting: false})
-        //     })
-
-        //callback();
-
     }
 
     confirmAction(value) {

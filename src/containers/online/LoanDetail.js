@@ -60,19 +60,16 @@ class LoanDetail extends Component {
         if (this.state.depositoryResult.status == 2) {
             this.refs.dialog._setModalVisible(true)
         } else {
-            if (this.submitting) {
+            if (this.state.submitting) {
                 return;
             }
 
             let loan_type = this.props.loan_type;
-            this.submitting = true;
             this.setState({
                 submitting: true
             })
             post('/payctcfloan/pay-result', {loan_type})
                 .then(res => {
-                    this.submitting = false;
-                    this.setState({submitting: false})
                     if (res.res == responseStatus.failure || (res.data.status != 3 && res.data.status != 6)) {
                         this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
                     } else {
@@ -84,7 +81,6 @@ class LoanDetail extends Component {
                     console.log(err);
                 })
                 .finally(() => {
-                    this.submitting = false;
                     this.setState({submitting: false})
                 })
         }

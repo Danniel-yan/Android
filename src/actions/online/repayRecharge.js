@@ -49,7 +49,7 @@ export default function (amount) {
                             dispatch(actions.loanDetail())
                         }
                     },
-                    backRoute: {key: 'RepaymentScene'}
+                    backRoute: {backCount: 2}
                 }))
             } else {
                 alert(response.msg)
