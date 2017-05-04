@@ -12,12 +12,13 @@ import PopView from './repayment/repaymentVerifyCode';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 import {post, responseStatus} from 'utils/fetch';
-import {alert} from 'utils/alert';
+import alert from 'utils/alert';
 import {loanType} from 'constants';
 import {externalPush} from 'actions/navigation';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
 import actions from 'actions/online';
+//let formaterAdjust = validators.adjustNumFormater(500000);
 
 class RepaymentDetailContainer extends Component {
 
@@ -47,6 +48,10 @@ class RepaymentDetailContainer extends Component {
 
     _payctcFloanCreate() {
         let amount = this.state.amount_int
+        if (amount < 500 && this.state.amount_max >= 500) {
+            alert("还款金额不可低于500")
+            return
+        }
         if (this.state.submitting) {
             return;
         }
@@ -81,7 +86,16 @@ class RepaymentDetailContainer extends Component {
                     <View style={repaymentStyle.item}>
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
 
-                        {this.showTextInput(this.state.amount_int)}
+                        {/**this.showTextInput(this.state.amount_int)**/}
+                        <TextInput
+                            style={[repaymentStyle.textinput, repaymentStyle.textColor]}
+                            underlineColorAndroid="transparent"
+                            onChangeText={(text)=> {
+                            validators.isDouble(text) &&
+                        this.setState({amount_int: text})
+                    }}
+                            value={this.state.amount_int.toString()}
+                        />
 
                     </View>
                     <View style={repaymentStyle.item}>
@@ -132,28 +146,28 @@ class RepaymentDetailContainer extends Component {
         );
     }
 
-    showTextInput(amount_int) {
-        //let amount = amount_int.toString();
-        let formaterAdjust = validators.adjustNumFormater(this.state.amount_max);
-        //amount_int = 3000
-        if (amount_int >= 500) {
-            return (
-                <TextInput
-                    style={[repaymentStyle.textinput, repaymentStyle.textColor]}
-                    underlineColorAndroid="transparent"
-                    onChangeText={(amount_int)=> {
-                        this.setState({amount_int: formaterAdjust(amount_int)})
-                    }}
-                    value={amount_int.toString()}
-                />
-            )
-        } else {
-            return (
-                <Text
-                    style={[repaymentStyle.textinput, repaymentStyle.textColor]}> {amount_int}</Text>
-            )
-        }
-    }
+    //showTextInput(amount_int) {
+    //    //let amount = amount_int.toString();
+    //    let formaterAdjust = validators.adjustNumFormater(this.state.amount_max);
+    //    //amount_int = 3000
+    //    if (amount_int >= 500) {
+    //        return (
+    //            <TextInput
+    //                style={[repaymentStyle.textinput, repaymentStyle.textColor]}
+    //                underlineColorAndroid="transparent"
+    //                onChangeText={(amount_int)=> {
+    //                    this.setState({amount_int: formaterAdjust(amount_int)})
+    //                }}
+    //                value={amount_int.toString()}
+    //            />
+    //        )
+    //    } else {
+    //        return (
+    //            <Text
+    //                style={[repaymentStyle.textinput, repaymentStyle.textColor]}> {amount_int}</Text>
+    //        )
+    //    }
+    //}
 }
 
 function mapStateToProps(state) {
