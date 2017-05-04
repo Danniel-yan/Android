@@ -18,6 +18,7 @@ import {externalPush} from 'actions/navigation';
 import ProcessingButton from 'components/shared/ProcessingButton';
 import validators from 'utils/validators';
 import actions from 'actions/online';
+import Input from 'components/shared/Input';
 //let formaterAdjust = validators.adjustNumFormater(500000);
 
 class RepaymentDetailContainer extends Component {
@@ -87,9 +88,10 @@ class RepaymentDetailContainer extends Component {
                         <Text style={repaymentStyle.textColor}>还款金额(元)</Text>
 
                         {/**this.showTextInput(this.state.amount_int)**/}
-                        <TextInput
+                        <Input
                             style={[repaymentStyle.textinput, repaymentStyle.textColor]}
                             underlineColorAndroid="transparent"
+                            type={"number"}
                             onChangeText={(text)=> {
                             validators.isDouble(text) &&
                         this.setState({amount_int: text})
