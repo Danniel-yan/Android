@@ -58,6 +58,7 @@ CarouselGenerator = function(configs) {
                             horizontal={this._horizontal}
                             ref={(scrollView)=>{ this._scrollView = scrollView; }}
                             showsHorizontalScrollIndicator={false}
+                            keyboardShouldPersistTaps={true}
                             showsVerticalScrollIndicator={false}
                             onTouchStart={ ()=>{this._onTouchStart()} }
                             onTouchEnd={ ()=>{this._onTouchEnd()} }

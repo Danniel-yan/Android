@@ -46,7 +46,7 @@ export default class HomeScene extends Component {
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
-        <ScrollView>
+        <ScrollView style={{flex: 1}} keyboardShouldPersistTaps={true}>
           {this.props.isIOS ? null : <Banner />}
           {this.props.isIOS ? null : <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>}
           <LoanNavPanel />

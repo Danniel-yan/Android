@@ -32,8 +32,6 @@ export default class AmountInput extends Component {
                           this.setState({text: formater100000(text)})
                         }} value={this.state.text}
                         ref={component => this._textInput = component}
-                        onSubmitEditing={this._onSubmitEditing.bind(this)}
-                        onEndEditing={this._onPressSearch.bind(this)}
 
                     ></Input></View>
                 <View style={[AIStyle.btnWrap]}>
