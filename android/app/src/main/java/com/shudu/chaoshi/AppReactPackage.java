@@ -35,7 +35,7 @@ public class AppReactPackage implements ReactPackage {
                 new ShareUtilModule(reactContext),
                 new FeedbackModule(reactContext),
                 new FaceMegModule(reactContext),
-                new ImportBillModule(reactContext) // 魔蝎数据京东支付宝接入
+                new ImportBillModule(reactContext), // 魔蝎数据京东支付宝接入
                 new LocationModule(reactContext)
         });
     }
