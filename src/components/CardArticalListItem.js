@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   card: {
     ...border('bottom'),
     backgroundColor: '#fff',
-    height: responsive.height(205),
+    // height: responsive.height(205),
     flexDirection: 'row',
     paddingVertical: responsive.height(40),
     paddingHorizontal: responsive.width(30),

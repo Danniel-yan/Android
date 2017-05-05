@@ -26,6 +26,9 @@ const statusLabels = {
 }
 
 class CertificationHome extends Component {
+  tracking = function() {
+    return { key: "inhouse_loan", topic: "certification", exten_info: JSON.stringify({title: this.props.title}) }
+  }
 
   constructor(props) {
     super(props);
@@ -77,6 +80,9 @@ class CertificationHome extends Component {
     var enable = yysResult.status == 'success';
       enable = loanType == 1 ? enable && bankResult.status == 'success' : enable && gjjResult.status == 'success';
 
+    var backRoute = "LoanDetailScene";
+    if(loanType == 1 || loanType == 2) { backRoute = "SuiXinJieList" }
+
     return this.state.initFetching && !this.props.fetched ? <Loading /> : (
       <ScrollView>
 
@@ -97,7 +103,7 @@ class CertificationHome extends Component {
           textStyle={onlineStyles.btnText}
           processing={this.state.submitting}
           prePress={this._submit.bind(this)}
-          backRoute={{key: 'LoanDetailScene'}}
+          backRoute={{key: backRoute}}
         />
       </ScrollView>
     );
@@ -119,7 +125,7 @@ class CertificationHome extends Component {
         return {key: 'OnlinePreloanFailure', title: '预授信申请结果'}
       }
 
-      throw response.msg
+      // throw response.msg
     }).catch(err => {
       this.setState({ submitting: false });
       throw err;
@@ -142,7 +148,9 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="信用卡认证" toKey="OnlineCreditCards">
+      <ExternalPushLink
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "bill", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}
+        title="信用卡认证" toKey="OnlineCreditCards">
         {item}
       </ExternalPushLink>
     );
@@ -164,7 +172,8 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="公积金认证" toKey="FundLogin">
+      <ExternalPushLink title="公积金认证" toKey="FundLogin"
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "PAF", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}>
         {item}
       </ExternalPushLink>
     )
@@ -186,7 +195,9 @@ class CertificationHome extends Component {
     }
 
     return (
-      <ExternalPushLink title="运营商认证" toKey="OnlineYysForm">
+      <ExternalPushLink
+        tracking={{key: "inhouse_loan", topic: "certification", entity: "telecom", exten_info: JSON.stringify({title: this.props.title, status: statusLabels[status]})}}
+        title="运营商认证" toKey="OnlineYysForm">
         {item}
       </ExternalPushLink>
     )
@@ -246,6 +257,7 @@ import actions from 'actions/online';
 
 function mapStateToProps(state) {
   var loanType = state.online.loanType.type;
+  var loanDetail = state.loanDetail.detail;
 
   let bank = state.online.bankResult;
   let yys = state.online.yysResult;
@@ -256,13 +268,15 @@ function mapStateToProps(state) {
     fetched: bank.fetched && yys.fetched,
     bankResult: bank,
     yysResult: yys,
-    loanType: loanType
+    loanType: loanType,
+    title: loanDetail.title
   } : {
     isFetching: gjj.isFetching || yys.isFetching,
     fetched: gjj.fetched && yys.fetched,
     gjjResult: gjj,
     yysResult: yys,
-    loanType: loanType
+    loanType: loanType,
+    title: loanDetail.title
   }
 }
 
@@ -280,8 +294,14 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-import { CertificationEntry } from 'high-order/Certification'
 
-export default CertificationEntry(connect(mapStateToProps, mapDispatchToProps)(
-  trackingScene(CertificationHome)
-));
+import { CertificationEntry } from 'high-order/Certification';
+const CertificationNormalHome = connect(mapStateToProps, mapDispatchToProps)( trackingScene(CertificationHome));
+
+import CertificationChaohaoDaiCard from './CertificationChaohaoDaiCard';
+import { loanType } from 'constants';
+export default CertificationEntry(connect(state => state.online.loanType, null)(props => {
+  return props.type == loanType.chaohaodaicard ? <CertificationChaohaoDaiCard {...props} /> : <CertificationNormalHome {...props} />
+}));
+
+

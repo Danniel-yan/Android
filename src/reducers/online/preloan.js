@@ -1,15 +1,15 @@
 const initState = {
   isFetching: false,
   fetched: false,
-  preloan: null
+  data: null
 }
 
 export default function(state = initState, action) {
   switch(action.type) {
     case 'submitPreloan':
-      return Object.assign({ isFetching: true, fetched: false, preloan: null });
-    case 'receiveReloan':
-      return Object.assign({ isFetching: false, fetched: true, preloan: action.preloan });
+      return Object.assign({ isFetching: true, fetched: false, data: null });
+    case 'receivePreloan':
+      return Object.assign({ isFetching: false, fetched: true, data: action.data });
     default: 
       return state;
   }

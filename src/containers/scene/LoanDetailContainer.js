@@ -28,6 +28,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...detail,
+    isOnline: ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai || ownProps.loan_type == loanType.chaohaodaicard,
     onlineStatus: state.online.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
@@ -40,7 +41,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {
-      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.huankuan) {
+      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai || ownProps.loan_type == loanType.chaohaodaicard) {
         dispatch(onlineActions.setLoanType(ownProps.loan_type))
         dispatch(onlineActions.status());
       }
@@ -48,11 +49,12 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(fetchLoanDetail(id))
     },
     fetchOnlineStatus: () => dispatch(onlineActions.status()),
-    goLoan: (detail) => {
+    goLoan: (detail, tracking) => {
       dispatch(externalPush({
         title: detail.title,
         web: detail.url,
-        backRoute: { key: 'LoanDetailScene' }
+        backRoute: { key: 'LoanDetailScene' },
+        componentProps: { tracking: tracking }
       }))
     },
     fetchRepay: fetchedParams => dispatch(fetchRepayCalc(fetchedParams)),

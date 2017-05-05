@@ -18,48 +18,50 @@ import styles from './cardStyles';
 
 class BankCardListScene extends Component {
 
-  render() {
+    render() {
 
-    let { isPaging, pagination, paginationParams, nomore } = this.props;
+        let { isPaging, pagination, paginationParams, nomore } = this.props;
 
-    return (
-      <View style={{ flex: 1, backgroundColor: '#f3f3f3'}}>
-        <ScrollPagination
-          isPaging={isPaging}
-          paginationParams={paginationParams}
-          pagination={pagination}
-          nomore={nomore}>
+        return (
+            <View style={{ flex: 1, backgroundColor: '#f3f3f3'}}>
+                <ScrollPagination
+                    isPaging={isPaging}
+                    paginationParams={paginationParams}
+                    pagination={pagination}
+                    nomore={nomore}>
 
-          { this.props.cardList.map((cardList,index) =>
+                    { this.props.cardList.map((cardList, index) =>
 
-              <View key={'key' + index } style={[styles.list,{paddingVertical:16}]}>
-                <Image source={{uri: cardList.pic_card}} style={styles.cardLogo}/>
-                <View style={{flex: 1}}>
-                  <Text style={[styles.mb5,{fontSize:fontSize.seventeen, color:colors.fontColorSecondary}]}>{cardList.name}</Text>
-                  <Text style={{fontSize:fontSize.thirteen}}>{cardList.info}</Text>
-                </View>
-                <View style={styles.applyBtn}>
-                  <ExternalPushLink title="申请信用卡" web={cardList.link}><Text style={{color:colors.secondary,fontSize:fontSize.thirteen}}>立即申请</Text></ExternalPushLink>
-                </View>
-              </View>
-          )
-          }
+                        <View key={'key' + index } style={[styles.list,{paddingVertical:16}]}>
+                            <Image source={{uri: cardList.pic_card}} style={styles.cardLogo}/>
+                            <View style={{flex: 1}}>
+                                <Text
+                                    style={[styles.mb5,{fontSize:fontSize.seventeen, color:colors.fontColorSecondary}]}>{cardList.name}</Text>
+                                <Text style={{fontSize:fontSize.thirteen}}>{cardList.info}</Text>
+                            </View>
+                            <View style={styles.applyBtn}>
+                                <ExternalPushLink title="申请信用卡" web={cardList.link}><Text
+                                    style={{color:colors.secondary,fontSize:fontSize.thirteen}}>立即申请</Text></ExternalPushLink>
+                            </View>
+                        </View>
+                    )
+                    }
 
-        </ScrollPagination>
-      </View>
-    )
-  }
+                </ScrollPagination>
+            </View>
+        )
+    }
 }
 
-function mapStateToProps(state){
-  return state.cardList
+function mapStateToProps(state) {
+    return state.cardList
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    fetching: offset => dispatch(paginationCardList(offset)),
-    pagination: offset => dispatch(paginationCardList(offset))
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        fetching: offset => dispatch(paginationCardList(offset)),
+        pagination: offset => dispatch(paginationCardList(offset))
+    }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AsynCpGenerator(Loading,BankCardListScene))
+export default connect(mapStateToProps, mapDispatchToProps)(AsynCpGenerator(Loading, BankCardListScene))

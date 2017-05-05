@@ -11,6 +11,7 @@ import com.shudu.chaoshi.module.FaceMegModule;
 import com.shudu.chaoshi.module.FeedbackModule;
 import com.shudu.chaoshi.module.ImportBillModule;
 import com.shudu.chaoshi.module.JpushModule;
+import com.shudu.chaoshi.module.LocationModule;
 import com.shudu.chaoshi.module.NativeWebViewModule;
 import com.shudu.chaoshi.module.ShareUtilModule;
 import com.shudu.chaoshi.module.UmengModule;
@@ -35,6 +36,7 @@ public class AppReactPackage implements ReactPackage {
                 new FeedbackModule(reactContext),
                 new FaceMegModule(reactContext),
                 new ImportBillModule(reactContext) // 魔蝎数据京东支付宝接入
+                new LocationModule(reactContext)
         });
     }
 

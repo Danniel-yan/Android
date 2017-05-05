@@ -10,7 +10,6 @@ export function CertificationEntry(ElementComponent) {
     }
 
     componentDidMount() {
-      console.log(this.props);
       var navigation = this.props.navigation,
         idx = navigation.index, routes = navigation.routes;
       var key = routes && routes[idx] && routes[idx].key ? routes[idx].key : null;
@@ -49,6 +48,10 @@ export function CertificationOutput(ElementComponent) {
       var entryKey = this.props.certificationEntryKey;
       entryKey && this.props.setBackRoute && this.props.setBackRoute({key: entryKey});
       // this.props.clearEntryKey && this.props.clearEntryKey(); // 清除 认证流程入口信息
+    }
+
+    componentWillUnmount() {
+      this.props.unMountFetching && this.props.unMountFetching();
     }
 
     render() {

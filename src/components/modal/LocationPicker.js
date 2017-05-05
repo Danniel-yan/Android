@@ -9,7 +9,8 @@ import {
   StyleSheet,
   ListView,
   Modal,
-  TextInput
+  TextInput,
+  PanResponder
 } from 'react-native';
 
 import Text from 'components/shared/Text';
@@ -20,9 +21,13 @@ import SceneHeader from 'components/shared/SceneHeader';
 import alert from 'utils/alert';
 import Loading from 'components/shared/Loading';
 
+import { window, statusBarHeight, headerHeight } from 'styles';
+
 const sectionHeaderHeight = 30;
 const sectionRowHeight = 40;
 const rowBorderWidth = 0.5;
+const navItemHeight = 16;
+const pageHeight = window.height - statusBarHeight - headerHeight;
 
 export default class LocationPicker extends PureComponent {
 
@@ -33,12 +38,41 @@ export default class LocationPicker extends PureComponent {
       loading: true,
       result:[]
     };
+
+    this.secPositionMap = [];
+
+    this.__sideBarResponder = PanResponder.create({
+      onStartShouldSetPanResponder: ev => true,
+      onMoveShouldSetPanResponder: (ev, sideStatus) => this.__startMove__(ev, sideStatus),
+      onPanResponderGrant: ev => true,
+      onPanResponderMove: (ev, sideStatus) => this.__moveSideBar__(ev, sideStatus),
+      onResponderGrant: (ev, sideStatus) => this.__startMove__(ev, sideStatus),
+      onPanResponderRelease: this._handlePanResponderEnd,
+      // onPanResponderTerminate: this._handlePanResponderEnd,
+    }).panHandlers;
+  }
+
+  componentWillMount() {
+
   }
 
   componentDidUpdate() {
     if(!this.props.visible && this.state.shown) {
       this.setState({shown: false});
     }
+
+    this.refs["silderCont"] && this.refs["silderCont"].measure((fx, fy, width, height, px, py) => {
+            // console.log('Component width is: ' + width)
+            // console.log('Component height is: ' + height)
+            // console.log('X offset to frame: ' + fx)
+            // console.log('Y offset to frame: ' + fy)
+            // console.log('X offset to page: ' + px)
+            // console.log('Y offset to page: ' + py)
+
+            this.sideYoffset = py || ((pageHeight - this.state.secIDs.length * navItemHeight) / 2 + statusBarHeight + headerHeight);
+    })
+
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +108,10 @@ export default class LocationPicker extends PureComponent {
         loading: false,
         secIDs,
         sections,
+        selectedSecIdx: 0
       });
+
+      this.refreshSecPositionMap()
 
     }).catch(err => console.log(err) )
   }
@@ -164,7 +201,10 @@ export default class LocationPicker extends PureComponent {
   _renderMain() {
 
     return (
-      <ScrollView ref='body' key="main" style={[defaultStyles.container, styles.main]}>
+      <ScrollView ref='body' key="main"
+        style={[defaultStyles.container, styles.main]}
+        onScroll={ev => this.__onScroll__(ev)}
+        scrollEventThrottle={16}>
         { this.state.secIDs.map(this._renderSection.bind(this)) }
       </ScrollView>
     );
@@ -190,24 +230,98 @@ export default class LocationPicker extends PureComponent {
   _renderSidebar() {
     return (
       <View style={[styles.sidebar, defaultStyles.bg]}>
-        <View style={defaultStyles.container}></View>
-        { this.state.secIDs.map((sec, idx) => <Text onPress={this._scrollTo.bind(this, sec, idx)} key={`${sec}`} style={styles.nav}>{sec}</Text>) }
+        <View style={[defaultStyles.container]}></View>
+        <View ref="silderCont" {...this.__sideBarResponder}>
+        { this.state.secIDs.map((sec, idx) =>
+          <View ref={"secSide" + idx} key={`${sec}`} style={{height: navItemHeight}}
+          {...this.state.selectedSecIdx == idx ? {} : {}}
+          >
+            <Text onTouchStart={this._touchStart_.bind(this, sec, idx)}
+            style={this.state.selectedSecIdx != idx ? styles.nav : styles.selectedNav}
+            >{sec}</Text></View>
+        ) }
+        </View>
         <View style={defaultStyles.container}></View>
       </View>
     );
   }
 
+  // componentDidMount() {
+  //
+  // }
+
+  _touchStart_(toSec, idx) {
+    console.log("START")
+    this.startedIdx = this.state.selectedSecIdx;
+    this._scrollTo(toSec, idx)
+    // return true;
+  }
+
   _scrollTo(toSec, idx) {
+    // let rowHeight = sectionRowHeight + rowBorderWidth;
+    // let { secIDs, sections } = this.state;
+    // let toHeight = sectionHeaderHeight * idx;
+    //
+    // secIDs.slice(0, idx).map((sec, i) => {
+    //   let sectionHeight = sections[sec].length * rowHeight;
+    //   toHeight += sectionHeight;
+    // });
+    //
+    // console.log(toHeight);
+    // console.log("secPositionMap: " + this.secPositionMap[idx])
+
+    this.refs.body.scrollTo({y: this.secPositionMap[idx]})
+  }
+
+  refreshSecPositionMap() {
     let rowHeight = sectionRowHeight + rowBorderWidth;
     let { secIDs, sections } = this.state;
-    let toHeight = sectionHeaderHeight * idx;
+    let toHeight = 0;
 
-    secIDs.slice(0, idx).map((sec, idx) => {
+    this.secPositionMap = [0]
+    secIDs.map((sec, idx) => {
       let sectionHeight = sections[sec].length * rowHeight;
-      toHeight += sectionHeight;
+      toHeight += (sectionHeight + sectionHeaderHeight);
+      this.secPositionMap.push(toHeight);
     });
+  }
 
-    this.refs.body.scrollTo({y: toHeight})
+  __onScroll__(ev) {
+    var contentOffset = ev.nativeEvent.contentOffset, targetIdx = 0;;
+    for(var i = 0; i < this.secPositionMap.length; i++) {
+      if(contentOffset["y"] < this.secPositionMap[i]) {
+        targetIdx = i - 1;
+        break;
+      }
+    }
+
+    if(this.state.selectedSecIdx != targetIdx) {
+      this.setState({selectedSecIdx: targetIdx});
+    }
+    // contentOffset && console.log("contentOffsetYYY: " + contentOffset["y"]);
+    // console.log(this.refs.body)
+  }
+
+  __startMove__(ev, sideStatus) {
+    // var currentIdx = this.selectedSecIdx;
+    //
+    // console.log(sideStatus);
+    // return false;
+
+  }
+
+  __moveSideBar__(ev, sideStatus) {
+    // console.log(sideStatus.dy);
+    var targetIdx = Math.floor((ev.nativeEvent.pageY - this.sideYoffset) / navItemHeight);
+
+    // if()
+    // var targetIdx = this.startedIdx + idxDistance;
+    if(targetIdx == this.state.selectedSecIdx || targetIdx < 0 || targetIdx > this.state.secIDs.length - 1) return;
+    //
+    // this.setState({selectedSecIdx: targetIdx});
+
+
+    this._scrollTo(null, targetIdx);
   }
 }
 
@@ -240,7 +354,14 @@ const styles = StyleSheet.create({
   },
 
   nav: {
-    color: '#278BD2'
+    color: '#278BD2',
+    width: 30,
+    textAlign: "center"
+  },
+  selectedNav: {
+    color: '#278BD2',
+    width: 30,
+    textAlign: "center"
   },
   loading: {
     backgroundColor: '#fff'

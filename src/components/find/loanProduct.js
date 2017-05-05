@@ -46,9 +46,6 @@ export default class loanProduct extends Component {
       title: data.title
     });
 
-    console.log("tracking")
-    console.log(tracking)
-
     return(
       <ExternalPushLink
         title={data.title}

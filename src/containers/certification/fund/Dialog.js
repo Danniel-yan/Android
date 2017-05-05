@@ -34,6 +34,9 @@ class LoanTypeDialog extends Component {
   //
   //   //this.props.loginConfig.forEach(config => this.setState({config, co}))
   // }
+  _setModalVisible(visible) {
+    this.setState({visible: visible});
+  }
   render(){
     var configList = this.props.loginConfig;
 
@@ -42,6 +45,8 @@ class LoanTypeDialog extends Component {
         visible={this.props.visible}
         onShow={() => this.setState({ visible: true})}
         transparent={true}
+          //关闭时调用
+        onRequestClose={() => {this._setModalVisible(false)}}
         >
         <View style={styles.dialogBg}>
           <View style={styles.dialogBody}>

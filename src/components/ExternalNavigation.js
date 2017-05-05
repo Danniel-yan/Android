@@ -152,10 +152,15 @@ export default class ExternalNavigation extends Component {
       gestures: {pop: { disabled: true }},
     };
 
+    const FadeAndroid = {
+      ...Navigator.SceneConfigs.FadeAndroid,
+      gestures: {pop: { disabled: true }},
+    }
+
     return (
       <Navigator
         ref={nav => this.nav = nav}
-        configureScene={() => FloatFromRight}
+        configureScene={() => FadeAndroid}
         initialRoute={initRoute}
         renderScene={this._renderScene.bind(this)}
       />

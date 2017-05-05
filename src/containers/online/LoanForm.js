@@ -14,7 +14,7 @@ import GroupTitle from 'components/GroupTitle';
 import CameraInput, { FaceMegInput } from './CameraInput';
 import { post, responseStatus } from 'utils/fetch';
 import { InputGroup } from 'components/form';
-import { ExternalPushLink } from 'containers/shared/Link';
+import { ExternalPushLink, ExternalPopLink } from 'containers/shared/Link';
 import onlineStyles from './styles';
 import ErrorInfo from './ErrorInfo';
 import { loanType } from 'constants';
@@ -28,6 +28,7 @@ const inputStatus = {
 class LoanForm extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     this.state = {
       form: {
@@ -101,7 +102,7 @@ class LoanForm extends Component {
   }
 
   renderFaceVerifyForms() {
-    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.huankuan)? (
+    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.chaohaodai || this.props.loanType == loanType.chaohaodaicard)? (
       <View>
         <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
         <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})} />
@@ -112,10 +113,12 @@ class LoanForm extends Component {
   render() {
     let { idFront, idBack, faceMeg } = this.state;
     let { credit_card_no, credit_card_mobile } = this.state.form;
+    let backKey = "LoanDetailScene";
 
     let enable = idFront && idBack;
     if(this.props.loanType == 1) enable = enable && credit_card_no && credit_card_mobile;
-    if(this.props.loanType == 2) enable = enable && faceMeg;
+    if(this.props.loanType == 2 || this.props.loanType == loanType.chaohaodaicard) enable = enable && faceMeg;
+    if(this.props.loanType == 1 || this.props.loanType == 2 ) backKey = "SuiXinJieList";
 
     return (
       <ScrollView>
@@ -124,19 +127,32 @@ class LoanForm extends Component {
         { this.renderFaceVerifyForms() }
 
         <ErrorInfo msg={this.state.error}/>
-
-        <ExternalPushLink
-          title="审批状态"
-          backKey="LoanDetailScene"
-          backRoute={{ key: 'LoanDetailScene' }}
-          toKey="OnlineApproveStatus"
-          processing={this.state.submitting}
-          prePress={this._submit.bind(this)}
-          disabled={!enable}
-          style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
-          textStyle={onlineStyles.btnText}
-          text="完成提交"
-        />
+        
+        {
+          this.props.loanType == loanType.chaohaodaicard ? (
+            <ExternalPopLink
+              prePress={this._submitLoanForm.bind(this)}
+              disabled={!true}
+              style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
+              textStyle={onlineStyles.btnText}
+              text="完成提交"
+            />
+          ) : (
+            <ExternalPushLink
+              title="审批状态"
+              backKey={backKey}
+              backRoute={{ key: backKey }}
+              toKey="OnlineApproveStatus"
+              processing={this.state.submitting}
+              prePress={this._submit.bind(this)}
+              disabled={!enable}
+              style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
+              textStyle={onlineStyles.btnText}
+              text="完成提交"
+            />
+          )
+        }
+        
       </ScrollView>
     );
   }
@@ -202,6 +218,15 @@ class LoanForm extends Component {
       throw msg;
     })
   }
+
+  _submitLoanForm() {
+    console.log("LoanForm: ");
+    console.log(this.state.form);
+  }
+
+  componentWillUnmount() {
+    this.props.refetchingStatus && this.props.refetchingStatus();
+  }
 }
 
 
@@ -239,7 +264,9 @@ import actions from 'actions/online';
 
 function mapStateToProps(state) {
   return {
-    ...state.online.preloanStatus,
+    // ...state.online.preloanStatus,
+    // isFetching: state.online.userInfo.isFetching,
+    // fetched: state.online.userInfo.fetched,
     userInfo: state.online.userInfo.data,
     loanType: state.online.loanType.type
   };
@@ -249,11 +276,10 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {
-      dispatch(actions.preloanStatus())
-      dispatch(actions.userInfo())
+      // dispatch(actions.preloanStatus())
+      // dispatch(actions.userInfo())
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(LoanForm), true));
+export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(LoanForm));

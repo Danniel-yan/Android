@@ -5,6 +5,7 @@ import CountdownButton from './CountdownButton';
 import { post, responseStatus } from 'utils/fetch';
 import { colors } from 'styles';
 import validators from 'utils/validators';
+import { Keyboard } from 'react-native';
 
 export default class VerifyButton extends Component {
   render() {
@@ -31,13 +32,19 @@ export default class VerifyButton extends Component {
   }
 
   _sendVerify(mobile) {
+    Keyboard.dismiss();  
+    this.props.onError && this.props.onError("");
     post('/tool/send-verify-code', { mobile })
       .then(res => {
         if(res.res == responseStatus.failure) {
           this.refs.btn.reset();
+          this.props.onError && this.props.onError(res.msg);
         }
       })
-      .catch(console.log)
+      .catch(response => {
+        console.log(response);
+        this.props.onError && this.props.onError(response.msg)
+      })
   }
 }
 
@@ -46,8 +53,8 @@ const styles = StyleSheet.create({
   verifyBtn: {
     backgroundColor: colors.secondary,
     borderRadius: 5,
-    width: 80,
-    height: 24,
+    paddingHorizontal: 10,
+    paddingVertical: 6
   },
 
   verifyBtnTxt: {

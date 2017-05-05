@@ -22,6 +22,7 @@ import ingImage from 'assets/online/importing.gif';
 import { trackingScene } from 'high-order/trackingPointGenerator';
 
 class GjjStatus extends Component {
+  tracking = { key: "PAF_report", topic: "progress" }
 
   constructor(props) {
     super(props);

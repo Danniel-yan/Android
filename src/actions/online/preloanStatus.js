@@ -1,4 +1,4 @@
-import { post, responseStatus } from 'utils/fetch';
+import { post, mock, responseStatus } from 'utils/fetch';
 
 export default function() {
 

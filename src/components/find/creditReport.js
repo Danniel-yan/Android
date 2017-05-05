@@ -10,40 +10,37 @@ export default class creditReport extends Component {
   tracking = function() {
     return { key: "loan_crd_rpt", event: "landing", exten_info: JSON.stringify({status: this.props && this.props.result == 1 ? '低' : '高'}) }
   }
+  //props.percenter FF6E33
   render(){
     var props = this.props || {};
     return (
       <View style={{flex : 1}}>
         <ScrollView>
-            <View style={{backgroundColor : '#fff',marginVertical : 4}}>
+            <View style={{backgroundColor : '#fff', borderBottomWidth: 1, borderBottomColor: "#f6f6f6"}}>
               {false ? this._renderNavItem( '多机构申请风险等级', '中级') : null}
               {this._renderNavItem( '您的网贷信用等级', props.result == 1 ? '低' : '高')}
             </View>
             <View style={styles.sucessStatus}>
-                <View style = {{flexDirection:'row', justifyContent:'center',marginBottom:10}}>
-                {
-                    props.result == 1 ?
-                    (<View style={{position:'relative'}}>
+                <View style = {{flexDirection:'row', justifyContent:'center', height: 160, overflow: "hidden"}}>
+                <View style={{position:'relative'}}>
                         <PercentageCircle
-                        radius={55}
-                        percent={15}
-                        color={"red"}
-                        borderWidth={6}
+                        radius={90}
+                        percent={props.percenter * 66 / 100}
+                        color={"#FF6E33"}
+                        borderWidth={3}
                         textStyle={{fontSize: 34, color: 'red'}}
                         />
-                        <Text style={styles.percenterTxtFail}>用户被你击败</Text>
-                    </View>) :
-                    (<View style={{position:'relative'}}>
-                        <PercentageCircle
-                        radius={55}
-                        percent={props.percenter}
-                        color={"green"}
-                        borderWidth={6}
-                        textStyle={{fontSize: 34, color: '#222'}}
-                        />
-                        <Text style={styles.percenterTxtSuccess}>用户被你击败</Text>
-                    </View>)
-                }
+                        <View style={{position:'absolute', top:40, left:20, right:20 }}>
+                          <View><Text style={{textAlign: "center", fontSize: fontSize.xxxlarge + 16, color: "#FF6E33"}}>{props.percenter}%</Text></View>
+                          <View><Text style={styles.percenterTxtSuccess}>用户被你击败</Text></View>
+                        </View>
+                        <View style={{position:'absolute', bottom:28, left:20, right:20 }}>
+                          <View><Text style={{textAlign: "center", fontSize: fontSize.xlarge, color: "#FF6E33"}}>{props.result == 1 ? "信用等级低" : "信用等级高"}</Text></View>
+                        </View>
+                        <View style={{position: "absolute", top: 0, right: 0, height: 180, justifyContent: "center", alignItems: "center"}}>
+                          <Image source={require("assets/icons/circle-num.png")} style={{height: 180, width: 180}}></Image>
+                        </View>
+                  </View>
                 </View>
                 {
                     props.result == 1 ?
@@ -119,23 +116,18 @@ const styles = StyleSheet.create({
     percenterTxtSuccess : {
         textAlign:'center',
         backgroundColor : 'transparent',
-        fontSize:10,
-        color:'#333',
-        position:'absolute',
-        top:70,
-        left:0,
-        right:0,
-
+        fontSize:fontSize.xsmall - 2,
+        color: "#FF6E33"
     },
     successInfo : {
         textAlign:'center',
-        color:'#333',
         fontSize:fontSize.xlarge,
-        marginBottom:15
+        marginBottom:15,
+        color: "#333"
     },
     failInfo : {
         textAlign:'center',
-        color:'#333',
+        color: "#3333",
         fontSize:15,
         marginBottom:15,
         paddingHorizontal:10

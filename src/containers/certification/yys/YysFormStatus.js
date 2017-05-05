@@ -19,6 +19,7 @@ import successImage from 'assets/online/yys-success.png';
 import failureImage from 'assets/online/yys-failure.png';
 
 class YysFormStatus extends Component {
+  tracking = { key: "telecom", topic: "progress" }
 
   constructor(props) {
     super(props);

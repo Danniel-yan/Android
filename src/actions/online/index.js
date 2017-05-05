@@ -19,6 +19,8 @@ import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
 import { initial, getStatus } from './pboc';
+import suixinjie from './suixinjie';
+import chaoHaoDai from './chaoHaoDai'
 
 export default {
   loanDetail,
@@ -47,5 +49,7 @@ export default {
   },
   gjjLoginElements,
   gjjDetail,
-  pboc: { initial, getStatus }
+  pboc: { initial, getStatus },
+  suixinjie,
+  chaoHaoDai
 }

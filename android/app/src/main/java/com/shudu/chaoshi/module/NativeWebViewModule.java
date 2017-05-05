@@ -17,14 +17,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
-import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -164,10 +164,16 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
         private boolean mLastLoadFailed = false;
 
         @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();
+        }
+
+        @Override
         public void onPageFinished(WebView webView, String url) {
             super.onPageFinished(webView, url);
 
             if (!mLastLoadFailed) {
+                webView.getSettings().setBlockNetworkImage(false);
                 ReactWebView reactWebView = (ReactWebView) webView;
                 reactWebView.callInjectedJavaScript();
                 reactWebView.linkBridge();
@@ -426,6 +432,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
         webView.getSettings().setDisplayZoomControls(false);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setBlockNetworkImage(true);
 
         // Fixes broken full-screen modals/galleries due to body height being 0.
         webView.setLayoutParams(
@@ -453,7 +460,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
 
     @ReactProp(name = "scalesPageToFit")
     public void setScalesPageToFit(WebView view, boolean enabled) {
-        view.getSettings().setUseWideViewPort(!enabled);
+        view.getSettings().setUseWideViewPort(enabled);
     }
 
     @ReactProp(name = "domStorageEnabled")

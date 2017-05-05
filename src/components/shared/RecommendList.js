@@ -8,6 +8,7 @@ import styles from 'styles/loan';
 import NextIcon from 'components/shared/NextIcon';
 import { ExternalPushLink } from 'containers/shared/Link';
 import * as defaultStyle from 'styles';
+import { loanType } from 'constants';
 
 export default class RecommendList extends Component {
   static defaultProps = {
@@ -38,12 +39,17 @@ export default class RecommendList extends Component {
       title: data.title
     }, this.props.itemTracking);
 
-    return(
+    return (
       <ExternalPushLink
         tracking={tracking}
         title={data.title}
-        toKey="LoanDetailScene"
-        componentProps={{fetchingParams: data.id, ...data }} >
+        toKey={data.toKey || "LoanDetailScene"}
+        componentProps={{
+          loginSuccess: data.toKey !== "Login" || !data.nextKey ? null : () => {
+            this.props.externalPush && this.props.externalPush({ key: data.nextKey, title: data.title, backRoute: {key: "MajorNavigation"} })
+          },
+          fetchingParams: data.id,
+          ...data}} >
         <View style={[styles.flexContainerRow,{paddingVertical:this.props.isIOS? 15 : 10}]}>
           <RemoteImage uri={data.logo_list} style={styles.thumbnail} />
           {!this.props.isIOS ?

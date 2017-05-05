@@ -221,7 +221,8 @@ const styles = StyleSheet.create({
     fontSize: fontSize.normal,
   },
   formWrap: {
-    paddingTop: 15,
+    paddingTop: 7,
+    paddingBottom: 7,
   },
   errorTip: {
     position: 'absolute',

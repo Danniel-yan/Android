@@ -1,4 +1,4 @@
-import { post, responseStatus } from 'utils/fetch';
+import { post, mock, responseStatus } from 'utils/fetch';
 
 
 export default function() {
@@ -10,10 +10,10 @@ export default function() {
 
     return post('/loanctcf/preloan', {loan_type}).then(response => {
 
-      if(response.res == responseStatus) {
-        dispatch({ type: 'receivePreloan', preloan: response.data })
+      if(response.res == responseStatus.success) {
+        dispatch({ type: 'receivePreloan', data: response.data })
       }
-      return response
+      return response;
     })
   }
 

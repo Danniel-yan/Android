@@ -43,8 +43,8 @@ export default class CreditBroadcast extends Component {
 
   render() {
     return (
-      <View style={{flexDirection: "row", alignItems: "center", padding: 8}}>
-        <Image style={{marginRight: 10, width: 31, height: 31}} source={require('assets/credit-icons/chaoshikuaibao.png')}></Image>
+      <View style={{flexDirection: "row", alignItems: "center", paddingHorizontal: 10}}>
+        <Image style={{marginRight: 10, height: 12}} source={require('assets/credit-icons/kuaibao.png')}></Image>
         <View style={{flex: 1, height: configs.height}}>
         {
           this.renderCarousel()

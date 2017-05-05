@@ -46,7 +46,7 @@ export default class HomeScene extends Component {
       <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <StatusBar backgroundColor="#fe271e" barStyle="light-content"/>
         {this._renderHeader()}
-        <ScrollView>
+        <ScrollView style={{flex: 1}} keyboardShouldPersistTaps={true}>
           {this.props.isIOS ? null : <Banner />}
           {this.props.isIOS ? null : <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>}
           <LoanNavPanel />
@@ -116,12 +116,15 @@ export default class HomeScene extends Component {
         <View style={[panelStyles.panel,panelStyles.header]}>
           <Text style={panelStyles.title}>办卡精选</Text>
 
-          <MajorTabLink
-            tracking={{key: 'homepage', topic: 'featured_card', entity: 'more', event: 'clk'}}
-            toKey="CardScene" style={panelStyles.addon}>
+          <ExternalPushLink
+            toKey="CardScene"
+            title="办卡"
+            style={panelStyles.addon}
+            componentProps ={{onBack : true}}
+            tracking={{key: 'homepage', topic: 'featured_card', entity: 'more', event: 'clk'}}>
             <Text style={panelStyles.addonTxt}>更多产品</Text>
             <Image style={panelStyles.addonImg} source={iconNext}/>
-          </MajorTabLink>
+          </ExternalPushLink>
         </View>
         <CategoryListContainer itemTracking={{key: 'homepage', topic: 'featured_card_list'}}/>
       </View>

@@ -43,6 +43,8 @@ import OnlineLoanDetail from 'containers/online/LoanDetail';
 import OnlineTrialRefundPlan from 'containers/online/TrialRefundPlan';
 import OnlineTrialRepaymentPlan from 'containers/online/TrialRepaymentPlan';
 
+import SuiXinJieList from 'containers/online/SuiXinJieList';
+
 import CreditLoanHomeScene from 'containers/scene/creditLoan/Home.js';
 import FundLogin from 'containers/certification/fund/FundLogin';
 import BillList from 'containers/bill/BillListContainer';
@@ -77,6 +79,9 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'OnlineCreditCardForm', module: OnlineCreditCardForm },
   { key: 'OnlineCreditCardVerify', module: OnlineCreditCardVerify },
   { key: 'OnlineCreditCardStatus', module: OnlineCreditCardStatus },
+
+  { key: "SuiXinJieList", module: SuiXinJieList },
+
   { key: 'CardArticals', module: CardArticals },
   { key: 'CardArticalDetail', module: CardArticalDetail },
   { key: 'CardListByCategory', module: CardListByCategory },

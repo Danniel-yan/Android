@@ -25,6 +25,7 @@ export const fontSize = {
   normal: 14,
   small: 13,
   xsmall: 12,
+  xxsmall: 11
 }
 
 // export const fontSize = {

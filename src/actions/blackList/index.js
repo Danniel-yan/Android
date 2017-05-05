@@ -1,17 +1,19 @@
 import { get, post, mock, responseStatus } from 'utils/fetch';
 
 import { creditScore } from 'actions/online/userInfo';
+import { externalPush } from 'actions/navigation';
 
 export function FreeStatus() {
   return (dispatch, getState) => {
     dispatch({ type: "RequestFreeStatus" });
 
-    dispatch(creditScore()).then(() => {
+    return dispatch(creditScore()).then(() => {
       var state = getState(), score = state.online.userInfo ? state.online.userInfo.creditScore : 0;
 
-      if(score < 20) { return dispatch({type: "ReceiveFreeStatus", free: false}) }
+      // if(score < 20) { return dispatch({type: "ReceiveFreeStatus", free: false}) }
+
       return get("/blacklist/check-free").then(response => {
-        dispatch({type: "ReceiveFreeStatus", free: response.data && response.data.result == 0});
+        dispatch({type: "ReceiveFreeStatus", free: response.data && response.data.free == 1, hasChance: response.data && response.data.checkmore == 1});
       })
     });
   }
@@ -94,12 +96,16 @@ export function CreateBlackListTicket() {
         dispatch(ReceiveBlackListTicket(null, response.msg));
         return response;
       }
+      // dispatch(ReceiveBlackListTicket(response.data.ticket_id || "*****Free Ticket*****"));
       dispatch(ReceiveBlackListTicket(response.data.ticket_id));
 
       // 免费情况下， 创建ticket成功的同时， 查询已完成。
+
       if(bLData.free && response.data.blacklist_result) {
         dispatch({ type: "PaymentEnd", success: true });
         dispatch({ type: "ReceiveReportResult", result: response.data.blacklist_result });
+        dispatch(externalPush({key: "BlackListReports", title: "已有报告", backRoute: {key: 'MajorNavigation'}}))
+        dispatch(FreeStatus());
       }
 
       return response;

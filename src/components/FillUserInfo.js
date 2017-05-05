@@ -218,15 +218,13 @@ export default class FillUserInfo extends Component {
 
         </ScrollView>
 
-        <View style={styles.footer}>
-
-          <LoanButton
-            tracking={Object.assign({entity: 'apply', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}, this.tracking()) }
-            processing={this.props.update.submitting}
-            style={styles.btn}
-            textStyle={styles.btnText}
-            disabled={this.state.error !== ''}
-            onPress={this._submit.bind(this)}/>
+        <View>
+          <TouchableOpacity onPress={()=>{
+            this._submit.bind(this);
+            tracker.trackAction(Object.assign({entity: 'apply', name: realname, cell: mobile, profession: job, own_credit_card: creditStatus}, this.tracking()))
+          }}>
+            <LoanButton/>
+          </TouchableOpacity>
         </View>
       </View>
     );
