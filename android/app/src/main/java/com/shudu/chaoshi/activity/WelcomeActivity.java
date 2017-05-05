@@ -23,7 +23,7 @@ public class WelcomeActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(WelcomeActivity.this, ImportBillChooseActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                 finish();
             }
         }, 1000);
