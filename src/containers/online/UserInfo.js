@@ -81,6 +81,7 @@ class UserInfo extends Component {
       disabled = false;
     }
 
+<<<<<<< Updated upstream
     return (
       <View style={container}>
 
@@ -185,7 +186,8 @@ class UserInfo extends Component {
 
         var loanType = this.props.loanType || 0;
         loanType && (form.loan_type = loanType);
-        return post('/loanctcf/first-filter', form).then(response => {
+        return mock('/loanctcf/first-filter', form).then(response => {
+        // return post('/loanctcf/first-filter', form).then(response => {
           if(response.res == responseStatus.success) {
             this.setState({ submitting: false})
             this.props.fetchStatus();
