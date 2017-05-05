@@ -118,11 +118,15 @@ class LoanDetail extends Component {
                                 componentProps: {
                                     info: this.state,
                                     success: {
-                                        Key: 'OnlineLoanDetail',
+                                        key: 'OnlineLoanDetail',
                                         title: '借款详情'
                                     },
                                     fail: {
-                                        Key: 'OnlineLoanDetail',
+                                        key: 'OnlineLoanDetail',
+                                        title: '借款详情'
+                                    },
+                                    error: {
+                                        key: 'OnlineLoanDetail',
                                         title: '借款详情'
                                     }
                                 }

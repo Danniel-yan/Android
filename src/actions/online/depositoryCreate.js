@@ -4,7 +4,7 @@ import alert from 'utils/alert'
 import {AsyncStorage} from 'react-native';
 import actions from 'actions/online';
 
-export default function (mobile, bank_card_no, success, fail) {
+export default function (mobile, bank_card_no, success, fail, error) {
 
     return (dispatch, getState) => {
         var state = getState(),
@@ -49,6 +49,7 @@ export default function (mobile, bank_card_no, success, fail) {
                     backRoute: {backCount: 2}
                 }))
             } else {
+                dispatch(externalPush(error))
                 alert(response.msg)
             }
         })

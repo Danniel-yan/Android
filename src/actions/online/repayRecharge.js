@@ -42,7 +42,7 @@ export default function (amount) {
                 };
                 dispatch(externalPush({
                     web: {uri: uri, method: method, body: body},
-                    title: "还款结果",
+                    title: "确认还款",
                     componentProps: {
                         onMessage: onMessage,
                         reFetching: () => {
@@ -52,6 +52,10 @@ export default function (amount) {
                     backRoute: {backCount: 2}
                 }))
             } else {
+                dispatch(externalPush({
+                    key: 'RepaymentScene',
+                    title: '借款详情'
+                }))
                 alert(response.msg)
             }
         })

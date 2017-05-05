@@ -7,6 +7,9 @@ function idNO(value) {
 }
 
 function isDouble(value) {
+    if (value == ''){
+        return true
+    }
     return /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/.test(value)
 }
 

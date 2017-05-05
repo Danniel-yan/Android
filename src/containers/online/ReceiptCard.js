@@ -99,6 +99,10 @@ class ReceiptCard extends Component {
                                 fail: {
                                     key: 'OnlineReceiptCard',
                                     title: '添加银行卡'
+                                },
+                                error: {
+                                    key: 'OnlineReceiptCard',
+                                    title: '添加银行卡'
                                 }
                             }
                         })

@@ -47,6 +47,15 @@ class RepaymentDetailContainer extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        var repayAmount = nextProps.repayAmount
+        this.setState({
+            repayAmount: repayAmount,
+            amount_int: repayAmount.amount,
+            amount_max: repayAmount.amount
+        })
+    }
+
     _payctcFloanCreate() {
         let amount = this.state.amount_int
         if (amount < 500 && this.state.amount_max >= 500) {
@@ -93,9 +102,9 @@ class RepaymentDetailContainer extends Component {
                             underlineColorAndroid="transparent"
                             type={"number"}
                             onChangeText={(text)=> {
-                            validators.isDouble(text) &&
-                        this.setState({amount_int: text})
-                    }}
+                                validators.isDouble(text) &&
+                                this.setState({amount_int: text})
+                            }}
                             value={this.state.amount_int.toString()}
                         />
 
