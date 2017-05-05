@@ -165,7 +165,7 @@ export default class LoanDetailScene extends Component {
             </View>
           </View>
 
-          <View style={[styles.applyBox,styles.bgColorWhite]}>FaceMegModule
+          <View style={[styles.applyBox,styles.bgColorWhite]}>
             <View style={styles.flexContainerRow}><Text style={styles.applyTitle}>所有材料</Text></View>
             <View style={{padding:15}}>
               <View>

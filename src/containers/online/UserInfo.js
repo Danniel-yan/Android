@@ -81,7 +81,6 @@ class UserInfo extends Component {
       disabled = false;
     }
 
-<<<<<<< Updated upstream
     return (
       <View style={container}>
 
