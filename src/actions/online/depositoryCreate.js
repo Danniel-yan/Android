@@ -2,6 +2,7 @@ import {get, post, responseStatus} from 'utils/fetch';
 import {externalPush} from 'actions/navigation';
 import alert from 'utils/alert'
 import {AsyncStorage} from 'react-native';
+import actions from 'actions/online';
 
 export default function (mobile, bank_card_no, success, fail) {
 
