@@ -20,6 +20,11 @@ export const environments = {
     id: 'uat',
     text: 'UAT',
     api: 'https://shiyishou-uat.jujinpan.cn/'
+  },
+  chaohaodai: {
+    id: 'chaohaodai',
+    text: "钞好贷-信用卡",
+    api: 'http://106.14.15.106:8001/'
   }
 };
 

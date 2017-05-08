@@ -1,6 +1,7 @@
 import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
+import preloan from './preloan';
 
 function getYysBillStatus(body) {
   var body = Object.assign({}, body, { type: 'yys' });
@@ -60,6 +61,7 @@ export default function(body) {
       dispatch({ type: "receiveOnlineYysBilllList", billList: billData.list });
       if(billData.billStatus.status !== "success") return dispatch(billData.billStatus);
       return checkBillFilter(loanType).then(res => {
+        if(loanType == 4 && res.status == "success") dispatch(preloan());
         return dispatch(res);
       });
     })

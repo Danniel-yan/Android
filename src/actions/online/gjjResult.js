@@ -1,6 +1,7 @@
 import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
+import preloan from './preloan';
 
 export default function(body) {
   return (dispatch, getState) => {
@@ -24,6 +25,7 @@ export default function(body) {
           return checkBillFilter(loanType).then(res => {
             console.log("GJJBillFilterStatus: ", res.status);
             dispatch(receiveBillList(billList));
+            if(loanType == 4 && res.status == "success") dispatch(preloan());
             return dispatch(res);
           });
         }

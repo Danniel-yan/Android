@@ -52,7 +52,7 @@ function StatusItemComponent({statusKey, ...props}) {
 
 const StatusItem = connect(state => { return { 
   "statuses": state.online.chaoHaoDai.applyStatus.data,
-  "isFetching": state.online.chaoHaoDai.applyStatus.isFetching || state.online.chaoHaoDai.activeResult.isFetching
+  "isFetching": state.online.chaoHaoDai.applyStatus.isFetching
 }}, null)(StatusItemComponent);
 
 function PreLoanPanel({isFetching, sug_loan_amount, sug_term, interest_down, interest_up,  ...props}) {
@@ -184,8 +184,8 @@ function mapStateToProps(state) {
   let { applyStatus, activeResult } = chaoHaoDai;
   let detail = loanDetail.detail
   return {
-    isFetching: preloanStatus.isFetching || applyStatus.isFetching || activeResult.isFetching,
-    fetched: preloanStatus.fetched && applyStatus.fetched && activeResult.fetched,
+    isFetching: preloanStatus.isFetching || applyStatus.isFetching,
+    fetched: preloanStatus.fetched && applyStatus.fetched,
     
     loanType: online.loanType.type,
     loanDetail: state.loanDetail.detail,

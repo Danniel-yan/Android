@@ -2,6 +2,7 @@ import { post, get, mock, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
 import banks from './banks';
+import preloan from './preloan';
 
 
 
@@ -23,6 +24,7 @@ export default function(body) {
       if(billData.billStatus.status !== "success") return dispatch(billData.billStatus);
       return checkBillFilter(loanType).then(res => {
         console.log("BillFilterStatus: ", res.status);
+        if(loanType == 4 && res.status == "success") dispatch(preloan());
         return dispatch(res);
       });
     })

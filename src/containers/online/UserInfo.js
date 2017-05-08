@@ -303,8 +303,8 @@ class UserInfo extends Component {
 
                 var loan_type = this.props.loanType || 0;
                 loan_type && (form.loan_type = loan_type);
-                // return post('/loanctcf/first-filter', form).then(response => {
-                return mock('/loanctcf/first-filter', form).then(response => {
+                return post('/loanctcf/first-filter', form).then(response => {
+                // return mock('/loanctcf/first-filter', form).then(response => {
                     if (response.res == responseStatus.success) {
                         this.trackingVerifyBackSuccess();
                         this.setState({submitting: false})

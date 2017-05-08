@@ -1,7 +1,9 @@
 const applyFree = true;
 const withoutCardBind = true;
 
-export const mockData = {
+export const mockData = null;
+
+const mockDataTest = {
   '/blacklist/check-free': {
     "res": 1,
     "data": {
