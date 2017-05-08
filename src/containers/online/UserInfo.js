@@ -19,7 +19,7 @@ import validators from 'utils/validators';
 import {container, rowContainer, centering, fontSize, colors, border} from 'styles';
 import alert from 'utils/alert';
 import {externalPush} from 'actions/navigation';
-import {get, post, responseStatus} from 'utils/fetch';
+import {get, post, mock, responseStatus} from 'utils/fetch';
 import FormGroup from 'components/shared/FormGroup';
 import SubmitButton from './SubmitButton';
 import ErrorInfo from './ErrorInfo';
@@ -30,6 +30,7 @@ import tracker from 'utils/tracker.js';
 import {window} from 'styles';
 import * as defaultStyles from 'styles';
 import LoanButton from 'containers/shared/LoanButton';
+import { loanType } from 'constants';
 
 const noWrap = true;
 (window.width > 400);
@@ -271,6 +272,7 @@ class UserInfo extends Component {
                                           })
                                       }}>
                         <LoanButton
+                            btnText={this.props.loanType == loanType.chaohaodaicard ? "看看我能借多少" : null}
                             processing={this.state.submitting}/>
                     </TouchableOpacity>
 
@@ -299,9 +301,10 @@ class UserInfo extends Component {
                 form.phone_system_version = DeviceInfo.getSystemVersion();
 
 
-                var loanType = this.props.loanType || 0;
-                loanType && (form.loan_type = loanType);
+                var loan_type = this.props.loanType || 0;
+                loan_type && (form.loan_type = loan_type);
                 return post('/loanctcf/first-filter', form).then(response => {
+                // return mock('/loanctcf/first-filter', form).then(response => {
                     if (response.res == responseStatus.success) {
                         this.trackingVerifyBackSuccess();
                         this.setState({submitting: false})

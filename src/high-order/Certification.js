@@ -50,6 +50,10 @@ export function CertificationOutput(ElementComponent) {
       // this.props.clearEntryKey && this.props.clearEntryKey(); // 清除 认证流程入口信息
     }
 
+    componentWillUnmount() {
+      this.props.unMountFetching && this.props.unMountFetching();
+    }
+
     render() {
       return React.createElement(ElementComponent, this.props);
     }

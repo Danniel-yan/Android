@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { get, responseStatus } from 'utils/fetch';
+import { get, mock, responseStatus } from 'utils/fetch';
 
 export default function(body, getState) {
   var { type, status, ticket_id, login_target, loan_type } = body || {}, url;
@@ -11,5 +11,6 @@ export default function(body, getState) {
   ticket_id && (url += `&ticket_id=${ticket_id}`);
   login_target && (url += `&login_target=${login_target}`);
 
+  // if(loan_type == 4) return mock(`/bill/bill-list?type=${type}&loan_type=${loan_type}`);
   return get(url);
 }

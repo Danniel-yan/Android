@@ -81,3 +81,22 @@
 -keep class com.taobao.dp.**{*;}
 -keep class com.alibaba.wireless.security.**{*;}
 -keep class com.ta.utdid2.device.**{*;}
+
+#moxie
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+-keep @com.moxie.client.commom.NotProguard class * {*;}
+-keep class com.moxie.client.fragment.WebViewECH5Fragment$MoxieJavaScriptInterface { *; }
+-keep class com.moxie.client.fragment.WebViewMailImportFragment$MoxieJavaScriptInterface { *; }
+-keep class com.moxie.client.fragment.WebViewMailImportH5Fragment$MoxieJavaScriptInterface { *; }
+-keep class com.moxie.client.fragment.WebViewQzoneH5Fragment$MoxieJavaScriptInterface { *; }
+-keep class com.moxie.client.fragment.WebViewCommonFragment$MoxieJavaScriptInterface { *; }

@@ -1,4 +1,4 @@
-import { post, get, responseStatus, loanEntryClose } from 'utils/fetch';
+import { post, get, mock, responseStatus, loanEntryClose } from 'utils/fetch';
 
 import getBillList from './billList';
 import banks from './banks';
@@ -30,7 +30,6 @@ export default function(body) {
 }
 
 function checkBillFilter(loan_type) {
-
   return post('/loanctcf/check-bill-filter', { loan_type }).then(response => {
     if(response.res == responseStatus.failure) {
       throw response.msg;

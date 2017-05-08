@@ -24,7 +24,7 @@ import LoanButton from 'containers/shared/LoanButton';
 import {
     loanType,
     firstFilterStatusSuccess,
-    preloanStatus as preloanStatusConstants
+    // preloanStatus as preloanStatusConstants
 } from 'constants';
 
 import Button from 'components/shared/Button'
@@ -261,7 +261,7 @@ export default class LoanDetailScene extends Component {
 
         let detail = this.props.detail, btnTxt = this.props.isIOS ? '立即申请' : "立即申请";
 
-        if (this.props.detail.loan_type == loanType.chaoshidai || this.props.detail.loan_type == loanType.gjj || this.props.detail.loan_type == loanType.chaohaodai) {
+        if (this.props.isOnline) {
             return <ExternalOnlineBtn
                 loginUser={this.props.loginUser} onlineStatus={this.props.onlineStatus}
                 fetchOnlineStatus={this.props.fetchOnlineStatus}

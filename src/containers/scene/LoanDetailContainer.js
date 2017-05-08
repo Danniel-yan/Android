@@ -28,6 +28,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...detail,
+    isOnline: ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai || ownProps.loan_type == loanType.chaohaodaicard,
     onlineStatus: state.online.status,
     loginUser: state.loginUser,
     repayCalc: state.repayCalc,
@@ -40,7 +41,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetching: id => {
-      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai) {
+      if(ownProps.loan_type == loanType.chaoshidai || ownProps.loan_type == loanType.gjj || ownProps.loan_type == loanType.chaohaodai || ownProps.loan_type == loanType.chaohaodaicard) {
         dispatch(onlineActions.setLoanType(ownProps.loan_type))
         dispatch(onlineActions.status());
       }

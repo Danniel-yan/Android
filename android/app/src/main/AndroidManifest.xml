@@ -55,6 +55,14 @@
             android:name=".activity.FaceLivenessActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ImportBillActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ImportBillChooseActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.megvii.livenesslib.FaceLivenessResultActivity"
@@ -91,6 +99,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- shareSdk End -->
+
+        <!-- moxie -->
+        <activity android:name="com.moxie.client.MainActivity">
+        </activity>
+
 
         <meta-data
             android:name="JPUSH_CHANNEL"

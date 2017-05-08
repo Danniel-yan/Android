@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Image, Text, TextInput, NativeModules } from 'react-native';
 import Input from 'components/shared/Input';
 
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
@@ -32,7 +32,6 @@ export default class AmountInput extends Component {
                           this.setState({text: formater100000(text)})
                         }} value={this.state.text}
                         ref={component => this._textInput = component}
-
                     ></Input></View>
                 <View style={[AIStyle.btnWrap]}>
                     <Button
@@ -48,7 +47,6 @@ export default class AmountInput extends Component {
 
     _onPressSearch(event) {
         this.onPressNumberBtn()
-
     }
 }
 

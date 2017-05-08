@@ -179,6 +179,8 @@ dependencies {
     compile project(':bankCardLib')
     compile(name: 'alisdk-feedback-2.5.0', ext: 'aar')
     compile(name: 'securityguardaar3-5.1.81', ext: 'aar')
+    compile(name: 'moxie-client-1.1.6', ext: 'aar')
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':livenessLib')
 }
 

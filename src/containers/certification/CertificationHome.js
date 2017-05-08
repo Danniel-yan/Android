@@ -125,7 +125,7 @@ class CertificationHome extends Component {
         return {key: 'OnlinePreloanFailure', title: '预授信申请结果'}
       }
 
-      throw response.msg
+      // throw response.msg
     }).catch(err => {
       this.setState({ submitting: false });
       throw err;
@@ -294,8 +294,14 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-import { CertificationEntry } from 'high-order/Certification'
 
-export default CertificationEntry(connect(mapStateToProps, mapDispatchToProps)(
-  trackingScene(CertificationHome)
-));
+import { CertificationEntry } from 'high-order/Certification';
+const CertificationNormalHome = connect(mapStateToProps, mapDispatchToProps)( trackingScene(CertificationHome));
+
+import CertificationChaohaoDaiCard from './CertificationChaohaoDaiCard';
+import { loanType } from 'constants';
+export default CertificationEntry(connect(state => state.online.loanType, null)(props => {
+  return props.type == loanType.chaohaodaicard ? <CertificationChaohaoDaiCard {...props} /> : <CertificationNormalHome {...props} />
+}));
+
+

@@ -42,3 +42,5 @@ android/app/libs
 android/keystores/debug.keystore
 android/apks
 android/apks.zip
+jsconfig.json
+.vscode/

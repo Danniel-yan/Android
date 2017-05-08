@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
 
 import { trackingScene } from 'high-order/trackingPointGenerator';
 import actions from 'actions/online';
+import chaoHaoDai from "actions/online/chaoHaoDai";
 import { CertificationOutput } from 'high-order/Certification';
 
 function mapStateToProps(state, ownProps) {
@@ -137,8 +138,13 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatch(dispatch) {
   return {
-    fetchingBillStatus: () => dispatch(actions.bankResult())
+    fetchingBillStatus: () => dispatch(actions.bankResult()),
+    unMountFetching: () => {
+      dispatch(actions.preloanStatus());
+      dispatch(chaoHaoDai.applyStatus());
+      dispatch(chaoHaoDai.checkActiveResult());
+    }
   }
 }
 
-export default CertificationOutput(connect(mapStateToProps, mapDispatch)(trackingScene(CreditCardStatus)));
+export default connect(mapStateToProps, mapDispatch)(CertificationOutput(trackingScene(CreditCardStatus)));

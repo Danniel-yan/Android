@@ -17,18 +17,9 @@ export default class LoanButton extends Component {
     }
 
     render() {
-        var btnText = this.props.isIOSVerifying ? "立即查看" : "立即申请";
+        let btnText = this.props.isIOSVerifying ? "立即查看" : "立即申请";
+        btnText = this.props.btnText || btnText;
 
-        if (this.props.processing) {
-            return this._renderProcessing();
-        } else {
-            return this._renderView(btnText);
-        }
-
-
-    }
-
-    _renderView(btnText) {
         return (
             <View style={[{
                 position: "relative",
@@ -50,45 +41,22 @@ export default class LoanButton extends Component {
                     height: 90,
                     alignItems: 'center',
                     justifyContent: 'center',
+                    backgroundColor: "transparent",
                     zIndex: 1
                 }}>
-                    <Text
+                    {!this.props.processing ? <Text
                         style={[styles.loanButtonText, {
                             alignItems: 'center',
                             textAlign: 'center',
                             flex: 1
-                        }]}>{btnText}</Text></View>
-            </View>
-        );
-    }
 
-    _renderProcessing() {
-        return (
-            <View style={{position: "relative", flexDirection: "row"}} onPress={Keyboard.dismiss()}>
-                <Image
-                    style={{
-                        position: 'absolute',
-                        width: screenWidth - 30,
-                        height: 60,
-                        margin: 15,
-                        resizeMode: 'stretch',
-                        zIndex: -1
-                    }}
-                    source={require('assets/icons/button-lijishenqing.png')}/>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    height: 90,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1
-                }}>
-                    <ActivityIndicator
+                        }]}>{btnText}</Text> : <ActivityIndicator
                         animating={true}
                         style={defaultStyles.centering}
                         color={"#fff"}
                         size="small"
-                    /></View>
+                    />}
+                </View>
             </View>
         );
     }
