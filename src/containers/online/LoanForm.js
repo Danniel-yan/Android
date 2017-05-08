@@ -152,7 +152,6 @@ class LoanForm extends Component {
             />
           )
         }
-        
       </ScrollView>
     );
   }

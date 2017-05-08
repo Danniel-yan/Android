@@ -49,6 +49,7 @@ export default class LoanButton extends Component {
                             alignItems: 'center',
                             textAlign: 'center',
                             flex: 1
+
                         }]}>{btnText}</Text> : <ActivityIndicator
                         animating={true}
                         style={defaultStyles.centering}
