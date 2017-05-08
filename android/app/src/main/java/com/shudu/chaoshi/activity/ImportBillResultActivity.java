@@ -1,22 +1,14 @@
 package com.shudu.chaoshi.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.moxie.client.model.MxParam;
 import com.shudu.chaoshi.R;
-import com.shudu.chaoshi.util.Constants;
-
-import org.json.JSONObject;
 
 /**
  * Created by speakJ on 2017/3/30.
@@ -31,12 +23,10 @@ public class ImportBillResultActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        init();
-
         setContentView(R.layout.activity_importbill_result);
         initView();
-        resultData("支付宝账单导入", R.mipmap.ic_logo, "导入成功", View.VISIBLE);
-
+        resultData();
+        setListener();
     }
 
     private void initView() {
@@ -46,101 +36,34 @@ public class ImportBillResultActivity extends Activity {
         tv_result_importbill_title = (TextView) findViewById(R.id.tv_result_importbill_title);
     }
 
-    private void resultData(String title, int iv, String text, int isVisible) {
-        iv_result_importbill.setImageResource(iv);
-//        动态加载图
-//        Glide.with(this).load(R.drawable.loading).into(iv_result_importbill);
-        tv_result_importbill.setText(text);
-        btn_result_importbill.setVisibility(isVisible);
-        tv_result_importbill_title.setText(title);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case RESULT_OK:
-
-                Bundle b = data.getExtras();              //data为B中回传的Intent
-                String result = b.getString("result");    //result即为回传的值(JSON格式)
-                Log.e("123", "result=" + result);
-                /**
-                 *  result的格式如下：
-                 *  1.1.没有进行账单导入(后台没有通知)
-                 *      {"code" : -1, "function" : "mail", "searchId" : "", "taskId" : "}
-                 *  1.2.服务不可用(后台没有通知)
-                 *      {"code" : -2, "function" : "mail", "searchId" : "", "taskId" : "}
-                 *  1.3.任务创建失败(后台没有通知)
-                 *      {"code" : -3, "function" : "mail", "searchId" : "", "taskId" : "}
-                 *  2.账单导入失败(后台有通知)
-                 *      {"code" : 0, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                 *  3.账单导入成功(后台有通知)
-                 *      {"code" : 1, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                 *  4.账单导入中(后台有通知)
-                 *      {"code" : 2, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                 */
-
-                if (TextUtils.isEmpty(result)) {
-                    Toast.makeText(ImportBillResultActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        int code = 0;
-                        String token = "8e289372f9f34c8fad6827a58a6f54b6";
-                        JSONObject jsonObject = new JSONObject(result);
-
-                        code = jsonObject.getInt("code");
-                        if (code == -1) {
-                            Toast.makeText(ImportBillResultActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
-                        } else if (code == 0) {
-                            Toast.makeText(ImportBillResultActivity.this, "导入失败!", Toast.LENGTH_SHORT).show();
-                        } else if (code == 1) {
-                            switch (jsonObject.getString("function")) {
-                                case "alipay":
-                                case "taobao":
-                                case "jingdong":
-                                    //支付宝、淘宝、京东导入
-                                    openWebViewResult("https://api.51datakey.com/h5/result/" + jsonObject.getString("function") + "/?mappingId=" + jsonObject.getString("searchId") + "&token=" + token);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            default:
-                break;
+    private void resultData() {
+        String type = getIntent().getStringExtra("actName");
+        int result = getIntent().getIntExtra("result", 0);
+        if (result == 0) {
+            tv_result_importbill.setText("导入失败");
+            if (type.equals(MxParam.PARAM_FUNCTION_ALIPAY)) {
+                iv_result_importbill.setImageResource(R.mipmap.ic_billalipay_fail);
+            } else {
+                iv_result_importbill.setImageResource(R.mipmap.ic_billjd_fail);
+            }
+        } else {
+            tv_result_importbill.setText("导入成功");
+            if (type.equals(MxParam.PARAM_FUNCTION_ALIPAY)) {
+                iv_result_importbill.setImageResource(R.mipmap.ic_billalipay_success);
+            } else {
+                iv_result_importbill.setImageResource(R.mipmap.ic_billjd_success);
+            }
         }
+
+        tv_result_importbill_title.setText(type.equals(MxParam.PARAM_FUNCTION_ALIPAY) ? "支付宝账单导入" : "京东账单导入");
     }
 
-    private void init() {
-        String mUserId = "userid_test";
-
-        String mAgreementUrl = "https://api.51datakey.com/h5/agreement.html"; //SDK里显示的用户使用协议
-
-        MxParam mxParam = new MxParam();
-        mxParam.setUserId(mUserId);
-        mxParam.setApiKey(Constants.MOXIE_APIKEY);
-        mxParam.setAgreementUrl(mAgreementUrl); // SDK里显示的用户使用协议
-        mxParam.setFunction(getIntent().getStringExtra("name")); // 功能名
-        mxParam.setQuitOnFail(MxParam.PARAM_COMMON_YES); // 爬取失败时是否退出SDK(登录阶段之后)
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("param", mxParam);
-        Intent intent = new Intent(ImportBillResultActivity.this, com.moxie.client.MainActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 0);
-
+    private void setListener() {
+        btn_result_importbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
-
-    private void openWebViewResult(String str) {
-        Log.d("123", str);
-        Intent intent = new Intent();
-        intent.putExtra("urlStr", str);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
 }

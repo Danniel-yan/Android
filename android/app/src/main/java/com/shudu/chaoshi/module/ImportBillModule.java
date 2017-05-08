@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
@@ -15,6 +14,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.moxie.client.model.MxParam;
+import com.shudu.chaoshi.activity.ImportBillResultActivity;
 import com.shudu.chaoshi.util.Constants;
 
 import org.json.JSONObject;
@@ -27,6 +27,7 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     private Context mContext;
     private static final String MODULE_NAME = "ImportBillModule";
     private Promise mPromise;
+    private String actName;
 
     private final ActivityEventListener myActivityEventListener = new ActivityEventListener() {
         @Override
@@ -58,7 +59,11 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
                             code = jsonObject.getInt("code");
                             if (code == -1) {
                             } else if (code == 0) {
-                                Toast.makeText(mContext, "导入失败!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(mContext,
+                                        ImportBillResultActivity.class);
+                                intent.putExtra("actName", actName);
+                                intent.putExtra("result", 0);
+                                getCurrentActivity().startActivity(intent);
                             } else if (code == 1) {
                                 switch (jsonObject.getString("function")) {
                                     case "alipay":
@@ -69,6 +74,10 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
                                     default:
                                         break;
                                 }
+                                Intent intent = new Intent(mContext,
+                                        ImportBillResultActivity.class);
+                                intent.putExtra("type", actName);
+                                intent.putExtra("result", 1);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -102,16 +111,18 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void importJingdongBill(String userId, Promise promise) {
         mPromise = promise;
-        toActivity(userId, MxParam.PARAM_FUNCTION_JINGDONG);
+        actName = MxParam.PARAM_FUNCTION_JINGDONG;
+        toActivity(userId);
     }
 
     @ReactMethod
     public void importAlipayBill(String userId, Promise promise) {
         mPromise = promise;
-        toActivity(userId, MxParam.PARAM_FUNCTION_ALIPAY);
+        actName = MxParam.PARAM_FUNCTION_ALIPAY;
+        toActivity(userId);
     }
 
-    private void toActivity(String userId, String actName) {
+    private void toActivity(String userId) {
         String mUserId = userId;
 
         String mAgreementUrl = "https://api.51datakey.com/h5/agreement.html"; //SDK里显示的用户使用协议
