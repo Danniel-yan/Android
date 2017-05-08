@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
@@ -76,7 +75,7 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
                                 }
                                 Intent intent = new Intent(mContext,
                                         ImportBillResultActivity.class);
-                                intent.putExtra("type", actName);
+                                intent.putExtra("actName", actName);
                                 intent.putExtra("result", 1);
                                 getCurrentActivity().startActivity(intent);
                             }
