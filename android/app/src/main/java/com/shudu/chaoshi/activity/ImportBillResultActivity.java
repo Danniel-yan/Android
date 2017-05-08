@@ -55,7 +55,7 @@ public class ImportBillResultActivity extends Activity {
             }
         }
 
-        tv_result_importbill_title.setText(type.equals(MxParam.PARAM_FUNCTION_ALIPAY) ? "支付宝账单导入" : "京东账单导入");
+        tv_result_importbill_title.setText(type.equals(MxParam.PARAM_FUNCTION_ALIPAY) ? "支付宝认证" : "京东认证");
     }
 
     private void setListener() {
