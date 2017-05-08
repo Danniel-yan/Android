@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, NativeModules } from 'react-native';
 import * as constants from 'constants';
 import { get, post, mock, responseStatus } from 'utils/fetch';
 
@@ -9,8 +9,8 @@ function applyStatus() {
     if(loanType != constants.loanType.chaohaodaicard) return;
 
     dispatch({type: "RequestCHDApplyStatus"});
-    // return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
-    return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
+    return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
+    // return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
         dispatch({type: "ReceiveCHDApplyStatus", data: response.data});
       }
@@ -25,8 +25,8 @@ function checkActiveResult() {
     if(loanType != constants.loanType.chaohaodaicard) return;
 
     dispatch({type: "RequestCHDActiveResult"});
-    // return mock("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
-    return post("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
+    return mock("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
+    // return post("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
         dispatch({type: "ReceiveCHDActiveResult", data: response.data});
       }
@@ -34,4 +34,41 @@ function checkActiveResult() {
   };
 }
 
-export default { applyStatus, checkActiveResult }
+const JumpFuncDir = {
+  "jd": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importJingdongBill : null,
+  "alipay": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importAlipayBill : null
+}
+
+function JumpNativeScene(targetKey, state) {
+    var JumpFunc = JumpFuncDir[targetKey];
+    var id = state.loginUser && state.loginUser.info ? state.loginUser.info.id : null;
+    // id = "mockid123";
+    if(!JumpFunc || !id) return null;
+    return JumpFunc(id); 
+}
+
+function taskLogin(task_id) {
+  return ( dispatch, getState ) => {
+    var state = getState(), loanType = state ? state.online.loanType.type : null;
+    return post({ loan_type: loanType, task_id });
+  }
+}
+
+function jumpJdNativeScene() {
+  return ( dispatch, getState ) => {
+    return Promise.resolve(JumpNativeScene("jd", getState())).then(task_id => {
+      console.log("TASKID: " + task_id);
+      task_id && dispatch(taskLogin(task_id));
+    });
+  }
+}
+
+function jumpAlipyNativeScene() {
+  return ( dispatch, getState ) => {
+    return Promise.resolve(JumpNativeScene("alipay", getState()));
+  }
+}
+
+
+
+export default { applyStatus, checkActiveResult, jumpJdNativeScene, jumpAlipyNativeScene }

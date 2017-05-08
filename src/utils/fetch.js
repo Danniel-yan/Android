@@ -5,7 +5,7 @@ import DeviceInfo from 'react-native-device-info';
 import alert from './alert';
 
 export const responseStatus = { failure: 0, success: 1 }
-export const defaultApiVersion = Platform.OS == 'ios' ? '0.3' : '0.6';
+export const defaultApiVersion = Platform.OS == 'ios' ? '0.6' : '0.6';
 
 export const loanEntryClose = false;
 

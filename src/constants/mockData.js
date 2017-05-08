@@ -123,8 +123,8 @@ export const mockData = {
     "res": 1,
     "data": {
         "bank_wap":0, //0 = 未认证,1 = 认证中,2 = 已认证,3 = 认证失败,4 = 已过期
-        "gjj":0,
-        "yys":0,
+        "gjj":2,
+        "yys":2,
         "alipay":0,
         "jd":0,
         "idscore":0,

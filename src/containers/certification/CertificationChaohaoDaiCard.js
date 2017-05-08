@@ -11,23 +11,34 @@ const JumpFuncDir = {
   "alipay": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importAlipayBill : null
 }
 
-function StatusItemComponent({isFetching, icon, title, style, routeParams, vertical, statusKey, statuses, nativeJumpKey}) {
-  verified = (statusKey && statuses ? statuses[statusKey] == 2 : null);
+const statusItemConfigs = {
+  "bank_wap": { icon: require("assets/online/chd/card.png"), title: "信用卡认证", vertical: false },
+  "alipay": { icon: require("assets/online/chd/alipay.png"), title: "支付宝认证", vertical: false },
+  "yys": { icon: require("assets/online/chd/yys.png"), title: "运营商认证", vertical: false },
+  "idscore": { icon: require("assets/online/chd/idscore.png"), title: "身份证认证", vertical: false },
+  "jd": { icon: require("assets/online/chd/jd.png"), title: "京东账单", vertical: true },
+  "gjj": { icon: require("assets/online/chd/gjj.png"), title: "公积金账单", vertical: true },
+}
 
-  let ExternalPushComponent = nativeJumpKey ? TouchableOpacity : ExternalPushLink;
-  let jumpFunc = nativeJumpKey && statusKey ? JumpFuncDir[statusKey] : null
+function StatusItemComponent({statusKey, ...props}) {
+  var { icon, title, vertical } = statusItemConfigs[statusKey];
+  var { isFetching } = props; var { style } = props;
+  var verified = (statusKey && props.statuses ? props.statuses[statusKey] == 2 : null);
+
+  let JumpComponent = props.routeParams && props.routeParams.toKey ? ExternalPushLink : TouchableOpacity;
+  let onPress = props.onPress;
 
   return vertical ? (
-      <ExternalPushComponent style={style} disabled={verified} onPress={() => { jumpFunc && jumpFunc() }} {...routeParams} >
+      <JumpComponent style={style} disabled={verified} onPress={() => { onPress && onPress() }} {...props.routeParams} >
         <Image source={icon} style={{width: 49, height: 49, marginBottom:5}}></Image>
         <Text style={{fontSize: fontSize.xsmall, marginBottom: 14}}>{title}</Text>
         {isFetching ? 
           <ActivityIndicator animating={true} style={centering} color={"#FF7429"} size="small" /> : 
           <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{verified ? "已认证" : "去认证"}</Text></View>
         }
-      </ExternalPushComponent>
+      </JumpComponent>
     ) : (
-      <ExternalPushComponent style={style} disabled={verified} onPress={() => { jumpFunc && jumpFunc() }} {...routeParams} >
+      <JumpComponent style={style} disabled={verified} onPress={() => { onPress && onPress() }} {...props.routeParams} >
         <Image source={icon} style={styles.img}></Image>
         <Text style={styles.txt}>{title}</Text>
         {
@@ -35,7 +46,7 @@ function StatusItemComponent({isFetching, icon, title, style, routeParams, verti
           <ActivityIndicator animating={true} style={centering} color={"#FF7429"} size="small" /> : 
           <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{verified ? "已认证" : "去认证"}</Text></View>
         }
-      </ExternalPushComponent>
+      </JumpComponent>
     );
 }
 
@@ -92,16 +103,16 @@ class CertificationChaohaoDaiCard extends Component {
           <PreLoanPanel isFetching={preloanStatus.isFetching} {...preloanData} />
           
           <View style={[{marginTop: 8, paddingHorizontal: 10}, styles.bg, styles.borderBtm]}>
-            <StatusItem style={[styles.itemWrap, styles.borderBtm]} icon={require("assets/online/chd/card.png")} title="信用卡认证" statusKey="bank_wap" routeParams={{
+            <StatusItem statusKey="bank_wap" style={[styles.itemWrap, styles.borderBtm]} routeParams={{
               tracking: {key: "inhouse_loan", topic: "certification", entity: "bill", exten_info: JSON.stringify({title: this.props.title})},
               title:"信用卡认证", toKey:"OnlineCreditCards"
             }}/>
-            <StatusItem style={[styles.itemWrap, styles.borderBtm]} icon={require("assets/online/chd/alipay.png")} title="支付宝认证" statusKey="alipay" nativeJumpKey={true} />
-            <StatusItem style={[styles.itemWrap, styles.borderBtm]} icon={require("assets/online/chd/yys.png")} title="运营商认证" statusKey="yys" routeParams={{
+            <StatusItem statusKey="alipay" style={[styles.itemWrap, styles.borderBtm]} onPress={() => this.props.alipayJump && this.props.alipayJump()} />
+            <StatusItem statusKey="yys" style={[styles.itemWrap, styles.borderBtm]} routeParams={{
               tracking: {key: "inhouse_loan", topic: "certification", entity: "telecom", exten_info: JSON.stringify({title: this.props.title})},
               title:"运营商认证", toKey:"OnlineYysForm"
             }}/>
-            <StatusItem style={[styles.itemWrap]} icon={require("assets/online/chd/idscore.png")} title="身份证认证" statusKey="idscore" routeParams={{
+            <StatusItem statusKey="idscore" style={[styles.itemWrap]} routeParams={{
               title:"借款申请", toKey:"OnlineLoanForm", componentProps: { amount: preloanData ? preloanData.sug_loan_amount : null, refetchingStatus: this.props.fetching.bind(this) }
             }}/>
           </View>
@@ -115,8 +126,8 @@ class CertificationChaohaoDaiCard extends Component {
             <View><Text numberOfLines={2} style={{color: "#FF7429", fontSize: fontSize.normal}}>提供更多材料，能提高30%的贷款成功率，还可以享受更高额度更低利率！</Text></View>
           </View>
           <View style={[{paddingVertical: 15, flexDirection: "row"}, styles.bg]}>
-            <StatusItem style={{flex: 1, alignItems: "center", ...border("right")}} icon={require("assets/online/chd/jd.png")} title="京东账单" statusKey="jd" vertical={true} nativeJumpKey={true}/>
-            <StatusItem style={{flex: 1, alignItems: "center"}} icon={require("assets/online/chd/gjj.png")} title="公积金账单" statusKey="gjj" vertical={true} routeParams={{
+            <StatusItem statusKey="jd" style={{flex: 1, alignItems: "center", ...border("right")}} onPress={() => this.props.jdJump && this.props.jdJump()} />
+            <StatusItem statusKey="gjj" style={{flex: 1, alignItems: "center"}} routeParams={{
               tracking: {key: "inhouse_loan", topic: "certification", entity: "PAF", exten_info: JSON.stringify({title: this.props.title})},
               title:"公积金认证", toKey:"FundLogin"
             }}/>
@@ -202,7 +213,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(chaoHaoDai.checkActiveResult());
     },
     fetchApplyStatus: () => dispatch(chaoHaoDai.applyStatus()),
-    fetchCheckActiveResult: () => dispatch(chaoHaoDai.checkActiveResult())
+    fetchCheckActiveResult: () => dispatch(chaoHaoDai.checkActiveResult()),
+    jdJump: () => dispatch(chaoHaoDai.jumpJdNativeScene()),
+    alipayJump: () => dispatch(chaoHaoDai.jumpAlipyNativeScene())
   };
 }
 
