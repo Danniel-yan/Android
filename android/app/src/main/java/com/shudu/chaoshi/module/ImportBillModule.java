@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
@@ -76,15 +75,15 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
                                 }
                                 Intent intent = new Intent(mContext,
                                         ImportBillResultActivity.class);
-                                intent.putExtra("type", actName);
+                                intent.putExtra("actName", actName);
                                 intent.putExtra("result", 1);
+                                getCurrentActivity().startActivity(intent);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                     mPromise.resolve(taskId);
-                    Log.d("iiii", taskId);
                     break;
                 default:
                     break;
@@ -124,7 +123,6 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
 
     private void toActivity(String userId) {
         String mUserId = userId;
-
         String mAgreementUrl = "https://api.51datakey.com/h5/agreement.html"; //SDK里显示的用户使用协议
 
         MxParam mxParam = new MxParam();

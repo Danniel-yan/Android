@@ -16,7 +16,7 @@ import com.shudu.chaoshi.R;
 
 public class ImportBillResultActivity extends Activity {
 
-    private ImageView iv_result_importbill;
+    private ImageView iv_result_importbill, iv_back;
     private TextView tv_result_importbill, tv_result_importbill_title;
     private Button btn_result_importbill;
 
@@ -30,6 +30,7 @@ public class ImportBillResultActivity extends Activity {
     }
 
     private void initView() {
+        iv_back = (ImageView) findViewById(R.id.iv_result_importbill_back);
         iv_result_importbill = (ImageView) findViewById(R.id.iv_result_importbill);
         tv_result_importbill = (TextView) findViewById(R.id.tv_result_importbill);
         btn_result_importbill = (Button) findViewById(R.id.btn_result_importbill);
@@ -46,6 +47,7 @@ public class ImportBillResultActivity extends Activity {
             } else {
                 iv_result_importbill.setImageResource(R.mipmap.ic_billjd_fail);
             }
+            btn_result_importbill.setText("重新导入");
         } else {
             tv_result_importbill.setText("导入成功");
             if (type.equals(MxParam.PARAM_FUNCTION_ALIPAY)) {
@@ -53,12 +55,19 @@ public class ImportBillResultActivity extends Activity {
             } else {
                 iv_result_importbill.setImageResource(R.mipmap.ic_billjd_success);
             }
+            btn_result_importbill.setText("完成");
         }
 
-        tv_result_importbill_title.setText(type.equals(MxParam.PARAM_FUNCTION_ALIPAY) ? "支付宝账单导入" : "京东账单导入");
+        tv_result_importbill_title.setText(type.equals(MxParam.PARAM_FUNCTION_ALIPAY) ? "支付宝认证" : "京东认证");
     }
 
     private void setListener() {
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btn_result_importbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
