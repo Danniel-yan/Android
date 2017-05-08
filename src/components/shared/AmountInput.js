@@ -32,7 +32,6 @@ export default class AmountInput extends Component {
                           this.setState({text: formater100000(text)})
                         }} value={this.state.text}
                         ref={component => this._textInput = component}
-
                     ></Input></View>
                 <View style={[AIStyle.btnWrap]}>
                     <Button
