@@ -12,7 +12,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/btn_back"
+            android:src="@mipmap/btn_back"
             android:paddingLeft="10dp"
             />
         <TextView
@@ -26,23 +26,17 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#999999"/>
     <ImageView
         android:id="@+id/iv_result_importbill"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="85dp"
-        android:src="@mipmap/ic_logo" />
+        android:layout_marginTop="85dp" />
 
     <TextView
         android:id="@+id/tv_result_importbill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="导入结果"
         android:textColor="#333333"
         android:textSize="17dp" />
 
@@ -55,7 +49,6 @@
         android:layout_marginTop="75dp"
         android:background="@drawable/shape"
         android:gravity="center"
-        android:text="重新导入"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 </LinearLayout>

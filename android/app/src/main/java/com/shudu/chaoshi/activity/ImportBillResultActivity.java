@@ -22,7 +22,7 @@ import org.json.JSONObject;
  * Created by speakJ on 2017/3/30.
  */
 
-public class ImportBillActivity extends Activity {
+public class ImportBillResultActivity extends Activity {
 
     private ImageView iv_result_importbill;
     private TextView tv_result_importbill, tv_result_importbill_title;
@@ -81,7 +81,7 @@ public class ImportBillActivity extends Activity {
                  */
 
                 if (TextUtils.isEmpty(result)) {
-                    Toast.makeText(ImportBillActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ImportBillResultActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         int code = 0;
@@ -90,9 +90,9 @@ public class ImportBillActivity extends Activity {
 
                         code = jsonObject.getInt("code");
                         if (code == -1) {
-                            Toast.makeText(ImportBillActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ImportBillResultActivity.this, "用户没有进行导入操作!", Toast.LENGTH_SHORT).show();
                         } else if (code == 0) {
-                            Toast.makeText(ImportBillActivity.this, "导入失败!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ImportBillResultActivity.this, "导入失败!", Toast.LENGTH_SHORT).show();
                         } else if (code == 1) {
                             switch (jsonObject.getString("function")) {
                                 case "alipay":
@@ -129,7 +129,7 @@ public class ImportBillActivity extends Activity {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("param", mxParam);
-        Intent intent = new Intent(ImportBillActivity.this, com.moxie.client.MainActivity.class);
+        Intent intent = new Intent(ImportBillResultActivity.this, com.moxie.client.MainActivity.class);
         intent.putExtras(bundle);
         startActivityForResult(intent, 0);
 
