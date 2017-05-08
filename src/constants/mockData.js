@@ -117,6 +117,8 @@ export const mockData = {
         "blacklist_result": 1 //status=2时，并且订单是黑名单查询订单时，有此字段，0=待查询，1=命中黑名单，2=未命中黑名单
     }
   },
+
+  
   "/loanctcf/check-apply-status": {
     "res": 1,
     "data": {

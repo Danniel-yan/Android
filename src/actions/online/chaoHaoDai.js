@@ -9,8 +9,8 @@ function applyStatus() {
     if(loanType != constants.loanType.chaohaodaicard) return;
 
     dispatch({type: "RequestCHDApplyStatus"});
-    return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
-    // return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
+    // return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
+    return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
         dispatch({type: "ReceiveCHDApplyStatus", data: response.data});
       }
@@ -25,8 +25,8 @@ function checkActiveResult() {
     if(loanType != constants.loanType.chaohaodaicard) return;
 
     dispatch({type: "RequestCHDActiveResult"});
-    return mock("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
-    // return post("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
+    // return mock("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
+    return post("/loanctcf/check-alive-result", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
         dispatch({type: "ReceiveCHDActiveResult", data: response.data});
       }

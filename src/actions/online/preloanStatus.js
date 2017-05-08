@@ -7,8 +7,8 @@ export default function() {
 
     dispatch({type: 'requestPreloanStatus'});
 
-    var fetchMethod = loan_type == 4 ? mock : post;
-    // var fetchMethod = false ? mock : post;
+    // var fetchMethod = loan_type == 4 ? mock : post;
+    var fetchMethod = false ? mock : post;
     return fetchMethod('/loanctcf/check-preloan', {loan_type}).then(response => {
       if(response.res == responseStatus.success) {
         dispatch({type: 'receivePreloanStatus', status: response.data})

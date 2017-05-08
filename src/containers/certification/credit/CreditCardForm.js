@@ -107,7 +107,7 @@ class CreditCardForm extends Component {
     var loanType = this.props.loanType || 0;
     body.loan_type = loanType;
     let fMethod = loanType == 4 ? mock : post;
-    return fMethod('/bill/bank-login', body).then(response => {
+    return post('/bill/bank-login', body).then(response => {
      if(this.unmount) { return }
 
      this.setState({submitting: false});
