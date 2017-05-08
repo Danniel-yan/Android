@@ -42,15 +42,15 @@ const JumpFuncDir = {
 function JumpNativeScene(targetKey, state) {
     var JumpFunc = JumpFuncDir[targetKey];
     var id = state.loginUser && state.loginUser.info ? state.loginUser.info.id : null;
-    // id = "mockid123";
+    id = "mockid123";
     if(!JumpFunc || !id) return null;
     return JumpFunc(id); 
 }
 
-function taskLogin(task_id) {
+function taskLogin(task_id, url) {
   return ( dispatch, getState ) => {
     var state = getState(), loanType = state ? state.online.loanType.type : null;
-    return post({ loan_type: loanType, task_id });
+    return post(url, { loan_type: loanType, task_id });
   }
 }
 
@@ -58,14 +58,14 @@ function jumpJdNativeScene() {
   return ( dispatch, getState ) => {
     return Promise.resolve(JumpNativeScene("jd", getState())).then(task_id => {
       console.log("TASKID: " + task_id);
-      task_id && dispatch(taskLogin(task_id));
+      task_id && dispatch(taskLogin(task_id, "/bill/jd-login"));
     });
   }
 }
 
 function jumpAlipyNativeScene() {
   return ( dispatch, getState ) => {
-    return Promise.resolve(JumpNativeScene("alipay", getState()));
+    return Promise.resolve(JumpNativeScene("alipay", getState())).then(task_id => { task_id && dispatch(taskLogin(task_id, "/bill/alipay-login")); });
   }
 }
 
