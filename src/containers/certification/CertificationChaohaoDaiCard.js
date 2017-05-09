@@ -210,10 +210,8 @@ function mapDispatchToProps(dispatch) {
     fetching: () => {
       dispatch(onlineActions.preloanStatus());
       dispatch(chaoHaoDai.applyStatus());
-      dispatch(chaoHaoDai.checkActiveResult());
     },
     fetchApplyStatus: () => dispatch(chaoHaoDai.applyStatus()),
-    fetchCheckActiveResult: () => dispatch(chaoHaoDai.checkActiveResult()),
     jdJump: () => dispatch(chaoHaoDai.jumpJdNativeScene()),
     alipayJump: () => dispatch(chaoHaoDai.jumpAlipyNativeScene())
   };

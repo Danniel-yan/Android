@@ -10,6 +10,7 @@ import { View,
 } from 'react-native';
 
 import onlineActions from 'actions/online';
+import chaoHaoDai from "actions/online/chaoHaoDai";
 
 import { responsive, border, fontSize, flexRow, rowContainer, container, colors, centering } from 'styles';
 import onlineStyles from './../styles';
@@ -153,7 +154,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchGjjResult: () => dispatch(onlineActions.gjjResult())
+    fetchGjjResult: () => dispatch(onlineActions.gjjResult()),
+    unMountFetching: () => {
+      dispatch(onlineActions.preloanStatus());
+      dispatch(chaoHaoDai.applyStatus());
+      dispatch(chaoHaoDai.checkActiveResult());
+    }
   };
 }
 

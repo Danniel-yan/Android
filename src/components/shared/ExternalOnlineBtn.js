@@ -70,6 +70,7 @@ function ExternalOnlineTransfer(ExternalComponent) {
       }
 
       if(status == 5) {
+        if(this.props.detail.loan_type == 4) return this.mergeProps({toKey: 'CertificationHome', title: '信息认证'});
         return this.mergeProps({toKey: 'OnlinePreloanSuccess', title: '预授信申请结果'});
       }
 

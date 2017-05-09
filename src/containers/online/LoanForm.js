@@ -263,7 +263,7 @@ import actions from 'actions/online';
 
 function mapStateToProps(state) {
   return {
-    // ...state.online.preloanStatus,
+    ...state.online.preloanStatus,
     // isFetching: state.online.userInfo.isFetching,
     // fetched: state.online.userInfo.fetched,
     userInfo: state.online.userInfo.data,
@@ -275,7 +275,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {
-      // dispatch(actions.preloanStatus())
+      dispatch(actions.preloanStatus())
       // dispatch(actions.userInfo())
     },
   }
