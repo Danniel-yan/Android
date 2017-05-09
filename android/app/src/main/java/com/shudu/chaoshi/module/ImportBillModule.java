@@ -27,12 +27,12 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     private static final String MODULE_NAME = "ImportBillModule";
     private Promise mPromise;
     private String actName;
-    private int REQUEST_ALIPAYJINGDONG = 100; // 银行卡识别
+
 
     private final ActivityEventListener myActivityEventListener = new ActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-            if(requestCode == REQUEST_ALIPAYJINGDONG && resultCode == Activity.RESULT_OK){
+            if(requestCode == Constants.REQUEST_ALIPAYJINGDONG && resultCode == Activity.RESULT_OK){
                 Bundle b = data.getExtras();              //data为B中回传的Intent
                 String result = b.getString("result");    //result即为回传的值(JSON格式)
                 /**
@@ -193,7 +193,7 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
         try {
             Intent intent = new Intent(mContext, com.moxie.client.MainActivity.class);
             intent.putExtras(bundle);
-            getCurrentActivity().startActivityForResult(intent, REQUEST_ALIPAYJINGDONG);
+            getCurrentActivity().startActivityForResult(intent, Constants.REQUEST_ALIPAYJINGDONG);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }

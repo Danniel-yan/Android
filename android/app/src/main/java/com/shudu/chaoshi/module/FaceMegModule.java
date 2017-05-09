@@ -19,6 +19,7 @@ import com.shudu.chaoshi.activity.FaceBankCardScanActivity;
 import com.shudu.chaoshi.activity.FaceIDCardScanActivity;
 import com.shudu.chaoshi.activity.FaceLivenessActivity;
 import com.shudu.chaoshi.util.Base64;
+import com.shudu.chaoshi.util.Constants;
 import com.shudu.chaoshi.util.SerializableHashMap;
 
 import java.io.UnsupportedEncodingException;
@@ -30,10 +31,6 @@ import java.io.UnsupportedEncodingException;
 public class FaceMegModule extends ReactContextBaseJavaModule {
     private Context mContext;
     private static final String MODULE_NAME = "FaceMegModule";
-    private int REQUEST_CODE = 1; // 银行卡识别
-    private int REQUEST_IDCARDFRONT = 2; // 身份证正面识别
-    private int REQUEST_IDCARDBACK = 3; // 身份证反面识别
-    private int REQUEST_FACELIVENESS = 4; // 人脸识别成功结果
 
     private Promise mPromise;
     private String strImage; // 身份证正反面照
@@ -42,7 +39,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
     private final ActivityEventListener mActivityEventListener = new ActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-            if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.REQUEST_BANKCARD && resultCode == Activity.RESULT_OK) {
                 String bankNum = data.getStringExtra("bankNum");
                 String bankcardBase64 = data.getStringExtra("bankcardBase64");
                 WritableArray writableArray = new WritableNativeArray();
@@ -51,7 +48,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 writableNativeMap.putString("value", bankNum);
                 writableNativeMap.putArray("images", writableArray);
                 mPromise.resolve(writableNativeMap);
-            } else if (requestCode == REQUEST_IDCARDFRONT && resultCode == Activity.RESULT_OK) {
+            } else if (requestCode == Constants.REQUEST_IDCARDFRONT && resultCode == Activity.RESULT_OK) {
                 byte[] idcardImgData = data.getByteArrayExtra("idcardImg");
                 byte[] portraitImg = data.getByteArrayExtra("portraitImg");
                 try {
@@ -68,7 +65,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 writableNativeMap.putString("value", "");
                 writableNativeMap.putArray("images", writableArray);
                 mPromise.resolve(writableNativeMap);
-            } else if (requestCode == REQUEST_IDCARDBACK && resultCode == Activity.RESULT_OK) {
+            } else if (requestCode == Constants.REQUEST_IDCARDBACK && resultCode == Activity.RESULT_OK) {
                 byte[] idcardImgData = data.getByteArrayExtra("idcardImg");
                 try {
                     strImage = new String(Base64.encode(idcardImgData), "utf-8");
@@ -81,7 +78,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                 writableNativeMap.putString("value", "");
                 writableNativeMap.putArray("images", writableArray);
                 mPromise.resolve(writableNativeMap);
-            } else if (requestCode == REQUEST_FACELIVENESS && resultCode == Activity.RESULT_OK) {
+            } else if (requestCode == Constants.REQUEST_FACELIVENESS && resultCode == Activity.RESULT_OK) {
                 try {
                     Bundle bundle = data.getExtras();
                     SerializableHashMap serializableHashMap = (SerializableHashMap) bundle.get("imagesMap");
@@ -128,7 +125,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
             // 身份证正面
             intent.putExtra("side", 0);
             intent.putExtra("isvertical", false);
-            getCurrentActivity().startActivityForResult(intent, REQUEST_IDCARDFRONT);
+            getCurrentActivity().startActivityForResult(intent, Constants.REQUEST_IDCARDFRONT);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }
@@ -144,7 +141,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
             // 身份证反面
             intent.putExtra("side", 1);
             intent.putExtra("isvertical", false);
-            getCurrentActivity().startActivityForResult(intent, REQUEST_IDCARDBACK);
+            getCurrentActivity().startActivityForResult(intent, Constants.REQUEST_IDCARDBACK);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }
@@ -159,7 +156,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
                     FaceBankCardScanActivity.class);
             intent.putExtra(Util.KEY_ISDEBUGE, false);
             intent.putExtra(Util.KEY_ISALLCARD, true);
-            getCurrentActivity().startActivityForResult(intent, REQUEST_CODE);
+            getCurrentActivity().startActivityForResult(intent, Constants.REQUEST_BANKCARD);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }
@@ -173,7 +170,7 @@ public class FaceMegModule extends ReactContextBaseJavaModule {
         try {
             Intent intent = new Intent(mContext,
                     FaceLivenessActivity.class);
-            getCurrentActivity().startActivityForResult(intent, REQUEST_FACELIVENESS);
+            getCurrentActivity().startActivityForResult(intent, Constants.REQUEST_FACELIVENESS);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }

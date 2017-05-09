@@ -57,6 +57,7 @@ import com.facebook.react.views.webview.events.TopLoadingErrorEvent;
 import com.facebook.react.views.webview.events.TopLoadingFinishEvent;
 import com.facebook.react.views.webview.events.TopLoadingStartEvent;
 import com.facebook.react.views.webview.events.TopMessageEvent;
+import com.shudu.chaoshi.util.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,14 +119,13 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
     WebView.PictureListener mPictureListener;
     private Context mContext;
 
-    public final static int FILECHOOSER_RESULTCODE = 1;
     public ValueCallback<Uri> mUploadMessage;
     public ValueCallback<Uri[]> mUploadMessageForAndroid5;
 
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
-            if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (requestCode == Constants.FILECHOOSER_RESULTCODE) {
 
                 Uri result = intent == null || resultCode != RESULT_OK ? null
                         : intent.getData();
@@ -419,7 +419,7 @@ public class NativeWebViewModule extends SimpleViewManager<WebView> {
                     final Intent galleryIntent = new Intent(Intent.ACTION_PICK);
                     galleryIntent.setType("image/*");
                     final Intent chooserIntent = Intent.createChooser(galleryIntent, "choose file");
-                    reactContext.getCurrentActivity().startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
+                    reactContext.getCurrentActivity().startActivityForResult(chooserIntent, Constants.FILECHOOSER_RESULTCODE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
