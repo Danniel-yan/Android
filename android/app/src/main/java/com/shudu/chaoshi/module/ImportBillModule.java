@@ -108,17 +108,19 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void importJingdongBill(String userId, Promise promise) {
+    public void importJingdongBill(int userId, Promise promise) {
+        String uuserId = String.valueOf(userId);
         mPromise = promise;
         actName = MxParam.PARAM_FUNCTION_JINGDONG;
-        toActivity(userId);
+        toActivity(uuserId);
     }
 
     @ReactMethod
-    public void importAlipayBill(String userId, Promise promise) {
+    public void importAlipayBill(int userId, Promise promise) {
+        String uuserId = String.valueOf(userId);
         mPromise = promise;
         actName = MxParam.PARAM_FUNCTION_ALIPAY;
-        toActivity(userId);
+        toActivity(uuserId);
     }
 
     private void toActivity(String userId) {
