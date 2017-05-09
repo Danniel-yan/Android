@@ -60,10 +60,10 @@ function PreLoanPanel({isFetching, sug_loan_amount, sug_term, interest_down, int
     <View>
       <View style={[{padding: 15}, styles.bg, styles.borderBtm]}>
             <View><Text style={{fontSize: fontSize.xlarge}}>预授信额度(元)：</Text></View>
-            <View style={{padding: 15}}>
+            <View style={{padding: 15, height: 60}}>
               {isFetching ? 
                 <ActivityIndicator animating={true} style={centering} color={"#FF7429"} size="small" /> : 
-                <Text style={{textAlign: "center", fontSize: 30, color: "#FF7429"}}>{sug_loan_amount}</Text>}
+                <Text style={{textAlign: "center", fontSize: 30, color: "#FF7429"}}>{sug_loan_amount || "10000"}</Text>}
             </View>
           </View>
           <View style={[{paddingHorizontal: 10, paddingVertical: 20}, styles.bg]}>
@@ -84,12 +84,30 @@ class CertificationChaohaoDaiCard extends Component {
   constructor(props) { 
     super(props);
     this.state = {
-      submitting: false, err: null
-    }
+      submitting: false, err: null,
+      isHeartBeat: false
+    };
+
+    this.hbFlag = null;
   }
 
   componentDidMount() {
     this.props.fetching && this.props.fetching();
+
+    this.setHBFetching();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.hbFlag);
+  }
+
+  setHBFetching() {
+    clearInterval(this.hbFlag);
+    
+    this.hbFlag = setInterval(() => {
+      this.isHeartBeat = true;
+      this.props.fetching && this.props.fetching();
+    }, 10000)
   }
 
   render() {
@@ -100,7 +118,7 @@ class CertificationChaohaoDaiCard extends Component {
     return (
       <ScrollView>
         <View style={{backgroundColor: "#F2F2F2"}}>
-          <PreLoanPanel isFetching={preloanStatus.isFetching} {...preloanData} />
+          <PreLoanPanel isFetching={preloanStatus.isFetching} {...preloanData}  />
           
           <View style={[{marginTop: 8, paddingHorizontal: 10}, styles.bg, styles.borderBtm]}>
             <StatusItem statusKey="bank_wap" style={[styles.itemWrap, styles.borderBtm]} routeParams={{
