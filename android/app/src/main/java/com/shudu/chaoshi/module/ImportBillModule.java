@@ -27,67 +27,121 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     private static final String MODULE_NAME = "ImportBillModule";
     private Promise mPromise;
     private String actName;
+    private int REQUEST_ALIPAYJINGDONG = 100; // 银行卡识别
 
     private final ActivityEventListener myActivityEventListener = new ActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    Bundle b = data.getExtras();              //data为B中回传的Intent
-                    String result = b.getString("result");    //result即为回传的值(JSON格式)
-                    /**
-                     *  result的格式如下：
-                     *  1.1.没有进行账单导入(后台没有通知)
-                     *      {"code" : -1, "function" : "mail", "searchId" : "", "taskId" : "}
-                     *  1.2.服务不可用(后台没有通知)
-                     *      {"code" : -2, "function" : "mail", "searchId" : "", "taskId" : "}
-                     *  1.3.任务创建失败(后台没有通知)
-                     *      {"code" : -3, "function" : "mail", "searchId" : "", "taskId" : "}
-                     *  2.账单导入失败(后台有通知)
-                     *      {"code" : 0, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                     *  3.账单导入成功(后台有通知)
-                     *      {"code" : 1, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                     *  4.账单导入中(后台有通知)
-                     *      {"code" : 2, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
-                     */
-                    String taskId = "";
-                    if (!TextUtils.isEmpty(result)) {
-                        try {
-                            int code = 0;
-                            JSONObject jsonObject = new JSONObject(result);
-                            code = jsonObject.getInt("code");
-                            if (code == -1) {
-                            } else if (code == 0) {
-                                Intent intent = new Intent(mContext,
-                                        ImportBillResultActivity.class);
-                                intent.putExtra("actName", actName);
-                                intent.putExtra("result", 0);
-                                getCurrentActivity().startActivity(intent);
-                            } else if (code == 1) {
-                                switch (jsonObject.getString("function")) {
-                                    case "alipay":
-                                    case "jingdong":
-                                        //支付宝、京东导入
-                                        taskId = jsonObject.optString("taskId");
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                Intent intent = new Intent(mContext,
-                                        ImportBillResultActivity.class);
-                                intent.putExtra("actName", actName);
-                                intent.putExtra("result", 1);
-                                getCurrentActivity().startActivity(intent);
+            if(requestCode == REQUEST_ALIPAYJINGDONG && resultCode == Activity.RESULT_OK){
+                Bundle b = data.getExtras();              //data为B中回传的Intent
+                String result = b.getString("result");    //result即为回传的值(JSON格式)
+                /**
+                 *  result的格式如下：
+                 *  1.1.没有进行账单导入(后台没有通知)
+                 *      {"code" : -1, "function" : "mail", "searchId" : "", "taskId" : "}
+                 *  1.2.服务不可用(后台没有通知)
+                 *      {"code" : -2, "function" : "mail", "searchId" : "", "taskId" : "}
+                 *  1.3.任务创建失败(后台没有通知)
+                 *      {"code" : -3, "function" : "mail", "searchId" : "", "taskId" : "}
+                 *  2.账单导入失败(后台有通知)
+                 *      {"code" : 0, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+                 *  3.账单导入成功(后台有通知)
+                 *      {"code" : 1, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+                 *  4.账单导入中(后台有通知)
+                 *      {"code" : 2, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+                 */
+                String taskId = "";
+                if (!TextUtils.isEmpty(result)) {
+                    try {
+                        int code = 0;
+                        JSONObject jsonObject = new JSONObject(result);
+                        code = jsonObject.getInt("code");
+                        if (code == -1) {
+                        } else if (code == 0) {
+                            Intent intent = new Intent(mContext,
+                                    ImportBillResultActivity.class);
+                            intent.putExtra("actName", actName);
+                            intent.putExtra("result", 0);
+                            getCurrentActivity().startActivity(intent);
+                        } else if (code == 1) {
+                            switch (jsonObject.getString("function")) {
+                                case "alipay":
+                                case "jingdong":
+                                    //支付宝、京东导入
+                                    taskId = jsonObject.optString("taskId");
+                                    break;
+                                default:
+                                    break;
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            Intent intent = new Intent(mContext,
+                                    ImportBillResultActivity.class);
+                            intent.putExtra("actName", actName);
+                            intent.putExtra("result", 1);
+                            getCurrentActivity().startActivity(intent);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    mPromise.resolve(taskId);
-                    break;
-                default:
-                    break;
+                }
+                mPromise.resolve(taskId);
             }
+//            switch (resultCode) {
+//                case Activity.RESULT_OK:
+//                    Bundle b = data.getExtras();              //data为B中回传的Intent
+//                    String result = b.getString("result");    //result即为回传的值(JSON格式)
+//                    /**
+//                     *  result的格式如下：
+//                     *  1.1.没有进行账单导入(后台没有通知)
+//                     *      {"code" : -1, "function" : "mail", "searchId" : "", "taskId" : "}
+//                     *  1.2.服务不可用(后台没有通知)
+//                     *      {"code" : -2, "function" : "mail", "searchId" : "", "taskId" : "}
+//                     *  1.3.任务创建失败(后台没有通知)
+//                     *      {"code" : -3, "function" : "mail", "searchId" : "", "taskId" : "}
+//                     *  2.账单导入失败(后台有通知)
+//                     *      {"code" : 0, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+//                     *  3.账单导入成功(后台有通知)
+//                     *      {"code" : 1, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+//                     *  4.账单导入中(后台有通知)
+//                     *      {"code" : 2, "function" : "mail", "searchId" : "3550622685459407187", "taskId" : "ce6b3806-57a2-4466-90bd-670389b1a112"}
+//                     */
+//                    String taskId = "";
+//                    if (!TextUtils.isEmpty(result)) {
+//                        try {
+//                            int code = 0;
+//                            JSONObject jsonObject = new JSONObject(result);
+//                            code = jsonObject.getInt("code");
+//                            if (code == -1) {
+//                            } else if (code == 0) {
+//                                Intent intent = new Intent(mContext,
+//                                        ImportBillResultActivity.class);
+//                                intent.putExtra("actName", actName);
+//                                intent.putExtra("result", 0);
+//                                getCurrentActivity().startActivity(intent);
+//                            } else if (code == 1) {
+//                                switch (jsonObject.getString("function")) {
+//                                    case "alipay":
+//                                    case "jingdong":
+//                                        //支付宝、京东导入
+//                                        taskId = jsonObject.optString("taskId");
+//                                        break;
+//                                    default:
+//                                        break;
+//                                }
+//                                Intent intent = new Intent(mContext,
+//                                        ImportBillResultActivity.class);
+//                                intent.putExtra("actName", actName);
+//                                intent.putExtra("result", 1);
+//                                getCurrentActivity().startActivity(intent);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    mPromise.resolve(taskId);
+//                    break;
+//                default:
+//                    break;
+//            }
         }
 
         @Override
@@ -108,17 +162,19 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void importJingdongBill(String userId, Promise promise) {
+    public void importJingdongBill(int userId, Promise promise) {
+        String uuserId = String.valueOf(userId);
         mPromise = promise;
         actName = MxParam.PARAM_FUNCTION_JINGDONG;
-        toActivity(userId);
+        toActivity(uuserId);
     }
 
     @ReactMethod
-    public void importAlipayBill(String userId, Promise promise) {
+    public void importAlipayBill(int userId, Promise promise) {
+        String uuserId = String.valueOf(userId);
         mPromise = promise;
         actName = MxParam.PARAM_FUNCTION_ALIPAY;
-        toActivity(userId);
+        toActivity(uuserId);
     }
 
     private void toActivity(String userId) {
@@ -137,7 +193,7 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
         try {
             Intent intent = new Intent(mContext, com.moxie.client.MainActivity.class);
             intent.putExtras(bundle);
-            getCurrentActivity().startActivityForResult(intent, 0);
+            getCurrentActivity().startActivityForResult(intent, REQUEST_ALIPAYJINGDONG);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException("Could not open the activity : " + e.getMessage());
         }
