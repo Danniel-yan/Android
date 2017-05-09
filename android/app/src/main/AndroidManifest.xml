@@ -27,7 +27,7 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.WelcomeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -96,8 +96,10 @@
         <!-- shareSdk End -->
 
         <!-- moxie -->
-        <activity android:name="com.moxie.client.MainActivity">
-        </activity>
+        <activity
+            android:name="com.moxie.client.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
 
         <meta-data
@@ -108,8 +110,10 @@
             android:value="${JPUSH_APPKEY}" />
 
         <!-- baidu location -->
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="13u4u5j63dGFgu646OK9HbP0ZcWUPD5S" />
