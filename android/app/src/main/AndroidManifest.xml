@@ -117,6 +117,15 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="13u4u5j63dGFgu646OK9HbP0ZcWUPD5S" />
+        <!-- GrowingIO 启动圈选接口 -->
+        <intent-filter>
+            <data android:scheme="@string/growingio_url_scheme"/>
+            <action android:name="android.intent.action.VIEW"/>
+
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+        </intent-filter>
+        <!-- GrowingIO 启动圈选接口 -->
     </application>
 
 </manifest>
