@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.growingio.android'
 
 import com.android.build.OutputFile
 
@@ -101,6 +102,9 @@ android {
                 JPUSH_APPKEY:"5e61fb533cda920fb6b0718d",
                 APP_CHANNEL:"developer-default"
         ]
+
+        resValue("string", "growingio_project_id", "bdd2cb6510aceefa")
+        resValue("string", "growingio_url_scheme", "growing.f5e0c4d51acaa2e4")
     }
     signingConfigs {
         release {
@@ -175,6 +179,7 @@ dependencies {
     compile project(':react-native-device-info')
     compile project(':react-native-code-push')
     compile 'com.facebook.fresco:animated-gif:0.11.0'
+    compile 'com.growingio.android:vds-android-agent:0.9.103@aar'
     compile project(':iDCardLib')
     compile project(':bankCardLib')
     compile(name: 'alisdk-feedback-2.5.0', ext: 'aar')

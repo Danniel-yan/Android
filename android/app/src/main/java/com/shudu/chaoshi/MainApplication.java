@@ -9,6 +9,8 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.growingio.android.sdk.collection.Configuration;
+import com.growingio.android.sdk.collection.GrowingIO;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
 import com.shudu.chaoshi.util.ChannelUtil;
@@ -88,6 +90,10 @@ public class MainApplication extends Application implements ReactApplication {
         ToastHelper.init(mContext);
         IdCardInit.netWorkWarranty(mContext);
         FaceLivenessInit.netWorkWarranty(mContext);
+        GrowingIO.startWithConfiguration(this, new Configuration()
+                .useID()
+                .trackAllFragments()
+                .setChannel(channel));
     }
 
     public static final Context getMyApplicationContext() {
