@@ -114,7 +114,7 @@ class CertificationChaohaoDaiCard extends Component {
   render() {
     var { preloanStatus, applyStatus, activeResult } = this.props;
     var preloanData = preloanStatus.data;
-    var enable = true;
+    var enable = applyStatus.bank_wap == 2 && applyStatus.yys == 2 && applyStatus.alipay == 2 && applyStatus.idscore == 2;
 
     return (
       <ScrollView>
