@@ -5,6 +5,7 @@ import { ExternalPushLink } from 'containers/shared/Link';
 
 import onlineStyles from 'containers/online/styles';
 import { connect } from "react-redux";
+import { post } from 'utils/fetch';
 
 const JumpFuncDir = {
   "jd": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importJingdongBill : null,
@@ -113,7 +114,7 @@ class CertificationChaohaoDaiCard extends Component {
   render() {
     var { preloanStatus, applyStatus, activeResult } = this.props;
     var preloanData = preloanStatus.data;
-    var enable = false;
+    var enable = true;
 
     return (
       <ScrollView>
