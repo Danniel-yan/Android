@@ -132,7 +132,7 @@ class LoanForm extends Component {
           this.props.loanType == loanType.chaohaodaicard ? (
             <ExternalPopLink
               prePress={this._submitLoanForm.bind(this)}
-              disabled={!true}
+              disabled={!enable}
               style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
               textStyle={onlineStyles.btnText}
               text="完成提交"
@@ -221,6 +221,23 @@ class LoanForm extends Component {
   _submitLoanForm() {
     console.log("LoanForm: ");
     console.log(this.state.form);
+
+    this.setState({ error: '', submitting: true})
+
+    return post('/loanctcf/check-alive-result',  { loan_type: parseInt(this.props.loanType) } ).then(response => {
+
+      if(response.res == responseStatus.success) {
+        this.setState({ submitting: false })
+        return true;
+      }
+
+      throw response.msg
+    })
+      .catch((msg) => {
+        this.setState({ submitting: false, error: msg })
+        throw msg;
+      })
+
   }
 
   componentWillUnmount() {
@@ -260,23 +277,25 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
-
+import chaoHaoDai from "actions/online/chaoHaoDai";
 function mapStateToProps(state) {
+
   return {
     ...state.online.preloanStatus,
     // isFetching: state.online.userInfo.isFetching,
     // fetched: state.online.userInfo.fetched,
     userInfo: state.online.userInfo.data,
     loanType: state.online.loanType.type
-  };
+};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchStatus: () => dispatch(actions.status()),
     fetching: () => {
-      dispatch(actions.preloanStatus())
+      //dispatch(actions.preloanStatus());
       // dispatch(actions.userInfo())
+      //dispatch(chaoHaoDai.checkActiveResult());
     },
   }
 }
