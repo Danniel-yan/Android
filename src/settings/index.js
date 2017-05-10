@@ -25,6 +25,11 @@ export const environments = {
     id: 'chaohaodai',
     text: "钞好贷-信用卡",
     api: 'http://106.14.15.106:8001/'
+  },
+  cunguanhuidu: {
+    id: 'cuiguan',
+    text: '存管灰度',
+    api: 'http://106.14.116.29:8001'
   }
 };
 
