@@ -18,6 +18,8 @@ let apiParams = {
   dev_id: DeviceInfo.getUniqueID(),
   os_version: DeviceInfo.getSystemVersion(),
   os_type: Platform.OS == 'ios' ? 2 : 1,
+  phone_model: DeviceInfo.getModel(),
+  phone_brand: DeviceInfo.getBrand(),
 };
 let userToken;
 
