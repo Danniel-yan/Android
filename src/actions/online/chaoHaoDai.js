@@ -1,6 +1,15 @@
 import { AsyncStorage, NativeModules } from 'react-native';
 import * as constants from 'constants';
 import { get, post, mock, responseStatus } from 'utils/fetch';
+import preloan from "./preloan";
+
+// 
+function checkoutStateSuccess(originData, newData) {
+  var successed = false;
+  if(!originData || !newData) return false;
+  ["alipay", "jd", "idscore"].map((key) => { successed = successed || (newData[key] == 2 && newData[key] != originData[key]) });
+  return successed;
+}
 
 // 查询当前贷款产品资料提交状态 （当前仅loan_type=4的贷款产品有效）
 function applyStatus() {
@@ -12,6 +21,8 @@ function applyStatus() {
     // return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
     return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
+
+        state.online.applyStatus && checkoutStateSuccess(state.online.applyStatus.data, response.data) && dispatch(preloan());
         dispatch({type: "ReceiveCHDApplyStatus", data: response.data});
       }
     });

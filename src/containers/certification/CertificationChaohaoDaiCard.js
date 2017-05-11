@@ -7,6 +7,10 @@ import onlineStyles from 'containers/online/styles';
 import { connect } from "react-redux";
 import { post } from 'utils/fetch';
 
+const statusDir = {
+  0: "去认证", 1: "认证中", 2: "已认证", 3: "认证失败", 4: "已过期" 
+};
+
 const JumpFuncDir = {
   "jd": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importJingdongBill : null,
   "alipay": NativeModules.ImportBillModule ? NativeModules.ImportBillModule.importAlipayBill : null
@@ -25,27 +29,28 @@ function StatusItemComponent({statusKey, ...props}) {
   var { icon, title, vertical } = statusItemConfigs[statusKey];
   var { isFetching } = props; var { style } = props;
   var verified = (statusKey && props.statuses ? props.statuses[statusKey] == 2 : null);
+  var disabled = verified || (statusKey && props.statuses && props.statuses[statusKey] == 3);
 
   let JumpComponent = props.routeParams && props.routeParams.toKey ? ExternalPushLink : TouchableOpacity;
   let onPress = props.onPress;
 
   return vertical ? (
-      <JumpComponent style={style} disabled={verified} onPress={() => { onPress && onPress() }} {...props.routeParams} >
+      <JumpComponent style={style} disabled={disabled} onPress={() => { onPress && onPress() }} {...props.routeParams} >
         <Image source={icon} style={{width: 49, height: 49, marginBottom:5}}></Image>
         <Text style={{fontSize: fontSize.xsmall, marginBottom: 14}}>{title}</Text>
         {isFetching ? 
           <ActivityIndicator animating={true} style={centering} color={"#FF7429"} size="small" /> : 
-          <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{verified ? "已认证" : "去认证"}</Text></View>
+          <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{statusDir[props.statuses[statusKey]]}</Text></View>
         }
       </JumpComponent>
     ) : (
-      <JumpComponent style={style} disabled={verified} onPress={() => { onPress && onPress() }} {...props.routeParams} >
+      <JumpComponent style={style} disabled={disabled} onPress={() => { onPress && onPress() }} {...props.routeParams} >
         <Image source={icon} style={styles.img}></Image>
         <Text style={styles.txt}>{title}</Text>
         {
           isFetching ? 
           <ActivityIndicator animating={true} style={centering} color={"#FF7429"} size="small" /> : 
-          <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{verified ? "已认证" : "去认证"}</Text></View>
+          <View style={[styles.statusTag, verified ? { backgroundColor: "#fff" } : null]}><Text style={[styles.statusTxt, verified ? { color: "#FF5D4B" } : null]}>{statusDir[props.statuses[statusKey]]}</Text></View>
         }
       </JumpComponent>
     );
@@ -114,7 +119,7 @@ class CertificationChaohaoDaiCard extends Component {
   render() {
     var { preloanStatus, applyStatus, activeResult } = this.props;
     var preloanData = preloanStatus.data;
-    var enable = applyStatus.bank_wap == 2 && applyStatus.yys == 2 && applyStatus.alipay == 2 && applyStatus.idscore == 2;
+    var enable = applyStatus && applyStatus.bank_wap == 2 && applyStatus.yys == 2 && applyStatus.alipay == 2 && applyStatus.idscore == 2;
 
     return (
       <ScrollView>
