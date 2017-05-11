@@ -63,6 +63,7 @@ function ExternalOnlineTransfer(ExternalComponent) {
       // 预授信失败
       if(status == 4) {
         return this.mergeProps({ toKey: 'OnlinePreloanFailure', title: '预授信申请结果' });
+        // if(this.props.detail.loan_type == 4) return this.mergeProps({toKey: 'CertificationHome', title: '信息认证'});
       }
 
       if(status == 5 && time_expire_status == 1) {

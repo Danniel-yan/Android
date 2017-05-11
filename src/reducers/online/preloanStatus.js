@@ -9,7 +9,7 @@ const initState = {
 export default function(state = initState, action) {
   switch(action.type) {
     case 'requestPreloanStatus':
-      return initState;
+      return Object.assign({}, state, { isFetching: true, fetched: false });
     case 'receivePreloanStatus':
       return Object.assign({}, state, { isFetching: false, fetched: true, ...action.status});
     default: 

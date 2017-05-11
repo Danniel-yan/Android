@@ -2,6 +2,7 @@ import { AsyncStorage, NativeModules } from 'react-native';
 import * as constants from 'constants';
 import { get, post, mock, responseStatus } from 'utils/fetch';
 import preloan from "./preloan";
+import preloanStatus from './preloanStatus';
 
 // 
 function checkoutStateSuccess(originData, newData) {
@@ -79,7 +80,5 @@ function jumpAlipyNativeScene() {
     return Promise.resolve(JumpNativeScene("alipay", getState())).then(task_id => { task_id && dispatch(taskLogin(task_id, "/bill/alipay-login")); });
   }
 }
-
-
 
 export default { applyStatus, checkActiveResult, jumpJdNativeScene, jumpAlipyNativeScene }

@@ -13,7 +13,7 @@ export default function() {
       if(response.res == responseStatus.success) {
         dispatch({type: 'receivePreloanStatus', status: response.data})
       }
-
+      return response;
     })
   }
 

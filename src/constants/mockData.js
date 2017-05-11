@@ -1,9 +1,8 @@
 const applyFree = true;
 const withoutCardBind = true;
 
-export const mockData = null;
-
-const mockDataTest = {
+// const mockDataTest = {
+export const mockData ={
   '/blacklist/check-free': {
     "res": 1,
     "data": {
@@ -212,5 +211,9 @@ const mockDataTest = {
             "is_expire": 1,//是否已过期，0=没过期，1=已过期
         }
       ]
+  },
+  "/loanctcf/check-creditcard-result": {
+      "res": 1,
+    "data": {}
   }
 }

@@ -3,6 +3,7 @@ import { post, get, mock, responseStatus, loanEntryClose } from 'utils/fetch';
 import getBillList from './billList';
 import banks from './banks';
 import preloan from './preloan';
+import preloanStatus from './preloanStatus';
 
 
 
@@ -24,11 +25,23 @@ export default function(body) {
       if(billData.billStatus.status !== "success") return dispatch(billData.billStatus);
       return checkBillFilter(loanType).then(res => {
         console.log("BillFilterStatus: ", res.status);
-        if(loanType == 4 && res.status == "success") dispatch(preloan());
+        if(loanType == 4 && res.status == "success") return dispatch(chaohaodaiCreditCardPreLoan());
         return dispatch(res);
       });
     })
   }
+}
+
+function chaohaodaiCreditCardPreLoan() {
+  return ( dispatch, getState ) => {
+    dispatch(preloan()).then(responseData => { 
+      if(responseData.res == responseStatus.success) {
+        dispatch(preloanStatus());
+        return dispatch(success());
+      }
+      return dispatch(failure());
+    })
+  };
 }
 
 function checkBillFilter(loan_type) {

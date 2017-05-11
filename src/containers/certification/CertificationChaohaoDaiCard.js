@@ -7,6 +7,8 @@ import onlineStyles from 'containers/online/styles';
 import { connect } from "react-redux";
 import { post } from 'utils/fetch';
 
+import { hbFlag, hbFetchingStatus, clearHbFetching } from 'actions/online/hBFetchingCHDStatus';
+
 const statusDir = {
   0: "去认证", 1: "认证中", 2: "已认证", 3: "认证失败", 4: "已过期" 
 };
@@ -59,7 +61,9 @@ function StatusItemComponent({statusKey, ...props}) {
 const StatusItem = connect(state => { return { 
   "statuses": state.online.chaoHaoDai.applyStatus.data,
   "isFetching": state.online.chaoHaoDai.applyStatus.isFetching
-}}, null)(StatusItemComponent);
+}}, dispatch => {
+  return { clearHbFetching: () => clearHbFetching() }
+})(StatusItemComponent);
 
 function PreLoanPanel({isFetching, sug_loan_amount, sug_term, interest_down, interest_up,  ...props}) {
   return (
@@ -104,16 +108,11 @@ class CertificationChaohaoDaiCard extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.hbFlag);
+    this.props.clearHbFetching && this.props.clearHbFetching();
   }
 
   setHBFetching() {
-    clearInterval(this.hbFlag);
-    
-    this.hbFlag = setInterval(() => {
-      this.isHeartBeat = true;
-      this.props.fetching && this.props.fetching();
-    }, 10000)
+    this.props.hbFetchingStatus && this.props.hbFetchingStatus()
   }
 
   render() {
@@ -229,15 +228,22 @@ function mapStateToProps(state) {
 import onlineActions from 'actions/online';
 import chaoHaoDai from "actions/online/chaoHaoDai";
 
+
 function mapDispatchToProps(dispatch) {
   return {
     fetching: () => {
       dispatch(onlineActions.preloanStatus());
       dispatch(chaoHaoDai.applyStatus());
     },
+    hbFetchingStatus: ()=> dispatch(hbFetchingStatus()),
+    clearHbFetching: () => clearHbFetching(),
     fetchApplyStatus: () => dispatch(chaoHaoDai.applyStatus()),
-    jdJump: () => dispatch(chaoHaoDai.jumpJdNativeScene()),
-    alipayJump: () => dispatch(chaoHaoDai.jumpAlipyNativeScene())
+    jdJump: () => {
+      dispatch(chaoHaoDai.jumpJdNativeScene());
+    },
+    alipayJump: () => {
+      dispatch(chaoHaoDai.jumpAlipyNativeScene());
+    }
   };
 }
 
