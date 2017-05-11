@@ -12,60 +12,60 @@ import com.android.build.OutputFile
  * and their defaults. If you decide to add a configuration block, make sure to add it before the
  * `apply from: "../../node_modules/react-native/react.gradle"` line.
  *
-**/
-  project.ext.react = [
-    // the name of the generated asset file containing your JS bundle
-    bundleAssetName: "index.android.bundle",
- 
-    // the entry file for bundle generation
-    entryFile: "src/index.android.js",
- 
-    // whether to bundle JS and assets in debug mode
-    bundleInDebug: false,
- 
-    // whether to bundle JS and assets in release mode
-    bundleInRelease: true,
- 
-    // whether to bundle JS and assets in another build variant (if configured).
-    // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
-    // The configuration property can be in the following formats
-    //         'bundleIn${productFlavor}${buildType}'
-    //         'bundleIn${buildType}'
-    // bundleInFreeDebug: true,
-    // bundleInPaidRelease: true,
-    // bundleInBeta: true,
- 
-    // the root of your project, i.e. where "package.json" lives
-    root: "../../",
- 
-    // where to put the JS bundle asset in debug mode
-    jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
- 
-    // where to put the JS bundle asset in release mode
-    jsBundleDirRelease: "$buildDir/intermediates/assets/release",
- 
-    // where to put drawable resources / React Native assets, e.g. the ones you use via
-    // require('./image.png')), in debug mode
-    resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
- 
-    // where to put drawable resources / React Native assets, e.g. the ones you use via
-    // require('./image.png')), in release mode
-    resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
- 
-    // by default the gradle tasks are skipped if none of the JS files or assets change; this means
-    // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
-    // date; if you have any other folders that you want to ignore for performance reasons (gradle
-    // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
-    // for example, you might want to remove it from here.
-    inputExcludes: ["android/**", "ios/**"],
- 
-    // override which node gets called and with what additional arguments
-    nodeExecutableAndArgs: ["node"]
- 
-    // supply additional arguments to the packager
-   // extraPackagerArgs: []
-  ]
- 
+ **/
+project.ext.react = [
+        // the name of the generated asset file containing your JS bundle
+        bundleAssetName      : "index.android.bundle",
+
+        // the entry file for bundle generation
+        entryFile            : "src/index.android.js",
+
+        // whether to bundle JS and assets in debug mode
+        bundleInDebug        : false,
+
+        // whether to bundle JS and assets in release mode
+        bundleInRelease      : true,
+
+        // whether to bundle JS and assets in another build variant (if configured).
+        // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
+        // The configuration property can be in the following formats
+        //         'bundleIn${productFlavor}${buildType}'
+        //         'bundleIn${buildType}'
+        // bundleInFreeDebug: true,
+        // bundleInPaidRelease: true,
+        // bundleInBeta: true,
+
+        // the root of your project, i.e. where "package.json" lives
+        root                 : "../../",
+
+        // where to put the JS bundle asset in debug mode
+        jsBundleDirDebug     : "$buildDir/intermediates/assets/debug",
+
+        // where to put the JS bundle asset in release mode
+        jsBundleDirRelease   : "$buildDir/intermediates/assets/release",
+
+        // where to put drawable resources / React Native assets, e.g. the ones you use via
+        // require('./image.png')), in debug mode
+        resourcesDirDebug    : "$buildDir/intermediates/res/merged/debug",
+
+        // where to put drawable resources / React Native assets, e.g. the ones you use via
+        // require('./image.png')), in release mode
+        resourcesDirRelease  : "$buildDir/intermediates/res/merged/release",
+
+        // by default the gradle tasks are skipped if none of the JS files or assets change; this means
+        // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
+        // date; if you have any other folders that you want to ignore for performance reasons (gradle
+        // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
+        // for example, you might want to remove it from here.
+        inputExcludes        : ["android/**", "ios/**"],
+
+        // override which node gets called and with what additional arguments
+        nodeExecutableAndArgs: ["node"]
+
+        // supply additional arguments to the packager
+        // extraPackagerArgs: []
+]
+
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
@@ -99,12 +99,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         manifestPlaceholders = [
-                JPUSH_APPKEY:"5e61fb533cda920fb6b0718d",
-                APP_CHANNEL:"developer-default"
+                JPUSH_APPKEY: "5e61fb533cda920fb6b0718d",
+                APP_CHANNEL : "developer-default"
         ]
 
-        resValue("string", "growingio_project_id", "bdd2cb6510aceefa")
-        resValue("string", "growingio_url_scheme", "growing.f5e0c4d51acaa2e4")
+        multiDexEnabled true
+
+        resValue("string", "growingio_project_id", "9b0aeb765b44fc75")
+        resValue("string", "growingio_url_scheme", "growing.9a40a8a1e7528d31")
     }
     signingConfigs {
         release {
@@ -119,7 +121,7 @@ android {
             }
         }
     }
-   splits {
+    splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
@@ -128,7 +130,7 @@ android {
         }
     }
     buildTypes {
-        debug{
+        debug {
             buildConfigField "String", "CODEPUSH_KEY", "\"LUel5YFNaoRmFv8c55s39w4SuRZwE18X89yfG\""
             signingConfig signingConfigs.release
         }
@@ -144,7 +146,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -157,7 +159,7 @@ android {
             jniLibs.srcDirs = ['librarys']
         }
     }
-    
+
 }
 
 repositories {

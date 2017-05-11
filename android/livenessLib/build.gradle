@@ -18,6 +18,5 @@ android {
 }
 
 dependencies {
-    compile files('libs/licensemanager-v1.1.jar')
     compile files('libs/livenessdetection-proguard-2.4.1.jar')
 }
