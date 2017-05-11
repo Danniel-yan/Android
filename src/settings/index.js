@@ -20,6 +20,11 @@ export const environments = {
     id: 'uat',
     text: 'UAT',
     api: 'https://shiyishou-uat.jujinpan.cn/'
+  },
+  cunguanhuidu: {
+    id: 'cuiguan',
+    text: '存管灰度',
+    api: 'http://106.14.116.29:8001'
   }
 };
 
