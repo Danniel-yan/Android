@@ -17,12 +17,20 @@ export default class CreditLoanHomeScene extends Component {
   }
 
   render() {
+    // return (
+    //   <View style = {{flex : 1}}>
+    //     <View style={[_styles.itemBg]}>
+    //       <CreditLimitPanel />
+    //     </View>
+    //     <View style={[_styles.itemBg, {marginTop: 8}]}>
+    //       <CertifPanel closeModal={() => {}}/>
+    //     </View>
+    //   </View>
+    //
+    // );
     return (
       <View style = {{flex : 1}}>
-        <View style={[_styles.itemBg]}>
-          <CreditLimitPanel />
-        </View>
-        <View style={[_styles.itemBg, {marginTop: 8}]}>
+        <View style={_styles.itemBg}>
           <CertifPanel closeModal={() => {}}/>
         </View>
       </View>

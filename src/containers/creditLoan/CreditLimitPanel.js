@@ -82,7 +82,7 @@ const CLPStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    creditScore: state.online.userInfo.creditScore,
+    creditScore: state.online.userCreditDetail.score,
     loginUser: state.loginUser,
 
   }

@@ -18,6 +18,9 @@ import repayAmount from './repayAmount';
 import gjjResult from './gjjResult';
 import gjjDetail from './gjjDetail';
 import gjjLoginElements from './gjjLoginElements';
+import userCreditDetail from './userCreditDetail';
+import userCreditLevel from './userCreditLevel';
+import userCreditConfig from './userCreditConfig';
 import { initial, getStatus } from './pboc';
 import suixinjie from './suixinjie';
 import chaoHaoDai from './chaoHaoDai'
@@ -49,6 +52,9 @@ export default {
   },
   gjjLoginElements,
   gjjDetail,
+  userCreditDetail,
+  userCreditLevel,
+  userCreditConfig,
   pboc: { initial, getStatus },
   suixinjie,
   chaoHaoDai

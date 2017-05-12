@@ -16,8 +16,7 @@ export default function navToBlackList(success) {
 
       if(fetched) return dispatch(externalPush({
         key: navToList ? "BlackListReports" : "BlackListhome",
-        title: navToList ? "已有报告" : "网贷信用查询",
-        backRoute: { key: "MajorNavigation" }
+        title: navToList ? "已有报告" : "网贷信用查询"
       }));
       if(!bLData.freeFetched && !bLData.reportFetched) return Promise.all([dispatch(FreeStatus()), dispatch(BlackListReports())]).then(() => dispatch(navToBlackList()));
       if(!bLData.freeFetched) return dispatch(FreeStatus()).then(() => dispatch(navToBlackList()));
