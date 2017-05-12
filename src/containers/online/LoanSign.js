@@ -24,7 +24,8 @@ import SubmitButton from './SubmitButton';
 class LoanSign extends Component {
     state = {
         card: '',
-        checkedAgreement: true
+        checkedAgreement: true,
+        cg_amount: ''
     }
 
     render() {
@@ -33,6 +34,7 @@ class LoanSign extends Component {
         let service = loan.repayPlanResults[0];
         let plan = loan.repayPlanResults.slice(1);
         let depositoryResult = this.props.depositoryResult;
+        this.state.cg_amount = loan.approve_amount;
 
         return (
             <ScrollView>
@@ -120,11 +122,16 @@ class LoanSign extends Component {
     _submit() {
         this.setState({submitting: true})
 
-        return post('/loanctcf/create-contract', {loan_type: parseInt(this.props.loanType) || 0}).then(response => {
+        //return post('/loanctcf/create-contract', {loan_type: parseInt(this.props.loanType) || 0}).then(response => {
+        return post('/loanctcf/create-contract-cg', {
+            loan_type: parseInt(this.props.loanType) || 0,
+            amount: this.state.cg_amount
+        }).then(response => {
 
             // if(response.res == responseStatus.failure) {
             //   throw response.msg
             // }
+
             this.props.fetchStatus();
             return true;
             // }).catch(err => {

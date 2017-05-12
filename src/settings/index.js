@@ -25,6 +25,7 @@ export const environments = {
     id: 'cuiguan',
     text: '存管灰度',
     api: 'http://106.14.116.29:8001'
+    //api: 'http://10.2.128.147:8004'
   }
 };
 
