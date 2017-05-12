@@ -90,7 +90,6 @@ class CreditCardStatus extends Component {
       button = '重新导入账单';
       statusText = (<Text style={styles.text}>信用卡认证失败，请重新认证！.</Text>);
     }
-
     if(loanType == 4 && this.state.checked && status == 'success') return this._chaoHaoDaiSuccessContent();
 
     return (
@@ -156,7 +155,7 @@ class CreditCardStatus extends Component {
     let status = this.props.status, loanType = this.props.loanType;
     let enable = this.state.form && this.state.form.credit_card_no_auto && this.state.form.credit_card_no;
     return (
-      <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
         <View style={[centering, { backgroundColor: "#fff" }]}>
           <Image style={[styles.image, { marginTop: responsive.height(20) }]} source={successImage}/>
           <View style={{marginTop: 10}}><Text style={{textAlign: "center"}}>恭喜您，信用卡账单导入成功，</Text></View>
@@ -191,7 +190,7 @@ class CreditCardStatus extends Component {
               toKey={"CertificationHome"}
             />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 

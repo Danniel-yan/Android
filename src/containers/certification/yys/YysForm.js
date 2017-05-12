@@ -243,16 +243,21 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  return {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {},
+  
+  var newState = {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {},
     isFetching: state.online.yysForms.isFetching || (state.online.loanType.type != 0 && state.online.userInfo.isFetching),
     fetched: state.online.loanType.type != 0 ? state.online.yysForms.fetched : state.online.yysForms.fetched && state.online.userInfo.fetched
   };
+  return newState;
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     loginSuccess: (props) => dispatch(externalPush({title: '手机运营商认证', key: 'OnlineYysFormStatus', ...props, backButton: false, backRoute: {key: 'CertificationHome' }})),
-    fetching: () => dispatch(actions.yysForms()),
+    fetching: () => {
+      dispatch(actions.userInfo())
+      dispatch(actions.yysForms())
+    },
     updateCreditScore: () => dispatch(actions.creditScore())
   }
 }
