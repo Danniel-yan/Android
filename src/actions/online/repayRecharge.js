@@ -28,7 +28,7 @@ export default function (amount) {
                 body = body.substring(0, body.length - 1);
                 onMessage = e => {
                     var data = e.nativeEvent.data;
-                    if (data == 'successfinal') {
+                    if (data == 'successfinal' || data == 'abnormal') {
                         dispatch(externalPush({
                             key: 'OnlineLoanDetail',
                             title: '借款详情'
