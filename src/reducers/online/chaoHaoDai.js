@@ -6,7 +6,7 @@ const initApplyStatus = {
 export function applyStatus(state = initApplyStatus, action) {
   switch (action.type) {
     case "RequestCHDApplyStatus": 
-      return Object.assign({}, state, { isFetching: true, fetched: false, data: null });
+      return Object.assign({}, state, { isFetching: true, fetched: false });
     case "ReceiveCHDApplyStatus":
       return Object.assign({}, state, { isFetching: false, fetched: true, data: action.data });
     default:

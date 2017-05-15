@@ -31,7 +31,7 @@ function StatusItemComponent({statusKey, ...props}) {
   var { icon, title, vertical } = statusItemConfigs[statusKey];
   var { isFetching } = props; var { style } = props;
   var verified = (statusKey && props.statuses ? props.statuses[statusKey] == 2 : null);
-  var disabled = verified || (statusKey && props.statuses && props.statuses[statusKey] == 3);
+  var disabled = verified || (statusKey && props.statuses && props.statuses[statusKey] == 1);
 
   let JumpComponent = props.routeParams && props.routeParams.toKey ? ExternalPushLink : TouchableOpacity;
   let onPress = props.onPress;

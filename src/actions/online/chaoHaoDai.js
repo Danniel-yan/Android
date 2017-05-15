@@ -8,22 +8,27 @@ import preloanStatus from './preloanStatus';
 function checkoutStateSuccess(originData, newData) {
   var successed = false;
   if(!originData || !newData) return false;
-  ["alipay", "jd", "idscore"].map((key) => { successed = successed || (newData[key] == 2 && newData[key] != originData[key]) });
+  
+  ["alipay", "jd", "idscore"].map((key) => { 
+    var tempSuccess = (newData[key] == 2) && (newData[key] != originData[key]);
+    successed = (successed || tempSuccess);
+  });
   return successed;
 }
 
 // 查询当前贷款产品资料提交状态 （当前仅loan_type=4的贷款产品有效）
 function applyStatus() {
   return ( dispatch, getState ) => {
-    var state = getState(), loanType = state ? state.online.loanType.type : null;
+    var state = getState(), loanType = state ? state.online.loanType.type : null, chaoHaoDai = state.online.chaoHaoDai;
     if(loanType != constants.loanType.chaohaodaicard) return;
 
     dispatch({type: "RequestCHDApplyStatus"});
     // return mock("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
     return post("/loanctcf/check-apply-status", { loan_type: parseInt(loanType) }).then((response) => {
       if(response.res === responseStatus.success) {
-
-        state.online.applyStatus && checkoutStateSuccess(state.online.applyStatus.data, response.data) && dispatch(preloan());
+        // console.log("state.online.applyStatus")
+        // console.log(chaoHaoDai)
+        chaoHaoDai.applyStatus && checkoutStateSuccess(chaoHaoDai.applyStatus.data, response.data) && dispatch(preloan());
         dispatch({type: "ReceiveCHDApplyStatus", data: response.data});
       }
     });
