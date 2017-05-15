@@ -2,14 +2,11 @@ package com.shudu.chaoshi.module;
 
 import android.content.Context;
 
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableArray;
-
-import java.util.List;
+import com.facebook.react.bridge.ReadableArray;
 
 /**
  * Created by yshr on 2017/5/15.
@@ -32,7 +29,7 @@ public class BannerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getBannerList(WritableArray imgUrlList, Promise promise) {
+    public void getBannerList(ReadableArray imgUrlList, Promise promise) {
         this.promise = promise;
 //        GrowingIO.getInstance().trackBanner(banner, bannerDescriptions);
 
