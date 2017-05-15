@@ -27,7 +27,6 @@ var configs = {
 class BannerCarousel extends Component {
     constructor(props) {
       super(props);
-      this.trackList = [];
     }
 
     generateInfos() {
@@ -38,9 +37,7 @@ class BannerCarousel extends Component {
             if(props.imgList) imgs.push(props.imgList);
         }
       this.imageItems = [];
-      this.trackList = [];
       imgs.map((imgInfo, idx) => {
-        this.trackList.push(imgInfo.url);
         this.imageItems.push(
             <ExternalPushLink
               web={imgInfo.url}
@@ -63,7 +60,7 @@ class BannerCarousel extends Component {
         <View style={{height:configs.height}}>
           <Image source={ require('assets/ChaoshiBanner.jpeg') } style={{width:screenWidth, height:configs.height}}></Image>
         </View>
-      ) : React.createElement(Carousel, { height:configs.height, trackList: this.trackList }));
+      ) : React.createElement(Carousel, { height:configs.height}));
     }
 }
 
