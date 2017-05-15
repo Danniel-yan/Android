@@ -78,7 +78,7 @@ class ReceiptCard extends Component {
           valueChanged={this._formChange.bind(this, 'bank_name')}
           style={{wrap: styles.item}}
           items={this.props.banks}
-          textStyle={styles.input}
+          textStyle={[styles.input, {textAlign: 'right'}]}
         />
 
         <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
