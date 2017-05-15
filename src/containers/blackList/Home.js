@@ -110,7 +110,7 @@ class blackListHome extends Component {
             prePress={() => this.props.setLoanType()}
             toKey={"CreditLoan"}
             text={"完善信用材料"}
-            title={"信用贷"}
+            title={"信用评级"}
             tracking={{key: 'blacklist', topic: "info_incomplete", entity: 'fill_info', event: 'clk'}}>
           </ExternalPushLink>
         </View>

@@ -72,7 +72,7 @@ class GjjStatus extends Component {
       if(loanType == 0) {
         button = '立即查看';
         pushKey = "GjjReport";
-        backRoute = this.props.certificationEntryKey ? { key: this.props.certificationEntryKey } : {key: "CreditLoan", title: "信用贷"}
+        backRoute = this.props.certificationEntryKey ? { key: this.props.certificationEntryKey } : {key: "CreditLoan", title: "信用评级"}
       }
       tracking = { key: 'PAF_report', topic: 'success', entity: "complete", event: 'clk' };
     } else if(this.state.checked && status == 'failure') {

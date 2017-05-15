@@ -44,7 +44,7 @@ class LoanNavPanel extends Component {
   navToCreditLoan(token) {
     var externalPush = this.props.externalPush, route;
     AsyncStorage.getItem('environment').then(ev => {
-      externalPush && externalPush({ key: "CreditLoan", title:this.props.isIOS ? '查信用' : "信用贷", backRoute: { key: "MajorNavigation" } });
+      externalPush && externalPush({ key: "CreditLoan", title:this.props.isIOS ? '查信用' : "信用评级", backRoute: { key: "MajorNavigation" } });
       this.props.setLoanType && this.props.setLoanType(0);
       this.props.pbocInitial && this.props.pbocInitial();
     })
@@ -111,7 +111,7 @@ class LoanNavPanel extends Component {
               tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_loan'}}
               style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/xinyongdai_1331.png', width : 50, height: 50}}></Image>
-              <Text style={LNPStyles.navTxt}>信用贷</Text>
+              <Text style={LNPStyles.navTxt}>信用评级</Text>
             </TrackingPoint>
             <ExternalPushLink
               tracking={{key: 'homepage', topic: 'btn_sec', entity: 'low_interest_loan' }}
