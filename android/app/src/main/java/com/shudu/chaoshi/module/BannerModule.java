@@ -7,6 +7,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class BannerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getBannerList(List<String> imgUrlList, Promise promise) {
+    public void getBannerList(WritableArray imgUrlList, Promise promise) {
         this.promise = promise;
 //        GrowingIO.getInstance().trackBanner(banner, bannerDescriptions);
 
