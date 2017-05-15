@@ -132,12 +132,12 @@ class CertifPanel extends Component {
                             </View>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 16}}>
-                            <Image source={require("assets/credit-icons/yanghanzhenxinbaogao.png")}
+                            <Image source={require("assets/credit-icons/icon_wzd.png")}
                                    style={{width: 15, height: 15, marginRight: 2}}/>
-                            <Text>您的信息完整度</Text>
+                            <Text style={{color: '#999', fontSize: 12}}>您的信息完整度</Text>
                             <Text style={{color: '#333', fontSize: 26}}>{this.props.score + "%"}</Text>
                         </View>
-                        <Text style={{marginBottom: 16}}>认证以下材料可提升信用完整度</Text>
+                        <Text style={{color: '#999', marginBottom: 16, fontSize: 12}}>认证以下材料可提升信用完整度</Text>
                     </View>
                     <View style={{backgroundColor: '#f2f2f2', height: 10}}/>
                     <View style={{backgroundColor: 'white'}}>
@@ -174,8 +174,13 @@ class CertifPanel extends Component {
     }
 
     statusTxt(status) {
-        var statusDir = {"success": "已认证", "failure": "认证失败", "none": "去认证"};
+        var statusDir = {"success": "已认证", "failure": "已过期", "none": "去认证"};
         return statusDir[status] || "去认证";
+    }
+
+    statusStyle(status) {
+        var statusDir = {"success": styles.topR, "failure": styles.topR3, "none": styles.topR2};
+        return statusDir[status];
     }
 
     renderTiE() {
@@ -203,7 +208,7 @@ class CertifPanel extends Component {
                     title="身份认证"
                     confirm={this.statusTxt(user_infoResult.status)}
                     tips="最高可提高到10万额度"
-                    textStyle={user_infoSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(user_infoResult.status)}
                     navProps={{
                         onPress: () => {
                             this.props.externalPush({key: 'UserInfo', title: '身份认证'});
@@ -217,7 +222,7 @@ class CertifPanel extends Component {
                     title="查网贷信用"
                     confirm={this.statusTxt(blacklistResult.status)}
                     tips="最高可提高到10万额度"
-                    textStyle={blacklistSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(blacklistResult.status)}
                     navProps={{
                         onPress: () => {
                             if (user_infoSuccess) {
@@ -235,7 +240,7 @@ class CertifPanel extends Component {
                     title="查央行征信"
                     confirm={this.statusTxt(creditResult.status)}
                     tips="最高可提高到10万额度"
-                    textStyle={creditSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(creditResult.status)}
                     navProps={{
                         onPress: () => {
                             if (user_infoSuccess) {
@@ -260,7 +265,7 @@ class CertifPanel extends Component {
                     title="查信用卡账单"
                     confirm={this.statusTxt(bankResult.status)}
                     tips="最高可提升到10万额度"
-                    textStyle={bankSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(bankResult.status)}
                     navProps={{
                         onPress: () => {
                             if (user_infoSuccess) {
@@ -284,7 +289,7 @@ class CertifPanel extends Component {
                     title="查公积金"
                     confirm={this.statusTxt(gjjResult.status)}
                     tips="最高可提高到10万额度"
-                    textStyle={gjjSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(gjjResult.status)}
                     navProps={{
                         onPress: () => {
                             if (user_infoSuccess) {
@@ -313,7 +318,7 @@ class CertifPanel extends Component {
                     title="查通话详单"
                     confirm={this.statusTxt(yysResult.status)}
                     tips="认证完毕，可获1000-3000额度"
-                    textStyle={yysSuccess ? styles.topR : styles.topR2}
+                    textStyle={this.statusStyle(yysResult.status)}
                     navProps={{
                         onPress: () => {
                             if (user_infoSuccess) {
@@ -408,8 +413,8 @@ const styles = StyleSheet.create({
 
     },
     icon_level: {
-        width: 50,
-        height: 70,
+        width: 40,
+        height: 56,
         marginTop: 20,
         marginBottom: 10,
         resizeMode: 'contain'
@@ -429,23 +434,32 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     topR: {
-        width: 65,
-        color: '#FE271E',
-        fontSize: 14,
-        // flex : 1,
+        width: 48,
+        color: '#FF5D4B',
+        fontSize: 10,
         textAlign: 'center',
         borderColor: '#FF5D4B',
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderRadius: 20,
         marginRight: 10
     },
     topR2: {
-        width: 65,
+        width: 48,
         color: '#fff',
         backgroundColor: '#FF5D4B',
-        fontSize: 14,
-        // flex : 1,
+        fontSize: 10,
         textAlign: 'center',
+        borderRadius: 20,
+        marginRight: 10,
+        paddingBottom: 1
+    },
+    topR3: {
+        width: 48,
+        color: '#999',
+        fontSize: 10,
+        textAlign: 'center',
+        borderColor: '#999',
+        borderWidth: 0.5,
         borderRadius: 20,
         marginRight: 10
     }
