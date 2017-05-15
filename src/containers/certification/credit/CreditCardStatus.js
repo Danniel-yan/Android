@@ -208,7 +208,7 @@ class CreditCardStatus extends Component {
       if(response.res == responseStatus.success) return true;
       alert(response);
       return false;
-    })
+    }).then(result => { if(result) return this.props.preloan && this.props.preloan(); });
   }
 }
 
@@ -266,6 +266,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatch(dispatch) {
   return {
     fetchingBillStatus: () => dispatch(actions.bankResult()),
+    preloan: () => dispatch(actions.preloan()),
     unMountFetching: () => {
       dispatch(actions.preloanStatus());
       dispatch(chaoHaoDai.applyStatus());
