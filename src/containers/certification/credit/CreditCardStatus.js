@@ -32,8 +32,8 @@ class CreditCardStatus extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
-      checked: false, 
+    this.state = {
+      checked: false,
       status: "processing",
       form: {
         credit_card_no: ""
@@ -43,6 +43,7 @@ class CreditCardStatus extends Component {
 
   componentDidMount() {
     this._getBillStatus();
+      this.props.preloan();
   }
 
   componentDidUpdate() {
@@ -90,7 +91,7 @@ class CreditCardStatus extends Component {
       button = '重新导入账单';
       statusText = (<Text style={styles.text}>信用卡认证失败，请重新认证！.</Text>);
     }
-    if(loanType == 4 && this.state.checked && status == 'success') return this._chaoHaoDaiSuccessContent();
+    if(loanType == 4 && this.state.checked && status == 'success' && this.props.preloanObject.data) return this._chaoHaoDaiSuccessContent();
 
     return (
       <ScrollView contentContainerStyle={[container, onlineStyles.container ]}>
@@ -119,7 +120,7 @@ class CreditCardStatus extends Component {
     this.setState({ form });
   }
 
-  _cardChange(value) { 
+  _cardChange(value) {
     let form = this.state.form;
 
     form.credit_card_no_auto = value;
@@ -204,7 +205,7 @@ class CreditCardStatus extends Component {
   _subCardInfos() {
     let loan_type = this.props.loanType;
     if(!this.state.form && this.state.form.credit_card_no_auto && this.state.form.credit_card_no) return false;
-    return post("/loanctcf/check-creditcard-result", { loan_type, credit_card_no: this.state.form.credit_card_no }).then(response => { 
+    return post("/loanctcf/check-creditcard-result", { loan_type, credit_card_no: this.state.form.credit_card_no }).then(response => {
       if(response.res == responseStatus.success) return true;
       alert(response.msg);
       return false;
@@ -259,7 +260,8 @@ function mapStateToProps(state, ownProps) {
     isFetching: state.online.bankResult.isFetching,
     loanType: state.online.loanType.type,
     status: state.online.bankResult.status,
-    preloanStatus: state.online.preloanStatus
+    preloanStatus: state.online.preloanStatus,
+      preloanObject: state.online.preloan
   }
 }
 
