@@ -5,8 +5,8 @@ import { loanType } from 'constants';
 export default function(dispatch) {
 
   return (dispatch, getState) => {
-    var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
 
+    var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
     if (loan_type == loanType.chaohaodai) {
       // dispatch(actions.bankInfo())
       dispatch(actions.repayAmount())

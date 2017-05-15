@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     topR: {
-        width: 60,
+        width: 65,
         color: '#FE271E',
         fontSize: 14,
         // flex : 1,
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     topR2: {
-        width: 60,
+        width: 65,
         color: '#fff',
         backgroundColor: '#FF5D4B',
         fontSize: 14,
