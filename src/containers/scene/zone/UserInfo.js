@@ -19,6 +19,7 @@ import AbstractScene from 'components/scene/AbstractScene.js';
 import alert from 'utils/alert';
 import FormGroup from 'components/shared/FormGroup';
 import { border } from 'styles';
+import actions from 'actions/online';
 
 const hasCreditStatus = {
   yes: 1,
@@ -51,6 +52,10 @@ class UserInfo extends AbstractScene {
       this.props.onSubmitSuccess(nextProps.token);
     }
   }
+
+    componentWillUnmount(){
+        this.props.creditLevel();
+    }
 
   render() {
     let { mobile, idNO, job, creditStatus, realname } = this.state;
@@ -141,6 +146,7 @@ class UserInfo extends AbstractScene {
   _inputChange(field, value) {
     this.setState({ [field]: value });
   }
+
 }
 
 function mapState(state) {
@@ -156,6 +162,10 @@ function mapDispatch(dispatch) {
     onSubmitSuccess: () => {
       dispatch(fetchingUser());
       dispatch(externalPop());
+    },
+    creditLevel: () => {
+        dispatch(actions.userCreditDetail());
+        dispatch(actions.userCreditLevel());
     }
   };
 }

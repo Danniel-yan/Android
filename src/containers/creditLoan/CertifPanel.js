@@ -22,9 +22,9 @@ import pboc from 'actions/pboc';
 import {colors, centering, fontSize} from 'styles';
 
 import TrackingPoint  from 'components/shared/TrackingPoint';
-import tracker from 'utils/tracker.js';
 import RecommendList from 'components/shared/RecommendList';
 import navToBlackList from 'actions/blackList/navToBlackList';
+import alert from 'utils/alert';
 
 const {height, width} = Dimensions.get('window');
 
@@ -32,7 +32,7 @@ const AsyncRecommendList = AsynCpGenerator(Loading, RecommendList);
 
 function Item({icon, title, confirm, tips, navProps = {}, textStyle, externalTxt}) {
     return (
-        <ExternalPushLink {...navProps}>
+        <TrackingPoint {...navProps}>
             <View style={[styles.item, styles.bdTop]}>
                 <Image source={icon} style={styles.icon}/>
                 <View style={{flex: 1}}>
@@ -45,26 +45,7 @@ function Item({icon, title, confirm, tips, navProps = {}, textStyle, externalTxt
                     </View>
                 </View>
             </View>
-        </ExternalPushLink>
-    );
-}
-
-function Item2({icon, title, confirm, tips, navProps = {}, textStyle, externalTxt}) {
-    return (
-        <TouchableOpacity {...navProps}>
-            <View style={[styles.item, styles.bdTop]}>
-                <Image source={icon} style={styles.icon}/>
-                <View style={{flex: 1}}>
-                    <View style={styles.top}>
-                        <Text style={styles.topL}>{title} <Text
-                            style={{fontSize: fontSize.small, color: "#87C14D"}}>{ externalTxt}</Text></Text>
-                        <View style={{flexDirection: 'row', alignItems: "center", justifyContent: "flex-end"}}>
-                            <Text style={textStyle}>{confirm}</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </TouchableOpacity>
+        </TrackingPoint>
     );
 }
 
@@ -224,13 +205,14 @@ class CertifPanel extends Component {
                     tips="最高可提高到10万额度"
                     textStyle={user_infoSuccess ? styles.topR : styles.topR2}
                     navProps={{
-                        toKey: "FillUserInfo", title: "身份认证", prePress: () => {
+                        onPress: () => {
+                            this.props.externalPush({key: 'UserInfo', title: '身份认证'});
                             this.closeModal();
                         },
                         disabled: user_infoSuccess
                     }}
                     externalTxt={"+" + gjjResult.weight + "%"}/>
-                <Item2
+                <Item
                     icon={require("assets/credit-icons/icon_blacklist.png")}
                     title="查网贷信用"
                     confirm={this.statusTxt(blacklistResult.status)}
@@ -238,38 +220,41 @@ class CertifPanel extends Component {
                     textStyle={blacklistSuccess ? styles.topR : styles.topR2}
                     navProps={{
                         onPress: () => {
-                            this.__navToBlackListClicked__();
-                            this.closeModal();
+                            if (user_infoSuccess) {
+                                this.__navToBlackListClicked__();
+                                this.closeModal();
+                            } else {
+                                alert('请先进行身份认证')
+                            }
                         },
                         disabled: blacklistSuccess
                     }}
                     externalTxt={"+" + blacklistResult.weight + "%"}/>
-                <TrackingPoint
-                    tracking={{
-                        key: 'credit_loan',
-                        topic: 'verification',
-                        entity: 'credit_report',
-                        event: 'clk',
-                        exten_info: creditResult.status
+                <Item
+                    icon={require("assets/credit-icons/icon_credit.png")}
+                    title="查央行征信"
+                    confirm={this.statusTxt(creditResult.status)}
+                    tips="最高可提高到10万额度"
+                    textStyle={creditSuccess ? styles.topR : styles.topR2}
+                    navProps={{
+                        onPress: () => {
+                            if (user_infoSuccess) {
+                                this._navToPBOC();
+                                this.closeModal();
+                            } else {
+                                alert('请先进行身份认证')
+                            }
+                        },
+                        tracking: {
+                            key: 'credit_loan',
+                            topic: 'verification',
+                            entity: 'credit_report',
+                            event: 'clk',
+                            exten_info: creditResult.status
+                        },
+                        disabled: creditSuccess
                     }}
-                    onPress={() => {
-                        !creditSuccess && this._navToPBOC()
-                    }}
-                    title="查央行征信">
-                    <View style={[styles.item, styles.bdTop]}>
-                        <Image source={require("assets/credit-icons/icon_credit.png")} style={styles.icon}/>
-                        <View style={{flex: 1}}>
-                            <View style={styles.top}>
-                                <Text style={styles.topL}>央行征信报告 <Text
-                                    style={{fontSize: fontSize.small, color: "#87C14D"}}>+{creditResult.weight}%</Text></Text>
-                                <View style={{flexDirection: 'row', alignItems: "center", justifyContent: "flex-end"}}>
-                                    <Text
-                                        style={creditSuccess ? styles.topR : styles.topR2}>{this.statusTxt(creditResult.status)}</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </TrackingPoint>
+                    externalTxt={"+" + blacklistResult.weight + "%"}/>
                 <Item
                     icon={require("assets/credit-icons/icon_bank.png")}
                     title="查信用卡账单"
@@ -277,9 +262,13 @@ class CertifPanel extends Component {
                     tips="最高可提升到10万额度"
                     textStyle={bankSuccess ? styles.topR : styles.topR2}
                     navProps={{
-                        title: "信用卡认证", toKey: "OnlineCreditCards", prePress: () => {
-                            this.closeModal();
-                            return false;
+                        onPress: () => {
+                            if (user_infoSuccess) {
+                                this.props.externalPush({key: 'OnlineCreditCards', title: '信用卡认证'});
+                                this.closeModal();
+                            } else {
+                                alert('请先进行身份认证')
+                            }
                         },
                         tracking: {
                             key: 'credit_loan',
@@ -297,8 +286,13 @@ class CertifPanel extends Component {
                     tips="最高可提高到10万额度"
                     textStyle={gjjSuccess ? styles.topR : styles.topR2}
                     navProps={{
-                        toKey: "FundLogin", title: "公积金查询", prePress: () => {
-                            this.closeModal();
+                        onPress: () => {
+                            if (user_infoSuccess) {
+                                this.props.externalPush({key: 'FundLogin', title: '公积金查询'});
+                                this.closeModal();
+                            } else {
+                                alert('请先进行身份认证')
+                            }
                         },
                         tracking: {
                             key: 'credit_loan',
@@ -321,8 +315,13 @@ class CertifPanel extends Component {
                     tips="认证完毕，可获1000-3000额度"
                     textStyle={yysSuccess ? styles.topR : styles.topR2}
                     navProps={{
-                        title: "运营商认证", toKey: "OnlineYysForm", prePress: () => {
-                            this.closeModal();
+                        onPress: () => {
+                            if (user_infoSuccess) {
+                                this.props.externalPush({key: 'OnlineYysForm', title: '运营商认证'});
+                                this.closeModal();
+                            } else {
+                                alert('请先进行身份认证')
+                            }
                         },
                         tracking: {
                             key: 'credit_loan',

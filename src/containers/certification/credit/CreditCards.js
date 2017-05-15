@@ -23,6 +23,10 @@ import actions from 'actions/online';
 export class CreditCards extends Component {
   tracking = 'bill';
 
+  componentWillUnmount(){
+    this.props.creditLevel();
+  }
+
   render() {
 
     let banks = this.props.banks.map((bank, index) => {
@@ -57,7 +61,11 @@ function mapState(store) {
 
 function mapDispatch(dispatch) {
   return {
-    fetching: () => dispatch(actions.banks())
+    fetching: () => dispatch(actions.banks()),
+    creditLevel: () => {
+      dispatch(actions.userCreditDetail());
+      dispatch(actions.userCreditLevel());
+    }
   };
 }
 

@@ -13,6 +13,7 @@ import { trackingScene } from 'high-order/trackingPointGenerator';
 import validators from 'utils/validators';
 import { fontSize ,colors} from 'styles';
 import tracker from 'utils/tracker.js';
+import actions from 'actions/online';
 
 import PayModal from './PayModal';
 
@@ -277,6 +278,7 @@ class blackListHome extends Component {
 
   componentWillUnmount() {
     this.props.ClearPaymentInfo && this.props.ClearPaymentInfo();
+      this.props.creditLevel();
   }
 }
 
@@ -415,7 +417,11 @@ function mapDispatchToProps(dispatch) {
     },
     setLoanType: () => dispatch(onlineActions.setLoanType(0)),
     clearPaymentInfo: () => dispatch(ClearPaymentInfo()),
-    externalPush: route => dispatch(externalPush(route))
+    externalPush: route => dispatch(externalPush(route)),
+      creditLevel: () => {
+          dispatch(actions.userCreditDetail());
+          dispatch(actions.userCreditLevel());
+      }
   }
 }
 

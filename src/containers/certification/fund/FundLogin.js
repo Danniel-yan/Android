@@ -265,6 +265,7 @@ class FundLoginScene extends Component {
 
     componentWillUnmount() {
         this.props.updateCreditScore && this.props.updateCreditScore();
+        this.props.creditLevel();
     }
 
 }
@@ -324,7 +325,11 @@ function mapDispatchToProps(dispatch) {
         gjjLoginElements: () => dispatch(onlineActions.gjjLoginElements()),
         fetching: () => dispatch(onlineActions.gjjLoginElements()),
         externalPush: route => dispatch(externalPush(route)),
-        updateCreditScore: () => dispatch(onlineActions.creditScore())
+        updateCreditScore: () => dispatch(onlineActions.creditScore()),
+        creditLevel: () => {
+            dispatch(onlineActions.userCreditDetail());
+            dispatch(onlineActions.userCreditLevel());
+        }
     }
 }
 

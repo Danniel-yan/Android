@@ -70,6 +70,7 @@ class YysForm extends Component {
   componentWillUnmount() {
     this.unmount = true;
     this.props.updateCreditScore && this.props.updateCreditScore();
+      this.props.creditLevel();
   }
 
   _validation() {
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state, ownProps) {
-  
+
   var newState = {...state.online.yysForms, loanType: state.online.loanType.type, userInfo: state.online.userInfo ? state.online.userInfo.data : {},
     isFetching: state.online.yysForms.isFetching || (state.online.loanType.type != 0 && state.online.userInfo.isFetching),
     fetched: state.online.loanType.type != 0 ? state.online.yysForms.fetched : state.online.yysForms.fetched && state.online.userInfo.fetched
@@ -258,7 +259,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.userInfo())
       dispatch(actions.yysForms())
     },
-    updateCreditScore: () => dispatch(actions.creditScore())
+    updateCreditScore: () => dispatch(actions.creditScore()),
+      creditLevel: () => {
+          dispatch(actions.userCreditDetail());
+          dispatch(actions.userCreditLevel());
+      }
   }
 }
 
