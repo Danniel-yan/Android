@@ -206,7 +206,7 @@ class CreditCardStatus extends Component {
     if(!this.state.form && this.state.form.credit_card_no_auto && this.state.form.credit_card_no) return false;
     return post("/loanctcf/check-creditcard-result", { loan_type, credit_card_no: this.state.form.credit_card_no }).then(response => { 
       if(response.res == responseStatus.success) return true;
-      alert(response);
+      alert(response.msg);
       return false;
     }).then(result => { if(result) return this.props.preloan && this.props.preloan(); });
   }
