@@ -5,6 +5,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.shudu.chaoshi.module.BannerModule;
 import com.shudu.chaoshi.module.ChannelModule;
 import com.shudu.chaoshi.module.DeviceInfoModule;
 import com.shudu.chaoshi.module.FaceMegModule;
@@ -36,7 +37,8 @@ public class AppReactPackage implements ReactPackage {
                 new FeedbackModule(reactContext),
                 new FaceMegModule(reactContext),
                 new ImportBillModule(reactContext), // 魔蝎数据京东支付宝接入
-                new LocationModule(reactContext)
+                new LocationModule(reactContext),
+                new BannerModule(reactContext)
         });
     }
 

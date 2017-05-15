@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.growingio.android.sdk.collection.GrowingIO;
 
 /**
  * Created by speakJ on 2017/4/1.
@@ -66,6 +67,7 @@ public class LocationModule extends ReactContextBaseJavaModule {
                 WritableNativeMap writableNativeMap = new WritableNativeMap();
                 writableNativeMap.putString("Latitude", location.getLatitude() + "");
                 writableNativeMap.putString("Longitude", location.getLongitude() + "");
+                GrowingIO.getInstance().setGeoLocation(location.getLatitude(), location.getLongitude());
                 promise.resolve(writableNativeMap);
             }
         }
