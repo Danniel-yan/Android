@@ -4,7 +4,8 @@ import {
     ScrollView,
     Animated,
     View,
-    Image
+    Image,
+    NativeModules
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
@@ -117,10 +118,17 @@ CarouselGenerator = function(configs) {
 
             componentDidMount() {
                 this._runCarouselBanner();
+                this._trackingItemList();
             }
 
             componentWillUnmount() {
                 clearInterval(this._timer);
+            }
+
+            _trackingItemList() {
+                if(!NativeModules.BannerModule || !NativeModules.BannerModule.getBannerList || !this.props.trackList) return;
+
+                NativeModules.BannerModule.getBannerList(this.props.trackList);
             }
         }
     }
