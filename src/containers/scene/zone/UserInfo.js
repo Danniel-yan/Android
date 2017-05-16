@@ -20,18 +20,20 @@ import alert from 'utils/alert';
 import FormGroup from 'components/shared/FormGroup';
 import { border } from 'styles';
 import actions from 'actions/online';
-
+import { trackingScene } from 'high-order/trackingPointGenerator';
 const hasCreditStatus = {
   yes: 1,
   no: 0
 }
 
-class UserInfo extends AbstractScene {
-
+class UserInfo extends Component {
+  tracking = function() {
+    return this.props.tracking;
+  }
   constructor(props) {
     super(props);
-    this.sceneEntity="FILL_USER_INFO";
-    this.sceneTopic = "";
+    // this.sceneEntity="FILL_USER_INFO";
+    // this.sceneTopic = "";
 
     let loginUser = props.loginUser.info;
     this.state = {
@@ -208,4 +210,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapState, mapDispatch)(UserInfo);
+export default connect(mapState, mapDispatch)(trackingScene(UserInfo));
