@@ -202,13 +202,13 @@ var styles = Platform.OS == 'ios' ? StyleSheet.create({
     position: 'relative',
   },
   circle: {
-    borderRadius: 7,
+    borderRadius: 22,
     alignItems: 'center',
-    height:14,
+    height:44,
     backgroundColor: colors.secondary,
-    width:14,
+    width:44,
     position:'absolute',
-    top: -3,
+    top: -19,
     right: -7,
   },
   valueTip: {
