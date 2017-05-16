@@ -94,6 +94,7 @@ public class MainApplication extends Application implements ReactApplication {
                 .useID()
                 .trackAllFragments()
                 .setChannel(channel));
+//        GrowingIO.getInstance().track();
     }
 
     public static final Context getMyApplicationContext() {

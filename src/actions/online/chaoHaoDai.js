@@ -3,13 +3,14 @@ import * as constants from 'constants';
 import { get, post, mock, responseStatus } from 'utils/fetch';
 import preloan from "./preloan";
 import preloanStatus from './preloanStatus';
+import tracker from 'utils/tracker.js';
 
 // 
 function checkoutStateSuccess(originData, newData) {
   var successed = false;
   if(!originData || !newData) return false;
-  
-  ["alipay", "jd", "idscore"].map((key) => { 
+
+  ["alipay", "jd", "idscore"].map((key) => {
     var tempSuccess = (newData[key] == 2) && (newData[key] != originData[key]);
     successed = (successed || tempSuccess);
   });
@@ -61,7 +62,7 @@ function JumpNativeScene(targetKey, state) {
     var id = state.loginUser && state.loginUser.info ? state.loginUser.info.id : null;
     // id = "mockid123";
     if(!JumpFunc || !id) return null;
-    return JumpFunc(id); 
+    return JumpFunc(id);
 }
 
 function taskLogin(task_id, url) {
@@ -73,6 +74,10 @@ function taskLogin(task_id, url) {
 
 function jumpJdNativeScene() {
   return ( dispatch, getState ) => {
+      tracker.trackAction({
+          key: "JD",
+          event: "landing"
+      })
     return Promise.resolve(JumpNativeScene("jd", getState())).then(task_id => {
       console.log("TASKID: " + task_id);
       task_id && dispatch(taskLogin(task_id, "/bill/jd-login"));
@@ -82,6 +87,10 @@ function jumpJdNativeScene() {
 
 function jumpAlipyNativeScene() {
   return ( dispatch, getState ) => {
+    tracker.trackAction({
+      key: "ZFB",
+      event: "landing"
+    })
     return Promise.resolve(JumpNativeScene("alipay", getState())).then(task_id => { task_id && dispatch(taskLogin(task_id, "/bill/alipay-login")); });
   }
 }

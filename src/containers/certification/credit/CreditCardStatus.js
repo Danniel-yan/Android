@@ -169,7 +169,14 @@ class CreditCardStatus extends Component {
                             type="bankCard"
                             onChange={this._cardChange.bind(this)}
                             label="信用卡正面"
-                            example={require('assets/online/card-front.png')}/>
+                            example={require('assets/online/card-front.png')}
+                            tracking={{
+                                key: "bill",
+                                topic: "card_certification",
+                                entity: "add",
+                                event: "clk",
+                                exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+                            }}/>
                         {this._cardTip()}
                     </View>
 
@@ -196,6 +203,13 @@ class CreditCardStatus extends Component {
                         textStyle={onlineStyles.btnText}
                         text="完成提交"
                         toKey={"CertificationHome"}
+                        tracking={{
+                            key: 'bill',
+                            topic: 'card_certification',
+                            entity: "submit",
+                            event: 'clk',
+                            exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+                        }}
                     />
                 </View>
             </ScrollView>
@@ -269,9 +283,12 @@ import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state, ownProps) {
     // return { loanType: 0 }
+    let {loanDetail} = state
+    let detail = loanDetail.detail
     return {
         isFetching: state.online.bankResult.isFetching,
         loanType: state.online.loanType.type,
+        title: detail.title,
         status: state.online.bankResult.status,
         preloanStatus: state.online.preloanStatus,
         preloanObject: state.online.preloan
