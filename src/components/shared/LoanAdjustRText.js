@@ -25,7 +25,7 @@ export class LoanAdjustRText extends Component {
             left: "借款金额：",
             approve_amount: parseInt(this.props.approve_amount), // 申请时提交的金额
             contractAmount: parseInt(this.props.contractAmount), // 审批通过后通过的最高额度
-            initMinAmount: parseInt(this.props.approve_amount),
+            initMinAmount: 10000, //parseInt(this.props.approve_amount),
             initMaxAmount: parseInt(this.props.contractAmount),
             loan_adjust_down: loan_adjust_down,
             loan_adjust_downdisable: loan_adjust_downdisable,

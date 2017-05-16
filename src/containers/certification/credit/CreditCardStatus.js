@@ -47,7 +47,7 @@ class CreditCardStatus extends Component {
 
     componentDidUpdate() {
         if (this.state.checked && (!this.props.isFetching) && (this.props.status == 'success' || this.props.status == 'failure')) {
-            clearInterval(this.timeFlag)
+            clearInterval(this.timeFlag);
         }
     }
 
@@ -265,6 +265,7 @@ import {trackingScene} from 'high-order/trackingPointGenerator';
 import actions from 'actions/online';
 import chaoHaoDai from "actions/online/chaoHaoDai";
 import {CertificationOutput} from 'high-order/Certification';
+import { externalPush } from 'actions/navigation';
 
 function mapStateToProps(state, ownProps) {
     // return { loanType: 0 }
@@ -279,12 +280,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatch(dispatch) {
     return {
-        fetchingBillStatus: () => dispatch(actions.bankResult()).then(result => {
-            if (result.status == 'success') {
-                dispatch(actions.preloan())
-            }
-        }),
+        fetchingBillStatus: () => dispatch(actions.bankResult()),
         preloan: () => dispatch(actions.preloan()),
+        externalPush: () => dispatch(externalPush()),
         unMountFetching: () => {
             dispatch(actions.preloanStatus());
             dispatch(chaoHaoDai.applyStatus());

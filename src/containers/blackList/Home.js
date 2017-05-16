@@ -421,6 +421,7 @@ function mapDispatchToProps(dispatch) {
       creditLevel: () => {
           dispatch(actions.userCreditDetail());
           dispatch(actions.userCreditLevel());
+          dispatch(FreeStatus());
       }
   }
 }

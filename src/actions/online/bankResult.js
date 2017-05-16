@@ -4,6 +4,7 @@ import getBillList from './billList';
 import banks from './banks';
 import preloan from './preloan';
 import preloanStatus from './preloanStatus';
+import { externalPush } from 'actions/navigation';
 
 
 
@@ -25,7 +26,7 @@ export default function(body) {
       if(billData.billStatus.status !== "success") return dispatch(billData.billStatus);
       return checkBillFilter(loanType).then(res => {
         console.log("BillFilterStatus: ", res.status);
-        // if(loanType == 4 && res.status == "success") return dispatch(chaohaodaiCreditCardPreLoan());
+        if(loanType == 4 && res.status == "success") return dispatch(chaohaodaiCreditCardPreLoan());
         return dispatch(res);
       });
     })
@@ -39,8 +40,16 @@ export function chaohaodaiCreditCardPreLoan() {
         dispatch(preloanStatus());
         return dispatch(success());
       }
+
+      var navigation = getState().navigation;
+      var idx = navigation.index, routes = navigation.routes;
+      var key = routes && routes[idx] && routes[idx].key ? routes[idx].key : null;
+      key == "OnlineCreditCardStatus" && dispatch(externalPush({
+        key: 'OnlinePreloanFailure', title: '预授信申请结果',
+        backRoute: { key: "LoanDetailScene" }
+      }));
       return dispatch(failure());
-    })
+    });
   };
 }
 
