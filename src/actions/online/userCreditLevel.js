@@ -1,5 +1,6 @@
 import { get, post, responseStatus } from 'utils/fetch';
 import { loanType } from 'constants';
+import tracker from 'utils/tracker.js';
 
 export default function(dispatch) {
 
@@ -11,6 +12,11 @@ export default function(dispatch) {
 
         post(`/credit-level/user-credit-level`).then(response => {
           if(response.res == responseStatus.success) {
+            tracker.trackAction({
+              key: 'credit_loan',
+              event: 'landing',
+              exten_info: JSON.stringify({'status':response.data.credit_level})
+            })
             dispatch({ type: 'receiveOnlineUserCreditLevel', detail: response.data })
           }
         })

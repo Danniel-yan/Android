@@ -108,7 +108,7 @@ class LoanNavPanel extends Component {
               <Text style={LNPStyles.navTxt}>极速贷款</Text>
             </MajorTabLink>
             <TrackingPoint
-              tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_loan'}}
+              tracking={{ key: 'homepage', topic: 'btn_sec', entity: 'credit_level'}}
               style={[LNPStyles.navItem]} onPress={this.onPressIconBtn.bind(this)}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/xinyongdai_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>信用评级</Text>

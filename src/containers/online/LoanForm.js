@@ -1,303 +1,344 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  NativeModules,
-  Image, TouchableOpacity
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    NativeModules,
+    Image, TouchableOpacity
 } from 'react-native';
 
-import { border, container, rowContainer, colors, fontSize } from 'styles';
+import {border, container, rowContainer, colors, fontSize} from 'styles';
 import GroupTitle from 'components/GroupTitle';
-import CameraInput, { FaceMegInput } from './CameraInput';
-import { post, responseStatus } from 'utils/fetch';
-import { InputGroup } from 'components/form';
-import { ExternalPushLink, ExternalPopLink } from 'containers/shared/Link';
+import CameraInput, {FaceMegInput} from './CameraInput';
+import {post, responseStatus} from 'utils/fetch';
+import {InputGroup} from 'components/form';
+import {ExternalPushLink, ExternalPopLink} from 'containers/shared/Link';
 import onlineStyles from './styles';
 import ErrorInfo from './ErrorInfo';
-import { loanType } from 'constants';
+import {loanType} from 'constants';
+import tracker from 'utils/tracker.js';
 
 const inputStatus = {
-  checking: 1,
-  success: 2,
-  failure: 3
+    checking: 1,
+    success: 2,
+    failure: 3
 };
 
 class LoanForm extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
+    constructor(props) {
+        super(props);
+        console.log(props);
 
-    this.state = {
-      form: {
-        credit_card_mobile: props.userInfo && props.userInfo.mobile || '',
-        credit_card_no: '',
-        credit_card_no_auto: '',
-        apply_amount: props.amount
-      },
-      idFront: '',
-      idBack: '',
-      faceMeg: '',
-      submitting: false
-    }
-  }
+        tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "identity",
+            event: "landing",
+            exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+        })
 
-  renderIDForms() {
-    return (
-      <View>
-        <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
-
-        <View style={[styles.container, {paddingBottom: 30}]}>
-          <CameraInput
-            type="idFront"
-            onChange={this._idChange.bind(this, 'idFront')}
-            label="身份证正面"
-            example={require('assets/online/id-front.png')}
-          />
-
-          <CameraInput
-            type="idBack"
-            onChange={this._idChange.bind(this, 'idBack')}
-            label="身份证反面"
-            example={require('assets/online/id-back.png')}/>
-        </View>
-      </View>
-    );
-  }
-
-  renderBankCardForms() {
-    return this.props.loanType == loanType.chaoshidai ? (
-      <View>
-        <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
-
-        <View style={styles.container}>
-          <CameraInput
-            type="bankCard"
-            onChange={this._cardChange.bind(this)}
-            label="信用卡正面"
-            example={require('assets/online/card-front.png')}/>
-          {this._cardTip()}
-        </View>
-
-        <View style={styles.container}>
-          <InputGroup
-            style={{wrap: styles.input}}
-            label="信用卡号码"
-            value={this.state.form.credit_card_no}
-            valueChanged={this._onInputChange.bind(this, 'credit_card_no')}
-          />
-          <InputGroup
-            style={{wrap: styles.input}}
-            label="预留手机号码"
-            placeholder="信用卡预留手机号码"
-            maxLength={11}
-            value={this.state.form.credit_card_mobile}
-            valueChanged={this._onInputChange.bind(this, 'credit_card_mobile')}
-          />
-        </View>
-      </View>
-    ) : null;
-  }
-
-  renderFaceVerifyForms() {
-    return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.chaohaodai || this.props.loanType == loanType.chaohaodaicard)? (
-      <View>
-        <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
-        <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})} />
-      </View>
-    ) : null;
-  }
-
-  render() {
-    let { idFront, idBack, faceMeg } = this.state;
-    let { credit_card_no, credit_card_mobile } = this.state.form;
-    let backKey = "LoanDetailScene";
-
-    let enable = idFront && idBack;
-    if(this.props.loanType == 1) enable = enable && credit_card_no && credit_card_mobile;
-    if(this.props.loanType == 2 || this.props.loanType == loanType.chaohaodaicard) enable = enable && faceMeg;
-    if(this.props.loanType == 1 || this.props.loanType == 2 ) backKey = "SuiXinJieList";
-
-    return (
-      <ScrollView>
-        { this.renderIDForms() }
-        { this.renderBankCardForms() }
-        { this.renderFaceVerifyForms() }
-
-        <ErrorInfo msg={this.state.error}/>
-        
-        {
-          this.props.loanType == loanType.chaohaodaicard ? (
-            <ExternalPopLink
-              prePress={this._submitLoanForm.bind(this)}
-              disabled={!enable}
-              style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
-              textStyle={onlineStyles.btnText}
-              text="完成提交"
-            />
-          ) : (
-            <ExternalPushLink
-              title="审批状态"
-              backKey={backKey}
-              backRoute={{ key: backKey }}
-              toKey="OnlineApproveStatus"
-              processing={this.state.submitting}
-              prePress={this._submit.bind(this)}
-              disabled={!enable}
-              style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
-              textStyle={onlineStyles.btnText}
-              text="完成提交"
-            />
-          )
+        this.state = {
+            form: {
+                credit_card_mobile: props.userInfo && props.userInfo.mobile || '',
+                credit_card_no: '',
+                credit_card_no_auto: '',
+                apply_amount: props.amount
+            },
+            idFront: '',
+            idBack: '',
+            faceMeg: '',
+            submitting: false
         }
-      </ScrollView>
-    );
-  }
+    }
 
-  _cardTip() {
-    let cards = this.props.data.card_no_last_four_list;
+    renderIDForms() {
+        return (
+            <View>
+                <GroupTitle style={styles.groupTitle} title="身份信息认证"/>
 
-    return (
-      <Text style={styles.tipText}>
-        请上传尾号为
-        { cards.map(this._cardNos.bind(this)) }
-        信用卡正面照片
-      </Text>
-    );
-  }
+                <View style={[styles.container, {paddingBottom: 30}]}>
+                    <CameraInput
+                        type="idFront"
+                        onChange={this._idChange.bind(this, 'idFront')}
+                        label="身份证正面"
+                        example={require('assets/online/id-front.png')}
+                        tracking={this.props.loanType == loanType.chaohaodaicard ? {
+                            key: "inhouse_loan",
+                            topic: "identity",
+                            entity: "front",
+                            event: "clk",
+                            exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+                        } : null}
+                    />
 
-  _cardNos(card, index) {
-    return (
-      <Text key={'card'+index}>
-        {index ? '或' : ''}
-        <Text style={styles.cardNum}>{card}</Text>
-      </Text>
-    );
-  }
+                    <CameraInput
+                        type="idBack"
+                        onChange={this._idChange.bind(this, 'idBack')}
+                        label="身份证反面"
+                        example={require('assets/online/id-back.png')}
+                        tracking={this.props.loanType == loanType.chaohaodaicard ? {
+                            key: "inhouse_loan",
+                            topic: "identity",
+                            entity: "back",
+                            event: "clk",
+                            exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+                        } : null}/>
+                </View>
+            </View>
+        );
+    }
 
-  _idChange(name, value) {
-    this.setState({ [name]: value });
-  }
+    renderBankCardForms() {
+        return this.props.loanType == loanType.chaoshidai ? (
+            <View>
+                <GroupTitle style={styles.groupTitle} title="信用卡片认证"/>
 
-  _cardChange(value) {
-    let form = this.state.form;
+                <View style={styles.container}>
+                    <CameraInput
+                        type="bankCard"
+                        onChange={this._cardChange.bind(this)}
+                        label="信用卡正面"
+                        example={require('assets/online/card-front.png')}/>
+                    {this._cardTip()}
+                </View>
 
-    form.credit_card_no_auto = value;
-    form.credit_card_no = value;
+                <View style={styles.container}>
+                    <InputGroup
+                        style={{wrap: styles.input}}
+                        label="信用卡号码"
+                        value={this.state.form.credit_card_no}
+                        valueChanged={this._onInputChange.bind(this, 'credit_card_no')}
+                    />
+                    <InputGroup
+                        style={{wrap: styles.input}}
+                        label="预留手机号码"
+                        placeholder="信用卡预留手机号码"
+                        maxLength={11}
+                        value={this.state.form.credit_card_mobile}
+                        valueChanged={this._onInputChange.bind(this, 'credit_card_mobile')}
+                    />
+                </View>
+            </View>
+        ) : null;
+    }
 
-    this.setState({ form });
-  }
+    renderFaceVerifyForms() {
+        return (this.props.loanType == loanType.gjj || this.props.loanType == loanType.chaohaodai || this.props.loanType == loanType.chaohaodaicard) ? (
+            <View>
+                <GroupTitle style={[styles.groupTitle, {borderBottomWidth: 0}]} title="人脸识别"/>
+                <FaceMegInput onChange={(status) => this.setState({faceMeg: status == 'success'})}
+                              tracking={this.props.loanType == loanType.chaohaodaicard ? {
+                                  key: "inhouse_loan",
+                                  topic: "identity",
+                                  entity: "pic_face",
+                                  event: "clk",
+                                  exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+                              } : null}/>
+            </View>
+        ) : null;
+    }
 
-  _onInputChange(name, value) {
-    value = typeof value == 'string' ? value.trim() : value;
-    let form = this.state.form;
+    render() {
+        let {idFront, idBack, faceMeg} = this.state;
+        let {credit_card_no, credit_card_mobile} = this.state.form;
+        let backKey = "LoanDetailScene";
 
-    form[name] = value;
+        let enable = idFront && idBack;
+        if (this.props.loanType == 1) enable = enable && credit_card_no && credit_card_mobile;
+        if (this.props.loanType == 2 || this.props.loanType == loanType.chaohaodaicard) enable = enable && faceMeg;
+        if (this.props.loanType == 1 || this.props.loanType == 2) backKey = "SuiXinJieList";
 
-    this.setState({ form });
-  }
+        return (
+            <ScrollView>
+                { this.renderIDForms() }
+                { this.renderBankCardForms() }
+                { this.renderFaceVerifyForms() }
 
-  _submit() {
-    this.setState({ error: '', submitting: true})
+                <ErrorInfo msg={this.state.error}/>
 
-    return post('/loanctcf/apply', Object.assign({}, this.state.form, { loan_type: parseInt(this.props.loanType) })).then(response => {
+                {
+                    this.props.loanType == loanType.chaohaodaicard ? (
+                        <ExternalPopLink
+                            prePress={this._submitLoanForm.bind(this)}
+                            disabled={!enable}
+                            style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
+                            textStyle={onlineStyles.btnText}
+                            text="完成提交"
+                        />
+                    ) : (
+                        <ExternalPushLink
+                            title="审批状态"
+                            backKey={backKey}
+                            backRoute={{key: backKey}}
+                            toKey="OnlineApproveStatus"
+                            processing={this.state.submitting}
+                            prePress={this._submit.bind(this)}
+                            disabled={!enable}
+                            style={[onlineStyles.btn, onlineStyles.btnOffset, !enable && onlineStyles.btnDisable]}
+                            textStyle={onlineStyles.btnText}
+                            text="完成提交"
+                        />
+                    )
+                }
+            </ScrollView>
+        );
+    }
 
-      if(response.res == responseStatus.success) {
-        // this.props.fetchStatus();
-        this.setState({ submitting: false })
-        return true;
-      }
+    _cardTip() {
+        let cards = this.props.data.card_no_last_four_list;
 
-      throw response.msg
-    })
-    .catch((msg) => {
-      this.setState({ submitting: false, error: msg })
-      throw msg;
-    })
-  }
+        return (
+            <Text style={styles.tipText}>
+                请上传尾号为
+                { cards.map(this._cardNos.bind(this)) }
+                信用卡正面照片
+            </Text>
+        );
+    }
 
-  _submitLoanForm() {
-    console.log("LoanForm: ");
-    console.log(this.state.form);
+    _cardNos(card, index) {
+        return (
+            <Text key={'card' + index}>
+                {index ? '或' : ''}
+                <Text style={styles.cardNum}>{card}</Text>
+            </Text>
+        );
+    }
 
-    this.setState({ error: '', submitting: true})
+    _idChange(name, value) {
+        this.setState({[name]: value});
+    }
 
-    return post('/loanctcf/check-alive-result',  { loan_type: parseInt(this.props.loanType) } ).then(response => {
+    _cardChange(value) {
+        let form = this.state.form;
 
-      if(response.res == responseStatus.success) {
-        this.setState({ submitting: false })
-        return true;
-      }
+        form.credit_card_no_auto = value;
+        form.credit_card_no = value;
 
-      throw response.msg
-    })
-      .catch((msg) => {
-        this.setState({ submitting: false, error: msg })
-        throw msg;
-      })
+        this.setState({form});
+    }
 
-  }
+    _onInputChange(name, value) {
+        value = typeof value == 'string' ? value.trim() : value;
+        let form = this.state.form;
 
-  componentWillUnmount() {
-    this.props.refetchingStatus && this.props.refetchingStatus();
-  }
+        form[name] = value;
+
+        this.setState({form});
+    }
+
+    _submit() {
+        this.setState({error: '', submitting: true})
+
+        return post('/loanctcf/apply', Object.assign({}, this.state.form, {loan_type: parseInt(this.props.loanType)})).then(response => {
+
+            if (response.res == responseStatus.success) {
+                // this.props.fetchStatus();
+                this.setState({submitting: false})
+                return true;
+            }
+
+            throw response.msg
+        })
+            .catch((msg) => {
+                this.setState({submitting: false, error: msg})
+                throw msg;
+            })
+    }
+
+    _submitLoanForm() {
+        this.props.loanType == loanType.chaohaodaicard && tracker.trackAction({
+            key: "inhouse_loan",
+            topic: "identity",
+            entity: "submit",
+            event: "clk",
+            exten_info: JSON.stringify({title: this.props.title, loantype: this.props.loanType})
+        })
+
+        console.log("LoanForm: ");
+        console.log(this.state.form);
+
+        this.setState({error: '', submitting: true})
+
+        return post('/loanctcf/check-alive-result', {loan_type: parseInt(this.props.loanType)}).then(response => {
+
+            if (response.res == responseStatus.success) {
+                this.setState({submitting: false})
+                return true;
+            }
+
+            throw response.msg
+        })
+            .catch((msg) => {
+                this.setState({submitting: false, error: msg})
+                throw msg;
+            })
+
+    }
+
+    componentWillUnmount() {
+        this.props.refetchingStatus && this.props.refetchingStatus();
+    }
 }
 
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-    backgroundColor: '#fff'
-  },
-  cardNum: {
-    color: colors.primary
-  },
-  groupTitle: {
-    backgroundColor: colors.bg
-  },
-  tipText: {
-    marginTop: 10,
-    marginBottom: 24,
-    fontSize: fontSize.normal,
-    color: colors.gray
-  },
-  input: {
-    paddingHorizontal: 0,
-    borderBottomWidth: 0,
-    ...border('top')
-  }
+    container: {
+        paddingHorizontal: 10,
+        backgroundColor: '#fff'
+    },
+    cardNum: {
+        color: colors.primary
+    },
+    groupTitle: {
+        backgroundColor: colors.bg
+    },
+    tipText: {
+        marginTop: 10,
+        marginBottom: 24,
+        fontSize: fontSize.normal,
+        color: colors.gray
+    },
+    input: {
+        paddingHorizontal: 0,
+        borderBottomWidth: 0,
+        ...border('top')
+    }
 });
 
 
-
-import { connect } from 'react-redux';
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {connect} from 'react-redux';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
 import chaoHaoDai from "actions/online/chaoHaoDai";
 function mapStateToProps(state) {
 
-  return {
-    ...state.online.preloanStatus,
-    // isFetching: state.online.userInfo.isFetching,
-    // fetched: state.online.userInfo.fetched,
-    userInfo: state.online.userInfo.data,
-    loanType: state.online.loanType.type
-};
+    let {loanDetail} = state
+    let detail = loanDetail.detail
+
+    return {
+        ...state.online.preloanStatus,
+        // isFetching: state.online.userInfo.isFetching,
+        // fetched: state.online.userInfo.fetched,
+        userInfo: state.online.userInfo.data,
+        loanType: state.online.loanType.type,
+
+        title: detail.title
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    fetchStatus: () => dispatch(actions.status()),
-    fetching: () => {
-      //dispatch(actions.preloanStatus());
-      // dispatch(actions.userInfo())
-      //dispatch(chaoHaoDai.checkActiveResult());
-    },
-  }
+    return {
+        fetchStatus: () => dispatch(actions.status()),
+        fetching: () => {
+            //dispatch(actions.preloanStatus());
+            // dispatch(actions.userInfo())
+            //dispatch(chaoHaoDai.checkActiveResult());
+        },
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(trackingScene(LoanForm));

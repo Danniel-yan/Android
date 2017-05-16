@@ -13,6 +13,7 @@ import {
 import ProcessingButton from 'components/shared/ProcessingButton';
 import { textVerticalCenter, centering, responsive, border, container, rowContainer, colors, fontSize } from 'styles';
 import { post, responseStatus } from 'utils/fetch';
+import tracker from 'utils/tracker.js';
 
 const typeToFn = {
   idFront: 'idCardVerifyFromFront',
@@ -78,6 +79,7 @@ class CameraInput extends Component {
   }
 
   _onPress() {
+    this.props.tracking && tracker.trackAction(this.props.tracking)
     NativeModules.FaceMegModule[typeToFn[this.props.type]]().then(res => {
       res.value = (res.value && res.value.replace(/\s/g, '')) || true;
       this.setState({ value: res }, this._upload.bind(this));
@@ -178,6 +180,7 @@ class _FaceMegInput extends Component {
   }
 
   _faceMegStart() {
+    this.props.tracking && tracker.trackAction(this.props.tracking)
     NativeModules.FaceMegModule.megLiveVerify().then(res => {
       console.log(res);
       this.setState({ processing: true }, this._upload.bind(this, res));

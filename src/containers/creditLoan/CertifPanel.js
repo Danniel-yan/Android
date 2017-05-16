@@ -149,7 +149,7 @@ class CertifPanel extends Component {
                         <Text style={{color: '#999'}}>精选{loanlist.length}家放款快，额度高的贷款产品，快去申请吧！</Text>
                     </View>
                     <View style={{backgroundColor: '#f2f2f2', height: 1, flex: 1}}/>
-                    <RecommendList recommends={loanlist}/>
+                    <RecommendList recommends={loanlist} itemTracking={{key: "credit_loan", topic: "rec_loan_list"}}/>
                 </View>
             </ScrollView>
         );
@@ -211,8 +211,14 @@ class CertifPanel extends Component {
                     textStyle={this.statusStyle(user_infoResult.status)}
                     navProps={{
                         onPress: () => {
-                            this.props.externalPush({key: 'UserInfo', title: '身份认证'});
+                            this.props.externalPush({key: 'UserInfo', title: '身份认证', componentProps: {tracking : { 'key':'credit_loan','topic':'ID','event':'landing'}}});
                             this.closeModal();
+                        },
+                        tracking: {
+                            key: 'credit_loan',
+                            topic: 'verification',
+                            entity: 'ID',
+                            exten_info: user_infoResult.status
                         },
                         disabled: user_infoSuccess
                     }}
@@ -231,6 +237,15 @@ class CertifPanel extends Component {
                             } else {
                                 alert('请先进行身份认证')
                             }
+                        },
+                        tracking: {
+                            key: 'credit_loan',
+                            topic: 'verification',
+                            entity: 'blacklist',
+                            exten_info: JSON.stringify({
+                                'status': blacklistResult.status,
+                                'alert': user_infoSuccess ? '' : '请先进行身份认证'
+                            })
                         },
                         disabled: blacklistSuccess
                     }}
@@ -255,7 +270,10 @@ class CertifPanel extends Component {
                             topic: 'verification',
                             entity: 'credit_report',
                             event: 'clk',
-                            exten_info: creditResult.status
+                            exten_info: JSON.stringify({
+                                'status': creditResult.status,
+                                'alert': user_infoSuccess ? '' : '请先进行身份认证'
+                            })
                         },
                         disabled: creditSuccess
                     }}
@@ -279,7 +297,10 @@ class CertifPanel extends Component {
                             key: 'credit_loan',
                             topic: 'verification',
                             entity: 'bill',
-                            exten_info: bankResult.status
+                            exten_info: JSON.stringify({
+                                'status': bankResult.status,
+                                'alert': user_infoSuccess ? '' : '请先进行身份认证'
+                            })
                         },
                         disabled: bankSuccess
                     }}
@@ -303,7 +324,10 @@ class CertifPanel extends Component {
                             key: 'credit_loan',
                             topic: 'verification',
                             entity: 'PAF',
-                            exten_info: gjjResult.status
+                            exten_info: JSON.stringify({
+                                'status': gjjResult.status,
+                                'alert': user_infoSuccess ? '' : '请先进行身份认证'
+                            })
                         },
                         disabled: gjjSuccess
                     }}
@@ -332,7 +356,10 @@ class CertifPanel extends Component {
                             key: 'credit_loan',
                             topic: 'verification',
                             entity: 'telecom',
-                            exten_info: yysResult.status
+                            exten_info: JSON.stringify({
+                                'status': yysResult.status,
+                                'alert': user_infoSuccess ? '' : '请先进行身份认证'
+                            })
                         },
                         disabled: yysSuccess
                     }}
