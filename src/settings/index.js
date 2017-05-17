@@ -4,6 +4,8 @@ import tracker from 'utils/tracker.js';
 // import codePush from "react-native-code-push";
 import alert from 'utils/alert';
 
+const growingTrack = NativeModules.TrackModule;
+
 export const environments = {
   defaultEnvironment: require('./dynamic/env'),
   production: {
@@ -25,7 +27,6 @@ export const environments = {
     id: 'chaohaodai',
     text: "钞好贷-信用卡",
     api: 'http://106.14.15.106:8001/'
-    // api: 'http://10.2.128.147:8004/'
   },
   cunguanhuidu: {
     id: 'cuiguan',
@@ -80,6 +81,7 @@ function setupUUID() {
   return AsyncStorage.getItem('uuid')
     .then(uuid => {
       if(uuid) {
+        growingTrack.trackCS(uuid)
         staticSettings.uuid = uuid;
         tracker.user_id = uuid;
         return;
@@ -90,6 +92,7 @@ function setupUUID() {
         .then(response => {
 
           if(response.res == 1) {
+            growingTrack.trackCS(response.data.uuid)
             staticSettings.uuid = response.data.uuid;
             tracker.user_id = response.data.uuid;
             return AsyncStorage.setItem('uuid', response.data.uuid);
