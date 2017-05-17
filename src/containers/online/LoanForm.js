@@ -29,7 +29,6 @@ const inputStatus = {
 class LoanForm extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
 
         tracker.trackAction({
             key: "inhouse_loan",
