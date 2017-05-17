@@ -5,7 +5,6 @@ import android.util.Log;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.growingio.android.sdk.collection.GrowingIO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,12 +35,12 @@ public class TrackModule extends ReactContextBaseJavaModule {
             e.printStackTrace();
         }
         Log.d("1234","json----"+jsonObject);
-        GrowingIO.getInstance().track(eventName, jsonObject);
+//        GrowingIO.getInstance().track(eventName, jsonObject);
     }
 
     @ReactMethod
     public void trackCS(String uuid) {
-        GrowingIO.getInstance().setCS1("uuid", uuid);
+//        GrowingIO.getInstance().setCS1("uuid", uuid);
     }
 
 }
