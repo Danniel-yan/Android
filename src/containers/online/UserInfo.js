@@ -243,24 +243,30 @@ class UserInfo extends Component {
                         <Checkbox checked={this.state.checkedAgreement}
                                   onChange={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}
                                   style={{marginRight: 5}}/>
-                        <Text style={{flex: 1, flexWrap: "wrap"}}>
+                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', flexWrap: "wrap"}}>
                             <Text style={{fontSize: 12}}
                                   onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
+	                        <TouchableOpacity
+		                        onPress={() => this.props.externalPush({
+			                        web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
+			                        title: "《前海征信授权书》"
+		                        })}
+		                        style={{paddingVertical: 10}}
+	                        >
 	                        <Text numberOfLines={2}
-                            style={{fontSize: 12, color: colors.secondary, paddingVertical: 10}}
-                            onPress={() => this.props.externalPush({
-                              web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
-                              title: "《申请合约》"
-                            })}
-                          >《申请合约》、</Text>
+                            style={{fontSize: 12, color: colors.secondary}}
+	                        >《申请合约》、</Text></TouchableOpacity>
+	                        <TouchableOpacity
+		                        onPress={() => this.props.externalPush({
+		                          web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
+		                          title: "《前海征信授权书》"
+	                          })}
+	                          style={{paddingVertical: 10}}
+	                        >
 	                        <Text numberOfLines={2}
-                            style={{fontSize: 12, color: colors.secondary, paddingVertical: 10}}
-                            onPress={() => this.props.externalPush({
-                              web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
-                              title: "《前海征信授权书》"
-                            })}
-	                        >《前海征信授权书》</Text>
-                        </Text>
+                            style={{fontSize: 12, color: colors.secondary}}
+	                        >《前海征信授权书》</Text></TouchableOpacity>
+                        </View>
                     </View>
 
                     <TouchableOpacity style={{marginTop: 10}}
@@ -466,6 +472,7 @@ import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import Loading from 'components/shared/Loading';
 
 import actions from 'actions/online';
+import VerifyButton from "../../components/shared/VerifyButton";
 
 function mapStateToProps(state, ownProps) {
     let user = state.online.userInfo;
