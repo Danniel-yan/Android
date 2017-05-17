@@ -232,6 +232,7 @@ export default class FillUserInfo extends Component {
 
 
   _submit() {
+    this.props.type && this.props.type == 'loandetail' && tracker.trackGIO('land_loan_complete_info_new_S_apply',{})
     let { mobile, verifyCode: verify_code, idNO: id_no, job, creditStatus: credit_status, realname } = this.state;
 
     this.props.submit({ mobile, verify_code, id_no, job, credit_status: credit_status ? hasCreditStatus.yes : hasCreditStatus.no, realname });

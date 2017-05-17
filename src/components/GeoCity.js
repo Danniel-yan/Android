@@ -14,6 +14,7 @@ import { post } from 'utils/fetch';
 import LocationPicker from 'components/modal/LocationPicker';
 import tracker from 'utils/tracker.js';
 import Button from 'components/shared/ButtonBase';
+import GetGeoLocation from 'utils/geoLocation.js'
 
 const startOpacity = 0.3;
 const endOpacity = 1;
@@ -46,7 +47,7 @@ export default class GeoCity extends PureComponent {
     }
 
     _setLocation() {
-        navigator.geolocation.getCurrentPosition(position => {
+        GetGeoLocation({timeout: 5000}).then(position => {
             let coords = position.coords;
 
             post('/tool/get-location', {lati: coords.latitude, long: Math.abs(coords.longitude)})

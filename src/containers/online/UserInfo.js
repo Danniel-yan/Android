@@ -31,6 +31,7 @@ import {window} from 'styles';
 import * as defaultStyles from 'styles';
 import LoanButton from 'containers/shared/LoanButton';
 import { loanType } from 'constants';
+import GetGeoLocation from 'utils/geoLocation.js'
 
 const noWrap = true;
 (window.width > 400);
@@ -113,7 +114,6 @@ class UserInfo extends Component {
             return false
             //return '请输入单位名称';
         }
-        this.trackingVerifySuccess()
         return true;
     }
 
@@ -302,7 +302,8 @@ class UserInfo extends Component {
         }
         this.setState({submitting: true, error: ''}, () => {
             let form = this.state.form;
-            navigator.geolocation.getCurrentPosition(position => {
+            GetGeoLocation({timeout: 5000}).then(position => {
+                this.trackingVerifySuccess();
                 const coords = position.coords;
                 form.lati = coords.latitude;
                 form.long = Math.abs(coords.longitude);
@@ -323,7 +324,8 @@ class UserInfo extends Component {
                     } else if (response.code == 300) {
                         this.trackingVerifyBack('审批失败')
                         this.setState({submitting: false})
-                        this.props.goApproveFailed && this.props.goApproveFailed({title: this.props.title});
+                        alert(response.msg)
+                        // this.props.goApproveFailed && this.props.goApproveFailed({title: this.props.title});
                     } else {
                         this.trackingVerifyBack(response.msg)
                         throw response.msg;

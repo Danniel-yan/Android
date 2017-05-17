@@ -18,7 +18,7 @@ import actions from 'actions/online';
 import PayModal from './PayModal';
 
 const {width, height } = Dimensions.get('window');
-
+var refresh = true;
 class blackListHome extends Component {
   // tracking = "blacklist";
   tracking = function() {
@@ -87,7 +87,7 @@ class blackListHome extends Component {
   renderBody() {
     var free = this.props.free, hasChance = this.props.hasChance, hasReport = this.props.reports && this.props.reports.length > 0;
     if(free) return this.renderBlackListForm();
-    if(!free && hasChance) return this.renderCreditLoanNavigation();
+    if(!free) return this.renderCreditLoanNavigation();
     // if(!free && hasReport) return this.renderReportResult();
   }
 
@@ -107,7 +107,7 @@ class blackListHome extends Component {
           <ExternalPushLink
             style={styles.submitBtn}
             textStyle={styles.submitBtnText}
-            prePress={() => this.props.setLoanType()}
+            prePress={() => this.setType()}
             toKey={"CreditLoan"}
             text={"完善信用材料"}
             title={"信用评级"}
@@ -116,6 +116,11 @@ class blackListHome extends Component {
         </View>
       </View>
     );
+  }
+
+  setType(){
+    this.props.setLoanType()
+    refresh = false
   }
 
   renderBlackListForm() {
@@ -278,7 +283,7 @@ class blackListHome extends Component {
 
   componentWillUnmount() {
     this.props.ClearPaymentInfo && this.props.ClearPaymentInfo();
-      this.props.creditLevel();
+    refresh && this.props.creditLevel();
   }
 }
 

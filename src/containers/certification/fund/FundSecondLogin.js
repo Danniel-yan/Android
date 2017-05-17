@@ -106,7 +106,7 @@ export default class FundSecondLoginScene extends Component{
     )
   }
   _submit(){
-
+    Keyboard.dismiss();
     let body = {
       ticket_id: this.props.ticket_id,
       val_code: this.state.value

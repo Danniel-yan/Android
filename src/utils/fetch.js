@@ -1,6 +1,7 @@
 import { AsyncStorage, Platform } from 'react-native';
 import { getAppSettings, environments } from 'settings';
 import DeviceInfo from 'react-native-device-info';
+import GetGeoLocation from 'utils/geoLocation.js'
 
 import alert from './alert';
 
@@ -139,7 +140,7 @@ function setupUserToken() {
 }
 
 void function setupLocation() {
-  navigator.geolocation.getCurrentPosition(position => {
+  GetGeoLocation({timeout: 5000}).then(position => {
     coords = position.coords;
     coords.longitude = Math.abs(coords.longitude);
 

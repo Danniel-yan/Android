@@ -255,6 +255,11 @@ export default class LoanDetailScene extends Component {
 
     }
 
+    trackGIO(){
+        tracker.trackGIO('land_loan_loan_application',{'id':this.props.detail.id,'title':this.props.detail.title,'url':this.props.detail.url})
+        tracker.trackGIO('land_loan_product_detail_apply',{'id':this.props.detail.id,'title':this.props.detail.title})
+    }
+
     _renderButton() {
 
         if (this.props.isIOSVerifying) {
@@ -269,6 +274,7 @@ export default class LoanDetailScene extends Component {
                 fetchOnlineStatus={this.props.fetchOnlineStatus}
                 externalPop={() => this.props.dispatch(externalPop())}
                 detail={this.props.detail}
+                prePress={() => tracker.trackGIO('land_loan_product_detail_apply',{'id':this.props.detail.id,'title':this.props.detail.title})}
                 style={[styles.loanButton,{backgroundColor: '#f3f3f3'}]} textStyle={styles.loanButtonText}
                 tracking={{
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
@@ -297,7 +303,7 @@ export default class LoanDetailScene extends Component {
                         key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                         title: detail.title, amount: this.state.amount, period: this.state.value
                     }}
-                    prePress={() => tracker.trackGIO('land_loan_loan_application',{'id':detail.id,'title':detail.title,'url':detail.url})}
+                    prePress={() => this.trackGIO()}
                     web={detail.url}
                     title={detail.title}
                     componentProps={{
@@ -321,7 +327,8 @@ export default class LoanDetailScene extends Component {
                         title: detail.title
                     })
                 }}
-                prePress={() => tracker.trackGIO('land_loan_product_detail_apply',{'id':this.props.detail.id,'title':this.props.detail.title})}
+                prePress={() => tracker.trackGIO('land_loan_complete_info_new_S',{'id':this.props.detail.id,'title':this.props.detail.title})}
+                type="loandetail"
                 tracking={{
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value
