@@ -9,6 +9,7 @@ const TRACKER_CONFIG = {
 };
 
 let channel;
+const growingTrack = NativeModules.TrackModule;
 
 const BASE_INFO = {
     "DEVICE_UUID":DeviceInfo.getUniqueID(),
@@ -81,6 +82,10 @@ class Tracker {
             return;
         var event = "landing";
         this.triggerTracking({key, entity, topic, event });
+    }
+
+    trackGIO(name, value) {
+        growingTrack.track(name, JSON.stringify(value))
     }
 }
 

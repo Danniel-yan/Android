@@ -9,6 +9,7 @@ import TrackingPoint  from 'components/shared/TrackingPoint';
 import Artical from 'containers/scene/find/artical';
 import LoanProduct from 'containers/scene/find/loanProduct'
 import Loading from 'components/shared/Loading';
+import tracker from 'utils/tracker.js';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,6 +20,9 @@ export default class findHome extends Component {
 
   constructor(props) {
     super(props);
+
+    tracker.trackGIO('land_discover',{})
+
     this.state = {
       isFetchingBL: false
     };

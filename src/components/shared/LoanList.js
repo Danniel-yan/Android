@@ -3,6 +3,7 @@ import { View, ListView, Image, Platform, StyleSheet  } from 'react-native';
 import { colors } from 'styles/varibles';
 import Text from 'components/shared/Text';
 import styles from 'styles/loan';
+import tracker from 'utils/tracker.js';
 
 import { ExternalPushLink } from 'containers/shared/Link';
 
@@ -17,10 +18,18 @@ export default class LoanList extends Component {
           contentContainerStyle={[styles.listView, styles.flexRow,styles.bgColorWhite]}
           enableEmptySections={true}
           dataSource={dataSource}
-          renderRow={this.renderLoan}
+          renderRow={this.renderLoan.bind(this)}
         />
       </View>
     )
+  }
+
+  trackGIO(rowID, id, title) {
+    tracker.trackGIO('clk_homepage_large_loan_list', {
+      'position': rowID,
+      'id': id,
+      'title': title
+    })
   }
 
   renderLoan(data, sID, rowID){
@@ -29,6 +38,7 @@ export default class LoanList extends Component {
         tracking={{key: 'homepage', topic: 'large_loan_list', entity: rowID, id: data.id, title: data.title}}
         title={data.title}
         toKey="LoanDetailScene"
+        prePress={() => this.trackGIO(rowID, data.id, data.title)}
         componentProps={{fetchingParams: data.id }} >
         <View>
           <View style={styles.flexContainerColumn}>

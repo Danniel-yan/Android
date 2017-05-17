@@ -28,6 +28,8 @@ class ZoneScene extends Component {
     constructor(props) {
         super(props);
 
+        tracker.trackGIO('land_my_account',{})
+
         this.state = {
             modalVisible: false
         };

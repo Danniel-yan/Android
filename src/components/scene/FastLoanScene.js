@@ -26,6 +26,7 @@ import Dimensions from 'Dimensions';
 import SceneHeader from 'components/shared/SceneHeader';
 import {trackingScene} from 'high-order/trackingPointGenerator';
 
+
 const jobItems = [
     {label: "上班族", value: 1},
     {label: "企业主", value: 2},
@@ -43,6 +44,9 @@ class FastLoanScene extends Component {
 
     constructor(props) {
         super(props);
+
+        tracker.trackGIO('land_loan',{})
+
         this.state = {
             fetchRecParams: {
                 amount: props.amount || 5000,

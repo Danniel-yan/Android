@@ -21,6 +21,7 @@ import SecretGardenModal from 'components/modal/SecretGarden';
 import TrackingPoint  from 'components/shared/TrackingPoint';
 
 import panelStyles from './home/panelStyles';
+import tracker from 'utils/tracker.js';
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const { width, height } = Dimensions.get('window');
@@ -31,6 +32,8 @@ export default class HomeScene extends Component {
 
   constructor(props) {
     super(props);
+
+    tracker.trackGIO('land_hompage',{})
 
     this.state = {
       showSecret: false
@@ -51,7 +54,7 @@ export default class HomeScene extends Component {
           {this.props.isIOS ? null : <View style={{padding: 8, paddingLeft: 10, paddingRight: 10, backgroundColor: "#fff"}}><AmountInput /></View>}
           <LoanNavPanel />
           { this._renderBroadcast() }
-          <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}}/>
+          <RecommendListPanel itemTracking={{ key: 'homepage', topic: 'rec_loan_list'}} type='clk_homepage_rec_loan_list'/>
           {this._renderLoan()}
           {this._renderCard()}
         </ScrollView>
