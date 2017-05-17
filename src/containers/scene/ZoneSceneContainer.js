@@ -79,7 +79,7 @@ class ZoneScene extends Component {
                     <TouchableOpacity onPress={() => this.clipWeiXing()}>
                         <View style={zoneStyles.item}>
                             <Image style={zoneStyles.icon} source={require('assets/zone/weixingonggonghao.png')}/>
-                            <Text style={{color: '#333', fontSize: 17}}>微信公共号</Text>
+                            <Text style={{color: '#333', fontSize: 17}}>微信公众号</Text>
                             <Text style={[zoneStyles.txt, {textAlign: "right", color: "#A4A4A4", fontSize: 12}]}>在微信搜索「钞市」</Text>
                             <NextIcon/>
                         </View>
