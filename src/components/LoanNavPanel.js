@@ -37,6 +37,7 @@ class LoanNavPanel extends Component {
         externalPush && externalPush(route);
         return;
       }
+      tracker.trackGIO('clk_homepage_credit_loan',{})
       this.navToCreditLoan(token);
     });
   }
@@ -95,6 +96,7 @@ class LoanNavPanel extends Component {
               tracking={{key: 'homepage', topic: 'btn_sec', entity: 'recommend_all' }}
               title="贷款推荐"
               toKey="RecLoanScene"
+              prePress={() => tracker.trackGIO('clk_homepage_recommend_all',{})}
               style={LNPStyles.navItem}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/tuijiandaikuan_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>贷款推荐</Text>
@@ -103,6 +105,7 @@ class LoanNavPanel extends Component {
               tracking={{key: 'homepage', topic: 'btn_sec', entity: 'fastloan' }}
               title="极速贷款"
               toKey="LoanScene"
+              prePress={() => tracker.trackGIO('clk_homepage_fastloan',{})}
               style={LNPStyles.navItem}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/jisudaikuan_1331.png', width : 50, height: 50}}></Image>
               <Text style={LNPStyles.navTxt}>极速贷款</Text>
@@ -117,6 +120,7 @@ class LoanNavPanel extends Component {
               tracking={{key: 'homepage', topic: 'btn_sec', entity: 'low_interest_loan' }}
               title="低息贷"
               toKey="LoanScene"
+              prePress={() => tracker.trackGIO('clk_homepage_low_interest_loan',{})}
               componentProps = {{onBack : true}}
               style={LNPStyles.navItem}>
               <Image source={{uri : 'http://sys-php.img-cn-shanghai.aliyuncs.com/static/images/chaoshi-picon/dixidai_1331.png', width : 50, height: 50}}></Image>

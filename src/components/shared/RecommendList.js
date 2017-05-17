@@ -39,6 +39,11 @@ export default class RecommendList extends Component {
             'id': id,
             'title': title
         })
+        this.props.type && this.props.type == 'clk_loan_rec_loan_list' && tracker.trackGIO('clk_loan_rec_loan_list', {
+            'position': rowID,
+            'id': id,
+            'title': title
+        })
     }
 
     renderRecommend(data, sID, rowID) {

@@ -45,6 +45,8 @@ export default class LoanDetailScene extends Component {
     constructor(props) {
         super(props);
 
+        tracker.trackGIO('land_loan_product_detail',{'id':this.props.detail.id,'title':this.props.detail.title})
+
         var repayParams = this.props.repayCalc ? this.props.repayCalc.fetchedParams : null;
 
         this.state = {
@@ -295,6 +297,7 @@ export default class LoanDetailScene extends Component {
                         key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                         title: detail.title, amount: this.state.amount, period: this.state.value
                     }}
+                    prePress={() => tracker.trackGIO('land_loan_loan_application',{'id':detail.id,'title':detail.title,'url':detail.url})}
                     web={detail.url}
                     title={detail.title}
                     componentProps={{
@@ -318,6 +321,7 @@ export default class LoanDetailScene extends Component {
                         title: detail.title
                     })
                 }}
+                prePress={() => tracker.trackGIO('land_loan_product_detail_apply',{'id':this.props.detail.id,'title':this.props.detail.title})}
                 tracking={{
                     key: 'loan', topic: 'product_detail', entity: 'apply_all', id: detail.id,
                     title: detail.title, amount: this.state.amount, period: this.state.value

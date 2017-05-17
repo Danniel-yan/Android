@@ -23,6 +23,7 @@ import Checkbox from 'components/shared/Checkbox';
 
 import { post, responseStatus } from 'utils/fetch';
 import validators from 'utils/validators';
+import tracker from 'utils/tracker.js';
 
 class Login extends Component {
   static title = '登录';
@@ -35,6 +36,10 @@ class Login extends Component {
     checkedAgreement: true,
     submitting: false
   };
+
+  componentDidMount(){
+    tracker.trackGIO('land_user_login',{})
+  }
 
   componentDidUpdate() {
     if(this.state.mobile || !this.state.checkedAgreement || this.state.verifyCode) {
@@ -135,7 +140,7 @@ class Login extends Component {
     if(!this.changed || !this._validation()) {
       return null;
     }
-
+    tracker.trackGIO('clk_user_login_login_buton',{})
     if(this.submitting) { return; }
 
     this.submitting = true;

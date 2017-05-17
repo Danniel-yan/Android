@@ -39,4 +39,9 @@ public class TrackModule extends ReactContextBaseJavaModule {
         GrowingIO.getInstance().track(eventName, jsonObject);
     }
 
+    @ReactMethod
+    public void trackCS(String uuid) {
+        GrowingIO.getInstance().setCS1("uuid", uuid);
+    }
+
 }
