@@ -22,11 +22,6 @@ export default function (props) {
     }
     let resultData = props.resultdata
     let applyData = props.applydata
-    console.log('LoanDetailPanel resultData------------------->')
-    console.log(resultData)
-    console.log('LoanDetailPanel resultData------------------->')
-    console.log(applyData)
-    console.log('12345678----'+props.loanType)
     return (
         <View>
             <View style={[styles.container, resultData.style]}>
@@ -57,13 +52,8 @@ function contractAmountInfo(contractAmount, approve_amount) {
 
 function adjustAmount(contractAmount, approve_amount) {
 
-    // console.log('LoanDetailPanel function adjustAmount---------------->')
-    // console.log('approve_amount---------------->' + approve_amount)
-    // console.log('contractAmount---------------->' + contractAmount)
 
-    //console.log('12345----'+this.props.loanType)
     if (parseInt(contractAmount) > parseInt(approve_amount)) {
-        console.log('this.state.loanType123--------------->' + this.state.loanType)
         return (
             <LoanAdjustRText textLeft="借款金额：" approve_amount={approve_amount} contractAmount={contractAmount} loanType={this.state.loanType}/>   )
     } else {
