@@ -12,6 +12,7 @@ import {
 import CarouselGenerator from 'high-order/CarouselGenerator';
 import { MajorTabLink, ExternalPushLink } from 'containers/shared/Link';
 import Loading from 'components/shared/Loading'
+import tracker from 'utils/tracker.js';
 
 import { window } from 'styles';
 
@@ -42,6 +43,7 @@ class BannerCarousel extends Component {
             <ExternalPushLink
               web={imgInfo.url}
               tracking={Object.assign({key: 'homepage', topic: 'carousel', entity: idx, URL: imgInfo.url}, props.tracking)}
+              prePress={() => tracker.trackGIO('clk_homepage_carousel',{'URL':imgInfo.url, 'position':idx})}
               key={idx}>
 
               <View style={{width:screenWidth}}>

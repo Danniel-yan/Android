@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { window } from 'styles';
 import { ExternalPushLink } from 'containers/shared/Link';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
-import tracker from 'utils/tracker.js';
 
 function mapStateToProps(state) {
   return {
@@ -20,7 +19,6 @@ export default connect(mapStateToProps, null)(props => {
     return (
       <ExternalPushLink
         tracking={{key: 'homepage', topic: 'large_loan', entity: 'banner', URL: props.banner.url}}
-        prePress={() => tracker.trackGIO('clk_homepage_carousel',{'URL':props.banner.url})}
         web={props.banner.url}>
         <Image source={{uri: props.banner.pic}} style={{width: window.width, height:window.width * (176 / 750)}}/>
       </ExternalPushLink>

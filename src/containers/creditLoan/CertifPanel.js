@@ -222,7 +222,7 @@ class CertifPanel extends Component {
                         },
                         disabled: user_infoSuccess
                     }}
-                    externalTxt={"+" + gjjResult.weight + "%"}/>
+                    externalTxt={"+" + user_infoResult.weight + "%"}/>
                 <Item
                     icon={require("assets/credit-icons/icon_blacklist.png")}
                     title="查网贷信用"
@@ -277,7 +277,7 @@ class CertifPanel extends Component {
                         },
                         disabled: creditSuccess
                     }}
-                    externalTxt={"+" + blacklistResult.weight + "%"}/>
+                    externalTxt={"+" + creditResult.weight + "%"}/>
                 <Item
                     icon={require("assets/credit-icons/icon_bank.png")}
                     title="查信用卡账单"

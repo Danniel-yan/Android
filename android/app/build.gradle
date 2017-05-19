@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-//apply plugin: 'com.growingio.android'
+apply plugin: 'com.growingio.android'
 
 import com.android.build.OutputFile
 
@@ -132,10 +132,12 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "CODEPUSH_KEY", "\"LUel5YFNaoRmFv8c55s39w4SuRZwE18X89yfG\""
+            buildConfigField "String", "MOXIE_APIKEY", "\"a49b118dd3c14ad09e877966bcf0a3f2\""
             signingConfig signingConfigs.release
         }
         release {
             buildConfigField "String", "CODEPUSH_KEY", "\"GsLre6desbWjoD2MjQD_cYcT4vvlE18X89yfG\""
+            buildConfigField "String", "MOXIE_APIKEY", "\"60eb1c77bd3142019c5a9de342a21bc6\""
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
@@ -181,7 +183,7 @@ dependencies {
     compile project(':react-native-device-info')
     compile project(':react-native-code-push')
     compile 'com.facebook.fresco:animated-gif:0.11.0'
-//    compile 'com.growingio.android:vds-android-agent:0.9.103@aar'
+    compile 'com.growingio.android:vds-android-agent:0.9.103@aar'
     compile project(':iDCardLib')
     compile project(':bankCardLib')
     compile(name: 'alisdk-feedback-2.5.0', ext: 'aar')

@@ -248,8 +248,8 @@ class UserInfo extends Component {
                                   onPress={() => this.setState({checkedAgreement: !this.state.checkedAgreement})}>我已阅读并同意</Text>
 	                        <TouchableOpacity
 		                        onPress={() => this.props.externalPush({
-			                        web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/qianhaizhengxinshouquanshu.html",
-			                        title: "《前海征信授权书》"
+                                    web: "https://chaoshi-api.jujinpan.cn/static/pages/chaoshi/shenqingheyue.html",
+                                    title: "《申请合约》"
 		                        })}
 		                        style={{paddingVertical: 10}}
 	                        >

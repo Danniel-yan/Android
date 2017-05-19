@@ -1,10 +1,9 @@
 package com.shudu.chaoshi.module;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.growingio.android.sdk.collection.GrowingIO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,20 +26,18 @@ public class TrackModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void track(String eventName, String properties) {
-        Log.d("1234",eventName + "----"+properties);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject = new JSONObject(properties);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("1234","json----"+jsonObject);
-//        GrowingIO.getInstance().track(eventName, jsonObject);
+        GrowingIO.getInstance().track(eventName, jsonObject);
     }
 
     @ReactMethod
     public void trackCS(String uuid) {
-//        GrowingIO.getInstance().setCS1("uuid", uuid);
+        GrowingIO.getInstance().setCS1("uuid", uuid);
     }
 
 }

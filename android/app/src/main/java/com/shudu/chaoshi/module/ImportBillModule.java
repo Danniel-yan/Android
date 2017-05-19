@@ -13,6 +13,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.moxie.client.model.MxParam;
+import com.shudu.chaoshi.BuildConfig;
 import com.shudu.chaoshi.activity.ImportBillResultActivity;
 import com.shudu.chaoshi.util.Constants;
 
@@ -183,7 +184,7 @@ public class ImportBillModule extends ReactContextBaseJavaModule {
 
         MxParam mxParam = new MxParam();
         mxParam.setUserId(mUserId);
-        mxParam.setApiKey(Constants.MOXIE_APIKEY);
+        mxParam.setApiKey(BuildConfig.MOXIE_APIKEY);
         mxParam.setAgreementUrl(mAgreementUrl); // SDK里显示的用户使用协议
         mxParam.setFunction(actName); // 功能名
         mxParam.setQuitOnFail(MxParam.PARAM_COMMON_YES); // 爬取失败时是否退出SDK(登录阶段之后)
