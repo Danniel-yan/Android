@@ -21,20 +21,6 @@ import LoanDialog from 'utils/loanDialog.js';
 import alert from 'utils/alert.js'
 
 
-//function ApproveStatus(props) {
-//
-//    //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
-//    if (props.status == 10 && props.time_expire_status == 1) {
-//        return (<ApproveExpire {...props}/>);
-//    } else if (props.status == 10) {
-//        return (<ApproveSuccess {...props}/>);
-//    } else if (props.status == 9 || props.status == 1) {
-//        return (<ApproveFailure {...props}/>);
-//    } else {
-//        return (<Approving {...props}/>);
-//    }
-//}
-
 class ApproveStatus extends Component {
 
       constructor(props) {
@@ -45,10 +31,6 @@ class ApproveStatus extends Component {
     componentWillMount() {
         // this.props.clearApproveAmount()
 
-    }
-
-    componentWillUnmount() {
-      // this.props.clearApproveAmount()
     }
 
     render() {
@@ -147,33 +129,9 @@ class ApproveSuccess extends Component{
                     text="确认借款"/>
             </ScrollView>
         ) : null;
-
     }
 }
 
-
-//function ApproveSuccess(props) {
-//
-//    //console.log(this.props)
-//
-//}
-
-//function isShowLoanDialog(props) {
-//
-//    let applyAmount = props.applydata.apply_amount // 申请金额
-//    let approveAmount = props.resultdata.approve_amount // 审批金额
-//
-//    if (parseInt(approveAmount) > parseInt(applyAmount)) {
-//        return (
-//            <LoanDialog modalVisible={true} approveAmount={approveAmount}></LoanDialog>
-//        )
-//    } else {
-//
-//        return
-//    }
-//
-//
-//}
 
 function ApproveExpire(props) {
 
@@ -202,7 +160,6 @@ function ApproveExpire(props) {
     );
 
 }
-
 
 const styles = StyleSheet.create({
     groupTitle: {
@@ -245,10 +202,9 @@ function mapDispatchToProps(dispatch) {
         },
         clearApproveAmount: ()=> dispatch({
             type: 'clearReceiveOnlineAdjustApproveAmount',
-        }),
+        })
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     AsynCpGenerator(Loading, trackingScene(ApproveStatus), true));
-    // export default trackingScene(ApproveStatus);

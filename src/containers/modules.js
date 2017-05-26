@@ -4,8 +4,8 @@ import MajorNavigationContainer from './MajorNavigationContainer';
 import HomeScene from './scene/HomeSceneContainer';
 import FastLoanScene from './scene/FastLoanSceneContainer';
 import RecLoanScene from './scene/RecLoanSceneContainer';
-import RepaymentScene from './scene/RepaymentDetailContainer'
-import RepaymentResult from './scene/RepaymentResultContainer'
+import RepaymentScene from './scene/RepaymentDetailContainer';
+import RepaymentResult from './scene/RepaymentResultContainer';
 import CardScene from './scene/CardSceneContainer';
 import ZoneScene from 'containers/scene/ZoneSceneContainer';
 import Login from 'components/Login';
@@ -56,7 +56,8 @@ import FindArticleDetail from 'containers/scene/find/articalDetail';
 import AddBankCard from 'containers/scene/find/addBankCard';
 import CreditReport from 'containers/scene/find/creditReport';
 import BlackListhome from 'containers/blackList/Home';
-import BlackListReports from 'containers/scene/find/reports'
+import BlackListReports from 'containers/scene/find/reports';
+import BankDepositoryLoad from 'containers/online/BankDepositoryLoad';
 [
   { key: 'MajorNavigation', module: MajorNavigationContainer },
   { key: 'HomeScene', module: HomeScene },
@@ -115,7 +116,8 @@ import BlackListReports from 'containers/scene/find/reports'
   { key: 'BlackListhome', module: BlackListhome},
   { key: 'AddBankCard', module: AddBankCard},
   { key: 'CreditReport', module: CreditReport},
-  { key: 'BlackListReports', module: BlackListReports}
+  { key: 'BlackListReports', module: BlackListReports},
+  { key: 'BankDepositoryLoad', module: BankDepositoryLoad },
 ].forEach(item => {
   modules[item.key] = item.module;
 });

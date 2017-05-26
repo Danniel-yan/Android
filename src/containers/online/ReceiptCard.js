@@ -1,184 +1,187 @@
-import React, { Component } from 'React';
+import React, {Component} from 'React';
 
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
 } from 'react-native';
 
 import L2RText from 'components/shared/L2RText';
 import GroupTitle from 'components/GroupTitle';
 import SubmitButton from './SubmitButton';
-import { InputGroup, PickerGroup } from 'components/form';
-import { post, responseStatus } from 'utils/fetch';
-import { colors, responsive, fontSize, border } from 'styles';
+import {InputGroup, PickerGroup} from 'components/form';
+import {post, responseStatus} from 'utils/fetch';
+import {colors, responsive, fontSize, border} from 'styles';
 import ErrorInfo from './ErrorInfo';
+import ActiveCardDialog from 'utils/activeCardDialog'
+import {externalPush} from 'actions/navigation';
 
 class ReceiptCard extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      submitting: false,
-      mobile: props.userInfo.mobile,
-      bank_card_no: '',
-      bank_name: '',
-      error: ''
-    };
-  }
-
-  validation() {
-    if(!this.changed) { return ''; }
-
-    let { mobile, bank_card_no, bank_name } = this.state;
-
-    if(mobile.length != 11) {
-      return '请输入11位手机号码';
+        this.state = {
+            mobile: props.userInfo.mobile,
+            bank_card_no: '',
+            bank_name: '',
+        };
     }
 
-    if(bank_card_no.length == 0) {
-      return '请输入银行卡号';
+    validation() {
+        if (!this.changed) {
+            return '';
+        }
+
+        let {mobile, bank_card_no, bank_name} = this.state;
+
+        if (mobile.length != 11) {
+            return '请输入11位手机号码';
+        }
+
+        if (bank_card_no.length == 0) {
+            return '请输入银行卡号';
+        }
+
+        if (bank_name.length == 0) {
+            return '请选择开户银行';
+        }
+        return '';
     }
 
-    if(bank_name.length == 0) {
-      return '请选择开户银行';
+
+    render() {
+        let banksText = this.props.banks.join('、');
+        let userInfo = this.props.userInfo;
+        let formError = this.validation();
+        let error = this.state.error || formError;
+
+        return (
+            <ScrollView>
+                <L2RText left="姓名" right={userInfo.person_name} style={styles.item} rightStyle={styles.input}/>
+                <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle}
+                            title="注：由于是收款及扣款银行卡，请认真填写"/>
+                <InputGroup
+                    label="预留手机号"
+                    keyboardType="numeric"
+                    value={this.state.mobile}
+                    valueChanged={this._formChange.bind(this, 'mobile')}
+                    style={{wrap: styles.item, input: styles.input}}
+                />
+                <InputGroup
+                    label="银行卡号"
+                    keyboardType="numeric"
+                    value={this.state.bank_card_no}
+                    valueChanged={this._formChange.bind(this, 'bank_card_no')}
+                    style={{wrap: styles.item, input: styles.input}}
+                />
+                <PickerGroup
+                    label="开户银行"
+                    value={this.state.bank_name}
+                    valueChanged={this._formChange.bind(this, 'bank_name')}
+                    style={{wrap: styles.item}}
+                    items={this.props.banks}
+                    textStyle={[styles.input, {textAlign: 'right'}]}
+                />
+
+                <ActiveCardDialog ref='dialog' modalVisible={false} componentProps={{
+                    push: () => {
+                        this.props.externalPush({
+                            key: 'BankDepositoryLoad',
+                            title: '正在前往银行',
+                            componentProps: {
+                                info: this.state,
+                                success: {
+                                    key: 'OnlineLoanSign',
+                                    title: "签约"
+                                },
+                                fail: {
+                                    key: 'OnlineReceiptCard',
+                                    title: '添加银行卡'
+                                },
+                                error: {
+                                    key: 'OnlineReceiptCard',
+                                    title: '添加银行卡'
+                                }
+                            }
+                        })
+                    }
+                }}></ActiveCardDialog>
+
+                <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
+
+                <ErrorInfo msg={this.state.error}/>
+
+                <SubmitButton
+                    backRoute={{backCount: 1}}
+                    disabled={!!formError || !this.changed}
+                    onPress={this.submit.bind(this)}
+                    text="提交"
+                />
+            </ScrollView>
+        );
     }
 
-    return '';
-  }
+    _formChange(name, value) {
+        if (typeof value == 'string') {
+            value = value.trim();
+        }
 
-  render() {
-    let banksText = this.props.banks.join('、');
-    let userInfo = this.props.userInfo;
-    let formError = this.validation();
-    let error = this.state.error || formError;
+        this.changed = true;
 
-    return (
-      <ScrollView>
-        <L2RText left="姓名" right={userInfo.person_name} style={styles.item} rightStyle={styles.input}/>
-        <GroupTitle offset={false} textStyle={styles.groupTitleText} style={styles.groupTitle} title="注：由于是收款及扣款银行卡，请认真填写"/>
-        <InputGroup
-          label="预留手机号"
-          keyboardType="numeric"
-          value={this.state.mobile}
-          valueChanged={this._formChange.bind(this, 'mobile')}
-          style={{wrap: styles.item, input: styles.input}}
-        />
-        <InputGroup
-          label="银行卡号"
-          keyboardType="numeric"
-          value={this.state.bank_card_no}
-          valueChanged={this._formChange.bind(this, 'bank_card_no')}
-          style={{wrap: styles.item, input: styles.input}}
-        />
-        <PickerGroup
-          label="开户银行"
-          value={this.state.bank_name}
-          valueChanged={this._formChange.bind(this, 'bank_name')}
-          style={{wrap: styles.item}}
-          items={this.props.banks}
-          textStyle={[styles.input, {textAlign: 'right'}]}
-        />
-
-        <Text style={styles.bankTip}>限支持银行：{banksText}</Text>
-
-        <ErrorInfo msg={this.state.error}/>
-
-        <SubmitButton
-          processing={this.state.submitting}
-          backRoute={{ backCount: 1}}
-          disabled={!!formError || !this.changed}
-          onPress={this.submit.bind(this)}
-          text="提交"
-        />
-      </ScrollView>
-    );
-  }
-
-  _formChange(name, value) {
-    if(typeof value == 'string') {
-      value = value.trim();
+        this.setState({[name]: value});
     }
 
-    this.changed = true;
-
-    this.setState({ [name]: value });
-  }
-
-  submit() {
-    this.setState({ submitting: true, error: '' });
-
-    let { mobile, bank_card_no, bank_name } = this.state;
-
-    var loan_type = parseInt(this.props.loanType) || 0;
-
-    post('/loanctcf/contract-bind-bank', {
-      mobile, bank_card_no, bank_name, loan_type
-    }).then(response => {
-
-      if(response.res == responseStatus.success) {
-        this.setState({ submitting: false });
-        this.props.onSuccess(bank_card_no);
-        return;
-      }
-      this.setState({ error: response.msg, submitting: false });
-    })
-    .catch(err => {
-      this.setState({ error: '网络出错', submitting: false });
-    })
-  }
+    submit() {
+        this.refs.dialog._setModalVisible(true)
+    }
 }
 
 
 const styles = StyleSheet.create({
-  item: {
-    height: 55
-  },
-  input: {
-    color: colors.grayLight,
-  },
-  bankTip: {
-    textAlign: 'justify',
-    marginVertical: 10,
-    paddingHorizontal: 10,
-    lineHeight: 18,
-    fontSize: fontSize.normal,
-    color: colors.gray
-  },
-  groupTitle: {
-    backgroundColor: colors.bg
-  },
-  groupTitleText: {
-    fontSize: fontSize.normal
-  },
+    item: {
+        height: 55
+    },
+    input: {
+        color: colors.grayLight,
+    },
+    bankTip: {
+        textAlign: 'justify',
+        marginVertical: 10,
+        paddingHorizontal: 10,
+        lineHeight: 18,
+        fontSize: fontSize.normal,
+        color: colors.gray
+    },
+    groupTitle: {
+        backgroundColor: colors.bg
+    },
+    groupTitleText: {
+        fontSize: fontSize.normal
+    },
 });
 
 
-import { connect } from 'react-redux';
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {connect} from 'react-redux';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
-import { externalPop } from 'actions/navigation';
 
 function mapStateToProps(state) {
-  return {
-    userInfo: state.online.userInfo.data,
-    banks: state.online.contractBanks.banks,
-    loanType: state.online.loanType.type
-  };
+    return {
+        userInfo: state.online.userInfo.data,
+        banks: state.online.contractBanks.banks,
+        loanType: state.online.loanType.type
+    };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    fetching: () => dispatch(actions.contractBanks()),
-    onSuccess: (value) => {
-      ownProps.onSuccess(value);
-      dispatch(externalPop());
+    return {
+        fetching: () => dispatch(actions.contractBanks()),
+        externalPush: route => dispatch(externalPush(route))
     }
-  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  AsynCpGenerator(Loading, trackingScene(ReceiptCard)));
+    AsynCpGenerator(Loading, trackingScene(ReceiptCard)));

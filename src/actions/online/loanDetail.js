@@ -8,8 +8,8 @@ export default function(dispatch) {
 
     var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
     if (loan_type == loanType.chaohaodai) {
-      // dispatch(actions.bankInfo())
       dispatch(actions.repayAmount())
+      dispatch(actions.depositoryResult())
     }
 
     dispatch({ type: 'requestOnlineLoanDetail' })

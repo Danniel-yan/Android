@@ -23,6 +23,9 @@ import gjjLoginElements from './gjjLoginElements';
 import userCreditDetail from './userCreditDetail';
 import userCreditLevel from './userCreditLevel';
 import userCreditConfig from './userCreditConfig';
+import depositoryCreate from './depositoryCreate';
+import depositoryResult from './depositoryResult';
+import repayRecharge from './repayRecharge';
 import pboc from './pboc';
 import suixinjie from './suixinjie';
 import { applyStatus, activeResult } from './chaoHaoDai';
@@ -52,6 +55,9 @@ export default combineReducers({
   userCreditDetail,
   userCreditLevel,
   userCreditConfig,
+  depositoryCreate,
+  depositoryResult,
+  repayRecharge,
   pboc,
   suixinjie,
   chaoHaoDai: combineReducers({ applyStatus, activeResult })

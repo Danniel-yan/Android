@@ -1,29 +1,31 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
     View,
     Text,
     ScrollView,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 import Button from 'components/shared/ButtonBase';
 import Checkbox from 'components/shared/Checkbox';
 import L2RItem from './L2RItem';
 import NextIcon from 'components/shared/NextIcon';
-import { post, responseStatus } from 'utils/fetch';
-import { ExternalPushLink } from 'containers/shared/Link';
-import { flexRow, container, colors, fontSize, border } from 'styles'
-import { l2rStyles } from './styles';
 import alert from 'utils/alert';
-
-
+import {post, responseStatus} from 'utils/fetch';
+import {ExternalPushLink} from 'containers/shared/Link';
+import {flexRow, container, colors, fontSize, border} from 'styles'
+import {l2rStyles} from './styles';
+import ChangeCardDialog from 'utils/changeCardDialog.js';
+import {externalPush} from 'actions/navigation';
 import SubmitButton from './SubmitButton';
 
 class LoanSign extends Component {
     state = {
         card: '',
         checkedAgreement: true,
+        cg_amount: '',
         resultData: this.props.resultdata
     }
 
@@ -56,11 +58,11 @@ class LoanSign extends Component {
 
     render() {
         let userInfo = this.props.userInfo;
-        let loan = this.state.resultData;
-        console.log("loans")
-        console.log(loan)
+        let loan = this.props.resultdata;
         let service = loan.repayPlanResults[0];
         let plan = loan.repayPlanResults.slice(1);
+        let depositoryResult = this.props.depositoryResult;
+        this.state.cg_amount = loan.approve_amount;
 
         return (
             <ScrollView>
@@ -68,7 +70,7 @@ class LoanSign extends Component {
                     <L2RItem left="姓名" right={userInfo.person_name}/>
                     <L2RItem left="身份证号" right={userInfo.id_no}/>
 
-                    <L2RItem style={styles.amount} left="合同金额" right={loan.contractAmount }>
+                    <L2RItem style={styles.amount} left="合同金额" right={loan.contractAmount}>
                         <Text style={styles.amountTip}>
                             本次借款手续费为{service.repayAmount}元，到手金额为{(loan.contractAmount - service.repayAmount).toFixed(2)}元
                         </Text>
@@ -87,16 +89,15 @@ class LoanSign extends Component {
                         </L2RItem>
                     </ExternalPushLink>
 
-                    <ExternalPushLink
-                        toKey="OnlineReceiptCard"
-                        title="添加银行卡"
-                        componentProps={{ onSuccess: value => this.setState({ card: value }) }}
-                    >
-                        <L2RItem left="收款银行卡" right={this.state.card}>
+                    <TouchableOpacity onPress={this.bindCard.bind(this)}>
+                        <L2RItem left="收款银行卡"
+                                 right={depositoryResult.status == 1 ? depositoryResult.content.bank_name + "(****" + depositoryResult.content.bank_card_no.slice(-4) + ")" : ''}>
                             <NextIcon/>
                         </L2RItem>
-                    </ExternalPushLink>
+                    </TouchableOpacity>
                 </View>
+
+                <ChangeCardDialog ref='carddialog' modalVisible={false}></ChangeCardDialog>
 
                 <View style={styles.textRow}>
                     <Button
@@ -112,7 +113,7 @@ class LoanSign extends Component {
                             web="https://sys-python.oss-cn-shanghai.aliyuncs.com/pt_ctcf_loan_contract/contrace_template.html"
                             text="《借款咨询服务协议》"
                             title="借款咨询服务协议"
-                            textStyle={[styles.checkboxTxt, { color: colors.secondary }]}
+                            textStyle={[styles.checkboxTxt, {color: colors.secondary}]}
                         />
                         <Text style={styles.checkboxTxt}>相关条款</Text>
                     </Button>
@@ -124,7 +125,7 @@ class LoanSign extends Component {
 
                 <SubmitButton
                     processing={this.state.submitting}
-                    disabled={!(this.state.card && this.state.checkedAgreement)}
+                    disabled={!(depositoryResult.status == 1 && this.state.checkedAgreement)}
                     prePress={this._submit.bind(this)}
                     toKey="OnlineSignSuccess"
                     componentProps={{loan_type: this.props.loanType}}
@@ -135,12 +136,25 @@ class LoanSign extends Component {
         );
     }
 
+    bindCard() {
+        if (this.props.depositoryResult.status == 1) {
+            this.refs.carddialog._setModalVisible(true)
+        } else {
+            this.props.externalPush({
+                key: "OnlineReceiptCard",
+                title: "添加银行卡"
+            })
+        }
+    }
+
     _submit() {
         this.setState({submitting: true})
 
-        return post('/loanctcf/create-contract', {
+
+        //return post('/loanctcf/create-contract', {loan_type: parseInt(this.props.loanType) || 0}).then(response => {
+        return post('/loanctcf/create-contract-cg', {
             loan_type: parseInt(this.props.loanType) || 0,
-            amount: this.state.resultData.approve_amount
+            amount: this.state.cg_amount
         }).then(response => {
 
             // if(response.res == responseStatus.failure) {
@@ -188,8 +202,8 @@ const styles = StyleSheet.create({
 });
 
 
-import { connect } from 'react-redux';
-import { trackingScene } from 'high-order/trackingPointGenerator';
+import {connect} from 'react-redux';
+import {trackingScene} from 'high-order/trackingPointGenerator';
 import Loading from 'components/shared/Loading';
 import AsynCpGenerator from 'high-order/AsynCpGenerator';
 import actions from 'actions/online';
@@ -197,15 +211,19 @@ import actions from 'actions/online';
 function mapStateToProps(state) {
     let userInfo = state.online.userInfo;
     let applyResult = state.online.applyResult;
+    let depositoryResult = state.online.depositoryResult;
 
     return Object.assign({}, {
         ...state.online.applyResult,
         userInfo: userInfo.data,
+        depositoryResult: state.online.depositoryResult,
         loanType: state.online.loanType.type
     }, {
-        isFetching: userInfo.isFetching || applyResult.isFetching,
-        fetched: userInfo.fetched && applyResult.fetched
+        isFetching: userInfo.isFetching || applyResult.isFetching || depositoryResult.isFetching,
+        fetched: userInfo.fetched && applyResult.fetched && depositoryResult.fetched
     });
+
+    return;
 }
 
 function mapDispatchToProps(dispatch) {
@@ -214,7 +232,9 @@ function mapDispatchToProps(dispatch) {
         fetching: () => {
             // dispatch(actions.applyResult())
             dispatch(actions.userInfo())
+            dispatch(actions.depositoryResult())
         },
+        externalPush: route => dispatch(externalPush(route))
     }
 }
 

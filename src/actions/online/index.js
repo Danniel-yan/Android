@@ -21,6 +21,9 @@ import gjjLoginElements from './gjjLoginElements';
 import userCreditDetail from './userCreditDetail';
 import userCreditLevel from './userCreditLevel';
 import userCreditConfig from './userCreditConfig';
+import depositoryCreate from './depositoryCreate';
+import depositoryResult from './depositoryResult';
+import repayRecharge from './repayRecharge';
 import { initial, getStatus } from './pboc';
 import suixinjie from './suixinjie';
 import chaoHaoDai from './chaoHaoDai'
@@ -47,6 +50,9 @@ export default {
   yysBillList,
   yysForms,
   gjjResult,
+  depositoryCreate,
+  depositoryResult,
+  repayRecharge,
   setLoanType: function(loanType) {
     return { type: "SetLoanType", value: loanType };
   },

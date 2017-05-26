@@ -16,7 +16,8 @@
     "react-native-device-info": "^0.9.6",
     "react-redux": "4.4.6",
     "redux": "3.6.0",
-    "redux-thunk": "2.1.0"
+    "redux-thunk": "2.1.0",
+    "whatwg-fetch": "^1.1.1"
   },
   "jest": {
     "preset": "jest-react-native"
