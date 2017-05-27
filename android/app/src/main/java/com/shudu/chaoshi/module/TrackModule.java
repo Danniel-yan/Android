@@ -4,6 +4,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.growingio.android.sdk.collection.GrowingIO;
+import com.util.log.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ public class TrackModule extends ReactContextBaseJavaModule {
             e.printStackTrace();
         }
         GrowingIO.getInstance().track(eventName, jsonObject);
+        Logger.d("trackgrowing", eventName + "----" + jsonObject);
     }
 
     @ReactMethod

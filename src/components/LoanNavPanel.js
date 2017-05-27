@@ -30,14 +30,18 @@ class LoanNavPanel extends Component {
   }
 
   onPressIconBtn() {
+    tracker.trackGIO('clk_homepage_credit_loan',{})
+    this.onPressIcon();
+  }
+
+  onPressIcon() {
     AsyncStorage.getItem('userToken').then(token => {
       var externalPush = this.props.externalPush, route;
       if(!token) {
-        route = { key: "Login", componentProps: { loginSuccess: () => (this.onPressIconBtn()) } };
+        route = { key: "Login", componentProps: { loginSuccess: () => (this.onPressIcon()) } };
         externalPush && externalPush(route);
         return;
       }
-      tracker.trackGIO('clk_homepage_credit_loan',{})
       this.navToCreditLoan(token);
     });
   }

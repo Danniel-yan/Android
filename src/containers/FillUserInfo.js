@@ -275,6 +275,7 @@ class FillUserInfo extends Component {
         this.props.submit(body).then(response => {
             if (response.res == responseStatus.success) {
                 this.props.onSubmitSuccess();
+                this.props.trackGIO && this.props.trackGIO();
             }
         }).catch(console.error)
             .finally(() => {
