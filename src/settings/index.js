@@ -11,27 +11,32 @@ export const environments = {
   production: {
     id: 'production',
     text: '生产环境',
-    api: 'https://chaoshi-api.jujinpan.cn/'
+    api: 'https://api.chaoshi369.com/'
   },
-  test: {
-    id: 'test',
-    text: '内部用测试环境',
-    api: 'https://shiyishou-test.jujinpan.cn/'
+  sit: {
+    id: 'sit',
+    text: 'sit',
+    api: 'https://sit-api.chaoshi369.com/api/'
+  },
+  sit1: {
+    id: 'sit1',
+    text: 'sit1',
+    api: 'https://sit1-api.chaoshi369.com/api/'
+  },
+  sit2: {
+    id: 'sit2',
+    text: 'sit2',
+    api: 'https://sit2-api.chaoshi369.com/api/'
   },
   uat: {
     id: 'uat',
-    text: 'UAT',
-    api: 'https://shiyishou-uat.jujinpan.cn/'
+    text: "uat",
+    api: 'https://uat-api.chaoshi369.com/api/'
   },
-  chaohaodai: {
-    id: 'chaohaodai',
-    text: "钞好贷-信用卡",
-    api: 'http://106.14.15.106:8001/'
-  },
-  cunguanhuidu: {
-    id: 'cuiguan',
-    text: '存管灰度',
-    api: 'http://106.14.116.29:8001'
+  p: {
+    id: 'p',
+    text: 'p',
+    api: 'https://p-api.chaoshi369.com/api/'
   }
 };
 
@@ -46,9 +51,9 @@ let environmentSettings;
 export function applicationSetup() {
 
   return setupEnvironment()
-    .then(setupChannel)
-    .then(setupUUID)
-    .catch(err => { console.log(err) })
+      .then(setupChannel)
+      .then(setupUUID)
+      .catch(err => { console.log(err) })
 }
 
 export function getAppSettings() {
@@ -79,30 +84,30 @@ function setupChannel() {
 
 function setupUUID() {
   return AsyncStorage.getItem('uuid')
-    .then(uuid => {
-      if(uuid) {
-        growingTrack.trackCS(uuid)
-        staticSettings.uuid = uuid;
-        tracker.user_id = uuid;
-        return;
-      }
+      .then(uuid => {
+        if(uuid) {
+          growingTrack.trackCS(uuid)
+          staticSettings.uuid = uuid;
+          tracker.user_id = uuid;
+          return;
+        }
 
-      return fetch(`${environmentSettings.api}-/user/uuid`)
-        .then(response => response.json())
-        .then(response => {
+        return fetch(`${environmentSettings.api}-/user/uuid`)
+            .then(response => response.json())
+            .then(response => {
 
-          if(response.res == 1) {
-            growingTrack.trackCS(response.data.uuid)
-            staticSettings.uuid = response.data.uuid;
-            tracker.user_id = response.data.uuid;
-            return AsyncStorage.setItem('uuid', response.data.uuid);
-          }
+              if(response.res == 1) {
+                growingTrack.trackCS(response.data.uuid)
+                staticSettings.uuid = response.data.uuid;
+                tracker.user_id = response.data.uuid;
+                return AsyncStorage.setItem('uuid', response.data.uuid);
+              }
 
-        })
-  })
-  .then(() => {
-    NativeModules.JpushModule.setAlias(staticSettings.uuid.replace(/-/g, ''));
-  })
+            })
+      })
+      .then(() => {
+        NativeModules.JpushModule.setAlias(staticSettings.uuid.replace(/-/g, ''));
+      })
 }
 
 /**
@@ -110,22 +115,22 @@ function setupUUID() {
  */
 function setupEnvironment() {
   return AsyncStorage.getItem('environment')
-    .then(environment => {
-      let envName = environment || environments.defaultEnvironment;
+      .then(environment => {
+        let envName = environment || environments.defaultEnvironment;
 
-      environmentSettings = environments[envName];
-      staticSettings.env = envName;
-      return AsyncStorage.setItem('environment', envName);
-    })
+        environmentSettings = environments[envName];
+        staticSettings.env = envName;
+        return AsyncStorage.setItem('environment', envName);
+      })
 }
 
 export function switchEnvironment(environment) {
   return AsyncStorage.removeItem('userToken').then(() => {
     AsyncStorage.setItem('environment', environment)
-    .then(() => {
-      staticSettings.env = environment;
-      // codePush.restartApp();
-      alert("请重新启动App");
-    })
+        .then(() => {
+          staticSettings.env = environment;
+          // codePush.restartApp();
+          alert("请重新启动App");
+        })
   });
 }
