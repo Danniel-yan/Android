@@ -6,7 +6,7 @@ import GetGeoLocation from 'utils/geoLocation.js'
 import alert from './alert';
 
 export const responseStatus = { failure: 0, success: 1 }
-export const defaultApiVersion = Platform.OS == 'ios' ? '0.7' : '0.7';
+export const defaultApiVersion = Platform.OS == 'ios' ? '0.8' : '0.8';
 
 export const loanEntryClose = false;
 
