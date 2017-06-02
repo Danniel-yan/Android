@@ -137,8 +137,7 @@ android {
         }
         release {
             buildConfigField "String", "CODEPUSH_KEY", "\"GsLre6desbWjoD2MjQD_cYcT4vvlE18X89yfG\""
-            buildConfigField "String", "MOXIE_APIKEY", "\"a49b118dd3c14ad09e877966bcf0a3f2\""
-//          todo  buildConfigField "String", "MOXIE_APIKEY", "\"60eb1c77bd3142019c5a9de342a21bc6\""
+            buildConfigField "String", "MOXIE_APIKEY", "\"60eb1c77bd3142019c5a9de342a21bc6\""
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
