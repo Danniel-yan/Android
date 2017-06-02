@@ -180,7 +180,7 @@ class CreditCardStatus extends Component {
                         {this._cardTip()}
                     </View>
 
-                    <View style={{paddingTop: 10, flexDirection: "row", alignItems: "center", ...border("top")}}>
+                    <View style={{paddingTop: 10, flexDirection: "row", alignItems: "center", ...border("top", 1)}}>
                         <Text>信用卡号码</Text>
                         <View style={{flex: 1}}>
                             <Input type="number" style={{
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         borderBottomWidth: 0,
         backgroundColor: "red",
-        ...border('top')
+        ...border('top', 1)
     },
 });
 

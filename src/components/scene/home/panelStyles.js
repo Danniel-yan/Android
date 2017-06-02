@@ -9,7 +9,7 @@ export default StyleSheet.create({
   header: {
     flexDirection: 'row',
     padding: 10,
-    ...border('bottom'),
+    ...border('bottom', 1),
   },
 
   title: {

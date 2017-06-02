@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
     formGroup: {
         height: 55,
         backgroundColor: '#fff',
-        ...border('bottom'),
+        ...border('bottom', 1),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'

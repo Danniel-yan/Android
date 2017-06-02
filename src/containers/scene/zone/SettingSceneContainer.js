@@ -6,6 +6,7 @@ import { externalPush } from 'actions/navigation';
 import React, { Component } from 'react';
 
 import { View, Image, ScrollView, StyleSheet } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 import Text from 'components/shared/Text';
 import zoneStyles from './zoneStyles.js';
@@ -39,14 +40,13 @@ class SettingScene extends Component {
             </View>
           </ExternalPushLink>
 
-          {/*
+          {
            <View style={zoneStyles.item}>
-           <Text style={zoneStyles.txt}>清除缓存</Text>
-           <Text style={styles.txt}>3.30MB</Text>
-           <NextIcon/>
+             <Text style={zoneStyles.txt}>当前版本</Text>
+             <Text style={[zoneStyles.txt,{textAlign: 'right'}]}>{DeviceInfo.getVersion()}</Text>
            </View>
 
-           <View style={[zoneStyles.item, zoneStyles.group]}>
+           /*<View style={[zoneStyles.item, zoneStyles.group]}>
            <Text style={zoneStyles.txt}>前往应用市场评价</Text>
            <NextIcon/>
            </View>

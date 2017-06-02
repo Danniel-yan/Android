@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   flexContainerRow:{
     flexDirection: 'row',
     padding:10,
-    ...border('bottom'),
+    ...border('bottom', 1),
     alignItems: 'center'
   },
   flexContainer:{
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   flexContainerColumn: {
     justifyContent: 'center',
-    ...border('right'),
+    ...border('right', 1),
     paddingTop:10,
     paddingBottom:10,
     alignItems:'center',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex:1,
     alignItems:'center',
-    ...border('right'),
+    ...border('right', 1),
     marginTop:15,
     marginBottom:15
   },

@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
         height: 40,
         paddingHorizontal: 10,
         backgroundColor: '#fff',
-        ...border('bottom'),
+        ...border('bottom', 1),
         justifyContent: 'center'
     },
 
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
 
     formGroup: {
         backgroundColor: '#fff',
-        ...border('bottom'),
+        ...border('bottom', 1),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'

@@ -25,7 +25,7 @@ export default function CerificationItem(props) {
 
 const styles = StyleSheet.create({
   item: {
-    ...border('bottom'),
+    ...border('bottom', 1),
     paddingHorizontal: 10,
     height: 70
   },

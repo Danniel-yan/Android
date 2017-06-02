@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     width: window.width / 2,
     paddingHorizontal: 5,
     flexDirection: 'row',
-    ...border('bottom'),
-    ...border('right'),
+    ...border('bottom', 1),
+    ...border('right', 1),
     height: responsive.width(180)
   },
   name: {

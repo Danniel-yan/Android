@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   tr: {
     height: 46,
     backgroundColor: '#fff',
-    ...border('bottom')
+    ...border('bottom', 1)
   },
   col1: {
     width: responsive.width(160),

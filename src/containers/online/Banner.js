@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     lineHeight: 20
   },
   footer: {
-    ...border('top'),
+    ...border('top', 1),
     paddingVertical: 20,
     marginHorizontal: 15,
   },

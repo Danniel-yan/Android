@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    ...border('bottom'),
+    ...border('bottom', 1),
     justifyContent: 'center'
   },
 

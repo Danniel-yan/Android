@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         height: 44,
         backgroundColor: '#fff',
-        ...border('bottom')
+        ...border('bottom', 1)
     },
     text: {
         flex: 1,

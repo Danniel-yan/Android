@@ -36,7 +36,7 @@ function Icon(props) {
 
 const styles = StyleSheet.create({
   item: {
-    ...border('bottom'),
+    ...border('bottom', 1),
     backgroundColor: '#fff',
     paddingHorizontal: 10,
     height: 70

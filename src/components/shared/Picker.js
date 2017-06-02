@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        ...border('top'),
+        ...border('top', 1),
         backgroundColor: '#fff',
         justifyContent: 'flex-start'
     },
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         height: 40,
         alignItems: 'flex-end',
         justifyContent: 'center',
-        ...border('bottom'),
+        ...border('bottom', 1),
     },
 
     picker: {},
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
 
     androidItem: {
         height: 42,
-        ...border('bottom'),
+        ...border('bottom', 1),
     },
     paddingStyle: {
     	paddingHorizontal: 20,

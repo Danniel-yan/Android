@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center',
     backgroundColor: '#fff',
-    ...border('bottom'),
+    ...border('bottom', 1),
   },
 
   rowTxt: {

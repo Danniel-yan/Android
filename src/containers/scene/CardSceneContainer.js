@@ -184,7 +184,7 @@ function mapDispatchToProps(dispatch) {
 
 const cardEnterStyle = StyleSheet.create({
   rowGroup: {
-    ...border('bottom')
+    ...border('bottom', 1)
   },
 
   wrap: {
@@ -199,7 +199,7 @@ const cardEnterStyle = StyleSheet.create({
   },
 
   left: {
-    ...border('right'),
+    ...border('right', 1),
     width: responsive.width(332),
     justifyContent: 'center',
     alignItems:'center',

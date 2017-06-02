@@ -92,7 +92,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'center',
-    ...border('top'),
+    ...border('top', 1),
     paddingTop:8,
     paddingBottom:8
   },
@@ -115,7 +115,7 @@ export default StyleSheet.create({
   moreBank:{
     width: Dimensions.get('window').width / 2 -1,
     height:100,
-    ...border('right'),
+    ...border('right', 1),
     justifyContent: 'center',
     alignItems:'center'
   },
@@ -126,7 +126,7 @@ export default StyleSheet.create({
     paddingLeft:15,
     paddingRight:15,
     flexDirection: 'row',
-    ...border('bottom'),
+    ...border('bottom', 1),
     marginTop:5
   },
   carLogo:{
@@ -146,7 +146,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingVertical:15,
     paddingHorizontal:10,
-    ...border('bottom'),
+    ...border('bottom', 1),
   },
   rightContainer : {
     paddingLeft : 10,

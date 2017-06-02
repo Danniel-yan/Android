@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: 0,
     borderBottomWidth: 0,
-    ...border('top')
+    ...border('top', 1)
   }
 });

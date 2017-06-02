@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   cancel: {
-    ...border('top'),
+    ...border('top', 1),
     height: 43,
     backgroundColor: '#fff',
   },

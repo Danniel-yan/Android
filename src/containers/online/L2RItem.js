@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: '#fff',
     height: 55,
-    ...border('bottom')
+    ...border('bottom', 1)
   },
   text: {
     color: colors.grayLight

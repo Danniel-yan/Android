@@ -203,7 +203,7 @@ class CertificationChaohaoDaiCard extends Component {
                         <View><Text numberOfLines={2} style={{color: "#FF7429", fontSize: fontSize.normal}}>提供更多材料，能提高30%的贷款成功率，还可以享受更高额度更低利率！</Text></View>
                     </View>
                     <View style={[{paddingVertical: 15, flexDirection: "row"}, styles.bg]}>
-                        <StatusItem statusKey="jd" style={{flex: 1, alignItems: "center", ...border("right")}}
+                        <StatusItem statusKey="jd" style={{flex: 1, alignItems: "center", ...border("right", 1)}}
                                     onPress={() => {
                                         this.props.jdJump && this.props.jdJump();
                                         tracker.trackAction({
@@ -269,7 +269,7 @@ class CertificationChaohaoDaiCard extends Component {
 
 const styles = {
     bg: {backgroundColor: "#fff"},
-    borderBtm: {...border('bottom')},
+    borderBtm: {...border('bottom', 1)},
 
     itemWrap: {paddingVertical: 15, flexDirection: "row", alignItems: "center"},
     img: {width: 30, height: 30}, txt: {flex: 1, fontSize: fontSize.large, paddingLeft: 10},

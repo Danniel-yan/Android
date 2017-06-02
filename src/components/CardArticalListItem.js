@@ -44,7 +44,7 @@ export default (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    ...border('bottom'),
+    ...border('bottom', 1),
     backgroundColor: '#fff',
     // height: responsive.height(205),
     flexDirection: 'row',

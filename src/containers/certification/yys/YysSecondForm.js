@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     color: colors.grayDark
   },
   body: {
-    ...border('bottom')
+    ...border('bottom', 1)
   },
   btn: {
     height: responsive.height(87),

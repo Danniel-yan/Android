@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    ...border('bottom')
+    ...border('bottom', 1)
   },
   container: {
     justifyContent: 'center',

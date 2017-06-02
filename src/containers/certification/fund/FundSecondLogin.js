@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     height: 40,
     borderRadius: 4,
-    ...border('top')
+    ...border('top', 1)
   },
   submitBtnText: {
     fontSize: 20,
