@@ -30,7 +30,9 @@ class ApproveStatus extends Component {
     //6=提交贷款申请中，7=提交失败，8=提交成功，9=贷款申请失败，10=贷款申请成功
     componentWillMount() {
         // this.props.clearApproveAmount()
-
+        if (this.props.loanType == 1000){
+            this.props.suixinjie()
+        }
     }
 
     render() {
@@ -202,7 +204,10 @@ function mapDispatchToProps(dispatch) {
         },
         clearApproveAmount: ()=> dispatch({
             type: 'clearReceiveOnlineAdjustApproveAmount',
-        })
+        }),
+        suixinjie: () => {
+            dispatch(onlineAction.suixinjie("1000"))
+        }
     }
 }
 
