@@ -158,10 +158,12 @@ public class FaceBankCardScanActivity extends Activity implements
             mCamera = Camera.open(0);
         } catch (Exception e) {
             e.printStackTrace();
+            ToastHelper.getInstance().showToast("请打开摄像头权限");
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
 //            }
         }
+
         setAndLayout();
     }
 
@@ -525,11 +527,12 @@ public class FaceBankCardScanActivity extends Activity implements
             intent.putExtra("confidence", data.getStringExtra("confidence"));
             setResult(RESULT_OK, intent);
             finish();
-        }else if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK){
+        } else if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
             try {
                 mCamera = Camera.open(0);
             } catch (Exception e) {
                 e.printStackTrace();
+                ToastHelper.getInstance().showToast("请打开摄像头权限");
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                    requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
 //                }
