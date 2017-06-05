@@ -60,29 +60,30 @@ class LoanDetail extends Component {
         if (this.state.depositoryResult.status == 2) {
             this.refs.dialog._setModalVisible(true)
         } else {
-            if (this.state.submitting) {
-                return;
-            }
-
-            let loan_type = this.props.loan_type;
-            this.setState({
-                submitting: true
-            })
-            post('/payctcfloan/pay-result', {loan_type})
-                .then(res => {
-                    if (res.res == responseStatus.failure || (res.data.status != 3 && res.data.status != 6)) {
-                        this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
-                    } else {
-                        AsyncStorage.setItem('ticket_id', res.data.ticket_id)
-                        this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    this.setState({submitting: false})
-                })
+            this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
+            // if (this.state.submitting) {
+            //     return;
+            // }
+            //
+            // let loan_type = this.props.loan_type;
+            // this.setState({
+            //     submitting: true
+            // })
+            // post('/payctcfloan/pay-result', {loan_type})
+            //     .then(res => {
+            //         if (res.res == responseStatus.failure || (res.data.status != 3 && res.data.status != 6)) {
+            //             this.props.externalPush({key: 'RepaymentScene', title: '借款详情'})
+            //         } else {
+            //             AsyncStorage.setItem('ticket_id', res.data.ticket_id)
+            //             this.props.externalPush({key: 'RepaymentResult', title: '还款结果'})
+            //         }
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //     })
+            //     .finally(() => {
+            //         this.setState({submitting: false})
+            //     })
         }
     }
 
@@ -91,7 +92,7 @@ class LoanDetail extends Component {
     }
 
     _renderViewType(plans, repayAmount, bankInfo, depositoryResult) {
-        if (this.props.loan_type == loanType.chaohaodai) {
+        if (true) {
             let dis = repayAmount.status == 1 || repayAmount.amount <= 0;
             return (
                 <View>
@@ -232,7 +233,7 @@ import {externalPush} from 'actions/navigation';
 
 function mapStateToProps(state) {
     let fetching = state.online.loanDetail.isFetching;
-    if (state.online.loanType.type == loanType.chaohaodai) {
+    if (true) {
         fetching = fetching || state.online.repayAmount.isFetching || state.online.depositoryResult.isFetching;
     }
     return {

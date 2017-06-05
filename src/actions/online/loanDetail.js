@@ -7,7 +7,7 @@ export default function(dispatch) {
   return (dispatch, getState) => {
 
     var state = getState(), loan_type = parseInt(state.online.loanType.type) || 0;
-    if (loan_type == loanType.chaohaodai) {
+    if (true) {
       dispatch(actions.repayAmount())
       dispatch(actions.depositoryResult())
     }

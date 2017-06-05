@@ -1,5 +1,6 @@
 package com.shudu.chaoshi.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.SurfaceTexture;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -59,6 +61,7 @@ public class FaceBankCardScanActivity extends Activity implements
     private String titleStr;
     private boolean isDebuge, isAllBankCard;
     private Handler mHandler = new Handler();
+    private final int PERMISSION_REQUEST_CAMERA = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +154,14 @@ public class FaceBankCardScanActivity extends Activity implements
         // autoFocus();
         // }
         // }, 1500);
-        mCamera = Camera.open(0);
+        try {
+            mCamera = Camera.open(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+//            }
+        }
         setAndLayout();
     }
 
@@ -515,6 +525,15 @@ public class FaceBankCardScanActivity extends Activity implements
             intent.putExtra("confidence", data.getStringExtra("confidence"));
             setResult(RESULT_OK, intent);
             finish();
+        }else if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK){
+            try {
+                mCamera = Camera.open(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+//                }
+            }
         }
     }
 
