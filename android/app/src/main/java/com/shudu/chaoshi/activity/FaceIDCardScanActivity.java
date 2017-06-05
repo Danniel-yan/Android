@@ -24,6 +24,7 @@ import com.megvii.idcardlib.util.Util;
 import com.megvii.idcardquality.IDCardQualityAssessment;
 import com.megvii.idcardquality.IDCardQualityResult;
 import com.megvii.idcardquality.bean.IDCardAttr;
+import com.shudu.chaoshi.util.ToastHelper;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -93,7 +94,13 @@ public class FaceIDCardScanActivity extends Activity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Camera mCamera = mICamera.openCamera(this);
+		Camera mCamera = null;
+		try {
+			mCamera = mICamera.openCamera(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ToastHelper.getInstance().showToast("请打开摄像头权限");
+		}
 		if (mCamera != null) {
 			RelativeLayout.LayoutParams layout_params = mICamera
 					.getLayoutParam(this);

@@ -1,14 +1,5 @@
 package com.megvii.demo;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +21,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.megvii.bankcard.BankCardRecognition;
 import com.megvii.bankcard.bean.BankCardResult;
@@ -39,6 +30,15 @@ import com.megvii.demo.util.BankCardIndicator;
 import com.megvii.demo.util.IDCardIndicator;
 import com.megvii.demo.util.RotaterUtil;
 import com.megvii.demo.util.Util;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class BankCardScanActivity extends Activity implements
         TextureView.SurfaceTextureListener, Camera.PreviewCallback {

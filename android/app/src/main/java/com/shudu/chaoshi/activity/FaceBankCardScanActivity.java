@@ -1,6 +1,5 @@
 package com.shudu.chaoshi.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.graphics.SurfaceTexture;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -33,6 +31,7 @@ import com.megvii.demo.util.IDCardIndicator;
 import com.megvii.demo.util.RotaterUtil;
 import com.megvii.demo.util.Util;
 import com.shudu.chaoshi.util.BitmapUtils;
+import com.shudu.chaoshi.util.ToastHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

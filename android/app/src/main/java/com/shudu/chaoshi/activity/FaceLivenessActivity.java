@@ -1,12 +1,5 @@
 package com.shudu.chaoshi.activity;
 
-import java.util.HashMap;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.SurfaceTexture;
@@ -34,9 +27,9 @@ import com.megvii.livenessdetection.Detector.DetectionType;
 import com.megvii.livenessdetection.FaceQualityManager;
 import com.megvii.livenessdetection.FaceQualityManager.FaceQualityErrorType;
 import com.megvii.livenessdetection.bean.FaceInfo;
+import com.megvii.livenesslib.FaceLivenessResultActivity;
 import com.megvii.livenesslib.FaceMask;
 import com.megvii.livenesslib.R;
-import com.megvii.livenesslib.FaceLivenessResultActivity;
 import com.megvii.livenesslib.util.ConUtil;
 import com.megvii.livenesslib.util.DialogUtil;
 import com.megvii.livenesslib.util.ICamera;
@@ -47,6 +40,14 @@ import com.megvii.livenesslib.util.Screen;
 import com.megvii.livenesslib.util.SensorUtil;
 import com.shudu.chaoshi.util.CodeHelp;
 import com.shudu.chaoshi.util.SerializableHashMap;
+import com.shudu.chaoshi.util.ToastHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class FaceLivenessActivity extends Activity implements PreviewCallback,
         DetectionListener, TextureView.SurfaceTextureListener {
@@ -131,7 +132,12 @@ public class FaceLivenessActivity extends Activity implements PreviewCallback,
     protected void onResume() {
         super.onResume();
         isHandleStart = false;
-        mCamera = mICamera.openCamera(this);
+        try {
+            mCamera = mICamera.openCamera(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastHelper.getInstance().showToast("请打开摄像头权限");
+        }
         if (mCamera != null) {
             CameraInfo cameraInfo = new CameraInfo();
             Camera.getCameraInfo(1, cameraInfo);
