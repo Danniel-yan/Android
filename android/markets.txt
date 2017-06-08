@@ -10,6 +10,7 @@ PC
 sougou
 UC
 update
+update1
 vivo
 wandoujia
 woshangdian
@@ -52,5 +53,10 @@ SEM12
 SEM13
 SEM14
 SEM15
+SEM16
+SEM17
+SEM18
+SEM19
+SEM20
 YD-qudao1
 sms-cs-365think
