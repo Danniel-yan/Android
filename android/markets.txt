@@ -60,3 +60,5 @@ SEM19
 SEM20
 YD-qudao1
 sms-cs-365think
+media-xjcr
+media-ca
