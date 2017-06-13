@@ -72,7 +72,7 @@ public interface INewsApi {
      * @param photoId 图集ID
      * @return
      */
-    
+
 
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/set/{photoId}.json")

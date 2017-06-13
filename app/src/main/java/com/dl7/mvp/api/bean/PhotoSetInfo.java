@@ -8,6 +8,8 @@ import java.util.List;
  */
 public final class PhotoSetInfo {
 
+
+
     /**
      * postid : PHOT216AK000617K
      * series :

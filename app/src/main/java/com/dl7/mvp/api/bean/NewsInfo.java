@@ -12,6 +12,8 @@ import java.util.List;
  */
 public final class NewsInfo implements Parcelable {
 
+
+
     /**
      * postid : PHOT22SMT000100A
      * hasCover : false
