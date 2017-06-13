@@ -59,6 +59,8 @@ public interface INewsApi {
      * @param newsId 专题ID
      * @return
      */
+
+
     @Headers(AVOID_HTTP403_FORBIDDEN)
     @GET("nc/article/{newsId}/full.html")
     Observable<Map<String, NewsDetailInfo>> getNewsDetail(@Path("newsId") String newsId);
@@ -70,6 +72,8 @@ public interface INewsApi {
      * @param photoId 图集ID
      * @return
      */
+    
+
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/set/{photoId}.json")
     Observable<PhotoSetInfo> getPhotoSet(@Path("photoId") String photoId);
@@ -80,6 +84,8 @@ public interface INewsApi {
      *
      * @return
      */
+
+
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/list/0096/4GJ60096.json")
     Observable<List<PhotoInfo>> getPhotoList();
