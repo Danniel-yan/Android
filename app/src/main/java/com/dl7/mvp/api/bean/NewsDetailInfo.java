@@ -7,7 +7,6 @@ import java.util.List;
  * 新闻详情
  */
 public class NewsDetailInfo {
-
     /**
      * body : <!--IMG#0--><!--IMG#1--><!--IMG#2--><!--IMG#3--><!--IMG#4--><p>　　  8月26日，王宝强更新微博，晒出和刘国梁王楠等人合照，配文称：“奥运精神，兄弟之情，举杯同庆，其乐融融。”</p><p>　　照片发布后，网友纷纷留言称：“宝宝我们都支持你。”“宝宝，喜欢你开心地笑，加油。”</p><!--SPINFO#0--><!--SPINFO#1--><!--SPINFO#2-->
      * users : []
@@ -66,7 +65,6 @@ public class NewsDetailInfo {
      * spcontent : <p>　　<a href="http://3g.163.com/ntes/16/0825/12/BVAK755300963VRO.html">曝王宝强9套房产均不在其名下称必须要孩子</a></p><p>　　王宝强离婚案沉寂了快一周，最近又有媒体陆续查到他在美国的房产，位于山的那边海的那边的美利坚南加州地区，但是目前房产的处理尚未有任何眉目。</p><p>　　重案组37号打探到的消息是，<b>宝宝虽然坐拥9套房产，但均没有登记在他个人名下……此外，王宝强离婚案件或将不公开审理，而王宝强本人最在意的是要回孩子的抚养权。</b></p>
      * sptype : 回顾
      */
-
     private List<SpinfoEntity> spinfo;
     private List<?> link;
     private List<?> votes;
@@ -76,7 +74,6 @@ public class NewsDetailInfo {
      * alt :
      * src : http://cms-bucket.nosdn.127.net/62b047f116804ffc96de7eb7fb73b5b420160826061217.jpeg
      */
-
     private List<ImgEntity> img;
     /**
      * hasCover : false
@@ -87,7 +84,6 @@ public class NewsDetailInfo {
      * tid : T1350294190231
      * cid : C1350294152567
      */
-
     private List<TopiclistNewsEntity> topiclist_news;
     private List<?> topiclist;
     private List<?> boboList;
@@ -95,7 +91,6 @@ public class NewsDetailInfo {
      * topicId : SJ0693453310829241827
      * topicName : 说说宝强离婚
      */
-
     private List<HuatiEntity> huati;
     private List<?> apps;
     /**
@@ -108,7 +103,6 @@ public class NewsDetailInfo {
      * ptime : 2016-08-20 10:03:43
      * href :
      */
-
     private List<NewsItemInfo> relative_sys;
 
     public String getBody() {
