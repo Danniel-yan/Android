@@ -8,7 +8,7 @@ import java.util.List;
 
 public class WelfarePhotoList {
 
-    
+
 
     /**
      * error : false
@@ -25,6 +25,15 @@ public class WelfarePhotoList {
     public void setError(boolean error) {
         this.error = error;
     }
+
+
+
+
+
+
+
+
+    
 
     public List<WelfarePhotoInfo> getResults() {
         return results;
